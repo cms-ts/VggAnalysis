@@ -4,7 +4,7 @@ QUEUE=normal
 export USE_LSF_STARTER=no
 
 DATADIR=/eos/infnts/cms/store/data
-WORKDIR=/home/dellaric/work/cms/VggAnalysis/VggTools/skim
+WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/skim
 
 cd $WORKDIR
 
