@@ -49,7 +49,7 @@ for D2 in `ls $DATADIR/Run2017B/`; do
 done
 
 for D2 in `ls $DATADIR/Run2018B/`; do
-  find $DATADIR/Run2017*/$D2 -type f | grep 14Sep2018 | \
+  find $DATADIR/Run2018*/$D2 -type f | grep 14Sep2018 | \
   awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/Run2018_${D2}_14Sep2018.list
 done
 
