@@ -2,6 +2,7 @@
 
 cd /home/dellaric/work/cms/CMSSW_9_4_6_patch1/
 eval `scramv1 runtime -sh`
+cd - > /dev/null
 
 DATADIR=/eos/infnts/cms/store/user/dellaric/data
 WORKDIR=/home/dellaric/work/cms/VggAnalysis/VggTools/scripts
