@@ -6,7 +6,7 @@ void run5(TString input="lists/Run2017B_DoubleEG.list", TString output="selector
   gInterpreter->AddIncludePath("/cvmfs/cms.cern.ch/slc6_amd64_gcc700/external/xrootd/4.8.3/include/xrootd");
 #endif
 
-  gSystem->Setenv("ROOT_INCLUDE_PATH", "$HOME/work/cms/proof/ALT1");
+  gSystem->Setenv("ROOT_INCLUDE_PATH", "$HOME/work/cms/VggAnalysis/VggTools/macros");
 
   TProof* proof = 0;
 

@@ -9,7 +9,7 @@ if [ ! -z "$1" ]; then
   VERSION=$1
 fi
 
-WORKDIR=/home/dellaric/work/cms/proof/ALT1
+WORKDIR=/home/dellaric/work/cms/VggAnalysis/VggTools/macros
 
 LISTS=`ls $WORKDIR/lists`
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-WORKDIR=/home/dellaric/work/cms/proof/ALT1
+WORKDIR=/home/dellaric/work/cms/VggAnalysis/VggTools/macros
 
 LIST=$1
 
