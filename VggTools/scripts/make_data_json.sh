@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /home/dellaric/work/cms/CMSSW_9_4_6_patch1/
+cd /home/dellaric/work/cms/CMSSW_9_4_9/
 eval `scramv1 runtime -sh`
 cd - > /dev/null
 
