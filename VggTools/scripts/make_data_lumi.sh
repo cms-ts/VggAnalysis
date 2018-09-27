@@ -3,7 +3,9 @@
 export PATH=$HOME/.local/bin:/cvmfs/cms-bril.cern.ch/brilconda/bin:$PATH
 # pip install --install-option="--prefix=$HOME/.local" brilws
 
-cd /gpfs/cms/users/dellaric/tmp
+WORKDIR=/home/dellaric/work/cms/VggAnalysis/VggTools/scripts
+
+cd $WORKDIR
 
 for F in `ls json/Run2016*.json`; do
   echo "checking $F"

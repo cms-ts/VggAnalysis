@@ -1,8 +1,9 @@
 #!/bin/sh
 
 DATADIR=/eos/infnts/cms/store/user/dellaric/data
+WORKDIR=/home/dellaric/work/cms/VggAnalysis/VggTools/scripts
 
-cd /gpfs/cms/users/dellaric/tmp
+cd $WORKDIR
 
 for D1 in `ls $DATADIR | grep Run2016`; do
   for D2 in `ls $DATADIR/$D1`; do

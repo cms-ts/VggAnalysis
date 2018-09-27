@@ -3,9 +3,10 @@
 cd /home/dellaric/work/cms/CMSSW_9_4_6_patch1/
 eval `scramv1 runtime -sh`
 
-cd /gpfs/cms/users/dellaric/tmp
-
 DATADIR=/eos/infnts/cms/store/user/dellaric/data
+WORKDIR=/home/dellaric/work/cms/VggAnalysis/VggTools/scripts
+
+cd $WORKDIR
 
 for D1 in `ls $DATADIR | grep Run2016`; do
   for D2 in `ls $DATADIR/$D1`; do
