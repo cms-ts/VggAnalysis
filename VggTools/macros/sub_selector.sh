@@ -11,7 +11,7 @@ fi
 
 WORKDIR=/home/dellaric/work/cms/VggAnalysis/VggTools/macros
 
-LISTS=`ls $WORKDIR/lists`
+LISTS=`ls $WORKDIR../scripts/lists`
 
 if [ ! -z "$2" ]; then
   LISTS=$2
