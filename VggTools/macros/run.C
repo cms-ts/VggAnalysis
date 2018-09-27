@@ -1,6 +1,6 @@
 #pragma cling load("libTreePlayer.so")
 
-void run7(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.root") {
+void run(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.root") {
 
   TString option = "";
   if (input.Contains("Run2016")) option="DT";
@@ -59,7 +59,7 @@ void run7(TString input="lists/Run2017B_DoubleEG.list", TString output="selector
     workers.Process(files, *selector, "Events", nevt);
   }
 
-  Info("run7", "output file: %s", output.Data());
+  Info("run", "output file: %s", output.Data());
   TFile f(output.Data(), "RECREATE");
   f.cd();
   TList* fOutput = selector->GetOutputList();
@@ -67,7 +67,7 @@ void run7(TString input="lists/Run2017B_DoubleEG.list", TString output="selector
   TObject* obj = 0;
   while ((obj = next())) {
     if (!TString(obj->ClassName()).Contains("TH")) continue;
-    Info("run7", "writing %s", obj->GetName());
+    Info("run", "writing %s", obj->GetName());
     obj->Write();
   }
   f.Close();
@@ -76,7 +76,7 @@ void run7(TString input="lists/Run2017B_DoubleEG.list", TString output="selector
   int nevt0 = 0;
   if (h_nevt) nevt0 = h_nevt->GetBinContent(1);
 
-  Info("run7", "processed events: %d", nevt0);
+  Info("run", "processed events: %d", nevt0);
 
   TChain* chain = new TChain("Events");
   for (int i=0; i < files.size(); i++) {
@@ -86,7 +86,7 @@ void run7(TString input="lists/Run2017B_DoubleEG.list", TString output="selector
   delete chain;
 
   if (nevt0 != nevt1) {
-    Error("run7", "expected events: %d", nevt1);
+    Error("run", "expected events: %d", nevt1);
   }
 
 }
