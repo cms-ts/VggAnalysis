@@ -2,7 +2,8 @@
 
 cd /home/dellaric/work/cms/CMSSW_9_4_6_patch1/
 eval `scramv1 runtime -sh`
-cd - > /dev/null
+
+cd /gpfs/cms/users/dellaric/tmp
 
 DATADIR=/eos/infnts/cms/store/user/dellaric/data
 
