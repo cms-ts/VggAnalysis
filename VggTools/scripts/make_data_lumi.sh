@@ -3,7 +3,7 @@
 export PATH=$HOME/.local/bin:/cvmfs/cms-bril.cern.ch/brilconda/bin:$PATH
 # pip install --install-option="--prefix=$HOME/.local" brilws
 
-WORKDIR=/home/dellaric/work/cms/VggAnalysis/VggTools/scripts
+WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
 
 cd $WORKDIR
 
