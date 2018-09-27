@@ -5,8 +5,10 @@ void run(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.
   TString option = "";
   if (input.Contains("Run2016")) option="DT";
   if (input.Contains("Run2017")) option="DT";
+  if (input.Contains("Run2018")) option="DT";
   if (input.Contains("RunIISummer16NanoAOD")) option="MC";
   if (input.Contains("RunIIFall17NanoAOD")) option="MC";
+  if (input.Contains("RunIIFall18NanoAOD")) option="MC";
   if (option.Length()==0) {
     cout << "unknown input list: " << input << endl;
     return;
