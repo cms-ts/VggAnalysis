@@ -6,8 +6,6 @@ export USE_LSF_STARTER=no
 DATADIR=/eos/infnts/cms/store/data
 WORKDIR=/gpfs/cms/users/dellaric/tmp
 
-cd $WORKDIR
-
 for F in `eos find -f $DATADIR/ | grep Run2016 | grep NANOAOD | grep 05Feb2018`; do
   if [ -s $F ]; then
     if [ ! -e $WORKDIR/log/`basename $F .root`_Skim.log ]; then
