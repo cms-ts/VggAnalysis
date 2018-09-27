@@ -1,6 +1,6 @@
 #!/bin/sh
 
-WORKDIR=/home/dellaric/work/cms/VggAnalysis/VggTools/macros
+WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 
 LIST=$1
 

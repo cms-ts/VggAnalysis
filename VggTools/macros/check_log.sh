@@ -6,7 +6,7 @@ if [ ! -z "$1" ]; then
   VERSION=$1
 fi
 
-DATADIR=/home/dellaric/work/cms/VggAnalysis/VggTools/macros
+DATADIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 
 cat $DATADIR/data/$VERSION/*/job.log | \
 grep [a-z,A-Z] | \
