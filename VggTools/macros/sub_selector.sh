@@ -23,7 +23,7 @@ for L in $LISTS; do
   JOBDIR=$WORKDIR/data/$VERSION/`basename $L | sed -e 's;.list;;'`
   mkdir -p $JOBDIR
   cd $JOBDIR
-  bsub -q $QUEUE -J $L -e /dev/null -o /dev/null $WORKDIR/job_selector.sh $WORKDIR/lists/$L
+  bsub -q $QUEUE -J $L -e /dev/null -o /dev/null $WORKDIR/job_selector.sh $WORKDIR/../scripts/lists/$L
 done
 
 exit
