@@ -2,14 +2,14 @@
 
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 
-LIST=$1
+cd $WORKDIR
 
-FILE=$PWD.root
+VERSION=$1
+LIST=$2
 
-ln -s $WORKDIR/mainSelector* .
+FILE=$WORKDIR/data/$VERSION/`basename $2 | sed -e 's;.list;;'`.root
+LOG=$WORKDIR/data/$VERSION/`basename $2 | sed -e 's;.list;;'`.log
 
-root-6.12 -l -b -q $WORKDIR/run.C\(\"$LIST\",\"$FILE\"\) > job.log 2>&1
-
-rm -f mainSelector*
+root-6.12 -l -b -q $WORKDIR/run.C\(\"$LIST\",\"$FILE\"\) > $LOG 2>&1
 
 exit
