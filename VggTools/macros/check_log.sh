@@ -8,7 +8,7 @@ fi
 
 DATADIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 
-cat $DATADIR/data/$VERSION/*/job.log | \
+cat $DATADIR/data/$VERSION/*.log | \
 grep [a-z,A-Z] | \
 grep -v 'Processing' | \
 grep -v 'Info' | \
