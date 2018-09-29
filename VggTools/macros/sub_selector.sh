@@ -13,9 +13,9 @@ WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 
 cd $WORKDIR
 
-mkdir -p $WORKDIR/data/$VERSION
+mkdir -p data/$VERSION
 
-LISTS=`ls $WORKDIR/../scripts/lists`
+LISTS=`ls ../scripts/lists/`
 
 if [ ! -z "$2" ]; then
   LISTS=$2
@@ -24,7 +24,7 @@ fi
 $WORKDIR/compile.sh
 
 for L in $LISTS; do
-  bsub -q $QUEUE -J $L -e /dev/null -o /dev/null $WORKDIR/job_selector.sh $VERSION $WORKDIR/../scripts/lists/$L
+  bsub -q $QUEUE -J $L -e /dev/null -o /dev/null job_selector.sh $VERSION ../scripts/lists/$L
 done
 
 exit
