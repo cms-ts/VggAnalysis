@@ -10,7 +10,7 @@ cd $WORKDIR
 
 for F in `eos find -f $DATADIR/ | grep Run2016 | grep NANOAOD | grep 05Feb2018`; do
   if [ -s $F ]; then
-    if [ ! -e $WORKDIR/logs/`basename $F .root`_Skim.log ]; then
+    if [ ! -e logs/`basename $F .root`_Skim.log ]; then
       eos mkdir -p `dirname $F | sed -e 's;data;user/dellaric/data;'`
       bsub -q $QUEUE -e /dev/null -o /dev/null job_data_skim.sh $F
     fi
@@ -19,7 +19,7 @@ done
 
 for F in `eos find -f $DATADIR/ | grep Run2016 | grep NANOAOD | grep 22Aug2018`; do
   if [ -s $F ]; then
-    if [ ! -e $WORKDIR/logs/`basename $F .root`_Skim.log ]; then
+    if [ ! -e logs/`basename $F .root`_Skim.log ]; then
       eos mkdir -p `dirname $F | sed -e 's;data;user/dellaric/data;'`
       bsub -q $QUEUE -e /dev/null -o /dev/null job_data_skim.sh $F
     fi
@@ -28,7 +28,7 @@ done
 
 for F in `eos find -f $DATADIR/ | grep Run2017 | grep NANOAOD | grep 31Mar2018`; do
   if [ -s $F ]; then
-    if [ ! -e $WORKDIR/logs/`basename $F .root`_Skim.log ]; then
+    if [ ! -e logs/`basename $F .root`_Skim.log ]; then
       eos mkdir -p `dirname $F | sed -e 's;data;user/dellaric/data;'`
       bsub -q $QUEUE -e /dev/null -o /dev/null job_data_skim.sh $F
     fi
@@ -37,7 +37,7 @@ done
 
 for F in `eos find -f $DATADIR/ | grep Run2018 | grep NANOAOD | grep 14Sep2018`; do
   if [ -s $F ]; then
-    if [ ! -e $WORKDIR/logs/`basename $F .root`_Skim.log ]; then
+    if [ ! -e logs/`basename $F .root`_Skim.log ]; then
       eos mkdir -p `dirname $F | sed -e 's;data;user/dellaric/data;'`
       bsub -q $QUEUE -e /dev/null -o /dev/null job_data_skim.sh $F
     fi
