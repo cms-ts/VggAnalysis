@@ -14,7 +14,7 @@ void evtcount(TString list="lists/Run2017B_DoubleEG.txt") {
   }
   file.close();
 
-  TString dataset = TString(gSystem->BaseName(list)).ReplaceAll(".txt", "");
+  TString dataset = TString(gSystem->BaseName(list)).ReplaceAll(".list", "");
 
   cout << "dataset: " << dataset << " ";
   cout << "files: " << chain->GetListOfFiles()->GetEntries() << " ";
