@@ -34,10 +34,4 @@ for F in `ls logs/*.lumi`; do
   [ -z "${L##*MuonEG_14Sep2018*}"         ] && printf "%s\t%6.3f\n" $G $L >> ../macros/lumi.dat
 done
 
-for F in `ls logs/*.lumi`; do
-  [ -z "${L##*RunIISummer16*}"            ] && printf "%s\t%6.3f\n" $G $L >> ../macros/lumi.dat
-  [ -z "${L##*RunIIFall17*}"              ] && printf "%s\t%6.3f\n" $G $L >> ../macros/lumi.dat
-  [ -z "${L##*RunIIFall18*}"              ] && printf "%s\t%6.3f\n" $G $L >> ../macros/lumi.dat
-done
-
 exit
