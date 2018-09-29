@@ -9,7 +9,7 @@ WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
 
 cd $WORKDIR
 
-for D1 in `ls $DATADIR | grep Run2016`; do
+for D1 in `ls $DATADIR/ | grep Run2016`; do
   for D2 in `ls $DATADIR/$D1`; do
     N=`find $DATADIR/$D1/$D2 -type f | grep 05Feb2018 | wc -l`
     echo "checking ${D1}/${D2} - $N files"
@@ -18,7 +18,7 @@ for D1 in `ls $DATADIR | grep Run2016`; do
   done
 done
 
-for D1 in `ls $DATADIR | grep Run2016`; do
+for D1 in `ls $DATADIR/ | grep Run2016`; do
   for D2 in `ls $DATADIR/$D1`; do
     N=`find $DATADIR/$D1/$D2 -type f | grep 22Aug2018 | wc -l`
     echo "checking ${D1}/${D2} - $N files"
@@ -27,7 +27,7 @@ for D1 in `ls $DATADIR | grep Run2016`; do
   done
 done
 
-for D1 in `ls $DATADIR | grep Run2017`; do
+for D1 in `ls $DATADIR/ | grep Run2017`; do
   for D2 in `ls $DATADIR/$D1`; do
     N=`find $DATADIR/$D1/$D2 -type f | grep 31Mar2018 | wc -l`
     echo "checking ${D1}/${D2} - $N files"
@@ -36,7 +36,7 @@ for D1 in `ls $DATADIR | grep Run2017`; do
   done
 done
 
-for D1 in `ls $DATADIR | grep Run2018`; do
+for D1 in `ls $DATADIR/ | grep Run2018`; do
   for D2 in `ls $DATADIR/$D1`; do
     N=`find $DATADIR/$D1/$D2 -type f | grep 14Sep2018 | wc -l`
     echo "checking ${D1}/${D2} - $N files"
