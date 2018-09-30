@@ -13,23 +13,34 @@ void plot0(string title="") {
   cout << "Read xsec map for " << xsecMap.size() << " datasets" << endl;
 
   map<string, float> plotMap;
-  readMap("plotMap_Zgg.dat", plotMap);
+  readMap("Zgg_ele_plotMap.dat", plotMap);
   cout << "Read plot map for " << plotMap.size() << " datasets" << endl;
 
   TH1D* histo[999] = {0};
 
-  int ngen = 0;
   float lumi = 0.0;
 
   for (map<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
-    TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
     int index = int(it->second);
     if (index == 0) {
+      TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
       lumi = lumiMap[it->first];
-      histo[index] = (TH1D*)gDirectory->Get(title.c_str());
-      histo[index]->SetDirectory(0);
+      if (histo[index]) {
+        histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()));
+      } else {
+        histo[index] = (TH1D*)gDirectory->Get(title.c_str());
+        histo[index]->SetDirectory(0);
+      }
+      file.Close();
     }
+  }
+
+  int ngen = 0;
+
+  for (map<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+    int index = int(it->second);
     if (index != 0) {
+      TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
       ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(1);
       float norm = lumi/ngen;
       if (histo[index]) {
@@ -39,8 +50,8 @@ void plot0(string title="") {
         histo[index]->SetDirectory(0);
         histo[index]->Scale(norm);
       }
+      file.Close();
     }
-    file.Close();
   }
 
   for (uint i = 0; i < sizeof(histo)/sizeof(histo[0]); i++) {
