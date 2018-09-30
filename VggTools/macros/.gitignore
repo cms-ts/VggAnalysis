@@ -1,6 +1,3 @@
-mainSelectorDT_C.d
-mainSelectorDT_C.so
-mainSelectorDT_C_ACLiC_dict_rdict.pcm
-mainSelectorMC_C.d
-mainSelectorMC_C.so
-mainSelectorMC_C_ACLiC_dict_rdict.pcm
+*.d
+*.so
+*.pcm
