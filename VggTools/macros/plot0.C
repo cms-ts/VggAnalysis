@@ -24,7 +24,7 @@ void plot0(string title="") {
     int index = int(it->second);
     if (index == 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
-      lumi = lumiMap[it->first];
+      lumi = lumi + lumiMap[it->first];
       if (histo[index]) {
         histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()));
       } else {
