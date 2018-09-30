@@ -1,7 +1,5 @@
 #include "plot0.h"
 
-#include "utils.C"
-
 void plot0(string title="") {
 
   map<string, float> lumiMap;
