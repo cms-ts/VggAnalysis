@@ -10,4 +10,13 @@ void plot0(string title="") {
   readMap("xsec.dat", xsecMap);
   cout << "Read xsec map for " << xsecMap.size() << " datasets" << endl;
 
+  map<string, float> plotMap;
+  readMap("Zgg_plotMap.dat", plotMap);
+  cout << "Read plot map for " << plotMap.size() << " datasets" << endl;
+
+  map<string, float>::iterator it;
+  for (it=plotMap.begin(); it!=plotMap.end(); it++) {
+    cout << it->first << " " << it->second << endl;
+  }
+
 }
