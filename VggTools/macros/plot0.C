@@ -1,6 +1,6 @@
 #include "plot0.h"
 
-void plot0(string title="") {
+void plot0(string plot="", string title="") {
 
   string version = "v00";
 
@@ -13,7 +13,7 @@ void plot0(string title="") {
   cout << "Read xsec map for " << xsecMap.size() << " datasets" << endl;
 
   map<string, float> plotMap;
-  readMap("Zgg_ele_plotMap.dat", plotMap);
+  readMap(plot, plotMap);
   cout << "Read plot map for " << plotMap.size() << " datasets" << endl;
 
   TH1D* histo[999] = {0};
