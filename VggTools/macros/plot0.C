@@ -59,7 +59,7 @@ void plot0(string plot="", string title="") {
 
   THStack * hstack_mc = new THStack("hstack_mc","hstack_mc");
 
-  for (int i = sizeof(histo)/sizeof(histo[0]) - 1; i != -1; i--) {
+  for (int i = sizeof(histo)/sizeof(histo[0]) - 1; i >= 0; i--) {
     if (histo[i]) {
       cout << i << " " << histo[i]->Integral() << endl;
       if (i>0) {
