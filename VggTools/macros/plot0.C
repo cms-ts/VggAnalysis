@@ -152,7 +152,7 @@ void plot0(string plot="", string title="") {
   OLine->Draw();
 
   char path[100];
-  sprintf (path, "html/%s.pdf",(plot).c_str());
+  sprintf (path, "html/%s/%s.pdf",(version).c_str(),(plot).c_str());
   c1->SaveAs(path);
 
 }
