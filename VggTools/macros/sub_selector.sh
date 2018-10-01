@@ -24,7 +24,7 @@ fi
 ./compile.sh
 
 for L in $LISTS; do
-  bsub -q $QUEUE -J $L -e /dev/null -o /dev/null job_selector.sh $VERSION lists/$L
+  bsub -q $QUEUE -J $L -e /dev/null -o /dev/null $WORKDIR/job_selector.sh $VERSION lists/$L
 done
 
 exit
