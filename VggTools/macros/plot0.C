@@ -81,8 +81,8 @@ void plot0(string plot="", string title="") {
   leg->AddEntry(histo[10],"Drell-Yan", "f");
   histo[20]->SetFillColor(kBlue);
   leg->AddEntry(histo[20],"TTJets", "f");
-  histo[21]->SetFillColor(kBlue-4);
-  leg->AddEntry(histo[21],"ZZ", "f");
+  histo[30]->SetFillColor(kBlue-4);
+  leg->AddEntry(histo[30],"ZZ", "f");
 
   TCanvas* c1 = 0;
 
