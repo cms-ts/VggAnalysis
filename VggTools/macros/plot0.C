@@ -59,7 +59,6 @@ void plot0(string plot="", string title="") {
 
   THStack * hstack_mc = new THStack("hstack_mc","hstack_mc");
 
-
   for (uint i = sizeof(histo)/sizeof(histo[0]); i-- >0;) {
     if (histo[i]) {
       cout << i << " " << histo[i]->Integral() << endl;
@@ -131,7 +130,8 @@ void plot0(string plot="", string title="") {
   h_ratio->SetTitle("");
   h_ratio->SetStats(0);
 
-  h_ratio->GetXaxis()->SetTitle("Invariant mass [GeV]");
+  if(title=="h_Z_ele"||title=="h_Z_muo") h_ratio->GetXaxis()->SetTitle("Invariant mass [GeV]");
+
   h_ratio->GetXaxis()->SetTitleOffset(1.1);
   h_ratio->GetXaxis()->SetTitleSize(0.11);
   h_ratio->GetXaxis()->SetLabelFont(42);
@@ -151,10 +151,7 @@ void plot0(string plot="", string title="") {
   OLine->SetLineWidth(2);
   OLine->Draw();
 
-
-  char path[100];
   gSystem->mkdir(("html/"+version).c_str(), kTRUE);
-  sprintf (path, "html/%s/%s.pdf",(version).c_str(),(title).c_str());
-  c1->SaveAs(path);
+  c1->SaveAs(("html/"+version+"/"+title+".pdf").c_str());
 
 }
