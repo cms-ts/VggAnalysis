@@ -16,7 +16,7 @@ void plot0(string plot="", string title="") {
   readMap(plot, plotMap);
   cout << "Read plot map for " << plotMap.size() << " datasets" << endl;
 
-  TH1D* histo[999] = {0};
+  TH1D* histo[9999] = {0};
 
   float lumi = 0.0;
 
@@ -39,7 +39,7 @@ void plot0(string plot="", string title="") {
 
   for (map<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index != 0) {
+    if (index >= 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
       ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(1);
       float norm = lumi/ngen;
