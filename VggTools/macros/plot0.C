@@ -39,7 +39,7 @@ void plot0(string plot="", string title="") {
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index >= 0) {
+    if (index > 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
       ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(1);
       float norm = lumi/ngen;
