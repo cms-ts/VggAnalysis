@@ -62,7 +62,7 @@ void plot0(string plot="", string title="") {
   for (int i = sizeof(histo)/sizeof(histo[0]) - 1; i >= 0; i--) {
     if (histo[i]) {
       cout << i << " " << histo[i]->Integral() << endl;
-      if (i>0) {
+      if (i > 0) {
          hstack_mc->Add(histo[i]);
          h_mcsum->Add(histo[i]);
       }
@@ -79,21 +79,21 @@ void plot0(string plot="", string title="") {
   leg->SetFillColor(0);
   leg->SetFillStyle(0);
 
-  leg->AddEntry(histo[0],"Data","p");
+  leg->AddEntry(histo[0],"Data", "p");
   histo[10]->SetFillColor(kYellow-4);
-  leg->AddEntry(histo[10],"Drell-Yan","f");
+  leg->AddEntry(histo[10],"Drell-Yan", "f");
   histo[20]->SetFillColor(kBlue);
-  leg->AddEntry(histo[20],"TTJets","f");
+  leg->AddEntry(histo[20],"TTJets", "f");
   histo[21]->SetFillColor(kBlue-4);
-  leg->AddEntry(histo[21],"ZZ","f");
+  leg->AddEntry(histo[21],"ZZ", "f");
 
   TCanvas* c1 = 0;
 
-  c1 = new TCanvas("c","c",10,10,600,600);
+  c1 = new TCanvas("c", "c", 10, 10, 600, 600);
 
   c1->cd();
 
-  TPad *pad1 = new TPad("pad1","pad1",0.0,0.3,1.0,1.0);
+  TPad *pad1 = new TPad("pad1", "pad1", 0.0, 0.3, 1.0, 1.0);
   pad1->SetBottomMargin(0.001);
   pad1->Draw();
   pad1->cd();
@@ -122,7 +122,7 @@ void plot0(string plot="", string title="") {
   c1->Update();
   c1->cd();
 
-  TPad *pad2 = new TPad("pad2","pad2",0,0,1,0.3);
+  TPad *pad2 = new TPad("pad2", "pad2", 0.0, 0.0, 1.0, 0.3);
   pad2->SetTopMargin(0);
   pad2->SetBottomMargin(0.3);
   pad2->Draw();
@@ -146,7 +146,7 @@ void plot0(string plot="", string title="") {
   h_ratio->SetMarkerStyle(20);
   h_ratio->Draw("E0PX0");
 
-  TLine *OLine = new TLine(h_ratio->GetXaxis()->GetXmin(),1.,h_ratio->GetXaxis()->GetXmax(),1.);
+  TLine *OLine = new TLine(h_ratio->GetXaxis()->GetXmin(), 1., h_ratio->GetXaxis()->GetXmax(), 1.);
   OLine->SetLineColor(kRed);
   OLine->SetLineWidth(2);
   OLine->Draw();
