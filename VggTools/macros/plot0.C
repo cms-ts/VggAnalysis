@@ -42,7 +42,7 @@ void plot0(string plot="", string title="") {
     if (index > 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
       ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(1);
-      float norm = xsecMap[it->first]*lumi/ngen;
+      float norm = xsecMap[it->first]*1000*lumi/ngen;
       if (histo[index]) {
         histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()), norm);
       } else {
@@ -54,10 +54,119 @@ void plot0(string plot="", string title="") {
     }
   }
 
-  for (uint i = 0; i < sizeof(histo)/sizeof(histo[0]); i++) {
+  TH1D * h_mcsum = (TH1D*) histo[10]->Clone();
+  h_mcsum->Reset();  
+
+  THStack * hstack_mc = new THStack("hstack_mc","hstack_mc");
+
+  TLegend *leg;
+  leg = new TLegend(0.65, 0.640, 0.91, 0.88);
+  leg->SetBorderSize(0);
+  leg->SetEntrySeparation(0.01);
+  leg->SetFillColor(0);
+  leg->SetFillStyle(0);
+
+  for (uint i = sizeof(histo)/sizeof(histo[0]); i-- >0;) {
     if (histo[i]) {
       cout << i << " " << histo[i]->Integral() << endl;
+      if(i==0){
+        leg->AddEntry(histo[i],"Data","p");
+      }
+      if(i==10){
+        leg->AddEntry(histo[i],"Drell-Yan","f");
+        histo[i]->SetFillColor(kYellow-4);
+      }
+      if(i==20){
+        leg->AddEntry(histo[i],"Background","f");
+        histo[i]->SetFillColor(kBlue);
+      }
+      if (i>0) {
+         hstack_mc->Add(histo[i]);
+         h_mcsum->Add(histo[i]);
+      }
     }
   }
+
+  TH1D * h_ratio = (TH1D*) histo[0]->Clone();
+  h_ratio->Divide(h_mcsum);
+  
+  TCanvas * c = new TCanvas("c","c",0,0,1000,500);
+  c->Divide(2,1);
+  c->cd(1);
+  histo[0]->SetMinimum(0.1);
+  histo[0]->Draw("ep");
+  hstack_mc->Draw("histo same");
+ // c->cd(2);
+  h_mcsum->Draw("same");
+  c->cd(2);
+  h_ratio->Draw();
+
+
+
+  TCanvas* c1 = 0;
+
+  c1 = new TCanvas("c","c",10,10,600,600);
+
+  c1->cd();
+
+  TPad *pad1 = new TPad("pad1","pad1",0.0,0.3,1.0,1.0);
+  pad1->SetBottomMargin(0.001);
+  pad1->Draw();
+  pad1->cd();
+  pad1->SetLogy();
+
+  histo[0]->Draw("HIST");
+  histo[0]->GetYaxis()->SetTitle("Events");
+  histo[0]->GetYaxis()->SetTitleSize(0.05);
+  histo[0]->GetYaxis()->SetLabelSize(0.045);
+  histo[0]->GetYaxis()->SetTitleOffset(1.0);
+  histo[0]->GetXaxis()->SetLabelSize(0.08);
+  histo[0]->GetXaxis()->SetTitleOffset(0.7);
+  histo[0]->SetMinimum(0.5);
+
+  histo[0]->Draw("EPX0SAMES");
+  histo[0]->SetMarkerColor(kBlack);
+  histo[0]->SetMarkerStyle(20);
+  histo[0]->SetMarkerSize (1.0);
+  histo[0]->SetStats(0);
+
+  hstack_mc->Draw("histo same");
+
+  leg->Draw();
+
+  pad1->Update();
+  c1->Update();
+  c1->cd();
+
+  TPad *pad2 = new TPad("pad2","pad2",0,0,1,0.3);
+  pad2->SetTopMargin(0);
+  pad2->SetBottomMargin(0.3);
+  pad2->Draw();
+  pad2->cd();
+  h_ratio->SetTitle("");
+  h_ratio->SetStats(0);
+
+  h_ratio->GetXaxis ()->SetTitle("Invariant mass [GeV]");
+  h_ratio->GetXaxis()->SetTitleOffset(1.1);
+  h_ratio->GetXaxis()->SetTitleSize(0.11);
+  h_ratio->GetXaxis()->SetLabelFont(42);
+  h_ratio->GetXaxis()->SetLabelSize(0.10);
+  h_ratio->GetXaxis()->SetTitleFont(42);
+  h_ratio->GetYaxis()->SetTitle("Data/MC");
+  h_ratio->GetYaxis()->SetNdivisions(505);
+  h_ratio->GetYaxis()->SetTitleSize(0.11);
+  h_ratio->GetYaxis()->SetLabelSize(0.10);
+  h_ratio->GetYaxis()->SetRangeUser(0.5, 1.5);
+  h_ratio->GetYaxis()->SetTitleOffset(0.47);
+  h_ratio->SetMarkerStyle(20);
+  h_ratio->Draw("E0PX0");
+
+  TLine *OLine = new TLine(h_ratio->GetXaxis()->GetXmin(),1.,h_ratio->GetXaxis()->GetXmax(),1.);
+  OLine->SetLineColor(kRed);
+  OLine->SetLineWidth(2);
+  OLine->Draw();
+
+
+
 
 }
