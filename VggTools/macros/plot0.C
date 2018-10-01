@@ -12,15 +12,15 @@ void plot0(string plot="", string title="") {
   readMap("xsec.dat", xsecMap);
   cout << "Read xsec map for " << xsecMap.size() << " datasets" << endl;
 
-  map<string, float> plotMap;
-  readMap(plot, plotMap);
+  multimap<string, float> plotMap;
+  readMultiMap(plot, plotMap);
   cout << "Read plot map for " << plotMap.size() << " datasets" << endl;
 
   TH1D* histo[9999] = {0};
 
   float lumi = 0.0;
 
-  for (map<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
@@ -37,7 +37,7 @@ void plot0(string plot="", string title="") {
 
   int ngen = 0;
 
-  for (map<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index >= 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
