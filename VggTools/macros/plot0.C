@@ -151,7 +151,9 @@ void plot0(string plot="", string title="") {
   OLine->SetLineWidth(2);
   OLine->Draw();
 
+
   char path[100];
+  gSystem->mkdir(("html/"+version).c_str(), kTRUE);
   sprintf (path, "html/%s/%s.pdf",(version).c_str(),(title).c_str());
   c1->SaveAs(path);
 
