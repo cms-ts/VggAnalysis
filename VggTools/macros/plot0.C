@@ -59,27 +59,10 @@ void plot0(string plot="", string title="") {
 
   THStack * hstack_mc = new THStack("hstack_mc","hstack_mc");
 
-  TLegend *leg;
-  leg = new TLegend(0.65, 0.640, 0.91, 0.88);
-  leg->SetBorderSize(0);
-  leg->SetEntrySeparation(0.01);
-  leg->SetFillColor(0);
-  leg->SetFillStyle(0);
 
   for (uint i = sizeof(histo)/sizeof(histo[0]); i-- >0;) {
     if (histo[i]) {
       cout << i << " " << histo[i]->Integral() << endl;
-      if(i==0){
-        leg->AddEntry(histo[i],"Data","p");
-      }
-      if(i==10){
-        leg->AddEntry(histo[i],"Drell-Yan","f");
-        histo[i]->SetFillColor(kYellow-4);
-      }
-      if(i==20){
-        leg->AddEntry(histo[i],"Background","f");
-        histo[i]->SetFillColor(kBlue);
-      }
       if (i>0) {
          hstack_mc->Add(histo[i]);
          h_mcsum->Add(histo[i]);
@@ -88,20 +71,22 @@ void plot0(string plot="", string title="") {
   }
 
   TH1D * h_ratio = (TH1D*) histo[0]->Clone();
-  h_ratio->Divide(h_mcsum);
-  
-  TCanvas * c = new TCanvas("c","c",0,0,1000,500);
-  c->Divide(2,1);
-  c->cd(1);
-  histo[0]->SetMinimum(0.1);
-  histo[0]->Draw("ep");
-  hstack_mc->Draw("histo same");
- // c->cd(2);
-  h_mcsum->Draw("same");
-  c->cd(2);
-  h_ratio->Draw();
+  h_ratio->Divide(h_mcsum);  
 
+  TLegend *leg;
+  leg = new TLegend(0.65, 0.640, 0.91, 0.88);
+  leg->SetBorderSize(0);
+  leg->SetEntrySeparation(0.01);
+  leg->SetFillColor(0);
+  leg->SetFillStyle(0);
 
+  leg->AddEntry(histo[0],"Data","p");
+  histo[10]->SetFillColor(kYellow-4);
+  leg->AddEntry(histo[10],"Drell-Yan","f");
+  histo[20]->SetFillColor(kBlue);
+  leg->AddEntry(histo[20],"TTJets","f");
+  histo[21]->SetFillColor(kBlue-4);
+  leg->AddEntry(histo[21],"ZZ","f");
 
   TCanvas* c1 = 0;
 

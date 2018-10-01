@@ -9,6 +9,7 @@
 #include "TStyle.h"
 #include "TH1F.h"
 #include "TH2F.h"
+#include "TH1D.h"
 #include "TProfile.h"
 #include "THStack.h"
 #include "TMath.h"
