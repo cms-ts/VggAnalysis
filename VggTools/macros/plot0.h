@@ -39,7 +39,6 @@ void readMap(string myFile, map<string, float> &myMap) {
       float val;
       stream >> key >> val;
       myMap.insert(pair<string, float>(key, val));
-//      cout << key << " " << val << endl;
     }
   }
   input.close();
@@ -55,7 +54,6 @@ void readMultiMap(string myFile, multimap<string, float> &myMap) {
       float val;
       stream >> key >> val;
       myMap.insert(pair<string, float>(key, val));
-//      cout << key << " " << val << endl;
     }
   }
   input.close();
