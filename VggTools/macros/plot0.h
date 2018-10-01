@@ -38,7 +38,7 @@ void readMap(string myFile, map<string, float> &myMap) {
       string key;
       float val;
       stream >> key >> val;
-      myMap.insert(pair<string, float>(key, val));
+      myMap[key] = val;
     }
   }
   input.close();
