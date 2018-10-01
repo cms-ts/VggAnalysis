@@ -131,7 +131,7 @@ void plot0(string plot="", string title="") {
   h_ratio->SetTitle("");
   h_ratio->SetStats(0);
 
-  h_ratio->GetXaxis ()->SetTitle("Invariant mass [GeV]");
+  h_ratio->GetXaxis()->SetTitle("Invariant mass [GeV]");
   h_ratio->GetXaxis()->SetTitleOffset(1.1);
   h_ratio->GetXaxis()->SetTitleSize(0.11);
   h_ratio->GetXaxis()->SetLabelFont(42);
@@ -152,7 +152,7 @@ void plot0(string plot="", string title="") {
   OLine->Draw();
 
   char path[100];
-  sprintf (path, "html/%s/%s.pdf",(version).c_str(),(plot).c_str());
+  sprintf (path, "html/%s/%s.pdf",(version).c_str(),(title).c_str());
   c1->SaveAs(path);
 
 }
