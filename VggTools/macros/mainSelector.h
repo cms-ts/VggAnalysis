@@ -75,7 +75,7 @@ public :
    //TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
    //TTreeReaderArray<Float_t> Electron_sip3d = {fReader, "Electron_sip3d"};
    //TTreeReaderArray<Float_t> Electron_mvaTTH = {fReader, "Electron_mvaTTH"};
-   //TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
+   TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    //TTreeReaderArray<Int_t> Electron_cutBased = {fReader, "Electron_cutBased"};
    //TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
    //TTreeReaderArray<Int_t> Electron_pdgId = {fReader, "Electron_pdgId"};
@@ -180,7 +180,7 @@ public :
    //TTreeReaderArray<Float_t> Muon_segmentComp = {fReader, "Muon_segmentComp"};
    //TTreeReaderArray<Float_t> Muon_sip3d = {fReader, "Muon_sip3d"};
    //TTreeReaderArray<Float_t> Muon_mvaTTH = {fReader, "Muon_mvaTTH"};
-   //TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
+   TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    //TTreeReaderArray<Int_t> Muon_jetIdx = {fReader, "Muon_jetIdx"};
    //TTreeReaderArray<Int_t> Muon_nStations = {fReader, "Muon_nStations"};
    //TTreeReaderArray<Int_t> Muon_nTrackerLayers = {fReader, "Muon_nTrackerLayers"};
@@ -664,7 +664,7 @@ public :
    //TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
    //TTreeReaderArray<Float_t> Electron_sip3d = {fReader, "Electron_sip3d"};
    //TTreeReaderArray<Float_t> Electron_mvaTTH = {fReader, "Electron_mvaTTH"};
-   //TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
+   TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    //TTreeReaderArray<Int_t> Electron_cutBased = {fReader, "Electron_cutBased"};
    //TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
    //TTreeReaderArray<Int_t> Electron_pdgId = {fReader, "Electron_pdgId"};
@@ -716,7 +716,7 @@ public :
    //TTreeReaderArray<Float_t> GenPart_mass = {fReader, "GenPart_mass"};
    //TTreeReaderArray<Float_t> GenPart_phi = {fReader, "GenPart_phi"};
    //TTreeReaderArray<Float_t> GenPart_pt = {fReader, "GenPart_pt"};
-   //TTreeReaderArray<Int_t> GenPart_genPartIdxMother = {fReader, "GenPart_genPartIdxMother"};
+   TTreeReaderArray<Int_t> GenPart_genPartIdxMother = {fReader, "GenPart_genPartIdxMother"};
    //TTreeReaderArray<Int_t> GenPart_pdgId = {fReader, "GenPart_pdgId"};
    //TTreeReaderArray<Int_t> GenPart_status = {fReader, "GenPart_status"};
    //TTreeReaderArray<Int_t> GenPart_statusFlags = {fReader, "GenPart_statusFlags"};
@@ -834,7 +834,7 @@ public :
    //TTreeReaderArray<Float_t> Muon_segmentComp = {fReader, "Muon_segmentComp"};
    //TTreeReaderArray<Float_t> Muon_sip3d = {fReader, "Muon_sip3d"};
    //TTreeReaderArray<Float_t> Muon_mvaTTH = {fReader, "Muon_mvaTTH"};
-   //TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
+   TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    //TTreeReaderArray<Int_t> Muon_jetIdx = {fReader, "Muon_jetIdx"};
    //TTreeReaderArray<Int_t> Muon_nStations = {fReader, "Muon_nStations"};
    //TTreeReaderArray<Int_t> Muon_nTrackerLayers = {fReader, "Muon_nTrackerLayers"};
