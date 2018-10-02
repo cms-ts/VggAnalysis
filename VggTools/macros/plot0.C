@@ -120,6 +120,8 @@ void plot0(string plot="", string title="") {
   histo[0]->Draw("EPX0SAMES");
 
   hstack_mc->Draw("HSAME");
+  histo[0]->Draw("HISTSAMES");
+  histo[0]->Draw("EXP0SAMES");
 
   leg->Draw();
 
