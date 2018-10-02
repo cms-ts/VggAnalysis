@@ -134,7 +134,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-     if (Electron_mvaFall17V1Iso_WP90[i] == 0) ele_sel = false;
+     if (Electron_mvaFall17V2Iso_WP90[i] == 0) ele_sel = false;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
      if (ele_sel) {
