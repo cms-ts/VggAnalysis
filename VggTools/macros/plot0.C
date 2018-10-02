@@ -1,5 +1,7 @@
 #include "plot0.h"
 
+#include "CMS_lumi.C"
+
 void plot0(string plot="", string title="") {
 
   string version = "v00";
@@ -70,12 +72,15 @@ void plot0(string plot="", string title="") {
        hstack_mc->Add(it->second);
        h_mcsum->Add(it->second);
     }
+  }
+
+  for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     if (it->first == 0) {
       leg->AddEntry(it->second, "Data", "p");
     }
     if (it->first == 10) {
       it->second->SetFillColor(kYellow-4);
-      leg->AddEntry(it->second, "Drell-Yan", "f");
+      leg->AddEntry(it->second, "DYJets", "f");
     }
     if (it->first == 20) {
       it->second->SetFillColor(kBlue);
@@ -83,16 +88,15 @@ void plot0(string plot="", string title="") {
     }
     if (it->first == 30) {
       it->second->SetFillColor(kBlue-4);
-      leg->AddEntry(it->second, "ZZ", "f");
+      leg->AddEntry(it->second, "Diboson", "f");
     }
-
   }
 
   TH1D* h_ratio = (TH1D*) histo[0]->Clone();
   h_ratio->Divide(h_mcsum);  
 
   TCanvas* c1 = 0;
-  c1 = new TCanvas("c", "c", 10, 10, 600, 600);
+  c1 = new TCanvas("c", "c", 10, 10, 800, 600);
   c1->cd();
 
   TPad* pad1 = new TPad("pad1", "pad1", 0.0, 0.3, 1.0, 1.0);
@@ -101,25 +105,24 @@ void plot0(string plot="", string title="") {
   pad1->cd();
   pad1->SetLogy();
 
-  histo[0]->SetTitle("");
+  hstack_mc->Draw("HIST");
+
+  hstack_mc->SetTitle("");
+
+  hstack_mc->GetXaxis()->SetTitleOffset(0.7);
+  hstack_mc->GetXaxis()->SetLabelSize(0.08);
+
+  hstack_mc->GetYaxis()->SetTitle("Events");
+  hstack_mc->GetYaxis()->SetTitleSize(0.05);
+  hstack_mc->GetYaxis()->SetTitleOffset(1.0);
+  hstack_mc->GetYaxis()->SetLabelSize(0.045);
+  hstack_mc->SetMinimum(0.5);
+
   histo[0]->SetStats(0);
-
-  histo[0]->GetXaxis()->SetTitleOffset(0.7);
-  histo[0]->GetXaxis()->SetLabelSize(0.08);
-
-  histo[0]->GetYaxis()->SetTitle("Events");
-  histo[0]->GetYaxis()->SetTitleSize(0.05);
-  histo[0]->GetYaxis()->SetTitleOffset(1.0);
-  histo[0]->GetYaxis()->SetLabelSize(0.045);
-  histo[0]->SetMinimum(0.5);
-
   histo[0]->SetMarkerColor(kBlack);
   histo[0]->SetMarkerStyle(20);
   histo[0]->SetMarkerSize (1.0);
-  histo[0]->Draw("HIST");
-  histo[0]->Draw("EPX0SAMES");
 
-  hstack_mc->Draw("HSAME");
   histo[0]->Draw("HISTSAMES");
   histo[0]->Draw("EXP0SAMES");
 
@@ -162,6 +165,14 @@ void plot0(string plot="", string title="") {
   line->SetLineColor(kRed);
   line->SetLineWidth(2);
   line->Draw();
+
+  writeExtraText = true;
+
+  lumi_13TeV  = Form("%.1f fb^{-1}", lumi);
+  int iPeriod = 4; 
+  int iPos = 0;
+  CMS_lumi(pad1, iPeriod, iPos);
+  c1->cd();
 
   gSystem->mkdir(("html/" + version).c_str(), kTRUE);
   c1->SaveAs(("html/" + version + "/" + title + ".pdf").c_str());
