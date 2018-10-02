@@ -193,8 +193,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // mainSelectorDT_cxx
 
 #ifdef mainSelectorMC_cxx
-
-
    TLorentzVector muo0_gen;
    TLorentzVector muo1_gen;
    TLorentzVector Z_muo_gen;
