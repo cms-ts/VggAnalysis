@@ -3,12 +3,12 @@
 void run(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.root") {
 
   TString option = "";
-  if (input.Contains("Run2016")) option="DT";
-  if (input.Contains("Run2017")) option="DT";
-  if (input.Contains("Run2018")) option="DT";
-  if (input.Contains("RunIISummer16NanoAOD")) option="MC";
-  if (input.Contains("RunIIFall17NanoAOD")) option="MC";
-  if (input.Contains("RunIIFall18NanoAOD")) option="MC";
+  if (input.Contains("Run2016")) option="DT16";
+  if (input.Contains("Run2017")) option="DT17";
+  if (input.Contains("Run2018")) option="DT18";
+  if (input.Contains("RunIISummer16NanoAOD")) option="MC16";
+  if (input.Contains("RunIIFall17NanoAOD")) option="MC17";
+  if (input.Contains("RunIIFall18NanoAOD")) option="MC18";
   if (option.Length()==0) {
     cout << "unknown input list: " << input << endl;
     return;
@@ -44,18 +44,26 @@ void run(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.
 
   if (option.Contains("DT")) {
 #if defined(__APPLE__)
-    selector = TSelector::GetSelector("mainSelectorDT.C");
+    if (option.Contains("DT16")) selector = TSelector::GetSelector("mainSelectorDT16.C");
+    if (option.Contains("DT17")) selector = TSelector::GetSelector("mainSelectorDT17.C");
+    if (option.Contains("DT18")) selector = TSelector::GetSelector("mainSelectorDT18.C");
 #else
-    selector = TSelector::GetSelector("mainSelectorDT.C+");
+    if (option.Contains("DT16")) selector = TSelector::GetSelector("mainSelectorDT16.C+");
+    if (option.Contains("DT17")) selector = TSelector::GetSelector("mainSelectorDT17.C+");
+    if (option.Contains("DT18")) selector = TSelector::GetSelector("mainSelectorDT18.C+");
 #endif
     selector->SetOption("DT");
     workers.Process(files, *selector, "Events", nevt);
   }
   if (option.Contains("MC")) {
 #if defined(__APPLE__)
-    selector = TSelector::GetSelector("mainSelectorMC.C");
+    if (option.Contains("MC16")) selector = TSelector::GetSelector("mainSelectorMC16.C");
+    if (option.Contains("MC17")) selector = TSelector::GetSelector("mainSelectorMC17.C");
+    if (option.Contains("MC18")) selector = TSelector::GetSelector("mainSelectorMC18.C");
 #else
-    selector = TSelector::GetSelector("mainSelectorMC.C+");
+    if (option.Contains("MC16")) selector = TSelector::GetSelector("mainSelectorMC16.C+");
+    if (option.Contains("MC17")) selector = TSelector::GetSelector("mainSelectorMC17.C+");
+    if (option.Contains("MC18")) selector = TSelector::GetSelector("mainSelectorMC18.C+");
 #endif
     selector->SetOption("MC");
     workers.Process(files, *selector, "Events", nevt);
