@@ -92,7 +92,7 @@ public :
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
-   TTreeReaderArray<Bool_t> Electron_mvaFall17V1Iso_WP90 = {fReader, "Electron_mvaFall17V1Iso_WP90"};
+   TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
    TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
@@ -179,7 +179,7 @@ public :
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
-   TTreeReaderArray<Bool_t> Electron_mvaFall17V1Iso_WP90 = {fReader, "Electron_mvaFall17V1Iso_WP90"};
+   TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
    
    TTreeReaderArray<Int_t> GenPart_genPartIdxMother = {fReader, "GenPart_genPartIdxMother"};
    
