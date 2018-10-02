@@ -109,9 +109,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    fReader.SetLocalEntry(entry);
 
-   h_nevt->Fill(0.5);
-
-   h_npvs->Fill(*PV_npvs);
+   if (h_nevt) h_nevt->Fill(0.5);
 
    int iele0 = -1;
    int iele1 = -1;
@@ -185,6 +183,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      muo1.SetPtEtaPhiM(Muon_pt[imuo1], Muon_eta[imuo1], Muon_phi[imuo1], Muon_mass[imuo1]);
      TLorentzVector Z_muo = muo0 + muo1;
      if (h_Z_muo) h_Z_muo->Fill(Z_muo.M());
+   }
+
+   if ((iele0 != -1 && iele1 != -1) || (imuo0 != -1 && imuo1 != -1)) {
+     if (h_npvs) h_npvs->Fill(*PV_npvs);
    }
 
 #ifdef mainSelectorDT_cxx
