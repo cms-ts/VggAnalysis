@@ -137,7 +137,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
      if (ele_sel) {
-       if (iele0 != -1 && iele1 == -1 && Electron_charge[iele0]*Electron_charge[i] == -1) {
+       if (iele0 != -1 && iele1 == -1 && Electron_charge[iele0] != Electron_charge[i]) {
          iele1 = i;
        }
        if (iele0 == -1) {
@@ -169,7 +169,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Muon_tightId[i] == 0) muo_sel = false;
 
      if (muo_sel) {
-       if (imuo0 != -1 && imuo1 == -1 && Muon_charge[imuo0]*Muon_charge[i] == -1) {
+       if (imuo0 != -1 && imuo1 == -1 && Muon_charge[imuo0] != Muon_charge[i]) {
          imuo1 = i;
        }
        if (imuo0 == -1) {
@@ -215,16 +215,6 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (iele0_gen == -1) {
            iele0_gen=i;
          }
-         if (iele0_gen != -1 && GenDressedLepton_charge[i] == GenDressedLepton_charge[iele0_gen]) {
-           if (GenDressedLepton_pt[i] > GenDressedLepton_pt[iele0_gen]){
-              iele0_gen=i;
-           }
-         }
-         if (iele1_gen != -1 && GenDressedLepton_charge[i] == GenDressedLepton_charge[iele1_gen]) {
-           if (GenDressedLepton_pt[i] > GenDressedLepton_pt[iele1_gen]){
-              iele1_gen=i;
-           }
-         }
        }
      }
      if (fabs(GenDressedLepton_pdgId[i]) == 13) {
@@ -237,16 +227,6 @@ Bool_t mainSelector::Process(Long64_t entry)
          }
          if (imuo0_gen == -1) {
            imuo0_gen=i;
-         }
-         if (imuo0_gen != -1 && GenDressedLepton_charge[i] == GenDressedLepton_charge[imuo0_gen]) {
-           if (GenDressedLepton_pt[i] > GenDressedLepton_pt[imuo0_gen]){
-              imuo0_gen=i;
-           }
-         }
-         if (imuo1_gen != -1 && GenDressedLepton_charge[i] == GenDressedLepton_charge[imuo1_gen]) {
-           if (GenDressedLepton_pt[i] > GenDressedLepton_pt[imuo1_gen]){
-              imuo1_gen=i;
-           }
          }
        }
      }
