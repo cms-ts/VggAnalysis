@@ -115,7 +115,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    int iele0 = -1;
    int iele1 = -1;
-   int n_ele = 0;
    bool ele_sel = true;
 
    if (*nElectron < 2) ele_sel = false;
@@ -138,13 +137,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
      if (ele_sel) {
-       if (n_ele == 1 && Electron_charge[iele0]*Electron_charge[i] == -1) {
+       if (iele0 != -1 && iele1 == -1 && Electron_charge[iele0]*Electron_charge[i] == -1) {
          iele1 = i;
-         n_ele++;
        }
-       if (n_ele == 0) {
+       if (iele0 == -1) {
          iele0 = i;
-         n_ele++;
        }
      }
    }
@@ -160,7 +157,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    int imuo0 = -1;
    int imuo1 = -1;
-   int n_muo = 0;
    bool muo_sel = true;
 
    if (*nMuon < 2) muo_sel = false;
@@ -173,13 +169,11 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Muon_tightId[i] == 0) muo_sel = false;
 
      if (muo_sel) {
-       if (n_muo == 1 && Muon_charge[imuo0]*Muon_charge[i] == -1) {
+       if (imuo0 != -1 && imuo1 == -1 && Muon_charge[imuo0]*Muon_charge[i] == -1) {
          imuo1 = i;
-         n_muo++;
        }
-       if (n_muo == 0) {
+       if (imuo0 == -1) {
          imuo0 = i;
-         n_muo++;
        }
      }
    }
@@ -198,16 +192,15 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 #ifdef mainSelectorMC_cxx
 
-   TLorentzVector ele0_gen;
-   TLorentzVector ele1_gen;
-   TLorentzVector Z_ele_gen;
 
    TLorentzVector muo0_gen;
    TLorentzVector muo1_gen;
    TLorentzVector Z_muo_gen;
 
-   int nElectron_gen = 0;
-   int nMuon_gen = 0;
+   int iele0_gen = -1;
+   int iele1_gen = -1;
+   int imuo0_gen = -1;
+   int imuo1_gen = -1;
 
    for (unsigned int i = 0; i < *nGenDressedLepton; i++) {
      if (fabs(GenDressedLepton_pdgId[i]) == 11) {
@@ -216,13 +209,21 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(GenDressedLepton_eta[i]) > 1.442 && fabs(GenDressedLepton_eta[i]) < 1.566) ele_sel_gen = false;
        if (fabs(GenDressedLepton_eta[i]) > 2.500) ele_sel_gen = false;
        if (ele_sel_gen) {
-         if (nElectron_gen == 1) {
-           ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[i], GenDressedLepton_eta[i], GenDressedLepton_phi[i], Electron_mass[i]);
-           nElectron_gen++;
+         if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_charge[i] != GenDressedLepton_charge[iele0_gen]) {
+           iele1_gen=i;
          }
-         if (nElectron_gen == 0) {
-           ele0_gen.SetPtEtaPhiM(GenDressedLepton_pt[i], GenDressedLepton_eta[i], GenDressedLepton_phi[i], Electron_mass[i]);
-           nElectron_gen++;
+         if (iele0_gen == -1) {
+           iele0_gen=i;
+         }
+         if (iele0_gen != -1 && GenDressedLepton_charge[i] == GenDressedLepton_charge[iele0_gen]) {
+           if (GenDressedLepton_pt[i] > GenDressedLepton_pt[iele0_gen]){
+              iele0_gen=i;
+           }
+         }
+         if (iele1_gen != -1 && GenDressedLepton_charge[i] == GenDressedLepton_charge[iele1_gen]) {
+           if (GenDressedLepton_pt[i] > GenDressedLepton_pt[iele1_gen]){
+              iele1_gen=i;
+           }
          }
        }
      }
@@ -231,25 +232,41 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (GenDressedLepton_pt[i] < 20) muo_sel_gen = false;
        if (fabs(GenDressedLepton_eta[i]) > 2.400) muo_sel_gen = false;
        if (muo_sel_gen) {
-         if (nMuon_gen == 1) {
-           muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[i], GenDressedLepton_eta[i], GenDressedLepton_phi[i], Muon_mass[i]);
-           nMuon_gen++;
+         if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_charge[i] != GenDressedLepton_charge[imuo0_gen]) {
+           imuo1_gen=i;
          }
-         if (nMuon_gen == 0) {
-           muo0_gen.SetPtEtaPhiM(GenDressedLepton_pt[i], GenDressedLepton_eta[i], GenDressedLepton_phi[i], Muon_mass[i]);
-           nMuon_gen++;
+         if (imuo0_gen == -1) {
+           imuo0_gen=i;
+         }
+         if (imuo0_gen != -1 && GenDressedLepton_charge[i] == GenDressedLepton_charge[imuo0_gen]) {
+           if (GenDressedLepton_pt[i] > GenDressedLepton_pt[imuo0_gen]){
+              imuo0_gen=i;
+           }
+         }
+         if (imuo1_gen != -1 && GenDressedLepton_charge[i] == GenDressedLepton_charge[imuo1_gen]) {
+           if (GenDressedLepton_pt[i] > GenDressedLepton_pt[imuo1_gen]){
+              imuo1_gen=i;
+           }
          }
        }
      }
    }
 
-   if (nElectron_gen == 2) {
-     Z_ele_gen=ele0_gen+ele1_gen;
+   if (iele0_gen != -1 && iele1_gen != -1) {
+     TLorentzVector ele0_gen;
+     TLorentzVector ele1_gen;
+     ele0_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele0_gen], GenDressedLepton_eta[iele0_gen], GenDressedLepton_phi[iele0_gen], Electron_mass[iele0_gen]);
+     ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele1_gen], GenDressedLepton_eta[iele1_gen], GenDressedLepton_phi[iele1_gen], Electron_mass[iele1_gen]);
+     TLorentzVector Z_ele_gen = ele0_gen + ele1_gen;
      if (h_Z_ele_gen) h_Z_ele_gen->Fill(Z_ele_gen.M());
    }
 
-   if (nMuon_gen == 2) {
-     Z_muo_gen=muo0_gen+muo1_gen;
+   if (imuo0_gen != -1 && imuo1_gen != -1) {
+     TLorentzVector muo0_gen;
+     TLorentzVector muo1_gen;
+     muo0_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo0_gen], GenDressedLepton_eta[imuo0_gen], GenDressedLepton_phi[imuo0_gen], Electron_mass[imuo0_gen]);
+     muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo1_gen], GenDressedLepton_eta[imuo1_gen], GenDressedLepton_phi[imuo1_gen], Electron_mass[imuo1_gen]);
+     TLorentzVector Z_muo_gen = muo0_gen + muo1_gen;
      if (h_Z_muo_gen) h_Z_muo_gen->Fill(Z_muo_gen.M());
    }
 #endif // mainSelectorMC_cxx
