@@ -119,8 +119,6 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (fabs(Electron_eta[0]) > 2.500) ele_sel = false;
    if (fabs(Electron_eta[1]) > 1.442 && fabs(Electron_eta[1]) < 1.566) ele_sel = false;
    if (fabs(Electron_eta[1]) > 2.500) ele_sel = false;
-   if (Electron_sieie[0] > 0.0106) ele_sel = false;
-   if (Electron_sieie[1] > 0.0106) ele_sel = false;
 
 
    if (ele_sel) {
