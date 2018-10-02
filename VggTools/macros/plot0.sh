@@ -9,4 +9,7 @@ export ROOT_HIST=0
 root-6.12 -l -q -b plot0.C+\(\"Zgg2016_ele.dat\",\"h_Z_ele\"\)
 root-6.12 -l -q -b plot0.C+\(\"Zgg2016_muo.dat\",\"h_Z_muo\"\)
 
+root-6.12 -l -q -b plot0.C+\(\"Zgg2016_ele.dat\",\"h_npvs\"\)
+root-6.12 -l -q -b plot0.C+\(\"Zgg2016_muo.dat\",\"h_npvs\"\)
+
 exit

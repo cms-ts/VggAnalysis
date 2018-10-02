@@ -28,6 +28,8 @@ public :
    TH1D* h_Z_ele = 0;
    TH1D* h_Z_muo = 0;
 
+   TH1D* h_npvs = 0;
+
 #ifdef mainSelectorDT_h
 #endif // mainSelectorDT_h
 
@@ -85,7 +87,7 @@ public :
    //TTreeReaderArray<Bool_t> Electron_isPFcand = {fReader, "Electron_isPFcand"};
    //TTreeReaderArray<UChar_t> Electron_lostHits = {fReader, "Electron_lostHits"};
    //TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP80 = {fReader, "Electron_mvaFall17Iso_WP80"};
-   //TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
+   TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
    //TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WPL = {fReader, "Electron_mvaFall17Iso_WPL"};
    //TTreeReaderArray<Bool_t> Electron_mvaFall17noIso_WP80 = {fReader, "Electron_mvaFall17noIso_WP80"};
    //TTreeReaderArray<Bool_t> Electron_mvaFall17noIso_WP90 = {fReader, "Electron_mvaFall17noIso_WP90"};
@@ -188,7 +190,7 @@ public :
    //TTreeReaderArray<Bool_t> Muon_isPFcand = {fReader, "Muon_isPFcand"};
    //TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
    //TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
-   //TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+   TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
    //TTreeReaderValue<UInt_t> nPhoton = {fReader, "nPhoton"};
    //TTreeReaderArray<Float_t> Photon_eCorr = {fReader, "Photon_eCorr"};
    //TTreeReaderArray<Float_t> Photon_energyErr = {fReader, "Photon_energyErr"};
@@ -305,8 +307,8 @@ public :
    //TTreeReaderValue<Float_t> PV_z = {fReader, "PV_z"};
    //TTreeReaderValue<Float_t> PV_chi2 = {fReader, "PV_chi2"};
    //TTreeReaderValue<Float_t> PV_score = {fReader, "PV_score"};
-   //TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
-   //TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
+   TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
+   TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
    //TTreeReaderValue<UInt_t> nSV = {fReader, "nSV"};
    //TTreeReaderArray<Float_t> SV_dlen = {fReader, "SV_dlen"};
    //TTreeReaderArray<Float_t> SV_dlenSig = {fReader, "SV_dlenSig"};
@@ -674,7 +676,7 @@ public :
    //TTreeReaderArray<Bool_t> Electron_isPFcand = {fReader, "Electron_isPFcand"};
    //TTreeReaderArray<UChar_t> Electron_lostHits = {fReader, "Electron_lostHits"};
    //TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP80 = {fReader, "Electron_mvaFall17Iso_WP80"};
-   //TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
+   TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
    //TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WPL = {fReader, "Electron_mvaFall17Iso_WPL"};
    //TTreeReaderArray<Bool_t> Electron_mvaFall17noIso_WP80 = {fReader, "Electron_mvaFall17noIso_WP80"};
    //TTreeReaderArray<Bool_t> Electron_mvaFall17noIso_WP90 = {fReader, "Electron_mvaFall17noIso_WP90"};
@@ -842,7 +844,7 @@ public :
    //TTreeReaderArray<Bool_t> Muon_isPFcand = {fReader, "Muon_isPFcand"};
    //TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
    //TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
-   //TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+   TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
    //TTreeReaderValue<UInt_t> nPhoton = {fReader, "nPhoton"};
    //TTreeReaderArray<Float_t> Photon_eCorr = {fReader, "Photon_eCorr"};
    //TTreeReaderArray<Float_t> Photon_energyErr = {fReader, "Photon_energyErr"};
@@ -970,8 +972,8 @@ public :
    //TTreeReaderValue<Float_t> PV_z = {fReader, "PV_z"};
    //TTreeReaderValue<Float_t> PV_chi2 = {fReader, "PV_chi2"};
    //TTreeReaderValue<Float_t> PV_score = {fReader, "PV_score"};
-   //TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
-   //TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
+   TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
+   TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
    //TTreeReaderValue<UInt_t> nSV = {fReader, "nSV"};
    //TTreeReaderArray<Float_t> SV_dlen = {fReader, "SV_dlen"};
    //TTreeReaderArray<Float_t> SV_dlenSig = {fReader, "SV_dlenSig"};

@@ -63,6 +63,8 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_ele = new TH1D("h_Z_ele", "h_Z_ele", 100, 60., 120.);
    h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 100, 60., 120.);
 
+   h_npvs = new TH1D("h_npvs", "h_npvs", 100, 0., 100.);
+
 #ifdef mainSelectorDT_cxx
 #endif // mainSelectorDT_cxx
 
@@ -75,6 +77,8 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    GetOutputList()->Add(h_nevt);
    GetOutputList()->Add(h_Z_ele);
    GetOutputList()->Add(h_Z_muo);
+
+   GetOutputList()->Add(h_npvs);
 
 #ifdef mainSelectorDT_cxx
 #endif // mainSelectorDT_cxx
@@ -107,6 +111,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    h_nevt->Fill(0.5);
 
+   h_npvs->Fill(*PV_npvs);
+
    bool ele_sel = true;
    TLorentzVector ele0;
    TLorentzVector ele1;
@@ -119,7 +125,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (fabs(Electron_eta[0]) > 2.500) ele_sel = false;
    if (fabs(Electron_eta[1]) > 1.442 && fabs(Electron_eta[1]) < 1.566) ele_sel = false;
    if (fabs(Electron_eta[1]) > 2.500) ele_sel = false;
-
+   if (Electron_mvaFall17Iso_WP90[0] == 0) ele_sel = false;
+   if (Electron_mvaFall17Iso_WP90[1] == 0) ele_sel = false;
 
    if (ele_sel) {
      ele0.SetPtEtaPhiM(Electron_pt[0],Electron_eta[0],Electron_phi[0],0.511/1000.);
@@ -138,6 +145,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (Muon_pt[1] < 20) muo_sel = false;
    if (fabs(Muon_eta[0]) > 2.400) muo_sel = false;
    if (fabs(Muon_eta[1]) > 2.400) muo_sel = false;
+   if (Muon_tightId[0] == 0) muo_sel = false;
+   if (Muon_tightId[1] == 0) muo_sel = false;
 
    if (muo_sel) {
      muo0.SetPtEtaPhiM(Muon_pt[0],Muon_eta[0],Muon_phi[0],105.7/1000.);
