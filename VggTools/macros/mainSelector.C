@@ -113,45 +113,69 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    h_npvs->Fill(*PV_npvs);
 
+   int iele0 = -1;
+   int iele1 = -1;
+   int n_ele = 0;
    bool ele_sel = true;
-   TLorentzVector ele0;
-   TLorentzVector ele1;
-   TLorentzVector Z_ele;
 
    if (*nElectron < 2) ele_sel = false;
-   if (Electron_pt[0] < 20) ele_sel = false;
-   if (Electron_pt[1] < 20) ele_sel = false;
-   if (fabs(Electron_eta[0]) > 1.442 && fabs(Electron_eta[0]) < 1.566) ele_sel = false;
-   if (fabs(Electron_eta[0]) > 2.500) ele_sel = false;
-   if (fabs(Electron_eta[1]) > 1.442 && fabs(Electron_eta[1]) < 1.566) ele_sel = false;
-   if (fabs(Electron_eta[1]) > 2.500) ele_sel = false;
-   if (Electron_mvaFall17Iso_WP90[0] == 0) ele_sel = false;
-   if (Electron_mvaFall17Iso_WP90[1] == 0) ele_sel = false;
+   for (uint i = 0; i < *nElectron; i++) {
+     ele_sel = true;
+     if (Electron_pt[i] < 20) ele_sel = false;
+     if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) ele_sel = false;
+     if (fabs(Electron_eta[i]) > 2.500) ele_sel = false;
+     if (Electron_mvaFall17Iso_WP90[i] == 0) ele_sel = false;
+     if (ele_sel) {
+       if (n_ele == 1 && Electron_charge[iele0]*Electron_charge[i] == -1) {
+         iele1 = i;
+         n_ele++;
+       }
+       if (n_ele == 0) {
+         iele0 = i;
+         n_ele++;
+       }
+     }
+   }
 
-   if (ele_sel) {
-     ele0.SetPtEtaPhiM(Electron_pt[0],Electron_eta[0],Electron_phi[0],0.511/1000.);
-     ele1.SetPtEtaPhiM(Electron_pt[1],Electron_eta[1],Electron_phi[1],0.511/1000.);
-     Z_ele=ele0+ele1;
+   if (iele0 != -1 && iele1 != -1) {
+     TLorentzVector ele0;
+     ele0.SetPtEtaPhiM(Electron_pt[iele0], Electron_eta[iele0], Electron_phi[iele0], 0.511/1000.);
+     TLorentzVector ele1;
+     ele1.SetPtEtaPhiM(Electron_pt[iele1], Electron_eta[iele1], Electron_phi[iele1], 0.511/1000.);
+     TLorentzVector Z_ele = ele0 + ele1;
      if (h_Z_ele) h_Z_ele->Fill(Z_ele.M());
    }
 
+   int imuo0 = -1;
+   int imuo1 = -1;
+   int n_muo = 0;
    bool muo_sel = true;
-   TLorentzVector muo0;
-   TLorentzVector muo1;
-   TLorentzVector Z_muo;
 
    if (*nMuon < 2) muo_sel = false;
-   if (Muon_pt[0] < 20) muo_sel = false;
-   if (Muon_pt[1] < 20) muo_sel = false;
-   if (fabs(Muon_eta[0]) > 2.400) muo_sel = false;
-   if (fabs(Muon_eta[1]) > 2.400) muo_sel = false;
-   if (Muon_tightId[0] == 0) muo_sel = false;
-   if (Muon_tightId[1] == 0) muo_sel = false;
+     for (uint i = 0; i < *nMuon; i++) {
+     muo_sel = true;
+     if (Muon_pt[i] < 20) muo_sel = false;
+     if (fabs(Muon_eta[i]) > 1.442 && fabs(Muon_eta[i]) < 1.566) muo_sel = false;
+     if (fabs(Muon_eta[i]) > 2.500) muo_sel = false;
+     if (fabs(Muon_tightId[i] > 2.400)) muo_sel = false;
+     if (muo_sel) {
+       if (n_muo == 1 && Muon_charge[imuo0]*Muon_charge[i] == -1) {
+         imuo1 = i;
+         n_muo++;
+       }
+       if (n_muo == 0) {
+         imuo0 = i;
+         n_muo++;
+       }
+     }
+   }
 
-   if (muo_sel) {
-     muo0.SetPtEtaPhiM(Muon_pt[0],Muon_eta[0],Muon_phi[0],105.7/1000.);
-     muo1.SetPtEtaPhiM(Muon_pt[1],Muon_eta[1],Muon_phi[1],105.7/1000.);
-     Z_muo=muo0+muo1;
+   if (imuo0 != -1 && imuo1 != -1) {
+     TLorentzVector muo0;
+     muo0.SetPtEtaPhiM(Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], 105.7/1000.);
+     TLorentzVector muo1;
+     muo1.SetPtEtaPhiM(Muon_pt[imuo1], Muon_eta[imuo1], Muon_phi[imuo1], 105.7/1000.);
+     TLorentzVector Z_muo = muo0 + muo1;
      if (h_Z_muo) h_Z_muo->Fill(Z_muo.M());
    }
 
@@ -168,12 +192,13 @@ Bool_t mainSelector::Process(Long64_t entry)
    TLorentzVector muo1_gen;
    TLorentzVector Z_muo_gen;
 
-   int nElectron_gen=0;
-   int nMuon_gen=0;
+   int nElectron_gen = 0;
+   int nMuon_gen = 0;
 
    for (unsigned int i = 0; i < *nGenDressedLepton; i++) {
      if (fabs(GenDressedLepton_pdgId[i]) == 11) {
        bool ele_sel_gen = true;
+       if (fabs(GenPart_genPartIdxMother[i]) != 23) ele_sel_gen = false;
        if (GenDressedLepton_pt[i] < 20) ele_sel_gen = false;
        if (fabs(GenDressedLepton_eta[i]) > 1.442 && fabs(GenDressedLepton_eta[i]) < 1.566) ele_sel_gen = false;
        if (fabs(GenDressedLepton_eta[i]) > 2.500) ele_sel_gen = false;
@@ -190,6 +215,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
      if (fabs(GenDressedLepton_pdgId[i]) == 13) {
        bool muo_sel_gen = true;
+       if (fabs(GenPart_genPartIdxMother[i]) != 23) muo_sel_gen = false;
        if (GenDressedLepton_pt[i] < 20) muo_sel_gen = false;
        if (fabs(GenDressedLepton_eta[i]) > 2.400) muo_sel_gen = false;
        if (muo_sel_gen) {
