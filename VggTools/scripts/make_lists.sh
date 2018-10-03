@@ -1,6 +1,7 @@
 #!/bin/sh
 
 DATADIR=/eos/infnts/cms/store/user/dellaric/data
+
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
 
 cd $WORKDIR
