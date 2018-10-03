@@ -12,7 +12,6 @@ for L in $LISTS; do
   [ -z "${L##*SingleElectron_22Aug2018*}" ] && cp -p lists/$L ../macros/lists/
   [ -z "${L##*SingleMuon_22Aug2018*}"     ] && cp -p lists/$L ../macros/lists/
   [ -z "${L##*MuonEG_22Aug2018*}"         ] && cp -p lists/$L ../macros/lists/
-  [ -z "${L##*EGamma_22Aug2018*}"         ] && cp -p lists/$L ../macros/lists/
 done
 
 for L in $LISTS; do
@@ -21,16 +20,13 @@ for L in $LISTS; do
   [ -z "${L##*SingleElectron_31Mar2018*}" ] && cp -p lists/$L ../macros/lists/
   [ -z "${L##*SingleMuon_31Mar2018*}"     ] && cp -p lists/$L ../macros/lists/
   [ -z "${L##*MuonEG_31Mar2018*}"         ] && cp -p lists/$L ../macros/lists/
-  [ -z "${L##*EGamma_31Mar2018*}"         ] && cp -p lists/$L ../macros/lists/
 done
 
 for L in $LISTS; do
-  [ -z "${L##*DoubleEG_14Sep2018*}"       ] && cp -p lists/$L ../macros/lists/
+  [ -z "${L##*EGamma_14Sep2018*}"         ] && cp -p lists/$L ../macros/lists/
   [ -z "${L##*DoubleMuon_14Sep2018*}"     ] && cp -p lists/$L ../macros/lists/
-  [ -z "${L##*SingleElectron_14Sep2018*}" ] && cp -p lists/$L ../macros/lists/
   [ -z "${L##*SingleMuon_14Sep2018*}"     ] && cp -p lists/$L ../macros/lists/
   [ -z "${L##*MuonEG_14Sep2018*}"         ] && cp -p lists/$L ../macros/lists/
-  [ -z "${L##*EGamma_14Sep2018*}"         ] && cp -p lists/$L ../macros/lists/
 done
 
 for L in $LISTS; do
