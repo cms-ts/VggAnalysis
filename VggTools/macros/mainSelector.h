@@ -29,6 +29,7 @@ public :
    TH1D* h_Z_muo = 0;
 
    TH1D* h_npvs = 0;
+   TH1D* h_npvs_w = 0;
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
@@ -36,6 +37,9 @@ public :
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
    TH1D* h_Z_ele_gen = 0;
    TH1D* h_Z_muo_gen = 0;
+
+   TH1D* pu_ele_weights = 0;
+   TH1D* pu_muo_weights = 0;
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
 #if defined(mainSelectorDT16_h) 
@@ -134,6 +138,7 @@ public :
    
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
+   TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
 
 #endif // defined(mainSelectorMC16_h)
 
@@ -164,6 +169,7 @@ public :
 
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
+   TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
 
 #endif // defined(mainSelectorMC17_h)
 
@@ -194,6 +200,7 @@ public :
    
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
+   TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
 
 #endif // defined(mainSelectorMC18_h)
 
@@ -242,5 +249,21 @@ Bool_t mainSelector::Notify()
 
    return kTRUE;
 }
+
+float getWeight(TH1 *histogram_, float x, float y){
+  if(histogram_==NULL) {
+    std::cout << "ERROR! The weights input histogram is not loaded. Returning weight 0!" << std::endl;
+    return 0.;
+  }
+  if(!histogram_->InheritsFrom("TH2")) {
+    int bin = std::max(1, std::min(histogram_->GetNbinsX(), histogram_->GetXaxis()->FindBin(x)));
+    return histogram_->GetBinContent(bin);
+  } else {
+    int binx = std::max(1, std::min(histogram_->GetNbinsX(), histogram_->GetXaxis()->FindBin(x)));
+    int biny = std::max(1, std::min(histogram_->GetNbinsY(), histogram_->GetYaxis()->FindBin(y)));
+    return histogram_->GetBinContent(binx,biny);
+  }
+}
+
 
 #endif // mainSelector_h

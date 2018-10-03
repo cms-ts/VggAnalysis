@@ -64,6 +64,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 100, 60., 120.);
 
    h_npvs = new TH1D("h_npvs", "h_npvs", 100, 0., 100.);
+   h_npvs_w = new TH1D("h_npvs_w", "h_npvs_w", 100, 0., 100.);
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -79,6 +80,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    GetOutputList()->Add(h_Z_muo);
 
    GetOutputList()->Add(h_npvs);
+   GetOutputList()->Add(h_npvs_w);
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -86,6 +88,37 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    GetOutputList()->Add(h_Z_ele_gen);
    GetOutputList()->Add(h_Z_muo_gen);
+
+   TFile* file_ele;
+   TFile* file_muo;
+#if defined(mainSelectorMC16_cxx)
+   file_ele = TFile::Open("root/ratio_pileup_Run2016_DoubleEG_22Aug2018.root");
+   file_muo = TFile::Open("root/ratio_pileup_Run2016_DoubleMuon_22Aug2018.root");
+   //file_ele = TFile::Open("root/ratio_pileup_Run2016_SingleElectron_22Aug2018.root");
+   //file_muo = TFile::Open("root/ratio_pileup_Run2016_SingleMuon_22Aug2018.root");
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
+   file_ele = TFile::Open("root/ratio_pileup_Run2017_DoubleEG_31Mar2018.root");
+   file_muo = TFile::Open("root/ratio_pileup_Run2017_DoubleMuon_31Mar2018.root");
+   //file_ele = TFile::Open("root/ratio_pileup_Run2017_SingleElectron_31Mar2018.root");
+   //file_muo = TFile::Open("root/ratio_pileup_Run2017_SingleMuon_31Mar2018.root");
+#endif // defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+   file_ele = TFile::Open("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
+   file_muo = TFile::Open("root/ratio_pileup_Run2018_DoubleMuon_14Sep2018.root");
+   //file_ele = TFile::Open("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
+   //file_muo = TFile::Open("root/ratio_pileup_Run2018_SingleMuon_14Sep2018.root");
+#endif // defined(mainSelectorMC18_cxx)
+
+   pu_ele_weights = (TH1D*)file_ele->Get("pu_weights");
+   pu_muo_weights = (TH1D*)file_muo->Get("pu_weights");
+
+   pu_ele_weights->SetDirectory(0);
+   pu_muo_weights->SetDirectory(0);
+
+   file_ele->Close();
+   file_muo->Close();
+
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 }
 
@@ -110,6 +143,11 @@ Bool_t mainSelector::Process(Long64_t entry)
    fReader.SetLocalEntry(entry);
 
    if (h_nevt) h_nevt->Fill(0.5);
+
+   int weight = 1.0;
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   weight = 0.5*(getWeight(pu_ele_weights, *Pileup_nTrueInt, 0) +  getWeight(pu_muo_weights, *Pileup_nTrueInt, 0));
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    int iele0 = -1;
    int iele1 = -1;
@@ -150,7 +188,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      TLorentzVector ele1;
      ele1.SetPtEtaPhiM(Electron_pt[iele1], Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
      TLorentzVector Z_ele = ele0 + ele1;
-     if (h_Z_ele) h_Z_ele->Fill(Z_ele.M());
+     if (h_Z_ele) h_Z_ele->Fill(Z_ele.M(), weight);
    }
 
    int imuo0 = -1;
@@ -182,11 +220,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      TLorentzVector muo1;
      muo1.SetPtEtaPhiM(Muon_pt[imuo1], Muon_eta[imuo1], Muon_phi[imuo1], Muon_mass[imuo1]);
      TLorentzVector Z_muo = muo0 + muo1;
-     if (h_Z_muo) h_Z_muo->Fill(Z_muo.M());
+     if (h_Z_muo) h_Z_muo->Fill(Z_muo.M(), weight);
    }
 
    if ((iele0 != -1 && iele1 != -1) || (imuo0 != -1 && imuo1 != -1)) {
      if (h_npvs) h_npvs->Fill(*PV_npvs);
+     if (h_npvs_w) h_npvs_w->Fill(*PV_npvs, weight);
    }
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
