@@ -243,4 +243,4 @@ Bool_t mainSelector::Notify()
    return kTRUE;
 }
 
-#endif // #ifdef mainSelector_cxx
+#endif // mainSelector_h

@@ -42,11 +42,11 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    Info("Begin", "options = %s", option.Data());
 
-#ifdef mainSelectorDT_cxx
-#endif // mainSelectorDT_cxx
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
-#ifdef mainSelectorMC_cxx
-#endif // mainSelectorMC_cxx
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 }
 
@@ -65,13 +65,13 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    h_npvs = new TH1D("h_npvs", "h_npvs", 100, 0., 100.);
 
-#ifdef mainSelectorDT_cxx
-#endif // mainSelectorDT_cxx
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
-#ifdef mainSelectorMC_cxx
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    h_Z_ele_gen = new TH1D("h_Z_ele_gen", "h_Z_ele_gen", 100, 60., 120.);
    h_Z_muo_gen = new TH1D("h_Z_muo_gen", "h_Z_muo_gen", 100, 60., 120.);
-#endif // mainSelectorMC_cxx
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    // add all booked histograms to the selector output list
    GetOutputList()->Add(h_nevt);
@@ -80,13 +80,13 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    GetOutputList()->Add(h_npvs);
 
-#ifdef mainSelectorDT_cxx
-#endif // mainSelectorDT_cxx
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
-#ifdef mainSelectorMC_cxx
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    GetOutputList()->Add(h_Z_ele_gen);
    GetOutputList()->Add(h_Z_muo_gen);
-#endif // mainSelectorMC_cxx
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 }
 
 Bool_t mainSelector::Process(Long64_t entry)
@@ -189,10 +189,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (h_npvs) h_npvs->Fill(*PV_npvs);
    }
 
-#ifdef mainSelectorDT_cxx
-#endif // mainSelectorDT_cxx
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
-#ifdef mainSelectorMC_cxx
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    TLorentzVector muo0_gen;
    TLorentzVector muo1_gen;
    TLorentzVector Z_muo_gen;
@@ -249,7 +249,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      TLorentzVector Z_muo_gen = muo0_gen + muo1_gen;
      if (h_Z_muo_gen) h_Z_muo_gen->Fill(Z_muo_gen.M());
    }
-#endif // mainSelectorMC_cxx
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    return kTRUE;
 }
@@ -289,10 +289,10 @@ void mainSelector::Terminate()
    }
    c1->Update();
 
-#ifdef mainSelectorDT_cxx
-#endif // mainSelectorDT_cxx
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
-#ifdef mainSelectorMC_cxx
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    TCanvas* c3 = new TCanvas("c3", "c3", 0, 0, 500, 500);
 
    h_Z_ele_gen = dynamic_cast<TH1D*>(fOutput->FindObject("h_Z_ele_gen"));
@@ -313,6 +313,6 @@ void mainSelector::Terminate()
      Warning("Terminate", "histogram not found");
    }
    c3->Update();
-#endif // mainSelectorMC_cxx
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 }
