@@ -7,7 +7,7 @@
 #include <TH1.h>
 #include <TCanvas.h>
 
-float getWeight(float x, float y, TH1 *histogram_) {
+float getWeight(float x, float y,TH1 *histogram_) {
   if (histogram_==NULL) {
     std::cout << "ERROR! The weights input histogram is not loaded. Returning weight 0!" << std::endl;
     return 0.;
@@ -119,7 +119,7 @@ void WeightCalculatorFromHistogram(string root_mc, string root_data, bool norm_,
     histogram_ = my_ratio(h_mc, h_data, fixLargeWgts, refvals_, norm_);
   }
  
-  TFile *f_output = new TFile(root_output.c_str(),"RECREATE");
+  TFile *f_output = new TFile(root_output.c_str(), "RECREATE");
   f_output->cd();
   histogram_->Write("pu_weights");
   f_output->Close();
