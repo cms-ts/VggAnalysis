@@ -121,6 +121,6 @@ void WeightCalculatorFromHistogram(string root_mc, string root_data, bool norm_,
  
   TFile *f_output = new TFile(root_output.c_str(),"RECREATE");
   f_output->cd();
-  histogram_->Write("h_puWeights");
+  histogram_->Write("pu_weights");
   f_output->Close();
 }
