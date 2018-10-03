@@ -4,22 +4,27 @@ WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
 
 cd $WORKDIR
 
-cp -p pileup/ratio_pileup_Run2016_DoubleEG_22Aug2018.root ../macros/root/
-cp -p pileup/ratio_pileup_Run2016_DoubleMuon_22Aug2018.root ../macros/root/
-cp -p pileup/ratio_pileup_Run2016_SingleElectron_22Aug2018.root ../macros/root/
-cp -p pileup/ratio_pileup_Run2016_SingleMuon_22Aug2018.root ../macros/root/
-cp -p pileup/ratio_pileup_Run2016_MuonEG_22Aug2018.root ../macros/root/
+for F in `ls pileup/ratio_pileup_Run*`; do
+  [ -z "${F##*DoubleEG_22Aug2018*}"       ] && cp -p $F ../macros/root/
+  [ -z "${F##*DoubleMuon_22Aug2018*}"     ] && cp -p $F ../macros/root/
+  [ -z "${F##*SingleElectron_22Aug2018*}" ] && cp -p $F ../macros/root/
+  [ -z "${F##*SingleMuon_22Aug2018*}"     ] && cp -p $F ../macros/root/
+  [ -z "${F##*MuonEG_22Aug2018*}"         ] && cp -p $F ../macros/root/
+done
 
-cp -p pileup/ratio_pileup_Run2017_DoubleEG_31Mar2018.root ../macros/root/
-cp -p pileup/ratio_pileup_Run2017_DoubleMuon_31Mar2018.root ../macros/root/
-cp -p pileup/ratio_pileup_Run2017_SingleElectron_31Mar2018.root ../macros/root/
-cp -p pileup/ratio_pileup_Run2017_SingleMuon_31Mar2018.root ../macros/root/
-cp -p pileup/ratio_pileup_Run2017_MuonEG_31Mar2018.root ../macros/root/
+for F in `ls pileup/ratio_pileup_Run*`; do
+  [ -z "${F##*DoubleEG_31Mar2018*}"       ] && cp -p $F ../macros/root/
+  [ -z "${F##*DoubleMuon_31Mar2018*}"     ] && cp -p $F ../macros/root/
+  [ -z "${F##*SingleElectron_31Mar2018*}" ] && cp -p $F ../macros/root/
+  [ -z "${F##*SingleMuon_31Mar2018*}"     ] && cp -p $F ../macros/root/
+  [ -z "${F##*MuonEG_31Mar2018*}"         ] && cp -p $F ../macros/root/
+done
 
-cp -p pileup/ratio_pileup_Run2018_EGamma_14Sep2018.root ../macros/root/
-cp -p pileup/ratio_pileup_Run2018_DoubleMuon_14Sep2018.root ../macros/root/
-cp -p pileup/ratio_pileup_Run2018_SingleMuon_14Sep2018.root ../macros/root/
-cp -p pileup/ratio_pileup_Run2018_MuonEG_14Sep2018.root ../macros/root/
-
+for F in `ls pileup/ratio_pileup_Run*`; do
+  [ -z "${F##*EGamma_14Sep2018*}"         ] && cp -p $F ../macros/root/
+  [ -z "${F##*DoubleMuon_14Sep2018*}"     ] && cp -p $F ../macros/root/
+  [ -z "${F##*SingleMuon_14Sep2018*}"     ] && cp -p $F ../macros/root/
+  [ -z "${F##*MuonEG_14Sep2018*}"         ] && cp -p $F ../macros/root/
+done
 
 exit
