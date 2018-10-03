@@ -1,8 +1,8 @@
 #!/bin/env python
+
 import sys
 import ROOT
 
-# https://github.com/cms-sw/cmssw/blob/master/SimGeneral/MixingModule/python/mix_2017_25ns_WinterMC_PUScenarioV1_PoissonOOTPU_cfi.py
 from SimGeneral.MixingModule.mix_2018_25ns_JuneProjectionFull18_PoissonOOTPU_cfi import *
 
 # print mix.input.nbPileupEvents.probFunctionVariable
