@@ -114,9 +114,9 @@ TH1* my_ratio(TH1 *h_mc, TH1 *h_data, bool fixLargeWgts, std::vector<float> refv
 
 //Main
 
-void WeightCalculatorFromHistogram(string root_mc, string root_data, bool norm_, bool fixLargeWgts/*, bool verbose*/) {
+void WeightCalculatorFromHistogram(string root_mc, string root_data, bool norm_, bool fixLargeWgts, string root_output/*, bool verbose*/) {
   TFile *f_mc = new TFile(root_mc.c_str(),"OPEN");
-  TH1 *h_mc = (TH1*)f_mc->Get("pu_mc");
+  TH1 *h_mc = (TH1*)f_mc->Get("pileup");
   TFile *f_data = new TFile(root_data.c_str(),"OPEN");
   TH1 *h_data = (TH1*)f_data->Get("pileup");
 
@@ -133,7 +133,12 @@ void WeightCalculatorFromHistogram(string root_mc, string root_data, bool norm_,
     }
     histogram_ = my_ratio(h_mc, h_data, fixLargeWgts, refvals_, norm_);
   }
-  TCanvas *c1 = new TCanvas();
-  c1->cd();
-  histogram_->Draw();
+ 
+  TFile *f_output = new TFile(root_output.c_str(),"RECREATE");
+  f_output->cd();
+  histogram_->Write("h_puWeights");
+  f_output->Close();
+  //TCanvas *c1 = new TCanvas();
+  //c1->cd();
+  //histogram_->Draw();
 }
