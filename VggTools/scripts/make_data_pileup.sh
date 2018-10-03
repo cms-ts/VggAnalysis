@@ -14,7 +14,7 @@ for F in `ls json/Run2016_*.json`; do
   pileupCalc.py -i $F \
                 --inputLumiJSON $P \
                 --calcMode true --minBiasXsec 69200 \
-                --maxPileupBin 100 --numPileupBins 100 pileup/`basename $F .json`.root
+                --maxPileupBin 100 --numPileupBins 100 pileup/pileup_`basename $F .json`.root
 done
 
 for F in `ls json/Run2017_*.json`; do
@@ -23,7 +23,7 @@ for F in `ls json/Run2017_*.json`; do
   pileupCalc.py -i $F \
                 --inputLumiJSON $P \
                 --calcMode true --minBiasXsec 69200 \
-                --maxPileupBin 100 --numPileupBins 100 pileup/`basename $F .json`.root
+                --maxPileupBin 100 --numPileupBins 100 pileup/pileup_`basename $F .json`.root
 
 done
 
@@ -33,7 +33,7 @@ for F in `ls json/Run2018_*.json`; do
   pileupCalc.py -i $F \
                 --inputLumiJSON $P \
                 --calcMode true --minBiasXsec 69200 \
-                --maxPileupBin 100 --numPileupBins 100 pileup/`basename $F .json`.root
+                --maxPileupBin 100 --numPileupBins 100 pileup/pileup_`basename $F .json`.root
 
 done
 
