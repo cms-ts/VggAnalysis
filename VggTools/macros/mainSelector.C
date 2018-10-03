@@ -209,7 +209,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(GenDressedLepton_eta[i]) > 1.442 && fabs(GenDressedLepton_eta[i]) < 1.566) ele_sel_gen = false;
        if (fabs(GenDressedLepton_eta[i]) > 2.500) ele_sel_gen = false;
        if (ele_sel_gen) {
-         if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_charge[i] != GenDressedLepton_charge[iele0_gen]) {
+         if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[iele0_gen]) {
            iele1_gen=i;
          }
          if (iele0_gen == -1) {
@@ -222,7 +222,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (GenDressedLepton_pt[i] < 20) muo_sel_gen = false;
        if (fabs(GenDressedLepton_eta[i]) > 2.400) muo_sel_gen = false;
        if (muo_sel_gen) {
-         if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_charge[i] != GenDressedLepton_charge[imuo0_gen]) {
+         if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[imuo0_gen]) {
            imuo1_gen=i;
          }
          if (imuo0_gen == -1) {
