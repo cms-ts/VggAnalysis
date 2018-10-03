@@ -5,6 +5,7 @@ eval `scramv1 runtime -sh`
 cd - > /dev/null
 
 DATADIR=/eos/infnts/cms/store/user/dellaric/data
+
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
 
 cd $WORKDIR
