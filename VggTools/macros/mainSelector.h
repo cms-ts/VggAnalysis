@@ -29,8 +29,10 @@ public :
    TH1D* h_Z_ele = 0;
    TH1D* h_Z_muo = 0;
 
-   TH1D* h_npvs = 0;
-   TH1D* h_npvs_w = 0;
+   TH1D* h_npvs_ele = 0;
+   TH1D* h_npvs_ele_w = 0;
+   TH1D* h_npvs_muo = 0;
+   TH1D* h_npvs_muo_w = 0;
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
@@ -44,6 +46,9 @@ public :
 
    TH2D* sf_ele_eff = 0;
    TH2D* sf_ele_reco = 0;
+
+   TH2D* sf_muo_id = 0;
+   TH2D* sf_muo_iso = 0;
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
 #if defined(mainSelectorDT16_h) 

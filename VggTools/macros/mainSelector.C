@@ -63,8 +63,10 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_ele = new TH1D("h_Z_ele", "h_Z_ele", 100, 60., 120.);
    h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 100, 60., 120.);
 
-   h_npvs = new TH1D("h_npvs", "h_npvs", 100, 0., 100.);
-   h_npvs_w = new TH1D("h_npvs_w", "h_npvs_w", 100, 0., 100.);
+   h_npvs_ele = new TH1D("h_npvs_ele", "h_npvs_ele", 100, 0., 100.);
+   h_npvs_ele_w = new TH1D("h_npvs_ele_w", "h_npvs_ele_w", 100, 0., 100.);
+   h_npvs_muo = new TH1D("h_npvs_muo", "h_npvs_muo", 100, 0., 100.);
+   h_npvs_muo_w = new TH1D("h_npvs_muo_w", "h_npvs_muo_w", 100, 0., 100.);
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -79,8 +81,10 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    GetOutputList()->Add(h_Z_ele);
    GetOutputList()->Add(h_Z_muo);
 
-   GetOutputList()->Add(h_npvs);
-   GetOutputList()->Add(h_npvs_w);
+   GetOutputList()->Add(h_npvs_ele);
+   GetOutputList()->Add(h_npvs_ele_w);
+   GetOutputList()->Add(h_npvs_muo);
+   GetOutputList()->Add(h_npvs_muo_w);
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -95,6 +99,9 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    TFile* file_ele_sf_eff;
    TFile* file_ele_sf_reco;
 
+   TFile* file_muo_sf_id;
+   TFile* file_muo_sf_iso;
+
 #if defined(mainSelectorMC16_cxx)
    file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleEG_22Aug2018.root");
    file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleMuon_22Aug2018.root");
@@ -102,6 +109,9 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    //file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_SingleMuon_22Aug2018.root");
 
    file_ele_sf_eff = TFile::Open("root/sf_EGM2D_WP90_2016.root");
+
+   file_muo_sf_id = TFile::Open("root/sf_muo_RunBCDEF_ID_2016.root");
+   file_muo_sf_iso = TFile::Open("root/sf_muo_RunBCDEF_ISO_2016.root");
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
    file_ele_pu = TFile::Open("root/ratio_pileup_Run2017_DoubleEG_31Mar2018.root");
@@ -111,6 +121,9 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    file_ele_sf_eff = TFile::Open("root/sf_EGM2D_runBCDEF_passingMVA94Xwp90iso_2017.root");
    file_ele_sf_reco = TFile::Open("root/sf_reco_EGM2D_runBCDEF_passingRECO_2017.root");
+
+   file_muo_sf_id = TFile::Open("root/sf_muo_RunBCDEF_ID_2017.root");
+   file_muo_sf_iso = TFile::Open("root/sf_muo_RunBCDEF_ISO_2017.root");
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
    file_ele_pu = TFile::Open("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
@@ -134,6 +147,16 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    sf_ele_eff->SetDirectory(0);
 
    file_ele_sf_eff->Close();
+
+   sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
+   sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
+
+   sf_muo_id->SetDirectory(0);
+   sf_muo_iso->SetDirectory(0);
+
+   file_muo_sf_id->Close();
+   file_muo_sf_iso->Close();
+
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
@@ -144,6 +167,16 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    file_ele_sf_eff->Close();
    file_ele_sf_reco->Close();
+
+   sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
+   sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
+
+   sf_muo_id->SetDirectory(0);
+   sf_muo_iso->SetDirectory(0);
+
+   file_muo_sf_id->Close();
+   file_muo_sf_iso->Close();
+
 #endif // defined(mainSelectorMC17_cxx)
 
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
@@ -171,9 +204,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (h_nevt) h_nevt->Fill(0.5);
 
-   float weight_pu = 1.0;
+   float weight_pu_ele = 1.0;
+   float weight_pu_muo = 1.0;
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   weight_pu = 0.5*(getWeight(pu_ele_weights, *Pileup_nTrueInt, 0) +  getWeight(pu_muo_weights, *Pileup_nTrueInt, 0));
+   weight_pu_ele = getWeight(pu_ele_weights, *Pileup_nTrueInt, 0);
+   weight_pu_muo = getWeight(pu_muo_weights, *Pileup_nTrueInt, 0);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    int iele0 = -1;
@@ -209,7 +244,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-   float weight_ele = 0;
+   float weight_ele = 1.;
+   float Z_mass_ele = 0.;
 
    if (iele0 != -1 && iele1 != -1) {
      TLorentzVector ele0;
@@ -220,7 +256,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorMC16_cxx)
      float weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0], Electron_pt[iele0]);
      float weight_eff_ele1 = getWeight(sf_ele_eff, Electron_eta[iele1], Electron_pt[iele1]);
-     weight_ele = weight_pu * weight_eff_ele0 * weight_eff_ele1;
+     weight_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1;
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
      float weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0], Electron_pt[iele0]);
@@ -228,8 +264,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      float weight_reco_ele0 = getWeight(sf_ele_reco, Electron_eta[iele0], Electron_pt[iele0]);
      float weight_reco_ele1 = getWeight(sf_ele_reco, Electron_eta[iele1], Electron_pt[iele1]);
      float weight_hlt_ele = 0.991;
-     weight_ele = weight_pu * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
+     weight_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
 #endif // defined(mainSelectorMC17_cxx)
+     Z_mass_ele = Z_ele.M();
      if (h_Z_ele) h_Z_ele->Fill(Z_ele.M(), weight_ele);
    }
 
@@ -256,7 +293,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-   float weight_muo = 0;
+   float weight_muo = 1.;
+   float Z_mass_muo = 0.;
 
    if (imuo0 != -1 && imuo1 != -1) {
      TLorentzVector muo0;
@@ -264,13 +302,31 @@ Bool_t mainSelector::Process(Long64_t entry)
      TLorentzVector muo1;
      muo1.SetPtEtaPhiM(Muon_pt[imuo1], Muon_eta[imuo1], Muon_phi[imuo1], Muon_mass[imuo1]);
      TLorentzVector Z_muo = muo0 + muo1;
-   weight_muo = weight_pu; //FIXME
+#if defined(mainSelectorMC16_cxx)
+     float weight_id_muo0 = getWeight(sf_muo_id, Muon_eta[imuo0], Muon_pt[imuo0]);
+     float weight_id_muo1 = getWeight(sf_muo_id, Muon_eta[imuo1], Muon_pt[imuo1]);
+     float weight_iso_muo0 = getWeight(sf_muo_iso, Muon_eta[imuo0], Muon_pt[imuo0]);
+     float weight_iso_muo1 = getWeight(sf_muo_iso, Muon_eta[imuo1], Muon_pt[imuo1]);
+     weight_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
+     float weight_id_muo0 = getWeight(sf_muo_id, Muon_pt[imuo0], fabs(Muon_eta[imuo0]));
+     float weight_id_muo1 = getWeight(sf_muo_id, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
+     float weight_iso_muo0 = getWeight(sf_muo_iso, Muon_pt[imuo0], fabs(Muon_eta[imuo0]));
+     float weight_iso_muo1 = getWeight(sf_muo_iso, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
+     weight_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
+#endif // defined(mainSelectorMC17_cxx)
+     Z_mass_muo = Z_muo.M();
      if (h_Z_muo) h_Z_muo->Fill(Z_muo.M(), weight_muo);
    }
 
-   if ((iele0 != -1 && iele1 != -1) || (imuo0 != -1 && imuo1 != -1)) {
-     if (h_npvs) h_npvs->Fill(*PV_npvs);
-     if (h_npvs_w) h_npvs_w->Fill(*PV_npvs, weight_ele);
+   if (iele0 != -1 && iele1 != -1 && Z_mass_ele >= 60. && Z_mass_ele <= 120.) {
+     if (h_npvs_ele) h_npvs_ele->Fill(*PV_npvs);
+     if (h_npvs_ele_w) h_npvs_ele_w->Fill(*PV_npvs, weight_ele);
+   }
+   if (imuo0 != -1 && imuo1 != -1 && Z_mass_muo >= 60. && Z_mass_muo <= 120.) {
+     if (h_npvs_muo) h_npvs_muo->Fill(*PV_npvs);
+     if (h_npvs_muo_w) h_npvs_muo_w->Fill(*PV_npvs, weight_muo);
    }
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
