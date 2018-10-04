@@ -18,6 +18,7 @@
 // Headers needed by this particular selector
 
 #include "TH1D.h"
+#include "TH2D.h"
 
 class mainSelector : public TSelector {
 public :
@@ -40,6 +41,9 @@ public :
 
    TH1D* pu_ele_weights = 0;
    TH1D* pu_muo_weights = 0;
+
+   TH2D* sf_ele_eff = 0;
+   TH2D* sf_ele_reco = 0;
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
 #if defined(mainSelectorDT16_h) 
