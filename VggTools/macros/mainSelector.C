@@ -256,6 +256,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      ele0.SetPtEtaPhiM(Electron_pt[iele0], Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
      ele1.SetPtEtaPhiM(Electron_pt[iele1], Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
      Z_ele0_ele1 = ele0 + ele1;
+     if (Z_ele0_ele1.M() >= 60. && Z_ele0_ele1.M() <= 120.) {
+       Z_ele_sel = true;
+     }
+   }
+
+   if (iele0 != -1 && iele1 != -1) {
 #if defined(mainSelectorMC16_cxx)
      float weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0], Electron_pt[iele0]);
      float weight_eff_ele1 = getWeight(sf_ele_eff, Electron_eta[iele1], Electron_pt[iele1]);
@@ -269,12 +275,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      float weight_hlt_ele = 0.991;
      weight_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
 #endif // defined(mainSelectorMC17_cxx)
-   }
-
-   if (iele0 != -1 && iele1 != -1) {
-     if (Z_ele0_ele1.M() >= 60. && Z_ele0_ele1.M() <= 120.) {
-       Z_ele_sel = true;
-     }
    }
 
    int imuo0 = -1;
@@ -310,6 +310,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      muo0.SetPtEtaPhiM(Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], Muon_mass[imuo0]);
      muo1.SetPtEtaPhiM(Muon_pt[imuo1], Muon_eta[imuo1], Muon_phi[imuo1], Muon_mass[imuo1]);
      Z_muo0_muo1 = muo0 + muo1;
+     if (Z_muo0_muo1.M() >= 60. && Z_muo0_muo1.M() <= 120.) {
+       Z_muo_sel = true;
+     }
+   }
+
+   if (imuo0 != -1 && imuo1 != -1) {
 #if defined(mainSelectorMC16_cxx)
      float weight_id_muo0 = getWeight(sf_muo_id, Muon_eta[imuo0], Muon_pt[imuo0]);
      float weight_id_muo1 = getWeight(sf_muo_id, Muon_eta[imuo1], Muon_pt[imuo1]);
@@ -324,12 +330,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      float weight_iso_muo1 = getWeight(sf_muo_iso, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
      weight_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
 #endif // defined(mainSelectorMC17_cxx)
-   }
-
-   if (imuo0 != -1 && imuo1 != -1) {
-     if (Z_muo0_muo1.M() >= 60. && Z_muo0_muo1.M() <= 120.) {
-       Z_muo_sel = true;
-     }
    }
 
    if (Z_ele_sel) {
@@ -348,9 +348,16 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   bool Z_ele_sel_gen = false;
+   bool Z_muo_sel_gen = false;
+
+   TLorentzVector ele0_gen;
+   TLorentzVector ele1_gen;
+   TLorentzVector Z_ele0_ele1_gen;
+
    TLorentzVector muo0_gen;
    TLorentzVector muo1_gen;
-   TLorentzVector Z_muo_gen;
+   TLorentzVector Z_muo0_muo1_gen;
 
    int iele0_gen = -1;
    int iele1_gen = -1;
@@ -388,21 +395,29 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (iele0_gen != -1 && iele1_gen != -1) {
-     TLorentzVector ele0_gen;
-     TLorentzVector ele1_gen;
      ele0_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele0_gen], GenDressedLepton_eta[iele0_gen], GenDressedLepton_phi[iele0_gen], Electron_mass[iele0_gen]);
      ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele1_gen], GenDressedLepton_eta[iele1_gen], GenDressedLepton_phi[iele1_gen], Electron_mass[iele1_gen]);
-     TLorentzVector Z_ele_gen = ele0_gen + ele1_gen;
-     if (h_Z_ele_gen) h_Z_ele_gen->Fill(Z_ele_gen.M());
+     Z_ele0_ele1_gen = ele0_gen + ele1_gen;
+     if (Z_ele0_ele1_gen.M() >= 60. && Z_ele0_ele1_gen.M() <= 120.) {
+       Z_ele_sel_gen = true;
+     }
    }
 
    if (imuo0_gen != -1 && imuo1_gen != -1) {
-     TLorentzVector muo0_gen;
-     TLorentzVector muo1_gen;
      muo0_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo0_gen], GenDressedLepton_eta[imuo0_gen], GenDressedLepton_phi[imuo0_gen], Electron_mass[imuo0_gen]);
      muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo1_gen], GenDressedLepton_eta[imuo1_gen], GenDressedLepton_phi[imuo1_gen], Electron_mass[imuo1_gen]);
-     TLorentzVector Z_muo_gen = muo0_gen + muo1_gen;
-     if (h_Z_muo_gen) h_Z_muo_gen->Fill(Z_muo_gen.M());
+     Z_muo0_muo1_gen = muo0_gen + muo1_gen;
+     if (Z_muo0_muo1_gen.M() >= 60. && Z_muo0_muo1_gen.M() <= 120.) {
+       Z_muo_sel_gen = true;
+     }
+   }
+
+   if (Z_ele_sel_gen) {
+     if (h_Z_ele_gen) h_Z_ele_gen->Fill(Z_ele0_ele1_gen.M());
+   }
+
+   if (Z_muo_sel_gen) {
+     if (h_Z_muo_gen) h_Z_muo_gen->Fill(Z_muo0_muo1_gen.M());
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
