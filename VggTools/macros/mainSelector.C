@@ -408,51 +408,10 @@ void mainSelector::Terminate()
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
 
-   TCanvas* c1 = new TCanvas("c1", "c1", 0, 0, 500, 500);
-
-   h_Z_ele = dynamic_cast<TH1D*>(fOutput->FindObject("h_Z_ele"));
-   h_Z_muo = dynamic_cast<TH1D*>(fOutput->FindObject("h_Z_muo"));
-
-   c1->Divide(0,2);
-
-   c1->cd(1);
-   if (h_Z_ele) {
-     h_Z_ele->Draw();
-   } else {
-     Warning("Terminate", "histogram not found");
-   }
-   c1->cd(2);
-   if (h_Z_muo) {
-     h_Z_muo->Draw();
-   } else {
-     Warning("Terminate", "histogram not found");
-   }
-   c1->Update();
-
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   TCanvas* c3 = new TCanvas("c3", "c3", 0, 0, 500, 500);
-
-   h_Z_ele_gen = dynamic_cast<TH1D*>(fOutput->FindObject("h_Z_ele_gen"));
-   h_Z_muo_gen = dynamic_cast<TH1D*>(fOutput->FindObject("h_Z_muo_gen"));
-
-   c3->Divide(0,2);
-
-   c3->cd(1);
-   if (h_Z_ele_gen) {
-     h_Z_ele_gen->Draw();
-   } else {
-     Warning("Terminate", "histogram not found");
-   }
-   c3->cd(2);
-   if (h_Z_muo_gen) {
-     h_Z_muo_gen->Draw();
-   } else {
-     Warning("Terminate", "histogram not found");
-   }
-   c3->Update();
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 }
