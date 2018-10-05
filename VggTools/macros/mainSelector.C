@@ -156,7 +156,6 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
-
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
@@ -176,10 +175,10 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
-
 #endif // defined(mainSelectorMC17_cxx)
 
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
 }
 
 Bool_t mainSelector::Process(Long64_t entry)
@@ -203,6 +202,9 @@ Bool_t mainSelector::Process(Long64_t entry)
    fReader.SetLocalEntry(entry);
 
    if (h_nevt) h_nevt->Fill(0.5);
+
+   bool Z_ele_sel = false;
+   bool Z_muo_sel = false;
 
    float weight_pu_ele = 1.0;
    float weight_pu_muo = 1.0;
@@ -244,15 +246,16 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+   TLorentzVector ele0;
+   TLorentzVector ele1;
+   TLorentzVector Z_ele0_ele1;
+
    float weight_ele = 1.;
-   float Z_mass_ele = 0.;
 
    if (iele0 != -1 && iele1 != -1) {
-     TLorentzVector ele0;
      ele0.SetPtEtaPhiM(Electron_pt[iele0], Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
-     TLorentzVector ele1;
      ele1.SetPtEtaPhiM(Electron_pt[iele1], Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
-     TLorentzVector Z_ele = ele0 + ele1;
+     Z_ele0_ele1 = ele0 + ele1;
 #if defined(mainSelectorMC16_cxx)
      float weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0], Electron_pt[iele0]);
      float weight_eff_ele1 = getWeight(sf_ele_eff, Electron_eta[iele1], Electron_pt[iele1]);
@@ -266,8 +269,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      float weight_hlt_ele = 0.991;
      weight_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
 #endif // defined(mainSelectorMC17_cxx)
-     Z_mass_ele = Z_ele.M();
-     if (h_Z_ele) h_Z_ele->Fill(Z_ele.M(), weight_ele);
+   }
+
+   if (iele0 != -1 && iele1 != -1) {
+     if (Z_ele0_ele1.M() >= 60. && Z_ele0_ele1.M() <= 120.) {
+       Z_ele_sel = true;
+     }
    }
 
    int imuo0 = -1;
@@ -293,15 +300,16 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+   TLorentzVector muo0;
+   TLorentzVector muo1;
+   TLorentzVector Z_muo0_muo1;
+
    float weight_muo = 1.;
-   float Z_mass_muo = 0.;
 
    if (imuo0 != -1 && imuo1 != -1) {
-     TLorentzVector muo0;
      muo0.SetPtEtaPhiM(Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], Muon_mass[imuo0]);
-     TLorentzVector muo1;
      muo1.SetPtEtaPhiM(Muon_pt[imuo1], Muon_eta[imuo1], Muon_phi[imuo1], Muon_mass[imuo1]);
-     TLorentzVector Z_muo = muo0 + muo1;
+     Z_muo0_muo1 = muo0 + muo1;
 #if defined(mainSelectorMC16_cxx)
      float weight_id_muo0 = getWeight(sf_muo_id, Muon_eta[imuo0], Muon_pt[imuo0]);
      float weight_id_muo1 = getWeight(sf_muo_id, Muon_eta[imuo1], Muon_pt[imuo1]);
@@ -316,15 +324,22 @@ Bool_t mainSelector::Process(Long64_t entry)
      float weight_iso_muo1 = getWeight(sf_muo_iso, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
      weight_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
 #endif // defined(mainSelectorMC17_cxx)
-     Z_mass_muo = Z_muo.M();
-     if (h_Z_muo) h_Z_muo->Fill(Z_muo.M(), weight_muo);
    }
 
-   if (iele0 != -1 && iele1 != -1 && Z_mass_ele >= 60. && Z_mass_ele <= 120.) {
+   if (imuo0 != -1 && imuo1 != -1) {
+     if (Z_muo0_muo1.M() >= 60. && Z_muo0_muo1.M() <= 120.) {
+       Z_muo_sel = true;
+     }
+   }
+
+   if (Z_ele_sel) {
+     if (h_Z_ele) h_Z_ele->Fill(Z_ele0_ele1.M(), weight_ele);
      if (h_npvs_ele) h_npvs_ele->Fill(*PV_npvs);
      if (h_npvs_ele_w) h_npvs_ele_w->Fill(*PV_npvs, weight_ele);
    }
-   if (imuo0 != -1 && imuo1 != -1 && Z_mass_muo >= 60. && Z_mass_muo <= 120.) {
+
+   if (Z_muo_sel) {
+     if (h_Z_muo) h_Z_muo->Fill(Z_muo0_muo1.M(), weight_muo);
      if (h_npvs_muo) h_npvs_muo->Fill(*PV_npvs);
      if (h_npvs_muo_w) h_npvs_muo_w->Fill(*PV_npvs, weight_muo);
    }
