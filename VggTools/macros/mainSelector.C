@@ -364,7 +364,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int imuo0_gen = -1;
    int imuo1_gen = -1;
 
-   for (unsigned int i = 0; i < *nGenDressedLepton; i++) {
+   for (uint i = 0; i < *nGenDressedLepton; i++) {
      if (fabs(GenDressedLepton_pdgId[i]) == 11) {
        bool ele_sel_gen = true;
        if (GenDressedLepton_pt[i] < 20) ele_sel_gen = false;
