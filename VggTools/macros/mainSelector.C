@@ -250,7 +250,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    TLorentzVector ele1;
    TLorentzVector Z_ele0_ele1;
 
-   float weight_ele = 1.;
+   float weight_Z_ele = 1.;
 
    if (iele0 != -1 && iele1 != -1) {
      ele0.SetPtEtaPhiM(Electron_pt[iele0], Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
@@ -265,7 +265,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorMC16_cxx)
      float weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0], Electron_pt[iele0]);
      float weight_eff_ele1 = getWeight(sf_ele_eff, Electron_eta[iele1], Electron_pt[iele1]);
-     weight_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1;
+     weight_Z_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1;
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
      float weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0], Electron_pt[iele0]);
@@ -273,7 +273,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      float weight_reco_ele0 = getWeight(sf_ele_reco, Electron_eta[iele0], Electron_pt[iele0]);
      float weight_reco_ele1 = getWeight(sf_ele_reco, Electron_eta[iele1], Electron_pt[iele1]);
      float weight_hlt_ele = 0.991;
-     weight_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
+     weight_Z_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
 #endif // defined(mainSelectorMC17_cxx)
    }
 
@@ -304,7 +304,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    TLorentzVector muo1;
    TLorentzVector Z_muo0_muo1;
 
-   float weight_muo = 1.;
+   float weight_Z_muo = 1.;
 
    if (imuo0 != -1 && imuo1 != -1) {
      muo0.SetPtEtaPhiM(Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], Muon_mass[imuo0]);
@@ -321,27 +321,27 @@ Bool_t mainSelector::Process(Long64_t entry)
      float weight_id_muo1 = getWeight(sf_muo_id, Muon_eta[imuo1], Muon_pt[imuo1]);
      float weight_iso_muo0 = getWeight(sf_muo_iso, Muon_eta[imuo0], Muon_pt[imuo0]);
      float weight_iso_muo1 = getWeight(sf_muo_iso, Muon_eta[imuo1], Muon_pt[imuo1]);
-     weight_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
+     weight_Z_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
      float weight_id_muo0 = getWeight(sf_muo_id, Muon_pt[imuo0], fabs(Muon_eta[imuo0]));
      float weight_id_muo1 = getWeight(sf_muo_id, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
      float weight_iso_muo0 = getWeight(sf_muo_iso, Muon_pt[imuo0], fabs(Muon_eta[imuo0]));
      float weight_iso_muo1 = getWeight(sf_muo_iso, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
-     weight_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
+     weight_Z_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
 #endif // defined(mainSelectorMC17_cxx)
    }
 
    if (Z_ele_sel) {
-     if (h_Z_ele) h_Z_ele->Fill(Z_ele0_ele1.M(), weight_ele);
+     if (h_Z_ele) h_Z_ele->Fill(Z_ele0_ele1.M(), weight_Z_ele);
      if (h_npvs_ele) h_npvs_ele->Fill(*PV_npvs);
-     if (h_npvs_ele_w) h_npvs_ele_w->Fill(*PV_npvs, weight_ele);
+     if (h_npvs_ele_w) h_npvs_ele_w->Fill(*PV_npvs, weight_Z_ele);
    }
 
    if (Z_muo_sel) {
-     if (h_Z_muo) h_Z_muo->Fill(Z_muo0_muo1.M(), weight_muo);
+     if (h_Z_muo) h_Z_muo->Fill(Z_muo0_muo1.M(), weight_Z_muo);
      if (h_npvs_muo) h_npvs_muo->Fill(*PV_npvs);
-     if (h_npvs_muo_w) h_npvs_muo_w->Fill(*PV_npvs, weight_muo);
+     if (h_npvs_muo_w) h_npvs_muo_w->Fill(*PV_npvs, weight_Z_muo);
    }
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
