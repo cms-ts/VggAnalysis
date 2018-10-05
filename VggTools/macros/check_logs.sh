@@ -6,9 +6,11 @@ if [ ! -z "$1" ]; then
   VERSION=$1
 fi
 
-DATADIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
+WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 
-cat $DATADIR/data/$VERSION/*.log | \
+cd $WORKDIR
+
+cat data/$VERSION/*.log | \
 grep [a-z,A-Z] | \
 grep -v 'Processing' | \
 grep -v 'Starting PROOF-Lite' | \
@@ -25,6 +27,6 @@ grep -v 'Lite-0' | \
 grep -v '+++' | \
 grep -v '(M)' | \
 grep -v '#' | \
-sed -e 's;'$DATADIR'/lists/;;'
+sed -e 's;'$WORKDIR'/lists/;;'
 
 exit
