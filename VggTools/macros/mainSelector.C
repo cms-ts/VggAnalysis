@@ -225,10 +225,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Electron_eta[i]) > 2.500) ele_sel = false;
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-     if (*HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ == false) ele_sel = false;
+     if (*HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ == 0) ele_sel = false;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-     if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ == false) ele_sel = false;
+     if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ == 0) ele_sel = false;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -293,9 +293,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Muon_eta[i]) > 1.442 && fabs(Muon_eta[i]) < 1.566) muo_sel = false;
      if (fabs(Muon_eta[i]) > 2.500) muo_sel = false;
 
-     if (Muon_tightId[i] == 0) muo_sel = false;
+     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ == 0) muo_sel = false;
 
-     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ == false) muo_sel = false;
+     if (Muon_tightId[i] == 0) muo_sel = false;
 
      if (muo_sel) {
        if (imuo0 != -1 && imuo1 == -1 && Muon_charge[imuo0] != Muon_charge[i]) {
