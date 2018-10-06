@@ -60,8 +60,8 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    // create the histograms
    h_nevt = new TH1D("h_nevt", "h_nevt", 10, 0., 10.);
-   h_Z_ele = new TH1D("h_Z_ele", "h_Z_ele", 100, 60., 120.);
-   h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 100, 60., 120.);
+   h_Z_ele = new TH1D("h_Z_ele", "h_Z_ele", 100, 71., 111.);
+   h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 100, 71., 111.);
 
    h_npvs_ele = new TH1D("h_npvs_ele", "h_npvs_ele", 100, 0., 100.);
    h_npvs_ele_w = new TH1D("h_npvs_ele_w", "h_npvs_ele_w", 100, 0., 100.);
@@ -72,8 +72,8 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   h_Z_ele_gen = new TH1D("h_Z_ele_gen", "h_Z_ele_gen", 100, 60., 120.);
-   h_Z_muo_gen = new TH1D("h_Z_muo_gen", "h_Z_muo_gen", 100, 60., 120.);
+   h_Z_ele_gen = new TH1D("h_Z_ele_gen", "h_Z_ele_gen", 100, 71., 111.);
+   h_Z_muo_gen = new TH1D("h_Z_muo_gen", "h_Z_muo_gen", 100, 71., 111.);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    // add all booked histograms to the selector output list
@@ -220,18 +220,23 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (*nElectron < 2) ele_sel = false;
    for (uint i = 0; i < *nElectron; i++) {
      ele_sel = true;
-     if (Electron_pt[i] < 20) ele_sel = false;
+     if (Electron_pt[i] < 25) ele_sel = false;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) ele_sel = false;
      if (fabs(Electron_eta[i]) > 2.500) ele_sel = false;
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     if (*HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ == false) ele_sel = false;
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ == false) ele_sel = false;
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (Electron_mvaSpring16GP_WP90[i] == 0) ele_sel = false;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      if (Electron_mvaFall17Iso_WP90[i] == 0) ele_sel = false;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (Electron_mvaFall17V2Iso_WP90[i] == 0) ele_sel = false;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
@@ -256,7 +261,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      ele0.SetPtEtaPhiM(Electron_pt[iele0], Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
      ele1.SetPtEtaPhiM(Electron_pt[iele1], Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
      Z_ele0_ele1 = ele0 + ele1;
-     if (Z_ele0_ele1.M() >= 60. && Z_ele0_ele1.M() <= 120.) {
+     if (Z_ele0_ele1.M() >= 71. && Z_ele0_ele1.M() <= 111.) {
        Z_ele_sel = true;
      }
    }
@@ -284,11 +289,13 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (*nMuon < 2) muo_sel = false;
      for (uint i = 0; i < *nMuon; i++) {
      muo_sel = true;
-     if (Muon_pt[i] < 20) muo_sel = false;
+     if (Muon_pt[i] < 25) muo_sel = false;
      if (fabs(Muon_eta[i]) > 1.442 && fabs(Muon_eta[i]) < 1.566) muo_sel = false;
      if (fabs(Muon_eta[i]) > 2.500) muo_sel = false;
 
      if (Muon_tightId[i] == 0) muo_sel = false;
+
+     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ == false) muo_sel = false;
 
      if (muo_sel) {
        if (imuo0 != -1 && imuo1 == -1 && Muon_charge[imuo0] != Muon_charge[i]) {
@@ -310,7 +317,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      muo0.SetPtEtaPhiM(Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], Muon_mass[imuo0]);
      muo1.SetPtEtaPhiM(Muon_pt[imuo1], Muon_eta[imuo1], Muon_phi[imuo1], Muon_mass[imuo1]);
      Z_muo0_muo1 = muo0 + muo1;
-     if (Z_muo0_muo1.M() >= 60. && Z_muo0_muo1.M() <= 120.) {
+     if (Z_muo0_muo1.M() >= 71. && Z_muo0_muo1.M() <= 111.) {
        Z_muo_sel = true;
      }
    }
@@ -334,14 +341,14 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (Z_ele_sel) {
      if (h_Z_ele) h_Z_ele->Fill(Z_ele0_ele1.M(), weight_Z_ele);
-     if (h_npvs_ele) h_npvs_ele->Fill(*PV_npvs);
-     if (h_npvs_ele_w) h_npvs_ele_w->Fill(*PV_npvs, weight_Z_ele);
+     if (h_npvs_ele) h_npvs_ele->Fill(*PV_npvsGood);
+     if (h_npvs_ele_w) h_npvs_ele_w->Fill(*PV_npvsGood, weight_Z_ele);
    }
 
    if (Z_muo_sel) {
      if (h_Z_muo) h_Z_muo->Fill(Z_muo0_muo1.M(), weight_Z_muo);
-     if (h_npvs_muo) h_npvs_muo->Fill(*PV_npvs);
-     if (h_npvs_muo_w) h_npvs_muo_w->Fill(*PV_npvs, weight_Z_muo);
+     if (h_npvs_muo) h_npvs_muo->Fill(*PV_npvsGood);
+     if (h_npvs_muo_w) h_npvs_muo_w->Fill(*PV_npvsGood, weight_Z_muo);
    }
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -398,7 +405,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      ele0_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele0_gen], GenDressedLepton_eta[iele0_gen], GenDressedLepton_phi[iele0_gen], Electron_mass[iele0_gen]);
      ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele1_gen], GenDressedLepton_eta[iele1_gen], GenDressedLepton_phi[iele1_gen], Electron_mass[iele1_gen]);
      Z_ele0_ele1_gen = ele0_gen + ele1_gen;
-     if (Z_ele0_ele1_gen.M() >= 60. && Z_ele0_ele1_gen.M() <= 120.) {
+     if (Z_ele0_ele1_gen.M() >= 71. && Z_ele0_ele1_gen.M() <= 111.) {
        Z_ele_sel_gen = true;
      }
    }
@@ -407,7 +414,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      muo0_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo0_gen], GenDressedLepton_eta[imuo0_gen], GenDressedLepton_phi[imuo0_gen], Electron_mass[imuo0_gen]);
      muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo1_gen], GenDressedLepton_eta[imuo1_gen], GenDressedLepton_phi[imuo1_gen], Electron_mass[imuo1_gen]);
      Z_muo0_muo1_gen = muo0_gen + muo1_gen;
-     if (Z_muo0_muo1_gen.M() >= 60. && Z_muo0_muo1_gen.M() <= 120.) {
+     if (Z_muo0_muo1_gen.M() >= 71. && Z_muo0_muo1_gen.M() <= 111.) {
        Z_muo_sel_gen = true;
      }
    }

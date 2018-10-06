@@ -72,6 +72,11 @@ public :
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
+   TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
+
+   TTreeReaderValue<Bool_t> HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"}; //FIXME
+
 #endif // defined(mainSelectorDT16_h)
 
 #if defined(mainSelectorDT17_h)
@@ -95,6 +100,9 @@ public :
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
+   TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
+
 #endif // defined(mainSelectorDT17_h)
 
 #if defined(mainSelectorDT18_h)
@@ -117,6 +125,9 @@ public :
 
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
+
+   TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
 
 #endif // defined(mainSelectorDT18_h)
 
@@ -149,6 +160,11 @@ public :
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
 
+   TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
+
+   TTreeReaderValue<Bool_t> HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"}; //FIXME
+
 #endif // defined(mainSelectorMC16_h)
 
 #if defined(mainSelectorMC17_h)
@@ -180,6 +196,9 @@ public :
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
 
+   TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
+
 #endif // defined(mainSelectorMC17_h)
 
 #if defined(mainSelectorMC18_h)
@@ -210,6 +229,9 @@ public :
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
+
+   TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
 
 #endif // defined(mainSelectorMC18_h)
 
