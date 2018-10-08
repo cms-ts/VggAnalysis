@@ -7,6 +7,14 @@ cd $WORKDIR
 LISTS=`ls lists/`
 
 for L in $LISTS; do
+  [ -z "${L##*DoubleEG_05Feb2018*}"       ] && cp -p lists/$L ../macros/lists/
+  [ -z "${L##*DoubleMuon_05Feb2018*}"     ] && cp -p lists/$L ../macros/lists/
+  [ -z "${L##*SingleElectron_05Feb2018*}" ] && cp -p lists/$L ../macros/lists/
+  [ -z "${L##*SingleMuon_05Feb2018*}"     ] && cp -p lists/$L ../macros/lists/
+  [ -z "${L##*MuonEG_05Feb2018*}"         ] && cp -p lists/$L ../macros/lists/
+done
+
+for L in $LISTS; do
   [ -z "${L##*DoubleEG_22Aug2018*}"       ] && cp -p lists/$L ../macros/lists/
   [ -z "${L##*DoubleMuon_22Aug2018*}"     ] && cp -p lists/$L ../macros/lists/
   [ -z "${L##*SingleElectron_22Aug2018*}" ] && cp -p lists/$L ../macros/lists/

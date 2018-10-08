@@ -5,6 +5,14 @@ WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
 
 for F in `ls pileup/ratio_pileup_Run*`; do
+  [ -z "${F##*DoubleEG_05Feb2018*}"       ] && cp -p $F ../macros/root/
+  [ -z "${F##*DoubleMuon_05Feb2018*}"     ] && cp -p $F ../macros/root/
+  [ -z "${F##*SingleElectron_05Feb2018*}" ] && cp -p $F ../macros/root/
+  [ -z "${F##*SingleMuon_05Feb2018*}"     ] && cp -p $F ../macros/root/
+  [ -z "${F##*MuonEG_05Feb2018*}"         ] && cp -p $F ../macros/root/
+done
+
+for F in `ls pileup/ratio_pileup_Run*`; do
   [ -z "${F##*DoubleEG_22Aug2018*}"       ] && cp -p $F ../macros/root/
   [ -z "${F##*DoubleMuon_22Aug2018*}"     ] && cp -p $F ../macros/root/
   [ -z "${F##*SingleElectron_22Aug2018*}" ] && cp -p $F ../macros/root/
