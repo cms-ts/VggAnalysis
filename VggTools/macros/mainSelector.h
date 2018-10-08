@@ -53,12 +53,14 @@ public :
 
 #if defined(mainSelectorDT16_h) 
 
+   TTreeReaderValue<UInt_t> run = {fReader, "run"};
    TTreeReaderValue<UInt_t> nElectron = {fReader, "nElectron"};
    TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
+   TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
@@ -73,9 +75,18 @@ public :
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
-   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
 
-   TTreeReaderValue<Bool_t> HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"}; //FIXME
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL"};
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = {fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL"};
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ"};
+
+   TTreeReaderValue<UInt_t> nTrigObj = {fReader, "nTrigObj"};
+   TTreeReaderArray<Float_t> TrigObj_pt = {fReader, "TrigObj_pt"};
+   TTreeReaderArray<Float_t> TrigObj_eta = {fReader, "TrigObj_eta"};
+   TTreeReaderArray<Float_t> TrigObj_phi = {fReader, "TrigObj_phi"};
+   TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
+   TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
 
 #endif // defined(mainSelectorDT16_h)
 
@@ -101,7 +112,15 @@ public :
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
+   TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"};
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
+
+   TTreeReaderValue<UInt_t> nTrigObj = {fReader, "nTrigObj"};
+   TTreeReaderArray<Float_t> TrigObj_pt = {fReader, "TrigObj_pt"};
+   TTreeReaderArray<Float_t> TrigObj_eta = {fReader, "TrigObj_eta"};
+   TTreeReaderArray<Float_t> TrigObj_phi = {fReader, "TrigObj_phi"};
+   TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
+   TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
 
 #endif // defined(mainSelectorDT17_h)
 
@@ -127,18 +146,28 @@ public :
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
+   TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"};
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
+
+   TTreeReaderValue<UInt_t> nTrigObj = {fReader, "nTrigObj"};
+   TTreeReaderArray<Float_t> TrigObj_pt = {fReader, "TrigObj_pt"};
+   TTreeReaderArray<Float_t> TrigObj_eta = {fReader, "TrigObj_eta"};
+   TTreeReaderArray<Float_t> TrigObj_phi = {fReader, "TrigObj_phi"};
+   TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
+   TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
 
 #endif // defined(mainSelectorDT18_h)
 
 #if defined(mainSelectorMC16_h)
 
+   TTreeReaderValue<UInt_t> run = {fReader, "run"};
    TTreeReaderValue<UInt_t> nElectron = {fReader, "nElectron"};
    TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
+   TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
    
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
@@ -161,9 +190,16 @@ public :
    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
 
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
-   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
 
-   TTreeReaderValue<Bool_t> HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"}; //FIXME
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL"};
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = {fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL"};
+
+   TTreeReaderValue<UInt_t> nTrigObj = {fReader, "nTrigObj"};
+   TTreeReaderArray<Float_t> TrigObj_pt = {fReader, "TrigObj_pt"};
+   TTreeReaderArray<Float_t> TrigObj_eta = {fReader, "TrigObj_eta"};
+   TTreeReaderArray<Float_t> TrigObj_phi = {fReader, "TrigObj_phi"};
+   TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
+   TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
 
 #endif // defined(mainSelectorMC16_h)
 
@@ -197,7 +233,15 @@ public :
    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
 
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
+   TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"};
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
+
+   TTreeReaderValue<UInt_t> nTrigObj = {fReader, "nTrigObj"};
+   TTreeReaderArray<Float_t> TrigObj_pt = {fReader, "TrigObj_pt"};
+   TTreeReaderArray<Float_t> TrigObj_eta = {fReader, "TrigObj_eta"};
+   TTreeReaderArray<Float_t> TrigObj_phi = {fReader, "TrigObj_phi"};
+   TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
+   TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
 
 #endif // defined(mainSelectorMC17_h)
 
@@ -231,7 +275,15 @@ public :
    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
 
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
+   TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"};
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
+
+   TTreeReaderValue<UInt_t> nTrigObj = {fReader, "nTrigObj"};
+   TTreeReaderArray<Float_t> TrigObj_pt = {fReader, "TrigObj_pt"};
+   TTreeReaderArray<Float_t> TrigObj_eta = {fReader, "TrigObj_eta"};
+   TTreeReaderArray<Float_t> TrigObj_phi = {fReader, "TrigObj_phi"};
+   TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
+   TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
 
 #endif // defined(mainSelectorMC18_h)
 
