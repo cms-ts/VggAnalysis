@@ -258,7 +258,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if ((TrigObj_filterBits[j] & 0x1) == 0) continue; // 1 = CaloIdL_TrackIdL_IsoVL
          if (((TrigObj_filterBits[j] & 0x2) == 0) && ((TrigObj_filterBits[j] & 0x4) == 0)) continue; // 2 = 1e (WPTight) || 4 = 1e (WPLoose)
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx) 
-         if ((TrigObj_filterBits[j] & 0x10) == 0) continue; // 16 = 2e
+//         if ((TrigObj_filterBits[j] & 0x10) == 0) continue; // 16 = 2e
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx) 
          TLorentzVector tmp_sel;
          TLorentzVector tmp_trg;
