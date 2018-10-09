@@ -59,6 +59,7 @@ public :
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
+   TTreeReaderArray<Float_t> Electron_eCorr = {fReader, "Electron_eCorr"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
@@ -100,6 +101,7 @@ public :
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
+   TTreeReaderArray<Float_t> Electron_eCorr = {fReader, "Electron_eCorr"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
 
@@ -137,6 +139,7 @@ public :
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
+   TTreeReaderArray<Float_t> Electron_eCorr = {fReader, "Electron_eCorr"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
 
@@ -175,6 +178,7 @@ public :
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
+   TTreeReaderArray<Float_t> Electron_eCorr = {fReader, "Electron_eCorr"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
@@ -222,6 +226,7 @@ public :
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
+   TTreeReaderArray<Float_t> Electron_eCorr = {fReader, "Electron_eCorr"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
 
@@ -267,6 +272,7 @@ public :
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
+   TTreeReaderArray<Float_t> Electron_eCorr = {fReader, "Electron_eCorr"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
    

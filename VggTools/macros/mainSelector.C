@@ -237,7 +237,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (*nElectron < 2) ele_sel = false;
    for (uint i = 0; i < *nElectron; i++) {
      ele_sel = true;
-     if (Electron_pt[i] < 25) ele_sel = false;
+     if (Electron_pt[i]/Electron_eCorr[i] < 25) ele_sel = false;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) ele_sel = false;
      if (fabs(Electron_eta[i]) > 2.500) ele_sel = false;
 
@@ -262,7 +262,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (((TrigObj_filterBits[j] & 0x2) == 0) && ((TrigObj_filterBits[j] & 0x4) == 0)) continue; // 2 = 1e (WPTight) || 4 = 1e (WPLoose)
          TLorentzVector tmp_sel;
          TLorentzVector tmp_trg;
-         tmp_sel.SetPtEtaPhiM(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i]);
+         tmp_sel.SetPtEtaPhiM(Electron_pt[i]/Electron_eCorr[i], Electron_eta[i], Electron_phi[i], Electron_mass[i]);
          tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Electron_mass[i]);
          if (tmp_sel.DeltaR(tmp_trg) > 0.3) continue;
          ele_trg = true;
@@ -290,8 +290,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_Z_ele = 1.;
 
    if (iele0 != -1 && iele1 != -1) {
-     ele0.SetPtEtaPhiM(Electron_pt[iele0], Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
-     ele1.SetPtEtaPhiM(Electron_pt[iele1], Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
+     ele0.SetPtEtaPhiM(Electron_pt[iele0]/Electron_eCorr[iele0], Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
+     ele1.SetPtEtaPhiM(Electron_pt[iele1]/Electron_eCorr[iele1], Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
      Z_ele0_ele1 = ele0 + ele1;
      if (Z_ele0_ele1.M() >= 71. && Z_ele0_ele1.M() <= 111.) {
        Z_ele_sel = true;
@@ -300,15 +300,15 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (iele0 != -1 && iele1 != -1) {
 #if defined(mainSelectorMC16_cxx)
-     float weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0], Electron_pt[iele0]);
-     float weight_eff_ele1 = getWeight(sf_ele_eff, Electron_eta[iele1], Electron_pt[iele1]);
+     float weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0], Electron_pt[iele0]/Electron_eCorr[iele0]);
+     float weight_eff_ele1 = getWeight(sf_ele_eff, Electron_eta[iele1], Electron_pt[iele1]/Electron_eCorr[iele1]);
      weight_Z_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1;
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
-     float weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0], Electron_pt[iele0]);
-     float weight_eff_ele1 = getWeight(sf_ele_eff, Electron_eta[iele1], Electron_pt[iele1]);
-     float weight_reco_ele0 = getWeight(sf_ele_reco, Electron_eta[iele0], Electron_pt[iele0]);
-     float weight_reco_ele1 = getWeight(sf_ele_reco, Electron_eta[iele1], Electron_pt[iele1]);
+     float weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0], Electron_pt[iele0]/Electron_eCorr[iele0]);
+     float weight_eff_ele1 = getWeight(sf_ele_eff, Electron_eta[iele1], Electron_pt[iele1]/Electron_eCorr[iele1]);
+     float weight_reco_ele0 = getWeight(sf_ele_reco, Electron_eta[iele0], Electron_pt[iele0]/Electron_eCorr[iele0]);
+     float weight_reco_ele1 = getWeight(sf_ele_reco, Electron_eta[iele1], Electron_pt[iele1]/Electron_eCorr[iele1]);
      float weight_hlt_ele = 0.991;
      weight_Z_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
 #endif // defined(mainSelectorMC17_cxx)
