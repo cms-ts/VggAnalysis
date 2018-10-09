@@ -96,12 +96,6 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    TFile* file_ele_pu;
    TFile* file_muo_pu;
 
-   TFile* file_ele_sf_eff;
-   TFile* file_ele_sf_reco;
-
-   TFile* file_muo_sf_id;
-   TFile* file_muo_sf_iso;
-
 #if defined(mainSelectorMC16_cxx)
    file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleEG_05Feb2018.root");
    file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleMuon_05Feb2018.root");
@@ -112,24 +106,12 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    //file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_SingleMuon_05Feb2018.root");
    //file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_SingleElectron_22Aug2018.root");
    //file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_SingleMuon_22Aug2018.root");
-
-   file_ele_sf_eff = TFile::Open("root/sf_EGM2D_WP90_2016.root");
-   //file_ele_sf_eff = TFile::Open("root/sf_EGM2D_WP80_2016.root");
-
-   file_muo_sf_id = TFile::Open("root/sf_muo_RunBCDEF_ID_2016.root");
-   file_muo_sf_iso = TFile::Open("root/sf_muo_RunBCDEF_ISO_2016.root");
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
    file_ele_pu = TFile::Open("root/ratio_pileup_Run2017_DoubleEG_31Mar2018.root");
    file_muo_pu = TFile::Open("root/ratio_pileup_Run2017_DoubleMuon_31Mar2018.root");
    //file_ele_pu = TFile::Open("root/ratio_pileup_Run2017_SingleElectron_31Mar2018.root");
    //file_muo_pu = TFile::Open("root/ratio_pileup_Run2017_SingleMuon_31Mar2018.root");
-
-   file_ele_sf_eff = TFile::Open("root/sf_EGM2D_runBCDEF_passingMVA94Xwp90iso_2017.root");
-   file_ele_sf_reco = TFile::Open("root/sf_reco_EGM2D_runBCDEF_passingRECO_2017.root");
-
-   file_muo_sf_id = TFile::Open("root/sf_muo_RunBCDEF_ID_2017.root");
-   file_muo_sf_iso = TFile::Open("root/sf_muo_RunBCDEF_ISO_2017.root");
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
    file_ele_pu = TFile::Open("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
@@ -147,12 +129,24 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    file_ele_pu->Close();
    file_muo_pu->Close();
 
+   TFile* file_ele_sf_eff;
+   TFile* file_ele_sf_reco;
+
+   TFile* file_muo_sf_id;
+   TFile* file_muo_sf_iso;
+
 #if defined(mainSelectorMC16_cxx) 
+   file_ele_sf_eff = TFile::Open("root/sf_EGM2D_WP90_2016.root");
+   //file_ele_sf_eff = TFile::Open("root/sf_EGM2D_WP80_2016.root");
+
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
 
    sf_ele_eff->SetDirectory(0);
 
    file_ele_sf_eff->Close();
+
+   file_muo_sf_id = TFile::Open("root/sf_muo_RunBCDEF_ID_2016.root");
+   file_muo_sf_iso = TFile::Open("root/sf_muo_RunBCDEF_ISO_2016.root");
 
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
    sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
@@ -164,6 +158,9 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    file_muo_sf_iso->Close();
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
+   file_ele_sf_eff = TFile::Open("root/sf_EGM2D_runBCDEF_passingMVA94Xwp90iso_2017.root");
+   file_ele_sf_reco = TFile::Open("root/sf_reco_EGM2D_runBCDEF_passingRECO_2017.root");
+
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
 
@@ -172,6 +169,9 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    file_ele_sf_eff->Close();
    file_ele_sf_reco->Close();
+
+   file_muo_sf_id = TFile::Open("root/sf_muo_RunBCDEF_ID_2017.root");
+   file_muo_sf_iso = TFile::Open("root/sf_muo_RunBCDEF_ISO_2017.root");
 
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
    sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
@@ -182,7 +182,6 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
 #endif // defined(mainSelectorMC17_cxx)
-
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 }
@@ -283,7 +282,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
    }
-
 
    TLorentzVector ele0;
    TLorentzVector ele1;
