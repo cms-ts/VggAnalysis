@@ -61,11 +61,11 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    // create the histograms
    h_nevt = new TH1D("h_nevt", "h_nevt", 10, 0., 10.);
 
-   h_W_ele = new TH1D("h_W_ele", "h_W_ele", 100, 20., 111.);
-   h_W_muo = new TH1D("h_W_muo", "h_W_muo", 100, 71., 111.);
+   h_W_ele = new TH1D("h_W_ele", "h_W_ele", 100, 20., 200.);
+   h_W_muo = new TH1D("h_W_muo", "h_W_muo", 100, 20., 200.);
 
-   h_Z_ele = new TH1D("h_Z_ele", "h_Z_ele", 100, 20., 200.);
-   h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 100, 20., 200.);
+   h_Z_ele = new TH1D("h_Z_ele", "h_Z_ele", 100, 71., 111.);
+   h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 100, 71., 111.);
 
    h_npvs_ele = new TH1D("h_npvs_ele", "h_npvs_ele", 100, 0., 100.);
    h_npvs_ele_w = new TH1D("h_npvs_ele_w", "h_npvs_ele_w", 100, 0., 100.);
