@@ -222,6 +222,9 @@ Bool_t mainSelector::Process(Long64_t entry)
    int iele1 = -1;
    bool ele_sel = true;
 
+   if (*Flag_goodVertices == 0) ele_sel = false;
+   if (*Flag_METFilters == 0) ele_sel = false;
+
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
    if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ == 0) ele_sel = false;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -257,9 +260,6 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (TrigObj_id[j] != 11) continue; 
          if ((TrigObj_filterBits[j] & 0x1) == 0) continue; // 1 = CaloIdL_TrackIdL_IsoVL
          if (((TrigObj_filterBits[j] & 0x2) == 0) && ((TrigObj_filterBits[j] & 0x4) == 0)) continue; // 2 = 1e (WPTight) || 4 = 1e (WPLoose)
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx) 
-//         if ((TrigObj_filterBits[j] & 0x10) == 0) continue; // 16 = 2e
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx) 
          TLorentzVector tmp_sel;
          TLorentzVector tmp_trg;
          tmp_sel.SetPtEtaPhiM(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i]);
@@ -318,6 +318,9 @@ Bool_t mainSelector::Process(Long64_t entry)
    int imuo1 = -1;
    bool muo_sel = true;
 
+   if (*Flag_goodVertices == 0) muo_sel = false;
+   if (*Flag_METFilters == 0) muo_sel = false;
+
 #if defined(mainSelectorDT16_cxx)
    if (*run <= 280385){
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL == 0 && *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL == 0) muo_sel = false;
@@ -350,9 +353,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        for (uint j = 0; j < *nTrigObj; j++){
          if (TrigObj_id[j] != 13) continue;
          if ((TrigObj_filterBits[j] & 0x1) == 0) continue; // 1 = TrkIsoVVL
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx) 
-//FIXME         if ((TrigObj_filterBits[j] & 0x10) == 0) continue; // 16 = 2mu
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx) 
          TLorentzVector tmp_sel;
          TLorentzVector tmp_trg;
          tmp_sel.SetPtEtaPhiM(Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_mass[i]);

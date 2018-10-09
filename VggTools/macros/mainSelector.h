@@ -88,6 +88,9 @@ public :
    TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
    TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
 
+   TTreeReaderValue<Bool_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
+
 #endif // defined(mainSelectorDT16_h)
 
 #if defined(mainSelectorDT17_h)
@@ -122,6 +125,9 @@ public :
    TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
    TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
 
+   TTreeReaderValue<Bool_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
+
 #endif // defined(mainSelectorDT17_h)
 
 #if defined(mainSelectorDT18_h)
@@ -155,6 +161,9 @@ public :
    TTreeReaderArray<Float_t> TrigObj_phi = {fReader, "TrigObj_phi"};
    TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
    TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
+
+   TTreeReaderValue<Bool_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
 
 #endif // defined(mainSelectorDT18_h)
 
@@ -201,6 +210,9 @@ public :
    TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
    TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
 
+   TTreeReaderValue<Bool_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
+
 #endif // defined(mainSelectorMC16_h)
 
 #if defined(mainSelectorMC17_h)
@@ -243,6 +255,9 @@ public :
    TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
    TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
 
+   TTreeReaderValue<Bool_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
+
 #endif // defined(mainSelectorMC17_h)
 
 #if defined(mainSelectorMC18_h)
@@ -284,6 +299,9 @@ public :
    TTreeReaderArray<Float_t> TrigObj_phi = {fReader, "TrigObj_phi"};
    TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
    TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
+
+   TTreeReaderValue<Bool_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
 
 #endif // defined(mainSelectorMC18_h)
 
