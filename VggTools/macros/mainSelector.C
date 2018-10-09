@@ -480,8 +480,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (imuo0_gen != -1 && imuo1_gen != -1) {
-     muo0_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo0_gen], GenDressedLepton_eta[imuo0_gen], GenDressedLepton_phi[imuo0_gen], Electron_mass[imuo0_gen]);
-     muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo1_gen], GenDressedLepton_eta[imuo1_gen], GenDressedLepton_phi[imuo1_gen], Electron_mass[imuo1_gen]);
+     muo0_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo0_gen], GenDressedLepton_eta[imuo0_gen], GenDressedLepton_phi[imuo0_gen], Muon_mass[imuo0_gen]);
+     muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo1_gen], GenDressedLepton_eta[imuo1_gen], GenDressedLepton_phi[imuo1_gen], Muon_mass[imuo1_gen]);
      Z_muo0_muo1_gen = muo0_gen + muo1_gen;
      if (Z_muo0_muo1_gen.M() >= 71. && Z_muo0_muo1_gen.M() <= 111.) {
        Z_muo_sel_gen = true;
