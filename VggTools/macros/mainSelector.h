@@ -26,6 +26,10 @@ public :
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
    TH1D* h_nevt = 0;
+
+   TH1D* h_W_ele = 0;
+   TH1D* h_W_muo = 0;
+
    TH1D* h_Z_ele = 0;
    TH1D* h_Z_muo = 0;
 
@@ -72,6 +76,9 @@ public :
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
 
+   TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
+   TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
+
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
@@ -113,6 +120,9 @@ public :
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
 
+   TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
+   TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
+
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
@@ -139,7 +149,7 @@ public :
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
-   TTreeReaderArray<Float_t> Electron_eCorr = {fReader, "Electron_eCorr"};
+   //TTreeReaderArray<Float_t> Electron_eCorr = {fReader, "Electron_eCorr"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
 
@@ -150,6 +160,9 @@ public :
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+
+   TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
+   TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
 
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
@@ -190,6 +203,9 @@ public :
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+
+   TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
+   TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
 
    TTreeReaderValue<UInt_t> nGenDressedLepton = {fReader, "nGenDressedLepton"};
    TTreeReaderArray<Float_t> GenDressedLepton_eta = {fReader, "GenDressedLepton_eta"};
@@ -238,6 +254,9 @@ public :
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
 
+   TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
+   TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
+
    TTreeReaderValue<UInt_t> nGenDressedLepton = {fReader, "nGenDressedLepton"};
    TTreeReaderArray<Float_t> GenDressedLepton_eta = {fReader, "GenDressedLepton_eta"};
    TTreeReaderArray<Float_t> GenDressedLepton_mass = {fReader, "GenDressedLepton_mass"};
@@ -272,7 +291,7 @@ public :
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
-   TTreeReaderArray<Float_t> Electron_eCorr = {fReader, "Electron_eCorr"};
+   //TTreeReaderArray<Float_t> Electron_eCorr = {fReader, "Electron_eCorr"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
    
@@ -283,6 +302,9 @@ public :
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+
+   TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
+   TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
 
    TTreeReaderValue<UInt_t> nGenDressedLepton = {fReader, "nGenDressedLepton"};
    TTreeReaderArray<Float_t> GenDressedLepton_eta = {fReader, "GenDressedLepton_eta"};

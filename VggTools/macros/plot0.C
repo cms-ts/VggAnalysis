@@ -78,6 +78,7 @@ void plot0(string plot="", string title="") {
     if (it->first == 0) {
       leg->AddEntry(it->second, "Data", "p");
     }
+
     if (it->first == 10) {
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "DYJets", "f");
@@ -87,6 +88,27 @@ void plot0(string plot="", string title="") {
       leg->AddEntry(it->second, "TTJets", "f");
     }
     if (it->first == 30) {
+      it->second->SetFillColor(kBlue-4);
+      leg->AddEntry(it->second, "Diboson", "f");
+    }
+
+    if (it->first == 1010) {
+      it->second->SetFillColor(kYellow-4);
+      leg->AddEntry(it->second, "WJets", "f");
+    }
+    if (it->first == 1020) {
+      it->second->SetFillColor(kOrange);
+      leg->AddEntry(it->second, "DYJets", "f");
+    }
+    if (it->first == 1030) {
+      it->second->SetFillColor(kBlue);
+      leg->AddEntry(it->second, "TTJets", "f");
+    }
+    if (it->first == 1040) {
+      it->second->SetFillColor(kOrange-4);
+      leg->AddEntry(it->second, "SingleTop", "f");
+    }
+    if (it->first == 1050) {
       it->second->SetFillColor(kBlue-4);
       leg->AddEntry(it->second, "Diboson", "f");
     }
