@@ -30,13 +30,29 @@ public :
    TH1D* h_W_ele = 0;
    TH1D* h_W_muo = 0;
 
+   TH1D* h_W_ele_npvs = 0;
+   TH1D* h_W_ele_npvs_w = 0;
+   TH1D* h_W_muo_npvs = 0;
+   TH1D* h_W_muo_npvs_w = 0;
+   
+   TH1D* h_W_ele0_pt = 0;
+   TH1D* h_W_ele_met_pt = 0;
+   TH1D* h_W_muo0_pt = 0;
+   TH1D* h_W_muo_met_pt = 0;
+
    TH1D* h_Z_ele = 0;
    TH1D* h_Z_muo = 0;
 
-   TH1D* h_npvs_ele = 0;
-   TH1D* h_npvs_ele_w = 0;
-   TH1D* h_npvs_muo = 0;
-   TH1D* h_npvs_muo_w = 0;
+   TH1D* h_Z_ele_npvs = 0;
+   TH1D* h_Z_ele_npvs_w = 0;
+   TH1D* h_Z_muo_npvs = 0;
+   TH1D* h_Z_muo_npvs_w = 0;
+   
+   TH1D* h_Z_ele0_pt = 0;
+   TH1D* h_Z_ele1_pt = 0;
+   TH1D* h_Z_muo0_pt = 0;
+   TH1D* h_Z_muo1_pt = 0;
+
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
@@ -129,8 +145,7 @@ public :
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
-   TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf = {fReader, "HLT_Ele32_WPTight_Gsf"};
-   TTreeReaderValue<Bool_t> HLT_Ele35_WPLoose_Gsf = {fReader, "HLT_Ele35_WPLoose_Gsf"};
+   TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
    TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "HLT_IsoMu24"};
    TTreeReaderValue<Bool_t> HLT_IsoMu27 = {fReader, "HLT_IsoMu27"};
 
@@ -279,8 +294,7 @@ public :
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
 
-   TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf = {fReader, "HLT_Ele32_WPTight_Gsf"};
-   TTreeReaderValue<Bool_t> HLT_Ele35_WPLoose_Gsf = {fReader, "HLT_Ele35_WPLoose_Gsf"};
+   TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
    TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "HLT_IsoMu24"};
    TTreeReaderValue<Bool_t> HLT_IsoMu27 = {fReader, "HLT_IsoMu27"};
 

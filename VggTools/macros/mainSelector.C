@@ -64,13 +64,28 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_W_ele = new TH1D("h_W_ele", "h_W_ele", 100, 20., 200.);
    h_W_muo = new TH1D("h_W_muo", "h_W_muo", 100, 20., 200.);
 
+   h_W_ele_npvs = new TH1D("h_W_ele_npvs", "h_W_ele_npvs", 100, 0., 100.);
+   h_W_ele_npvs_w = new TH1D("h_W_ele_npvs_w", "h_W_ele_npvs_w", 100, 0., 100.);
+   h_W_muo_npvs = new TH1D("h_W_muo_npvs", "h_W_muo_npvs", 100, 0., 100.);
+   h_W_muo_npvs_w = new TH1D("h_W_muo_npvs_w", "h_W_muo_npvs_w", 100, 0., 100.);
+
+   h_W_ele0_pt = new TH1D("h_W_ele0_pt", "h_W_ele0_pt", 100, 0., 100.);
+   h_W_ele_met_pt = new TH1D("h_W_ele_met_pt", "h_W_ele_met_pt", 100, 0., 100.);
+   h_W_muo0_pt = new TH1D("h_W_muo0_pt", "h_W_muo0_pt", 100, 0., 100.);
+   h_W_muo_met_pt = new TH1D("h_W_muo_met_pt", "h_W_muo_met_pt", 100, 0., 100.);
+
    h_Z_ele = new TH1D("h_Z_ele", "h_Z_ele", 100, 71., 111.);
    h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 100, 71., 111.);
 
-   h_npvs_ele = new TH1D("h_npvs_ele", "h_npvs_ele", 100, 0., 100.);
-   h_npvs_ele_w = new TH1D("h_npvs_ele_w", "h_npvs_ele_w", 100, 0., 100.);
-   h_npvs_muo = new TH1D("h_npvs_muo", "h_npvs_muo", 100, 0., 100.);
-   h_npvs_muo_w = new TH1D("h_npvs_muo_w", "h_npvs_muo_w", 100, 0., 100.);
+   h_Z_ele_npvs = new TH1D("h_Z_ele_npvs", "h_Z_ele_npvs", 100, 0., 100.);
+   h_Z_ele_npvs_w = new TH1D("h_Z_ele_npvs_w", "h_Z_ele_npvs_w", 100, 0., 100.);
+   h_Z_muo_npvs = new TH1D("h_Z_muo_npvs", "h_Z_muo_npvs", 100, 0., 100.);
+   h_Z_muo_npvs_w = new TH1D("h_Z_muo_npvs_w", "h_Z_muo_npvs_w", 100, 0., 100.);
+
+   h_Z_ele0_pt = new TH1D("h_Z_ele0_pt", "h_Z_ele0_pt", 100, 0., 100.);
+   h_Z_ele1_pt = new TH1D("h_Z_ele1_pt", "h_Z_ele1_pt", 100, 0., 100.);
+   h_Z_muo0_pt = new TH1D("h_Z_muo0_pt", "h_Z_muo0_pt", 100, 0., 100.);
+   h_Z_muo1_pt = new TH1D("h_Z_muo1_pt", "h_Z_muo1_pt", 100, 0., 100.);
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -86,13 +101,28 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    GetOutputList()->Add(h_W_ele);
    GetOutputList()->Add(h_W_muo);
 
+   GetOutputList()->Add(h_W_ele_npvs);
+   GetOutputList()->Add(h_W_ele_npvs_w);
+   GetOutputList()->Add(h_W_muo_npvs);
+   GetOutputList()->Add(h_W_muo_npvs_w);
+
+   GetOutputList()->Add(h_W_ele0_pt);
+   GetOutputList()->Add(h_W_ele_met_pt);
+   GetOutputList()->Add(h_W_muo0_pt);
+   GetOutputList()->Add(h_W_muo_met_pt);
+
    GetOutputList()->Add(h_Z_ele);
    GetOutputList()->Add(h_Z_muo);
 
-   GetOutputList()->Add(h_npvs_ele);
-   GetOutputList()->Add(h_npvs_ele_w);
-   GetOutputList()->Add(h_npvs_muo);
-   GetOutputList()->Add(h_npvs_muo_w);
+   GetOutputList()->Add(h_Z_ele_npvs);
+   GetOutputList()->Add(h_Z_ele_npvs_w);
+   GetOutputList()->Add(h_Z_muo_npvs);
+   GetOutputList()->Add(h_Z_muo_npvs_w);
+
+   GetOutputList()->Add(h_Z_ele0_pt);
+   GetOutputList()->Add(h_Z_ele1_pt);
+   GetOutputList()->Add(h_Z_muo0_pt);
+   GetOutputList()->Add(h_Z_muo1_pt);
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -315,7 +345,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        float eCorr_ele0 = 1.0 / Electron_eCorr[iele0];
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-     if (*HLT_Ele32_WPTight_Gsf || *HLT_Ele35_WPLoose_Gsf) {
+     if (*HLT_Ele35_WPTight_Gsf) {
        float eCorr_ele0 = 1.0 / Electron_eCorr[iele0];
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
@@ -523,22 +553,34 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (W_ele_sel) {
      if (h_W_ele) h_W_ele->Fill(W_ele0.Mt(), weight_W_ele);
+     if (h_W_ele_npvs) h_W_ele_npvs->Fill(*PV_npvsGood);
+     if (h_W_ele_npvs_w) h_W_ele_npvs_w->Fill(*PV_npvsGood, weight_W_ele);
+     if (h_W_ele0_pt) h_W_ele0_pt->Fill(Electron_pt[iele0], weight_W_ele);
+     if (h_W_ele_met_pt) h_W_ele_met_pt->Fill(*MET_pt, weight_W_ele);
    }
 
    if (W_muo_sel) {
      if (h_W_muo) h_W_muo->Fill(W_muo0.Mt(), weight_W_muo);
+     if (h_W_muo_npvs) h_W_muo_npvs->Fill(*PV_npvsGood);
+     if (h_W_muo_npvs_w) h_W_muo_npvs_w->Fill(*PV_npvsGood, weight_W_muo);
+     if (h_W_muo0_pt) h_W_muo0_pt->Fill(Muon_pt[imuo0], weight_W_muo);
+     if (h_W_muo_met_pt) h_W_muo_met_pt->Fill(*MET_pt, weight_W_muo);
    }
 
    if (Z_ele_sel) {
      if (h_Z_ele) h_Z_ele->Fill(Z_ele0_ele1.M(), weight_Z_ele);
-     if (h_npvs_ele) h_npvs_ele->Fill(*PV_npvsGood);
-     if (h_npvs_ele_w) h_npvs_ele_w->Fill(*PV_npvsGood, weight_Z_ele);
+     if (h_Z_ele_npvs) h_Z_ele_npvs->Fill(*PV_npvsGood);
+     if (h_Z_ele_npvs_w) h_Z_ele_npvs_w->Fill(*PV_npvsGood, weight_Z_ele);
+     if (h_Z_ele0_pt) h_Z_ele0_pt->Fill(Electron_pt[iele0], weight_Z_ele);
+     if (h_Z_ele1_pt) h_Z_ele1_pt->Fill(Electron_pt[iele1], weight_Z_ele);
    }
 
    if (Z_muo_sel) {
      if (h_Z_muo) h_Z_muo->Fill(Z_muo0_muo1.M(), weight_Z_muo);
-     if (h_npvs_muo) h_npvs_muo->Fill(*PV_npvsGood);
-     if (h_npvs_muo_w) h_npvs_muo_w->Fill(*PV_npvsGood, weight_Z_muo);
+     if (h_Z_muo_npvs) h_Z_muo_npvs->Fill(*PV_npvsGood);
+     if (h_Z_muo_npvs_w) h_Z_muo_npvs_w->Fill(*PV_npvsGood, weight_Z_muo);
+     if (h_Z_muo0_pt) h_Z_muo0_pt->Fill(Electron_pt[imuo0], weight_Z_muo);
+     if (h_Z_muo1_pt) h_Z_muo1_pt->Fill(Electron_pt[imuo1], weight_Z_muo);
    }
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
