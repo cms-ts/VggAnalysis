@@ -236,15 +236,6 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (*Flag_goodVertices == 0) ele_sel = false;
    if (*Flag_METFilters == 0) ele_sel = false;
 
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-   if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ == 0) ele_sel = false;
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-   if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL == 0 && *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ == 0) ele_sel = false;
-#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-
    for (uint i = 0; i < *nElectron; i++) {
      ele_sel = true;
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -319,11 +310,24 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_W_ele = 1.;
 
    if (iele0 != -1) {
-     ele0.SetPtEtaPhiM(Muon_pt[iele0], 0.0, Muon_phi[iele0], Muon_mass[iele0]);
-     nu_ele0.SetPtEtaPhiM(*MET_pt, 0.0, *MET_phi, 0.0);
-     W_ele0 = ele0 + nu_ele0; 
-     if (*MET_pt > 30 && W_ele0.Mt() > 20) {
-       W_ele_sel = true;
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     if (*HLT_Ele27_WPTight_Gsf) {
+       float eCorr_ele0 = 1.0 / Electron_eCorr[iele0];
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+     if (*HLT_Ele32_WPTight_Gsf || *HLT_Ele35_WPLoose_Gsf) {
+       float eCorr_ele0 = 1.0 / Electron_eCorr[iele0];
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     if (true) {
+       float eCorr_ele0 = 1.0;
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       ele0.SetPtEtaPhiM(Electron_pt[iele0]*eCorr_ele0, 0.0, Electron_phi[iele0], Electron_mass[iele0]);
+       nu_ele0.SetPtEtaPhiM(*MET_pt, 0.0, *MET_phi, 0.0);
+       W_ele0 = ele0 + nu_ele0; 
+       if (*MET_pt > 30 && W_ele0.Mt() > 20) {
+         W_ele_sel = true;
+       }
      }
    }
 
@@ -331,20 +335,26 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (iele0 != -1 && iele1 != -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-     ele0.SetPtEtaPhiM(Electron_pt[iele0]/Electron_eCorr[iele0], Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
-     ele1.SetPtEtaPhiM(Electron_pt[iele1]/Electron_eCorr[iele1], Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
+     if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ) {
+       float eCorr_ele0 = 1.0 / Electron_eCorr[iele0];
+       float eCorr_ele1 = 1.0 / Electron_eCorr[iele1];
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-     ele0.SetPtEtaPhiM(Electron_pt[iele0]/Electron_eCorr[iele0], Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
-     ele1.SetPtEtaPhiM(Electron_pt[iele1]/Electron_eCorr[iele1], Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
+     if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL || *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ) {
+       float eCorr_ele0 = 1.0 / Electron_eCorr[iele0];
+       float eCorr_ele1 = 1.0 / Electron_eCorr[iele1];
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-     ele0.SetPtEtaPhiM(Electron_pt[iele0]/1.0, Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
-     ele1.SetPtEtaPhiM(Electron_pt[iele1]/1.0, Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
+     if (true) {
+       float eCorr_ele0 = 1.0;
+       float eCorr_ele1 = 1.0;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-     Z_ele0_ele1 = ele0 + ele1;
-     if (Z_ele0_ele1.M() >= 71. && Z_ele0_ele1.M() <= 111.) {
-       Z_ele_sel = true;
+       ele0.SetPtEtaPhiM(Electron_pt[iele0]*eCorr_ele0, Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
+       ele1.SetPtEtaPhiM(Electron_pt[iele1]*eCorr_ele1, Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
+       Z_ele0_ele1 = ele0 + ele1;
+       if (Z_ele0_ele1.M() >= 71. && Z_ele0_ele1.M() <= 111.) {
+         Z_ele_sel = true;
+       }
      }
    }
 
@@ -389,22 +399,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (*Flag_goodVertices == 0) muo_sel = false;
    if (*Flag_METFilters == 0) muo_sel = false;
-
-#if defined(mainSelectorDT16_cxx)
-   if (*run <= 280385){
-     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL == 0 && *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL == 0) muo_sel = false;
-   } else {
-     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ == 0 && *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ == 0) muo_sel = false;
-   }
-#endif // defined(mainSelectorDT16_cxx)
-#if defined(mainSelectorMC16_cxx)
-   if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL == 0 && *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL == 0) muo_sel = false;
-#endif // defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-   if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ == 0) muo_sel = false;
-#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
    for (uint i = 0; i < *nMuon; i++) {
      muo_sel = true;
@@ -454,22 +448,46 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_W_muo = 1.;
 
    if (imuo0 != -1) {
-     muo0.SetPtEtaPhiM(Muon_pt[imuo0], 0.0, Muon_phi[imuo0], Muon_mass[imuo0]);
-     nu_muo0.SetPtEtaPhiM(*MET_pt, 0.0, *MET_phi, 0.0);
-     W_muo0 = muo0 + nu_muo0;
-     if (*MET_pt > 30 && W_muo0.Mt() > 20) {
-       W_muo_sel = true;
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     if (*HLT_IsoTkMu24 || *HLT_IsoMu24) {
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+     if (*HLT_IsoMu24 || *HLT_IsoMu27) {
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     if (true) {
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       muo0.SetPtEtaPhiM(Muon_pt[imuo0], 0.0, Muon_phi[imuo0], Muon_mass[imuo0]);
+       nu_muo0.SetPtEtaPhiM(*MET_pt, 0.0, *MET_phi, 0.0);
+       W_muo0 = muo0 + nu_muo0;
+       if (*MET_pt > 30 && W_muo0.Mt() > 20) {
+         W_muo_sel = true;
+       }
      }
    }
 
    float weight_Z_muo = 1.;
 
    if (imuo0 != -1 && imuo1 != -1) {
-     muo0.SetPtEtaPhiM(Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], Muon_mass[imuo0]);
-     muo1.SetPtEtaPhiM(Muon_pt[imuo1], Muon_eta[imuo1], Muon_phi[imuo1], Muon_mass[imuo1]);
-     Z_muo0_muo1 = muo0 + muo1;
-     if (Z_muo0_muo1.M() >= 71. && Z_muo0_muo1.M() <= 111.) {
-       Z_muo_sel = true;
+#if defined(mainSelectorDT16_cxx)
+     if ((*run <= 280385 && (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL    || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL   )) ||
+         (*run >  280385 && (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ))) {
+#endif // defined(mainSelectorDT16_cxx)
+#if defined(mainSelectorMC16_cxx)
+     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL) {
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ) {
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     if (true) {
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       muo0.SetPtEtaPhiM(Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], Muon_mass[imuo0]);
+       muo1.SetPtEtaPhiM(Muon_pt[imuo1], Muon_eta[imuo1], Muon_phi[imuo1], Muon_mass[imuo1]);
+       Z_muo0_muo1 = muo0 + muo1;
+       if (Z_muo0_muo1.M() >= 71. && Z_muo0_muo1.M() <= 111.) {
+         Z_muo_sel = true;
+       }
      }
    }
 
