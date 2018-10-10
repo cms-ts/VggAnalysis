@@ -69,10 +69,14 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_W_muo_npvs = new TH1D("h_W_muo_npvs", "h_W_muo_npvs", 100, 0., 100.);
    h_W_muo_npvs_w = new TH1D("h_W_muo_npvs_w", "h_W_muo_npvs_w", 100, 0., 100.);
 
-   h_W_ele0_pt = new TH1D("h_W_ele0_pt", "h_W_ele0_pt", 100, 0., 100.);
-   h_W_ele_met_pt = new TH1D("h_W_ele_met_pt", "h_W_ele_met_pt", 100, 0., 100.);
-   h_W_muo0_pt = new TH1D("h_W_muo0_pt", "h_W_muo0_pt", 100, 0., 100.);
-   h_W_muo_met_pt = new TH1D("h_W_muo_met_pt", "h_W_muo_met_pt", 100, 0., 100.);
+   h_W_ele0_pt = new TH1D("h_W_ele0_pt", "h_W_ele0_pt", 100, 0., 200.);
+   h_W_ele_met_pt = new TH1D("h_W_ele_met_pt", "h_W_ele_met_pt", 100, 0., 200.);
+   h_W_ele_met_phi = new TH1D("h_W_ele_met_phi", "h_W_ele_met_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_W_ele_met_sign = new TH1D("h_W_ele_met_sign", "h_W_ele_met_sign", 100, 0., 100.);
+   h_W_muo0_pt = new TH1D("h_W_muo0_pt", "h_W_muo0_pt", 100, 0., 200.);
+   h_W_muo_met_pt = new TH1D("h_W_muo_met_pt", "h_W_muo_met_pt", 100, 0., 200.);
+   h_W_muo_met_phi = new TH1D("h_W_muo_met_phi", "h_W_muo_met_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_W_muo_met_sign = new TH1D("h_W_muo_met_sign", "h_W_muo_met_sign", 100, 0., 100.);
 
    h_Z_ele = new TH1D("h_Z_ele", "h_Z_ele", 100, 71., 111.);
    h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 100, 71., 111.);
@@ -82,10 +86,10 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo_npvs = new TH1D("h_Z_muo_npvs", "h_Z_muo_npvs", 100, 0., 100.);
    h_Z_muo_npvs_w = new TH1D("h_Z_muo_npvs_w", "h_Z_muo_npvs_w", 100, 0., 100.);
 
-   h_Z_ele0_pt = new TH1D("h_Z_ele0_pt", "h_Z_ele0_pt", 100, 0., 100.);
-   h_Z_ele1_pt = new TH1D("h_Z_ele1_pt", "h_Z_ele1_pt", 100, 0., 100.);
-   h_Z_muo0_pt = new TH1D("h_Z_muo0_pt", "h_Z_muo0_pt", 100, 0., 100.);
-   h_Z_muo1_pt = new TH1D("h_Z_muo1_pt", "h_Z_muo1_pt", 100, 0., 100.);
+   h_Z_ele0_pt = new TH1D("h_Z_ele0_pt", "h_Z_ele0_pt", 100, 0., 200.);
+   h_Z_ele1_pt = new TH1D("h_Z_ele1_pt", "h_Z_ele1_pt", 100, 0., 200.);
+   h_Z_muo0_pt = new TH1D("h_Z_muo0_pt", "h_Z_muo0_pt", 100, 0., 200.);
+   h_Z_muo1_pt = new TH1D("h_Z_muo1_pt", "h_Z_muo1_pt", 100, 0., 200.);
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -108,8 +112,12 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    GetOutputList()->Add(h_W_ele0_pt);
    GetOutputList()->Add(h_W_ele_met_pt);
+   GetOutputList()->Add(h_W_ele_met_phi);
+   GetOutputList()->Add(h_W_ele_met_sign);
    GetOutputList()->Add(h_W_muo0_pt);
    GetOutputList()->Add(h_W_muo_met_pt);
+   GetOutputList()->Add(h_W_muo_met_phi);
+   GetOutputList()->Add(h_W_muo_met_sign);
 
    GetOutputList()->Add(h_Z_ele);
    GetOutputList()->Add(h_Z_muo);
@@ -339,7 +347,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float weight_W_ele = 1.;
 
-   if (iele0 != -1) {
+   if (iele0 != -1 && iele1 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_Ele27_WPTight_Gsf) {
        float eCorr_ele0 = 1.0 / Electron_eCorr[iele0];
@@ -355,7 +363,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        ele0.SetPtEtaPhiM(Electron_pt[iele0]*eCorr_ele0, 0.0, Electron_phi[iele0], Electron_mass[iele0]);
        nu_ele0.SetPtEtaPhiM(*MET_pt, 0.0, *MET_phi, 0.0);
        W_ele0 = ele0 + nu_ele0; 
-       if (*MET_pt > 30 && W_ele0.Mt() > 20) {
+       if (*MET_pt > 20 && W_ele0.Mt() > 20) {
          W_ele_sel = true;
        }
      }
@@ -477,7 +485,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float weight_W_muo = 1.;
 
-   if (imuo0 != -1) {
+   if (imuo0 != -1 && imuo1 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_IsoTkMu24 || *HLT_IsoMu24) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -490,7 +498,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        muo0.SetPtEtaPhiM(Muon_pt[imuo0], 0.0, Muon_phi[imuo0], Muon_mass[imuo0]);
        nu_muo0.SetPtEtaPhiM(*MET_pt, 0.0, *MET_phi, 0.0);
        W_muo0 = muo0 + nu_muo0;
-       if (*MET_pt > 30 && W_muo0.Mt() > 20) {
+       if (*MET_pt > 20 && W_muo0.Mt() > 20) {
          W_muo_sel = true;
        }
      }
@@ -557,6 +565,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (h_W_ele_npvs_w) h_W_ele_npvs_w->Fill(*PV_npvsGood, weight_W_ele);
      if (h_W_ele0_pt) h_W_ele0_pt->Fill(Electron_pt[iele0], weight_W_ele);
      if (h_W_ele_met_pt) h_W_ele_met_pt->Fill(*MET_pt, weight_W_ele);
+     if (h_W_ele_met_phi) h_W_ele_met_phi->Fill(*MET_phi, weight_W_ele);
+     if (h_W_ele_met_sign) h_W_ele_met_sign->Fill(*MET_significance, weight_W_ele);
    }
 
    if (W_muo_sel) {
@@ -565,6 +575,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (h_W_muo_npvs_w) h_W_muo_npvs_w->Fill(*PV_npvsGood, weight_W_muo);
      if (h_W_muo0_pt) h_W_muo0_pt->Fill(Muon_pt[imuo0], weight_W_muo);
      if (h_W_muo_met_pt) h_W_muo_met_pt->Fill(*MET_pt, weight_W_muo);
+     if (h_W_muo_met_phi) h_W_muo_met_phi->Fill(*MET_phi, weight_W_muo);
+     if (h_W_muo_met_sign) h_W_muo_met_sign->Fill(*MET_significance, weight_W_muo);
    }
 
    if (Z_ele_sel) {
@@ -579,8 +591,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (h_Z_muo) h_Z_muo->Fill(Z_muo0_muo1.M(), weight_Z_muo);
      if (h_Z_muo_npvs) h_Z_muo_npvs->Fill(*PV_npvsGood);
      if (h_Z_muo_npvs_w) h_Z_muo_npvs_w->Fill(*PV_npvsGood, weight_Z_muo);
-     if (h_Z_muo0_pt) h_Z_muo0_pt->Fill(Electron_pt[imuo0], weight_Z_muo);
-     if (h_Z_muo1_pt) h_Z_muo1_pt->Fill(Electron_pt[imuo1], weight_Z_muo);
+     if (h_Z_muo0_pt) h_Z_muo0_pt->Fill(Muon_pt[imuo0], weight_Z_muo);
+     if (h_Z_muo1_pt) h_Z_muo1_pt->Fill(Muon_pt[imuo1], weight_Z_muo);
    }
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
