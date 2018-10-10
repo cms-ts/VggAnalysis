@@ -6,6 +6,12 @@ void plot0(string plot="", string title="") {
 
   string version = "v00";
 
+  string year = "";
+
+  if (plot.find("2016") != string::npos) year = "2016";
+  if (plot.find("2017") != string::npos) year = "2017";
+  if (plot.find("2018") != string::npos) year = "2018";
+
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets" << endl;
@@ -196,7 +202,7 @@ void plot0(string plot="", string title="") {
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
 
-  gSystem->mkdir(("html/" + version).c_str(), kTRUE);
-  c1->SaveAs(("html/" + version + "/" + title + ".pdf").c_str());
+  gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE);
+  c1->SaveAs(("html/" + version + "/" + year + "/" + title + ".pdf").c_str());
 
 }
