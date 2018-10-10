@@ -363,7 +363,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        ele0.SetPtEtaPhiM(Electron_pt[iele0]*eCorr_ele0, 0.0, Electron_phi[iele0], Electron_mass[iele0]);
        nu_ele0.SetPtEtaPhiM(*MET_pt, 0.0, *MET_phi, 0.0);
        W_ele0 = ele0 + nu_ele0; 
-       if (*MET_pt > 20 && W_ele0.Mt() > 20) {
+       if (*MET_pt > 30 && W_ele0.Mt() > 50 && Electron_pt[iele0]*eCorr_ele0 > 35) {
          W_ele_sel = true;
        }
      }
@@ -498,7 +498,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        muo0.SetPtEtaPhiM(Muon_pt[imuo0], 0.0, Muon_phi[imuo0], Muon_mass[imuo0]);
        nu_muo0.SetPtEtaPhiM(*MET_pt, 0.0, *MET_phi, 0.0);
        W_muo0 = muo0 + nu_muo0;
-       if (*MET_pt > 20 && W_muo0.Mt() > 20) {
+       if (*MET_pt > 30 && W_muo0.Mt() > 50 && Muon_pt[iele0] > 35) {
          W_muo_sel = true;
        }
      }
