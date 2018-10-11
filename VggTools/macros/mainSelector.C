@@ -298,7 +298,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (Electron_mvaFall17V2Iso_WP90[i] == 0) ele_sel = false;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-
+/*
      if (ele_sel) {
  
        bool ele_trg = false;
@@ -306,7 +306,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        for (uint j = 0; j < *nTrigObj; j++) {
          if (TrigObj_id[j] != 11) continue; 
          if ((TrigObj_filterBits[j] & 0x1) == 0) continue; // 1 = CaloIdL_TrackIdL_IsoVL
-         if (((TrigObj_filterBits[j] & 0x2) == 0) && ((TrigObj_filterBits[j] & 0x4) == 0)) continue; // 2 = 1e (WPTight) || 4 = 1e (WPLoose)
+        // if (((TrigObj_filterBits[j] & 0x2) == 0) && ((TrigObj_filterBits[j] & 0x4) == 0)) continue; // 2 = 1e (WPTight) || 4 = 1e (WPLoose)
          TLorentzVector tmp_sel;
          TLorentzVector tmp_trg;
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -327,7 +327,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (ele_trg == 0) ele_sel = false;
 
      }
-
+*/
      if (ele_sel) {
        if (iele0 != -1 && iele1 == -1 && Electron_charge[iele0] != Electron_charge[i]) {
          iele1 = i;
@@ -342,10 +342,10 @@ Bool_t mainSelector::Process(Long64_t entry)
    TLorentzVector nu_ele0;
    TLorentzVector ele1;
 
-   TLorentzVector W_ele0;
    TLorentzVector Z_ele0_ele1;
 
    float weight_W_ele = 1.;
+   float W_ele_mt = 0.;
 
    if (iele0 != -1 && iele1 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -360,10 +360,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (true) {
        float eCorr_ele0 = 1.0;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       ele0.SetPtEtaPhiM(Electron_pt[iele0]*eCorr_ele0, 0.0, Electron_phi[iele0], Electron_mass[iele0]);
-       nu_ele0.SetPtEtaPhiM(*MET_pt, 0.0, *MET_phi, 0.0);
-       W_ele0 = ele0 + nu_ele0; 
-       if (*MET_pt > 30 && W_ele0.Mt() > 50 && Electron_pt[iele0]*eCorr_ele0 > 35) {
+       W_ele_mt = TMath::Sqrt(2 * Electron_pt[iele0] * eCorr_ele0 * (*MET_pt) * (1 - TMath::Cos(Electron_phi[iele0] - (*MET_phi))));
+       if (*MET_pt > 40 && W_ele_mt > 40 && Electron_pt[iele0]*eCorr_ele0 > 30) {
          W_ele_sel = true;
        }
      }
@@ -445,7 +443,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Muon_eta[i]) > 2.500) muo_sel = false;
 
      if (Muon_tightId[i] == 0) muo_sel = false;
-
+/*
      if (muo_sel) {
 
        bool muo_trg = false;
@@ -465,7 +463,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (muo_trg == 0) muo_sel = false;
 
      }
-
+*/
      if (muo_sel) {
        if (imuo0 != -1 && imuo1 == -1 && Muon_charge[imuo0] != Muon_charge[i]) {
          imuo1 = i;
@@ -480,10 +478,10 @@ Bool_t mainSelector::Process(Long64_t entry)
    TLorentzVector nu_muo0;
    TLorentzVector muo1;
 
-   TLorentzVector W_muo0;
    TLorentzVector Z_muo0_muo1;
 
    float weight_W_muo = 1.;
+   float W_muo_mt = 0.;
 
    if (imuo0 != -1 && imuo1 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -495,10 +493,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (true) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       muo0.SetPtEtaPhiM(Muon_pt[imuo0], 0.0, Muon_phi[imuo0], Muon_mass[imuo0]);
-       nu_muo0.SetPtEtaPhiM(*MET_pt, 0.0, *MET_phi, 0.0);
-       W_muo0 = muo0 + nu_muo0;
-       if (*MET_pt > 30 && W_muo0.Mt() > 50 && Muon_pt[iele0] > 35) {
+       W_muo_mt = TMath::Sqrt(2 * Muon_pt[imuo0] * (*MET_pt) * (1 - TMath::Cos(Muon_phi[imuo0] - (*MET_phi))));
+       if (*MET_pt > 20 && W_muo_mt > 40 && Muon_pt[imuo0] > 27) {
          W_muo_sel = true;
        }
      }
@@ -560,7 +556,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_ele_sel) {
-     if (h_W_ele) h_W_ele->Fill(W_ele0.Mt(), weight_W_ele);
+     if (h_W_ele) h_W_ele->Fill(W_ele_mt, weight_W_ele);
      if (h_W_ele_npvs) h_W_ele_npvs->Fill(*PV_npvsGood);
      if (h_W_ele_npvs_w) h_W_ele_npvs_w->Fill(*PV_npvsGood, weight_W_ele);
      if (h_W_ele0_pt) h_W_ele0_pt->Fill(Electron_pt[iele0], weight_W_ele);
@@ -570,7 +566,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_muo_sel) {
-     if (h_W_muo) h_W_muo->Fill(W_muo0.Mt(), weight_W_muo);
+     if (h_W_muo) h_W_muo->Fill(W_muo_mt, weight_W_muo);
      if (h_W_muo_npvs) h_W_muo_npvs->Fill(*PV_npvsGood);
      if (h_W_muo_npvs_w) h_W_muo_npvs_w->Fill(*PV_npvsGood, weight_W_muo);
      if (h_W_muo0_pt) h_W_muo0_pt->Fill(Muon_pt[imuo0], weight_W_muo);
