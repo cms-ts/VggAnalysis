@@ -246,11 +246,15 @@ double RoccoR::kScaleMC(int Q, double pt, double eta, double phi, int s, int m) 
 }
 
 double RoccoR::kScaleAndSmearMC(int Q, double pt, double eta, double phi, int n, double u, double w, int s, int m) const{
-    const auto& rc=RC[s][m];
-    int H = etaBin(eta);
-    int F = phiBin(phi);
-    double k=1.0/(rc.CP[MC][H][F].M + Q*rc.CP[MC][H][F].A*pt);
-    return k*rc.RR.kExtra(k*pt, eta, n, u, w);
+    try {
+      const auto& rc=RC[s][m];
+      int H = etaBin(eta);
+      int F = phiBin(phi);
+      double k=1.0/(rc.CP[MC][H][F].M + Q*rc.CP[MC][H][F].A*pt);
+      return k*rc.RR.kExtra(k*pt, eta, n, u, w);
+    } catch (...) {
+      return 1.0;
+    }
 }
 
 double RoccoR::kScaleFromGenMC(int Q, double pt, double eta, double phi, int n, double gt, double w, int s, int m) const{
