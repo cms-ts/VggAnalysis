@@ -169,8 +169,12 @@ void plot0(string plot="", string title="") {
   h_ratio->SetTitle("");
   h_ratio->SetStats(0);
 
+  if (title == "h_W_ele" || title == "h_W_muo") {
+    h_ratio->GetXaxis()->SetTitle("M_{T} [GeV]");
+  }
+
   if (title == "h_Z_ele" || title == "h_Z_muo") {
-    h_ratio->GetXaxis()->SetTitle("Invariant mass [GeV]");
+    h_ratio->GetXaxis()->SetTitle("M_{ll} [GeV]");
   }
 
   h_ratio->GetXaxis()->SetTitleFont(42);
