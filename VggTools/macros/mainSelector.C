@@ -35,7 +35,6 @@
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #include "roccor.2016.v3/RoccoR.cc"
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #include "roccor.2017.v0/RoccoR.cc"
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
@@ -265,6 +264,13 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    file_muo_sf_iso->Close();
 #endif // defined(mainSelectorMC17_cxx)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+   roccor = new RoccoR("roccor.2016.v3/rcdata.2016.v3");
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+   roccor = new RoccoR("roccor.2017.v0/RoccoR2017v0.txt");
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 
 }
 

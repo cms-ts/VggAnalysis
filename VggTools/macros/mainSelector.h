@@ -23,7 +23,6 @@
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 #include "roccor.2016.v3/RoccoR.h"
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
-
 #if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 #include "roccor.2017.v0/RoccoR.h"
 #endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
@@ -95,6 +94,13 @@ public :
    TH2D* sf_muo_id = 0;
    TH2D* sf_muo_iso = 0;
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
+
+#if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
+   RoccoR* roccor;
+#endif // defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
+#if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
+   RoccoR* roccor;
+#endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
 #if defined(mainSelectorDT16_h) 
 
