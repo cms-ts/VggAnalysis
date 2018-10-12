@@ -27,6 +27,7 @@ grep -v 'Lite-0' | \
 grep -v '+++' | \
 grep -v '(M)' | \
 grep -v '#' | \
+grep -v 'RoccoR::kScaleAndSmearMC' | \
 sed -e 's;'$WORKDIR'/lists/;;'
 
 exit
