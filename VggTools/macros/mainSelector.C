@@ -32,6 +32,14 @@
 #include <TIterator.h>
 #include <TFile.h>
 
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#include "roccor.2016.v3/RoccoR.cc"
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#include "roccor.2017.v0/RoccoR.cc"
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+
 void mainSelector::Begin(TTree * /*tree*/)
 {
    // The Begin() function is called at the start of the query.
