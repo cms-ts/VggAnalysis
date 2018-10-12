@@ -406,7 +406,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (true) {
        float eCorr_ele0 = 1.0;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       W_ele_mt = TMath::Sqrt(2 * Electron_pt[iele0] * eCorr_ele0 * (*MET_pt) * (1. - TMath::Cos(Electron_phi[iele0] - (*MET_phi))));
+       W_ele_mt = TMath::Sqrt(2. * Electron_pt[iele0]*eCorr_ele0 * (*MET_pt) * (1. - TMath::Cos(Electron_phi[iele0] - (*MET_phi))));
        if (*MET_pt > 40 && W_ele_mt > 40 && Electron_pt[iele0]*eCorr_ele0 > 30) {
          W_ele_sel = true;
        }
@@ -484,7 +484,16 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nMuon; i++) {
      muo_sel = true;
-     if (Muon_pt[i] < 25) muo_sel = false;
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx)
+     float eCorr_muo = roccor->kScaleDT(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], 0, 0);
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+     float eCorr_muo = roccor->kScaleAndSmearMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_nTrackerLayers[i], gRandom->Rndm(), gRandom->Rndm(), 0, 0);
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     float eCorr_muo = 1.0;
+#endif // defined(mainSelectorMC18_cxx) || defined(mainSelectorMC18_cxx)
+     if (Muon_pt[i]*eCorr_muo < 25) muo_sel = false;
      if (fabs(Muon_eta[i]) > 1.442 && fabs(Muon_eta[i]) < 1.566) muo_sel = false;
      if (fabs(Muon_eta[i]) > 2.500) muo_sel = false;
 
@@ -542,8 +551,17 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (true) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       W_muo_mt = TMath::Sqrt(2 * Muon_pt[imuo0] * (*MET_pt) * (1. - TMath::Cos(Muon_phi[imuo0] - (*MET_phi))));
-       if (*MET_pt > 20 && W_muo_mt > 40 && Muon_pt[imuo0] > 27) {
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx)
+       float eCorr_muo0 = roccor->kScaleDT(Muon_charge[imuo0], Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], 0, 0);
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+       float eCorr_muo0 = roccor->kScaleAndSmearMC(Muon_charge[imuo0], Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], Muon_nTrackerLayers[imuo0], gRandom->Rndm(), gRandom->Rndm(), 0, 0);
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       float eCorr_muo0 = 1.0;
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       W_muo_mt = TMath::Sqrt(2. * Muon_pt[imuo0]*eCorr_muo0 * (*MET_pt) * (1. - TMath::Cos(Muon_phi[imuo0] - (*MET_phi))));
+       if (*MET_pt > 20 && W_muo_mt > 40 && Muon_pt[imuo0]*eCorr_muo0 > 27) {
          W_muo_sel = true;
        }
      }
@@ -565,8 +583,20 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (true) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       muo0.SetPtEtaPhiM(Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], Muon_mass[imuo0]);
-       muo1.SetPtEtaPhiM(Muon_pt[imuo1], Muon_eta[imuo1], Muon_phi[imuo1], Muon_mass[imuo1]);
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx)
+       float eCorr_muo0 = roccor->kScaleDT(Muon_charge[imuo0], Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], 0, 0);
+       float eCorr_muo1 = roccor->kScaleDT(Muon_charge[imuo0], Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], 0, 0);
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+       float eCorr_muo0 = roccor->kScaleAndSmearMC(Muon_charge[imuo0], Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], Muon_nTrackerLayers[imuo0], gRandom->Rndm(), gRandom->Rndm(), 0, 0);
+       float eCorr_muo1 = roccor->kScaleAndSmearMC(Muon_charge[imuo1], Muon_pt[imuo1], Muon_eta[imuo1], Muon_phi[imuo1], Muon_nTrackerLayers[imuo1], gRandom->Rndm(), gRandom->Rndm(), 0, 0);
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       float eCorr_muo0 = 1.0;
+       float eCorr_muo1 = 1.0;
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       muo0.SetPtEtaPhiM(Muon_pt[imuo0]*eCorr_muo0, Muon_eta[imuo0], Muon_phi[imuo0], Muon_mass[imuo0]);
+       muo1.SetPtEtaPhiM(Muon_pt[imuo1]*eCorr_muo1, Muon_eta[imuo1], Muon_phi[imuo1], Muon_mass[imuo1]);
        Z_muo0_muo1 = muo0 + muo1;
        if (Z_muo0_muo1.M() >= 71. && Z_muo0_muo1.M() <= 111.) {
          Z_muo_sel = true;

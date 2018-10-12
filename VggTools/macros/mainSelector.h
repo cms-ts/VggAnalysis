@@ -19,6 +19,7 @@
 
 #include "TH1D.h"
 #include "TH2D.h"
+#include "TRandom.h"
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 #include "roccor.2016.v3/RoccoR.h"
@@ -260,6 +261,7 @@ public :
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+   TTreeReaderArray<Int_t> Muon_nTrackerLayers = {fReader, "Muon_nTrackerLayers"};
 
    TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
    TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
@@ -314,6 +316,7 @@ public :
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+   TTreeReaderArray<Int_t> Muon_nTrackerLayers = {fReader, "Muon_nTrackerLayers"};
 
    TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
    TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
@@ -368,6 +371,7 @@ public :
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+   TTreeReaderArray<Int_t> Muon_nTrackerLayers = {fReader, "Muon_nTrackerLayers"};
 
    TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
    TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
