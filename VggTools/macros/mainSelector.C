@@ -330,12 +330,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (ele_sel) {
  
-       bool ele_trg = false;
+//       bool ele_trg = false;
 
        for (uint j = 0; j < *nTrigObj; j++) {
 //         if (TrigObj_id[j] != 11) continue; 
 //         if ((TrigObj_filterBits[j] & 0x1) == 0) continue; // 1 = CaloIdL_TrackIdL_IsoVL
-        // if (((TrigObj_filterBits[j] & 0x2) == 0) && ((TrigObj_filterBits[j] & 0x4) == 0)) continue; // 2 = 1e (WPTight) || 4 = 1e (WPLoose)
+//         if (((TrigObj_filterBits[j] & 0x2) == 0) && ((TrigObj_filterBits[j] & 0x4) == 0)) continue; // 2 = 1e (WPTight) || 4 = 1e (WPLoose)
          TLorentzVector tmp_sel;
          TLorentzVector tmp_trg;
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -349,7 +349,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
          tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Electron_mass[i]);
          if (tmp_sel.DeltaR(tmp_trg) > 0.1) continue;
-//         ele_trg = true;
+//           ele_trg = true;
            for (uint k = 0; k < 64; k++) {
              if (TrigObj_filterBits[j] & k) h_TrigObj->Fill(TrigObj_filterBits[j] & k, TrigObj_id[j]);
            }
@@ -392,7 +392,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (true) {
        float eCorr_ele0 = 1.0;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       W_ele_mt = TMath::Sqrt(2 * Electron_pt[iele0] * eCorr_ele0 * (*MET_pt) * (1 - TMath::Cos(Electron_phi[iele0] - (*MET_phi))));
+       W_ele_mt = TMath::Sqrt(2 * Electron_pt[iele0] * eCorr_ele0 * (*MET_pt) * (1. - TMath::Cos(Electron_phi[iele0] - (*MET_phi))));
        if (*MET_pt > 40 && W_ele_mt > 40 && Electron_pt[iele0]*eCorr_ele0 > 30) {
          W_ele_sel = true;
        }
@@ -478,7 +478,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (muo_sel) {
 
-       bool muo_trg = false;
+//        bool muo_trg = false;
 
        for (uint j = 0; j < *nTrigObj; j++){
 //         if (TrigObj_id[j] != 13) continue;
@@ -528,7 +528,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (true) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       W_muo_mt = TMath::Sqrt(2 * Muon_pt[imuo0] * (*MET_pt) * (1 - TMath::Cos(Muon_phi[imuo0] - (*MET_phi))));
+       W_muo_mt = TMath::Sqrt(2 * Muon_pt[imuo0] * (*MET_pt) * (1. - TMath::Cos(Muon_phi[imuo0] - (*MET_phi))));
        if (*MET_pt > 20 && W_muo_mt > 40 && Muon_pt[imuo0] > 27) {
          W_muo_sel = true;
        }
