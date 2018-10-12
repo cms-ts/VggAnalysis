@@ -253,6 +253,7 @@ double RoccoR::kScaleAndSmearMC(int Q, double pt, double eta, double phi, int n,
       double k=1.0/(rc.CP[MC][H][F].M + Q*rc.CP[MC][H][F].A*pt);
       return k*rc.RR.kExtra(k*pt, eta, n, u, w);
     } catch (...) {
+      std::cout << "Catching exception in RoccoR::kScaleAndSmearMC and returning 1.0" << std::endl;
       return 1.0;
     }
 }
