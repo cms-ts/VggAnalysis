@@ -36,10 +36,14 @@ public :
    TH1D* h_W_muo_npvs_w = 0;
    
    TH1D* h_W_ele0_pt = 0;
+   TH1D* h_W_ele0_eta = 0;
+   TH1D* h_W_ele0_phi = 0;
    TH1D* h_W_ele_met_pt = 0;
    TH1D* h_W_ele_met_phi = 0;
    TH1D* h_W_ele_met_sign = 0;
    TH1D* h_W_muo0_pt = 0;
+   TH1D* h_W_muo0_eta = 0;
+   TH1D* h_W_muo0_phi = 0;
    TH1D* h_W_muo_met_pt = 0;
    TH1D* h_W_muo_met_phi = 0;
    TH1D* h_W_muo_met_sign = 0;
@@ -53,10 +57,19 @@ public :
    TH1D* h_Z_muo_npvs_w = 0;
    
    TH1D* h_Z_ele0_pt = 0;
+   TH1D* h_Z_ele0_eta = 0;
+   TH1D* h_Z_ele0_phi = 0;
    TH1D* h_Z_ele1_pt = 0;
+   TH1D* h_Z_ele1_eta = 0;
+   TH1D* h_Z_ele1_phi = 0;
    TH1D* h_Z_muo0_pt = 0;
+   TH1D* h_Z_muo0_eta = 0;
+   TH1D* h_Z_muo0_phi = 0;
    TH1D* h_Z_muo1_pt = 0;
+   TH1D* h_Z_muo1_eta = 0;
+   TH1D* h_Z_muo1_phi = 0;
 
+   TH2D* h_TrigObj = 0;
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
