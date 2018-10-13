@@ -28,12 +28,17 @@ for L in `ls data/$VERSION/*.log`; do
   grep -v 'Lite-0' | \
   grep -v '+++' | \
   grep -v '(M)' | \
-  grep -v '#' | \
-  grep -v 'RoccoR::kScaleAndSmearMC'`
+  grep -v '#'`
+  N=`echo "$O" | grep 'RoccoR::kScaleAndSmearMC' | wc -l`
+  O=`echo "$O" | grep -v 'RoccoR::kScaleAndSmearMC'`
   echo -n 'Checking '
   basename $L
   if [ -z "$O" ]; then
-    echo "OK"
+    if [ "$2" == "-d" ]; then
+      echo "RoccoR::kScaleAndSmearMC = "$N
+    else
+      echo "OK"
+    fi
   else
     echo "$O"
   fi
