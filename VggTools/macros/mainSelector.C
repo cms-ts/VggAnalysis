@@ -322,9 +322,6 @@ Bool_t mainSelector::Process(Long64_t entry)
    for (uint i = 0; i < *nElectron; i++) {
      ele_sel = true;
      float eCorr_ele = 1.;
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
-     eCorr_ele = 1.0 / Electron_eCorr[i];
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
      if (Electron_pt[i]*eCorr_ele < 25) ele_sel = false;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) ele_sel = false;
      if (fabs(Electron_eta[i]) > 2.500) ele_sel = false;
