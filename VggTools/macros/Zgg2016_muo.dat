@@ -1,6 +1,11 @@
 Run2016_DoubleMuon_05Feb2018      0
 RunIISummer16NanoAOD_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8     10
-RunIISummer16NanoAOD_TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8      20
-RunIISummer16NanoAOD_ZZ_TuneCUETP8M1_13TeV-pythia8      30
-RunIISummer16NanoAOD_WW_TuneCUETP8M1_13TeV-pythia8      30
-RunIISummer16NanoAOD_WZ_TuneCUETP8M1_13TeV-pythia8      30
+RunIISummer16NanoAOD_ZZ_TuneCUETP8M1_13TeV-pythia8      20
+RunIISummer16NanoAOD_WW_TuneCUETP8M1_13TeV-pythia8      20
+RunIISummer16NanoAOD_WZ_TuneCUETP8M1_13TeV-pythia8      20
+RunIISummer16NanoAOD_TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8      30
+RunIISummer16NanoAOD_ST_s-channel_4f_InclusiveDecays_13TeV-amcatnlo-pythia8     40
+RunIISummer16NanoAOD_ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1        40
+RunIISummer16NanoAOD_ST_t-channel_top_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1    40
+RunIISummer16NanoAOD_ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1 40
+RunIISummer16NanoAOD_ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1     40

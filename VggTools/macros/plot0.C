@@ -90,12 +90,16 @@ void plot0(string plot="", string title="") {
       leg->AddEntry(it->second, "DYJets", "f");
     }
     if (it->first == 20) {
+      it->second->SetFillColor(kBlue-4);
+      leg->AddEntry(it->second, "Diboson", "f");
+    }
+    if (it->first == 30) {
       it->second->SetFillColor(kBlue);
       leg->AddEntry(it->second, "TTJets", "f");
     }
-    if (it->first == 30) {
-      it->second->SetFillColor(kBlue-4);
-      leg->AddEntry(it->second, "Diboson", "f");
+    if (it->first == 40) {
+      it->second->SetFillColor(kOrange-4);
+      leg->AddEntry(it->second, "SingleTop", "f");
     }
 
     if (it->first == 1010) {
