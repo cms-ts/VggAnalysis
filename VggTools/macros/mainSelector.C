@@ -667,9 +667,11 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (ele_sel_gen) {
          if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[iele0_gen]) {
            iele1_gen=i;
+           ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele1_gen], GenDressedLepton_eta[iele1_gen], GenDressedLepton_phi[iele1_gen], Electron_mass[iele1_gen]);
          }
          if (iele0_gen == -1) {
            iele0_gen=i;
+           ele0_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele0_gen], GenDressedLepton_eta[iele0_gen], GenDressedLepton_phi[iele0_gen], Electron_mass[iele0_gen]);
          }
        }
      }
@@ -680,17 +682,17 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (muo_sel_gen) {
          if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[imuo0_gen]) {
            imuo1_gen=i;
+           muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo1_gen], GenDressedLepton_eta[imuo1_gen], GenDressedLepton_phi[imuo1_gen], Muon_mass[imuo1_gen]);
          }
          if (imuo0_gen == -1) {
            imuo0_gen=i;
+           muo0_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo0_gen], GenDressedLepton_eta[imuo0_gen], GenDressedLepton_phi[imuo0_gen], Muon_mass[imuo0_gen]);
          }
        }
      }
    }
 
    if (iele0_gen != -1 && iele1_gen != -1) {
-     ele0_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele0_gen], GenDressedLepton_eta[iele0_gen], GenDressedLepton_phi[iele0_gen], Electron_mass[iele0_gen]);
-     ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele1_gen], GenDressedLepton_eta[iele1_gen], GenDressedLepton_phi[iele1_gen], Electron_mass[iele1_gen]);
      Z_ele0_ele1_gen = ele0_gen + ele1_gen;
      if (Z_ele0_ele1_gen.M() >= 71. && Z_ele0_ele1_gen.M() <= 111.) {
        Z_ele_sel_gen = true;
@@ -698,8 +700,6 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (imuo0_gen != -1 && imuo1_gen != -1) {
-     muo0_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo0_gen], GenDressedLepton_eta[imuo0_gen], GenDressedLepton_phi[imuo0_gen], Muon_mass[imuo0_gen]);
-     muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo1_gen], GenDressedLepton_eta[imuo1_gen], GenDressedLepton_phi[imuo1_gen], Muon_mass[imuo1_gen]);
      Z_muo0_muo1_gen = muo0_gen + muo1_gen;
      if (Z_muo0_muo1_gen.M() >= 71. && Z_muo0_muo1_gen.M() <= 111.) {
        Z_muo_sel_gen = true;
