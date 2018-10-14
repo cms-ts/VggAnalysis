@@ -31,8 +31,7 @@ for L in `ls data/$VERSION/*.log`; do
   grep -v '#'`
   N=`echo "$O" | grep 'RoccoR::kScaleAndSmearMC' | wc -l`
   O=`echo "$O" | grep -v 'RoccoR::kScaleAndSmearMC'`
-  echo -n 'Checking '
-  basename $L
+  echo -n 'Checking '`basename $L`" : "
   if [ -z "$O" ]; then
     if [ "$2" == "-d" ]; then
       echo "PASS (known RoccoR::kScaleAndSmearMC = "$N")"
