@@ -368,11 +368,11 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ele_sel) {
        if (iele0 != -1 && iele1 == -1 && Electron_charge[iele0] != Electron_charge[i]) {
          iele1 = i;
-         ele1.SetPtEtaPhiM(Electron_pt[iele1]*eCorr_ele, Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
+         ele1.SetPtEtaPhiM(Electron_pt[i]*eCorr_ele, Electron_eta[i], Electron_phi[i], Electron_mass[i]);
        }
        if (iele0 == -1) {
          iele0 = i;
-         ele0.SetPtEtaPhiM(Electron_pt[iele0]*eCorr_ele, Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
+         ele0.SetPtEtaPhiM(Electron_pt[i]*eCorr_ele, Electron_eta[i], Electron_phi[i], Electron_mass[i]);
        }
      }
    }
@@ -499,11 +499,11 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (muo_sel) {
        if (imuo0 != -1 && imuo1 == -1 && Muon_charge[imuo0] != Muon_charge[i]) {
          imuo1 = i;
-         muo1.SetPtEtaPhiM(Muon_pt[imuo1]*eCorr_muo, Muon_eta[imuo1], Muon_phi[imuo1], Muon_mass[imuo1]);
+         muo1.SetPtEtaPhiM(Muon_pt[i]*eCorr_muo, Muon_eta[i], Muon_phi[i], Muon_mass[i]);
        }
        if (imuo0 == -1) {
          imuo0 = i;
-         muo0.SetPtEtaPhiM(Muon_pt[imuo0]*eCorr_muo, Muon_eta[imuo0], Muon_phi[imuo0], Muon_mass[imuo0]);
+         muo0.SetPtEtaPhiM(Muon_pt[i]*eCorr_muo, Muon_eta[i], Muon_phi[i], Muon_mass[i]);
        }
      }
    }
@@ -667,11 +667,11 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (ele_sel_gen) {
          if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[iele0_gen]) {
            iele1_gen=i;
-           ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele1_gen], GenDressedLepton_eta[iele1_gen], GenDressedLepton_phi[iele1_gen], Electron_mass[iele1_gen]);
+           ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[i], GenDressedLepton_eta[i], GenDressedLepton_phi[i], Electron_mass[i]);
          }
          if (iele0_gen == -1) {
            iele0_gen=i;
-           ele0_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele0_gen], GenDressedLepton_eta[iele0_gen], GenDressedLepton_phi[iele0_gen], Electron_mass[iele0_gen]);
+           ele0_gen.SetPtEtaPhiM(GenDressedLepton_pt[i], GenDressedLepton_eta[i], GenDressedLepton_phi[i], Electron_mass[i]);
          }
        }
      }
@@ -682,11 +682,11 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (muo_sel_gen) {
          if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[imuo0_gen]) {
            imuo1_gen=i;
-           muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo1_gen], GenDressedLepton_eta[imuo1_gen], GenDressedLepton_phi[imuo1_gen], Muon_mass[imuo1_gen]);
+           muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[i], GenDressedLepton_eta[i], GenDressedLepton_phi[i], Muon_mass[i]);
          }
          if (imuo0_gen == -1) {
            imuo0_gen=i;
-           muo0_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo0_gen], GenDressedLepton_eta[imuo0_gen], GenDressedLepton_phi[imuo0_gen], Muon_mass[imuo0_gen]);
+           muo0_gen.SetPtEtaPhiM(GenDressedLepton_pt[i], GenDressedLepton_eta[i], GenDressedLepton_phi[i], Muon_mass[i]);
          }
        }
      }
