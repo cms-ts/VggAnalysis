@@ -32,6 +32,10 @@
 #include <TIterator.h>
 #include <TFile.h>
 
+#if defined(mainSelectorDT17B_cxx)
+#define mainSelectorDT17_cxx
+#endif // defined(mainSelectorDT17B_cxx)
+
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #include "roccor.2016.v3/RoccoR.cc"
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)

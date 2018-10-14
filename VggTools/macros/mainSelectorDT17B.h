@@ -1,6 +1,5 @@
 #ifndef mainSelectorDT17B_h
 #define mainSelectorDT17B_h
-#define mainSelectorDT17_h
 
 #include "mainSelector.h"
 

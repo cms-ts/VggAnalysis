@@ -21,6 +21,10 @@
 #include "TH2D.h"
 #include "TRandom.h"
 
+#if defined(mainSelectorDT17B_h)
+#define mainSelectorDT17_h
+#endif // defined(mainSelectorDT17B_h)
+
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 #include "roccor.2016.v3/RoccoR.h"
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
