@@ -533,9 +533,15 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorMC16_cxx)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL) {
 #endif // defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT17B_cxx)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ) {
-#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#endif // defined(mainSelectorDT17B_cxx)
+#if defined(mainSelectorDT17_cxx) && !defined(mainSelectorDT17B_cxx)
+     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
+#endif // defined(mainSelectorDT17_cxx) && !defined(mainSelectorDT17B_cxx)
+#if defined(mainSelectorMC17_cxx)
+     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
+#endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (true) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)

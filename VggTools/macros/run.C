@@ -4,7 +4,8 @@ void run(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.
 
   TString option = "";
   if (input.Contains("Run2016")) option="DT16";
-  if (input.Contains("Run2017")) option="DT17";
+  if (input.Contains("Run2017B")) option="DT17B";
+  if (input.Contains("Run2017") && !input.Contains("Run2017B")) option="DT17";
   if (input.Contains("Run2018")) option="DT18";
   if (input.Contains("RunIISummer16NanoAOD")) option="MC16";
   if (input.Contains("RunIIFall17NanoAOD")) option="MC17";
@@ -45,11 +46,13 @@ void run(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.
   if (option.Contains("DT")) {
 #if defined(__APPLE__)
     if (option.Contains("DT16")) selector = TSelector::GetSelector("mainSelectorDT16.C");
-    if (option.Contains("DT17")) selector = TSelector::GetSelector("mainSelectorDT17.C");
+    if (option.Contains("DT17B")) selector = TSelector::GetSelector("mainSelectorDT17B.C");
+    if (option.Contains("DT17") && !option.Contains("DT17B")) selector = TSelector::GetSelector("mainSelectorDT17.C");
     if (option.Contains("DT18")) selector = TSelector::GetSelector("mainSelectorDT18.C");
 #else
     if (option.Contains("DT16")) selector = TSelector::GetSelector("mainSelectorDT16.C+");
-    if (option.Contains("DT17")) selector = TSelector::GetSelector("mainSelectorDT17.C+");
+    if (option.Contains("DT17B")) selector = TSelector::GetSelector("mainSelectorDT17B.C+");
+    if (option.Contains("DT17") && !option.Contains("DT17B")) selector = TSelector::GetSelector("mainSelectorDT17.C+");
     if (option.Contains("DT18")) selector = TSelector::GetSelector("mainSelectorDT18.C+");
 #endif
     selector->SetOption("DT");
