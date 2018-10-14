@@ -37,7 +37,7 @@ for L in `ls data/$VERSION/*.log`; do
       echo "$O"
     else
       if [ "$O" == "no files to process" ]; then
-        echo $O
+        echo "$O"
       else
         echo "ERROR"
       fi
