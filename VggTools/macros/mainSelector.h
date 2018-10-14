@@ -25,12 +25,7 @@
 #define mainSelectorDT17_h
 #endif // defined(mainSelectorDT17B_h)
 
-#if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 #include "roccor.Run2.v2/RoccoR.h"
-#endif // defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
-#if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
-#include "roccor.Run2.v2/RoccoR.h"
-#endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
 class mainSelector : public TSelector {
 public :
@@ -100,12 +95,7 @@ public :
    TH2D* sf_muo_iso = 0;
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
-#if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
    RoccoR* roccor;
-#endif // defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
-#if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
-   RoccoR* roccor;
-#endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
 #if defined(mainSelectorDT16_h) 
 

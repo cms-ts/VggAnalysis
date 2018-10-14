@@ -36,12 +36,7 @@
 #define mainSelectorDT17_cxx
 #endif // defined(mainSelectorDT17B_cxx)
 
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #include "roccor.Run2.v2/RoccoR.cc"
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#include "roccor.Run2.v2/RoccoR.cc"
-#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 
 void mainSelector::Begin(TTree * /*tree*/)
 {
@@ -275,6 +270,11 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
    roccor = new RoccoR("roccor.Run2.v2/RoccoR2017.txt");
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+// FIXME
+   roccor = new RoccoR("roccor.Run2.v2/RoccoR2017.txt");
+// FIXME
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 }
 
@@ -449,12 +449,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*Flag_goodVertices == 0) continue;
      if (*Flag_METFilters == 0) continue;
      float eCorr_muo = 1.0;
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx)
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
      eCorr_muo = roccor->kScaleDT(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], 0, 0);
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx)
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      eCorr_muo = roccor->kSmearMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_nTrackerLayers[i], gRandom->Rndm(), 0, 0);
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      if (Muon_pt[i]*eCorr_muo < 25) continue;
      if (fabs(Muon_eta[i]) > 1.442 && fabs(Muon_eta[i]) < 1.566) continue;
      if (fabs(Muon_eta[i]) > 2.500) continue;
