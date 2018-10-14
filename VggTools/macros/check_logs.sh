@@ -42,7 +42,11 @@ for L in `ls data/$VERSION/*.log`; do
     if [ "$2" == "-d" ]; then
       echo "$O"
     else
-      echo "ERROR"
+      if [ "$O" == "no files to process" ]; then
+        echo $O
+      else
+        echo "ERROR"
+      fi
     fi
   fi
 done
