@@ -26,10 +26,10 @@
 #endif // defined(mainSelectorDT17B_h)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
-#include "roccor.2016.v3/RoccoR.h"
+#include "roccor.Run2.v2/RoccoR.h"
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 #if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
-#include "roccor.2017.v0/RoccoR.h"
+#include "roccor.Run2.v2/RoccoR.h"
 #endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
 class mainSelector : public TSelector {

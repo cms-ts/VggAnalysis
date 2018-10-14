@@ -37,10 +37,10 @@
 #endif // defined(mainSelectorDT17B_cxx)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-#include "roccor.2016.v3/RoccoR.cc"
+#include "roccor.Run2.v2/RoccoR.cc"
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#include "roccor.2017.v0/RoccoR.cc"
+#include "roccor.Run2.v2/RoccoR.cc"
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 
 void mainSelector::Begin(TTree * /*tree*/)
@@ -270,10 +270,10 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-   roccor = new RoccoR("roccor.2016.v3/rcdata.2016.v3");
+   roccor = new RoccoR("roccor.Run2.v2/RoccoR2016.txt");
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-   roccor = new RoccoR("roccor.2017.v0/RoccoR2017v0.txt");
+   roccor = new RoccoR("roccor.Run2.v2/RoccoR2017.txt");
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 
 }
@@ -453,7 +453,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      eCorr_muo = roccor->kScaleDT(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], 0, 0);
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx)
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
-     eCorr_muo = roccor->kScaleAndSmearMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_nTrackerLayers[i], gRandom->Rndm(), gRandom->Rndm(), 0, 0);
+     eCorr_muo = roccor->kSmearMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_nTrackerLayers[i], gRandom->Rndm(), 0, 0);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
      if (Muon_pt[i]*eCorr_muo < 25) continue;
      if (fabs(Muon_eta[i]) > 1.442 && fabs(Muon_eta[i]) < 1.566) continue;
