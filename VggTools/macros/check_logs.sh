@@ -35,12 +35,16 @@ for L in `ls data/$VERSION/*.log`; do
   basename $L
   if [ -z "$O" ]; then
     if [ "$2" == "-d" ]; then
-      echo "RoccoR::kScaleAndSmearMC = "$N
+      echo "PASS (known RoccoR::kScaleAndSmearMC = "$N")"
     else
-      echo "OK"
+      echo "PASS"
     fi
   else
-    echo "$O"
+    if [ "$2" == "-d" ]; then
+      echo "$O"
+    else
+      echo "FAIL"
+    fi
   fi
 done
 
