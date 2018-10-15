@@ -398,7 +398,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-     if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL || *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ) {
+     if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) {
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 // FIXME
@@ -652,9 +652,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nGenDressedLepton; i++) {
      if (fabs(GenDressedLepton_pdgId[i]) == 11) {
-       if (GenDressedLepton_pt[i] < 20) continue;
+       if (GenDressedLepton_pt[i] < 25) continue;
        if (fabs(GenDressedLepton_eta[i]) > 1.442 && fabs(GenDressedLepton_eta[i]) < 1.566) continue;
-       if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
+       if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
        if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[iele0_gen]) {
          iele1_gen=i;
          ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[i], GenDressedLepton_eta[i], GenDressedLepton_phi[i], Electron_mass[i]);
@@ -665,7 +665,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
      if (fabs(GenDressedLepton_pdgId[i]) == 13) {
-       if (GenDressedLepton_pt[i] < 20) continue;
+       if (GenDressedLepton_pt[i] < 25) continue;
        if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
        if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[imuo0_gen]) {
          imuo1_gen=i;
