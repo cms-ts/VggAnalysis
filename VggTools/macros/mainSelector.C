@@ -325,7 +325,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      float eCorr_ele = 1.;
      if (Electron_pt[i]*eCorr_ele < 25) continue;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) continue;
-     if (fabs(Electron_eta[i]) > 2.500) continue;
+     if (fabs(Electron_eta[i]) > 2.400) continue;
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (Electron_mvaSpring16GP_WP90[i] == 0) continue;
@@ -385,7 +385,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_ele_mt = TMath::Sqrt(2. * ele0.Pt() * (*MET_pt) * (1. - TMath::Cos(ele0.Phi() - (*MET_phi))));
-       if (*MET_pt > 40 && W_ele_mt > 40 && ele0.Pt() > 30) {
+       if (*MET_pt > 40 && W_ele_mt > 40 && ele0.Pt() > 35) {
          W_ele_sel = true;
        }
      }
@@ -463,7 +463,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      if (Muon_pt[i]*eCorr_muo < 25) continue;
      if (fabs(Muon_eta[i]) > 1.442 && fabs(Muon_eta[i]) < 1.566) continue;
-     if (fabs(Muon_eta[i]) > 2.500) continue;
+     if (fabs(Muon_eta[i]) > 2.400) continue;
 
      if (Muon_tightId[i] == 0) continue;
 
@@ -511,7 +511,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_muo_mt = TMath::Sqrt(2. * muo0.Pt() * (*MET_pt) * (1. - TMath::Cos(muo0.Phi() - (*MET_phi))));
-       if (*MET_pt > 20 && W_muo_mt > 40 && muo0.Pt() > 27) {
+       if (*MET_pt > 20 && W_muo_mt > 40 && muo0.Pt() > 30) {
          W_muo_sel = true;
        }
      }
