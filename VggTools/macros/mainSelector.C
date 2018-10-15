@@ -109,7 +109,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo1_eta = new TH1D("h_Z_muo1_eta", "h_Z_muo1_eta", 50, -2.5, 2.5);
    h_Z_muo1_phi = new TH1D("h_Z_muo1_phi", "h_Z_muo1_phi", 24, -TMath::Pi(), TMath::Pi());
 
-   h_TrigObj = new TH2D("h_TrigObj", "h_TrigObj", 65, -0.5, 64.5, 25, -0.5, 24.5);
+   h_TrigObj = new TH2D("h_TrigObj", "h_TrigObj", 34, -1.5, 32.5, 25, -0.5, 24.5);
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -352,9 +352,10 @@ Bool_t mainSelector::Process(Long64_t entry)
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Electron_mass[i]);
        if (tmp_sel.DeltaR(tmp_trg) > 0.1) continue;
 //         ele_trg = true;
-         for (uint k = 0; k < 64; k++) {
-           if (TrigObj_filterBits[j] & k) h_TrigObj->Fill(TrigObj_filterBits[j] & k, TrigObj_id[j]);
-         }
+       for (uint k = 0; k < 32; k++) {
+         h_TrigObj->Fill(-1, TrigObj_id[i]);
+         if ((TrigObj_filterBits[j] >> k) & 1) h_TrigObj->Fill(k, TrigObj_id[j]);
+       }
        break;
      }
 
@@ -478,8 +479,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Muon_mass[i]);
        if (tmp_sel.DeltaR(tmp_trg) > 0.1) continue;
 //       muo_trg = true;
-       for (uint k = 0; k < 64; k++) {
-         if (TrigObj_filterBits[j] & k) h_TrigObj->Fill(TrigObj_filterBits[j] & k, TrigObj_id[j]);
+       for (uint k = 0; k < 32; k++) {
+         h_TrigObj->Fill(-1, TrigObj_id[i]);
+         if ((TrigObj_filterBits[j] >> k) & 1) h_TrigObj->Fill(k, TrigObj_id[j]);
        }
        break;
      }
