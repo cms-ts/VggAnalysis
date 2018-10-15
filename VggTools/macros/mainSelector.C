@@ -335,7 +335,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Electron_mvaFall17Iso_WP90[i] == 0) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+// FIXME
      if (Electron_mvaFall17V2Iso_WP90[i] == 0) continue;
+// FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 //     bool ele_trg = false;
@@ -378,7 +380,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele35_WPTight_Gsf) {
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+// FIXME
      if (*HLT_Ele35_WPTight_Gsf) {
+// FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_ele_mt = TMath::Sqrt(2. * ele0.Pt() * (*MET_pt) * (1. - TMath::Cos(ele0.Phi() - (*MET_phi))));
        if (*MET_pt > 40 && W_ele_mt > 40 && ele0.Pt() > 30) {
@@ -397,7 +401,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL || *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ) {
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+// FIXME
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL || *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ) {
+// FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_ele0_ele1 = ele0 + ele1;
        if (Z_ele0_ele1.M() >= 71. && Z_ele0_ele1.M() <= 111.) {
@@ -500,7 +506,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_IsoMu24 || *HLT_IsoMu27) {
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+// FIXME
      if (*HLT_IsoMu24) {
+// FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_muo_mt = TMath::Sqrt(2. * muo0.Pt() * (*MET_pt) * (1. - TMath::Cos(muo0.Phi() - (*MET_phi))));
        if (*MET_pt > 20 && W_muo_mt > 40 && muo0.Pt() > 27) {
@@ -529,7 +537,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+// FIXME
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
+// FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_muo0_muo1 = muo0 + muo1;
        if (Z_muo0_muo1.M() >= 71. && Z_muo0_muo1.M() <= 111.) {
