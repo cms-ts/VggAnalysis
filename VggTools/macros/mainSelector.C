@@ -381,7 +381,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 // FIXME
-     if (*HLT_Ele35_WPTight_Gsf) {
+     if (*HLT_Ele32_WPTight_Gsf) {
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_ele_mt = TMath::Sqrt(2. * ele0.Pt() * (*MET_pt) * (1. - TMath::Cos(ele0.Phi() - (*MET_phi))));
