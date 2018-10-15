@@ -34,7 +34,7 @@ void run(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.
     return;
   }
 
-  int nWorkers = 4;
+  int nWorkers = 2;
 
   ROOT::EnableThreadSafety();
   ROOT::TTreeProcessorMP workers(nWorkers);
