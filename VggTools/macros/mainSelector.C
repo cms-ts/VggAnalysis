@@ -319,55 +319,52 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    TFile* file_muo_sf_id;
    TFile* file_muo_sf_iso;
 
-   TFile* file_pho_sf_id;
-
+   TFile* file_pho_sf_eff;
 
 #if defined(mainSelectorMC16_cxx) 
-   file_ele_sf_eff = TFile::Open("root/sf_EGM2D_WP90_2016.root");
-   //file_ele_sf_eff = TFile::Open("root/sf_EGM2D_WP80_2016.root");
-
+   file_ele_sf_eff = TFile::Open("root/sf_ele_2016_EGM2D_WP90.root");
+   //file_ele_sf_eff = TFile::Open("root/sf_ele_2016_EGM2D_WP80.root");
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
-
    sf_ele_eff->SetDirectory(0);
-
    file_ele_sf_eff->Close();
 
-   file_muo_sf_id = TFile::Open("root/sf_muo_RunBCDEF_ID_2016.root");
-   file_muo_sf_iso = TFile::Open("root/sf_muo_RunBCDEF_ISO_2016.root");
-
+   file_muo_sf_id = TFile::Open("root/sf_muo_2016_RunBCDEF_ID.root");
+   file_muo_sf_iso = TFile::Open("root/sf_muo_2016_RunBCDEF_ISO.root");
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
    sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
-
    sf_muo_id->SetDirectory(0);
    sf_muo_iso->SetDirectory(0);
-
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
+
+   file_pho_sf_eff = TFile::Open("root/sf_pho_2016_EGM2D.root");
+   sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
+   sf_pho_eff->SetDirectory(0);
+   file_pho_sf_eff->Close();
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
-   file_ele_sf_eff = TFile::Open("root/sf_EGM2D_runBCDEF_passingMVA94Xwp90iso_2017.root");
-   file_ele_sf_reco = TFile::Open("root/sf_reco_EGM2D_runBCDEF_passingRECO_2017.root");
-
+   file_ele_sf_eff = TFile::Open("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp90iso.root");
+   file_ele_sf_reco = TFile::Open("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
-
    sf_ele_eff->SetDirectory(0);
    sf_ele_reco->SetDirectory(0);
-
    file_ele_sf_eff->Close();
    file_ele_sf_reco->Close();
 
-   file_muo_sf_id = TFile::Open("root/sf_muo_RunBCDEF_ID_2017.root");
-   file_muo_sf_iso = TFile::Open("root/sf_muo_RunBCDEF_ISO_2017.root");
-
+   file_muo_sf_id = TFile::Open("root/sf_muo_2017_RunBCDEF_ID.root");
+   file_muo_sf_iso = TFile::Open("root/sf_muo_2017_RunBCDEF_ISO.root");
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
    sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
-
    sf_muo_id->SetDirectory(0);
    sf_muo_iso->SetDirectory(0);
-
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
+
+   file_pho_sf_eff = TFile::Open("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
+   sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
+   sf_pho_eff->SetDirectory(0);
+   file_pho_sf_eff->Close();
 #endif // defined(mainSelectorMC17_cxx)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -801,15 +798,19 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    TLorentzVector diphoton;
+   if(ipho0 != -1 && ipho1 != -1) diphoton = pho0 + pho1;
 
    float weight_pho0 = 1.;
    float weight_pho1 = 1.;
 
-   if (ipho0 != -1 && ipho1 != -1){
-     weight_pho0 = 1.;
-     weight_pho1 = 1.;
-     diphoton = pho0 + pho1;
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   if (ipho0 != -1){
+     weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
+     if (ipho1 != -1){
+       weight_pho1 = getWeight(sf_pho_eff, pho1.Eta(), pho1.Pt());
+     }
    }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    if (W_ele_sel){
      if (h_W_ele_njets) h_W_ele_njets->Fill(n_jets, weight_W_ele);
