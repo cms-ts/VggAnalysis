@@ -97,37 +97,37 @@ public :
    TH1D* h_Z_muo_jet0_phi = 0;
 
    TH1D* h_W_ele_nphotons = 0;
-   TH1D* h_W_ele_photon0_pt = 0;
-   TH1D* h_W_ele_photon0_eta = 0;
-   TH1D* h_W_ele_photon0_phi = 0;
-   TH1D* h_W_ele_photon1_pt = 0;
-   TH1D* h_W_ele_photon1_eta = 0;
-   TH1D* h_W_ele_photon1_phi = 0;
+   TH1D* h_W_ele_pho0_pt = 0;
+   TH1D* h_W_ele_pho0_eta = 0;
+   TH1D* h_W_ele_pho0_phi = 0;
+   TH1D* h_W_ele_pho1_pt = 0;
+   TH1D* h_W_ele_pho1_eta = 0;
+   TH1D* h_W_ele_pho1_phi = 0;
    TH1D* h_W_ele_diphoton_pt = 0;
    TH1D* h_W_muo_nphotons = 0;
-   TH1D* h_W_muo_photon0_pt = 0;
-   TH1D* h_W_muo_photon0_eta = 0;
-   TH1D* h_W_muo_photon0_phi = 0;
-   TH1D* h_W_muo_photon1_pt = 0;
-   TH1D* h_W_muo_photon1_eta = 0;
-   TH1D* h_W_muo_photon1_phi = 0;
+   TH1D* h_W_muo_pho0_pt = 0;
+   TH1D* h_W_muo_pho0_eta = 0;
+   TH1D* h_W_muo_pho0_phi = 0;
+   TH1D* h_W_muo_pho1_pt = 0;
+   TH1D* h_W_muo_pho1_eta = 0;
+   TH1D* h_W_muo_pho1_phi = 0;
    TH1D* h_W_muo_diphoton_pt = 0;
 
    TH1D* h_Z_ele_nphotons = 0;
-   TH1D* h_Z_ele_photon0_pt = 0;
-   TH1D* h_Z_ele_photon0_eta = 0;
-   TH1D* h_Z_ele_photon0_phi = 0;
-   TH1D* h_Z_ele_photon1_pt = 0;
-   TH1D* h_Z_ele_photon1_eta = 0;
-   TH1D* h_Z_ele_photon1_phi = 0;
+   TH1D* h_Z_ele_pho0_pt = 0;
+   TH1D* h_Z_ele_pho0_eta = 0;
+   TH1D* h_Z_ele_pho0_phi = 0;
+   TH1D* h_Z_ele_pho1_pt = 0;
+   TH1D* h_Z_ele_pho1_eta = 0;
+   TH1D* h_Z_ele_pho1_phi = 0;
    TH1D* h_Z_ele_diphoton_pt = 0;
    TH1D* h_Z_muo_nphotons = 0;
-   TH1D* h_Z_muo_photon0_pt = 0;
-   TH1D* h_Z_muo_photon0_eta = 0;
-   TH1D* h_Z_muo_photon0_phi = 0;
-   TH1D* h_Z_muo_photon1_pt = 0;
-   TH1D* h_Z_muo_photon1_eta = 0;
-   TH1D* h_Z_muo_photon1_phi = 0;
+   TH1D* h_Z_muo_pho0_pt = 0;
+   TH1D* h_Z_muo_pho0_eta = 0;
+   TH1D* h_Z_muo_pho0_phi = 0;
+   TH1D* h_Z_muo_pho1_pt = 0;
+   TH1D* h_Z_muo_pho1_eta = 0;
+   TH1D* h_Z_muo_pho1_phi = 0;
    TH1D* h_Z_muo_diphoton_pt = 0;
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
@@ -181,6 +181,9 @@ public :
    TTreeReaderArray<Float_t> Photon_phi = {fReader, "Photon_phi"};
    TTreeReaderArray<Float_t> Photon_mass = {fReader, "Photon_mass"};
    TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
+   TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
+   TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
+   TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
 
    TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
    TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};
@@ -244,6 +247,9 @@ public :
    TTreeReaderArray<Float_t> Photon_phi = {fReader, "Photon_phi"};
    TTreeReaderArray<Float_t> Photon_mass = {fReader, "Photon_mass"};
    TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
+   TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
+   TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
+   TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
 
    TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
    TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};
@@ -308,6 +314,9 @@ public :
    TTreeReaderArray<Float_t> Photon_phi = {fReader, "Photon_phi"};
    TTreeReaderArray<Float_t> Photon_mass = {fReader, "Photon_mass"};
    TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
+   TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
+   TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
+   TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
 
    TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
    TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};
@@ -377,6 +386,9 @@ public :
    TTreeReaderArray<Float_t> Photon_mass = {fReader, "Photon_mass"};
    TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
    TTreeReaderArray<Int_t> Photon_genPartIdx = {fReader, "Photon_genPartIdx"};
+   TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
+   TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
+   TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
 
    TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
    TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};
@@ -456,6 +468,9 @@ public :
    TTreeReaderArray<Float_t> Photon_mass = {fReader, "Photon_mass"};
    TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
    TTreeReaderArray<Int_t> Photon_genPartIdx = {fReader, "Photon_genPartIdx"};
+   TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
+   TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
+   TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
    
    TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
    TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};
@@ -536,6 +551,9 @@ public :
    TTreeReaderArray<Float_t> Photon_mass = {fReader, "Photon_mass"};
    TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
    TTreeReaderArray<Int_t> Photon_genPartIdx = {fReader, "Photon_genPartIdx"};
+   TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
+   TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
+   TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
    
    TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
    TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};

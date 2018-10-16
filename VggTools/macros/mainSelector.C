@@ -130,37 +130,37 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo_jet0_phi = new TH1D("h_Z_muo_jet0_phi", "h_Z_muo_jet0_phi", 24, -TMath::Pi(), TMath::Pi());
 
    h_W_ele_nphotons = new TH1D("h_W_ele_nphotons", "h_W_ele_nphotons", 10, 0., 10.);
-   h_W_ele_photon0_pt = new TH1D("h_W_ele_photon0_pt", "h_W_ele_photon0_pt", 100, 0., 200.);
-   h_W_ele_photon0_eta = new TH1D("h_W_ele_photon0_eta", "h_W_ele_photon0_eta", 50, -2.5, 2.5);
-   h_W_ele_photon0_phi = new TH1D("h_W_ele_photon0_phi", "h_W_ele_photon0_phi", 24, -TMath::Pi(), TMath::Pi());
-   h_W_ele_photon1_pt = new TH1D("h_W_ele_photon1_pt", "h_W_ele_photon1_pt", 100, 0., 200.);
-   h_W_ele_photon1_eta = new TH1D("h_W_ele_photon1_eta", "h_W_ele_photon1_eta", 50, -2.5, 2.5);
-   h_W_ele_photon1_phi = new TH1D("h_W_ele_photon1_phi", "h_W_ele_photon1_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_W_ele_pho0_pt = new TH1D("h_W_ele_pho0_pt", "h_W_ele_pho0_pt", 100, 0., 200.);
+   h_W_ele_pho0_eta = new TH1D("h_W_ele_pho0_eta", "h_W_ele_pho0_eta", 50, -2.5, 2.5);
+   h_W_ele_pho0_phi = new TH1D("h_W_ele_pho0_phi", "h_W_ele_pho0_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_W_ele_pho1_pt = new TH1D("h_W_ele_pho1_pt", "h_W_ele_pho1_pt", 100, 0., 200.);
+   h_W_ele_pho1_eta = new TH1D("h_W_ele_pho1_eta", "h_W_ele_pho1_eta", 50, -2.5, 2.5);
+   h_W_ele_pho1_phi = new TH1D("h_W_ele_pho1_phi", "h_W_ele_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_W_ele_diphoton_pt = new TH1D("h_W_ele_diphoton_pt", "h_W_ele_diphoton_pt", 100, 0., 200.);
    h_W_muo_nphotons = new TH1D("h_W_muo_nphotons", "h_W_muo_nphotons", 10, 0., 10.);
-   h_W_muo_photon0_pt = new TH1D("h_W_muo_photon0_pt", "h_W_muo_photon0_pt", 100, 0., 200.);
-   h_W_muo_photon0_eta = new TH1D("h_W_muo_photon0_eta", "h_W_muo_photon0_eta", 50, -2.5, 2.5);
-   h_W_muo_photon0_phi = new TH1D("h_W_muo_photon0_phi", "h_W_muo_photon0_phi", 24, -TMath::Pi(), TMath::Pi());
-   h_W_muo_photon1_pt = new TH1D("h_W_muo_photon1_pt", "h_W_muo_photon1_pt", 100, 0., 200.);
-   h_W_muo_photon1_eta = new TH1D("h_W_muo_photon1_eta", "h_W_muo_photon1_eta", 50, -2.5, 2.5);
-   h_W_muo_photon1_phi = new TH1D("h_W_muo_photon1_phi", "h_W_muo_photon1_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_W_muo_pho0_pt = new TH1D("h_W_muo_pho0_pt", "h_W_muo_pho0_pt", 100, 0., 200.);
+   h_W_muo_pho0_eta = new TH1D("h_W_muo_pho0_eta", "h_W_muo_pho0_eta", 50, -2.5, 2.5);
+   h_W_muo_pho0_phi = new TH1D("h_W_muo_pho0_phi", "h_W_muo_pho0_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_W_muo_pho1_pt = new TH1D("h_W_muo_pho1_pt", "h_W_muo_pho1_pt", 100, 0., 200.);
+   h_W_muo_pho1_eta = new TH1D("h_W_muo_pho1_eta", "h_W_muo_pho1_eta", 50, -2.5, 2.5);
+   h_W_muo_pho1_phi = new TH1D("h_W_muo_pho1_phi", "h_W_muo_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_W_muo_diphoton_pt = new TH1D("h_W_muo_diphoton_pt", "h_W_muo_diphoton_pt", 100, 0., 200.);
 
    h_Z_ele_nphotons = new TH1D("h_Z_ele_nphotons", "h_Z_ele_nphotons", 10, 0., 10.);
-   h_Z_ele_photon0_pt = new TH1D("h_Z_ele_photon0_pt", "h_Z_ele_photon0_pt", 100, 0., 200.);
-   h_Z_ele_photon0_eta = new TH1D("h_Z_ele_photon0_eta", "h_Z_ele_photon0_eta", 50, -2.5, 2.5);
-   h_Z_ele_photon0_phi = new TH1D("h_Z_ele_photon0_phi", "h_Z_ele_photon0_phi", 24, -TMath::Pi(), TMath::Pi());
-   h_Z_ele_photon1_pt = new TH1D("h_Z_ele_photon1_pt", "h_Z_ele_photon1_pt", 100, 0., 200.);
-   h_Z_ele_photon1_eta = new TH1D("h_Z_ele_photon1_eta", "h_Z_ele_photon1_eta", 50, -2.5, 2.5);
-   h_Z_ele_photon1_phi = new TH1D("h_Z_ele_photon1_phi", "h_Z_ele_photon1_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_Z_ele_pho0_pt = new TH1D("h_Z_ele_pho0_pt", "h_Z_ele_pho0_pt", 100, 0., 200.);
+   h_Z_ele_pho0_eta = new TH1D("h_Z_ele_pho0_eta", "h_Z_ele_pho0_eta", 50, -2.5, 2.5);
+   h_Z_ele_pho0_phi = new TH1D("h_Z_ele_pho0_phi", "h_Z_ele_pho0_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_Z_ele_pho1_pt = new TH1D("h_Z_ele_pho1_pt", "h_Z_ele_pho1_pt", 100, 0., 200.);
+   h_Z_ele_pho1_eta = new TH1D("h_Z_ele_pho1_eta", "h_Z_ele_pho1_eta", 50, -2.5, 2.5);
+   h_Z_ele_pho1_phi = new TH1D("h_Z_ele_pho1_phi", "h_Z_ele_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_Z_ele_diphoton_pt = new TH1D("h_Z_ele_diphoton_pt", "h_Z_ele_diphoton_pt", 100, 0., 200.);
    h_Z_muo_nphotons = new TH1D("h_Z_muo_nphotons", "h_Z_muo_nphotons", 10, 0., 10.);
-   h_Z_muo_photon0_pt = new TH1D("h_Z_muo_photon0_pt", "h_Z_muo_photon0_pt", 100, 0., 200.);
-   h_Z_muo_photon0_eta = new TH1D("h_Z_muo_photon0_eta", "h_Z_muo_photon0_eta", 50, -2.5, 2.5);
-   h_Z_muo_photon0_phi = new TH1D("h_Z_muo_photon0_phi", "h_Z_muo_photon0_phi", 24, -TMath::Pi(), TMath::Pi());
-   h_Z_muo_photon1_pt = new TH1D("h_Z_muo_photon1_pt", "h_Z_muo_photon1_pt", 100, 0., 200.);
-   h_Z_muo_photon1_eta = new TH1D("h_Z_muo_photon1_eta", "h_Z_muo_photon1_eta", 50, -2.5, 2.5);
-   h_Z_muo_photon1_phi = new TH1D("h_Z_muo_photon1_phi", "h_Z_muo_photon1_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_Z_muo_pho0_pt = new TH1D("h_Z_muo_pho0_pt", "h_Z_muo_pho0_pt", 100, 0., 200.);
+   h_Z_muo_pho0_eta = new TH1D("h_Z_muo_pho0_eta", "h_Z_muo_pho0_eta", 50, -2.5, 2.5);
+   h_Z_muo_pho0_phi = new TH1D("h_Z_muo_pho0_phi", "h_Z_muo_pho0_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_Z_muo_pho1_pt = new TH1D("h_Z_muo_pho1_pt", "h_Z_muo_pho1_pt", 100, 0., 200.);
+   h_Z_muo_pho1_eta = new TH1D("h_Z_muo_pho1_eta", "h_Z_muo_pho1_eta", 50, -2.5, 2.5);
+   h_Z_muo_pho1_phi = new TH1D("h_Z_muo_pho1_phi", "h_Z_muo_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_Z_muo_diphoton_pt = new TH1D("h_Z_muo_diphoton_pt", "h_Z_muo_diphoton_pt", 100, 0., 200.);
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -237,37 +237,37 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    GetOutputList()->Add(h_Z_muo_jet0_phi);
 
    GetOutputList()->Add(h_W_ele_nphotons);
-   GetOutputList()->Add(h_W_ele_photon0_pt);
-   GetOutputList()->Add(h_W_ele_photon0_eta);
-   GetOutputList()->Add(h_W_ele_photon0_phi);
-   GetOutputList()->Add(h_W_ele_photon1_pt);
-   GetOutputList()->Add(h_W_ele_photon1_eta);
-   GetOutputList()->Add(h_W_ele_photon1_phi);
+   GetOutputList()->Add(h_W_ele_pho0_pt);
+   GetOutputList()->Add(h_W_ele_pho0_eta);
+   GetOutputList()->Add(h_W_ele_pho0_phi);
+   GetOutputList()->Add(h_W_ele_pho1_pt);
+   GetOutputList()->Add(h_W_ele_pho1_eta);
+   GetOutputList()->Add(h_W_ele_pho1_phi);
    GetOutputList()->Add(h_W_ele_diphoton_pt);
    GetOutputList()->Add(h_W_muo_nphotons);
-   GetOutputList()->Add(h_W_muo_photon0_pt);
-   GetOutputList()->Add(h_W_muo_photon0_eta);
-   GetOutputList()->Add(h_W_muo_photon0_phi);
-   GetOutputList()->Add(h_W_muo_photon1_pt);
-   GetOutputList()->Add(h_W_muo_photon1_eta);
-   GetOutputList()->Add(h_W_muo_photon1_phi);
+   GetOutputList()->Add(h_W_muo_pho0_pt);
+   GetOutputList()->Add(h_W_muo_pho0_eta);
+   GetOutputList()->Add(h_W_muo_pho0_phi);
+   GetOutputList()->Add(h_W_muo_pho1_pt);
+   GetOutputList()->Add(h_W_muo_pho1_eta);
+   GetOutputList()->Add(h_W_muo_pho1_phi);
    GetOutputList()->Add(h_W_muo_diphoton_pt);
 
    GetOutputList()->Add(h_Z_ele_nphotons);
-   GetOutputList()->Add(h_Z_ele_photon0_pt);
-   GetOutputList()->Add(h_Z_ele_photon0_eta);
-   GetOutputList()->Add(h_Z_ele_photon0_phi);
-   GetOutputList()->Add(h_Z_ele_photon1_pt);
-   GetOutputList()->Add(h_Z_ele_photon1_eta);
-   GetOutputList()->Add(h_Z_ele_photon1_phi);
+   GetOutputList()->Add(h_Z_ele_pho0_pt);
+   GetOutputList()->Add(h_Z_ele_pho0_eta);
+   GetOutputList()->Add(h_Z_ele_pho0_phi);
+   GetOutputList()->Add(h_Z_ele_pho1_pt);
+   GetOutputList()->Add(h_Z_ele_pho1_eta);
+   GetOutputList()->Add(h_Z_ele_pho1_phi);
    GetOutputList()->Add(h_Z_ele_diphoton_pt);
    GetOutputList()->Add(h_Z_muo_nphotons);
-   GetOutputList()->Add(h_Z_muo_photon0_pt);
-   GetOutputList()->Add(h_Z_muo_photon0_eta);
-   GetOutputList()->Add(h_Z_muo_photon0_phi);
-   GetOutputList()->Add(h_Z_muo_photon1_pt);
-   GetOutputList()->Add(h_Z_muo_photon1_eta);
-   GetOutputList()->Add(h_Z_muo_photon1_phi);
+   GetOutputList()->Add(h_Z_muo_pho0_pt);
+   GetOutputList()->Add(h_Z_muo_pho0_eta);
+   GetOutputList()->Add(h_Z_muo_pho0_phi);
+   GetOutputList()->Add(h_Z_muo_pho1_pt);
+   GetOutputList()->Add(h_Z_muo_pho1_eta);
+   GetOutputList()->Add(h_Z_muo_pho1_phi);
    GetOutputList()->Add(h_Z_muo_diphoton_pt);
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -318,6 +318,9 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    TFile* file_muo_sf_id;
    TFile* file_muo_sf_iso;
+
+   TFile* file_pho_sf_id;
+
 
 #if defined(mainSelectorMC16_cxx) 
    file_ele_sf_eff = TFile::Open("root/sf_EGM2D_WP90_2016.root");
@@ -743,30 +746,34 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    int ijet0 = -1;
 
-   int iphoton0 = -1;
-   int iphoton1 = -1;
+   int ipho0 = -1;
+   int ipho1 = -1;
 
    TLorentzVector jet0;
 
-   TLorentzVector photon0;
-   TLorentzVector photon1;
+   TLorentzVector pho0;
+   TLorentzVector pho1;
 
    if (W_ele_sel || W_muo_sel || Z_ele_sel || Z_muo_sel) {
 
      for (uint i = 0; i < *nPhoton; i++) {
-       if (Photon_pt[i] < 25) continue;
+       if (Photon_pt[i] < 30) continue;
        if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
        if (fabs(Photon_eta[i]) > 2.400) continue;
-
+       if (Photon_mvaID_WP90[i] == 0) continue;
+       if (Photon_electronVeto[i] == 0) continue;
+       if (Photon_pixelSeed[i] != 0) continue;
+       //if (Photon_pixelSeed[i] != 0) continue;
+  
        n_photons++;
 
-       if (iphoton0 != -1 && iphoton1 == -1) {
-         iphoton1 = i;
-         photon1.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
+       if (ipho0 != -1 && ipho1 == -1) {
+         ipho1 = i;
+         pho1.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
        }
-       if (iphoton0 == -1) {
-         iphoton0 = i;
-         photon0.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
+       if (ipho0 == -1) {
+         ipho0 = i;
+         pho0.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
        }
 
      }
@@ -779,8 +786,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (iele1 != -1 && (uint)Electron_jetIdx[iele1] == i) continue;
        if (imuo0 != -1 && (uint)Muon_jetIdx[imuo0] == i) continue;
        if (imuo1 != -1 && (uint)Muon_jetIdx[imuo1] == i) continue;
-       if (iphoton0 != -1 && (uint)Photon_jetIdx[iphoton0] == i) continue;
-       if (iphoton1 != -1 && (uint)Photon_jetIdx[iphoton1] == i) continue;
+       if (ipho0 != -1 && (uint)Photon_jetIdx[ipho0] == i) continue;
+       if (ipho1 != -1 && (uint)Photon_jetIdx[ipho1] == i) continue;
 
        n_jets++;
 
@@ -795,13 +802,13 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    TLorentzVector diphoton;
 
-   float weight_photon0 = 1.;
-   float weight_photon1 = 1.;
+   float weight_pho0 = 1.;
+   float weight_pho1 = 1.;
 
-   if (iphoton0 != -1 && iphoton1 != -1){
-     weight_photon0 = 1.;
-     weight_photon1 = 1.;
-     diphoton = photon0 + photon1;
+   if (ipho0 != -1 && ipho1 != -1){
+     weight_pho0 = 1.;
+     weight_pho1 = 1.;
+     diphoton = pho0 + pho1;
    }
 
    if (W_ele_sel){
@@ -835,60 +842,60 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (W_ele_sel){
      if (h_W_ele_nphotons) h_W_ele_nphotons->Fill(n_photons, weight_W_ele);
      if (n_photons >= 1){
-       if (h_W_ele_photon0_pt) h_W_ele_photon0_pt->Fill(photon0.Pt(), weight_W_ele * weight_photon0);
-       if (h_W_ele_photon0_eta) h_W_ele_photon0_eta->Fill(photon0.Eta(), weight_W_ele * weight_photon0);
-       if (h_W_ele_photon0_phi) h_W_ele_photon0_phi->Fill(photon0.Phi(), weight_W_ele * weight_photon0);
+       if (h_W_ele_pho0_pt) h_W_ele_pho0_pt->Fill(pho0.Pt(), weight_W_ele * weight_pho0);
+       if (h_W_ele_pho0_eta) h_W_ele_pho0_eta->Fill(pho0.Eta(), weight_W_ele * weight_pho0);
+       if (h_W_ele_pho0_phi) h_W_ele_pho0_phi->Fill(pho0.Phi(), weight_W_ele * weight_pho0);
      }
      if (n_photons >= 2){
-       if (h_W_ele_photon1_pt) h_W_ele_photon1_pt->Fill(photon1.Pt(), weight_W_ele * weight_photon0 * weight_photon1);
-       if (h_W_ele_photon1_eta) h_W_ele_photon1_eta->Fill(photon1.Eta(), weight_W_ele * weight_photon0 * weight_photon1);
-       if (h_W_ele_photon1_phi) h_W_ele_photon1_phi->Fill(photon1.Phi(), weight_W_ele * weight_photon0 * weight_photon1);
-       if (h_W_ele_diphoton_pt) h_W_ele_diphoton_pt->Fill(diphoton.Pt(), weight_W_ele * weight_photon0 * weight_photon1);
+       if (h_W_ele_pho1_pt) h_W_ele_pho1_pt->Fill(pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
+       if (h_W_ele_pho1_eta) h_W_ele_pho1_eta->Fill(pho1.Eta(), weight_W_ele * weight_pho0 * weight_pho1);
+       if (h_W_ele_pho1_phi) h_W_ele_pho1_phi->Fill(pho1.Phi(), weight_W_ele * weight_pho0 * weight_pho1);
+       if (h_W_ele_diphoton_pt) h_W_ele_diphoton_pt->Fill(diphoton.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
      }
    }
 
    if (W_muo_sel){
      if (h_W_muo_nphotons) h_W_muo_nphotons->Fill(n_photons, weight_W_muo);
      if (n_photons >= 1){
-       if (h_W_muo_photon0_pt) h_W_muo_photon0_pt->Fill(photon0.Pt(), weight_W_muo * weight_photon0);
-       if (h_W_muo_photon0_eta) h_W_muo_photon0_eta->Fill(photon0.Eta(), weight_W_muo * weight_photon0);
-       if (h_W_muo_photon0_phi) h_W_muo_photon0_phi->Fill(photon0.Phi(), weight_W_muo * weight_photon0);
+       if (h_W_muo_pho0_pt) h_W_muo_pho0_pt->Fill(pho0.Pt(), weight_W_muo * weight_pho0);
+       if (h_W_muo_pho0_eta) h_W_muo_pho0_eta->Fill(pho0.Eta(), weight_W_muo * weight_pho0);
+       if (h_W_muo_pho0_phi) h_W_muo_pho0_phi->Fill(pho0.Phi(), weight_W_muo * weight_pho0);
      }
      if (n_photons >= 2){
-       if (h_W_muo_photon1_pt) h_W_muo_photon1_pt->Fill(photon1.Pt(), weight_W_muo * weight_photon0 * weight_photon1);
-       if (h_W_muo_photon1_eta) h_W_muo_photon1_eta->Fill(photon1.Eta(), weight_W_muo * weight_photon0 * weight_photon1);
-       if (h_W_muo_photon1_phi) h_W_muo_photon1_phi->Fill(photon1.Phi(), weight_W_muo * weight_photon0 * weight_photon1);
-       if (h_W_muo_diphoton_pt) h_W_muo_diphoton_pt->Fill(diphoton.Pt(), weight_W_muo * weight_photon0 * weight_photon1);
+       if (h_W_muo_pho1_pt) h_W_muo_pho1_pt->Fill(pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
+       if (h_W_muo_pho1_eta) h_W_muo_pho1_eta->Fill(pho1.Eta(), weight_W_muo * weight_pho0 * weight_pho1);
+       if (h_W_muo_pho1_phi) h_W_muo_pho1_phi->Fill(pho1.Phi(), weight_W_muo * weight_pho0 * weight_pho1);
+       if (h_W_muo_diphoton_pt) h_W_muo_diphoton_pt->Fill(diphoton.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
      }
    }
 
    if (Z_ele_sel){
      if (h_Z_ele_nphotons) h_Z_ele_nphotons->Fill(n_photons, weight_Z_ele);
      if (n_photons >= 1){
-       if (h_Z_ele_photon0_pt) h_Z_ele_photon0_pt->Fill(photon0.Pt(), weight_Z_ele * weight_photon0);
-       if (h_Z_ele_photon0_eta) h_Z_ele_photon0_eta->Fill(photon0.Eta(), weight_Z_ele * weight_photon0);
-       if (h_Z_ele_photon0_phi) h_Z_ele_photon0_phi->Fill(photon0.Phi(), weight_Z_ele * weight_photon0);
+       if (h_Z_ele_pho0_pt) h_Z_ele_pho0_pt->Fill(pho0.Pt(), weight_Z_ele * weight_pho0);
+       if (h_Z_ele_pho0_eta) h_Z_ele_pho0_eta->Fill(pho0.Eta(), weight_Z_ele * weight_pho0);
+       if (h_Z_ele_pho0_phi) h_Z_ele_pho0_phi->Fill(pho0.Phi(), weight_Z_ele * weight_pho0);
      }
      if (n_photons >= 2){
-       if (h_Z_ele_photon1_pt) h_Z_ele_photon1_pt->Fill(photon1.Pt(), weight_Z_ele * weight_photon0 * weight_photon1);
-       if (h_Z_ele_photon1_eta) h_Z_ele_photon1_eta->Fill(photon1.Eta(), weight_Z_ele * weight_photon0 * weight_photon1);
-       if (h_Z_ele_photon1_phi) h_Z_ele_photon1_phi->Fill(photon1.Phi(), weight_Z_ele * weight_photon0 * weight_photon1);
-       if (h_Z_ele_diphoton_pt) h_Z_ele_diphoton_pt->Fill(diphoton.Pt(), weight_Z_ele * weight_photon0 * weight_photon1);
+       if (h_Z_ele_pho1_pt) h_Z_ele_pho1_pt->Fill(pho1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
+       if (h_Z_ele_pho1_eta) h_Z_ele_pho1_eta->Fill(pho1.Eta(), weight_Z_ele * weight_pho0 * weight_pho1);
+       if (h_Z_ele_pho1_phi) h_Z_ele_pho1_phi->Fill(pho1.Phi(), weight_Z_ele * weight_pho0 * weight_pho1);
+       if (h_Z_ele_diphoton_pt) h_Z_ele_diphoton_pt->Fill(diphoton.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
      }
    }
 
    if (Z_muo_sel){
      if (h_Z_muo_nphotons) h_Z_muo_nphotons->Fill(n_photons, weight_Z_muo);
      if (n_photons >= 1){
-       if (h_Z_muo_photon0_pt) h_Z_muo_photon0_pt->Fill(photon0.Pt(), weight_Z_muo * weight_photon0);
-       if (h_Z_muo_photon0_eta) h_Z_muo_photon0_eta->Fill(photon0.Eta(), weight_Z_muo * weight_photon0);
-       if (h_Z_muo_photon0_phi) h_Z_muo_photon0_phi->Fill(photon0.Phi(), weight_Z_muo * weight_photon0);
+       if (h_Z_muo_pho0_pt) h_Z_muo_pho0_pt->Fill(pho0.Pt(), weight_Z_muo * weight_pho0);
+       if (h_Z_muo_pho0_eta) h_Z_muo_pho0_eta->Fill(pho0.Eta(), weight_Z_muo * weight_pho0);
+       if (h_Z_muo_pho0_phi) h_Z_muo_pho0_phi->Fill(pho0.Phi(), weight_Z_muo * weight_pho0);
      }
      if (n_photons >= 2){
-       if (h_Z_muo_photon1_pt) h_Z_muo_photon1_pt->Fill(photon1.Pt(), weight_Z_muo * weight_photon0 * weight_photon1);
-       if (h_Z_muo_photon1_eta) h_Z_muo_photon1_eta->Fill(photon1.Eta(), weight_Z_muo * weight_photon0 * weight_photon1);
-       if (h_Z_muo_photon1_phi) h_Z_muo_photon1_phi->Fill(photon1.Phi(), weight_Z_muo * weight_photon0 * weight_photon1);
-       if (h_Z_muo_diphoton_pt) h_Z_muo_diphoton_pt->Fill(diphoton.Pt(), weight_Z_muo * weight_photon0 * weight_photon1);
+       if (h_Z_muo_pho1_pt) h_Z_muo_pho1_pt->Fill(pho1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
+       if (h_Z_muo_pho1_eta) h_Z_muo_pho1_eta->Fill(pho1.Eta(), weight_Z_muo * weight_pho0 * weight_pho1);
+       if (h_Z_muo_pho1_phi) h_Z_muo_pho1_phi->Fill(pho1.Phi(), weight_Z_muo * weight_pho0 * weight_pho1);
+       if (h_Z_muo_diphoton_pt) h_Z_muo_diphoton_pt->Fill(diphoton.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
      }
    }
 
