@@ -767,82 +767,22 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-   int n_jets = 0;
-   int ijet0 = -1;
-
-   TLorentzVector jet0;
-
-   if (W_ele_sel || W_muo_sel || Z_ele_sel || Z_muo_sel) {
-     for (uint i = 0; i < *nJet; i++) {
-       if (Jet_pt[i] < 30) continue;
-       if (fabs(Jet_eta[i]) > 2.400) continue;
-
-       if (iele0 != -1 && (uint)Electron_jetIdx[iele0] == i) continue;
-       if (iele1 != -1 && (uint)Electron_jetIdx[iele1] == i) continue;
-       if (imuo0 != -1 && (uint)Muon_jetIdx[imuo0] == i) continue;
-       if (imuo1 != -1 && (uint)Muon_jetIdx[imuo1] == i) continue;
-       if (ipho0 != -1 && (uint)Photon_jetIdx[ipho0] == i) continue;
-       if (ipho1 != -1 && (uint)Photon_jetIdx[ipho1] == i) continue;
-
-       n_jets++;
-
-       if (ijet0 == -1) {
-         ijet0 = i;
-         jet0.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
-       }
-     }
-   }
-
    TLorentzVector diphoton;
-   if (ipho0 != -1 && ipho1 != -1) diphoton = pho0 + pho1;
+   if (n_photons >= 2) {
+     diphoton = pho0 + pho1;
+   }
 
    float weight_pho0 = 1.;
    float weight_pho1 = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   if (ipho0 != -1) {
+   if (n_photons >= 1) {
      weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
-     if (ipho1 != -1) {
+   }
+   if (n_photons >= 2) {
        weight_pho1 = getWeight(sf_pho_eff, pho1.Eta(), pho1.Pt());
-     }
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-
-   if (W_ele_sel) {
-     if (h_W_ele_njets) h_W_ele_njets->Fill(n_jets, weight_W_ele);
-     if (n_jets >= 1) {
-       if (h_W_ele_jet0_pt) h_W_ele_jet0_pt->Fill(jet0.Pt(), weight_W_ele);
-       if (h_W_ele_jet0_eta) h_W_ele_jet0_eta->Fill(jet0.Eta(), weight_W_ele);
-       if (h_W_ele_jet0_phi) h_W_ele_jet0_phi->Fill(jet0.Phi(), weight_W_ele);
-     }
-   }
-
-   if (W_muo_sel) {
-     if (h_W_muo_njets) h_W_muo_njets->Fill(n_jets, weight_W_muo);
-     if (n_jets >= 1) {
-       if (h_W_muo_jet0_pt) h_W_muo_jet0_pt->Fill(jet0.Pt(), weight_W_muo);
-       if (h_W_muo_jet0_eta) h_W_muo_jet0_eta->Fill(jet0.Eta(), weight_W_muo);
-       if (h_W_muo_jet0_phi) h_W_muo_jet0_phi->Fill(jet0.Phi(), weight_W_muo);
-     }
-   }
-
-   if (Z_ele_sel) {
-     if (h_Z_ele_njets) h_Z_ele_njets->Fill(n_jets, weight_Z_ele);
-     if (n_jets >= 1) {
-       if (h_Z_ele_jet0_pt) h_Z_ele_jet0_pt->Fill(jet0.Pt(), weight_Z_ele);
-       if (h_Z_ele_jet0_eta) h_Z_ele_jet0_eta->Fill(jet0.Eta(), weight_Z_ele);
-       if (h_Z_ele_jet0_phi) h_Z_ele_jet0_phi->Fill(jet0.Phi(), weight_Z_ele);
-     }
-   }
-
-   if (Z_muo_sel) {
-     if (h_Z_muo_njets) h_Z_muo_njets->Fill(n_jets, weight_Z_muo);
-     if (n_jets >= 1) {
-       if (h_Z_muo_jet0_pt) h_Z_muo_jet0_pt->Fill(jet0.Pt(), weight_Z_muo);
-       if (h_Z_muo_jet0_eta) h_Z_muo_jet0_eta->Fill(jet0.Eta(), weight_Z_muo);
-       if (h_Z_muo_jet0_phi) h_Z_muo_jet0_phi->Fill(jet0.Phi(), weight_Z_muo);
-     }
-   }
 
    if (W_ele_sel) {
      if (h_W_ele_nphotons) h_W_ele_nphotons->Fill(n_photons, weight_W_ele);
@@ -904,6 +844,67 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+   int n_jets = 0;
+   int ijet0 = -1;
+
+   TLorentzVector jet0;
+
+   if (W_ele_sel || W_muo_sel || Z_ele_sel || Z_muo_sel) {
+     for (uint i = 0; i < *nJet; i++) {
+       if (Jet_pt[i] < 30) continue;
+       if (fabs(Jet_eta[i]) > 2.400) continue;
+
+       if (iele0 != -1 && (uint)Electron_jetIdx[iele0] == i) continue;
+       if (iele1 != -1 && (uint)Electron_jetIdx[iele1] == i) continue;
+       if (imuo0 != -1 && (uint)Muon_jetIdx[imuo0] == i) continue;
+       if (imuo1 != -1 && (uint)Muon_jetIdx[imuo1] == i) continue;
+       if (ipho0 != -1 && (uint)Photon_jetIdx[ipho0] == i) continue;
+       if (ipho1 != -1 && (uint)Photon_jetIdx[ipho1] == i) continue;
+
+       n_jets++;
+
+       if (ijet0 == -1) {
+         ijet0 = i;
+         jet0.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
+       }
+     }
+   }
+
+   if (W_ele_sel) {
+     if (h_W_ele_njets) h_W_ele_njets->Fill(n_jets, weight_W_ele);
+     if (n_jets >= 1) {
+       if (h_W_ele_jet0_pt) h_W_ele_jet0_pt->Fill(jet0.Pt(), weight_W_ele);
+       if (h_W_ele_jet0_eta) h_W_ele_jet0_eta->Fill(jet0.Eta(), weight_W_ele);
+       if (h_W_ele_jet0_phi) h_W_ele_jet0_phi->Fill(jet0.Phi(), weight_W_ele);
+     }
+   }
+
+   if (W_muo_sel) {
+     if (h_W_muo_njets) h_W_muo_njets->Fill(n_jets, weight_W_muo);
+     if (n_jets >= 1) {
+       if (h_W_muo_jet0_pt) h_W_muo_jet0_pt->Fill(jet0.Pt(), weight_W_muo);
+       if (h_W_muo_jet0_eta) h_W_muo_jet0_eta->Fill(jet0.Eta(), weight_W_muo);
+       if (h_W_muo_jet0_phi) h_W_muo_jet0_phi->Fill(jet0.Phi(), weight_W_muo);
+     }
+   }
+
+   if (Z_ele_sel) {
+     if (h_Z_ele_njets) h_Z_ele_njets->Fill(n_jets, weight_Z_ele);
+     if (n_jets >= 1) {
+       if (h_Z_ele_jet0_pt) h_Z_ele_jet0_pt->Fill(jet0.Pt(), weight_Z_ele);
+       if (h_Z_ele_jet0_eta) h_Z_ele_jet0_eta->Fill(jet0.Eta(), weight_Z_ele);
+       if (h_Z_ele_jet0_phi) h_Z_ele_jet0_phi->Fill(jet0.Phi(), weight_Z_ele);
+     }
+   }
+
+   if (Z_muo_sel) {
+     if (h_Z_muo_njets) h_Z_muo_njets->Fill(n_jets, weight_Z_muo);
+     if (n_jets >= 1) {
+       if (h_Z_muo_jet0_pt) h_Z_muo_jet0_pt->Fill(jet0.Pt(), weight_Z_muo);
+       if (h_Z_muo_jet0_eta) h_Z_muo_jet0_eta->Fill(jet0.Eta(), weight_Z_muo);
+       if (h_Z_muo_jet0_phi) h_Z_muo_jet0_phi->Fill(jet0.Phi(), weight_Z_muo);
+     }
+   }
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
