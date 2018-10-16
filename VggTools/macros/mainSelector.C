@@ -752,7 +752,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(Photon_eta[i]) > 2.400) continue;
        if (Photon_mvaID_WP90[i] == 0) continue;
        if (Photon_electronVeto[i] == 0) continue;
-       if (Photon_pixelSeed[i] != 0) continue;
        //if (Photon_pixelSeed[i] != 0) continue;
   
        n_photons++;
