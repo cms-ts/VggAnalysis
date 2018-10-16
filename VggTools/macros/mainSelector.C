@@ -738,21 +738,14 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (h_Z_muo1_phi) h_Z_muo1_phi->Fill(muo1.Phi(), weight_Z_muo);
    }
 
-   int n_jets = 0;
    int n_photons = 0;
-
-   int ijet0 = -1;
-
    int ipho0 = -1;
    int ipho1 = -1;
-
-   TLorentzVector jet0;
 
    TLorentzVector pho0;
    TLorentzVector pho1;
 
    if (W_ele_sel || W_muo_sel || Z_ele_sel || Z_muo_sel) {
-
      for (uint i = 0; i < *nPhoton; i++) {
        if (Photon_pt[i] < 30) continue;
        if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
@@ -772,9 +765,15 @@ Bool_t mainSelector::Process(Long64_t entry)
          ipho0 = i;
          pho0.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
        }
-
      }
+   }
 
+   int n_jets = 0;
+   int ijet0 = -1;
+
+   TLorentzVector jet0;
+
+   if (W_ele_sel || W_muo_sel || Z_ele_sel || Z_muo_sel) {
      for (uint i = 0; i < *nJet; i++) {
        if (Jet_pt[i] < 30) continue;
        if (fabs(Jet_eta[i]) > 2.400) continue;
@@ -792,9 +791,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          ijet0 = i;
          jet0.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
        }
-
      }
-
    }
 
    TLorentzVector diphoton;
