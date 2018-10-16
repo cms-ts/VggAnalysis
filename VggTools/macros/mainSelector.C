@@ -775,14 +775,16 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_pho0 = 1.;
    float weight_pho1 = 1.;
 
+   if (W_ele_sel || W_muo_sel || Z_ele_sel || Z_muo_sel) {
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   if (n_photons >= 1) {
-     weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
-   }
-   if (n_photons >= 2) {
+     if (n_photons >= 1) {
+       weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
+     }
+     if (n_photons >= 2) {
        weight_pho1 = getWeight(sf_pho_eff, pho1.Eta(), pho1.Pt());
-   }
+     }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   }
 
    if (W_ele_sel) {
      if (h_W_ele_nphotons) h_W_ele_nphotons->Fill(n_photons, weight_W_ele);
