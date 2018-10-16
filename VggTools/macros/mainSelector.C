@@ -810,30 +810,38 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (W_ele_sel) {
      if (h_W_ele_njets) h_W_ele_njets->Fill(n_jets, weight_W_ele);
-     if (h_W_ele_jet0_pt) h_W_ele_jet0_pt->Fill(jet0.Pt(), weight_W_ele);
-     if (h_W_ele_jet0_eta) h_W_ele_jet0_eta->Fill(jet0.Eta(), weight_W_ele);
-     if (h_W_ele_jet0_phi) h_W_ele_jet0_phi->Fill(jet0.Phi(), weight_W_ele);
+     if (n_jets >= 1) {
+       if (h_W_ele_jet0_pt) h_W_ele_jet0_pt->Fill(jet0.Pt(), weight_W_ele);
+       if (h_W_ele_jet0_eta) h_W_ele_jet0_eta->Fill(jet0.Eta(), weight_W_ele);
+       if (h_W_ele_jet0_phi) h_W_ele_jet0_phi->Fill(jet0.Phi(), weight_W_ele);
+     }
    }
 
    if (W_muo_sel) {
      if (h_W_muo_njets) h_W_muo_njets->Fill(n_jets, weight_W_muo);
-     if (h_W_muo_jet0_pt) h_W_muo_jet0_pt->Fill(jet0.Pt(), weight_W_muo);
-     if (h_W_muo_jet0_eta) h_W_muo_jet0_eta->Fill(jet0.Eta(), weight_W_muo);
-     if (h_W_muo_jet0_phi) h_W_muo_jet0_phi->Fill(jet0.Phi(), weight_W_muo);
+     if (n_jets >= 1) {
+       if (h_W_muo_jet0_pt) h_W_muo_jet0_pt->Fill(jet0.Pt(), weight_W_muo);
+       if (h_W_muo_jet0_eta) h_W_muo_jet0_eta->Fill(jet0.Eta(), weight_W_muo);
+       if (h_W_muo_jet0_phi) h_W_muo_jet0_phi->Fill(jet0.Phi(), weight_W_muo);
+     }
    }
 
    if (Z_ele_sel) {
      if (h_Z_ele_njets) h_Z_ele_njets->Fill(n_jets, weight_Z_ele);
-     if (h_Z_ele_jet0_pt) h_Z_ele_jet0_pt->Fill(jet0.Pt(), weight_Z_ele);
-     if (h_Z_ele_jet0_eta) h_Z_ele_jet0_eta->Fill(jet0.Eta(), weight_Z_ele);
-     if (h_Z_ele_jet0_phi) h_Z_ele_jet0_phi->Fill(jet0.Phi(), weight_Z_ele);
+     if (n_jets >= 1) {
+       if (h_Z_ele_jet0_pt) h_Z_ele_jet0_pt->Fill(jet0.Pt(), weight_Z_ele);
+       if (h_Z_ele_jet0_eta) h_Z_ele_jet0_eta->Fill(jet0.Eta(), weight_Z_ele);
+       if (h_Z_ele_jet0_phi) h_Z_ele_jet0_phi->Fill(jet0.Phi(), weight_Z_ele);
+     }
    }
 
    if (Z_muo_sel) {
      if (h_Z_muo_njets) h_Z_muo_njets->Fill(n_jets, weight_Z_muo);
-     if (h_Z_muo_jet0_pt) h_Z_muo_jet0_pt->Fill(jet0.Pt(), weight_Z_muo);
-     if (h_Z_muo_jet0_eta) h_Z_muo_jet0_eta->Fill(jet0.Eta(), weight_Z_muo);
-     if (h_Z_muo_jet0_phi) h_Z_muo_jet0_phi->Fill(jet0.Phi(), weight_Z_muo);
+     if (n_jets >= 1) {
+       if (h_Z_muo_jet0_pt) h_Z_muo_jet0_pt->Fill(jet0.Pt(), weight_Z_muo);
+       if (h_Z_muo_jet0_eta) h_Z_muo_jet0_eta->Fill(jet0.Eta(), weight_Z_muo);
+       if (h_Z_muo_jet0_phi) h_Z_muo_jet0_phi->Fill(jet0.Phi(), weight_Z_muo);
+     }
    }
 
    if (W_ele_sel) {
