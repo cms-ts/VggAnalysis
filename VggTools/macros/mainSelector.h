@@ -130,6 +130,14 @@ public :
    TH1D* h_Z_muo_pho1_phi = 0;
    TH1D* h_Z_muo_diphoton_pt = 0;
 
+   TH1D* h_W_ele_pho0_dR = 0;
+   TH1D* h_W_ele_pho1_dR = 0;
+   TH1D* h_W_muo_pho0_dR = 0;
+   TH1D* h_W_muo_pho1_dR = 0;
+   TH1D* h_Z_ele_pho0_dR = 0;
+   TH1D* h_Z_ele_pho1_dR = 0;
+   TH1D* h_Z_muo_pho0_dR = 0;
+   TH1D* h_Z_muo_pho1_dR = 0;
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 
@@ -167,6 +175,7 @@ public :
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
    TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
+   TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
    TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
@@ -233,6 +242,7 @@ public :
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
    TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
+   TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
    TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
@@ -300,6 +310,7 @@ public :
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
    TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
+   TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
    TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
@@ -369,6 +380,7 @@ public :
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
    TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
    TTreeReaderArray<Int_t> Electron_genPartIdx = {fReader, "Electron_genPartIdx"};
+   TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
    
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
    TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
@@ -451,6 +463,7 @@ public :
    TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
    TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
    TTreeReaderArray<Int_t> Electron_genPartIdx = {fReader, "Electron_genPartIdx"};
+   TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
    TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
@@ -534,6 +547,7 @@ public :
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
    TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
    TTreeReaderArray<Int_t> Electron_genPartIdx = {fReader, "Electron_genPartIdx"};
+   TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
    
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
    TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
