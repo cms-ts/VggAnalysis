@@ -9,4 +9,6 @@ void compile() {
   gSystem->CompileMacro("mainSelectorMC17.C", "kcO");
   gSystem->CompileMacro("mainSelectorMC18.C", "kcO");
 
+  gSystem->CompileMacro("plot0.C", "kcO");
+
 }
