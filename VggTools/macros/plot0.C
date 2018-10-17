@@ -89,6 +89,10 @@ void plot0(string plot="", string title="") {
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "DYJets", "f");
     }
+    if (it->first == 11) {
+      it->second->SetFillColor(kYellow-6);
+      leg->AddEntry(it->second, "Zgamma", "f");
+    }
     if (it->first == 20) {
       it->second->SetFillColor(kBlue-4);
       leg->AddEntry(it->second, "Diboson", "f");
