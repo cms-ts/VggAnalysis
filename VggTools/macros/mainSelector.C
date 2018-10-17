@@ -111,25 +111,25 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    h_TrigObj = new TH2D("h_TrigObj", "h_TrigObj", 34, -1.5, 32.5, 25, -0.5, 24.5);
 
-   h_W_ele_njets = new TH1D("h_W_ele_njets", "h_W_ele_njets", 10, 0., 10.);
+   h_W_ele_njets = new TH1D("h_W_ele_njets", "h_W_ele_njets", 10, -0.5, 9.5);
    h_W_ele_jet0_pt = new TH1D("h_W_ele_jet0_pt", "h_W_ele_jet0_pt", 100, 0., 200.);
    h_W_ele_jet0_eta = new TH1D("h_W_ele_jet0_eta", "h_W_ele_jet0_eta", 50, -2.5, 2.5);
    h_W_ele_jet0_phi = new TH1D("h_W_ele_jet0_phi", "h_W_ele_jet0_phi", 24, -TMath::Pi(), TMath::Pi());
-   h_W_muo_njets = new TH1D("h_W_muo_njets", "h_W_muo_njets", 10, 0., 10.);
+   h_W_muo_njets = new TH1D("h_W_muo_njets", "h_W_muo_njets", 10, -0.5, 9.5);
    h_W_muo_jet0_pt = new TH1D("h_W_muo_jet0_pt", "h_W_muo_jet0_pt", 100, 0., 200.);
    h_W_muo_jet0_eta = new TH1D("h_W_muo_jet0_eta", "h_W_muo_jet0_eta", 50, -2.5, 2.5);
    h_W_muo_jet0_phi = new TH1D("h_W_muo_jet0_phi", "h_W_muo_jet0_phi", 24, -TMath::Pi(), TMath::Pi());
 
-   h_Z_ele_njets = new TH1D("h_Z_ele_njets", "h_Z_ele_njets", 10, 0., 10.);
+   h_Z_ele_njets = new TH1D("h_Z_ele_njets", "h_Z_ele_njets", 10, -0.5, 9.5);
    h_Z_ele_jet0_pt = new TH1D("h_Z_ele_jet0_pt", "h_Z_ele_jet0_pt", 100, 0., 200.);
    h_Z_ele_jet0_eta = new TH1D("h_Z_ele_jet0_eta", "h_Z_ele_jet0_eta", 50, -2.5, 2.5);
    h_Z_ele_jet0_phi = new TH1D("h_Z_ele_jet0_phi", "h_Z_ele_jet0_phi", 24, -TMath::Pi(), TMath::Pi());
-   h_Z_muo_njets = new TH1D("h_Z_muo_njets", "h_Z_muo_njets", 10, 0., 10.);
+   h_Z_muo_njets = new TH1D("h_Z_muo_njets", "h_Z_muo_njets", 10, -0.5, 9.5);
    h_Z_muo_jet0_pt = new TH1D("h_Z_muo_jet0_pt", "h_Z_muo_jet0_pt", 100, 0., 200.);
    h_Z_muo_jet0_eta = new TH1D("h_Z_muo_jet0_eta", "h_Z_muo_jet0_eta", 50, -2.5, 2.5);
    h_Z_muo_jet0_phi = new TH1D("h_Z_muo_jet0_phi", "h_Z_muo_jet0_phi", 24, -TMath::Pi(), TMath::Pi());
 
-   h_W_ele_nphotons = new TH1D("h_W_ele_nphotons", "h_W_ele_nphotons", 10, 0., 10.);
+   h_W_ele_nphotons = new TH1D("h_W_ele_nphotons", "h_W_ele_nphotons", 10, -0.5, 9.5);
    h_W_ele_pho0_pt = new TH1D("h_W_ele_pho0_pt", "h_W_ele_pho0_pt", 100, 0., 200.);
    h_W_ele_pho0_eta = new TH1D("h_W_ele_pho0_eta", "h_W_ele_pho0_eta", 50, -2.5, 2.5);
    h_W_ele_pho0_phi = new TH1D("h_W_ele_pho0_phi", "h_W_ele_pho0_phi", 24, -TMath::Pi(), TMath::Pi());
@@ -137,7 +137,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_W_ele_pho1_eta = new TH1D("h_W_ele_pho1_eta", "h_W_ele_pho1_eta", 50, -2.5, 2.5);
    h_W_ele_pho1_phi = new TH1D("h_W_ele_pho1_phi", "h_W_ele_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_W_ele_diphoton_pt = new TH1D("h_W_ele_diphoton_pt", "h_W_ele_diphoton_pt", 100, 0., 200.);
-   h_W_muo_nphotons = new TH1D("h_W_muo_nphotons", "h_W_muo_nphotons", 10, 0., 10.);
+   h_W_muo_nphotons = new TH1D("h_W_muo_nphotons", "h_W_muo_nphotons", 10, -0.5, 9.5);
    h_W_muo_pho0_pt = new TH1D("h_W_muo_pho0_pt", "h_W_muo_pho0_pt", 100, 0., 200.);
    h_W_muo_pho0_eta = new TH1D("h_W_muo_pho0_eta", "h_W_muo_pho0_eta", 50, -2.5, 2.5);
    h_W_muo_pho0_phi = new TH1D("h_W_muo_pho0_phi", "h_W_muo_pho0_phi", 24, -TMath::Pi(), TMath::Pi());
@@ -146,7 +146,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_W_muo_pho1_phi = new TH1D("h_W_muo_pho1_phi", "h_W_muo_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_W_muo_diphoton_pt = new TH1D("h_W_muo_diphoton_pt", "h_W_muo_diphoton_pt", 100, 0., 200.);
 
-   h_Z_ele_nphotons = new TH1D("h_Z_ele_nphotons", "h_Z_ele_nphotons", 10, 0., 10.);
+   h_Z_ele_nphotons = new TH1D("h_Z_ele_nphotons", "h_Z_ele_nphotons", 10, -0.5, 9.5);
    h_Z_ele_pho0_pt = new TH1D("h_Z_ele_pho0_pt", "h_Z_ele_pho0_pt", 100, 0., 200.);
    h_Z_ele_pho0_eta = new TH1D("h_Z_ele_pho0_eta", "h_Z_ele_pho0_eta", 50, -2.5, 2.5);
    h_Z_ele_pho0_phi = new TH1D("h_Z_ele_pho0_phi", "h_Z_ele_pho0_phi", 24, -TMath::Pi(), TMath::Pi());
@@ -154,7 +154,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_ele_pho1_eta = new TH1D("h_Z_ele_pho1_eta", "h_Z_ele_pho1_eta", 50, -2.5, 2.5);
    h_Z_ele_pho1_phi = new TH1D("h_Z_ele_pho1_phi", "h_Z_ele_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_Z_ele_diphoton_pt = new TH1D("h_Z_ele_diphoton_pt", "h_Z_ele_diphoton_pt", 100, 0., 200.);
-   h_Z_muo_nphotons = new TH1D("h_Z_muo_nphotons", "h_Z_muo_nphotons", 10, 0., 10.);
+   h_Z_muo_nphotons = new TH1D("h_Z_muo_nphotons", "h_Z_muo_nphotons", 10, -0.5, 9.5);
    h_Z_muo_pho0_pt = new TH1D("h_Z_muo_pho0_pt", "h_Z_muo_pho0_pt", 100, 0., 200.);
    h_Z_muo_pho0_eta = new TH1D("h_Z_muo_pho0_eta", "h_Z_muo_pho0_eta", 50, -2.5, 2.5);
    h_Z_muo_pho0_phi = new TH1D("h_Z_muo_pho0_phi", "h_Z_muo_pho0_phi", 24, -TMath::Pi(), TMath::Pi());
@@ -768,7 +768,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(Photon_eta[i]) > 2.400) continue;
        if (Photon_mvaID_WP90[i] == 0) continue;
        if (Photon_electronVeto[i] == 0) continue;
-       if (Photon_pixelSeed[i] == 0) continue;
+       //if (Photon_pixelSeed[i] == 0) continue;
   
        if (iele0 != -1 && (uint)Electron_photonIdx[iele0] == i) continue;
        if (iele1 != -1 && (uint)Electron_photonIdx[iele1] == i) continue;
