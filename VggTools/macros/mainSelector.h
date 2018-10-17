@@ -138,6 +138,11 @@ public :
    TH1D* h_Z_ele_pho1_dR = 0;
    TH1D* h_Z_muo_pho0_dR = 0;
    TH1D* h_Z_muo_pho1_dR = 0;
+
+   TH1D* h_W_ele_pho0 = 0;
+   TH1D* h_W_muo_pho0 = 0;
+   TH1D* h_Z_ele_pho0 = 0;
+   TH1D* h_Z_muo_pho0 = 0;
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 
