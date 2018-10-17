@@ -65,6 +65,8 @@ for Y in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_pho0_dR\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele_pho1_dR\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_pho1_dR\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_ele_pho0\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_pho0\"\)
 
 
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele\"\)
@@ -118,6 +120,8 @@ for Y in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_pho0_dR\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele_pho1_dR\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_pho1_dR\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_Z_ele_pho0\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_Z_muo_pho0\"\)
 
 done
 
