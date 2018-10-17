@@ -16,12 +16,12 @@ for Y in $YEARS; do
 
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo\"\)
-
+ 
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele_npvs\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_npvs\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele_npvs_w\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_npvs_w\"\)
-
+ 
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele0_pt\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele0_eta\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele0_phi\"\)
@@ -34,7 +34,7 @@ for Y in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_met_pt\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_met_phi\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_met_sign\"\)
-
+ 
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele_njets\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele_jet0_pt\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele_jet0_eta\"\)
@@ -43,7 +43,7 @@ for Y in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_jet0_pt\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_jet0_eta\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_jet0_phi\"\)
-
+ 
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele_nphotons\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele_pho0_pt\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele_pho0_eta\"\)
@@ -60,23 +60,23 @@ for Y in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_pho1_eta\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_pho1_phi\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_diphoton_pt\"\)
-
+ 
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele_pho0_dR\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_pho0_dR\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele_pho1_dR\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_pho1_dR\"\)
-  root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_ele_pho0\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_ele.dat\",\"h_W_ele_pho0\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_W_muo_pho0\"\)
 
 
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo\"\)
-
+ 
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele_npvs\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_npvs\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele_npvs_w\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_npvs_w\"\)
-
+ 
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele0_pt\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele0_eta\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele0_phi\"\)
@@ -89,7 +89,7 @@ for Y in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo1_pt\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo1_eta\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo1_phi\"\)
-
+ 
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele_njets\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele_jet0_pt\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele_jet0_eta\"\)
@@ -98,7 +98,7 @@ for Y in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_jet0_pt\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_jet0_eta\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_jet0_phi\"\)
-
+ 
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele_nphotons\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele_pho0_pt\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele_pho0_eta\"\)
@@ -115,13 +115,13 @@ for Y in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_pho1_eta\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_pho1_phi\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_diphoton_pt\"\)
-
+ 
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele_pho0_dR\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_pho0_dR\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele_pho1_dR\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_pho1_dR\"\)
-  root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_Z_ele_pho0\"\)
-  root-6.12 -l -q -b plot0.C+\(\"Wgg"$Y"_muo.dat\",\"h_Z_muo_pho0\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_ele.dat\",\"h_Z_ele_pho0\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$Y"_muo.dat\",\"h_Z_muo_pho0\"\)
 
 done
 
