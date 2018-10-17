@@ -69,6 +69,12 @@ void run(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.
     if (option.Contains("MC18")) selector = TSelector::GetSelector("mainSelectorMC18.C+");
 #endif
     selector->SetOption("MC");
+    if (option.Contains("WJetsToLNu")) selector->SetOption("MC,WJetsToLNu");
+    if (option.Contains("DYJetsToLL")) selector->SetOption("MC,DYJetsToLL");
+    if (option.Contains("WGToLNuG")) selector->SetOption("MC,WGToLNuG");
+    if (option.Contains("WGGJets")) selector->SetOption("MC,WGGJets");
+    if (option.Contains("ZGTo2LG")) selector->SetOption("MC,ZGTo2LG");
+    if (option.Contains("ZGGJetsToLLGG")) selector->SetOption("MC,ZGGJetsToLLGG");
     workers.Process(files, *selector, "Events", nevt);
   }
 

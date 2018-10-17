@@ -32,6 +32,13 @@ public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
+   bool isWJetsToLNu    = true;
+   bool isDYJetsToLL    = true;
+   bool isWGToLNuG      = true;
+   bool isWGGJets       = true;
+   bool isZGTo2LG       = true;
+   bool isZGGJetsToLLGG = true;
+
    TH1D* h_nevt = 0;
 
    TH1D* h_W_ele = 0;
