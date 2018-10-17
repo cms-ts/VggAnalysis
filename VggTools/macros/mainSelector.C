@@ -437,6 +437,41 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (h_nevt) h_nevt->Fill(0.5);
 
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   if (isDYJetsToLL || isWJetsToLNu) {
+     for (uint i = 0; i < *nGenPart; i++) {
+       if (GenPart_pdgId[i] == 22) {
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 11) continue;
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 13) continue;
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 15) continue;
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 1) continue;
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 2) continue;
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 3) continue;
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 4) continue;
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 5) continue;
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 2212) continue;
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 21) continue;
+
+         TLorentzVector tmp_pho;
+         tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
+
+         double deltaR = 9999.;
+
+         for (uint j = 0; j < *nGenPart; j++) {
+           if(fabs(GenPart_pdgId[j]) == 11 || fabs(GenPart_pdgId[j]) == 13 || fabs(GenPart_pdgId[j]) == 15) {
+             TLorentzVector tmp_lep;
+             tmp_lep.SetPtEtaPhiM(GenPart_pt[j], GenPart_eta[j], GenPart_phi[j], GenPart_mass[j]);
+             deltaR = min(deltaR, tmp_pho.DeltaR(tmp_lep));
+           }
+         }
+         if (deltaR > 0.3) return kTRUE; //FIXME
+       }
+     }
+   }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
+   if (h_nevt) h_nevt->Fill(1.5);
+
    bool W_ele_sel = false;
    bool W_muo_sel = false;
 
