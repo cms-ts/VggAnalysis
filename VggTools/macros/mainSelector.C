@@ -472,6 +472,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (h_nevt) h_nevt->Fill(1.5);
 
+   if (*Flag_goodVertices == 0) return kTRUE;
+   if (*Flag_METFilters == 0) return kTRUE;
+
+   if (h_nevt) h_nevt->Fill(2.5);
+
    bool W_ele_sel = false;
    bool W_muo_sel = false;
 
@@ -492,8 +497,6 @@ Bool_t mainSelector::Process(Long64_t entry)
    int iele1 = -1;
 
    for (uint i = 0; i < *nElectron; i++) {
-     if (*Flag_goodVertices == 0) continue;
-     if (*Flag_METFilters == 0) continue;
      float eCorr_ele = 1.;
      if (Electron_pt[i]*eCorr_ele < 25) continue;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) continue;
@@ -625,8 +628,6 @@ Bool_t mainSelector::Process(Long64_t entry)
    int imuo1 = -1;
 
    for (uint i = 0; i < *nMuon; i++) {
-     if (*Flag_goodVertices == 0) continue;
-     if (*Flag_METFilters == 0) continue;
      float eCorr_muo = 1.0;
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
      eCorr_muo = roccor->kScaleDT(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], 0, 0);
