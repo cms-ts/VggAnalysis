@@ -2,9 +2,7 @@
 
 #include "CMS_lumi.C"
 
-void plot0(string plot="", string title="") {
-
-  string version = "v00";
+void plot0(string plot="", string title="", string version="v00") {
 
   string year = "";
 
