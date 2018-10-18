@@ -64,12 +64,12 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    TString option = GetOption();
 
-    if (option.Contains("WJetsToLNu"))    isWJetsToLNu    = true;
-    if (option.Contains("DYJetsToLL"))    isDYJetsToLL    = true;
-    if (option.Contains("WGToLNuG"))      isWGToLNuG      = true;
-    if (option.Contains("WGGJets"))       isWGGJets       = true;
-    if (option.Contains("ZGTo2LG"))       isZGTo2LG       = true;
-    if (option.Contains("ZGGJetsToLLGG")) isZGGJetsToLLGG = true;
+   if (option.Contains("WJetsToLNu"))    isWJetsToLNu    = true;
+   if (option.Contains("DYJetsToLL"))    isDYJetsToLL    = true;
+   if (option.Contains("WGToLNuG"))      isWGToLNuG      = true;
+   if (option.Contains("WGGJets"))       isWGGJets       = true;
+   if (option.Contains("ZGTo2LG"))       isZGTo2LG       = true;
+   if (option.Contains("ZGGJetsToLLGG")) isZGGJetsToLLGG = true;
 
    // create the histograms
    h_nevt = new TH1D("h_nevt", "h_nevt", 10, 0., 10.);
@@ -451,6 +451,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 5) continue;
          if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 2212) continue;
          if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 21) continue;
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) >= 100) continue; //FIXME
 
          TLorentzVector tmp_pho;
          tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
@@ -464,7 +465,7 @@ Bool_t mainSelector::Process(Long64_t entry)
              deltaR = min(deltaR, tmp_pho.DeltaR(tmp_lep));
            }
          }
-         if (deltaR > 0.3) return kTRUE; //FIXME
+         if (deltaR > 0.05) return kTRUE;
        }
      }
    }
@@ -830,25 +831,25 @@ Bool_t mainSelector::Process(Long64_t entry)
          ipho1 = i;
          pho1.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
          if (W_ele_sel) {
-           if (pho1.DeltaR(ele0) < 0.7) {
+           if (pho1.DeltaR(ele0) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (W_muo_sel) {
-           if (pho1.DeltaR(muo0) < 0.7) {
+           if (pho1.DeltaR(muo0) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (Z_ele_sel) {
-           if (pho1.DeltaR(ele0) < 0.7 || pho1.DeltaR(ele1) < 0.7) {
+           if (pho1.DeltaR(ele0) < 0.3 || pho1.DeltaR(ele1) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (Z_muo_sel) {
-           if (pho1.DeltaR(muo0) < 0.7 || pho1.DeltaR(muo1) < 0.7) {
+           if (pho1.DeltaR(muo0) < 0.3 || pho1.DeltaR(muo1) < 0.3) {
              ipho1 = -1;
              continue;
            }
@@ -858,25 +859,25 @@ Bool_t mainSelector::Process(Long64_t entry)
          ipho0 = i;
          pho0.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
          if (W_ele_sel) {
-           if (pho0.DeltaR(ele0) < 0.7) {
+           if (pho0.DeltaR(ele0) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (W_muo_sel) {
-           if (pho0.DeltaR(muo0) < 0.7) {
+           if (pho0.DeltaR(muo0) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (Z_ele_sel) {
-           if (pho0.DeltaR(ele0) < 0.7 || pho0.DeltaR(ele1) < 0.7) {
+           if (pho0.DeltaR(ele0) < 0.3 || pho0.DeltaR(ele1) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (Z_muo_sel) {
-           if (pho0.DeltaR(muo0) < 0.7 || pho0.DeltaR(muo1) < 0.7) {
+           if (pho0.DeltaR(muo0) < 0.3 || pho0.DeltaR(muo1) < 0.3) {
              ipho0 = -1;
              continue;
            }
