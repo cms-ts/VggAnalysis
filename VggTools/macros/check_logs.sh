@@ -29,7 +29,7 @@ for L in `ls data/$VERSION/*.log`; do
   grep -v '+++' | \
   grep -v '(M)' | \
   grep -v '#'`
-  echo -n 'Checking '`basename $L`" : "
+  printf "Checking %-110s : " `basename $L`
   if [ -z "$O" ]; then
     echo "GOOD"
   else
