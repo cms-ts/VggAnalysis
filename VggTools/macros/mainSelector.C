@@ -52,7 +52,108 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   TFile* file_ele_pu;
+   TFile* file_muo_pu;
+
+#if defined(mainSelectorMC16_cxx)
+   file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleEG_05Feb2018.root");
+   file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleMuon_05Feb2018.root");
+   //file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleEG_22Aug2018.root");
+   //file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleMuon_22Aug2018.root");
+
+   //file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_SingleElectron_05Feb2018.root");
+   //file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_SingleMuon_05Feb2018.root");
+   //file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_SingleElectron_22Aug2018.root");
+   //file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_SingleMuon_22Aug2018.root");
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
+   file_ele_pu = TFile::Open("root/ratio_pileup_Run2017_DoubleEG_31Mar2018.root");
+   file_muo_pu = TFile::Open("root/ratio_pileup_Run2017_DoubleMuon_31Mar2018.root");
+   //file_ele_pu = TFile::Open("root/ratio_pileup_Run2017_SingleElectron_31Mar2018.root");
+   //file_muo_pu = TFile::Open("root/ratio_pileup_Run2017_SingleMuon_31Mar2018.root");
+#endif // defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+   file_ele_pu = TFile::Open("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
+   file_muo_pu = TFile::Open("root/ratio_pileup_Run2018_DoubleMuon_14Sep2018.root");
+   //file_ele_pu = TFile::Open("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
+   //file_muo_pu = TFile::Open("root/ratio_pileup_Run2018_SingleMuon_14Sep2018.root");
+#endif // defined(mainSelectorMC18_cxx)
+
+   pu_ele_weights = (TH1D*)file_ele_pu->Get("pu_weights");
+   pu_muo_weights = (TH1D*)file_muo_pu->Get("pu_weights");
+
+   pu_ele_weights->SetDirectory(0);
+   pu_muo_weights->SetDirectory(0);
+
+   file_ele_pu->Close();
+   file_muo_pu->Close();
+
+   TFile* file_ele_sf_eff;
+   TFile* file_ele_sf_reco;
+
+   TFile* file_muo_sf_id;
+   TFile* file_muo_sf_iso;
+
+   TFile* file_pho_sf_eff;
+
+#if defined(mainSelectorMC16_cxx) 
+   file_ele_sf_eff = TFile::Open("root/sf_ele_2016_EGM2D_WP90.root");
+   //file_ele_sf_eff = TFile::Open("root/sf_ele_2016_EGM2D_WP80.root");
+   sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
+   sf_ele_eff->SetDirectory(0);
+   file_ele_sf_eff->Close();
+
+   file_muo_sf_id = TFile::Open("root/sf_muo_2016_RunBCDEF_ID.root");
+   file_muo_sf_iso = TFile::Open("root/sf_muo_2016_RunBCDEF_ISO.root");
+   sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
+   sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
+   sf_muo_id->SetDirectory(0);
+   sf_muo_iso->SetDirectory(0);
+   file_muo_sf_id->Close();
+   file_muo_sf_iso->Close();
+
+   file_pho_sf_eff = TFile::Open("root/sf_pho_2016_EGM2D.root");
+   sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
+   sf_pho_eff->SetDirectory(0);
+   file_pho_sf_eff->Close();
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
+   file_ele_sf_eff = TFile::Open("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp90iso.root");
+   file_ele_sf_reco = TFile::Open("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
+   sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
+   sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
+   sf_ele_eff->SetDirectory(0);
+   sf_ele_reco->SetDirectory(0);
+   file_ele_sf_eff->Close();
+   file_ele_sf_reco->Close();
+
+   file_muo_sf_id = TFile::Open("root/sf_muo_2017_RunBCDEF_ID.root");
+   file_muo_sf_iso = TFile::Open("root/sf_muo_2017_RunBCDEF_ISO.root");
+   sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
+   sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
+   sf_muo_id->SetDirectory(0);
+   sf_muo_iso->SetDirectory(0);
+   file_muo_sf_id->Close();
+   file_muo_sf_iso->Close();
+
+   file_pho_sf_eff = TFile::Open("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
+   sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
+   sf_pho_eff->SetDirectory(0);
+   file_pho_sf_eff->Close();
+#endif // defined(mainSelectorMC17_cxx)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+   roccor = new RoccoR("roccor.Run2.v2/RoccoR2016.txt");
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+   roccor = new RoccoR("roccor.Run2.v2/RoccoR2017.txt");
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+// FIXME
+   roccor = new RoccoR("roccor.Run2.v2/RoccoR2017.txt");
+// FIXME
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 }
 
@@ -183,6 +284,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_W_muo_pho0 = new TH1D("h_W_muo_pho0", "h_W_muo_pho0", 100, 20, 200);
    h_Z_ele_pho0 = new TH1D("h_Z_ele_pho0", "h_Z_ele_pho0", 100, 71, 111);
    h_Z_muo_pho0 = new TH1D("h_Z_muo_pho0", "h_Z_muo_pho0", 100, 71, 111);
+
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
@@ -303,115 +405,14 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    GetOutputList()->Add(h_W_muo_pho0);
    GetOutputList()->Add(h_Z_ele_pho0);
    GetOutputList()->Add(h_Z_muo_pho0);
+
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    GetOutputList()->Add(h_Z_ele_gen);
    GetOutputList()->Add(h_Z_muo_gen);
-
-   TFile* file_ele_pu;
-   TFile* file_muo_pu;
-
-#if defined(mainSelectorMC16_cxx)
-   file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleEG_05Feb2018.root");
-   file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleMuon_05Feb2018.root");
-   //file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleEG_22Aug2018.root");
-   //file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleMuon_22Aug2018.root");
-
-   //file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_SingleElectron_05Feb2018.root");
-   //file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_SingleMuon_05Feb2018.root");
-   //file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_SingleElectron_22Aug2018.root");
-   //file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_SingleMuon_22Aug2018.root");
-#endif // defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorMC17_cxx)
-   file_ele_pu = TFile::Open("root/ratio_pileup_Run2017_DoubleEG_31Mar2018.root");
-   file_muo_pu = TFile::Open("root/ratio_pileup_Run2017_DoubleMuon_31Mar2018.root");
-   //file_ele_pu = TFile::Open("root/ratio_pileup_Run2017_SingleElectron_31Mar2018.root");
-   //file_muo_pu = TFile::Open("root/ratio_pileup_Run2017_SingleMuon_31Mar2018.root");
-#endif // defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorMC18_cxx)
-   file_ele_pu = TFile::Open("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
-   file_muo_pu = TFile::Open("root/ratio_pileup_Run2018_DoubleMuon_14Sep2018.root");
-   //file_ele_pu = TFile::Open("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
-   //file_muo_pu = TFile::Open("root/ratio_pileup_Run2018_SingleMuon_14Sep2018.root");
-#endif // defined(mainSelectorMC18_cxx)
-
-   pu_ele_weights = (TH1D*)file_ele_pu->Get("pu_weights");
-   pu_muo_weights = (TH1D*)file_muo_pu->Get("pu_weights");
-
-   pu_ele_weights->SetDirectory(0);
-   pu_muo_weights->SetDirectory(0);
-
-   file_ele_pu->Close();
-   file_muo_pu->Close();
-
-   TFile* file_ele_sf_eff;
-   TFile* file_ele_sf_reco;
-
-   TFile* file_muo_sf_id;
-   TFile* file_muo_sf_iso;
-
-   TFile* file_pho_sf_eff;
-
-#if defined(mainSelectorMC16_cxx) 
-   file_ele_sf_eff = TFile::Open("root/sf_ele_2016_EGM2D_WP90.root");
-   //file_ele_sf_eff = TFile::Open("root/sf_ele_2016_EGM2D_WP80.root");
-   sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
-   sf_ele_eff->SetDirectory(0);
-   file_ele_sf_eff->Close();
-
-   file_muo_sf_id = TFile::Open("root/sf_muo_2016_RunBCDEF_ID.root");
-   file_muo_sf_iso = TFile::Open("root/sf_muo_2016_RunBCDEF_ISO.root");
-   sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
-   sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
-   sf_muo_id->SetDirectory(0);
-   sf_muo_iso->SetDirectory(0);
-   file_muo_sf_id->Close();
-   file_muo_sf_iso->Close();
-
-   file_pho_sf_eff = TFile::Open("root/sf_pho_2016_EGM2D.root");
-   sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
-   sf_pho_eff->SetDirectory(0);
-   file_pho_sf_eff->Close();
-#endif // defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorMC17_cxx)
-   file_ele_sf_eff = TFile::Open("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp90iso.root");
-   file_ele_sf_reco = TFile::Open("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
-   sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
-   sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
-   sf_ele_eff->SetDirectory(0);
-   sf_ele_reco->SetDirectory(0);
-   file_ele_sf_eff->Close();
-   file_ele_sf_reco->Close();
-
-   file_muo_sf_id = TFile::Open("root/sf_muo_2017_RunBCDEF_ID.root");
-   file_muo_sf_iso = TFile::Open("root/sf_muo_2017_RunBCDEF_ISO.root");
-   sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
-   sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
-   sf_muo_id->SetDirectory(0);
-   sf_muo_iso->SetDirectory(0);
-   file_muo_sf_id->Close();
-   file_muo_sf_iso->Close();
-
-   file_pho_sf_eff = TFile::Open("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
-   sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
-   sf_pho_eff->SetDirectory(0);
-   file_pho_sf_eff->Close();
-#endif // defined(mainSelectorMC17_cxx)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-   roccor = new RoccoR("roccor.Run2.v2/RoccoR2016.txt");
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-   roccor = new RoccoR("roccor.Run2.v2/RoccoR2017.txt");
-#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-// FIXME
-   roccor = new RoccoR("roccor.Run2.v2/RoccoR2017.txt");
-// FIXME
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 }
 
@@ -486,6 +487,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float weight_pu_ele = 1.0;
    float weight_pu_muo = 1.0;
+
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    weight_pu_ele = getWeight(pu_ele_weights, *Pileup_nTrueInt, 0);
    weight_pu_muo = getWeight(pu_muo_weights, *Pileup_nTrueInt, 0);
