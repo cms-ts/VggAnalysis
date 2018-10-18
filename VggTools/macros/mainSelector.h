@@ -150,6 +150,7 @@ public :
    TH1D* h_W_muo_pho0 = 0;
    TH1D* h_Z_ele_pho0 = 0;
    TH1D* h_Z_muo_pho0 = 0;
+
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 
@@ -685,18 +686,19 @@ Bool_t mainSelector::Notify()
    return kTRUE;
 }
 
-float getWeight(TH1 *histogram_, float x, float y){
-  if(histogram_==NULL) {
-    cout << "ERROR! The weights input histogram is not loaded. Returning weight 0!" << endl;
-    return 0.;
-  }
-  if(!histogram_->InheritsFrom("TH2")) {
-    int bin = max(1, min(histogram_->GetNbinsX(), histogram_->GetXaxis()->FindBin(x)));
-    return histogram_->GetBinContent(bin);
-  } else {
-    int binx = max(1, min(histogram_->GetNbinsX(), histogram_->GetXaxis()->FindBin(x)));
-    int biny = max(1, min(histogram_->GetNbinsY(), histogram_->GetYaxis()->FindBin(y)));
-    return histogram_->GetBinContent(binx,biny);
+float getWeight(TH1* h, float x, float y) {
+   if (h) {
+     if (h->InheritsFrom("TH2")) {
+       int binx = max(1, min(h->GetNbinsX(), h->GetXaxis()->FindBin(x)));
+       int biny = max(1, min(h->GetNbinsY(), h->GetYaxis()->FindBin(y)));
+       return h->GetBinContent(binx,biny);
+     } else {
+       int bin = max(1, min(h->GetNbinsX(), h->GetXaxis()->FindBin(x)));
+       return h->GetBinContent(bin);
+     }
+   } else {
+     cout << "ERROR! The weights input histogram is not loaded. Returning weight 0 !" << endl;
+     return 0.;
   }
 }
 
