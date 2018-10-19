@@ -439,7 +439,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (h_nevt) h_nevt->Fill(0.5);
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   if (isDYJetsToLL || isWJetsToLNu) {
+   if (isDYJetsToLL || isWJetsToLNu) { 
      for (uint i = 0; i < *nGenPart; i++) {
        if (GenPart_pdgId[i] == 22) {
          if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 11) continue;
@@ -466,7 +466,7 @@ Bool_t mainSelector::Process(Long64_t entry)
              deltaR = min(deltaR, tmp_pho.DeltaR(tmp_lep));
            }
          }
-         if (deltaR > 0.05) return kTRUE;
+         if (deltaR > 0.05 || tmp_pho.Pt() > 15.) return kTRUE;
        }
      }
    }
