@@ -166,9 +166,10 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    TString option = GetOption();
 
    if (option.Contains("WJetsToLNu"))    isWJetsToLNu    = true;
-   if (option.Contains("DYJetsToLL"))    isDYJetsToLL    = true;
    if (option.Contains("WGToLNuG"))      isWGToLNuG      = true;
    if (option.Contains("WGGJets"))       isWGGJets       = true;
+
+   if (option.Contains("DYJetsToLL"))    isDYJetsToLL    = true;
    if (option.Contains("ZGTo2LG"))       isZGTo2LG       = true;
    if (option.Contains("ZGGJetsToLLGG")) isZGGJetsToLLGG = true;
 
