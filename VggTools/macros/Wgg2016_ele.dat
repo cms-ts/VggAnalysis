@@ -6,6 +6,7 @@ Run2016F_SingleElectron_22Aug2018      0
 Run2016G_SingleElectron_22Aug2018      0
 Run2016H_SingleElectron_22Aug2018      0
 RunIISummer16NanoAOD_WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8	1010
+RunIISummer16NanoAOD_WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 1011
 RunIISummer16NanoAOD_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8     1020
 RunIISummer16NanoAOD_TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8      1030
 RunIISummer16NanoAOD_ST_s-channel_4f_InclusiveDecays_13TeV-amcatnlo-pythia8	1040
