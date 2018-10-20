@@ -69,6 +69,8 @@ for YEAR in $YEARS; do
  
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele.dat\",\"h_W_ele_pho0_dR\",\"$VERSION\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo.dat\",\"h_W_muo_pho0_dR\",\"$VERSION\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele.dat\",\"h_W_ele_pho1_dR\",\"$VERSION\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo.dat\",\"h_W_muo_pho1_dR\",\"$VERSION\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele.dat\",\"h_W_ele_pho0\",\"$VERSION\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo.dat\",\"h_W_muo_pho0\",\"$VERSION\"\)
 
@@ -122,6 +124,8 @@ for YEAR in $YEARS; do
  
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele.dat\",\"h_Z_ele_pho0_dR\",\"$VERSION\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo.dat\",\"h_Z_muo_pho0_dR\",\"$VERSION\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele.dat\",\"h_Z_ele_pho1_dR\",\"$VERSION\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo.dat\",\"h_Z_muo_pho1_dR\",\"$VERSION\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele.dat\",\"h_Z_ele_pho0\",\"$VERSION\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo.dat\",\"h_Z_muo_pho0\",\"$VERSION\"\)
 
