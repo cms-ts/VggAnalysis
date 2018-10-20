@@ -33,9 +33,10 @@ public :
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
    bool isWJetsToLNu    = false;
-   bool isDYJetsToLL    = false;
    bool isWGToLNuG      = false;
    bool isWGGJets       = false;
+
+   bool isDYJetsToLL    = false;
    bool isZGTo2LG       = false;
    bool isZGGJetsToLLGG = false;
 
