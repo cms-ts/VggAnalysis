@@ -88,8 +88,12 @@ void plot0(string plot="", string title="", string version="v00") {
       leg->AddEntry(it->second, "DYJets", "f");
     }
     if (it->first == 11) {
-      it->second->SetFillColor(kYellow-6);
+      it->second->SetFillColor(kYellow-5);
       leg->AddEntry(it->second, "Zgamma", "f");
+    }
+    if (it->first == 12) {
+      it->second->SetFillColor(kYellow-6);
+      leg->AddEntry(it->second, "Zgammagamma", "f");
     }
     if (it->first == 20) {
       it->second->SetFillColor(kBlue-4);
@@ -109,12 +113,24 @@ void plot0(string plot="", string title="", string version="v00") {
       leg->AddEntry(it->second, "WJets", "f");
     }
     if (it->first == 1011) {
-      it->second->SetFillColor(kYellow-6);
+      it->second->SetFillColor(kYellow-5);
       leg->AddEntry(it->second, "Wgamma", "f");
+    }
+    if (it->first == 1012) {
+      it->second->SetFillColor(kYellow-6);
+      leg->AddEntry(it->second, "Wgammagamma", "f");
     }
     if (it->first == 1020) {
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "DYJets", "f");
+    }
+    if (it->first == 1021) {
+      it->second->SetFillColor(kOrange-5);
+      leg->AddEntry(it->second, "Zgamma", "f");
+    }
+    if (it->first == 1022) {
+      it->second->SetFillColor(kOrange-6);
+      leg->AddEntry(it->second, "Zgammagamma", "f");
     }
     if (it->first == 1030) {
       it->second->SetFillColor(kBlue);
