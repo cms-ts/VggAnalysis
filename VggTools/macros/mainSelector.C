@@ -605,12 +605,11 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (n_photons_gen != 0) return kTRUE;
        }
        if (isWGToLNuG) {
-         if (n_photons_gen == 0) return kTRUE;
-//         if (n_photons_gen == 0 || n_photons_gen >= 2) return kTRUE;
+         if (n_photons_gen == 0 || n_photons_gen >= 2) return kTRUE;
        }
-//       if (isWGGJets) {
-//         if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
-//       }
+       if (isWGGJets) {
+         if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
+       }
      }
 
      if (Z_ele_sel_gen || Z_muo_sel_gen) {
@@ -618,12 +617,11 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (n_photons_gen != 0) return kTRUE;
        }
        if (isZGTo2LG) {
-         if (n_photons_gen == 0) return kTRUE;
-//         if (n_photons_gen == 0 || n_photons_gen >= 2) return kTRUE;
+         if (n_photons_gen == 0 || n_photons_gen >= 2) return kTRUE;
        }
-//       if (isZGGJetsToLLGG) {
-//         if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
-//       }
+       if (isZGGJetsToLLGG) {
+         if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
+       }
      }
 
    }
