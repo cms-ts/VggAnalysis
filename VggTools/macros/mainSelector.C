@@ -558,44 +558,44 @@ Bool_t mainSelector::Process(Long64_t entry)
      int n_photons_gen = 0;
 
      for (uint i = 0; i < *nGenPart; i++) {
-       if (GenPart_pdgId[i] != 22) continue;
-       if (GenPart_pt[i] < 20) continue;
-       if (fabs(GenPart_eta[i]) > 1.442 && fabs(GenPart_eta[i]) < 1.566) continue;
-       if (fabs(GenPart_eta[i]) > 2.400) continue;
+       if (GenPart_pdgId[i] == 22) {
+         if (GenPart_pt[i] < 20) continue;
+         if (fabs(GenPart_eta[i]) > 1.442 && fabs(GenPart_eta[i]) < 1.566) continue;
+         if (fabs(GenPart_eta[i]) > 2.400) continue;
 
-       TLorentzVector tmp_pho;
-       tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
+         TLorentzVector tmp_pho;
+         tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
 
-       if (W_ele_sel_gen) {
-         if (isWJetsToLNu || isWGToLNuG || isWGGJets) {
-           float deltaR = tmp_pho.DeltaR(ele0_gen);
-           if (deltaR < 0.3) continue;
+         if (W_ele_sel_gen) {
+           if (isWJetsToLNu || isWGToLNuG || isWGGJets) {
+             float deltaR = tmp_pho.DeltaR(ele0_gen);
+             if (deltaR < 0.3) continue;
+           }
          }
-       }
 
-       if (W_muo_sel_gen) {
-         if (isWJetsToLNu || isWGToLNuG || isWGGJets) {
-           float deltaR = tmp_pho.DeltaR(muo0_gen);
-           if (deltaR < 0.3) continue;
+         if (W_muo_sel_gen) {
+           if (isWJetsToLNu || isWGToLNuG || isWGGJets) {
+             float deltaR = tmp_pho.DeltaR(muo0_gen);
+             if (deltaR < 0.3) continue;
+           }
          }
-       }
 
-       if (Z_ele_sel_gen) {
-         if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
-           float deltaR = min(tmp_pho.DeltaR(ele0_gen), tmp_pho.DeltaR(ele1_gen));
-           if (deltaR < 0.3) continue;
+         if (Z_ele_sel_gen) {
+           if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
+             float deltaR = min(tmp_pho.DeltaR(ele0_gen), tmp_pho.DeltaR(ele1_gen));
+             if (deltaR < 0.3) continue;
+           }
          }
-       }
 
-       if (Z_muo_sel_gen) {
-         if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
-           float deltaR = min(tmp_pho.DeltaR(muo0_gen), tmp_pho.DeltaR(muo1_gen));
-           if (deltaR < 0.3) continue;
+         if (Z_muo_sel_gen) {
+           if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
+             float deltaR = min(tmp_pho.DeltaR(muo0_gen), tmp_pho.DeltaR(muo1_gen));
+             if (deltaR < 0.3) continue;
+           }
          }
+
+         n_photons_gen++;
        }
-
-       n_photons_gen++;
-
      }
 
      if (W_ele_sel_gen || W_muo_sel_gen) {
