@@ -457,8 +457,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    TLorentzVector muo0_gen;
    TLorentzVector muo1_gen;
 
-   float W_ele_gen_mt = 0.;
-   float W_muo_gen_mt = 0.;
+   float W_ele0_gen_mt = 0.;
+   float W_muo0_gen_mt = 0.;
 
    TLorentzVector Z_ele0_ele1_gen;
    TLorentzVector Z_muo0_muo1_gen;
@@ -512,15 +512,15 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (iele0_gen != -1) {
-     W_ele_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * tmp_met.Pt() * (1. - TMath::Cos(ele0_gen.Phi() - tmp_met.Phi())));
-     if (tmp_met.Pt() > 40 && W_ele_gen_mt > 40 && ele0_gen.Pt() > 35) {
+     W_ele0_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * tmp_met.Pt() * (1. - TMath::Cos(ele0_gen.Phi() - tmp_met.Phi())));
+     if (tmp_met.Pt() > 40 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 35) {
        W_ele_sel_gen = true;
      }
    }
 
    if (imuo0_gen != -1) {
-     W_muo_gen_mt = TMath::Sqrt(2. * muo0_gen.Pt() * tmp_met.Pt() * (1. - TMath::Cos(muo0_gen.Phi() - tmp_met.Phi())));
-     if (tmp_met.Pt() > 40 && W_muo_gen_mt > 40 && muo0_gen.Pt() > 35) {
+     W_muo0_gen_mt = TMath::Sqrt(2. * muo0_gen.Pt() * tmp_met.Pt() * (1. - TMath::Cos(muo0_gen.Phi() - tmp_met.Phi())));
+     if (tmp_met.Pt() > 40 && W_muo0_gen_mt > 40 && muo0_gen.Pt() > 35) {
        W_muo_sel_gen = true;
      }
    }
@@ -540,11 +540,11 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_ele_sel_gen) {
-     if (h_W_ele_gen) h_W_ele_gen->Fill(W_ele_gen_mt);
+     if (h_W_ele_gen) h_W_ele_gen->Fill(W_ele0_gen_mt);
    }
 
    if (W_muo_sel_gen) {
-     if (h_W_muo_gen) h_W_muo_gen->Fill(W_muo_gen_mt);
+     if (h_W_muo_gen) h_W_muo_gen->Fill(W_muo0_gen_mt);
    }
 
    if (Z_ele_sel_gen) {
@@ -665,7 +665,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-   float W_ele_mt = 0.;
+   float W_ele0_mt = 0.;
 
    if (iele0 != -1 && iele1 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -679,8 +679,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele32_WPTight_Gsf) {
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       W_ele_mt = TMath::Sqrt(2. * ele0.Pt() * (*MET_pt) * (1. - TMath::Cos(ele0.Phi() - (*MET_phi))));
-       if (*MET_pt > 40 && W_ele_mt > 40 && ele0.Pt() > 35) {
+       W_ele0_mt = TMath::Sqrt(2. * ele0.Pt() * (*MET_pt) * (1. - TMath::Cos(ele0.Phi() - (*MET_phi))));
+       if (*MET_pt > 40 && W_ele0_mt > 40 && ele0.Pt() > 35) {
          W_ele_sel = true;
        }
      }
@@ -792,7 +792,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-   float W_muo_mt = 0.;
+   float W_muo0_mt = 0.;
 
    if (imuo0 != -1 && imuo1 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -806,8 +806,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_IsoMu24) {
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       W_muo_mt = TMath::Sqrt(2. * muo0.Pt() * (*MET_pt) * (1. - TMath::Cos(muo0.Phi() - (*MET_phi))));
-       if (*MET_pt > 20 && W_muo_mt > 40 && muo0.Pt() > 30) {
+       W_muo0_mt = TMath::Sqrt(2. * muo0.Pt() * (*MET_pt) * (1. - TMath::Cos(muo0.Phi() - (*MET_phi))));
+       if (*MET_pt > 20 && W_muo0_mt > 40 && muo0.Pt() > 30) {
          W_muo_sel = true;
        }
      }
@@ -879,7 +879,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_ele_sel) {
-     if (h_W_ele) h_W_ele->Fill(W_ele_mt, weight_W_ele);
+     if (h_W_ele) h_W_ele->Fill(W_ele0_mt, weight_W_ele);
      if (h_W_ele_npvs) h_W_ele_npvs->Fill(*PV_npvsGood);
      if (h_W_ele_npvs_w) h_W_ele_npvs_w->Fill(*PV_npvsGood, weight_W_ele);
      if (h_W_ele0_pt) h_W_ele0_pt->Fill(ele0.Pt(), weight_W_ele);
@@ -891,7 +891,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_muo_sel) {
-     if (h_W_muo) h_W_muo->Fill(W_muo_mt, weight_W_muo);
+     if (h_W_muo) h_W_muo->Fill(W_muo0_mt, weight_W_muo);
      if (h_W_muo_npvs) h_W_muo_npvs->Fill(*PV_npvsGood);
      if (h_W_muo_npvs_w) h_W_muo_npvs_w->Fill(*PV_npvsGood, weight_W_muo);
      if (h_W_muo0_pt) h_W_muo0_pt->Fill(muo0.Pt(), weight_W_muo);
@@ -1033,7 +1033,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (h_W_ele_pho0_eta) h_W_ele_pho0_eta->Fill(pho0.Eta(), weight_W_ele * weight_pho0);
        if (h_W_ele_pho0_phi) h_W_ele_pho0_phi->Fill(pho0.Phi(), weight_W_ele * weight_pho0);
        if (h_W_ele_pho0_dR) h_W_ele_pho0_dR->Fill(pho0.DeltaR(ele0), weight_W_ele * weight_pho0); 
-       if (h_W_ele_pho0) h_W_ele_pho0->Fill(W_ele_mt, weight_W_ele * weight_pho0); 
+       if (h_W_ele_pho0) h_W_ele_pho0->Fill(W_ele0_mt, weight_W_ele * weight_pho0); 
      }
      if (n_photons >= 2) {
        if (h_W_ele_pho1_pt) h_W_ele_pho1_pt->Fill(pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
@@ -1051,7 +1051,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (h_W_muo_pho0_eta) h_W_muo_pho0_eta->Fill(pho0.Eta(), weight_W_muo * weight_pho0);
        if (h_W_muo_pho0_phi) h_W_muo_pho0_phi->Fill(pho0.Phi(), weight_W_muo * weight_pho0);
        if (h_W_muo_pho0_dR) h_W_muo_pho0_dR->Fill(pho0.DeltaR(muo0), weight_W_muo * weight_pho0); 
-       if (h_W_muo_pho0) h_W_muo_pho0->Fill(W_muo_mt, weight_W_muo * weight_pho0); 
+       if (h_W_muo_pho0) h_W_muo_pho0->Fill(W_muo0_mt, weight_W_muo * weight_pho0); 
      }
      if (n_photons >= 2) {
        if (h_W_muo_pho1_pt) h_W_muo_pho1_pt->Fill(pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
