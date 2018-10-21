@@ -555,34 +555,73 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (h_Z_muo_gen) h_Z_muo_gen->Fill(Z_muo0_muo1_gen.M());
      }
 
+     int n_photons_gen = 0;
+
      for (uint i = 0; i < *nGenPart; i++) {
-       if (GenPart_pdgId[i] == 22) {
-         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 11) continue;
-         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 13) continue;
-         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 15) continue;
-         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 1) continue;
-         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 2) continue;
-         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 3) continue;
-         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 4) continue;
-         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 5) continue;
-         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 2212) continue;
-         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 21) continue;
-         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) >= 100) continue; //FIXME
+       if (GenPart_pdgId[i] != 22) continue;
+       if (GenPart_pt[i] < 20) continue;
+       if (fabs(GenPart_eta[i]) > 1.442 && fabs(GenPart_eta[i]) < 1.566) continue;
+       if (fabs(GenPart_eta[i]) > 2.400) continue;
 
-         TLorentzVector tmp_pho;
-         tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
+       TLorentzVector tmp_pho;
+       tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
 
-         double deltaR = 9999.;
-
-         for (uint j = 0; j < *nGenPart; j++) {
-           if(fabs(GenPart_pdgId[j]) == 11 || fabs(GenPart_pdgId[j]) == 13 || fabs(GenPart_pdgId[j]) == 15) {
-             TLorentzVector tmp_lep;
-             tmp_lep.SetPtEtaPhiM(GenPart_pt[j], GenPart_eta[j], GenPart_phi[j], GenPart_mass[j]);
-             deltaR = min(deltaR, tmp_pho.DeltaR(tmp_lep));
-           }
+       if (W_ele_sel_gen) {
+         if (isWJetsToLNu || isWGToLNuG || isWGGJets) {
+           float deltaR = tmp_pho.DeltaR(ele0_gen);
+           if (deltaR < 0.3) continue;
          }
-         if (deltaR > 0.05 || tmp_pho.Pt() > 15.) return kTRUE;
        }
+
+       if (W_muo_sel_gen) {
+         if (isWJetsToLNu || isWGToLNuG || isWGGJets) {
+           float deltaR = tmp_pho.DeltaR(muo0_gen);
+           if (deltaR < 0.3) continue;
+         }
+       }
+
+       if (Z_ele_sel_gen) {
+         if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
+           float deltaR = min(tmp_pho.DeltaR(ele0_gen), tmp_pho.DeltaR(ele1_gen));
+           if (deltaR < 0.3) continue;
+         }
+       }
+
+       if (Z_muo_sel_gen) {
+         if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
+           float deltaR = min(tmp_pho.DeltaR(muo0_gen), tmp_pho.DeltaR(muo1_gen));
+           if (deltaR < 0.3) continue;
+         }
+       }
+
+       n_photons_gen++;
+
+     }
+
+     if (W_ele_sel_gen || W_muo_sel_gen) {
+       if (isWJetsToLNu) {
+         if (n_photons_gen != 0) return kTRUE;
+       }
+       if (isWGToLNuG) {
+         if (n_photons_gen == 0) return kTRUE;
+//         if (n_photons_gen == 0 || n_photons_gen >= 2) return kTRUE;
+       }
+//       if (isWGGJets) {
+//         if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
+//       }
+     }
+
+     if (Z_ele_sel_gen || Z_muo_sel_gen) {
+       if (isDYJetsToLL) {
+         if (n_photons_gen != 0) return kTRUE;
+       }
+       if (isZGTo2LG) {
+         if (n_photons_gen == 0) return kTRUE;
+//         if (n_photons_gen == 0 || n_photons_gen >= 2) return kTRUE;
+       }
+//       if (isZGGJetsToLLGG) {
+//         if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
+//       }
      }
 
    }
