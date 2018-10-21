@@ -512,14 +512,14 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-     if (iele0_gen != -1) {
+     if (iele0_gen != -1 && iele1_gen == -1) {
        W_ele0_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * tmp_met.Pt() * (1. - TMath::Cos(ele0_gen.Phi() - tmp_met.Phi())));
        if (tmp_met.Pt() > 40 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 35) {
          W_ele_sel_gen = true;
        }
      }
 
-     if (imuo0_gen != -1) {
+     if (imuo0_gen != -1 && imuo1_gen == -1) {
        W_muo0_gen_mt = TMath::Sqrt(2. * muo0_gen.Pt() * tmp_met.Pt() * (1. - TMath::Cos(muo0_gen.Phi() - tmp_met.Phi())));
        if (tmp_met.Pt() > 40 && W_muo0_gen_mt > 40 && muo0_gen.Pt() > 35) {
          W_muo_sel_gen = true;
