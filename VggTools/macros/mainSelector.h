@@ -19,7 +19,6 @@
 
 #include "TH1D.h"
 #include "TH2D.h"
-#include "TRandom.h"
 
 #if defined(mainSelectorDT17B_h)
 #define mainSelectorDT17_h
