@@ -49,7 +49,7 @@ public :
    TH1D* h_W_ele_npvs_w = 0;
    TH1D* h_W_muo_npvs = 0;
    TH1D* h_W_muo_npvs_w = 0;
-   
+
    TH1D* h_W_ele0_pt = 0;
    TH1D* h_W_ele0_eta = 0;
    TH1D* h_W_ele0_phi = 0;
@@ -70,7 +70,7 @@ public :
    TH1D* h_Z_ele_npvs_w = 0;
    TH1D* h_Z_muo_npvs = 0;
    TH1D* h_Z_muo_npvs_w = 0;
-   
+
    TH1D* h_Z_ele0_pt = 0;
    TH1D* h_Z_ele0_eta = 0;
    TH1D* h_Z_ele0_phi = 0;
@@ -176,7 +176,7 @@ public :
 
    RoccoR* roccor;
 
-#if defined(mainSelectorDT16_h) 
+#if defined(mainSelectorDT16_h)
 
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
@@ -398,7 +398,7 @@ public :
    TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
    TTreeReaderArray<Int_t> Electron_genPartIdx = {fReader, "Electron_genPartIdx"};
    TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
-   
+
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
    TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
    TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
@@ -447,7 +447,7 @@ public :
    TTreeReaderArray<Float_t> GenDressedLepton_phi = {fReader, "GenDressedLepton_phi"};
    TTreeReaderArray<Float_t> GenDressedLepton_pt = {fReader, "GenDressedLepton_pt"};
    TTreeReaderArray<Int_t> GenDressedLepton_pdgId = {fReader, "GenDressedLepton_pdgId"};
-   
+
    TTreeReaderValue<Bool_t> HLT_Ele27_WPTight_Gsf = {fReader, "HLT_Ele27_WPTight_Gsf"};
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
 
@@ -507,7 +507,7 @@ public :
    TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
    TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
    TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
-   
+
    TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
    TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};
    TTreeReaderArray<Float_t> Jet_eta = {fReader, "Jet_eta"};
@@ -573,7 +573,7 @@ public :
    TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
    TTreeReaderArray<Int_t> Electron_genPartIdx = {fReader, "Electron_genPartIdx"};
    TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
-   
+
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
    TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
    TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
@@ -595,7 +595,7 @@ public :
    TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
    TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
    TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
-   
+
    TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
    TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};
    TTreeReaderArray<Float_t> Jet_eta = {fReader, "Jet_eta"};
@@ -622,7 +622,7 @@ public :
    TTreeReaderArray<Int_t> GenPart_pdgId = {fReader, "GenPart_pdgId"};
    TTreeReaderArray<Int_t> GenPart_status = {fReader, "GenPart_status"};
    TTreeReaderArray<Int_t> GenPart_statusFlags = {fReader, "GenPart_statusFlags"};
-   
+
 // FIXME
    TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf = {fReader, "HLT_Ele32_WPTight_Gsf"};
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"};
