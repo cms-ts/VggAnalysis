@@ -156,6 +156,9 @@ public :
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
+   TH1D* h_W_ele_gen = 0;
+   TH1D* h_W_muo_gen = 0;
+
    TH1D* h_Z_ele_gen = 0;
    TH1D* h_Z_muo_gen = 0;
 

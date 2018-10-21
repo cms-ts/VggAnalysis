@@ -29,7 +29,6 @@
 
 #include <TLorentzVector.h>
 #include <TCanvas.h>
-#include <TIterator.h>
 #include <TFile.h>
 
 #if defined(mainSelectorDT17B_cxx)
@@ -290,6 +289,9 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   h_W_ele_gen = new TH1D("h_W_ele_gen", "h_W_ele_gen", 100, 20., 200.);
+   h_W_muo_gen = new TH1D("h_W_muo_gen", "h_W_muo_gen", 100, 20., 200.);
+
    h_Z_ele_gen = new TH1D("h_Z_ele_gen", "h_Z_ele_gen", 100, 71., 111.);
    h_Z_muo_gen = new TH1D("h_Z_muo_gen", "h_Z_muo_gen", 100, 71., 111.);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
@@ -411,6 +413,9 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   GetOutputList()->Add(h_W_ele_gen);
+   GetOutputList()->Add(h_W_muo_gen);
+
    GetOutputList()->Add(h_Z_ele_gen);
    GetOutputList()->Add(h_Z_muo_gen);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
@@ -440,15 +445,22 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (h_nevt) h_nevt->Fill(0.5);
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   bool W_ele_sel_gen = false;
+   bool W_muo_sel_gen = false;
+
    bool Z_ele_sel_gen = false;
    bool Z_muo_sel_gen = false;
 
    TLorentzVector ele0_gen;
    TLorentzVector ele1_gen;
-   TLorentzVector Z_ele0_ele1_gen;
 
    TLorentzVector muo0_gen;
    TLorentzVector muo1_gen;
+
+   float W_ele_gen_mt = 0.;
+   float W_muo_gen_mt = 0.;
+
+   TLorentzVector Z_ele0_ele1_gen;
    TLorentzVector Z_muo0_muo1_gen;
 
    int iele0_gen = -1;
@@ -484,6 +496,35 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+   TLorentzVector tmp_met;
+   tmp_met.SetPtEtaPhiM(0.,0.,0.,0.);
+
+   if (iele0_gen != -1 || imuo0_gen != -1) {
+     for (uint i = 0; i < *nGenPart; i++) {
+       if (fabs(GenPart_pdgId[i]) == 12 || fabs(GenPart_pdgId[i]) == 14 || fabs(GenPart_pdgId[i]) == 16) {
+         if (fabs(GenPart_eta[i]) < 5.0) {
+           TLorentzVector tmp_nu;
+           tmp_nu.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
+           tmp_met = tmp_met + tmp_nu;
+         }
+       }
+     }
+   }
+
+   if (iele0_gen != -1) {
+     W_ele_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * tmp_met.Pt() * (1. - TMath::Cos(ele0_gen.Phi() - tmp_met.Phi())));
+     if (tmp_met.Pt() > 40 && W_ele_gen_mt > 40 && ele0_gen.Pt() > 35) {
+       W_ele_sel_gen = true;
+     }
+   }
+
+   if (imuo0_gen != -1) {
+     W_muo_gen_mt = TMath::Sqrt(2. * muo0_gen.Pt() * tmp_met.Pt() * (1. - TMath::Cos(muo0_gen.Phi() - tmp_met.Phi())));
+     if (tmp_met.Pt() > 40 && W_muo_gen_mt > 40 && muo0_gen.Pt() > 35) {
+       W_muo_sel_gen = true;
+     }
+   }
+
    if (iele0_gen != -1 && iele1_gen != -1) {
      Z_ele0_ele1_gen = ele0_gen + ele1_gen;
      if (Z_ele0_ele1_gen.M() >= 71. && Z_ele0_ele1_gen.M() <= 111.) {
@@ -496,6 +537,14 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Z_muo0_muo1_gen.M() >= 71. && Z_muo0_muo1_gen.M() <= 111.) {
        Z_muo_sel_gen = true;
      }
+   }
+
+   if (W_ele_sel_gen) {
+     if (h_W_ele_gen) h_W_ele_gen->Fill(W_ele_gen_mt);
+   }
+
+   if (W_muo_sel_gen) {
+     if (h_W_muo_gen) h_W_muo_gen->Fill(W_muo_gen_mt);
    }
 
    if (Z_ele_sel_gen) {
