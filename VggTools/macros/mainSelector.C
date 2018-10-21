@@ -501,6 +501,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0_gen != -1 || imuo0_gen != -1) {
        for (uint i = 0; i < *nGenPart; i++) {
+         if (GenPart_status[i] != 1) continue;
          if (fabs(GenPart_pdgId[i]) == 12 || fabs(GenPart_pdgId[i]) == 14 || fabs(GenPart_pdgId[i]) == 16) {
            if (fabs(GenPart_eta[i]) < 5.0) {
              TLorentzVector tmp_nu;
@@ -558,6 +559,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      int n_photons_gen = 0;
 
      for (uint i = 0; i < *nGenPart; i++) {
+       if (GenPart_status[i] != 1) continue;
        if (GenPart_pdgId[i] == 22) {
          if (GenPart_pt[i] < 20) continue;
          if (fabs(GenPart_eta[i]) > 1.442 && fabs(GenPart_eta[i]) < 1.566) continue;
