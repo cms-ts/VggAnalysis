@@ -989,10 +989,10 @@ Bool_t mainSelector::Process(Long64_t entry)
          pho1.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
          float weight_pho0 = 1.;
          float weight_pho1 = 1.;
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
          weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
          weight_pho1 = getWeight(sf_pho_eff, pho1.Eta(), pho1.Pt());
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
          if (W_ele_sel) {
            if (h_W_ele_pho1_dR) h_W_ele_pho1_dR->Fill(pho1.DeltaR(ele0), weight_W_ele * weight_pho0 * weight_pho1);
            if (pho1.DeltaR(ele0) < 0.3) {
@@ -1026,9 +1026,9 @@ Bool_t mainSelector::Process(Long64_t entry)
          ipho0 = i;
          pho0.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
          float weight_pho0 = 1.;
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
          weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
          if (W_ele_sel) {
            if (h_W_ele_pho0_dR) h_W_ele_pho0_dR->Fill(pho0.DeltaR(ele0), weight_W_ele * weight_pho0);
            if (pho0.DeltaR(ele0) < 0.3) {
@@ -1073,16 +1073,16 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_pho1 = 1.;
 
    if (W_ele_sel || W_muo_sel) {
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
      weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
    }
 
    if (Z_ele_sel || Z_muo_sel) {
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
      weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
      weight_pho1 = getWeight(sf_pho_eff, pho1.Eta(), pho1.Pt());
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
    }
 
    if (W_ele_sel) {
