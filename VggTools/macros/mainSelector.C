@@ -210,12 +210,18 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_ele1_pt = new TH1D("h_Z_ele1_pt", "h_Z_ele1_pt", 100, 0., 200.);
    h_Z_ele1_eta = new TH1D("h_Z_ele1_eta", "h_Z_ele1_eta", 50, -2.5, 2.5);
    h_Z_ele1_phi = new TH1D("h_Z_ele1_phi", "h_Z_ele1_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_Z_ele_met_pt = new TH1D("h_Z_ele_met_pt", "h_Z_ele_met_pt", 100, 0., 200.);
+   h_Z_ele_met_phi = new TH1D("h_Z_ele_met_phi", "h_Z_ele_met_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_Z_ele_met_sign = new TH1D("h_Z_ele_met_sign", "h_Z_ele_met_sign", 100, 0., 100.);
    h_Z_muo0_pt = new TH1D("h_Z_muo0_pt", "h_Z_muo0_pt", 100, 0., 200.);
    h_Z_muo0_eta = new TH1D("h_Z_muo0_eta", "h_Z_muo0_eta", 50, -2.5, 2.5);
    h_Z_muo0_phi = new TH1D("h_Z_muo0_phi", "h_Z_muo0_phi", 24, -TMath::Pi(), TMath::Pi());
    h_Z_muo1_pt = new TH1D("h_Z_muo1_pt", "h_Z_muo1_pt", 100, 0., 200.);
    h_Z_muo1_eta = new TH1D("h_Z_muo1_eta", "h_Z_muo1_eta", 50, -2.5, 2.5);
    h_Z_muo1_phi = new TH1D("h_Z_muo1_phi", "h_Z_muo1_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_Z_muo_met_pt = new TH1D("h_Z_muo_met_pt", "h_Z_muo_met_pt", 100, 0., 200.);
+   h_Z_muo_met_phi = new TH1D("h_Z_muo_met_phi", "h_Z_muo_met_phi", 24, -TMath::Pi(), TMath::Pi());
+   h_Z_muo_met_sign = new TH1D("h_Z_muo_met_sign", "h_Z_muo_met_sign", 100, 0., 100.);
 
    h_TrigObj = new TH2D("h_TrigObj", "h_TrigObj", 34, -1.5, 32.5, 25, -0.5, 24.5);
 
@@ -334,12 +340,18 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    GetOutputList()->Add(h_Z_ele1_pt);
    GetOutputList()->Add(h_Z_ele1_eta);
    GetOutputList()->Add(h_Z_ele1_phi);
+   GetOutputList()->Add(h_Z_ele_met_pt);
+   GetOutputList()->Add(h_Z_ele_met_phi);
+   GetOutputList()->Add(h_Z_ele_met_sign);
    GetOutputList()->Add(h_Z_muo0_pt);
    GetOutputList()->Add(h_Z_muo0_eta);
    GetOutputList()->Add(h_Z_muo0_phi);
    GetOutputList()->Add(h_Z_muo1_pt);
    GetOutputList()->Add(h_Z_muo1_eta);
    GetOutputList()->Add(h_Z_muo1_phi);
+   GetOutputList()->Add(h_Z_muo_met_pt);
+   GetOutputList()->Add(h_Z_muo_met_phi);
+   GetOutputList()->Add(h_Z_muo_met_sign);
 
    GetOutputList()->Add(h_TrigObj);
 
@@ -951,6 +963,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (h_Z_ele1_pt) h_Z_ele1_pt->Fill(ele1.Pt(), weight_Z_ele);
      if (h_Z_ele1_eta) h_Z_ele1_eta->Fill(ele1.Eta(), weight_Z_ele);
      if (h_Z_ele1_phi) h_Z_ele1_phi->Fill(ele1.Phi(), weight_Z_ele);
+     if (h_Z_ele_met_pt) h_Z_ele_met_pt->Fill(*MET_pt, weight_Z_ele);
+     if (h_Z_ele_met_phi) h_Z_ele_met_phi->Fill(*MET_phi, weight_Z_ele);
+     if (h_Z_ele_met_sign) h_Z_ele_met_sign->Fill(*MET_significance, weight_Z_ele);
    }
 
    if (Z_muo_sel) {
@@ -963,6 +978,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (h_Z_muo1_pt) h_Z_muo1_pt->Fill(muo1.Pt(), weight_Z_muo);
      if (h_Z_muo1_eta) h_Z_muo1_eta->Fill(muo1.Eta(), weight_Z_muo);
      if (h_Z_muo1_phi) h_Z_muo1_phi->Fill(muo1.Phi(), weight_Z_muo);
+     if (h_Z_muo_met_pt) h_Z_muo_met_pt->Fill(*MET_pt, weight_Z_muo);
+     if (h_Z_muo_met_phi) h_Z_muo_met_phi->Fill(*MET_phi, weight_Z_muo);
+     if (h_Z_muo_met_sign) h_Z_muo_met_sign->Fill(*MET_significance, weight_Z_muo);
    }
 
    int n_photons = 0;
