@@ -470,7 +470,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) == 11) {
-         if (GenDressedLepton_pt[i] < 25) continue;
+         if (GenDressedLepton_pt[i] < 20) continue;
          if (fabs(GenDressedLepton_eta[i]) > 1.442 && fabs(GenDressedLepton_eta[i]) < 1.566) continue;
          if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
          if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[iele0_gen]) {
@@ -483,7 +483,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          }
        }
        if (fabs(GenDressedLepton_pdgId[i]) == 13) {
-         if (GenDressedLepton_pt[i] < 25) continue;
+         if (GenDressedLepton_pt[i] < 20) continue;
          if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
          if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[imuo0_gen]) {
            imuo1_gen=i;
@@ -514,14 +514,14 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0_gen != -1 && iele1_gen == -1) {
        W_ele0_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * tmp_met.Pt() * (1. - TMath::Cos(ele0_gen.Phi() - tmp_met.Phi())));
-       if (tmp_met.Pt() > 40 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 35) {
+       if (tmp_met.Pt() > 35 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 30) {
          W_ele_sel_gen = true;
        }
      }
 
      if (imuo0_gen != -1 && imuo1_gen == -1) {
        W_muo0_gen_mt = TMath::Sqrt(2. * muo0_gen.Pt() * tmp_met.Pt() * (1. - TMath::Cos(muo0_gen.Phi() - tmp_met.Phi())));
-       if (tmp_met.Pt() > 40 && W_muo0_gen_mt > 40 && muo0_gen.Pt() > 35) {
+       if (tmp_met.Pt() > 15 && W_muo0_gen_mt > 40 && muo0_gen.Pt() > 25) {
          W_muo_sel_gen = true;
        }
      }
@@ -561,7 +561,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      for (uint i = 0; i < *nGenPart; i++) {
        if (GenPart_status[i] != 1) continue;
        if (GenPart_pdgId[i] == 22) {
-         if (GenPart_pt[i] < 20) continue;
+         if (GenPart_pt[i] < 15) continue;
          if (fabs(GenPart_eta[i]) > 1.442 && fabs(GenPart_eta[i]) < 1.566) continue;
          if (fabs(GenPart_eta[i]) > 2.400) continue;
 
@@ -571,28 +571,28 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (W_ele_sel_gen) {
            if (isWJetsToLNu || isWGToLNuG || isWGGJets) {
              float deltaR = tmp_pho.DeltaR(ele0_gen);
-             if (deltaR < 0.3) continue;
+             if (deltaR < 0.15) continue;
            }
          }
 
          if (W_muo_sel_gen) {
            if (isWJetsToLNu || isWGToLNuG || isWGGJets) {
              float deltaR = tmp_pho.DeltaR(muo0_gen);
-             if (deltaR < 0.3) continue;
+             if (deltaR < 0.15) continue;
            }
          }
 
          if (Z_ele_sel_gen) {
            if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
              float deltaR = min(tmp_pho.DeltaR(ele0_gen), tmp_pho.DeltaR(ele1_gen));
-             if (deltaR < 0.3) continue;
+             if (deltaR < 0.15) continue;
            }
          }
 
          if (Z_muo_sel_gen) {
            if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
              float deltaR = min(tmp_pho.DeltaR(muo0_gen), tmp_pho.DeltaR(muo1_gen));
-             if (deltaR < 0.3) continue;
+             if (deltaR < 0.15) continue;
            }
          }
 
