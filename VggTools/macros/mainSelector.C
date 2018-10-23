@@ -137,6 +137,28 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 // FIXME
+   file_ele_sf_eff = TFile::Open("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp90iso.root");
+   file_ele_sf_reco = TFile::Open("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
+   sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
+   sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
+   sf_ele_eff->SetDirectory(0);
+   sf_ele_reco->SetDirectory(0);
+   file_ele_sf_eff->Close();
+   file_ele_sf_reco->Close();
+
+   file_muo_sf_id = TFile::Open("root/sf_muo_2017_RunBCDEF_ID.root");
+   file_muo_sf_iso = TFile::Open("root/sf_muo_2017_RunBCDEF_ISO.root");
+   sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
+   sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
+   sf_muo_id->SetDirectory(0);
+   sf_muo_iso->SetDirectory(0);
+   file_muo_sf_id->Close();
+   file_muo_sf_iso->Close();
+
+   file_pho_sf_eff = TFile::Open("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
+   sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
+   sf_pho_eff->SetDirectory(0);
+   file_pho_sf_eff->Close();
 // FIXME
 #endif // defined(mainSelectorMC18_cxx)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
@@ -770,6 +792,14 @@ Bool_t mainSelector::Process(Long64_t entry)
      float weight_hlt_ele = 0.991;
      weight_W_ele = weight_pu_ele * weight_eff_ele0 * weight_reco_ele0 * weight_hlt_ele;
 #endif // defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+// FIXME
+     float weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
+     float weight_reco_ele0 = getWeight(sf_ele_reco, ele0.Eta(), ele0.Pt());
+     float weight_hlt_ele = 0.991;
+     weight_W_ele = weight_pu_ele * weight_eff_ele0 * weight_reco_ele0 * weight_hlt_ele;
+// FIXME
+#endif // defined(mainSelectorMC18_cxx)
    }
 
    float weight_Z_ele = 1.;
@@ -788,6 +818,16 @@ Bool_t mainSelector::Process(Long64_t entry)
      float weight_hlt_ele = 0.991;
      weight_Z_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
 #endif // defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+// FIXME
+     float weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
+     float weight_eff_ele1 = getWeight(sf_ele_eff, ele1.Eta(), ele1.Pt());
+     float weight_reco_ele0 = getWeight(sf_ele_reco, ele0.Eta(), ele0.Pt());
+     float weight_reco_ele1 = getWeight(sf_ele_reco, ele1.Eta(), ele1.Pt());
+     float weight_hlt_ele = 0.991;
+     weight_Z_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
+// FIXME
+#endif // defined(mainSelectorMC18_cxx)
    }
 
    TLorentzVector muo0;
@@ -907,6 +947,13 @@ Bool_t mainSelector::Process(Long64_t entry)
      float weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
      weight_W_muo = weight_pu_muo * weight_id_muo0 * weight_iso_muo0;
 #endif // defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+// FIXME
+     float weight_id_muo0 = getWeight(sf_muo_id, muo0.Pt(), fabs(muo0.Eta()));
+     float weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
+     weight_W_muo = weight_pu_muo * weight_id_muo0 * weight_iso_muo0;
+// FIXME
+#endif // defined(mainSelectorMC18_cxx)
    }
 
    float weight_Z_muo = 1.;
@@ -926,6 +973,15 @@ Bool_t mainSelector::Process(Long64_t entry)
      float weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Pt(), fabs(muo1.Eta()));
      weight_Z_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
 #endif // defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+// FIXME
+     float weight_id_muo0 = getWeight(sf_muo_id, muo0.Pt(), fabs(muo0.Eta()));
+     float weight_id_muo1 = getWeight(sf_muo_id, muo1.Pt(), fabs(muo1.Eta()));
+     float weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
+     float weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Pt(), fabs(muo1.Eta()));
+     weight_Z_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
+// FIXME
+#endif // defined(mainSelectorMC18_cxx)
    }
 
    if (W_ele_sel) {
@@ -1006,10 +1062,10 @@ Bool_t mainSelector::Process(Long64_t entry)
          pho1.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
          float weight_pho0 = 1.;
          float weight_pho1 = 1.;
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
          weight_pho1 = getWeight(sf_pho_eff, pho1.Eta(), pho1.Pt());
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          if (W_ele_sel) {
            if (h_W_ele_pho1_dR) h_W_ele_pho1_dR->Fill(pho1.DeltaR(ele0), weight_W_ele * weight_pho0 * weight_pho1);
            if (pho1.DeltaR(ele0) < 0.3) {
@@ -1043,9 +1099,9 @@ Bool_t mainSelector::Process(Long64_t entry)
          ipho0 = i;
          pho0.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
          float weight_pho0 = 1.;
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          if (W_ele_sel) {
            if (h_W_ele_pho0_dR) h_W_ele_pho0_dR->Fill(pho0.DeltaR(ele0), weight_W_ele * weight_pho0);
            if (pho0.DeltaR(ele0) < 0.3) {
@@ -1090,16 +1146,16 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_pho1 = 1.;
 
    if (W_ele_sel || W_muo_sel) {
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    }
 
    if (Z_ele_sel || Z_muo_sel) {
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
      weight_pho1 = getWeight(sf_pho_eff, pho1.Eta(), pho1.Pt());
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    }
 
    if (W_ele_sel) {
