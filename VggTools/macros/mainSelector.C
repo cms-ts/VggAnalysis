@@ -520,32 +520,16 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-     TLorentzVector tmp_met;
-     tmp_met.SetPtEtaPhiM(0.,0.,0.,0.);
-
-     if (iele0_gen != -1 || imuo0_gen != -1) {
-       for (uint i = 0; i < *nGenPart; i++) {
-         if (GenPart_status[i] != 1) continue;
-         if (fabs(GenPart_pdgId[i]) == 12 || fabs(GenPart_pdgId[i]) == 14 || fabs(GenPart_pdgId[i]) == 16) {
-           if (fabs(GenPart_eta[i]) < 5.0) {
-             TLorentzVector tmp_nu;
-             tmp_nu.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
-             tmp_met = tmp_met + tmp_nu;
-           }
-         }
-       }
-     }
-
      if (iele0_gen != -1 && iele1_gen == -1) {
-       W_ele0_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * tmp_met.Pt() * (1. - TMath::Cos(ele0_gen.Phi() - tmp_met.Phi())));
-       if (tmp_met.Pt() > 35 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 30) {
+       W_ele0_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * (*MET_fiducialGenPt) * (1. - TMath::Cos(ele0_gen.Phi() - (*MET_fiducialGenPhi))));
+       if (*MET_fiducialGenPt > 35 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 30) {
          W_ele_sel_gen = true;
        }
      }
 
      if (imuo0_gen != -1 && imuo1_gen == -1) {
-       W_muo0_gen_mt = TMath::Sqrt(2. * muo0_gen.Pt() * tmp_met.Pt() * (1. - TMath::Cos(muo0_gen.Phi() - tmp_met.Phi())));
-       if (tmp_met.Pt() > 15 && W_muo0_gen_mt > 40 && muo0_gen.Pt() > 25) {
+       W_muo0_gen_mt = TMath::Sqrt(2. * muo0_gen.Pt() * (*MET_fiducialGenPt) * (1. - TMath::Cos(muo0_gen.Phi() - (*MET_fiducialGenPhi))));
+       if (*MET_fiducialGenPt > 15 && W_muo0_gen_mt > 40 && muo0_gen.Pt() > 25) {
          W_muo_sel_gen = true;
        }
      }
