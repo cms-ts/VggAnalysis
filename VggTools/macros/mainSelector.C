@@ -55,13 +55,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    TFile* file_muo_pu;
 
 #if defined(mainSelectorMC16_cxx)
-   file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleEG_05Feb2018.root");
-   file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleMuon_05Feb2018.root");
-   //file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleEG_22Aug2018.root");
-   //file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleMuon_22Aug2018.root");
-
-   //file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_SingleElectron_05Feb2018.root");
-   //file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_SingleMuon_05Feb2018.root");
+   file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleEG_22Aug2018.root");
+   file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_DoubleMuon_22Aug2018.root");
    //file_ele_pu = TFile::Open("root/ratio_pileup_Run2016_SingleElectron_22Aug2018.root");
    //file_muo_pu = TFile::Open("root/ratio_pileup_Run2016_SingleMuon_22Aug2018.root");
 #endif // defined(mainSelectorMC16_cxx)
