@@ -47,9 +47,6 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    Info("Begin", "options = %s", option.Data());
 
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
-
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    TFile* file_ele_pu;
    TFile* file_muo_pu;
@@ -312,9 +309,6 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_ele_pho0 = new TH1D("h_Z_ele_pho0", "h_Z_ele_pho0", 100, 71, 111);
    h_Z_muo_pho0 = new TH1D("h_Z_muo_pho0", "h_Z_muo_pho0", 100, 71, 111);
 
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
-
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    h_W_ele_gen = new TH1D("h_W_ele_gen", "h_W_ele_gen", 100, 20., 200.);
    h_W_muo_gen = new TH1D("h_W_muo_gen", "h_W_muo_gen", 100, 20., 200.);
@@ -441,9 +435,6 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    GetOutputList()->Add(h_W_muo_pho0);
    GetOutputList()->Add(h_Z_ele_pho0);
    GetOutputList()->Add(h_Z_muo_pho0);
-
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    GetOutputList()->Add(h_W_ele_gen);
@@ -1284,12 +1275,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
-
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-
    return kTRUE;
 }
 
@@ -1306,11 +1291,5 @@ void mainSelector::Terminate()
    // The Terminate() function is the last function to be called during
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
-
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
-
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 }
