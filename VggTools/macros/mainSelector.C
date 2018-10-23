@@ -140,6 +140,10 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_pho_eff->SetDirectory(0);
    file_pho_sf_eff->Close();
 #endif // defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+// FIXME
+// FIXME
+#endif // defined(mainSelectorMC18_cxx)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
