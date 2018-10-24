@@ -44,8 +44,9 @@ void mainSelector::Begin(TTree * /*tree*/)
    // When running with PROOF Begin() is only called on the client.
    // The tree argument is deprecated (on PROOF 0 is passed).
 
-   TDatime now;
    TString option = GetOption();
+
+   TDatime now;
    Info("Begin", "%s : options = %s", now.AsSQLString(), option.Data());
 
    if (option.Contains("WJetsToLNu"))    isWJetsToLNu    = true;

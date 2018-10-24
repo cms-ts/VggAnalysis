@@ -2,6 +2,9 @@
 
 void run(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.root") {
 
+  TDatime now;
+  Info("run", "%s", now.AsSQLString());
+
   TString option = "";
   if (input.Contains("Run2016")) option="DT16";
   if (input.Contains("Run2017B")) option="DT17B";
@@ -107,5 +110,8 @@ void run(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.
   if (nevt0 != nevt1) {
     Error("run", "expected events: %d", nevt1);
   }
+
+  now = TDatime();
+  Info("run", "%s", now.AsSQLString());
 
 }
