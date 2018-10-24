@@ -30,6 +30,7 @@
 #include <TLorentzVector.h>
 #include <TCanvas.h>
 #include <TFile.h>
+#include <TDatime.h>
 
 #if defined(mainSelectorDT17B_cxx)
 #define mainSelectorDT17_cxx
@@ -43,9 +44,9 @@ void mainSelector::Begin(TTree * /*tree*/)
    // When running with PROOF Begin() is only called on the client.
    // The tree argument is deprecated (on PROOF 0 is passed).
 
+   TDatime now;
    TString option = GetOption();
-
-   Info("Begin", "options = %s", option.Data());
+   Info("Begin", "%s : options = %s", now.AsSQLString(), option.Data());
 
    if (option.Contains("WJetsToLNu"))    isWJetsToLNu    = true;
    if (option.Contains("WGToLNuG"))      isWGToLNuG      = true;
@@ -188,9 +189,8 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    // When running with PROOF SlaveBegin() is called on each slave server.
    // The tree argument is deprecated (on PROOF 0 is passed).
 
-   TString option = GetOption();
-
-   Info("SlaveBegin", "options = %s", option.Data());
+   TDatime now;
+   Info("SlaveBegin", "%s", now.AsSQLString());
 
    // create the histograms
    h_nevt = new TH1D("h_nevt", "h_nevt", 10, 0., 10.);
@@ -1270,9 +1270,8 @@ void mainSelector::SlaveTerminate()
    // have been processed. When running with PROOF SlaveTerminate() is called
    // on each slave server.
 
-   TString option = GetOption();
-
-   Info("SlaveTerminate", "options = %s", option.Data());
+   TDatime now;
+   Info("SlaveTerminate", "%s", now.AsSQLString());
 
 }
 
@@ -1282,8 +1281,8 @@ void mainSelector::Terminate()
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
 
-   TString option = GetOption();
+   TDatime now;
+   Info("Terminate", "%s", now.AsSQLString());
 
-   Info("Terminate", "options = %s", option.Data());
 
 }
