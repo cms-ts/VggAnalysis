@@ -47,6 +47,14 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    Info("Begin", "options = %s", option.Data());
 
+   if (option.Contains("WJetsToLNu"))    isWJetsToLNu    = true;
+   if (option.Contains("WGToLNuG"))      isWGToLNuG      = true;
+   if (option.Contains("WGGJets"))       isWGGJets       = true;
+
+   if (option.Contains("DYJetsToLL"))    isDYJetsToLL    = true;
+   if (option.Contains("ZGTo2LG"))       isZGTo2LG       = true;
+   if (option.Contains("ZGGJetsToLLGG")) isZGGJetsToLLGG = true;
+
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    TFile* file_ele_pu;
    TFile* file_muo_pu;
@@ -182,13 +190,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    TString option = GetOption();
 
-   if (option.Contains("WJetsToLNu"))    isWJetsToLNu    = true;
-   if (option.Contains("WGToLNuG"))      isWGToLNuG      = true;
-   if (option.Contains("WGGJets"))       isWGGJets       = true;
-
-   if (option.Contains("DYJetsToLL"))    isDYJetsToLL    = true;
-   if (option.Contains("ZGTo2LG"))       isZGTo2LG       = true;
-   if (option.Contains("ZGGJetsToLLGG")) isZGGJetsToLLGG = true;
+   Info("SlaveBegin", "options = %s", option.Data());
 
    // create the histograms
    h_nevt = new TH1D("h_nevt", "h_nevt", 10, 0., 10.);
@@ -1268,6 +1270,10 @@ void mainSelector::SlaveTerminate()
    // have been processed. When running with PROOF SlaveTerminate() is called
    // on each slave server.
 
+   TString option = GetOption();
+
+   Info("SlaveTerminate", "options = %s", option.Data());
+
 }
 
 void mainSelector::Terminate()
@@ -1275,5 +1281,9 @@ void mainSelector::Terminate()
    // The Terminate() function is the last function to be called during
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
+
+   TString option = GetOption();
+
+   Info("Terminate", "options = %s", option.Data());
 
 }
