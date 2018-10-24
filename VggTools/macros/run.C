@@ -81,6 +81,9 @@ void run(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.
     workers.Process(files, *selector, "Events", nevt);
   }
 
+  now = TDatime();
+  Info("run", "%s", now.AsSQLString());
+
   Info("run", "output file: %s", output.Data());
   TFile f(output.Data(), "RECREATE");
   f.cd();
