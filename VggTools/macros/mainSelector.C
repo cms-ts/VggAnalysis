@@ -595,14 +595,14 @@ Bool_t mainSelector::Process(Long64_t entry)
 
          if (Z_ele_sel_gen) {
            if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
-             float deltaR = min(tmp_pho.DeltaR(ele0_gen), tmp_pho.DeltaR(ele1_gen));
+             float deltaR = TMath::Min(tmp_pho.DeltaR(ele0_gen), tmp_pho.DeltaR(ele1_gen));
              if (deltaR < 0.15) continue;
            }
          }
 
          if (Z_muo_sel_gen) {
            if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
-             float deltaR = min(tmp_pho.DeltaR(muo0_gen), tmp_pho.DeltaR(muo1_gen));
+             float deltaR = TMath::Min(tmp_pho.DeltaR(muo0_gen), tmp_pho.DeltaR(muo1_gen));
              if (deltaR < 0.15) continue;
            }
          }
@@ -1059,14 +1059,14 @@ Bool_t mainSelector::Process(Long64_t entry)
            }
          }
          if (Z_ele_sel) {
-           if (h_Z_ele_pho1_dR) h_Z_ele_pho1_dR->Fill(min(pho1.DeltaR(ele0), pho1.DeltaR(ele1)), weight_Z_ele * weight_pho0 * weight_pho1);
+           if (h_Z_ele_pho1_dR) h_Z_ele_pho1_dR->Fill(TMath::Min(pho1.DeltaR(ele0), pho1.DeltaR(ele1)), weight_Z_ele * weight_pho0 * weight_pho1);
            if (pho1.DeltaR(ele0) < 0.3 || pho1.DeltaR(ele1) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (Z_muo_sel) {
-           if (h_Z_muo_pho1_dR) h_Z_muo_pho1_dR->Fill(min(pho1.DeltaR(muo0), pho1.DeltaR(muo1)), weight_Z_muo * weight_pho0 * weight_pho1);
+           if (h_Z_muo_pho1_dR) h_Z_muo_pho1_dR->Fill(TMath::Min(pho1.DeltaR(muo0), pho1.DeltaR(muo1)), weight_Z_muo * weight_pho0 * weight_pho1);
            if (pho1.DeltaR(muo0) < 0.3 || pho1.DeltaR(muo1) < 0.3) {
              ipho1 = -1;
              continue;
@@ -1095,14 +1095,14 @@ Bool_t mainSelector::Process(Long64_t entry)
            }
          }
          if (Z_ele_sel) {
-           if (h_Z_ele_pho0_dR) h_Z_ele_pho0_dR->Fill(min(pho0.DeltaR(ele0), pho0.DeltaR(ele1)), weight_Z_ele * weight_pho0);
+           if (h_Z_ele_pho0_dR) h_Z_ele_pho0_dR->Fill(TMath::Min(pho0.DeltaR(ele0), pho0.DeltaR(ele1)), weight_Z_ele * weight_pho0);
            if (pho0.DeltaR(ele0) < 0.3 || pho0.DeltaR(ele1) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (Z_muo_sel) {
-           if (h_Z_muo_pho0_dR) h_Z_muo_pho0_dR->Fill(min(pho0.DeltaR(muo0), pho0.DeltaR(muo1)), weight_Z_muo * weight_pho0);
+           if (h_Z_muo_pho0_dR) h_Z_muo_pho0_dR->Fill(TMath::Min(pho0.DeltaR(muo0), pho0.DeltaR(muo1)), weight_Z_muo * weight_pho0);
            if (pho0.DeltaR(muo0) < 0.3 || pho0.DeltaR(muo1) < 0.3) {
              ipho0 = -1;
              continue;
