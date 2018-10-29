@@ -31,6 +31,7 @@
 #include <TCanvas.h>
 #include <TFile.h>
 #include <TDatime.h>
+#include <TRandom.h>
 
 #if defined(mainSelectorDT17B_cxx)
 #define mainSelectorDT17_cxx
