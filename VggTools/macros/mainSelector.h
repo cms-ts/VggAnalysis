@@ -437,10 +437,10 @@ public :
    TTreeReaderValue<Float_t> MET_significance = {fReader, "MET_significance"};
 
    TTreeReaderValue<UInt_t> nGenPart = {fReader, "nGenPart"};
-   TTreeReaderArray<Float_t> GenPart_eta = {fReader, "GenPart_eta"};
-   TTreeReaderArray<Float_t> GenPart_mass = {fReader, "GenPart_mass"};
-   TTreeReaderArray<Float_t> GenPart_phi = {fReader, "GenPart_phi"};
    TTreeReaderArray<Float_t> GenPart_pt = {fReader, "GenPart_pt"};
+   TTreeReaderArray<Float_t> GenPart_eta = {fReader, "GenPart_eta"};
+   TTreeReaderArray<Float_t> GenPart_phi = {fReader, "GenPart_phi"};
+   TTreeReaderArray<Float_t> GenPart_mass = {fReader, "GenPart_mass"};
    TTreeReaderArray<Int_t> GenPart_genPartIdxMother = {fReader, "GenPart_genPartIdxMother"};
    TTreeReaderArray<Int_t> GenPart_pdgId = {fReader, "GenPart_pdgId"};
    TTreeReaderArray<Int_t> GenPart_status = {fReader, "GenPart_status"};
@@ -527,10 +527,10 @@ public :
    TTreeReaderValue<Float_t> MET_significance = {fReader, "MET_significance"};
 
    TTreeReaderValue<UInt_t> nGenPart = {fReader, "nGenPart"};
-   TTreeReaderArray<Float_t> GenPart_eta = {fReader, "GenPart_eta"};
-   TTreeReaderArray<Float_t> GenPart_mass = {fReader, "GenPart_mass"};
-   TTreeReaderArray<Float_t> GenPart_phi = {fReader, "GenPart_phi"};
    TTreeReaderArray<Float_t> GenPart_pt = {fReader, "GenPart_pt"};
+   TTreeReaderArray<Float_t> GenPart_eta = {fReader, "GenPart_eta"};
+   TTreeReaderArray<Float_t> GenPart_phi = {fReader, "GenPart_phi"};
+   TTreeReaderArray<Float_t> GenPart_mass = {fReader, "GenPart_mass"};
    TTreeReaderArray<Int_t> GenPart_genPartIdxMother = {fReader, "GenPart_genPartIdxMother"};
    TTreeReaderArray<Int_t> GenPart_pdgId = {fReader, "GenPart_pdgId"};
    TTreeReaderArray<Int_t> GenPart_status = {fReader, "GenPart_status"};
@@ -618,10 +618,10 @@ public :
    TTreeReaderValue<Float_t> MET_significance = {fReader, "MET_significance"};
 
    TTreeReaderValue<UInt_t> nGenPart = {fReader, "nGenPart"};
-   TTreeReaderArray<Float_t> GenPart_eta = {fReader, "GenPart_eta"};
-   TTreeReaderArray<Float_t> GenPart_mass = {fReader, "GenPart_mass"};
-   TTreeReaderArray<Float_t> GenPart_phi = {fReader, "GenPart_phi"};
    TTreeReaderArray<Float_t> GenPart_pt = {fReader, "GenPart_pt"};
+   TTreeReaderArray<Float_t> GenPart_eta = {fReader, "GenPart_eta"};
+   TTreeReaderArray<Float_t> GenPart_phi = {fReader, "GenPart_phi"};
+   TTreeReaderArray<Float_t> GenPart_mass = {fReader, "GenPart_mass"};
    TTreeReaderArray<Int_t> GenPart_genPartIdxMother = {fReader, "GenPart_genPartIdxMother"};
    TTreeReaderArray<Int_t> GenPart_pdgId = {fReader, "GenPart_pdgId"};
    TTreeReaderArray<Int_t> GenPart_status = {fReader, "GenPart_status"};
@@ -631,10 +631,10 @@ public :
    TTreeReaderValue<Float_t> MET_fiducialGenPt = {fReader, "MET_fiducialGenPt"};
 
    TTreeReaderValue<UInt_t> nGenDressedLepton = {fReader, "nGenDressedLepton"};
-   TTreeReaderArray<Float_t> GenDressedLepton_eta = {fReader, "GenDressedLepton_eta"};
-   TTreeReaderArray<Float_t> GenDressedLepton_mass = {fReader, "GenDressedLepton_mass"};
-   TTreeReaderArray<Float_t> GenDressedLepton_phi = {fReader, "GenDressedLepton_phi"};
    TTreeReaderArray<Float_t> GenDressedLepton_pt = {fReader, "GenDressedLepton_pt"};
+   TTreeReaderArray<Float_t> GenDressedLepton_eta = {fReader, "GenDressedLepton_eta"};
+   TTreeReaderArray<Float_t> GenDressedLepton_phi = {fReader, "GenDressedLepton_phi"};
+   TTreeReaderArray<Float_t> GenDressedLepton_mass = {fReader, "GenDressedLepton_mass"};
    TTreeReaderArray<Int_t> GenDressedLepton_pdgId = {fReader, "GenDressedLepton_pdgId"};
 
 // FIXME
