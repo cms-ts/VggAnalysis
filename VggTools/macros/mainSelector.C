@@ -183,6 +183,13 @@ void mainSelector::Begin(TTree * /*tree*/)
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
+#if 0
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   jet_resolution = new JME::JetResolution("jme/Summer16_25nsV1_MC_PtResolution_AK4PFchs.txt");
+   jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Summer16_25nsV1_MC_SF_AK4PFchs.txt");
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // 0
+
 }
 
 void mainSelector::SlaveBegin(TTree * /*tree*/)
@@ -638,6 +645,57 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
+#if 0
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   float met_px = *MET_pt * TMath::Cos(*MET_phi);
+   float met_py = *MET_pt * TMath::Sin(*MET_phi);
+
+   for (uint i = 0; i < *nJet; i++) {
+
+     if (Jet_electronIdx1[i] >= 0 && (uint)Jet_electronIdx1[i] < *nElectron) continue;
+     if (Jet_electronIdx2[i] >= 0 && (uint)Jet_electronIdx2[i] < *nElectron) continue;
+     if (Jet_muonIdx1[i] >= 0 && (uint)Jet_muonIdx1[i] < *nMuon) continue;
+     if (Jet_muonIdx2[i] >= 0 && (uint)Jet_muonIdx2[i] < *nMuon) continue;
+
+     JME::JetParameters jer_parameters;
+     jer_parameters.setJetPt(Jet_pt[i]);
+     jer_parameters.setJetEta(Jet_eta[i]);
+     jer_parameters.setRho(*fixedGridRhoFastjetAll);
+
+     bool jet_match = false;
+     if (Jet_genJetIdx[i] >= 0 && (uint)Jet_genJetIdx[i] < *nGenJet) {
+       TLorentzVector jet;
+       jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
+       TLorentzVector genJet;
+       genJet.SetPtEtaPhiM(GenJet_pt[Jet_genJetIdx[i]], GenJet_eta[Jet_genJetIdx[i]], GenJet_phi[Jet_genJetIdx[i]], GenJet_mass[Jet_genJetIdx[i]]);
+       if (jet.DeltaR(genJet) < 0.4 && fabs(Jet_pt[i] - GenJet_pt[Jet_genJetIdx[i]]) < 3 * jet_resolution->getResolution(jer_parameters) * Jet_pt[i])  {
+         jet_match = true;
+       }
+     }
+
+     float jet_smear = 1.;
+     if (jet_match) {
+       jet_smear = 1. + (jet_resolution_sf->getScaleFactor(jer_parameters) - 1.) * (Jet_pt[i] - GenJet_pt[Jet_genJetIdx[i]]) / Jet_pt[i];
+     } else {
+       jet_smear = gRandom->Gaus(1., jet_resolution->getResolution(jer_parameters) * TMath::Sqrt(TMath::Max(TMath::Power(jet_resolution_sf->getScaleFactor(jer_parameters), 2) - 1., 0.)));
+     }
+
+     if (jet_smear * Jet_pt[i] < 1.e-2) jet_smear = 1.e-2;
+
+     if (jet_smear * Jet_pt[i] > 15) {
+       met_px = met_px - (jet_smear - 1.) * Jet_pt[i] * TMath::Cos(Jet_phi[i]);
+       met_py = met_py - (jet_smear - 1.) * Jet_pt[i] * TMath::Sin(Jet_phi[i]);
+     }
+
+     Jet_pt[i] = jet_smear * Jet_pt[i];
+
+   }
+
+   *MET_pt = TMath::Sqrt(TMath::Power(met_px, 2) + TMath::Power(met_py, 2));
+   *MET_phi = TMath::ATan2(met_py, met_px);
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // 0
 
    if (h_nevt) h_nevt->Fill(1.5);
 
