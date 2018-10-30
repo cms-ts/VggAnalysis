@@ -18,7 +18,21 @@ mkdir -p data/$VERSION
 LISTS=`ls lists/`
 
 if [ ! -z "$2" ]; then
-  LISTS=$2
+  if [ "$2" == "DT16" ]; then
+    LISTS=`ls lists/ | grep Run2016`
+  elif [ "$2" == "DT17" ]; then
+    LISTS=`ls lists/ | grep Run2017`
+  elif [ "$2" == "DT18" ]; then
+    LISTS=`ls lists/ | grep Run2018`
+  elif [ "$2" == "MC16" ]; then
+    LISTS=`ls lists/ | grep RunIISummer16NanoAOD`
+  elif [ "$2" == "MC17" ]; then
+    LISTS=`ls lists/ | grep RunIIFall17NanoAOD`
+  elif [ "$2" == "MC18" ]; then
+    LISTS=`ls lists/ | grep RunIIFall18NanoAOD`
+  else
+    LISTS=$2
+  fi
 fi
 
 ./compile.sh
