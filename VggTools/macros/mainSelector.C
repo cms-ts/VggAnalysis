@@ -1054,128 +1054,118 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-// W scale factors
+// electron(s) scale factors
 
-   float weight_W_ele = 1.;
+   float weight_eff_ele0 = 1.;
+   float weight_reco_ele0 = 1.;
 
-   if (W_ele_sel) {
+   float weight_eff_ele1 = 1.;
+   float weight_reco_ele1 = 1.;
+
+   float weight_hlt_ele = 1.;
+
 #if defined(mainSelectorMC16_cxx)
-     float weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
-     weight_W_ele = weight_pu_ele * weight_eff_ele0;
+   if (iele0 != -1) {
+     weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
+   }
+   if (iele1 != -1) {
+     weight_eff_ele1 = getWeight(sf_ele_eff, ele1.Eta(), ele1.Pt());
+   }
+   weight_hlt_ele = 1.00;
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
-     float weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
-     float weight_reco_ele0 = getWeight(sf_ele_reco, ele0.Eta(), ele0.Pt());
-     float weight_hlt_ele = 0.991;
-     weight_W_ele = weight_pu_ele * weight_eff_ele0 * weight_reco_ele0 * weight_hlt_ele;
+   if (iele0 != -1) {
+     weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
+     weight_reco_ele0 = getWeight(sf_ele_reco, ele0.Eta(), ele0.Pt());
+   }
+   if (iele1 != -1) {
+     weight_eff_ele1 = getWeight(sf_ele_eff, ele1.Eta(), ele1.Pt());
+     weight_reco_ele1 = getWeight(sf_ele_reco, ele1.Eta(), ele1.Pt());
+   }
+   weight_hlt_ele = 0.991;
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 // FIXME
-     float weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
-     float weight_reco_ele0 = getWeight(sf_ele_reco, ele0.Eta(), ele0.Pt());
-     float weight_hlt_ele = 0.991;
-     weight_W_ele = weight_pu_ele * weight_eff_ele0 * weight_reco_ele0 * weight_hlt_ele;
+   if (iele0 != -1) {
+     weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
+     weight_reco_ele0 = getWeight(sf_ele_reco, ele0.Eta(), ele0.Pt());
+   }
+   if (iele1 != -1) {
+     weight_eff_ele1 = getWeight(sf_ele_eff, ele1.Eta(), ele1.Pt());
+     weight_reco_ele1 = getWeight(sf_ele_reco, ele1.Eta(), ele1.Pt());
+   }
+   weight_hlt_ele = 0.991;
 // FIXME
 #endif // defined(mainSelectorMC18_cxx)
-   }
 
-   float weight_W_muo = 1.;
+// muon(s) scale factors
 
-   if (W_muo_sel) {
+   float weight_id_muo0 = 1.;
+   float weight_iso_muo0 = 1.;
+
+   float weight_id_muo1 =  1.;
+   float weight_iso_muo1 = 1.;
+
 #if defined(mainSelectorMC16_cxx)
-     float weight_id_muo0 = getWeight(sf_muo_id, muo0.Eta(), muo0.Pt());
-     float weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Eta(), muo0.Pt());
-     weight_W_muo = weight_pu_muo * weight_id_muo0 * weight_iso_muo0;
+   if (imuo0 != -1) {
+     weight_id_muo0 = getWeight(sf_muo_id, muo0.Eta(), muo0.Pt());
+     weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Eta(), muo0.Pt());
+   }
+   if (imuo1 != -1) {
+     weight_id_muo1 = getWeight(sf_muo_id, muo1.Eta(), muo1.Pt());
+     weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Eta(), muo1.Pt());
+   }
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
-     float weight_id_muo0 = getWeight(sf_muo_id, muo0.Pt(), fabs(muo0.Eta()));
-     float weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
-     weight_W_muo = weight_pu_muo * weight_id_muo0 * weight_iso_muo0;
+   if (imuo0 != -1) {
+     weight_id_muo0 = getWeight(sf_muo_id, muo0.Pt(), fabs(muo0.Eta()));
+     weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
+   }
+   if (imuo1 != -1) {
+     weight_id_muo1 = getWeight(sf_muo_id, muo1.Pt(), fabs(muo1.Eta()));
+     weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Pt(), fabs(muo1.Eta()));
+   }
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 // FIXME
-     float weight_id_muo0 = getWeight(sf_muo_id, muo0.Pt(), fabs(muo0.Eta()));
-     float weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
-     weight_W_muo = weight_pu_muo * weight_id_muo0 * weight_iso_muo0;
+   if (imuo0 != -1) {
+     weight_id_muo0 = getWeight(sf_muo_id, muo0.Pt(), fabs(muo0.Eta()));
+     weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
+   }
+   if (imuo1 != -1) {
+     weight_id_muo1 = getWeight(sf_muo_id, muo1.Pt(), fabs(muo1.Eta()));
+     weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Pt(), fabs(muo1.Eta()));
+   }
 // FIXME
 #endif // defined(mainSelectorMC18_cxx)
-   }
 
-// Z scale factors
-
-   float weight_Z_ele = 1.;
-
-   if (Z_ele_sel) {
-#if defined(mainSelectorMC16_cxx)
-     float weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
-     float weight_eff_ele1 = getWeight(sf_ele_eff, ele1.Eta(), ele1.Pt());
-     weight_Z_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1;
-#endif // defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorMC17_cxx)
-     float weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
-     float weight_eff_ele1 = getWeight(sf_ele_eff, ele1.Eta(), ele1.Pt());
-     float weight_reco_ele0 = getWeight(sf_ele_reco, ele0.Eta(), ele0.Pt());
-     float weight_reco_ele1 = getWeight(sf_ele_reco, ele1.Eta(), ele1.Pt());
-     float weight_hlt_ele = 0.991;
-     weight_Z_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
-#endif // defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorMC18_cxx)
-// FIXME
-     float weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
-     float weight_eff_ele1 = getWeight(sf_ele_eff, ele1.Eta(), ele1.Pt());
-     float weight_reco_ele0 = getWeight(sf_ele_reco, ele0.Eta(), ele0.Pt());
-     float weight_reco_ele1 = getWeight(sf_ele_reco, ele1.Eta(), ele1.Pt());
-     float weight_hlt_ele = 0.991;
-     weight_Z_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
-// FIXME
-#endif // defined(mainSelectorMC18_cxx)
-   }
-
-   float weight_Z_muo = 1.;
-
-   if (Z_muo_sel) {
-#if defined(mainSelectorMC16_cxx)
-     float weight_id_muo0 = getWeight(sf_muo_id, muo0.Eta(), muo0.Pt());
-     float weight_id_muo1 = getWeight(sf_muo_id, muo1.Eta(), muo1.Pt());
-     float weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Eta(), muo0.Pt());
-     float weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Eta(), muo1.Pt());
-     weight_Z_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
-#endif // defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorMC17_cxx)
-     float weight_id_muo0 = getWeight(sf_muo_id, muo0.Pt(), fabs(muo0.Eta()));
-     float weight_id_muo1 = getWeight(sf_muo_id, muo1.Pt(), fabs(muo1.Eta()));
-     float weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
-     float weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Pt(), fabs(muo1.Eta()));
-     weight_Z_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
-#endif // defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorMC18_cxx)
-// FIXME
-     float weight_id_muo0 = getWeight(sf_muo_id, muo0.Pt(), fabs(muo0.Eta()));
-     float weight_id_muo1 = getWeight(sf_muo_id, muo1.Pt(), fabs(muo1.Eta()));
-     float weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
-     float weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Pt(), fabs(muo1.Eta()));
-     weight_Z_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
-// FIXME
-#endif // defined(mainSelectorMC18_cxx)
-   }
-
-// photon weights
+// photon(s) scale factors
 
    float weight_pho0 = 1.;
-   float weight_pho1 = 1.;
 
-   if (W_ele_sel || W_muo_sel) {
+   if (ipho0 != -1) {
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    }
 
-   if (Z_ele_sel || Z_muo_sel) {
+   float weight_pho1 = 1.;
+
+   if (ipho1 != -1) {
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-     weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
      weight_pho1 = getWeight(sf_pho_eff, pho1.Eta(), pho1.Pt());
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    }
+
+// W scale factors
+
+   float weight_W_ele = weight_pu_ele * weight_eff_ele0 * weight_reco_ele0 * weight_hlt_ele;
+   float weight_W_muo = weight_pu_muo * weight_id_muo0 * weight_iso_muo0;
+
+// Z scale factors
+
+   float weight_Z_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
+   float weight_Z_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
 
 // W plots
 
