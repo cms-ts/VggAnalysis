@@ -1126,8 +1126,6 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_eff_ele1 = 1.;
    float weight_reco_ele1 = 1.;
 
-   float weight_hlt_ele = 1.;
-
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (iele0 != -1) {
      weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
@@ -1139,17 +1137,11 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-#if defined(mainSelectorMC16_cxx)
-   weight_hlt_ele = 1.000;
-#endif // defined(mainSelectorMC16_cxx)
+   float weight_hlt_ele = 1.;
+
 #if defined(mainSelectorMC17_cxx)
    weight_hlt_ele = 0.991;
 #endif // defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorMC18_cxx)
-// FIXME
-   weight_hlt_ele = 0.991;
-// FIXME
-#endif // defined(mainSelectorMC18_cxx)
 
 // muon(s) scale factors
 
