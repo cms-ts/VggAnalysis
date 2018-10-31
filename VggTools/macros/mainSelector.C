@@ -663,12 +663,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    h_nevt->Fill(2.5);
 
-   bool W_ele_sel = false;
-   bool W_muo_sel = false;
-
-   bool Z_ele_sel = false;
-   bool Z_muo_sel = false;
-
    float weight_pu_ele = 1.0;
    float weight_pu_muo = 1.0;
 
@@ -826,7 +820,7 @@ Bool_t mainSelector::Process(Long64_t entry)
              continue;
            }
          }
-         if (iele0 != -1  && iele1 != -1 ) {
+         if (iele0 != -1 && iele1 != -1) {
            if (pho1.DeltaR(ele0) < 0.3 || pho1.DeltaR(ele1) < 0.3) {
              ipho1 = -1;
              continue;
@@ -841,25 +835,25 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
        if (ipho0 == -1) {
          ipho0 = i;
-         if (W_ele_sel) {
+         if (iele0 != -1) {
            if (pho0.DeltaR(ele0) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
-         if (W_muo_sel) {
+         if (imuo0 != -1) {
            if (pho0.DeltaR(muo0) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
-         if (Z_ele_sel) {
+         if (iele0 != -1 && iele1 != -1) {
            if (pho0.DeltaR(ele0) < 0.3 || pho0.DeltaR(ele1) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
-         if (Z_muo_sel) {
+         if (imuo0 != -1 && imuo1 != -1) {
            if (pho0.DeltaR(muo0) < 0.3 || pho0.DeltaR(muo1) < 0.3) {
              ipho0 = -1;
              continue;
@@ -954,6 +948,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // W -> ele nu
 
+   bool W_ele_sel = false;
+
    float W_ele0_mt = 0.;
 
    if (iele0 != -1 && iele1 == -1) {
@@ -976,6 +972,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
 // W -> muo nu
+
+   bool W_muo_sel = false;
 
    float W_muo0_mt = 0.;
 
@@ -1000,6 +998,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // Z -> ele ele
 
+   bool Z_ele_sel = false;
+
    TLorentzVector Z_ele0_ele1;
 
    if (iele0 != -1 && iele1 != -1) {
@@ -1022,6 +1022,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
 // Z -> muo muo
+
+   bool Z_muo_sel = false;
 
    TLorentzVector Z_muo0_muo1;
 
