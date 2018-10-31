@@ -1133,12 +1133,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (iele0 != -1) {
-     weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
-     weight_reco_ele0 = getWeight(sf_ele_reco, ele0.Eta(), ele0.Pt());
+     weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0], Electron_pt[iele0]);
+     weight_reco_ele0 = getWeight(sf_ele_reco, Electron_eta[iele0], Electron_pt[iele0]);
    }
    if (iele1 != -1) {
-     weight_eff_ele1 = getWeight(sf_ele_eff, ele1.Eta(), ele1.Pt());
-     weight_reco_ele1 = getWeight(sf_ele_reco, ele1.Eta(), ele1.Pt());
+     weight_eff_ele1 = getWeight(sf_ele_eff, Electron_eta[iele1], Electron_pt[iele1]);
+     weight_reco_ele1 = getWeight(sf_ele_reco, Electron_eta[iele1], Electron_pt[iele1]);
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -1158,22 +1158,22 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 #if defined(mainSelectorMC16_cxx)
    if (imuo0 != -1) {
-     weight_id_muo0 = getWeight(sf_muo_id, muo0.Eta(), muo0.Pt());
-     weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Eta(), muo0.Pt());
+     weight_id_muo0 = getWeight(sf_muo_id, Muon_eta[imuo0], Muon_pt[imuo0]);
+     weight_iso_muo0 = getWeight(sf_muo_iso, Muon_eta[imuo0], Muon_pt[imuo0]);
    }
    if (imuo1 != -1) {
-     weight_id_muo1 = getWeight(sf_muo_id, muo1.Eta(), muo1.Pt());
-     weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Eta(), muo1.Pt());
+     weight_id_muo1 = getWeight(sf_muo_id, Muon_eta[imuo1], Muon_pt[imuo1]);
+     weight_iso_muo1 = getWeight(sf_muo_iso, Muon_eta[imuo1], Muon_pt[imuo1]);
    }
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (imuo0 != -1) {
-     weight_id_muo0 = getWeight(sf_muo_id, muo0.Pt(), fabs(muo0.Eta()));
-     weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
+     weight_id_muo0 = getWeight(sf_muo_id, Muon_pt[imuo0], fabs(Muon_eta[imuo0]));
+     weight_iso_muo0 = getWeight(sf_muo_iso, Muon_pt[imuo0], fabs(Muon_eta[imuo0]));
    }
    if (imuo1 != -1) {
-     weight_id_muo1 = getWeight(sf_muo_id, muo1.Pt(), fabs(muo1.Eta()));
-     weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Pt(), fabs(muo1.Eta()));
+     weight_id_muo1 = getWeight(sf_muo_id, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
+     weight_iso_muo1 = getWeight(sf_muo_iso, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
    }
 #endif // defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -1184,10 +1184,10 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0 != -1) {
-     weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
+     weight_pho0 = getWeight(sf_pho_eff, Photon_eta[ipho0], Photon_pt[ipho0]);
    }
    if (ipho1 != -1) {
-     weight_pho1 = getWeight(sf_pho_eff, pho1.Eta(), pho1.Pt());
+     weight_pho1 = getWeight(sf_pho_eff, Photon_eta[ipho1], Photon_pt[ipho1]);
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
