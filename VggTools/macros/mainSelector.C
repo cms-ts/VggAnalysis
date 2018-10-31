@@ -487,7 +487,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    fReader.SetLocalEntry(entry);
 
-   if (h_nevt) h_nevt->Fill(0.5);
+   h_nevt->Fill(0.5);
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (isWJetsToLNu || isWGToLNuG || isWGGJets || isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
@@ -570,19 +570,19 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      if (W_ele_sel_gen) {
-       if (h_W_ele_gen) h_W_ele_gen->Fill(W_ele0_gen_mt);
+       h_W_ele_gen->Fill(W_ele0_gen_mt);
      }
 
      if (W_muo_sel_gen) {
-       if (h_W_muo_gen) h_W_muo_gen->Fill(W_muo0_gen_mt);
+       h_W_muo_gen->Fill(W_muo0_gen_mt);
      }
 
      if (Z_ele_sel_gen) {
-       if (h_Z_ele_gen) h_Z_ele_gen->Fill(Z_ele0_ele1_gen.M());
+       h_Z_ele_gen->Fill(Z_ele0_ele1_gen.M());
      }
 
      if (Z_muo_sel_gen) {
-       if (h_Z_muo_gen) h_Z_muo_gen->Fill(Z_muo0_muo1_gen.M());
+       h_Z_muo_gen->Fill(Z_muo0_muo1_gen.M());
      }
 
      int n_photons_gen = 0;
@@ -707,12 +707,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 #endif // 0
 
-   if (h_nevt) h_nevt->Fill(1.5);
+   h_nevt->Fill(1.5);
 
    if (*Flag_goodVertices == 0) return kTRUE;
    if (*Flag_METFilters == 0) return kTRUE;
 
-   if (h_nevt) h_nevt->Fill(2.5);
+   h_nevt->Fill(2.5);
 
    bool W_ele_sel = false;
    bool W_muo_sel = false;
@@ -1034,57 +1034,57 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_ele_sel) {
-     if (h_W_ele) h_W_ele->Fill(W_ele0_mt, weight_W_ele);
-     if (h_W_ele_npvs) h_W_ele_npvs->Fill(*PV_npvsGood);
-     if (h_W_ele_npvs_w) h_W_ele_npvs_w->Fill(*PV_npvsGood, weight_W_ele);
-     if (h_W_ele0_pt) h_W_ele0_pt->Fill(ele0.Pt(), weight_W_ele);
-     if (h_W_ele0_eta) h_W_ele0_eta->Fill(ele0.Eta(), weight_W_ele);
-     if (h_W_ele0_phi) h_W_ele0_phi->Fill(ele0.Phi(), weight_W_ele);
-     if (h_W_ele_met_pt) h_W_ele_met_pt->Fill(*MET_pt, weight_W_ele);
-     if (h_W_ele_met_phi) h_W_ele_met_phi->Fill(*MET_phi, weight_W_ele);
-     if (h_W_ele_met_sign) h_W_ele_met_sign->Fill(*MET_significance, weight_W_ele);
+     h_W_ele->Fill(W_ele0_mt, weight_W_ele);
+     h_W_ele_npvs->Fill(*PV_npvsGood);
+     h_W_ele_npvs_w->Fill(*PV_npvsGood, weight_W_ele);
+     h_W_ele0_pt->Fill(ele0.Pt(), weight_W_ele);
+     h_W_ele0_eta->Fill(ele0.Eta(), weight_W_ele);
+     h_W_ele0_phi->Fill(ele0.Phi(), weight_W_ele);
+     h_W_ele_met_pt->Fill(*MET_pt, weight_W_ele);
+     h_W_ele_met_phi->Fill(*MET_phi, weight_W_ele);
+     h_W_ele_met_sign->Fill(*MET_significance, weight_W_ele);
    }
 
    if (W_muo_sel) {
-     if (h_W_muo) h_W_muo->Fill(W_muo0_mt, weight_W_muo);
-     if (h_W_muo_npvs) h_W_muo_npvs->Fill(*PV_npvsGood);
-     if (h_W_muo_npvs_w) h_W_muo_npvs_w->Fill(*PV_npvsGood, weight_W_muo);
-     if (h_W_muo0_pt) h_W_muo0_pt->Fill(muo0.Pt(), weight_W_muo);
-     if (h_W_muo0_eta) h_W_muo0_eta->Fill(muo0.Eta(), weight_W_muo);
-     if (h_W_muo0_phi) h_W_muo0_phi->Fill(muo0.Phi(), weight_W_muo);
-     if (h_W_muo_met_pt) h_W_muo_met_pt->Fill(*MET_pt, weight_W_muo);
-     if (h_W_muo_met_phi) h_W_muo_met_phi->Fill(*MET_phi, weight_W_muo);
-     if (h_W_muo_met_sign) h_W_muo_met_sign->Fill(*MET_significance, weight_W_muo);
+     h_W_muo->Fill(W_muo0_mt, weight_W_muo);
+     h_W_muo_npvs->Fill(*PV_npvsGood);
+     h_W_muo_npvs_w->Fill(*PV_npvsGood, weight_W_muo);
+     h_W_muo0_pt->Fill(muo0.Pt(), weight_W_muo);
+     h_W_muo0_eta->Fill(muo0.Eta(), weight_W_muo);
+     h_W_muo0_phi->Fill(muo0.Phi(), weight_W_muo);
+     h_W_muo_met_pt->Fill(*MET_pt, weight_W_muo);
+     h_W_muo_met_phi->Fill(*MET_phi, weight_W_muo);
+     h_W_muo_met_sign->Fill(*MET_significance, weight_W_muo);
    }
 
    if (Z_ele_sel) {
-     if (h_Z_ele) h_Z_ele->Fill(Z_ele0_ele1.M(), weight_Z_ele);
-     if (h_Z_ele_npvs) h_Z_ele_npvs->Fill(*PV_npvsGood);
-     if (h_Z_ele_npvs_w) h_Z_ele_npvs_w->Fill(*PV_npvsGood, weight_Z_ele);
-     if (h_Z_ele0_pt) h_Z_ele0_pt->Fill(ele0.Pt(), weight_Z_ele);
-     if (h_Z_ele0_eta) h_Z_ele0_eta->Fill(ele0.Eta(), weight_Z_ele);
-     if (h_Z_ele0_phi) h_Z_ele0_phi->Fill(ele0.Phi(), weight_Z_ele);
-     if (h_Z_ele1_pt) h_Z_ele1_pt->Fill(ele1.Pt(), weight_Z_ele);
-     if (h_Z_ele1_eta) h_Z_ele1_eta->Fill(ele1.Eta(), weight_Z_ele);
-     if (h_Z_ele1_phi) h_Z_ele1_phi->Fill(ele1.Phi(), weight_Z_ele);
-     if (h_Z_ele_met_pt) h_Z_ele_met_pt->Fill(*MET_pt, weight_Z_ele);
-     if (h_Z_ele_met_phi) h_Z_ele_met_phi->Fill(*MET_phi, weight_Z_ele);
-     if (h_Z_ele_met_sign) h_Z_ele_met_sign->Fill(*MET_significance, weight_Z_ele);
+     h_Z_ele->Fill(Z_ele0_ele1.M(), weight_Z_ele);
+     h_Z_ele_npvs->Fill(*PV_npvsGood);
+     h_Z_ele_npvs_w->Fill(*PV_npvsGood, weight_Z_ele);
+     h_Z_ele0_pt->Fill(ele0.Pt(), weight_Z_ele);
+     h_Z_ele0_eta->Fill(ele0.Eta(), weight_Z_ele);
+     h_Z_ele0_phi->Fill(ele0.Phi(), weight_Z_ele);
+     h_Z_ele1_pt->Fill(ele1.Pt(), weight_Z_ele);
+     h_Z_ele1_eta->Fill(ele1.Eta(), weight_Z_ele);
+     h_Z_ele1_phi->Fill(ele1.Phi(), weight_Z_ele);
+     h_Z_ele_met_pt->Fill(*MET_pt, weight_Z_ele);
+     h_Z_ele_met_phi->Fill(*MET_phi, weight_Z_ele);
+     h_Z_ele_met_sign->Fill(*MET_significance, weight_Z_ele);
    }
 
    if (Z_muo_sel) {
-     if (h_Z_muo) h_Z_muo->Fill(Z_muo0_muo1.M(), weight_Z_muo);
-     if (h_Z_muo_npvs) h_Z_muo_npvs->Fill(*PV_npvsGood);
-     if (h_Z_muo_npvs_w) h_Z_muo_npvs_w->Fill(*PV_npvsGood, weight_Z_muo);
-     if (h_Z_muo0_pt) h_Z_muo0_pt->Fill(muo0.Pt(), weight_Z_muo);
-     if (h_Z_muo0_eta) h_Z_muo0_eta->Fill(muo0.Eta(), weight_Z_muo);
-     if (h_Z_muo0_phi) h_Z_muo0_phi->Fill(muo0.Phi(), weight_Z_muo);
-     if (h_Z_muo1_pt) h_Z_muo1_pt->Fill(muo1.Pt(), weight_Z_muo);
-     if (h_Z_muo1_eta) h_Z_muo1_eta->Fill(muo1.Eta(), weight_Z_muo);
-     if (h_Z_muo1_phi) h_Z_muo1_phi->Fill(muo1.Phi(), weight_Z_muo);
-     if (h_Z_muo_met_pt) h_Z_muo_met_pt->Fill(*MET_pt, weight_Z_muo);
-     if (h_Z_muo_met_phi) h_Z_muo_met_phi->Fill(*MET_phi, weight_Z_muo);
-     if (h_Z_muo_met_sign) h_Z_muo_met_sign->Fill(*MET_significance, weight_Z_muo);
+     h_Z_muo->Fill(Z_muo0_muo1.M(), weight_Z_muo);
+     h_Z_muo_npvs->Fill(*PV_npvsGood);
+     h_Z_muo_npvs_w->Fill(*PV_npvsGood, weight_Z_muo);
+     h_Z_muo0_pt->Fill(muo0.Pt(), weight_Z_muo);
+     h_Z_muo0_eta->Fill(muo0.Eta(), weight_Z_muo);
+     h_Z_muo0_phi->Fill(muo0.Phi(), weight_Z_muo);
+     h_Z_muo1_pt->Fill(muo1.Pt(), weight_Z_muo);
+     h_Z_muo1_eta->Fill(muo1.Eta(), weight_Z_muo);
+     h_Z_muo1_phi->Fill(muo1.Phi(), weight_Z_muo);
+     h_Z_muo_met_pt->Fill(*MET_pt, weight_Z_muo);
+     h_Z_muo_met_phi->Fill(*MET_phi, weight_Z_muo);
+     h_Z_muo_met_sign->Fill(*MET_significance, weight_Z_muo);
    }
 
    int n_photons = 0;
@@ -1116,28 +1116,28 @@ Bool_t mainSelector::Process(Long64_t entry)
          weight_pho1 = getWeight(sf_pho_eff, pho1.Eta(), pho1.Pt());
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          if (W_ele_sel) {
-           if (h_W_ele_pho1_dR) h_W_ele_pho1_dR->Fill(pho1.DeltaR(ele0), weight_W_ele * weight_pho0 * weight_pho1);
+           h_W_ele_pho1_dR->Fill(pho1.DeltaR(ele0), weight_W_ele * weight_pho0 * weight_pho1);
            if (pho1.DeltaR(ele0) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (W_muo_sel) {
-           if (h_W_muo_pho1_dR) h_W_muo_pho1_dR->Fill(pho1.DeltaR(muo0), weight_W_muo * weight_pho0 * weight_pho1);
+           h_W_muo_pho1_dR->Fill(pho1.DeltaR(muo0), weight_W_muo * weight_pho0 * weight_pho1);
            if (pho1.DeltaR(muo0) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (Z_ele_sel) {
-           if (h_Z_ele_pho1_dR) h_Z_ele_pho1_dR->Fill(TMath::Min(pho1.DeltaR(ele0), pho1.DeltaR(ele1)), weight_Z_ele * weight_pho0 * weight_pho1);
+           h_Z_ele_pho1_dR->Fill(TMath::Min(pho1.DeltaR(ele0), pho1.DeltaR(ele1)), weight_Z_ele * weight_pho0 * weight_pho1);
            if (pho1.DeltaR(ele0) < 0.3 || pho1.DeltaR(ele1) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (Z_muo_sel) {
-           if (h_Z_muo_pho1_dR) h_Z_muo_pho1_dR->Fill(TMath::Min(pho1.DeltaR(muo0), pho1.DeltaR(muo1)), weight_Z_muo * weight_pho0 * weight_pho1);
+           h_Z_muo_pho1_dR->Fill(TMath::Min(pho1.DeltaR(muo0), pho1.DeltaR(muo1)), weight_Z_muo * weight_pho0 * weight_pho1);
            if (pho1.DeltaR(muo0) < 0.3 || pho1.DeltaR(muo1) < 0.3) {
              ipho1 = -1;
              continue;
@@ -1152,28 +1152,28 @@ Bool_t mainSelector::Process(Long64_t entry)
          weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          if (W_ele_sel) {
-           if (h_W_ele_pho0_dR) h_W_ele_pho0_dR->Fill(pho0.DeltaR(ele0), weight_W_ele * weight_pho0);
+           h_W_ele_pho0_dR->Fill(pho0.DeltaR(ele0), weight_W_ele * weight_pho0);
            if (pho0.DeltaR(ele0) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (W_muo_sel) {
-           if (h_W_muo_pho0_dR) h_W_muo_pho0_dR->Fill(pho0.DeltaR(muo0), weight_W_muo * weight_pho0);
+           h_W_muo_pho0_dR->Fill(pho0.DeltaR(muo0), weight_W_muo * weight_pho0);
            if (pho0.DeltaR(muo0) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (Z_ele_sel) {
-           if (h_Z_ele_pho0_dR) h_Z_ele_pho0_dR->Fill(TMath::Min(pho0.DeltaR(ele0), pho0.DeltaR(ele1)), weight_Z_ele * weight_pho0);
+           h_Z_ele_pho0_dR->Fill(TMath::Min(pho0.DeltaR(ele0), pho0.DeltaR(ele1)), weight_Z_ele * weight_pho0);
            if (pho0.DeltaR(ele0) < 0.3 || pho0.DeltaR(ele1) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (Z_muo_sel) {
-           if (h_Z_muo_pho0_dR) h_Z_muo_pho0_dR->Fill(TMath::Min(pho0.DeltaR(muo0), pho0.DeltaR(muo1)), weight_Z_muo * weight_pho0);
+           h_Z_muo_pho0_dR->Fill(TMath::Min(pho0.DeltaR(muo0), pho0.DeltaR(muo1)), weight_Z_muo * weight_pho0);
            if (pho0.DeltaR(muo0) < 0.3 || pho0.DeltaR(muo1) < 0.3) {
              ipho0 = -1;
              continue;
@@ -1208,66 +1208,66 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_ele_sel) {
-     if (h_W_ele_nphotons) h_W_ele_nphotons->Fill(n_photons, weight_W_ele);
+     h_W_ele_nphotons->Fill(n_photons, weight_W_ele);
      if (n_photons >= 1) {
-       if (h_W_ele_pho0_pt) h_W_ele_pho0_pt->Fill(pho0.Pt(), weight_W_ele * weight_pho0);
-       if (h_W_ele_pho0_eta) h_W_ele_pho0_eta->Fill(pho0.Eta(), weight_W_ele * weight_pho0);
-       if (h_W_ele_pho0_phi) h_W_ele_pho0_phi->Fill(pho0.Phi(), weight_W_ele * weight_pho0);
-       if (h_W_ele_pho0) h_W_ele_pho0->Fill(W_ele0_mt, weight_W_ele * weight_pho0);
+       h_W_ele_pho0_pt->Fill(pho0.Pt(), weight_W_ele * weight_pho0);
+       h_W_ele_pho0_eta->Fill(pho0.Eta(), weight_W_ele * weight_pho0);
+       h_W_ele_pho0_phi->Fill(pho0.Phi(), weight_W_ele * weight_pho0);
+       h_W_ele_pho0->Fill(W_ele0_mt, weight_W_ele * weight_pho0);
      }
      if (n_photons >= 2) {
-       if (h_W_ele_pho1_pt) h_W_ele_pho1_pt->Fill(pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
-       if (h_W_ele_pho1_eta) h_W_ele_pho1_eta->Fill(pho1.Eta(), weight_W_ele * weight_pho0 * weight_pho1);
-       if (h_W_ele_pho1_phi) h_W_ele_pho1_phi->Fill(pho1.Phi(), weight_W_ele * weight_pho0 * weight_pho1);
-       if (h_W_ele_diphoton_pt) h_W_ele_diphoton_pt->Fill(diphoton.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
+       h_W_ele_pho1_pt->Fill(pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
+       h_W_ele_pho1_eta->Fill(pho1.Eta(), weight_W_ele * weight_pho0 * weight_pho1);
+       h_W_ele_pho1_phi->Fill(pho1.Phi(), weight_W_ele * weight_pho0 * weight_pho1);
+       h_W_ele_diphoton_pt->Fill(diphoton.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
      }
    }
 
    if (W_muo_sel) {
-     if (h_W_muo_nphotons) h_W_muo_nphotons->Fill(n_photons, weight_W_muo);
+     h_W_muo_nphotons->Fill(n_photons, weight_W_muo);
      if (n_photons >= 1) {
-       if (h_W_muo_pho0_pt) h_W_muo_pho0_pt->Fill(pho0.Pt(), weight_W_muo * weight_pho0);
-       if (h_W_muo_pho0_eta) h_W_muo_pho0_eta->Fill(pho0.Eta(), weight_W_muo * weight_pho0);
-       if (h_W_muo_pho0_phi) h_W_muo_pho0_phi->Fill(pho0.Phi(), weight_W_muo * weight_pho0);
-       if (h_W_muo_pho0) h_W_muo_pho0->Fill(W_muo0_mt, weight_W_muo * weight_pho0);
+       h_W_muo_pho0_pt->Fill(pho0.Pt(), weight_W_muo * weight_pho0);
+       h_W_muo_pho0_eta->Fill(pho0.Eta(), weight_W_muo * weight_pho0);
+       h_W_muo_pho0_phi->Fill(pho0.Phi(), weight_W_muo * weight_pho0);
+       h_W_muo_pho0->Fill(W_muo0_mt, weight_W_muo * weight_pho0);
      }
      if (n_photons >= 2) {
-       if (h_W_muo_pho1_pt) h_W_muo_pho1_pt->Fill(pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
-       if (h_W_muo_pho1_eta) h_W_muo_pho1_eta->Fill(pho1.Eta(), weight_W_muo * weight_pho0 * weight_pho1);
-       if (h_W_muo_pho1_phi) h_W_muo_pho1_phi->Fill(pho1.Phi(), weight_W_muo * weight_pho0 * weight_pho1);
-       if (h_W_muo_diphoton_pt) h_W_muo_diphoton_pt->Fill(diphoton.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
+       h_W_muo_pho1_pt->Fill(pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
+       h_W_muo_pho1_eta->Fill(pho1.Eta(), weight_W_muo * weight_pho0 * weight_pho1);
+       h_W_muo_pho1_phi->Fill(pho1.Phi(), weight_W_muo * weight_pho0 * weight_pho1);
+       h_W_muo_diphoton_pt->Fill(diphoton.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
      }
    }
 
    if (Z_ele_sel) {
-     if (h_Z_ele_nphotons) h_Z_ele_nphotons->Fill(n_photons, weight_Z_ele);
+     h_Z_ele_nphotons->Fill(n_photons, weight_Z_ele);
      if (n_photons >= 1) {
-       if (h_Z_ele_pho0_pt) h_Z_ele_pho0_pt->Fill(pho0.Pt(), weight_Z_ele * weight_pho0);
-       if (h_Z_ele_pho0_eta) h_Z_ele_pho0_eta->Fill(pho0.Eta(), weight_Z_ele * weight_pho0);
-       if (h_Z_ele_pho0_phi) h_Z_ele_pho0_phi->Fill(pho0.Phi(), weight_Z_ele * weight_pho0);
-       if (h_Z_ele_pho0) h_Z_ele_pho0->Fill(Z_ele0_ele1.M(), weight_Z_ele * weight_pho0);
+       h_Z_ele_pho0_pt->Fill(pho0.Pt(), weight_Z_ele * weight_pho0);
+       h_Z_ele_pho0_eta->Fill(pho0.Eta(), weight_Z_ele * weight_pho0);
+       h_Z_ele_pho0_phi->Fill(pho0.Phi(), weight_Z_ele * weight_pho0);
+       h_Z_ele_pho0->Fill(Z_ele0_ele1.M(), weight_Z_ele * weight_pho0);
      }
      if (n_photons >= 2) {
-       if (h_Z_ele_pho1_pt) h_Z_ele_pho1_pt->Fill(pho1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
-       if (h_Z_ele_pho1_eta) h_Z_ele_pho1_eta->Fill(pho1.Eta(), weight_Z_ele * weight_pho0 * weight_pho1);
-       if (h_Z_ele_pho1_phi) h_Z_ele_pho1_phi->Fill(pho1.Phi(), weight_Z_ele * weight_pho0 * weight_pho1);
-       if (h_Z_ele_diphoton_pt) h_Z_ele_diphoton_pt->Fill(diphoton.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
+       h_Z_ele_pho1_pt->Fill(pho1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
+       h_Z_ele_pho1_eta->Fill(pho1.Eta(), weight_Z_ele * weight_pho0 * weight_pho1);
+       h_Z_ele_pho1_phi->Fill(pho1.Phi(), weight_Z_ele * weight_pho0 * weight_pho1);
+       h_Z_ele_diphoton_pt->Fill(diphoton.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
      }
    }
 
    if (Z_muo_sel) {
-     if (h_Z_muo_nphotons) h_Z_muo_nphotons->Fill(n_photons, weight_Z_muo);
+     h_Z_muo_nphotons->Fill(n_photons, weight_Z_muo);
      if (n_photons >= 1) {
-       if (h_Z_muo_pho0_pt) h_Z_muo_pho0_pt->Fill(pho0.Pt(), weight_Z_muo * weight_pho0);
-       if (h_Z_muo_pho0_eta) h_Z_muo_pho0_eta->Fill(pho0.Eta(), weight_Z_muo * weight_pho0);
-       if (h_Z_muo_pho0_phi) h_Z_muo_pho0_phi->Fill(pho0.Phi(), weight_Z_muo * weight_pho0);
-       if (h_Z_muo_pho0) h_Z_muo_pho0->Fill(Z_muo0_muo1.M(), weight_Z_muo * weight_pho0);
+       h_Z_muo_pho0_pt->Fill(pho0.Pt(), weight_Z_muo * weight_pho0);
+       h_Z_muo_pho0_eta->Fill(pho0.Eta(), weight_Z_muo * weight_pho0);
+       h_Z_muo_pho0_phi->Fill(pho0.Phi(), weight_Z_muo * weight_pho0);
+       h_Z_muo_pho0->Fill(Z_muo0_muo1.M(), weight_Z_muo * weight_pho0);
      }
      if (n_photons >= 2) {
-       if (h_Z_muo_pho1_pt) h_Z_muo_pho1_pt->Fill(pho1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
-       if (h_Z_muo_pho1_eta) h_Z_muo_pho1_eta->Fill(pho1.Eta(), weight_Z_muo * weight_pho0 * weight_pho1);
-       if (h_Z_muo_pho1_phi) h_Z_muo_pho1_phi->Fill(pho1.Phi(), weight_Z_muo * weight_pho0 * weight_pho1);
-       if (h_Z_muo_diphoton_pt) h_Z_muo_diphoton_pt->Fill(diphoton.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
+       h_Z_muo_pho1_pt->Fill(pho1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
+       h_Z_muo_pho1_eta->Fill(pho1.Eta(), weight_Z_muo * weight_pho0 * weight_pho1);
+       h_Z_muo_pho1_phi->Fill(pho1.Phi(), weight_Z_muo * weight_pho0 * weight_pho1);
+       h_Z_muo_diphoton_pt->Fill(diphoton.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
      }
    }
 
@@ -1298,38 +1298,38 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_ele_sel) {
-     if (h_W_ele_njets) h_W_ele_njets->Fill(n_jets, weight_W_ele);
+     h_W_ele_njets->Fill(n_jets, weight_W_ele);
      if (n_jets >= 1) {
-       if (h_W_ele_jet0_pt) h_W_ele_jet0_pt->Fill(jet0.Pt(), weight_W_ele);
-       if (h_W_ele_jet0_eta) h_W_ele_jet0_eta->Fill(jet0.Eta(), weight_W_ele);
-       if (h_W_ele_jet0_phi) h_W_ele_jet0_phi->Fill(jet0.Phi(), weight_W_ele);
+       h_W_ele_jet0_pt->Fill(jet0.Pt(), weight_W_ele);
+       h_W_ele_jet0_eta->Fill(jet0.Eta(), weight_W_ele);
+       h_W_ele_jet0_phi->Fill(jet0.Phi(), weight_W_ele);
      }
    }
 
    if (W_muo_sel) {
-     if (h_W_muo_njets) h_W_muo_njets->Fill(n_jets, weight_W_muo);
+     h_W_muo_njets->Fill(n_jets, weight_W_muo);
      if (n_jets >= 1) {
-       if (h_W_muo_jet0_pt) h_W_muo_jet0_pt->Fill(jet0.Pt(), weight_W_muo);
-       if (h_W_muo_jet0_eta) h_W_muo_jet0_eta->Fill(jet0.Eta(), weight_W_muo);
-       if (h_W_muo_jet0_phi) h_W_muo_jet0_phi->Fill(jet0.Phi(), weight_W_muo);
+       h_W_muo_jet0_pt->Fill(jet0.Pt(), weight_W_muo);
+       h_W_muo_jet0_eta->Fill(jet0.Eta(), weight_W_muo);
+       h_W_muo_jet0_phi->Fill(jet0.Phi(), weight_W_muo);
      }
    }
 
    if (Z_ele_sel) {
-     if (h_Z_ele_njets) h_Z_ele_njets->Fill(n_jets, weight_Z_ele);
+     h_Z_ele_njets->Fill(n_jets, weight_Z_ele);
      if (n_jets >= 1) {
-       if (h_Z_ele_jet0_pt) h_Z_ele_jet0_pt->Fill(jet0.Pt(), weight_Z_ele);
-       if (h_Z_ele_jet0_eta) h_Z_ele_jet0_eta->Fill(jet0.Eta(), weight_Z_ele);
-       if (h_Z_ele_jet0_phi) h_Z_ele_jet0_phi->Fill(jet0.Phi(), weight_Z_ele);
+       h_Z_ele_jet0_pt->Fill(jet0.Pt(), weight_Z_ele);
+       h_Z_ele_jet0_eta->Fill(jet0.Eta(), weight_Z_ele);
+       h_Z_ele_jet0_phi->Fill(jet0.Phi(), weight_Z_ele);
      }
    }
 
    if (Z_muo_sel) {
-     if (h_Z_muo_njets) h_Z_muo_njets->Fill(n_jets, weight_Z_muo);
+     h_Z_muo_njets->Fill(n_jets, weight_Z_muo);
      if (n_jets >= 1) {
-       if (h_Z_muo_jet0_pt) h_Z_muo_jet0_pt->Fill(jet0.Pt(), weight_Z_muo);
-       if (h_Z_muo_jet0_eta) h_Z_muo_jet0_eta->Fill(jet0.Eta(), weight_Z_muo);
-       if (h_Z_muo_jet0_phi) h_Z_muo_jet0_phi->Fill(jet0.Phi(), weight_Z_muo);
+       h_Z_muo_jet0_pt->Fill(jet0.Pt(), weight_Z_muo);
+       h_Z_muo_jet0_eta->Fill(jet0.Eta(), weight_Z_muo);
+       h_Z_muo_jet0_phi->Fill(jet0.Phi(), weight_Z_muo);
      }
    }
 
