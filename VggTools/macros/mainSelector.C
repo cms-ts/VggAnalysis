@@ -1155,7 +1155,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_id_muo1 =  1.;
    float weight_iso_muo1 = 1.;
 
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorMC16_cxx)
    if (imuo0 != -1) {
      weight_id_muo0 = getWeight(sf_muo_id, muo0.Eta(), muo0.Pt());
      weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Eta(), muo0.Pt());
@@ -1164,7 +1164,17 @@ Bool_t mainSelector::Process(Long64_t entry)
      weight_id_muo1 = getWeight(sf_muo_id, muo1.Eta(), muo1.Pt());
      weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Eta(), muo1.Pt());
    }
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   if (imuo0 != -1) {
+     weight_id_muo0 = getWeight(sf_muo_id, muo0.Pt(), fabs(muo0.Eta()));
+     weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
+   }
+   if (imuo1 != -1) {
+     weight_id_muo1 = getWeight(sf_muo_id, muo1.Pt(), fabs(muo1.Eta()));
+     weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Pt(), fabs(muo1.Eta()));
+   }
+#endif // defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 // photon(s) scale factors
 
