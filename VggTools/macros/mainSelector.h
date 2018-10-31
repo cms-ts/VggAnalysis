@@ -198,12 +198,14 @@ public :
 
    TTreeReaderValue<UInt_t> run = {fReader, "run"};
    TTreeReaderValue<UInt_t> nElectron = {fReader, "nElectron"};
-   TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
-   TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
-   TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
+   TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
+   TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
+   TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_dxy = {fReader, "Electron_dxy"};
    TTreeReaderArray<Float_t> Electron_dz = {fReader, "Electron_dz"};
+   TTreeReaderArray<Float_t> Electron_r9 = {fReader, "Electron_r9"};
+   TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
@@ -211,10 +213,10 @@ public :
    TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
-   TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
-   TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
-   TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
+   TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
+   TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
+   TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
    TTreeReaderArray<Float_t> Muon_dxy = {fReader, "Muon_dxy"};
    TTreeReaderArray<Float_t> Muon_dz = {fReader, "Muon_dz"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
@@ -226,6 +228,8 @@ public :
    TTreeReaderArray<Float_t> Photon_eta = {fReader, "Photon_eta"};
    TTreeReaderArray<Float_t> Photon_phi = {fReader, "Photon_phi"};
    TTreeReaderArray<Float_t> Photon_mass = {fReader, "Photon_mass"};
+   TTreeReaderArray<Float_t> Photon_r9 = {fReader, "Photon_r9"};
+   TTreeReaderArray<Float_t> Photon_sieie = {fReader, "Photon_sieie"};
    TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
    TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
    TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
@@ -269,22 +273,24 @@ public :
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
    TTreeReaderValue<UInt_t> nElectron = {fReader, "nElectron"};
-   TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
-   TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
-   TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
+   TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
+   TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
+   TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_dxy = {fReader, "Electron_dxy"};
    TTreeReaderArray<Float_t> Electron_dz = {fReader, "Electron_dz"};
+   TTreeReaderArray<Float_t> Electron_r9 = {fReader, "Electron_r9"};
+   TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
    TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
    TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
-   TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
-   TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
-   TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
+   TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
+   TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
+   TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
    TTreeReaderArray<Float_t> Muon_dxy = {fReader, "Muon_dxy"};
    TTreeReaderArray<Float_t> Muon_dz = {fReader, "Muon_dz"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
@@ -296,6 +302,8 @@ public :
    TTreeReaderArray<Float_t> Photon_eta = {fReader, "Photon_eta"};
    TTreeReaderArray<Float_t> Photon_phi = {fReader, "Photon_phi"};
    TTreeReaderArray<Float_t> Photon_mass = {fReader, "Photon_mass"};
+   TTreeReaderArray<Float_t> Photon_r9 = {fReader, "Photon_r9"};
+   TTreeReaderArray<Float_t> Photon_sieie = {fReader, "Photon_sieie"};
    TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
    TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
    TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
@@ -340,22 +348,24 @@ public :
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
    TTreeReaderValue<UInt_t> nElectron = {fReader, "nElectron"};
-   TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
-   TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
-   TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
+   TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
+   TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
+   TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_dxy = {fReader, "Electron_dxy"};
    TTreeReaderArray<Float_t> Electron_dz = {fReader, "Electron_dz"};
+   TTreeReaderArray<Float_t> Electron_r9 = {fReader, "Electron_r9"};
+   TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
    TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
    TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
-   TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
-   TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
-   TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
+   TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
+   TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
+   TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
    TTreeReaderArray<Float_t> Muon_dxy = {fReader, "Muon_dxy"};
    TTreeReaderArray<Float_t> Muon_dz = {fReader, "Muon_dz"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
@@ -367,6 +377,8 @@ public :
    TTreeReaderArray<Float_t> Photon_eta = {fReader, "Photon_eta"};
    TTreeReaderArray<Float_t> Photon_phi = {fReader, "Photon_phi"};
    TTreeReaderArray<Float_t> Photon_mass = {fReader, "Photon_mass"};
+   TTreeReaderArray<Float_t> Photon_r9 = {fReader, "Photon_r9"};
+   TTreeReaderArray<Float_t> Photon_sieie = {fReader, "Photon_sieie"};
    TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
    TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
    TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
@@ -411,12 +423,14 @@ public :
 
    TTreeReaderValue<UInt_t> run = {fReader, "run"};
    TTreeReaderValue<UInt_t> nElectron = {fReader, "nElectron"};
-   TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
-   TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
-   TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
+   TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
+   TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
+   TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_dxy = {fReader, "Electron_dxy"};
    TTreeReaderArray<Float_t> Electron_dz = {fReader, "Electron_dz"};
+   TTreeReaderArray<Float_t> Electron_r9 = {fReader, "Electron_r9"};
+   TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
@@ -425,10 +439,10 @@ public :
    TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
-   TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
-   TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
-   TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
+   TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
+   TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
+   TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
    TTreeReaderArray<Float_t> Muon_dxy = {fReader, "Muon_dxy"};
    TTreeReaderArray<Float_t> Muon_dz = {fReader, "Muon_dz"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
@@ -442,6 +456,8 @@ public :
    TTreeReaderArray<Float_t> Photon_eta = {fReader, "Photon_eta"};
    TTreeReaderArray<Float_t> Photon_phi = {fReader, "Photon_phi"};
    TTreeReaderArray<Float_t> Photon_mass = {fReader, "Photon_mass"};
+   TTreeReaderArray<Float_t> Photon_r9 = {fReader, "Photon_r9"};
+   TTreeReaderArray<Float_t> Photon_sieie = {fReader, "Photon_sieie"};
    TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
    TTreeReaderArray<Int_t> Photon_genPartIdx = {fReader, "Photon_genPartIdx"};
    TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
@@ -518,12 +534,14 @@ public :
    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
 
    TTreeReaderValue<UInt_t> nElectron = {fReader, "nElectron"};
-   TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
-   TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
-   TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
+   TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
+   TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
+   TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_dxy = {fReader, "Electron_dxy"};
    TTreeReaderArray<Float_t> Electron_dz = {fReader, "Electron_dz"};
+   TTreeReaderArray<Float_t> Electron_r9 = {fReader, "Electron_r9"};
+   TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
    TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
@@ -531,10 +549,10 @@ public :
    TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
-   TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
-   TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
-   TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
+   TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
+   TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
+   TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
    TTreeReaderArray<Float_t> Muon_dxy = {fReader, "Muon_dxy"};
    TTreeReaderArray<Float_t> Muon_dz = {fReader, "Muon_dz"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
@@ -548,6 +566,8 @@ public :
    TTreeReaderArray<Float_t> Photon_eta = {fReader, "Photon_eta"};
    TTreeReaderArray<Float_t> Photon_phi = {fReader, "Photon_phi"};
    TTreeReaderArray<Float_t> Photon_mass = {fReader, "Photon_mass"};
+   TTreeReaderArray<Float_t> Photon_r9 = {fReader, "Photon_r9"};
+   TTreeReaderArray<Float_t> Photon_sieie = {fReader, "Photon_sieie"};
    TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
    TTreeReaderArray<Int_t> Photon_genPartIdx = {fReader, "Photon_genPartIdx"};
    TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
@@ -625,12 +645,14 @@ public :
    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
 
    TTreeReaderValue<UInt_t> nElectron = {fReader, "nElectron"};
-   TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
-   TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
-   TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
+   TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
+   TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
+   TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_dxy = {fReader, "Electron_dxy"};
    TTreeReaderArray<Float_t> Electron_dz = {fReader, "Electron_dz"};
+   TTreeReaderArray<Float_t> Electron_r9 = {fReader, "Electron_r9"};
+   TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
    TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
@@ -638,10 +660,10 @@ public :
    TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
-   TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
-   TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
-   TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
+   TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
+   TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
+   TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
    TTreeReaderArray<Float_t> Muon_dxy = {fReader, "Muon_dxy"};
    TTreeReaderArray<Float_t> Muon_dz = {fReader, "Muon_dz"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
@@ -655,6 +677,8 @@ public :
    TTreeReaderArray<Float_t> Photon_eta = {fReader, "Photon_eta"};
    TTreeReaderArray<Float_t> Photon_phi = {fReader, "Photon_phi"};
    TTreeReaderArray<Float_t> Photon_mass = {fReader, "Photon_mass"};
+   TTreeReaderArray<Float_t> Photon_r9 = {fReader, "Photon_r9"};
+   TTreeReaderArray<Float_t> Photon_sieie = {fReader, "Photon_sieie"};
    TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
    TTreeReaderArray<Int_t> Photon_genPartIdx = {fReader, "Photon_genPartIdx"};
    TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
