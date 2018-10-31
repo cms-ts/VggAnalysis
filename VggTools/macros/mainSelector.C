@@ -519,7 +519,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) == 11) {
          if (GenDressedLepton_pt[i] < 20) continue;
-         if (fabs(GenDressedLepton_eta[i]) > 1.442 && fabs(GenDressedLepton_eta[i]) < 1.566) continue;
          if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
          if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[iele0_gen]) {
            iele1_gen=i;
@@ -688,6 +687,15 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) continue;
      if (fabs(Electron_eta[i]) > 2.400) continue;
 
+     if (fabs(Electron_eta[i]) < 1.442) {
+       if (fabs(Electron_dxy[i]) > 0.05) continue;
+       if (fabs(Electron_dz[i]) > 0.10) continue;
+     }
+     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
+       if (fabs(Electron_dxy[i]) > 0.10) continue;
+       if (fabs(Electron_dz[i]) > 0.20) continue;
+     }
+
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (Electron_mvaSpring16GP_WP90[i] == 0) continue;
      //if (Electron_mvaSpring16GP_WP80[i] == 0) continue;
@@ -753,8 +761,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      if (Muon_pt[i]*eCorr_muo < 25) continue;
-     if (fabs(Muon_eta[i]) > 1.442 && fabs(Muon_eta[i]) < 1.566) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
+
+     if (fabs(Muon_dxy[i]) > 0.20) continue;
+     if (fabs(Muon_dz[i]) > 0.50) continue;
 
      if (Muon_tightId[i] == 0) continue;
 
