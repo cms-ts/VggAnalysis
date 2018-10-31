@@ -788,6 +788,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 // photons
 
    int n_photons = 0;
+
    int ipho0 = -1;
    int ipho1 = -1;
 
