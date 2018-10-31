@@ -873,6 +873,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (ipho0 != -1 && ipho1 == -1) {
          ipho1 = i;
+         pho1.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
          if (iele0 != -1) {
            if (pho1.DeltaR(ele0) < 0.3) {
              ipho1 = -1;
@@ -900,6 +901,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
        if (ipho0 == -1) {
          ipho0 = i;
+         pho0.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
          if (iele0 != -1) {
            if (pho0.DeltaR(ele0) < 0.3) {
              ipho0 = -1;
