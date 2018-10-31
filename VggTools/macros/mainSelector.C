@@ -100,10 +100,13 @@ void mainSelector::Begin(TTree * /*tree*/)
 
 #if defined(mainSelectorMC16_cxx)
    file_ele_sf_eff = TFile::Open("root/sf_ele_2016_EGM2D_WP90.root");
-   //file_ele_sf_eff = TFile::Open("root/sf_ele_2016_EGM2D_WP80.root");
+   file_ele_sf_reco = TFile::Open("root/sf_ele_2016_EGM2D_RECO.root");
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
+   sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
    sf_ele_eff->SetDirectory(0);
+   sf_ele_reco->SetDirectory(0);
    file_ele_sf_eff->Close();
+   file_ele_sf_reco->Close();
 
    file_muo_sf_id = TFile::Open("root/sf_muo_2016_RunBCDEF_ID.root");
    file_muo_sf_iso = TFile::Open("root/sf_muo_2016_RunBCDEF_ISO.root");
@@ -114,14 +117,14 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
 
-   file_pho_sf_eff = TFile::Open("root/sf_pho_2016_EGM2D.root");
+   file_pho_sf_eff = TFile::Open("root/sf_pho_2016_EGM2D_WP90.root");
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
    sf_pho_eff->SetDirectory(0);
    file_pho_sf_eff->Close();
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
-   file_ele_sf_eff = TFile::Open("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp90iso.root");
-   file_ele_sf_reco = TFile::Open("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
+   file_ele_sf_eff = TFile::Open("root/sf_ele_2017_ElectronMVA90.root");
+   file_ele_sf_reco = TFile::Open("root/sf_ele_2017_EGM2D_RECO.root");
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
    sf_ele_eff->SetDirectory(0);
@@ -138,15 +141,14 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
 
-   file_pho_sf_eff = TFile::Open("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
+   file_pho_sf_eff = TFile::Open("root/sf_pho_2017_PhotonsMVA90.root");
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
    sf_pho_eff->SetDirectory(0);
    file_pho_sf_eff->Close();
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
-// FIXME
-   file_ele_sf_eff = TFile::Open("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp90iso.root");
-   file_ele_sf_reco = TFile::Open("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
+   file_ele_sf_eff = TFile::Open("root/sf_ele_2018_ElectronMVA90.root");
+   file_ele_sf_reco = TFile::Open("root/sf_ele_2018_EGM2D_RECO.root");
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
    sf_ele_eff->SetDirectory(0);
@@ -154,6 +156,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_ele_sf_eff->Close();
    file_ele_sf_reco->Close();
 
+// FIXME
    file_muo_sf_id = TFile::Open("root/sf_muo_2017_RunBCDEF_ID.root");
    file_muo_sf_iso = TFile::Open("root/sf_muo_2017_RunBCDEF_ISO.root");
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
@@ -162,12 +165,12 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_iso->SetDirectory(0);
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
+// FIXME
 
-   file_pho_sf_eff = TFile::Open("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
+   file_pho_sf_eff = TFile::Open("root/sf_pho_2018_PhotonsMVA90.root");
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
    sf_pho_eff->SetDirectory(0);
    file_pho_sf_eff->Close();
-// FIXME
 #endif // defined(mainSelectorMC18_cxx)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -1067,16 +1070,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float weight_hlt_ele = 1.;
 
-#if defined(mainSelectorMC16_cxx)
-   if (iele0 != -1) {
-     weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
-   }
-   if (iele1 != -1) {
-     weight_eff_ele1 = getWeight(sf_ele_eff, ele1.Eta(), ele1.Pt());
-   }
-   weight_hlt_ele = 1.00;
-#endif // defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (iele0 != -1) {
      weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
      weight_reco_ele0 = getWeight(sf_ele_reco, ele0.Eta(), ele0.Pt());
@@ -1085,18 +1079,16 @@ Bool_t mainSelector::Process(Long64_t entry)
      weight_eff_ele1 = getWeight(sf_ele_eff, ele1.Eta(), ele1.Pt());
      weight_reco_ele1 = getWeight(sf_ele_reco, ele1.Eta(), ele1.Pt());
    }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
+#if defined(mainSelectorMC16_cxx)
+   weight_hlt_ele = 1.000;
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
    weight_hlt_ele = 0.991;
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 // FIXME
-   if (iele0 != -1) {
-     weight_eff_ele0 = getWeight(sf_ele_eff, ele0.Eta(), ele0.Pt());
-     weight_reco_ele0 = getWeight(sf_ele_reco, ele0.Eta(), ele0.Pt());
-   }
-   if (iele1 != -1) {
-     weight_eff_ele1 = getWeight(sf_ele_eff, ele1.Eta(), ele1.Pt());
-     weight_reco_ele1 = getWeight(sf_ele_reco, ele1.Eta(), ele1.Pt());
-   }
    weight_hlt_ele = 0.991;
 // FIXME
 #endif // defined(mainSelectorMC18_cxx)
@@ -1109,7 +1101,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_id_muo1 =  1.;
    float weight_iso_muo1 = 1.;
 
-#if defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (imuo0 != -1) {
      weight_id_muo0 = getWeight(sf_muo_id, muo0.Eta(), muo0.Pt());
      weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Eta(), muo0.Pt());
@@ -1118,47 +1110,21 @@ Bool_t mainSelector::Process(Long64_t entry)
      weight_id_muo1 = getWeight(sf_muo_id, muo1.Eta(), muo1.Pt());
      weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Eta(), muo1.Pt());
    }
-#endif // defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorMC17_cxx)
-   if (imuo0 != -1) {
-     weight_id_muo0 = getWeight(sf_muo_id, muo0.Pt(), fabs(muo0.Eta()));
-     weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
-   }
-   if (imuo1 != -1) {
-     weight_id_muo1 = getWeight(sf_muo_id, muo1.Pt(), fabs(muo1.Eta()));
-     weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Pt(), fabs(muo1.Eta()));
-   }
-#endif // defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorMC18_cxx)
-// FIXME
-   if (imuo0 != -1) {
-     weight_id_muo0 = getWeight(sf_muo_id, muo0.Pt(), fabs(muo0.Eta()));
-     weight_iso_muo0 = getWeight(sf_muo_iso, muo0.Pt(), fabs(muo0.Eta()));
-   }
-   if (imuo1 != -1) {
-     weight_id_muo1 = getWeight(sf_muo_id, muo1.Pt(), fabs(muo1.Eta()));
-     weight_iso_muo1 = getWeight(sf_muo_iso, muo1.Pt(), fabs(muo1.Eta()));
-   }
-// FIXME
-#endif // defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 // photon(s) scale factors
 
    float weight_pho0 = 1.;
-
-   if (ipho0 != -1) {
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-     weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   }
-
    float weight_pho1 = 1.;
 
-   if (ipho1 != -1) {
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-     weight_pho1 = getWeight(sf_pho_eff, pho1.Eta(), pho1.Pt());
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   if (ipho0 != -1) {
+     weight_pho0 = getWeight(sf_pho_eff, pho0.Eta(), pho0.Pt());
    }
+   if (ipho1 != -1) {
+     weight_pho1 = getWeight(sf_pho_eff, pho1.Eta(), pho1.Pt());
+   }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 // W scale factors
 
