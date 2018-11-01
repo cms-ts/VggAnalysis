@@ -9,7 +9,11 @@ export ROOT_HIST=0
 YEARS="2016 2017 2018"
 
 if [ ! -z "$1" ]; then
-  YEARS=$1
+  if [ "$1} == "all" ]; then
+    YEARS="2016 2017 2018"
+  else
+    YEARS=$1
+  fi
 fi
 
 VERSION="v00"
