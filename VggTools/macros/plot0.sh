@@ -9,7 +9,7 @@ export ROOT_HIST=0
 YEARS="2016 2017 2018"
 
 if [ ! -z "$1" ]; then
-  if [ "$1} == "all" ]; then
+  if [ "$1" == "all" ]; then
     YEARS="2016 2017 2018"
   else
     YEARS=$1
