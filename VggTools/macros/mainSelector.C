@@ -117,7 +117,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
 
-   //file_pho_sf_eff = TFile::Open("root/sf_pho_2016_EGM2D.root");
    file_pho_sf_eff = TFile::Open("root/sf_pho_2016_EGM2D_WP90.root");
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
    sf_pho_eff->SetDirectory(0);
