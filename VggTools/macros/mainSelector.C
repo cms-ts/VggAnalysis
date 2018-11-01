@@ -100,6 +100,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 
 #if defined(mainSelectorMC16_cxx)
    file_ele_sf_eff = TFile::Open("root/sf_ele_2016_EGM2D_WP90.root");
+   //file_ele_sf_eff = TFile::Open("root/sf_ele_2016_EGM2D_runBCDEF_passingMVA94Xwp90iso.root");
    file_ele_sf_reco = TFile::Open("root/sf_ele_2016_EGM2D_RECO.root");
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
@@ -118,6 +119,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_muo_sf_iso->Close();
 
    file_pho_sf_eff = TFile::Open("root/sf_pho_2016_EGM2D_WP90.root");
+   //file_pho_sf_eff = TFile::Open("root/sf_pho_2016_EGM2D_runBCDEF_passingMVA94Xwp90.root");
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
    sf_pho_eff->SetDirectory(0);
    file_pho_sf_eff->Close();
