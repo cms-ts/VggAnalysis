@@ -1422,5 +1422,4 @@ void mainSelector::Terminate()
    TDatime now;
    Info("Terminate", "%s", now.AsSQLString());
 
-
 }
