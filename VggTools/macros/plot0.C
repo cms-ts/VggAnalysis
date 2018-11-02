@@ -35,7 +35,12 @@ void plot0(string plot="", string title="", string version="v00") {
         histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()));
       } else {
         histo[index] = (TH1D*)gDirectory->Get(title.c_str());
-        histo[index]->SetDirectory(0);
+        if (histo[index]) {
+          histo[index]->SetDirectory(0);
+        } else {
+          Error("plot0", "skip missing histogram: %s", title.c_str());
+          return;
+        }
       }
       file.Close();
     }
