@@ -10,7 +10,13 @@ WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 
 cd $WORKDIR
 
-for L in `ls data/$VERSION/*.log`; do
+LISTS=`ls data/$VERSION/*.log`
+
+if [ ! -z "$2" ]; then
+  LISTS=`ls data/$VERSION/$2.log`
+fi
+
+for L in $LISTS; do
   O=`cat $L | \
   grep [a-z,A-Z] | \
   grep -v 'Processing' | \
