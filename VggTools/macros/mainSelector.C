@@ -597,28 +597,28 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0_gen != -1 && iele1_gen == -1) {
        W_ele0_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * (*MET_fiducialGenPt) * (1. - TMath::Cos(ele0_gen.Phi() - (*MET_fiducialGenPhi))));
-       if (*MET_fiducialGenPt > 35 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 30) {
+       if (*MET_fiducialGenPt > 35 && W_ele0_gen_mt > 35 && ele0_gen.Pt() > 30) {
          W_ele_sel_gen = true;
        }
      }
 
      if (imuo0_gen != -1 && imuo1_gen == -1) {
        W_muo0_gen_mt = TMath::Sqrt(2. * muo0_gen.Pt() * (*MET_fiducialGenPt) * (1. - TMath::Cos(muo0_gen.Phi() - (*MET_fiducialGenPhi))));
-       if (*MET_fiducialGenPt > 15 && W_muo0_gen_mt > 40 && muo0_gen.Pt() > 25) {
+       if (*MET_fiducialGenPt > 15 && W_muo0_gen_mt > 35 && muo0_gen.Pt() > 25) {
          W_muo_sel_gen = true;
        }
      }
 
      if (iele0_gen != -1 && iele1_gen != -1) {
        Z_ele0_ele1_gen = ele0_gen + ele1_gen;
-       if (Z_ele0_ele1_gen.M() >= 71. && Z_ele0_ele1_gen.M() <= 111.) {
+       if (Z_ele0_ele1_gen.M() >= 66. && Z_ele0_ele1_gen.M() <= 116.) {
          Z_ele_sel_gen = true;
        }
      }
 
      if (imuo0_gen != -1 && imuo1_gen != -1) {
        Z_muo0_muo1_gen = muo0_gen + muo1_gen;
-       if (Z_muo0_muo1_gen.M() >= 71. && Z_muo0_muo1_gen.M() <= 111.) {
+       if (Z_muo0_muo1_gen.M() >= 66. && Z_muo0_muo1_gen.M() <= 116.) {
          Z_muo_sel_gen = true;
        }
      }
