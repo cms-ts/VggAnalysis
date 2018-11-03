@@ -1025,18 +1025,18 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-   TLorentzVector jet0;
-
-   if (ijet0 != -1) {
-     jet0.SetPtEtaPhiM(Jet_pt[ijet0], Jet_eta[ijet0], Jet_phi[ijet0], Jet_mass[ijet0]);
-   }
-
 #if 0
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    *MET_pt = TMath::Sqrt(TMath::Power(met_px, 2) + TMath::Power(met_py, 2));
    *MET_phi = TMath::ATan2(met_py, met_px);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 #endif // 0
+
+   TLorentzVector jet0;
+
+   if (ijet0 != -1) {
+     jet0.SetPtEtaPhiM(Jet_pt[ijet0], Jet_eta[ijet0], Jet_phi[ijet0], Jet_mass[ijet0]);
+   }
 
 // W -> ele nu
 
