@@ -727,9 +727,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // electrons
 
-   TLorentzVector ele0;
-   TLorentzVector ele1;
-
    int iele0 = -1;
    int iele1 = -1;
 
@@ -785,18 +782,23 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0 != -1 && iele1 == -1 && Electron_charge[iele0] != Electron_charge[i]) {
        iele1 = i;
-       ele1.SetPtEtaPhiM(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i]);
      }
      if (iele0 == -1) {
        iele0 = i;
-       ele0.SetPtEtaPhiM(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i]);
      }
    }
 
-// muons
+   TLorentzVector ele0;
+   TLorentzVector ele1;
 
-   TLorentzVector muo0;
-   TLorentzVector muo1;
+   if (iele0 != -1) {
+     ele0.SetPtEtaPhiM(Electron_pt[iele0], Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
+   }
+   if (iele1 != -1) {
+     ele1.SetPtEtaPhiM(Electron_pt[iele1], Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
+   }
+
+// muons
 
    int imuo0 = -1;
    int imuo1 = -1;
@@ -845,23 +847,27 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (imuo0 != -1 && imuo1 == -1 && Muon_charge[imuo0] != Muon_charge[i]) {
        imuo1 = i;
-       muo1.SetPtEtaPhiM(Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_mass[i]);
      }
      if (imuo0 == -1) {
        imuo0 = i;
-       muo0.SetPtEtaPhiM(Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_mass[i]);
      }
+   }
+
+   TLorentzVector muo0;
+   TLorentzVector muo1;
+
+   if (imuo0 != -1) {
+     muo0.SetPtEtaPhiM(Muon_pt[imuo0], Muon_eta[imuo0], Muon_phi[imuo0], Muon_mass[imuo0]);
+   }
+   if (imuo1 != -1) {
+     muo1.SetPtEtaPhiM(Muon_pt[imuo1], Muon_eta[imuo1], Muon_phi[imuo1], Muon_mass[imuo1]);
    }
 
 // photons
 
    int n_photons = 0;
-
    int ipho0 = -1;
    int ipho1 = -1;
-
-   TLorentzVector pho0;
-   TLorentzVector pho1;
 
    if (iele0 != -1 || imuo0 != -1) {
      for (uint i = 0; i < *nPhoton; i++) {
@@ -877,27 +883,28 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (ipho0 != -1 && ipho1 == -1) {
          ipho1 = i;
-         pho1.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
+         TLorentzVector tmp_pho;
+         tmp_pho.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
          if (iele0 != -1) {
-           if (pho1.DeltaR(ele0) < 0.3) {
+           if (tmp_pho.DeltaR(ele0) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (imuo0 != -1) {
-           if (pho1.DeltaR(muo0) < 0.3) {
+           if (tmp_pho.DeltaR(muo0) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (iele0 != -1 && iele1 != -1) {
-           if (pho1.DeltaR(ele0) < 0.3 || pho1.DeltaR(ele1) < 0.3) {
+           if (tmp_pho.DeltaR(ele0) < 0.3 || tmp_pho.DeltaR(ele1) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (imuo0 != -1 && imuo1 != -1) {
-           if (pho1.DeltaR(muo0) < 0.3 || pho1.DeltaR(muo1) < 0.3) {
+           if (tmp_pho.DeltaR(muo0) < 0.3 || tmp_pho.DeltaR(muo1) < 0.3) {
              ipho1 = -1;
              continue;
            }
@@ -905,27 +912,28 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
        if (ipho0 == -1) {
          ipho0 = i;
-         pho0.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
+         TLorentzVector tmp_pho;
+         tmp_pho.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
          if (iele0 != -1) {
-           if (pho0.DeltaR(ele0) < 0.3) {
+           if (tmp_pho.DeltaR(ele0) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (imuo0 != -1) {
-           if (pho0.DeltaR(muo0) < 0.3) {
+           if (tmp_pho.DeltaR(muo0) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (iele0 != -1 && iele1 != -1) {
-           if (pho0.DeltaR(ele0) < 0.3 || pho0.DeltaR(ele1) < 0.3) {
+           if (tmp_pho.DeltaR(ele0) < 0.3 || tmp_pho.DeltaR(ele1) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (imuo0 != -1 && imuo1 != -1) {
-           if (pho0.DeltaR(muo0) < 0.3 || pho0.DeltaR(muo1) < 0.3) {
+           if (tmp_pho.DeltaR(muo0) < 0.3 || tmp_pho.DeltaR(muo1) < 0.3) {
              ipho0 = -1;
              continue;
            }
@@ -937,12 +945,20 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+   TLorentzVector pho0;
+   TLorentzVector pho1;
+
+   if (ipho0 != -1) {
+     pho0.SetPtEtaPhiM(Photon_pt[ipho0], Photon_eta[ipho0], Photon_phi[ipho0], Photon_mass[ipho0]);
+   }
+   if (ipho1 != -1) {
+     pho1.SetPtEtaPhiM(Photon_pt[ipho0], Photon_eta[ipho0], Photon_phi[ipho0], Photon_mass[ipho1]);
+   }
+
 // jets & MET
 
    int n_jets = 0;
    int ijet0 = -1;
-
-   TLorentzVector jet0;
 
 #if 0
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
@@ -1004,10 +1020,15 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (ijet0 == -1) {
          ijet0 = i;
-         jet0.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
        }
 
      }
+   }
+
+   TLorentzVector jet0;
+
+   if (ijet0 != -1) {
+     jet0.SetPtEtaPhiM(Jet_pt[ijet0], Jet_eta[ijet0], Jet_phi[ijet0], Jet_mass[ijet0]);
    }
 
 #if 0
@@ -1071,7 +1092,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    bool Z_ele_sel = false;
 
-   TLorentzVector Z_ele0_ele1;
+   float Z_ele0_ele1_mass = 0.;
 
    if (iele0 != -1 && iele1 != -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -1085,8 +1106,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL || *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ) {
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       Z_ele0_ele1 = ele0 + ele1;
-       if (Z_ele0_ele1.M() >= 71. && Z_ele0_ele1.M() <= 111.) {
+       Z_ele0_ele1_mass = (ele0 + ele1).M();
+       if (Z_ele0_ele1_mass >= 71. && Z_ele0_ele1_mass <= 111.) {
          Z_ele_sel = true;
        }
      }
@@ -1096,7 +1117,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    bool Z_muo_sel = false;
 
-   TLorentzVector Z_muo0_muo1;
+   float Z_muo0_muo1_mass = 0.;
 
    if (imuo0 != -1 && imuo1 != -1) {
 #if defined(mainSelectorDT16_cxx)
@@ -1120,8 +1141,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       Z_muo0_muo1 = muo0 + muo1;
-       if (Z_muo0_muo1.M() >= 71. && Z_muo0_muo1.M() <= 111.) {
+       Z_muo0_muo1_mass = (muo0 + muo1).M();
+       if (Z_muo0_muo1_mass >= 71. && Z_muo0_muo1_mass <= 111.) {
          Z_muo_sel = true;
        }
      }
@@ -1236,7 +1257,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 // Z plots
 
    if (Z_ele_sel) {
-     h_Z_ele->Fill(Z_ele0_ele1.M(), weight_Z_ele);
+     h_Z_ele->Fill(Z_ele0_ele1_mass, weight_Z_ele);
      h_Z_ele_npvs->Fill(*PV_npvsGood);
      h_Z_ele_npvs_w->Fill(*PV_npvsGood, weight_Z_ele);
      h_Z_ele0_pt->Fill(Electron_pt[iele0], weight_Z_ele);
@@ -1255,7 +1276,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (Z_muo_sel) {
-     h_Z_muo->Fill(Z_muo0_muo1.M(), weight_Z_muo);
+     h_Z_muo->Fill(Z_muo0_muo1_mass, weight_Z_muo);
      h_Z_muo_npvs->Fill(*PV_npvsGood);
      h_Z_muo_npvs_w->Fill(*PV_npvsGood, weight_Z_muo);
      h_Z_muo0_pt->Fill(Muon_pt[imuo0], weight_Z_muo);
@@ -1326,7 +1347,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_Z_ele_pho0_r9->Fill(Photon_r9[ipho0], weight_Z_ele * weight_pho0);
        h_Z_ele_pho0_sieie->Fill(Photon_sieie[ipho0], weight_Z_ele * weight_pho0);
        h_Z_ele_pho0_dR->Fill(TMath::Min(pho0.DeltaR(ele0), pho0.DeltaR(ele1)), weight_Z_ele * weight_pho0);
-       h_Z_ele_pho0->Fill(Z_ele0_ele1.M(), weight_Z_ele * weight_pho0);
+       h_Z_ele_pho0->Fill(Z_ele0_ele1_mass, weight_Z_ele * weight_pho0);
      }
      if (n_photons >= 2) {
        h_Z_ele_pho1_pt->Fill(Photon_pt[ipho1], weight_Z_ele * weight_pho0 * weight_pho1);
@@ -1348,7 +1369,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_Z_muo_pho0_r9->Fill(Photon_r9[ipho0], weight_Z_muo * weight_pho0);
        h_Z_muo_pho0_sieie->Fill(Photon_sieie[ipho0], weight_Z_muo * weight_pho0);
        h_Z_muo_pho0_dR->Fill(TMath::Min(pho0.DeltaR(muo0), pho0.DeltaR(muo1)), weight_Z_muo * weight_pho0);
-       h_Z_muo_pho0->Fill(Z_muo0_muo1.M(), weight_Z_muo * weight_pho0);
+       h_Z_muo_pho0->Fill(Z_muo0_muo1_mass, weight_Z_muo * weight_pho0);
      }
      if (n_photons >= 2) {
        h_Z_muo_pho1_pt->Fill(Photon_pt[ipho1], weight_Z_muo * weight_pho0 * weight_pho1);
