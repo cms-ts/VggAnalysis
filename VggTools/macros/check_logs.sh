@@ -3,7 +3,11 @@
 VERSION=v00
 
 if [ ! -z "$1" ]; then
-  VERSION=$1
+  if [ "$1" == "all" ]; then
+    VERSION="*"
+  else
+    VERSION=$1
+  fi
 fi
 
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
