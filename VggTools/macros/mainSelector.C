@@ -571,7 +571,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) == 11) {
          if (GenDressedLepton_pt[i] < 20) continue;
-         if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
+         if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
          if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[iele0_gen]) {
            iele1_gen=i;
            ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[i], GenDressedLepton_eta[i], GenDressedLepton_phi[i], Electron_mass[i]);
@@ -583,7 +583,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
        if (fabs(GenDressedLepton_pdgId[i]) == 13) {
          if (GenDressedLepton_pt[i] < 20) continue;
-         if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
+         if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
          if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[i] != GenDressedLepton_pdgId[imuo0_gen]) {
            imuo1_gen=i;
            muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[i], GenDressedLepton_eta[i], GenDressedLepton_phi[i], Muon_mass[i]);
@@ -645,7 +645,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (GenPart_status[i] != 1) continue;
        if (GenPart_pdgId[i] == 22) {
          if (GenPart_pt[i] < 15) continue;
-         if (fabs(GenPart_eta[i]) > 2.400) continue;
+         if (fabs(GenPart_eta[i]) > 2.500) continue;
 
          TLorentzVector tmp_pho;
          tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
