@@ -802,7 +802,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int imuo1 = -1;
 
    for (uint i = 0; i < *nMuon; i++) {
-     float eCorr_muo = 1.0;
+     float eCorr_muo = 1.;
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
      eCorr_muo = roccor->kScaleDT(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], 0, 0);
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
