@@ -735,7 +735,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nElectron; i++) {
      float eCorr_ele = 1.;
-     if (Electron_pt[i]*eCorr_ele < 25) continue;
+     Electron_pt[i] = Electron_pt[i] * eCorr_ele;
+     if (Electron_pt[i] < 25) continue;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) continue;
      if (fabs(Electron_eta[i]) > 2.400) continue;
 
@@ -784,11 +785,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0 != -1 && iele1 == -1 && Electron_charge[iele0] != Electron_charge[i]) {
        iele1 = i;
-       ele1.SetPtEtaPhiM(Electron_pt[i]*eCorr_ele, Electron_eta[i], Electron_phi[i], Electron_mass[i]);
+       ele1.SetPtEtaPhiM(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i]);
      }
      if (iele0 == -1) {
        iele0 = i;
-       ele0.SetPtEtaPhiM(Electron_pt[i]*eCorr_ele, Electron_eta[i], Electron_phi[i], Electron_mass[i]);
+       ele0.SetPtEtaPhiM(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i]);
      }
    }
 
@@ -813,7 +814,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (TMath::IsNaN(eCorr_muo)) eCorr_muo = 1.;
      }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-     if (Muon_pt[i]*eCorr_muo < 25) continue;
+     Muon_pt[i] = Muon_pt[i] * eCorr_muo;
+     if (Muon_pt[i] < 25) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
 
      if (fabs(Muon_dxy[i]) > 0.20) continue;
@@ -843,11 +845,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (imuo0 != -1 && imuo1 == -1 && Muon_charge[imuo0] != Muon_charge[i]) {
        imuo1 = i;
-       muo1.SetPtEtaPhiM(Muon_pt[i]*eCorr_muo, Muon_eta[i], Muon_phi[i], Muon_mass[i]);
+       muo1.SetPtEtaPhiM(Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_mass[i]);
      }
      if (imuo0 == -1) {
        imuo0 = i;
-       muo0.SetPtEtaPhiM(Muon_pt[i]*eCorr_muo, Muon_eta[i], Muon_phi[i], Muon_mass[i]);
+       muo0.SetPtEtaPhiM(Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_mass[i]);
      }
    }
 
