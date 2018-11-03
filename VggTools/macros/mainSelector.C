@@ -560,8 +560,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      float W_ele0_gen_mt = 0.;
      float W_muo0_gen_mt = 0.;
 
-     TLorentzVector Z_ele0_ele1_gen;
-     TLorentzVector Z_muo0_muo1_gen;
+     float Z_ele0_ele1_gen_m = 0.;
+     float Z_muo0_muo1_gen_m = 0.;
 
      int iele0_gen = -1;
      int iele1_gen = -1;
@@ -610,15 +610,15 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      if (iele0_gen != -1 && iele1_gen != -1) {
-       Z_ele0_ele1_gen = ele0_gen + ele1_gen;
-       if (Z_ele0_ele1_gen.M() >= 66. && Z_ele0_ele1_gen.M() <= 116.) {
+       Z_ele0_ele1_gen_m = (ele0_gen + ele1_gen).M();
+       if (Z_ele0_ele1_gen_m >= 66. && Z_ele0_ele1_gen_m <= 116.) {
          Z_ele_sel_gen = true;
        }
      }
 
      if (imuo0_gen != -1 && imuo1_gen != -1) {
-       Z_muo0_muo1_gen = muo0_gen + muo1_gen;
-       if (Z_muo0_muo1_gen.M() >= 66. && Z_muo0_muo1_gen.M() <= 116.) {
+       Z_muo0_muo1_gen_m = (muo0_gen + muo1_gen).M();
+       if (Z_muo0_muo1_gen_m >= 66. && Z_muo0_muo1_gen_m <= 116.) {
          Z_muo_sel_gen = true;
        }
      }
@@ -632,11 +632,11 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      if (Z_ele_sel_gen) {
-       h_Z_ele_gen->Fill(Z_ele0_ele1_gen.M());
+       h_Z_ele_gen->Fill(Z_ele0_ele1_gen_m);
      }
 
      if (Z_muo_sel_gen) {
-       h_Z_muo_gen->Fill(Z_muo0_muo1_gen.M());
+       h_Z_muo_gen->Fill(Z_muo0_muo1_gen_m);
      }
 
      int n_photons_gen = 0;
@@ -716,8 +716,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    h_nevt->Fill(2.5);
 
-   float weight_pu_ele = 1.0;
-   float weight_pu_muo = 1.0;
+   float weight_pu_ele = 1.;
+   float weight_pu_muo = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    weight_pu_ele = getWeight(pu_ele_weights, *Pileup_nTrueInt, 0);
