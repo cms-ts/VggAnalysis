@@ -41,7 +41,8 @@ for L in $LISTS; do
   grep -v '#'`
   printf "Checking %-110s : " `basename $L`
   if [ -z "$O" ]; then
-    echo "GOOD"
+    echo -n "GOOD"
+    grep -q "processed events" $L && echo " - done" || echo " - running"
   else
     if [ "$2" == "-d" ]; then
       echo "$O"
