@@ -1092,7 +1092,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    bool Z_ele_sel = false;
 
-   float Z_ele0_ele1_mass = 0.;
+   float Z_ele0_ele1_m = 0.;
 
    if (iele0 != -1 && iele1 != -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -1106,8 +1106,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL || *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ) {
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       Z_ele0_ele1_mass = (ele0 + ele1).M();
-       if (Z_ele0_ele1_mass >= 71. && Z_ele0_ele1_mass <= 111.) {
+       Z_ele0_ele1_m = (ele0 + ele1).M();
+       if (Z_ele0_ele1_m >= 71. && Z_ele0_ele1_m <= 111.) {
          Z_ele_sel = true;
        }
      }
@@ -1117,7 +1117,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    bool Z_muo_sel = false;
 
-   float Z_muo0_muo1_mass = 0.;
+   float Z_muo0_muo1_m = 0.;
 
    if (imuo0 != -1 && imuo1 != -1) {
 #if defined(mainSelectorDT16_cxx)
@@ -1141,8 +1141,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       Z_muo0_muo1_mass = (muo0 + muo1).M();
-       if (Z_muo0_muo1_mass >= 71. && Z_muo0_muo1_mass <= 111.) {
+       Z_muo0_muo1_m = (muo0 + muo1).M();
+       if (Z_muo0_muo1_m >= 71. && Z_muo0_muo1_m <= 111.) {
          Z_muo_sel = true;
        }
      }
@@ -1257,7 +1257,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 // Z plots
 
    if (Z_ele_sel) {
-     h_Z_ele->Fill(Z_ele0_ele1_mass, weight_Z_ele);
+     h_Z_ele->Fill(Z_ele0_ele1_m, weight_Z_ele);
      h_Z_ele_npvs->Fill(*PV_npvsGood);
      h_Z_ele_npvs_w->Fill(*PV_npvsGood, weight_Z_ele);
      h_Z_ele0_pt->Fill(Electron_pt[iele0], weight_Z_ele);
@@ -1276,7 +1276,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (Z_muo_sel) {
-     h_Z_muo->Fill(Z_muo0_muo1_mass, weight_Z_muo);
+     h_Z_muo->Fill(Z_muo0_muo1_m, weight_Z_muo);
      h_Z_muo_npvs->Fill(*PV_npvsGood);
      h_Z_muo_npvs_w->Fill(*PV_npvsGood, weight_Z_muo);
      h_Z_muo0_pt->Fill(Muon_pt[imuo0], weight_Z_muo);
@@ -1347,7 +1347,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_Z_ele_pho0_r9->Fill(Photon_r9[ipho0], weight_Z_ele * weight_pho0);
        h_Z_ele_pho0_sieie->Fill(Photon_sieie[ipho0], weight_Z_ele * weight_pho0);
        h_Z_ele_pho0_dR->Fill(TMath::Min(pho0.DeltaR(ele0), pho0.DeltaR(ele1)), weight_Z_ele * weight_pho0);
-       h_Z_ele_pho0->Fill(Z_ele0_ele1_mass, weight_Z_ele * weight_pho0);
+       h_Z_ele_pho0->Fill(Z_ele0_ele1_m, weight_Z_ele * weight_pho0);
      }
      if (n_photons >= 2) {
        h_Z_ele_pho1_pt->Fill(Photon_pt[ipho1], weight_Z_ele * weight_pho0 * weight_pho1);
@@ -1369,7 +1369,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_Z_muo_pho0_r9->Fill(Photon_r9[ipho0], weight_Z_muo * weight_pho0);
        h_Z_muo_pho0_sieie->Fill(Photon_sieie[ipho0], weight_Z_muo * weight_pho0);
        h_Z_muo_pho0_dR->Fill(TMath::Min(pho0.DeltaR(muo0), pho0.DeltaR(muo1)), weight_Z_muo * weight_pho0);
-       h_Z_muo_pho0->Fill(Z_muo0_muo1_mass, weight_Z_muo * weight_pho0);
+       h_Z_muo_pho0->Fill(Z_muo0_muo1_m, weight_Z_muo * weight_pho0);
      }
      if (n_photons >= 2) {
        h_Z_muo_pho1_pt->Fill(Photon_pt[ipho1], weight_Z_muo * weight_pho0 * weight_pho1);
