@@ -1,6 +1,6 @@
 #pragma cling load("libTreePlayer.so")
 
-void run(TString input="lists/Run2017B_DoubleEG.list", TString output="selector.root") {
+void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output="selector.root") {
 
   TDatime now;
   Info("run", "%s", now.AsSQLString());
