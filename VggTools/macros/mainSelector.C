@@ -645,7 +645,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (GenPart_status[i] != 1) continue;
        if (GenPart_pdgId[i] == 22) {
          if (GenPart_pt[i] < 15) continue;
-         if (fabs(GenPart_eta[i]) > 1.442 && fabs(GenPart_eta[i]) < 1.566) continue;
          if (fabs(GenPart_eta[i]) > 2.400) continue;
 
          TLorentzVector tmp_pho;
