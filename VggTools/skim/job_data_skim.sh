@@ -38,7 +38,7 @@ fi
 
 if [ -z "${1##*Run2018*14Sep2018*}" ]; then
   python nano_postproc.py \
-  -P -J cert/Cert_314472-322381_13TeV_PromptReco_Collisions18_JSON.txt \
+  -P -J cert/Cert_314472-325114_13TeV_PromptReco_Collisions18_JSON.txt \
   . $F > logs/$G.log 2>&1
   eos cp $G.root $D/$G.root >> logs/$G.log 2>&1
   rm $G.root >> logs/$G.log 2>&1
