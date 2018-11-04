@@ -667,28 +667,30 @@ Bool_t mainSelector::Process(Long64_t entry)
          TLorentzVector tmp_pho;
          tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
 
-         if (W_ele_sel_gen) {
+         //if (iele0_gen != -1 && iele1_gen == -1 && imuo0_gen == -1 && imuo1_gen  == -1) {
+         if (iele0_gen != -1 && iele1_gen == -1) {
            if (isWJetsToLNu || isWGToLNuG || isWGGJets) {
              float deltaR = tmp_pho.DeltaR(ele0_gen);
              if (deltaR < 0.15) continue;
            }
          }
 
-         if (W_muo_sel_gen) {
+         //if (imuo0_gen != -1 && imuo1_gen == -1 && iele0_gen == -1 && iele1_gen == -1) {
+         if (imuo0_gen != -1 && imuo1_gen == -1) {
            if (isWJetsToLNu || isWGToLNuG || isWGGJets) {
              float deltaR = tmp_pho.DeltaR(muo0_gen);
              if (deltaR < 0.15) continue;
            }
          }
 
-         if (Z_ele_sel_gen) {
+         if (iele0_gen != -1 && iele1_gen != -1) {
            if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
              float deltaR = TMath::Min(tmp_pho.DeltaR(ele0_gen), tmp_pho.DeltaR(ele1_gen));
              if (deltaR < 0.15) continue;
            }
          }
 
-         if (Z_muo_sel_gen) {
+         if (imuo0_gen != -1 && imuo1_gen != -1) {
            if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
              float deltaR = TMath::Min(tmp_pho.DeltaR(muo0_gen), tmp_pho.DeltaR(muo1_gen));
              if (deltaR < 0.15) continue;
@@ -1060,6 +1062,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float W_ele0_mt = 0.;
 
+//   if (iele0 != -1 && iele1 == -1 && imuo0 == -1 && imuo1 == -1) {
    if (iele0 != -1 && iele1 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_Ele27_WPTight_Gsf) {
@@ -1085,6 +1088,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float W_muo0_mt = 0.;
 
+//   if (imuo0 != -1 && imuo1 == -1 && iele0 == -1 && iele1 == -1) {
    if (imuo0 != -1 && imuo1 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_IsoTkMu24 || *HLT_IsoMu24) {
