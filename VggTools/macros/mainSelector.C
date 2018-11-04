@@ -52,10 +52,12 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    if (option.Contains("WJetsToLNu"))    isWJetsToLNu    = true;
    if (option.Contains("WGToLNuG"))      isWGToLNuG      = true;
+   if (option.Contains("WGG"))           isWGG           = true;
    if (option.Contains("WGGJets"))       isWGGJets       = true;
 
    if (option.Contains("DYJetsToLL"))    isDYJetsToLL    = true;
    if (option.Contains("ZGTo2LG"))       isZGTo2LG       = true;
+   if (option.Contains("ZGGToLLGG"))     isZGGToLLGG     = true;
    if (option.Contains("ZGGJetsToLLGG")) isZGGJetsToLLGG = true;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
@@ -545,7 +547,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    h_nevt->Fill(0.5);
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   if (isWJetsToLNu || isWGToLNuG || isWGGJets || isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
+   if (isWJetsToLNu || isWGToLNuG || isWGG || isWGGJets || isDYJetsToLL || isZGTo2LG || isZGGToLLGG || isZGGJetsToLLGG) {
 
      int iele0_gen = -1;
      int iele1_gen = -1;
@@ -668,28 +670,28 @@ Bool_t mainSelector::Process(Long64_t entry)
          tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
 
          if (iele0_gen != -1) {
-           if (isWJetsToLNu || isWGToLNuG || isWGGJets) {
+           if (isWJetsToLNu || isWGToLNuG || isWGG || isWGGJets) {
              float deltaR = tmp_pho.DeltaR(ele0_gen);
              if (deltaR < 0.3) continue;
            }
          }
 
          if (imuo0_gen != -1) {
-           if (isWJetsToLNu || isWGToLNuG || isWGGJets) {
+           if (isWJetsToLNu || isWGToLNuG || isWGG || isWGGJets) {
              float deltaR = tmp_pho.DeltaR(muo0_gen);
              if (deltaR < 0.3) continue;
            }
          }
 
          if (iele0_gen != -1 && iele1_gen != -1) {
-           if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
+           if (isDYJetsToLL || isZGTo2LG || isZGGToLLGG || isZGGJetsToLLGG) {
              float deltaR = TMath::Min(tmp_pho.DeltaR(ele0_gen), tmp_pho.DeltaR(ele1_gen));
              if (deltaR < 0.3) continue;
            }
          }
 
          if (imuo0_gen != -1 && imuo1_gen != -1) {
-           if (isDYJetsToLL || isZGTo2LG || isZGGJetsToLLGG) {
+           if (isDYJetsToLL || isZGTo2LG || isZGGToLLGG || isZGGJetsToLLGG) {
              float deltaR = TMath::Min(tmp_pho.DeltaR(muo0_gen), tmp_pho.DeltaR(muo1_gen));
              if (deltaR < 0.3) continue;
            }
@@ -705,7 +707,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (isWGToLNuG) {
        if (n_photons_gen == 0 || n_photons_gen >= 2) return kTRUE;
      }
-     if (isWGGJets) {
+     if (isWGG || isWGGJets) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
      }
 
@@ -715,7 +717,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (isZGTo2LG) {
        if (n_photons_gen == 0 || n_photons_gen >= 2) return kTRUE;
      }
-     if (isZGGJetsToLLGG) {
+     if (isZGGToLLGG || isZGGJetsToLLGG) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
      }
 

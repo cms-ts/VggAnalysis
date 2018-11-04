@@ -38,10 +38,12 @@ public :
 
    bool isWJetsToLNu    = false;
    bool isWGToLNuG      = false;
+   bool isWGG           = false;
    bool isWGGJets       = false;
 
    bool isDYJetsToLL    = false;
    bool isZGTo2LG       = false;
+   bool isZGGToLLGG     = false;
    bool isZGGJetsToLLGG = false;
 
    TH1D* h_nevt = 0;

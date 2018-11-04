@@ -74,9 +74,11 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     selector->SetOption("MC");
     if (input.Contains("WJetsToLNu"))    selector->SetOption("MC,WJetsToLNu");
     if (input.Contains("WGToLNuG"))      selector->SetOption("MC,WGToLNuG");
+    if (input.Contains("WGG"))           selector->SetOption("MC,WGG");
     if (input.Contains("WGGJets"))       selector->SetOption("MC,WGGJets");
     if (input.Contains("DYJetsToLL"))    selector->SetOption("MC,DYJetsToLL");
     if (input.Contains("ZGTo2LG"))       selector->SetOption("MC,ZGTo2LG");
+    if (input.Contains("ZGGToLLGG"))     selector->SetOption("MC,ZGGToLLGG");
     if (input.Contains("ZGGJetsToLLGG")) selector->SetOption("MC,ZGGJetsToLLGG");
     workers.Process(files, *selector, "Events", nevt);
   }
