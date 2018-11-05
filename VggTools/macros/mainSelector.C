@@ -204,7 +204,6 @@ void mainSelector::Begin(TTree * /*tree*/)
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
-#if 0
 #if defined(mainSelectorMC16_cxx)
    jet_resolution = new JME::JetResolution("jme/Summer16_25nsV1_MC_PtResolution_AK4PFchs.txt");
    jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Summer16_25nsV1_MC_SF_AK4PFchs.txt");
@@ -219,7 +218,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Fall17_25nsV1_MC_SF_AK4PFchs.txt");
 // FIXME
 #endif // defined(mainSelectorMC18_cxx)
-#endif // 0
 
 }
 
@@ -746,6 +744,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nElectron; i++) {
      float eCorr_ele = 1.;
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+// electron energy corrections not needed
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+// electron energy corrections not needed
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      Electron_pt[i] = Electron_pt[i] * eCorr_ele;
      if (Electron_pt[i] < 25) continue;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) continue;
@@ -974,12 +978,10 @@ Bool_t mainSelector::Process(Long64_t entry)
    int n_jets = 0;
    int ijet0 = -1;
 
-#if 0
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    float met_px = *MET_pt * TMath::Cos(*MET_phi);
    float met_py = *MET_pt * TMath::Sin(*MET_phi);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-#endif // 0
 
    if (iele0 != -1 || imuo0 != -1) {
      for (uint i = 0; i < *nJet; i++) {
@@ -991,8 +993,10 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (ipho0 != -1 && (uint)Photon_jetIdx[ipho0] == i) continue;
        if (ipho1 != -1 && (uint)Photon_jetIdx[ipho1] == i) continue;
 
-#if 0
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorMC16_cxx)
+// MC jets smearing not needed
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
        JME::JetParameters jer_parameters;
        jer_parameters.setJetPt(Jet_pt[i]);
        jer_parameters.setJetEta(Jet_eta[i]);
@@ -1024,8 +1028,10 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        Jet_pt[i] = jet_smear * Jet_pt[i];
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-#endif // 0
+#endif // defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+// MC jets smearing not needed
+#endif // defined(mainSelectorMC18_cxx)
 
        if (Jet_pt[i] < 30) continue;
        if (fabs(Jet_eta[i]) > 2.400) continue;
@@ -1039,12 +1045,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-#if 0
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    *MET_pt = TMath::Sqrt(TMath::Power(met_px, 2) + TMath::Power(met_py, 2));
    *MET_phi = TMath::ATan2(met_py, met_px);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-#endif // 0
 
    TLorentzVector jet0;
 
