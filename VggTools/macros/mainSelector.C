@@ -1058,8 +1058,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float W_ele0_mt = 0.;
 
-//   if (iele0 != -1 && iele1 == -1 && imuo0 == -1 && imuo1 == -1) {
-   if (iele0 != -1 && iele1 == -1) {
+   if (iele0 != -1 && iele1 == -1 && imuo0 == -1 && imuo1 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_Ele27_WPTight_Gsf) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -1084,8 +1083,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float W_muo0_mt = 0.;
 
-//   if (imuo0 != -1 && imuo1 == -1 && iele0 == -1 && iele1 == -1) {
-   if (imuo0 != -1 && imuo1 == -1) {
+   if (imuo0 != -1 && imuo1 == -1 && iele0 == -1 && iele1 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_IsoTkMu24 || *HLT_IsoMu24) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
