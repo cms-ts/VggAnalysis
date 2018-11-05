@@ -676,23 +676,27 @@ Bool_t mainSelector::Process(Long64_t entry)
          tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
 
          if (iele0_gen != -1) {
-           float deltaR = tmp_pho.DeltaR(ele0_gen);
-           if (deltaR < 0.3) continue;
+           if (tmp_pho.DeltaR(ele0_gen) < 0.3) {
+             continue;
+           }
          }
 
          if (imuo0_gen != -1) {
-           float deltaR = tmp_pho.DeltaR(muo0_gen);
-           if (deltaR < 0.3) continue;
+           if (tmp_pho.DeltaR(muo0_gen) < 0.3) {
+             continue;
+           }
          }
 
          if (iele0_gen != -1 && iele1_gen != -1) {
-           float deltaR = TMath::Min(tmp_pho.DeltaR(ele0_gen), tmp_pho.DeltaR(ele1_gen));
-           if (deltaR < 0.3) continue;
+           if (tmp_pho.DeltaR(ele0_gen) < 0.3 || tmp_pho.DeltaR(ele1_gen) < 0.3) {
+             continue;
+           }
          }
 
          if (imuo0_gen != -1 && imuo1_gen != -1) {
-           float deltaR = TMath::Min(tmp_pho.DeltaR(muo0_gen), tmp_pho.DeltaR(muo1_gen));
-           if (deltaR < 0.3) continue;
+           if (tmp_pho.DeltaR(muo0_gen) < 0.3 || tmp_pho.DeltaR(muo1_gen) < 0.3) {
+             continue;
+           }
          }
 
          n_photons_gen++;
