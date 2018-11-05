@@ -206,6 +206,7 @@ public :
    TH2D* sf_muo_iso = 0;
 
    TH2D* sf_pho_eff = 0;
+   TH2D* sf_pho_reco = 0;
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
    RoccoR* roccor;
