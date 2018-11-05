@@ -2,7 +2,7 @@
 
 cd /home/$USER/work/cms/CMSSW_9_4_9/
 eval `scramv1 runtime -sh`
-cd - > /dev/null
+cd $OLDPWD
 
 F=`echo $1 | sed -e 's;/eos/infnts;root://eosinfnts.ts.infn.it//eos/infnts;'`
 G=`basename $1 .root`_Skim

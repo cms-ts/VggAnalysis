@@ -2,7 +2,7 @@
 
 cd $CMS_PATH/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_2_0/
 eval `scramv1 runtime -sh`
-cd - > /dev/null
+cd $OLDPWD
 
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
 
