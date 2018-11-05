@@ -42,6 +42,8 @@ for F in `ls logs/Run2017*.log | grep -v Run2017[A-Z]_`; do
   printf "dataset %-35s - lumi = %6.3f /fb\n" $G $L
 done
 
+echo
+
 for F in `ls logs/Run2018*.log | grep -v Run2018[A-Z]_`; do
   G=`basename $F .log`
   L=`grep -A 5 Summary $F | grep [0-9] | awk '{print $12}'`
