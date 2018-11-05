@@ -558,29 +558,15 @@ Bool_t mainSelector::Process(Long64_t entry)
      int iele0_gen = -1;
      int iele1_gen = -1;
 
-     int imuo0_gen = -1;
-     int imuo1_gen = -1;
-
      for (uint i = 0; i < *nGenDressedLepton; i++) {
-       if (fabs(GenDressedLepton_pdgId[i]) == 11) {
-         if (GenDressedLepton_pt[i] < 25) continue;
-         if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
-         if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[iele0_gen] != GenDressedLepton_pdgId[i]) {
-           iele1_gen = i;
-         }
-         if (iele0_gen == -1) {
-           iele0_gen = i;
-         }
+       if (fabs(GenDressedLepton_pdgId[i]) != 11) continue;
+       if (GenDressedLepton_pt[i] < 25) continue;
+       if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
+       if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[iele0_gen] != GenDressedLepton_pdgId[i]) {
+         iele1_gen = i;
        }
-       if (fabs(GenDressedLepton_pdgId[i]) == 13) {
-         if (GenDressedLepton_pt[i] < 25) continue;
-         if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
-         if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[imuo0_gen] != GenDressedLepton_pdgId[i]) {
-           imuo1_gen = i;
-         }
-         if (imuo0_gen == -1) {
-           imuo0_gen = i;
-         }
+       if (iele0_gen == -1) {
+         iele0_gen = i;
        }
      }
 
@@ -592,6 +578,21 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
      if (iele1_gen != -1) {
        ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele1_gen], GenDressedLepton_eta[iele1_gen], GenDressedLepton_phi[iele1_gen], GenDressedLepton_mass[iele1_gen]);
+     }
+
+     int imuo0_gen = -1;
+     int imuo1_gen = -1;
+
+     for (uint i = 0; i < *nGenDressedLepton; i++) {
+       if (fabs(GenDressedLepton_pdgId[i]) != 13) continue;
+       if (GenDressedLepton_pt[i] < 25) continue;
+       if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
+       if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[imuo0_gen] != GenDressedLepton_pdgId[i]) {
+         imuo1_gen = i;
+       }
+       if (imuo0_gen == -1) {
+         imuo0_gen = i;
+       }
      }
 
      TLorentzVector muo0_gen;
@@ -665,49 +666,81 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      int n_photons_gen = 0;
+     int ipho0_gen = -1;
+     int ipho1_gen = -1;
 
      for (uint i = 0; i < *nGenPart; i++) {
        if (GenPart_status[i] != 1) continue;
-       if (GenPart_pdgId[i] == 22) {
-         if (GenPart_pt[i] < 20) continue;
-         if (fabs(GenPart_eta[i]) > 2.400) continue;
+       if (GenPart_pdgId[i] != 22) continue;
+       if (GenPart_pt[i] < 20) continue;
+       if (fabs(GenPart_eta[i]) > 2.400) continue;
 
+       if (ipho0_gen != -1 && ipho1_gen == -1) {
+         ipho1_gen = i;
          TLorentzVector tmp_pho;
          tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
-
          if (iele0_gen != -1) {
            if (tmp_pho.DeltaR(ele0_gen) < 0.3) {
+             ipho1_gen = -1;
              continue;
            }
          }
-
+         if (iele1_gen != -1) {
+           if (tmp_pho.DeltaR(ele1_gen) < 0.3) {
+             ipho1_gen = -1;
+             continue;
+           }
+         }
          if (imuo0_gen != -1) {
            if (tmp_pho.DeltaR(muo0_gen) < 0.3) {
+             ipho1_gen = -1;
              continue;
            }
          }
-
-         if (iele0_gen != -1 && iele1_gen != -1) {
-           if (tmp_pho.DeltaR(ele0_gen) < 0.3 || tmp_pho.DeltaR(ele1_gen) < 0.3) {
+         if (imuo1_gen != -1) {
+           if (tmp_pho.DeltaR(muo1_gen) < 0.3) {
+             ipho1_gen = -1;
              continue;
            }
          }
-
-         if (imuo0_gen != -1 && imuo1_gen != -1) {
-           if (tmp_pho.DeltaR(muo0_gen) < 0.3 || tmp_pho.DeltaR(muo1_gen) < 0.3) {
-             continue;
-           }
-         }
-
-         n_photons_gen++;
        }
+       if (ipho0_gen == -1) {
+         ipho0_gen = i;
+         TLorentzVector tmp_pho;
+         tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
+         if (iele0_gen != -1) {
+           if (tmp_pho.DeltaR(ele0_gen) < 0.3) {
+             ipho0_gen = -1;
+             continue;
+           }
+         }
+         if (iele1_gen != -1) {
+           if (tmp_pho.DeltaR(ele1_gen) < 0.3) {
+             ipho0_gen = -1;
+             continue;
+           }
+         }
+         if (imuo0_gen != -1) {
+           if (tmp_pho.DeltaR(muo0_gen) < 0.3) {
+             ipho0_gen = -1;
+             continue;
+           }
+         }
+         if (imuo1_gen != -1) {
+           if (tmp_pho.DeltaR(muo1_gen) < 0.3) {
+             ipho0_gen = -1;
+             continue;
+           }
+         }
+       }
+       n_photons_gen++;
      }
 
      if (isWJetsToLNu) {
        if (n_photons_gen != 0) return kTRUE;
      }
      if (isWGToLNuG) {
-       if (n_photons_gen == 0 || n_photons_gen >= 2) return kTRUE;
+       if (n_photons_gen != 1) return kTRUE;
      }
      if (isWGG || isWGGJets) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
@@ -717,7 +750,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (n_photons_gen != 0) return kTRUE;
      }
      if (isZGTo2LG) {
-       if (n_photons_gen == 0 || n_photons_gen >= 2) return kTRUE;
+       if (n_photons_gen != 1) return kTRUE;
      }
      if (isZGGToLLGG || isZGGJetsToLLGG) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
@@ -913,20 +946,20 @@ Bool_t mainSelector::Process(Long64_t entry)
              continue;
            }
          }
+         if (iele1 != -1) {
+           if (tmp_pho.DeltaR(ele1) < 0.3) {
+             ipho1 = -1;
+             continue;
+           }
+         }
          if (imuo0 != -1) {
            if (tmp_pho.DeltaR(muo0) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
-         if (iele0 != -1 && iele1 != -1) {
-           if (tmp_pho.DeltaR(ele0) < 0.3 || tmp_pho.DeltaR(ele1) < 0.3) {
-             ipho1 = -1;
-             continue;
-           }
-         }
-         if (imuo0 != -1 && imuo1 != -1) {
-           if (tmp_pho.DeltaR(muo0) < 0.3 || tmp_pho.DeltaR(muo1) < 0.3) {
+         if (imuo1 != -1) {
+           if (tmp_pho.DeltaR(muo1) < 0.3) {
              ipho1 = -1;
              continue;
            }
@@ -942,28 +975,26 @@ Bool_t mainSelector::Process(Long64_t entry)
              continue;
            }
          }
+         if (iele1 != -1) {
+           if (tmp_pho.DeltaR(ele1) < 0.3) {
+             ipho0 = -1;
+             continue;
+           }
+         }
          if (imuo0 != -1) {
            if (tmp_pho.DeltaR(muo0) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
-         if (iele0 != -1 && iele1 != -1) {
-           if (tmp_pho.DeltaR(ele0) < 0.3 || tmp_pho.DeltaR(ele1) < 0.3) {
-             ipho0 = -1;
-             continue;
-           }
-         }
-         if (imuo0 != -1 && imuo1 != -1) {
-           if (tmp_pho.DeltaR(muo0) < 0.3 || tmp_pho.DeltaR(muo1) < 0.3) {
+         if (imuo1 != -1) {
+           if (tmp_pho.DeltaR(muo1) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
        }
-
        n_photons++;
-
      }
    }
 
