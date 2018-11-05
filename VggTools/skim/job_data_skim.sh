@@ -14,7 +14,7 @@ fi
 
 if [ -z "${1##*Run2016*05Feb2018*}" ]; then
   python nano_postproc.py \
-  -P -J cert/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt \
+  -P -J /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt \
   . $F > logs/$G.log 2>&1
   eos cp $G.root $D/$G.root >> logs/$G.log 2>&1
   rm $G.root >> logs/$G.log 2>&1
@@ -22,7 +22,7 @@ fi
 
 if [ -z "${1##*Run2016*22Aug2018*}" ]; then
   python nano_postproc.py \
-  -P -J cert/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt \
+  -P -J /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt \
   . $F > logs/$G.log 2>&1
   eos cp $G.root $D/$G.root >> logs/$G.log 2>&1
   rm $G.root >> logs/$G.log 2>&1
@@ -30,7 +30,7 @@ fi
 
 if [ -z "${1##*Run2017*31Mar2018*}" ]; then
   python nano_postproc.py \
-  -P -J cert/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt \
+  -P -J /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt \
   . $F > logs/$G.log 2>&1
   eos cp $G.root $D/$G.root >> logs/$G.log 2>&1
   rm $G.root >> logs/$G.log 2>&1
@@ -38,7 +38,7 @@ fi
 
 if [ -z "${1##*Run2018*14Sep2018*}" ]; then
   python nano_postproc.py \
-  -P -J cert/Cert_314472-325114_13TeV_PromptReco_Collisions18_JSON.txt \
+  -P -J /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions18/13TeV/PromptReco/Cert_314472-325114_13TeV_PromptReco_Collisions18_JSON.txt \
   . $F > logs/$G.log 2>&1
   eos cp $G.root $D/$G.root >> logs/$G.log 2>&1
   rm $G.root >> logs/$G.log 2>&1
