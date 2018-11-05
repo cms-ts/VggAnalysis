@@ -71,5 +71,10 @@ RunIISummer16NanoAODv3_ZGGToLLGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8	0.6257
 RunIISummer16NanoAOD_ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8	117.864
 RunIISummer16NanoAODv3_ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8	117.864
 RunIISummer16NanoAOD_ZZ_TuneCUETP8M1_13TeV-pythia8	16.523
+# exclusive samples from inclusive samples
 RunIISummer16NanoAODv3_ZGTo2LG_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8		6025.2
 RunIISummer16NanoAODv3_ZGGToLLGG_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8	6025.2
+RunIIFall17NanoAOD_ZGTo2LG_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8			6025.2
+RunIIFall17NanoAOD_ZGGToLLGG_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8			6025.2
+RunIIFall18NanoAOD_ZGTo2LG_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8			6025.2
+RunIIFall18NanoAOD_ZGGToLLGG_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8			6025.2
