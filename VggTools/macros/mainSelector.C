@@ -1033,12 +1033,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (iele0 != -1 || imuo0 != -1) {
      for (uint i = 0; i < *nJet; i++) {
 
-       if (iele0 != -1 && (uint)Electron_jetIdx[iele0] == i) continue;
-       if (iele1 != -1 && (uint)Electron_jetIdx[iele1] == i) continue;
-       if (imuo0 != -1 && (uint)Muon_jetIdx[imuo0] == i) continue;
-       if (imuo1 != -1 && (uint)Muon_jetIdx[imuo1] == i) continue;
-       if (ipho0 != -1 && (uint)Photon_jetIdx[ipho0] == i) continue;
-       if (ipho1 != -1 && (uint)Photon_jetIdx[ipho1] == i) continue;
+       TLorentzVector tmp_jet;
+       tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
 
 #if defined(mainSelectorMC16_cxx)
 // MC jets smearing not needed
@@ -1051,11 +1047,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        bool jet_match = false;
        if (Jet_genJetIdx[i] >= 0 && (uint)Jet_genJetIdx[i] < *nGenJet) {
-         TLorentzVector jet;
-         jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
-         TLorentzVector genJet;
-         genJet.SetPtEtaPhiM(GenJet_pt[Jet_genJetIdx[i]], GenJet_eta[Jet_genJetIdx[i]], GenJet_phi[Jet_genJetIdx[i]], GenJet_mass[Jet_genJetIdx[i]]);
-         if (jet.DeltaR(genJet) < 0.4 && fabs(Jet_pt[i] - GenJet_pt[Jet_genJetIdx[i]]) < 3 * jet_resolution->getResolution(jer_parameters) * Jet_pt[i])  {
+         TLorentzVector tmp_jet_gen;
+         tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[Jet_genJetIdx[i]], GenJet_eta[Jet_genJetIdx[i]], GenJet_phi[Jet_genJetIdx[i]], GenJet_mass[Jet_genJetIdx[i]]);
+         if (tmp_jet.DeltaR(genJet) < 0.4 && fabs(tmp_jet.Pt() - tmp_jet_gen.Pt()) < 3 * jet_resolution->getResolution(jer_parameters) * tmp_jet.Pt())  {
            jet_match = true;
          }
        }
@@ -1075,6 +1069,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        Jet_pt[i] = jet_smear * Jet_pt[i];
+       tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 // MC jets smearing not needed
@@ -1083,11 +1078,36 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (Jet_pt[i] < 30) continue;
        if (fabs(Jet_eta[i]) > 2.400) continue;
 
-       n_jets++;
-
        if (ijet0 == -1) {
          ijet0 = i;
        }
+
+       if (iele0 != -1 && tmp_jet.DeltaR(ele0) < 0.4) {
+         ijet0 = -1;
+         continue;
+       }
+       if (imuo0 != -1 && tmp_jet.DeltaR(muo0) < 0.4) {
+         ijet0 = -1;
+         continue;
+       }
+       if (iele1 != -1 && tmp_jet.DeltaR(ele1) < 0.4) {
+         ijet0 = -1;
+         continue;
+       }
+       if (imuo1 != -1 && tmp_jet.DeltaR(muo1) < 0.4) {
+         ijet0 = -1;
+         continue;
+       }
+       if (ipho0 != -1 && tmp_jet.DeltaR(pho0) < 0.4) {
+         ijet0 = -1;
+         continue;
+       }
+       if (ipho1 != -1 && tmp_jet.DeltaR(pho1) < 0.4) {
+         ijet0 = -1;
+         continue;
+       }
+
+       n_jets++;
 
      }
    }
