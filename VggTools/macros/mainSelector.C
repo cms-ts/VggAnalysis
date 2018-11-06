@@ -1017,7 +1017,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      pho0.SetPtEtaPhiM(Photon_pt[ipho0], Photon_eta[ipho0], Photon_phi[ipho0], Photon_mass[ipho0]);
    }
    if (ipho1 != -1) {
-     pho1.SetPtEtaPhiM(Photon_pt[ipho0], Photon_eta[ipho0], Photon_phi[ipho0], Photon_mass[ipho1]);
+     pho1.SetPtEtaPhiM(Photon_pt[ipho1], Photon_eta[ipho1], Photon_phi[ipho1], Photon_mass[ipho1]);
    }
 
 // jets & MET
