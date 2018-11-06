@@ -677,57 +677,63 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (ipho0_gen != -1 && ipho1_gen == -1) {
          ipho1_gen = i;
-         TLorentzVector tmp_pho;
-         tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
+         TLorentzVector tmp_pho1;
+         tmp_pho1.SetPtEtaPhiM(GenPart_pt[ipho1_gen], GenPart_eta[ipho1_gen], GenPart_phi[ipho1_gen], GenPart_mass[ipho1_gen]);
          if (iele0_gen != -1) {
-           if (tmp_pho.DeltaR(ele0_gen) < 0.3) {
+           if (tmp_pho1.DeltaR(ele0_gen) < 0.3) {
              ipho1_gen = -1;
              continue;
            }
          }
          if (iele1_gen != -1) {
-           if (tmp_pho.DeltaR(ele1_gen) < 0.3) {
+           if (tmp_pho1.DeltaR(ele1_gen) < 0.3) {
              ipho1_gen = -1;
              continue;
            }
          }
          if (imuo0_gen != -1) {
-           if (tmp_pho.DeltaR(muo0_gen) < 0.3) {
+           if (tmp_pho1.DeltaR(muo0_gen) < 0.3) {
              ipho1_gen = -1;
              continue;
            }
          }
          if (imuo1_gen != -1) {
-           if (tmp_pho.DeltaR(muo1_gen) < 0.3) {
+           if (tmp_pho1.DeltaR(muo1_gen) < 0.3) {
              ipho1_gen = -1;
              continue;
            }
+         }
+         TLorentzVector tmp_pho0;
+         tmp_pho0.SetPtEtaPhiM(GenPart_pt[ipho0_gen], GenPart_eta[ipho0_gen], GenPart_phi[ipho0_gen], GenPart_mass[ipho0_gen]);
+         if (tmp_pho1.DeltaR(tmp_pho0) < 0.3) {
+           ipho1_gen = -1;
+           continue;
          }
        }
        if (ipho0_gen == -1) {
          ipho0_gen = i;
-         TLorentzVector tmp_pho;
-         tmp_pho.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
+         TLorentzVector tmp_pho0;
+         tmp_pho0.SetPtEtaPhiM(GenPart_pt[ipho0_gen], GenPart_eta[ipho0_gen], GenPart_phi[ipho0_gen], GenPart_mass[ipho0_gen]);
          if (iele0_gen != -1) {
-           if (tmp_pho.DeltaR(ele0_gen) < 0.3) {
+           if (tmp_pho0.DeltaR(ele0_gen) < 0.3) {
              ipho0_gen = -1;
              continue;
            }
          }
          if (iele1_gen != -1) {
-           if (tmp_pho.DeltaR(ele1_gen) < 0.3) {
+           if (tmp_pho0.DeltaR(ele1_gen) < 0.3) {
              ipho0_gen = -1;
              continue;
            }
          }
          if (imuo0_gen != -1) {
-           if (tmp_pho.DeltaR(muo0_gen) < 0.3) {
+           if (tmp_pho0.DeltaR(muo0_gen) < 0.3) {
              ipho0_gen = -1;
              continue;
            }
          }
          if (imuo1_gen != -1) {
-           if (tmp_pho.DeltaR(muo1_gen) < 0.3) {
+           if (tmp_pho0.DeltaR(muo1_gen) < 0.3) {
              ipho0_gen = -1;
              continue;
            }
@@ -938,57 +944,63 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (ipho0 != -1 && ipho1 == -1) {
          ipho1 = i;
-         TLorentzVector tmp_pho;
-         tmp_pho.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
+         TLorentzVector tmp_pho1;
+         tmp_pho1.SetPtEtaPhiM(Photon_pt[ipho1], Photon_eta[ipho1], Photon_phi[ipho1], Photon_mass[ipho1]);
          if (iele0 != -1) {
-           if (tmp_pho.DeltaR(ele0) < 0.3) {
+           if (tmp_pho1.DeltaR(ele0) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (iele1 != -1) {
-           if (tmp_pho.DeltaR(ele1) < 0.3) {
+           if (tmp_pho1.DeltaR(ele1) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (imuo0 != -1) {
-           if (tmp_pho.DeltaR(muo0) < 0.3) {
+           if (tmp_pho1.DeltaR(muo0) < 0.3) {
              ipho1 = -1;
              continue;
            }
          }
          if (imuo1 != -1) {
-           if (tmp_pho.DeltaR(muo1) < 0.3) {
+           if (tmp_pho1.DeltaR(muo1) < 0.3) {
              ipho1 = -1;
              continue;
            }
+         }
+         TLorentzVector tmp_pho0;
+         tmp_pho0.SetPtEtaPhiM(Photon_pt[ipho0], Photon_eta[ipho0], Photon_phi[ipho0], Photon_mass[ipho0]);
+         if (tmp_pho1.DeltaR(tmp_pho0) < 0.3) {
+           ipho1 = -1;
+           continue;
          }
        }
        if (ipho0 == -1) {
          ipho0 = i;
-         TLorentzVector tmp_pho;
-         tmp_pho.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
+         TLorentzVector tmp_pho0;
+         tmp_pho0.SetPtEtaPhiM(Photon_pt[ipho0], Photon_eta[ipho0], Photon_phi[ipho0], Photon_mass[ipho0]);
          if (iele0 != -1) {
-           if (tmp_pho.DeltaR(ele0) < 0.3) {
+           if (tmp_pho0.DeltaR(ele0) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (iele1 != -1) {
-           if (tmp_pho.DeltaR(ele1) < 0.3) {
+           if (tmp_pho0.DeltaR(ele1) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (imuo0 != -1) {
-           if (tmp_pho.DeltaR(muo0) < 0.3) {
+           if (tmp_pho0.DeltaR(muo0) < 0.3) {
              ipho0 = -1;
              continue;
            }
          }
          if (imuo1 != -1) {
-           if (tmp_pho.DeltaR(muo1) < 0.3) {
+           if (tmp_pho0.DeltaR(muo1) < 0.3) {
              ipho0 = -1;
              continue;
            }
