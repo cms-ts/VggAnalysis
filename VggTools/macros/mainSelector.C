@@ -870,8 +870,25 @@ Bool_t mainSelector::Process(Long64_t entry)
      eCorr_muo = roccor->kScaleDT(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], 0, 0);
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-     if (Muon_genPartIdx[i] >= 0 && (uint)Muon_genPartIdx[i] < *nGenPart) {
-       eCorr_muo = roccor->kSpreadMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], GenPart_pt[Muon_genPartIdx[i]], 0, 0);
+     int imuo_gen = -1;
+     TLorentzVector tmp_muo;
+     tmp_muo.SetPtEtaPhiM(Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_mass[i]);
+     for (uint j = 0; j < *nGenPart; j++) {
+       if (fabs(GenPart_pdgId[j]) != 13) continue;
+       TLorentzVector tmp_muo_gen;
+       tmp_muo_gen.SetPtEtaPhiM(GenPart_pt[j], GenPart_eta[j], GenPart_phi[j], GenPart_mass[j]);
+       if (fabs(tmp_muo_gen.DeltaR(tmp_muo) < 0.1)) {
+         if (imuo_gen != -1) {
+           if (fabs(Muon_pt[i] - GenPart_pt[j]) < fabs(Muon_pt[i] - GenPart_pt[imuo_gen])) {
+             imuo_gen = j;
+           }
+         } else {
+           imuo_gen = j;
+         }
+       }
+     }
+     if (imuo_gen != -1) {
+       eCorr_muo = roccor->kSpreadMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], GenPart_pt[imuo_gen], 0, 0);
      } else {
        eCorr_muo = roccor->kSmearMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_nTrackerLayers[i], gRandom->Rndm(), 0, 0);
        if (TMath::IsNaN(eCorr_muo)) eCorr_muo = 1.;
@@ -938,9 +955,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (Photon_mvaID_WP90[i] == 0) continue;
        if (Photon_electronVeto[i] == 0) continue;
        //if (Photon_pixelSeed[i] == 0) continue;
-
-       //if (iele0 != -1 && (uint)Electron_photonIdx[iele0] == i) continue;
-       //if (iele1 != -1 && (uint)Electron_photonIdx[iele1] == i) continue;
 
        if (ipho0 != -1 && ipho1 == -1) {
          ipho1 = i;
@@ -1045,18 +1059,24 @@ Bool_t mainSelector::Process(Long64_t entry)
        jer_parameters.setJetEta(Jet_eta[i]);
        jer_parameters.setRho(*fixedGridRhoFastjetAll);
 
-       bool jet_match = false;
-       if (Jet_genJetIdx[i] >= 0 && (uint)Jet_genJetIdx[i] < *nGenJet) {
+       int ijet_gen = -1;
+       for (uint j = 0; j < *nGenJet; j++) {
          TLorentzVector tmp_jet_gen;
-         tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[Jet_genJetIdx[i]], GenJet_eta[Jet_genJetIdx[i]], GenJet_phi[Jet_genJetIdx[i]], GenJet_mass[Jet_genJetIdx[i]]);
+         tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[j], GenJet_eta[j], GenJet_phi[j], GenJet_mass[j]);
          if (tmp_jet.DeltaR(tmp_jet_gen) < 0.4 && fabs(tmp_jet.Pt() - tmp_jet_gen.Pt()) < 3 * jet_resolution->getResolution(jer_parameters) * tmp_jet.Pt())  {
-           jet_match = true;
+           if (ijet_gen != -1) {
+             if (fabs(Jet_pt[i] - GenJet_pt[j]) < fabs(Jet_pt[i] - GenJet_pt[ijet_gen])) {
+               ijet_gen = j;
+             }
+           } else {
+             ijet_gen = j;
+           }
          }
        }
 
        float jet_smear = 1.;
-       if (jet_match) {
-         jet_smear = 1. + (jet_resolution_sf->getScaleFactor(jer_parameters) - 1.) * (Jet_pt[i] - GenJet_pt[Jet_genJetIdx[i]]) / Jet_pt[i];
+       if (ijet_gen != -1) {
+         jet_smear = 1. + (jet_resolution_sf->getScaleFactor(jer_parameters) - 1.) * (Jet_pt[i] - GenJet_pt[ijet_gen]) / Jet_pt[i];
        } else {
          jet_smear = gRandom->Gaus(1., jet_resolution->getResolution(jer_parameters) * TMath::Sqrt(TMath::Max(TMath::Power(jet_resolution_sf->getScaleFactor(jer_parameters), 2) - 1., 0.)));
        }
