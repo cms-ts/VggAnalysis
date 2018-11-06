@@ -308,54 +308,54 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo_jet0_phi = new TH1D("h_Z_muo_jet0_phi", "h_Z_muo_jet0_phi", 24, -TMath::Pi(), TMath::Pi());
 
    h_W_ele_nphotons = new TH1D("h_W_ele_nphotons", "h_W_ele_nphotons", 6, -0.5, 5.5);
-   h_W_ele_pho0_pt = new TH1D("h_W_ele_pho0_pt", "h_W_ele_pho0_pt", 100, 0., 200.);
+   h_W_ele_pho0_pt = new TH1D("h_W_ele_pho0_pt", "h_W_ele_pho0_pt", 50, 0., 200.);
    h_W_ele_pho0_eta = new TH1D("h_W_ele_pho0_eta", "h_W_ele_pho0_eta", 50, -2.5, 2.5);
    h_W_ele_pho0_phi = new TH1D("h_W_ele_pho0_phi", "h_W_ele_pho0_phi", 24, -TMath::Pi(), TMath::Pi());
    h_W_ele_pho0_r9 = new TH1D("h_W_ele_pho0_r9", "h_W_ele_pho0_r9", 50, 0., 5.);
    h_W_ele_pho0_sieie = new TH1D("h_W_ele_pho0_sieie", "h_W_ele_pho0_sieie", 50, 0., 0.05);
-   h_W_ele_pho1_pt = new TH1D("h_W_ele_pho1_pt", "h_W_ele_pho1_pt", 100, 0., 200.);
+   h_W_ele_pho1_pt = new TH1D("h_W_ele_pho1_pt", "h_W_ele_pho1_pt", 50, 0., 200.);
    h_W_ele_pho1_eta = new TH1D("h_W_ele_pho1_eta", "h_W_ele_pho1_eta", 50, -2.5, 2.5);
    h_W_ele_pho1_phi = new TH1D("h_W_ele_pho1_phi", "h_W_ele_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_W_ele_pho1_r9 = new TH1D("h_W_ele_pho1_r9", "h_W_ele_pho1_r9", 50, 0., 5.);
    h_W_ele_pho1_sieie = new TH1D("h_W_ele_pho1_sieie", "h_W_ele_pho1_sieie", 50, 0., 0.05);
-   h_W_ele_diphoton_pt = new TH1D("h_W_ele_diphoton_pt", "h_W_ele_diphoton_pt", 100, 0., 200.);
+   h_W_ele_diphoton_pt = new TH1D("h_W_ele_diphoton_pt", "h_W_ele_diphoton_pt", 20, 0., 200.);
    h_W_muo_nphotons = new TH1D("h_W_muo_nphotons", "h_W_muo_nphotons", 6, -0.5, 5.5);
-   h_W_muo_pho0_pt = new TH1D("h_W_muo_pho0_pt", "h_W_muo_pho0_pt", 100, 0., 200.);
+   h_W_muo_pho0_pt = new TH1D("h_W_muo_pho0_pt", "h_W_muo_pho0_pt", 50, 0., 200.);
    h_W_muo_pho0_eta = new TH1D("h_W_muo_pho0_eta", "h_W_muo_pho0_eta", 50, -2.5, 2.5);
    h_W_muo_pho0_phi = new TH1D("h_W_muo_pho0_phi", "h_W_muo_pho0_phi", 24, -TMath::Pi(), TMath::Pi());
    h_W_muo_pho0_r9 = new TH1D("h_W_muo_pho0_r9", "h_W_muo_pho0_r9", 50, 0., 5.);
    h_W_muo_pho0_sieie = new TH1D("h_W_muo_pho0_sieie", "h_W_muo_pho0_sieie", 50, 0., 0.05);
-   h_W_muo_pho1_pt = new TH1D("h_W_muo_pho1_pt", "h_W_muo_pho1_pt", 100, 0., 200.);
+   h_W_muo_pho1_pt = new TH1D("h_W_muo_pho1_pt", "h_W_muo_pho1_pt", 50, 0., 200.);
    h_W_muo_pho1_eta = new TH1D("h_W_muo_pho1_eta", "h_W_muo_pho1_eta", 50, -2.5, 2.5);
    h_W_muo_pho1_phi = new TH1D("h_W_muo_pho1_phi", "h_W_muo_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_W_muo_pho1_r9 = new TH1D("h_W_muo_pho1_r9", "h_W_muo_pho1_r9", 50, 0., 5.);
    h_W_muo_pho1_sieie = new TH1D("h_W_muo_pho1_sieie", "h_W_muo_pho1_sieie", 50, 0., 0.05);
-   h_W_muo_diphoton_pt = new TH1D("h_W_muo_diphoton_pt", "h_W_muo_diphoton_pt", 100, 0., 200.);
+   h_W_muo_diphoton_pt = new TH1D("h_W_muo_diphoton_pt", "h_W_muo_diphoton_pt", 20, 0., 200.);
 
    h_Z_ele_nphotons = new TH1D("h_Z_ele_nphotons", "h_Z_ele_nphotons", 6, -0.5, 5.5);
-   h_Z_ele_pho0_pt = new TH1D("h_Z_ele_pho0_pt", "h_Z_ele_pho0_pt", 100, 0., 200.);
+   h_Z_ele_pho0_pt = new TH1D("h_Z_ele_pho0_pt", "h_Z_ele_pho0_pt", 50, 0., 200.);
    h_Z_ele_pho0_eta = new TH1D("h_Z_ele_pho0_eta", "h_Z_ele_pho0_eta", 50, -2.5, 2.5);
    h_Z_ele_pho0_phi = new TH1D("h_Z_ele_pho0_phi", "h_Z_ele_pho0_phi", 24, -TMath::Pi(), TMath::Pi());
    h_Z_ele_pho0_r9 = new TH1D("h_Z_ele_pho0_r9", "h_Z_ele_pho0_r9", 50, 0., 5.);
    h_Z_ele_pho0_sieie = new TH1D("h_Z_ele_pho0_sieie", "h_Z_ele_pho0_sieie", 50, 0., 0.05);
-   h_Z_ele_pho1_pt = new TH1D("h_Z_ele_pho1_pt", "h_Z_ele_pho1_pt", 100, 0., 200.);
+   h_Z_ele_pho1_pt = new TH1D("h_Z_ele_pho1_pt", "h_Z_ele_pho1_pt", 50, 0., 200.);
    h_Z_ele_pho1_eta = new TH1D("h_Z_ele_pho1_eta", "h_Z_ele_pho1_eta", 50, -2.5, 2.5);
    h_Z_ele_pho1_phi = new TH1D("h_Z_ele_pho1_phi", "h_Z_ele_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_Z_ele_pho1_r9 = new TH1D("h_Z_ele_pho1_r9", "h_Z_ele_pho1_r9", 50, 0., 5.);
    h_Z_ele_pho1_sieie = new TH1D("h_Z_ele_pho1_sieie", "h_Z_ele_pho1_sieie", 50, 0., 0.05);
-   h_Z_ele_diphoton_pt = new TH1D("h_Z_ele_diphoton_pt", "h_Z_ele_diphoton_pt", 100, 0., 200.);
+   h_Z_ele_diphoton_pt = new TH1D("h_Z_ele_diphoton_pt", "h_Z_ele_diphoton_pt", 20, 0., 200.);
    h_Z_muo_nphotons = new TH1D("h_Z_muo_nphotons", "h_Z_muo_nphotons", 6, -0.5, 5.5);
-   h_Z_muo_pho0_pt = new TH1D("h_Z_muo_pho0_pt", "h_Z_muo_pho0_pt", 100, 0., 200.);
+   h_Z_muo_pho0_pt = new TH1D("h_Z_muo_pho0_pt", "h_Z_muo_pho0_pt", 50, 0., 200.);
    h_Z_muo_pho0_eta = new TH1D("h_Z_muo_pho0_eta", "h_Z_muo_pho0_eta", 50, -2.5, 2.5);
    h_Z_muo_pho0_phi = new TH1D("h_Z_muo_pho0_phi", "h_Z_muo_pho0_phi", 24, -TMath::Pi(), TMath::Pi());
    h_Z_muo_pho0_r9 = new TH1D("h_Z_muo_pho0_r9", "h_Z_muo_pho0_r9", 50, 0., 5.);
    h_Z_muo_pho0_sieie = new TH1D("h_Z_muo_pho0_sieie", "h_Z_muo_pho0_sieie", 50, 0., 0.05);
-   h_Z_muo_pho1_pt = new TH1D("h_Z_muo_pho1_pt", "h_Z_muo_pho1_pt", 100, 0., 200.);
+   h_Z_muo_pho1_pt = new TH1D("h_Z_muo_pho1_pt", "h_Z_muo_pho1_pt", 50, 0., 200.);
    h_Z_muo_pho1_eta = new TH1D("h_Z_muo_pho1_eta", "h_Z_muo_pho1_eta", 50, -2.5, 2.5);
    h_Z_muo_pho1_phi = new TH1D("h_Z_muo_pho1_phi", "h_Z_muo_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_Z_muo_pho1_r9 = new TH1D("h_Z_muo_pho1_r9", "h_Z_muo_pho1_r9", 50, 0., 5.);
    h_Z_muo_pho1_sieie = new TH1D("h_Z_muo_pho1_sieie", "h_Z_muo_pho1_sieie", 50, 0., 0.05);
-   h_Z_muo_diphoton_pt = new TH1D("h_Z_muo_diphoton_pt", "h_Z_muo_diphoton_pt", 100, 0., 200.);
+   h_Z_muo_diphoton_pt = new TH1D("h_Z_muo_diphoton_pt", "h_Z_muo_diphoton_pt", 20, 0., 200.);
 
    h_W_ele_pho0_dR = new TH1D("h_W_ele_pho0_dR", "h_W_ele_pho0_dR", 50, 0., 5.);
    h_W_ele_pho1_dR = new TH1D("h_W_ele_pho1_dR", "h_W_ele_pho1_dR", 50, 0., 5.);
@@ -366,10 +366,10 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo_pho0_dR = new TH1D("h_Z_muo_pho0_dR", "h_Z_muo_pho0_dR", 50, 0., 5.);
    h_Z_muo_pho1_dR = new TH1D("h_Z_muo_pho1_dR", "h_Z_muo_pho1_dR", 50, 0., 5.);
 
-   h_W_ele_pho0 = new TH1D("h_W_ele_pho0", "h_W_ele_pho0", 100, 20, 200);
-   h_W_muo_pho0 = new TH1D("h_W_muo_pho0", "h_W_muo_pho0", 100, 20, 200);
-   h_Z_ele_pho0 = new TH1D("h_Z_ele_pho0", "h_Z_ele_pho0", 100, 71, 111);
-   h_Z_muo_pho0 = new TH1D("h_Z_muo_pho0", "h_Z_muo_pho0", 100, 71, 111);
+   h_W_ele_pho0 = new TH1D("h_W_ele_pho0", "h_W_ele_pho0", 90, 20, 200);
+   h_W_muo_pho0 = new TH1D("h_W_muo_pho0", "h_W_muo_pho0", 90, 20, 200);
+   h_Z_ele_pho0 = new TH1D("h_Z_ele_pho0", "h_Z_ele_pho0", 40, 71, 111);
+   h_Z_muo_pho0 = new TH1D("h_Z_muo_pho0", "h_Z_muo_pho0", 40, 71, 111);
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    h_W_ele_gen = new TH1D("h_W_ele_gen", "h_W_ele_gen", 100, 20., 200.);
