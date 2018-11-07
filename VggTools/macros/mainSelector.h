@@ -227,9 +227,9 @@ public :
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_dxy = {fReader, "Electron_dxy"};
    TTreeReaderArray<Float_t> Electron_dz = {fReader, "Electron_dz"};
+   TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Float_t> Electron_r9 = {fReader, "Electron_r9"};
    TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
-   TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
