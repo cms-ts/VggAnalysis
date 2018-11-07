@@ -233,8 +233,8 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    // create the histograms
    h_nevt = new TH1D("h_nevt", "h_nevt", 10, 0., 10.);
 
-   h_W_ele = new TH1D("h_W_ele", "h_W_ele", 100, 20., 200.);
-   h_W_muo = new TH1D("h_W_muo", "h_W_muo", 100, 20., 200.);
+   h_W_ele = new TH1D("h_W_ele", "h_W_ele", 90, 20., 200.);
+   h_W_muo = new TH1D("h_W_muo", "h_W_muo", 90, 20., 200.);
 
    h_W_ele_npvs = new TH1D("h_W_ele_npvs", "h_W_ele_npvs", 100, 0., 100.);
    h_W_ele_npvs_w = new TH1D("h_W_ele_npvs_w", "h_W_ele_npvs_w", 100, 0., 100.);
@@ -256,8 +256,8 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_W_muo_met_phi = new TH1D("h_W_muo_met_phi", "h_W_muo_met_phi", 24, -TMath::Pi(), TMath::Pi());
    h_W_muo_met_sign = new TH1D("h_W_muo_met_sign", "h_W_muo_met_sign", 100, 0., 100.);
 
-   h_Z_ele = new TH1D("h_Z_ele", "h_Z_ele", 100, 71., 111.);
-   h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 100, 71., 111.);
+   h_Z_ele = new TH1D("h_Z_ele", "h_Z_ele", 80, 71., 111.);
+   h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 80, 71., 111.);
 
    h_Z_ele_npvs = new TH1D("h_Z_ele_npvs", "h_Z_ele_npvs", 100, 0., 100.);
    h_Z_ele_npvs_w = new TH1D("h_Z_ele_npvs_w", "h_Z_ele_npvs_w", 100, 0., 100.);
@@ -372,11 +372,11 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo_pho0 = new TH1D("h_Z_muo_pho0", "h_Z_muo_pho0", 40, 71, 111);
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   h_W_ele_gen = new TH1D("h_W_ele_gen", "h_W_ele_gen", 100, 20., 200.);
-   h_W_muo_gen = new TH1D("h_W_muo_gen", "h_W_muo_gen", 100, 20., 200.);
+   h_W_ele_gen = new TH1D("h_W_ele_gen", "h_W_ele_gen", 90, 20., 200.);
+   h_W_muo_gen = new TH1D("h_W_muo_gen", "h_W_muo_gen", 90, 20., 200.);
 
-   h_Z_ele_gen = new TH1D("h_Z_ele_gen", "h_Z_ele_gen", 100, 71., 111.);
-   h_Z_muo_gen = new TH1D("h_Z_muo_gen", "h_Z_muo_gen", 100, 71., 111.);
+   h_Z_ele_gen = new TH1D("h_Z_ele_gen", "h_Z_ele_gen", 80, 71., 111.);
+   h_Z_muo_gen = new TH1D("h_Z_muo_gen", "h_Z_muo_gen", 80, 71., 111.);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    // add all booked histograms to the selector output list
