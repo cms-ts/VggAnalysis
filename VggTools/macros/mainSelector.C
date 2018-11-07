@@ -1044,92 +1044,72 @@ Bool_t mainSelector::Process(Long64_t entry)
    float met_py = *MET_pt * TMath::Sin(*MET_phi);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   if (iele0 != -1 || imuo0 != -1) {
-     for (uint i = 0; i < *nJet; i++) {
+   for (uint i = 0; i < *nJet; i++) {
 
-       TLorentzVector tmp_jet;
-       tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
+     TLorentzVector tmp_jet;
+     tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
+
+     if (iele0 != -1 && tmp_jet.DeltaR(ele0) < 0.4) continue;
+     if (iele1 != -1 && tmp_jet.DeltaR(ele1) < 0.4) continue;
+     if (imuo0 != -1 && tmp_jet.DeltaR(muo0) < 0.4) continue;
+     if (imuo1 != -1 && tmp_jet.DeltaR(muo1) < 0.4) continue;
+     if (ipho0 != -1 && tmp_jet.DeltaR(pho0) < 0.4) continue;
+     if (ipho1 != -1 && tmp_jet.DeltaR(pho1) < 0.4) continue;
 
 #if defined(mainSelectorMC16_cxx)
 // MC jets smearing not needed
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
-       JME::JetParameters jer_parameters;
-       jer_parameters.setJetPt(Jet_pt[i]);
-       jer_parameters.setJetEta(Jet_eta[i]);
-       jer_parameters.setRho(*fixedGridRhoFastjetAll);
+     JME::JetParameters jer_parameters;
+     jer_parameters.setJetPt(Jet_pt[i]);
+     jer_parameters.setJetEta(Jet_eta[i]);
+     jer_parameters.setRho(*fixedGridRhoFastjetAll);
 
-       int ijet_gen = -1;
-       for (uint j = 0; j < *nGenJet; j++) {
-         TLorentzVector tmp_jet_gen;
-         tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[j], GenJet_eta[j], GenJet_phi[j], GenJet_mass[j]);
-         if (tmp_jet.DeltaR(tmp_jet_gen) < 0.4 && fabs(tmp_jet.Pt() - tmp_jet_gen.Pt()) < 3 * jet_resolution->getResolution(jer_parameters) * tmp_jet.Pt())  {
-           if (ijet_gen != -1) {
-             if (fabs(Jet_pt[i] - GenJet_pt[j]) < fabs(Jet_pt[i] - GenJet_pt[ijet_gen])) {
-               ijet_gen = j;
-             }
-           } else {
+     int ijet_gen = -1;
+     for (uint j = 0; j < *nGenJet; j++) {
+       TLorentzVector tmp_jet_gen;
+       tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[j], GenJet_eta[j], GenJet_phi[j], GenJet_mass[j]);
+       if (tmp_jet.DeltaR(tmp_jet_gen) < 0.4 && fabs(tmp_jet.Pt() - tmp_jet_gen.Pt()) < 3 * jet_resolution->getResolution(jer_parameters) * tmp_jet.Pt())  {
+         if (ijet_gen != -1) {
+           if (fabs(Jet_pt[i] - GenJet_pt[j]) < fabs(Jet_pt[i] - GenJet_pt[ijet_gen])) {
              ijet_gen = j;
            }
+         } else {
+           ijet_gen = j;
          }
        }
+     }
 
-       float jet_smear = 1.;
-       if (ijet_gen != -1) {
-         jet_smear = 1. + (jet_resolution_sf->getScaleFactor(jer_parameters) - 1.) * (Jet_pt[i] - GenJet_pt[ijet_gen]) / Jet_pt[i];
-       } else {
-         jet_smear = gRandom->Gaus(1., jet_resolution->getResolution(jer_parameters) * TMath::Sqrt(TMath::Max(TMath::Power(jet_resolution_sf->getScaleFactor(jer_parameters), 2) - 1., 0.)));
-       }
+     float jet_smear = 1.;
+     if (ijet_gen != -1) {
+       jet_smear = 1. + (jet_resolution_sf->getScaleFactor(jer_parameters) - 1.) * (Jet_pt[i] - GenJet_pt[ijet_gen]) / Jet_pt[i];
+     } else {
+       jet_smear = gRandom->Gaus(1., jet_resolution->getResolution(jer_parameters) * TMath::Sqrt(TMath::Max(TMath::Power(jet_resolution_sf->getScaleFactor(jer_parameters), 2) - 1., 0.)));
+     }
 
-       if (jet_smear * Jet_pt[i] < 1.e-2) jet_smear = 1.e-2;
+     if (jet_smear * Jet_pt[i] < 1.e-2) jet_smear = 1.e-2;
 
-       if (jet_smear * Jet_pt[i] > 15) {
-         met_px = met_px - (jet_smear - 1.) * Jet_pt[i] * TMath::Cos(Jet_phi[i]);
-         met_py = met_py - (jet_smear - 1.) * Jet_pt[i] * TMath::Sin(Jet_phi[i]);
-       }
+     if (jet_smear * Jet_pt[i] > 15) {
+       met_px = met_px - (jet_smear - 1.) * Jet_pt[i] * TMath::Cos(Jet_phi[i]);
+       met_py = met_py - (jet_smear - 1.) * Jet_pt[i] * TMath::Sin(Jet_phi[i]);
+     }
 
-       Jet_pt[i] = jet_smear * Jet_pt[i];
-       tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
+     Jet_pt[i] = jet_smear * Jet_pt[i];
+     tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 // MC jets smearing not needed
 #endif // defined(mainSelectorMC18_cxx)
 
-       if (Jet_pt[i] < 30) continue;
-       if (fabs(Jet_eta[i]) > 2.400) continue;
+     if (Jet_pt[i] < 30) continue;
+     if (fabs(Jet_eta[i]) > 2.400) continue;
 
-       if (ijet0 == -1) {
-         ijet0 = i;
-       }
-
-       if (iele0 != -1 && tmp_jet.DeltaR(ele0) < 0.4) {
-         ijet0 = -1;
-         continue;
-       }
-       if (imuo0 != -1 && tmp_jet.DeltaR(muo0) < 0.4) {
-         ijet0 = -1;
-         continue;
-       }
-       if (iele1 != -1 && tmp_jet.DeltaR(ele1) < 0.4) {
-         ijet0 = -1;
-         continue;
-       }
-       if (imuo1 != -1 && tmp_jet.DeltaR(muo1) < 0.4) {
-         ijet0 = -1;
-         continue;
-       }
-       if (ipho0 != -1 && tmp_jet.DeltaR(pho0) < 0.4) {
-         ijet0 = -1;
-         continue;
-       }
-       if (ipho1 != -1 && tmp_jet.DeltaR(pho1) < 0.4) {
-         ijet0 = -1;
-         continue;
-       }
-
-       n_jets++;
-
+     if (ijet0 == -1) {
+       ijet0 = i;
      }
+
+     n_jets++;
+
    }
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
