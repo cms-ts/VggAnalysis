@@ -672,6 +672,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      for (uint i = 0; i < *nGenPart; i++) {
        if (GenPart_status[i] != 1) continue;
        if (GenPart_pdgId[i] != 22) continue;
+       if ((GenPart_statusFlags[i] & 1) == 0) continue;
        if (GenPart_pt[i] < 10) continue;
        if (fabs(GenPart_eta[i]) > 2.500) continue;
 
@@ -709,16 +710,6 @@ Bool_t mainSelector::Process(Long64_t entry)
            ipho1_gen = -1;
            continue;
          }
-         for (uint j = 0; j < *nGenJet; j++) {
-           if (GenJet_pt[j] < 10) continue;
-           TLorentzVector tmp_jet_gen;
-           tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[j], GenJet_eta[j], GenJet_phi[j], GenJet_mass[j]);
-           if (tmp_pho1_gen.DeltaR(tmp_jet_gen) < 0.4) {
-             ipho1_gen = -1;
-             break;
-           }
-         }
-         if (ipho1_gen == -1) continue;
        }
        if (ipho0_gen == -1) {
          ipho0_gen = i;
@@ -748,16 +739,6 @@ Bool_t mainSelector::Process(Long64_t entry)
              continue;
            }
          }
-         for (uint j = 0; j < *nGenJet; j++) {
-           if (GenJet_pt[j] < 10) continue;
-           TLorentzVector tmp_jet_gen;
-           tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[j], GenJet_eta[j], GenJet_phi[j], GenJet_mass[j]);
-           if (tmp_pho0_gen.DeltaR(tmp_jet_gen) < 0.4) {
-             ipho0_gen = -1;
-             break;
-           }
-         }
-         if (ipho0_gen == -1) continue;
        }
        n_photons_gen++;
      }
