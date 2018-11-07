@@ -560,8 +560,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 11) continue;
-       if (GenDressedLepton_pt[i] < 25) continue;
-       if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
+       if (GenDressedLepton_pt[i] < 15) continue;
+       if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
        if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[iele0_gen] != GenDressedLepton_pdgId[i]) {
          iele1_gen = i;
        }
@@ -585,8 +585,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 13) continue;
-       if (GenDressedLepton_pt[i] < 25) continue;
-       if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
+       if (GenDressedLepton_pt[i] < 15) continue;
+       if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
        if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[imuo0_gen] != GenDressedLepton_pdgId[i]) {
          imuo1_gen = i;
        }
@@ -633,7 +633,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0_gen != -1 && iele1_gen != -1) {
        Z_ele0_ele1_gen_m = (ele0_gen + ele1_gen).M();
-       if (Z_ele0_ele1_gen_m >= 71. && Z_ele0_ele1_gen_m <= 111.) {
+       if (Z_ele0_ele1_gen_m >= 71. && Z_ele0_ele1_gen_m <= 111. && ele0_gen.Pt() > 25 && ele1_gen.Pt() > 25) {
          Z_ele_sel_gen = true;
        }
      }
@@ -644,7 +644,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (imuo0_gen != -1 && imuo1_gen != -1) {
        Z_muo0_muo1_gen_m = (muo0_gen + muo1_gen).M();
-       if (Z_muo0_muo1_gen_m >= 71. && Z_muo0_muo1_gen_m <= 111.) {
+       if (Z_muo0_muo1_gen_m >= 71. && Z_muo0_muo1_gen_m <= 111. && muo0_gen.Pt() > 25 && muo1_gen.Pt() > 25) {
          Z_muo_sel_gen = true;
        }
      }
@@ -672,8 +672,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      for (uint i = 0; i < *nGenPart; i++) {
        if (GenPart_status[i] != 1) continue;
        if (GenPart_pdgId[i] != 22) continue;
-       if (GenPart_pt[i] < 20) continue;
-       if (fabs(GenPart_eta[i]) > 2.400) continue;
+       if (GenPart_pt[i] < 10) continue;
+       if (fabs(GenPart_eta[i]) > 2.500) continue;
 
        if (ipho0_gen != -1 && ipho1_gen == -1) {
          ipho1_gen = i;
@@ -709,6 +709,16 @@ Bool_t mainSelector::Process(Long64_t entry)
            ipho1_gen = -1;
            continue;
          }
+         for (uint j = 0; j < *nGenJet; j++) {
+           if (GenJet_pt[j] < 10) continue;
+           TLorentzVector tmp_jet_gen;
+           tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[j], GenJet_eta[j], GenJet_phi[j], GenJet_mass[j]);
+           if (tmp_pho1_gen.DeltaR(tmp_jet_gen) < 0.4) {
+             ipho1_gen = -1;
+             break;
+           }
+         }
+         if (ipho1_gen == -1) continue;
        }
        if (ipho0_gen == -1) {
          ipho0_gen = i;
@@ -738,6 +748,16 @@ Bool_t mainSelector::Process(Long64_t entry)
              continue;
            }
          }
+         for (uint j = 0; j < *nGenJet; j++) {
+           if (GenJet_pt[j] < 10) continue;
+           TLorentzVector tmp_jet_gen;
+           tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[j], GenJet_eta[j], GenJet_phi[j], GenJet_mass[j]);
+           if (tmp_pho0_gen.DeltaR(tmp_jet_gen) < 0.4) {
+             ipho0_gen = -1;
+             break;
+           }
+         }
+         if (ipho0_gen == -1) continue;
        }
        n_photons_gen++;
      }
@@ -1192,7 +1212,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_ele0_ele1_m = (ele0 + ele1).M();
-       if (Z_ele0_ele1_m >= 71. && Z_ele0_ele1_m <= 111.) {
+       if (Z_ele0_ele1_m >= 71. && Z_ele0_ele1_m <= 111. && ele0.Pt() > 25 && ele1.Pt() > 25) {
          Z_ele_sel = true;
        }
      }
@@ -1227,7 +1247,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_muo0_muo1_m = (muo0 + muo1).M();
-       if (Z_muo0_muo1_m >= 71. && Z_muo0_muo1_m <= 111.) {
+       if (Z_muo0_muo1_m >= 71. && Z_muo0_muo1_m <= 111. && muo0.Pt() > 25 && muo1.Pt() > 25) {
          Z_muo_sel = true;
        }
      }
