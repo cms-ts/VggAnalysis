@@ -1,6 +1,6 @@
 #!/bin/sh
 
-QUEUE=normal
+QUEUE=normal_io
 export USE_LSF_STARTER=no
 
 DATADIR=/eos/infnts/cms/store/data
