@@ -103,7 +103,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 
 #if defined(mainSelectorMC16_cxx)
    file_ele_sf_eff = TFile::Open("root/sf_ele_2016_LegacyReReco_ElectronMVAwp90.root");
-   file_ele_sf_reco = TFile::Open("root/sf_ele_2016_EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root");
+   file_ele_sf_reco = TFile::Open("root/sf_ele_2016_LegacyReReco_EGM2D_RECO.root");
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
    sf_ele_eff->SetDirectory(0);
