@@ -53,6 +53,13 @@ void plot0(string plot="", string title="", string version="v00") {
     if (index > 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
       ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(1);
+// FIXME
+// change required after adding generator weights (v00.new18.gen)
+      if (((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(4) != 0) {
+        cout << "WARNING: fixing generator weights !!" << endl;
+        ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
+      }
+// FIXME
       double norm = xsecMap[it->first]*1000*lumi/ngen;
       if (histo[index]) {
         histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()), norm);
@@ -61,7 +68,6 @@ void plot0(string plot="", string title="", string version="v00") {
         histo[index]->SetDirectory(0);
         histo[index]->Scale(norm);
       }
-cout << it->first << " " << norm << " " << histo[index]->Integral() << endl;
       file.Close();
     }
   }
