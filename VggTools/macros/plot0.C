@@ -46,7 +46,7 @@ void plot0(string plot="", string title="", string version="v00") {
     }
   }
 
-  int ngen = 0;
+  double ngen = 0;
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
@@ -61,6 +61,7 @@ void plot0(string plot="", string title="", string version="v00") {
         histo[index]->SetDirectory(0);
         histo[index]->Scale(norm);
       }
+cout << it->first << " " << norm << " " << histo[index]->Integral() << endl;
       file.Close();
     }
   }
