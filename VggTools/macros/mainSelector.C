@@ -552,6 +552,14 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    h_nevt->Fill(0.5);
 
+   float weight_gen = 1.;
+
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   weight_gen = *Generator_weight;
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
+   h_nevt->Fill(1.5, weight_gen);
+
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (isWJetsToLNu || isWGToLNuG || isWGG || isWGGJets || isDYJetsToLL || isZGTo2LG || isZGGToLLGG || isZGGJetsToLLGG) {
 
@@ -778,12 +786,12 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   h_nevt->Fill(1.5);
+   h_nevt->Fill(2.5, weight_gen);
 
    if (*Flag_goodVertices == 0) return kTRUE;
    if (*Flag_METFilters == 0) return kTRUE;
 
-   h_nevt->Fill(2.5);
+   h_nevt->Fill(3.5, weight_gen);
 
    float weight_pu_ele = 1.;
    float weight_pu_muo = 1.;
@@ -1306,14 +1314,14 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // Z scale factors
 
-   float weight_Z_ele = weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
-   float weight_Z_muo = weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
+   float weight_Z_ele = weight_gen * weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
+   float weight_Z_muo = weight_gen * weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
 
 // W plots
 
    if (W_ele_sel) {
      h_W_ele->Fill(W_ele0_mt, weight_W_ele);
-     h_W_ele_npvs->Fill(*PV_npvsGood);
+     h_W_ele_npvs->Fill(*PV_npvsGood, weight_gen);
      h_W_ele_npvs_w->Fill(*PV_npvsGood, weight_W_ele);
      h_W_ele0_pt->Fill(Electron_pt[iele0], weight_W_ele);
      h_W_ele0_eta->Fill(Electron_eta[iele0], weight_W_ele);
@@ -1327,7 +1335,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (W_muo_sel) {
      h_W_muo->Fill(W_muo0_mt, weight_W_muo);
-     h_W_muo_npvs->Fill(*PV_npvsGood);
+     h_W_muo_npvs->Fill(*PV_npvsGood, weight_gen);
      h_W_muo_npvs_w->Fill(*PV_npvsGood, weight_W_muo);
      h_W_muo0_pt->Fill(Muon_pt[imuo0], weight_W_muo);
      h_W_muo0_eta->Fill(Muon_eta[imuo0], weight_W_muo);
@@ -1341,7 +1349,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (Z_ele_sel) {
      h_Z_ele->Fill(Z_ele0_ele1_m, weight_Z_ele);
-     h_Z_ele_npvs->Fill(*PV_npvsGood);
+     h_Z_ele_npvs->Fill(*PV_npvsGood, weight_gen);
      h_Z_ele_npvs_w->Fill(*PV_npvsGood, weight_Z_ele);
      h_Z_ele0_pt->Fill(Electron_pt[iele0], weight_Z_ele);
      h_Z_ele0_eta->Fill(Electron_eta[iele0], weight_Z_ele);
@@ -1360,7 +1368,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (Z_muo_sel) {
      h_Z_muo->Fill(Z_muo0_muo1_m, weight_Z_muo);
-     h_Z_muo_npvs->Fill(*PV_npvsGood);
+     h_Z_muo_npvs->Fill(*PV_npvsGood, weight_gen);
      h_Z_muo_npvs_w->Fill(*PV_npvsGood, weight_Z_muo);
      h_Z_muo0_pt->Fill(Muon_pt[imuo0], weight_Z_muo);
      h_Z_muo0_eta->Fill(Muon_eta[imuo0], weight_Z_muo);

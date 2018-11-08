@@ -338,6 +338,8 @@ public :
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
+   TTreeReaderValue<Float_t> Generator_weight = {fReader, "Generator_weight"};
+
    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
 
    TTreeReaderValue<UInt_t> nGenPart = {fReader, "nGenPart"};
