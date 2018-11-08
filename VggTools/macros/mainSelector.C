@@ -564,15 +564,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
        if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[iele0_gen] != GenDressedLepton_pdgId[i]) {
          iele1_gen = i;
-
-         TLorentzVector tmp_ele1_gen;
-         tmp_ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele1_gen], GenDressedLepton_eta[iele1_gen], GenDressedLepton_phi[iele1_gen], GenDressedLepton_mass[iele1_gen]);
-         TLorentzVector tmp_ele0_gen;
-         tmp_ele0_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele0_gen], GenDressedLepton_eta[iele0_gen], GenDressedLepton_phi[iele0_gen], GenDressedLepton_mass[iele0_gen]);
-         if (tmp_ele1_gen.DeltaR(tmp_ele0_gen) < 0.4) {
-           iele1_gen = -1;
-         }
-
        }
        if (iele0_gen == -1) {
          iele0_gen = i;
@@ -598,15 +589,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
        if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[imuo0_gen] != GenDressedLepton_pdgId[i]) {
          imuo1_gen = i;
-
-         TLorentzVector tmp_muo1_gen;
-         tmp_muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo1_gen], GenDressedLepton_eta[imuo1_gen], GenDressedLepton_phi[imuo1_gen], GenDressedLepton_mass[imuo1_gen]);
-         TLorentzVector tmp_muo0_gen;
-         tmp_muo0_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo0_gen], GenDressedLepton_eta[imuo0_gen], GenDressedLepton_phi[imuo0_gen], GenDressedLepton_mass[imuo0_gen]);
-         if (tmp_muo1_gen.DeltaR(tmp_muo0_gen) < 0.4) {
-           imuo1_gen = -1;
-         }
-
        }
        if (imuo0_gen == -1) {
          imuo0_gen = i;
@@ -691,6 +673,18 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (GenPart_status[i] != 1) continue;
        if (GenPart_pdgId[i] != 22) continue;
        if ((GenPart_statusFlags[i] & 1) == 0) continue;
+       if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=   11 &&
+           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=   13 &&
+           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=   15 &&
+           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=    1 &&
+           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=    2 &&
+           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=    3 &&
+           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=    4 &&
+           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=    5 &&
+           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) != 2212 &&
+           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=   21 &&
+           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=   22 &&
+           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=   23) continue;
        if (GenPart_pt[i] < 10) continue;
        if (fabs(GenPart_eta[i]) > 2.500) continue;
 
@@ -889,25 +883,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      eCorr_muo = roccor->kScaleDT(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], 0, 0);
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-     int imuo_gen = -1;
-     TLorentzVector tmp_muo;
-     tmp_muo.SetPtEtaPhiM(Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_mass[i]);
-     for (uint j = 0; j < *nGenPart; j++) {
-       if (fabs(GenPart_pdgId[j]) != 13) continue;
-       TLorentzVector tmp_muo_gen;
-       tmp_muo_gen.SetPtEtaPhiM(GenPart_pt[j], GenPart_eta[j], GenPart_phi[j], GenPart_mass[j]);
-       if (fabs(tmp_muo_gen.DeltaR(tmp_muo) < 0.1)) {
-         if (imuo_gen != -1) {
-           if (fabs(Muon_pt[i] - GenPart_pt[j]) < fabs(Muon_pt[i] - GenPart_pt[imuo_gen])) {
-             imuo_gen = j;
-           }
-         } else {
-           imuo_gen = j;
-         }
-       }
-     }
-     if (imuo_gen != -1) {
-       eCorr_muo = roccor->kSpreadMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], GenPart_pt[imuo_gen], 0, 0);
+     if (Muon_genPartIdx[i] >= 0 && (uint)Muon_genPartIdx[i] < *nGenPart) {
+       eCorr_muo = roccor->kSpreadMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], GenPart_pt[Muon_genPartIdx[i]], 0, 0);
      } else {
        eCorr_muo = roccor->kSmearMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_nTrackerLayers[i], gRandom->Rndm(), 0, 0);
        if (TMath::IsNaN(eCorr_muo)) eCorr_muo = 1.;
@@ -1063,13 +1040,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nJet; i++) {
 
-     TLorentzVector tmp_jet;
-     tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
-
-     if (iele0 != -1 && tmp_jet.DeltaR(ele0) < 0.4) continue;
-     if (iele1 != -1 && tmp_jet.DeltaR(ele1) < 0.4) continue;
-     if (imuo0 != -1 && tmp_jet.DeltaR(muo0) < 0.4) continue;
-     if (imuo1 != -1 && tmp_jet.DeltaR(muo1) < 0.4) continue;
+     if (iele0 != -1 && (uint)Electron_jetIdx[iele0] == i) continue;
+     if (iele1 != -1 && (uint)Electron_jetIdx[iele1] == i) continue;
+     if (imuo0 != -1 && (uint)Muon_jetIdx[imuo0] == i) continue;
+     if (imuo1 != -1 && (uint)Muon_jetIdx[imuo1] == i) continue;
+     if (ipho0 != -1 && (uint)Photon_jetIdx[ipho0] == i) continue;
+     if (ipho1 != -1 && (uint)Photon_jetIdx[ipho1] == i) continue;
 
 #if defined(mainSelectorMC16_cxx)
 // MC jets smearing not needed
@@ -1080,24 +1056,20 @@ Bool_t mainSelector::Process(Long64_t entry)
      jer_parameters.setJetEta(Jet_eta[i]);
      jer_parameters.setRho(*fixedGridRhoFastjetAll);
 
-     int ijet_gen = -1;
-     for (uint j = 0; j < *nGenJet; j++) {
+     bool jet_match = false;
+     if (Jet_genJetIdx[i] >= 0 && (uint)Jet_genJetIdx[i] < *nGenJet) {
+       TLorentzVector tmp_jet;
+       tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
        TLorentzVector tmp_jet_gen;
-       tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[j], GenJet_eta[j], GenJet_phi[j], GenJet_mass[j]);
+       tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[Jet_genJetIdx[i]], GenJet_eta[Jet_genJetIdx[i]], GenJet_phi[Jet_genJetIdx[i]], GenJet_mass[Jet_genJetIdx[i]]);
        if (tmp_jet.DeltaR(tmp_jet_gen) < 0.4 && fabs(tmp_jet.Pt() - tmp_jet_gen.Pt()) < 3 * jet_resolution->getResolution(jer_parameters) * tmp_jet.Pt())  {
-         if (ijet_gen != -1) {
-           if (fabs(Jet_pt[i] - GenJet_pt[j]) < fabs(Jet_pt[i] - GenJet_pt[ijet_gen])) {
-             ijet_gen = j;
-           }
-         } else {
-           ijet_gen = j;
-         }
+         jet_match = true;
        }
      }
 
      float jet_smear = 1.;
-     if (ijet_gen != -1) {
-       jet_smear = 1. + (jet_resolution_sf->getScaleFactor(jer_parameters) - 1.) * (Jet_pt[i] - GenJet_pt[ijet_gen]) / Jet_pt[i];
+     if (jet_match) {
+       jet_smear = 1. + (jet_resolution_sf->getScaleFactor(jer_parameters) - 1.) * (Jet_pt[i] - GenJet_pt[Jet_genJetIdx[i]]) / Jet_pt[i];
      } else {
        jet_smear = gRandom->Gaus(1., jet_resolution->getResolution(jer_parameters) * TMath::Sqrt(TMath::Max(TMath::Power(jet_resolution_sf->getScaleFactor(jer_parameters), 2) - 1., 0.)));
      }
@@ -1110,7 +1082,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      Jet_pt[i] = jet_smear * Jet_pt[i];
-     tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 // MC jets smearing not needed
