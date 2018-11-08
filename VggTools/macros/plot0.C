@@ -53,7 +53,7 @@ void plot0(string plot="", string title="", string version="v00") {
     if (index > 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
       ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(1);
-      float norm = xsecMap[it->first]*1000*lumi/ngen;
+      double norm = xsecMap[it->first]*1000*lumi/ngen;
       if (histo[index]) {
         histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()), norm);
       } else {
