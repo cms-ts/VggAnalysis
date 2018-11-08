@@ -257,6 +257,10 @@ public :
    TTreeReaderArray<Float_t> Jet_phi = {fReader, "Jet_phi"};
    TTreeReaderArray<Float_t> Jet_mass = {fReader, "Jet_mass"};
 
+   TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
+   TTreeReaderArray<Int_t> Muon_jetIdx = {fReader, "Muon_jetIdx"};
+   TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
+
    TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
    TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
    TTreeReaderValue<Float_t> MET_significance = {fReader, "MET_significance"};
@@ -358,6 +362,11 @@ public :
    TTreeReaderArray<Float_t> GenJet_eta = {fReader, "GenJet_eta"};
    TTreeReaderArray<Float_t> GenJet_phi = {fReader, "GenJet_phi"};
    TTreeReaderArray<Float_t> GenJet_mass = {fReader, "GenJet_mass"};
+
+   TTreeReaderArray<Int_t> Electron_genPartIdx = {fReader, "Electron_genPartIdx"};
+   TTreeReaderArray<Int_t> Muon_genPartIdx = {fReader, "Muon_genPartIdx"};
+   TTreeReaderArray<Int_t> Photon_genPartIdx = {fReader, "Photon_genPartIdx"};
+   TTreeReaderArray<Int_t> Jet_genJetIdx = {fReader, "Jet_genJetIdx"};
 
    TTreeReaderValue<Float_t> fixedGridRhoFastjetAll = {fReader, "fixedGridRhoFastjetAll"};
 
