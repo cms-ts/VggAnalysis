@@ -681,18 +681,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (GenPart_status[i] != 1) continue;
        if (GenPart_pdgId[i] != 22) continue;
        if ((GenPart_statusFlags[i] & 1) == 0) continue;
-       if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=   11 &&
-           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=   13 &&
-           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=   15 &&
-           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=    1 &&
-           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=    2 &&
-           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=    3 &&
-           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=    4 &&
-           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=    5 &&
-           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) != 2212 &&
-           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=   21 &&
-           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=   22 &&
-           fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) !=   23) continue;
        if (GenPart_pt[i] < 10) continue;
        if (fabs(GenPart_eta[i]) > 2.500) continue;
 
