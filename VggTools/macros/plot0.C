@@ -60,7 +60,12 @@ void plot0(string plot="", string title="", string version="v00") {
         ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
       }
 // FIXME
-      double norm = xsecMap[it->first]*1000*lumi/ngen;
+      double norm = 1.;
+      if (xsecMap[it->first] != 0) {
+        norm = xsecMap[it->first]*1000*lumi/ngen;
+      } else {
+        cout << "WARNING: cross section for " << it->first << " is ZERO !!" << endl;
+      }
       if (histo[index]) {
         histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()), norm);
       } else {
