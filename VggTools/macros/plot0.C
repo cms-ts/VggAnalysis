@@ -52,14 +52,7 @@ void plot0(string plot="", string title="", string version="v00") {
     int index = int(it->second);
     if (index > 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
-      ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(1);
-// FIXME
-// change required after adding generator weights (v00.new18.gen)
-      if (((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(4) != 0) {
-        cout << "WARNING: fixing generator weights !!" << endl;
-        ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
-      }
-// FIXME
+      ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
         norm = xsecMap[it->first]*1000*lumi/ngen;
