@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=v00
+VERSION=v01
 
 if [ ! -z "$1" ]; then
   if [ "$1" == "all" ]; then

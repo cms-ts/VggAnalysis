@@ -23,7 +23,7 @@ if [ ! -z "$1" ]; then
   fi
 fi
 
-VERSION="v00"
+VERSION="v01"
 
 if [ ! -z "$2" ]; then
   VERSION=$2
