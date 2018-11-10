@@ -24,7 +24,7 @@ void plot0(string plot="", string title="", string version="v00") {
 
   map<int, TH1D*> histo;
 
-  float lumi = 0.0;
+  float lumi = 0.;
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
@@ -46,18 +46,22 @@ void plot0(string plot="", string title="", string version="v00") {
     }
   }
 
-  double ngen = 0;
+  double ngen = 0.;
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index > 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
+      if (!file.IsOpen()) {
+        return;
+      }
       ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
         norm = xsecMap[it->first]*1000*lumi/ngen;
       } else {
         cout << "WARNING: cross section for " << it->first << " is ZERO !!" << endl;
+        return;
       }
       if (histo[index]) {
         histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()), norm);
