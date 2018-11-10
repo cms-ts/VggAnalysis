@@ -1297,8 +1297,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // W scale factors
 
-   float weight_W_ele = weight_pu_ele * weight_eff_ele0 * weight_reco_ele0 * weight_hlt_ele;
-   float weight_W_muo = weight_pu_muo * weight_id_muo0 * weight_iso_muo0;
+   float weight_W_ele = weight_gen * weight_pu_ele * weight_eff_ele0 * weight_reco_ele0 * weight_hlt_ele;
+   float weight_W_muo = weight_gen * weight_pu_muo * weight_id_muo0 * weight_iso_muo0;
 
 // Z scale factors
 
