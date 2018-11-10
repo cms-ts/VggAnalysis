@@ -98,11 +98,13 @@ void plot0(string plot="", string title="", string version="v00") {
       leg->AddEntry(it->second, "DYJets", "f");
     }
     if (it->first == 11) {
-      it->second->SetFillColor(kYellow-5);
+      it->second->SetFillColor(kOrange-4);
+      it->second->SetFillStyle(3245);
       leg->AddEntry(it->second, "Zgamma", "f");
     }
     if (it->first == 12) {
-      it->second->SetFillColor(kYellow-6);
+      it->second->SetFillColor(kOrange+7);
+      it->second->SetFillStyle(3254);
       leg->AddEntry(it->second, "Zgammagamma", "f");
     }
     if (it->first == 20) {
@@ -110,7 +112,7 @@ void plot0(string plot="", string title="", string version="v00") {
       leg->AddEntry(it->second, "WJets", "f");
     }
     if (it->first == 30) {
-      it->second->SetFillColor(kBlue-4);
+      it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
     if (it->first == 40) {
@@ -118,7 +120,7 @@ void plot0(string plot="", string title="", string version="v00") {
       leg->AddEntry(it->second, "TTJets", "f");
     }
     if (it->first == 50) {
-      it->second->SetFillColor(kOrange-4);
+      it->second->SetFillColor(kOrange-3);
       leg->AddEntry(it->second, "SingleTop", "f");
     }
 
@@ -127,11 +129,13 @@ void plot0(string plot="", string title="", string version="v00") {
       leg->AddEntry(it->second, "WJets", "f");
     }
     if (it->first == 1011) {
-      it->second->SetFillColor(kYellow-5);
+      it->second->SetFillColor(kOrange-4);
+      it->second->SetFillStyle(3245);
       leg->AddEntry(it->second, "Wgamma", "f");
     }
     if (it->first == 1012) {
-      it->second->SetFillColor(kYellow-6);
+      it->second->SetFillColor(kOrange+7);
+      it->second->SetFillStyle(3254);
       leg->AddEntry(it->second, "Wgammagamma", "f");
     }
     if (it->first == 1020) {
@@ -151,11 +155,11 @@ void plot0(string plot="", string title="", string version="v00") {
       leg->AddEntry(it->second, "TTJets", "f");
     }
     if (it->first == 1040) {
-      it->second->SetFillColor(kOrange-4);
+      it->second->SetFillColor(kOrange-3);
       leg->AddEntry(it->second, "SingleTop", "f");
     }
     if (it->first == 1050) {
-      it->second->SetFillColor(kBlue-4);
+      it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
   }
