@@ -30,7 +30,12 @@ void plot0(string plot="", string title="", string version="v00") {
     int index = int(it->second);
     if (index == 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
-      lumi = lumi + lumiMap[it->first];
+      if (lumiMap[it->first] != 0) {
+        lumi = lumi + lumiMap[it->first];
+      } else {
+        cout << "ERROR: luminosity for " << it->first << " is ZERO !!" << endl;
+        return;
+      }
       if (histo[index]) {
         histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()));
       } else {
@@ -53,14 +58,15 @@ void plot0(string plot="", string title="", string version="v00") {
     if (index > 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
       if (!file.IsOpen()) {
+        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
       }
       ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
-        norm = xsecMap[it->first]*1000*lumi/ngen;
+        norm = xsecMap[it->first] * 1000. * lumi / ngen;
       } else {
-        cout << "WARNING: cross section for " << it->first << " is ZERO !!" << endl;
+        cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
         return;
       }
       if (histo[index]) {
