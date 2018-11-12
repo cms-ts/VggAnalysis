@@ -26,6 +26,7 @@ RunIIFall17NanoAOD_ZZ_TuneCP5_13TeV-pythia8	15.4
 #
 RunIIFall17NanoAOD_WWG_TuneCP5_13TeV-amcatnlo-pythia8	0.2147
 #
+RunIIFall17NanoAOD_WGToLNuG_TuneCP5_13TeV-madgraphMLM-pythia8	489
 RunIIFall17NanoAOD_WGGJets_TuneCP5_13TeV_madgraphMLM_pythia8	1.56
 #
 # 2018
