@@ -46,6 +46,7 @@ fi
 ./compile.sh
 
 for L in $LISTS; do
+  L=`basename $L .list`.list
   bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_selector.sh $VERSION lists/$L
 done
 
