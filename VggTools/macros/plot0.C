@@ -22,6 +22,11 @@ void plot0(string plot="", string title="", string version="v00") {
   readMultiMap(plot, plotMap);
   cout << "Read plot map for " << plotMap.size() << " datasets" << endl;
 
+  if (plotMap.size() == 0) {
+    cout << "ERROR: plot map " << plot << " is EMPTY or MISSING !!" << endl;
+    return;
+  }
+
   map<int, TH1D*> histo;
 
   float lumi = 0.;
