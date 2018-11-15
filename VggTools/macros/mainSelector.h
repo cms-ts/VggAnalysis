@@ -20,6 +20,10 @@
 #include "TH1D.h"
 #include "TH2D.h"
 
+#if defined(mainSelectorDT16H_h)
+#define mainSelectorDT16_h
+#endif // defined(mainSelectorDT16H_h)
+
 #if defined(mainSelectorDT17B_h)
 #define mainSelectorDT17_h
 #endif // defined(mainSelectorDT17B_h)
@@ -292,6 +296,10 @@ public :
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = {fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL"};
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ"};
+#if defined(mainSelectorDT16H_h) || defined(mainSelectorMC16_h)
+   TTreeReaderValue<Bool_t> HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL = {fReader, "HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL"};
+   TTreeReaderValue<Bool_t> HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = {fReader, "HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ"};
+#endif // defined(mainSelectorDT16H_h) || defined(mainSelectorMC16_h)
 
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 
@@ -309,10 +317,10 @@ public :
 
    TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "HLT_IsoMu24"};
    TTreeReaderValue<Bool_t> HLT_IsoMu27 = {fReader, "HLT_IsoMu27"};
-   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
-#if !defined(mainSelectorDT17B_h)
+   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8"};
+#if !defined(mainSelectorDT17B_h) || defined(mainSelectorMC17_h)
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8"};
-#endif // !defined(mainSelectorDT17B_h)
+#endif // !defined(mainSelectorDT17B_h) || defined(mainSelectorMC17_h)
 
 #endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 

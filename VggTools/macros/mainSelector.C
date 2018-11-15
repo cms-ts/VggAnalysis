@@ -33,6 +33,10 @@
 #include <TDatime.h>
 #include <TRandom.h>
 
+#if defined(mainSelectorDT16H_cxx)
+#define mainSelectorDT16_cxx
+#endif // defined(mainSelectorDT16H_cxx)
+
 #if defined(mainSelectorDT17B_cxx)
 #define mainSelectorDT17_cxx
 #endif // defined(mainSelectorDT17B_cxx)
@@ -1184,21 +1188,28 @@ Bool_t mainSelector::Process(Long64_t entry)
    float Z_muo0_muo1_m = 0.;
 
    if (imuo0 != -1 && imuo1 != -1) {
-#if defined(mainSelectorDT16_cxx)
-     if ((*run <= 280385 && (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL    || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL   )) ||
-         (*run >  280385 && (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ))) {
-#endif // defined(mainSelectorDT16_cxx)
+#if defined(mainSelectorDT16_cxx) && !defined(mainSelectorDT16H_cxx)
+     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL ||
+         *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ) {
+#endif // defined(mainSelectorDT16_cxx) && !defined(mainSelectorDT16H_cxx)
+#if defined(mainSelectorDT16H_cxx)
+     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL ||
+         *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ ||
+         *HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL || *HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ) {
+#endif // defined(mainSelectorDT16H_cxx)
 #if defined(mainSelectorMC16_cxx)
-     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL) {
+     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL ||
+         *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ ||
+         *HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL || *HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ) {
 #endif // defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17B_cxx)
-     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ) {
-#endif // defined(mainSelectorDT17B_cxx)
 #if defined(mainSelectorDT17_cxx) && !defined(mainSelectorDT17B_cxx)
-     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
+     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 || *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 #endif // defined(mainSelectorDT17_cxx) && !defined(mainSelectorDT17B_cxx)
+#if defined(mainSelectorDT17B_cxx)
+     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8) {
+#endif // defined(mainSelectorDT17B_cxx)
 #if defined(mainSelectorMC17_cxx)
-     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
+     if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 || *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
