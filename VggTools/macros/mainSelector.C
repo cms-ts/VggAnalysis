@@ -1144,9 +1144,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_IsoMu24 || *HLT_IsoMu27) {
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-// FIXME
      if (*HLT_IsoMu24) {
-// FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_muo0_mt = TMath::Sqrt(2. * muo0.Pt() * (*MET_pt) * (1. - TMath::Cos(muo0.Phi() - (*MET_phi))));
        if (*MET_pt > 20 && W_muo0_mt > 40 && muo0.Pt() > 30) {
@@ -1204,9 +1202,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-// FIXME
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
-// FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_muo0_muo1_m = (muo0 + muo1).M();
        if (Z_muo0_muo1_m >= 71. && Z_muo0_muo1_m <= 111. && muo0.Pt() > 25 && muo1.Pt() > 25) {
