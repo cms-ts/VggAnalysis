@@ -619,7 +619,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0_gen != -1 && iele1_gen == -1 && imuo0_gen == -1 && imuo1_gen == -1) {
        W_ele0_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * (*MET_fiducialGenPt) * (1. - TMath::Cos(ele0_gen.Phi() - (*MET_fiducialGenPhi))));
-       if (*MET_fiducialGenPt > 40 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 35) {
+       if (*MET_fiducialGenPt > 40 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 40) {
          W_ele_sel_gen = true;
        }
      }
@@ -1124,7 +1124,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_ele0_mt = TMath::Sqrt(2. * ele0.Pt() * (*MET_pt) * (1. - TMath::Cos(ele0.Phi() - (*MET_phi))));
-       if (*MET_pt > 40 && W_ele0_mt > 40 && ele0.Pt() > 35) {
+       if (*MET_pt > 40 && W_ele0_mt > 40 && ele0.Pt() > 40) {
          W_ele_sel = true;
        }
      }
