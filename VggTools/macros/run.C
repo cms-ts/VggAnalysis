@@ -37,7 +37,8 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     return;
   }
 
-  int nWorkers = 2;
+  int nWorkers = 10;
+  if (gROOT->IsBatch()) nWorkers = 2;
 
   ROOT::EnableThreadSafety();
   ROOT::TTreeProcessorMP workers(nWorkers);
