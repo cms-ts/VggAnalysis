@@ -818,7 +818,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (Electron_mvaSpring16GP_WP90[i] == 0) continue;
-     //if (Electron_mvaSpring16GP_WP80[i] == 0) continue;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      if (Electron_mvaFall17Iso_WP90[i] == 0) continue;

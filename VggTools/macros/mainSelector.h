@@ -277,7 +277,6 @@ public :
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 
-   TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
