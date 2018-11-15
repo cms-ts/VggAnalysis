@@ -1138,7 +1138,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (imuo0 != -1 && imuo1 == -1 && iele0 == -1 && iele1 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-     if (*HLT_IsoTkMu24 || *HLT_IsoMu24) {
+     if (*HLT_IsoMu24 || *HLT_IsoTkMu24) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      if (*HLT_IsoMu24 || *HLT_IsoMu27) {
