@@ -2,7 +2,7 @@
 
 #include "CMS_lumi.C"
 
-void plot0(string plot="", string title="", string version="v00") {
+void plot0(string plot="", string title="", string version="v00", string test="") {
 
   string year = "";
 
@@ -17,6 +17,8 @@ void plot0(string plot="", string title="", string version="v00") {
   map<string, float> xsecMap;
   readMap("xsec.dat", xsecMap);
   cout << "Read xsec map for " << xsecMap.size() << " datasets" << endl;
+
+  if (test.size()) plot = plot + "." + test;
 
   multimap<string, float> plotMap;
   readMultiMap(plot, plotMap);
@@ -264,6 +266,8 @@ void plot0(string plot="", string title="", string version="v00") {
   int iPos = 0;
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
+
+  if (test.size()) version = version + "." + test;
 
   gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE);
   c1->SaveAs(("html/" + version + "/" + year + "/" + title + ".pdf").c_str());
