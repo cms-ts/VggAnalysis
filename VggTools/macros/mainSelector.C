@@ -27,11 +27,10 @@
 
 #include "mainSelector.h"
 
-#include <TLorentzVector.h>
-#include <TCanvas.h>
 #include <TFile.h>
 #include <TDatime.h>
 #include <TRandom.h>
+#include <TLorentzVector.h>
 
 #if defined(mainSelectorDT16H_cxx)
 #define mainSelectorDT16_cxx
