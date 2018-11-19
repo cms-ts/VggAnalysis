@@ -12,17 +12,18 @@ void plot0(string plot="", string title="", string version="v00", string test=""
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
-  cout << "Read lumi map for " << lumiMap.size() << " datasets" << endl;
+  cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
 
   map<string, float> xsecMap;
   readMap("xsec.dat", xsecMap);
-  cout << "Read xsec map for " << xsecMap.size() << " datasets" << endl;
+  cout << "Read xsec map for " << xsecMap.size() << " datasets from " << "xsec.dat" << endl;
 
+  plot = plot + ".dat";
   if (test.size()) plot = plot + "." + test;
 
   multimap<string, float> plotMap;
   readMultiMap(plot, plotMap);
-  cout << "Read plot map for " << plotMap.size() << " datasets" << endl;
+  cout << "Read plot map for " << plotMap.size() << " datasets from " << plot << endl;
 
   if (plotMap.size() == 0) {
     cout << "ERROR: plot map " << plot << " is EMPTY or MISSING !!" << endl;

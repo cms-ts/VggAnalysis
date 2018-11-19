@@ -5,6 +5,8 @@ VERSION="v03"
 if [ ! -z "$1" ]; then
   if [ "$1" == "all" ]; then
     VERSION="*"
+  elif [ "$1" == "last" ]; then
+    VERSION=`ls -tr data/ | tail -1`
   else
     VERSION=$1
   fi
