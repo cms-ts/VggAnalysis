@@ -118,12 +118,16 @@ void plot0(string plot="", string title="", string version="v00", string test=""
     if (it->first == 11) {
       it->second->SetFillColor(kOrange-4);
       it->second->SetFillStyle(3245);
-      leg->AddEntry(it->second, "Zgamma", "f");
+      leg->AddEntry(it->second, "Z #gamma", "f");
     }
     if (it->first == 12) {
       it->second->SetFillColor(kOrange+7);
       it->second->SetFillStyle(3254);
-      leg->AddEntry(it->second, "Zgammagamma", "f");
+      leg->AddEntry(it->second, "Z #gamma #gamma", "f");
+    }
+    if (it->first == 13) {
+      it->second->SetFillColor(kOrange+2);
+      leg->AddEntry(it->second, "Z #rightarrow #tau #tau", "f");
     }
     if (it->first == 20) {
       it->second->SetFillColor(kOrange);
@@ -149,12 +153,16 @@ void plot0(string plot="", string title="", string version="v00", string test=""
     if (it->first == 1011) {
       it->second->SetFillColor(kOrange-4);
       it->second->SetFillStyle(3245);
-      leg->AddEntry(it->second, "Wgamma", "f");
+      leg->AddEntry(it->second, "W #gamma", "f");
     }
     if (it->first == 1012) {
       it->second->SetFillColor(kOrange+7);
       it->second->SetFillStyle(3254);
-      leg->AddEntry(it->second, "Wgammagamma", "f");
+      leg->AddEntry(it->second, "W #gamma #gamma", "f");
+    }
+    if (it->first == 1013) {
+      it->second->SetFillColor(kOrange+2);
+      leg->AddEntry(it->second, "W #rightarrow #tau #nu", "f");
     }
     if (it->first == 1020) {
       it->second->SetFillColor(kOrange);
@@ -162,11 +170,11 @@ void plot0(string plot="", string title="", string version="v00", string test=""
     }
     if (it->first == 1021) {
       it->second->SetFillColor(kOrange-5);
-      leg->AddEntry(it->second, "Zgamma", "f");
+      leg->AddEntry(it->second, "Z #gamma", "f");
     }
     if (it->first == 1022) {
       it->second->SetFillColor(kOrange-6);
-      leg->AddEntry(it->second, "Zgammagamma", "f");
+      leg->AddEntry(it->second, "Z #gamma #gamma", "f");
     }
     if (it->first == 1030) {
       it->second->SetFillColor(kBlue);
