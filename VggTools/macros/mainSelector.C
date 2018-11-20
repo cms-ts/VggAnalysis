@@ -407,154 +407,24 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo_gen = new TH1D("h_Z_muo_gen", "h_Z_muo_gen", 80, 71., 111.);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
+   TObject* obj = 0;
+   TIter next(gDirectory->GetList());
+
+   while ((obj = next())) {
+     if (!TString(obj->ClassName()).Contains("TH")) continue;
+     if (!TString(obj->GetName()).Contains("h_")) continue;
+     if (TString(obj->GetName()).Contains("_gen")) continue;
+     if (TString(obj->GetName()).Contains("_qcd")) continue;
+     obj->Clone((TString(obj->GetName()) + "_qcd").Data());
+   }
+   next.Reset();
+
    // add all booked histograms to the selector output list
-   GetOutputList()->Add(h_nevt);
-
-   GetOutputList()->Add(h_W_ele);
-   GetOutputList()->Add(h_W_muo);
-
-   GetOutputList()->Add(h_W_ele_npvs);
-   GetOutputList()->Add(h_W_ele_npvs_w);
-   GetOutputList()->Add(h_W_muo_npvs);
-   GetOutputList()->Add(h_W_muo_npvs_w);
-
-   GetOutputList()->Add(h_W_ele0_pt);
-   GetOutputList()->Add(h_W_ele0_eta);
-   GetOutputList()->Add(h_W_ele0_phi);
-   GetOutputList()->Add(h_W_ele0_r9);
-   GetOutputList()->Add(h_W_ele0_sieie);
-   GetOutputList()->Add(h_W_ele_met_pt);
-   GetOutputList()->Add(h_W_ele_met_phi);
-   GetOutputList()->Add(h_W_ele_met_sign);
-   GetOutputList()->Add(h_W_muo0_pt);
-   GetOutputList()->Add(h_W_muo0_eta);
-   GetOutputList()->Add(h_W_muo0_phi);
-   GetOutputList()->Add(h_W_muo_met_pt);
-   GetOutputList()->Add(h_W_muo_met_phi);
-   GetOutputList()->Add(h_W_muo_met_sign);
-
-   GetOutputList()->Add(h_Z_ele);
-   GetOutputList()->Add(h_Z_muo);
-
-   GetOutputList()->Add(h_Z_ele_npvs);
-   GetOutputList()->Add(h_Z_ele_npvs_w);
-   GetOutputList()->Add(h_Z_muo_npvs);
-   GetOutputList()->Add(h_Z_muo_npvs_w);
-
-   GetOutputList()->Add(h_Z_ele0_pt);
-   GetOutputList()->Add(h_Z_ele0_eta);
-   GetOutputList()->Add(h_Z_ele0_phi);
-   GetOutputList()->Add(h_Z_ele0_r9);
-   GetOutputList()->Add(h_Z_ele0_sieie);
-   GetOutputList()->Add(h_Z_ele1_pt);
-   GetOutputList()->Add(h_Z_ele1_eta);
-   GetOutputList()->Add(h_Z_ele1_phi);
-   GetOutputList()->Add(h_Z_ele1_r9);
-   GetOutputList()->Add(h_Z_ele1_sieie);
-   GetOutputList()->Add(h_Z_ele_met_pt);
-   GetOutputList()->Add(h_Z_ele_met_phi);
-   GetOutputList()->Add(h_Z_ele_met_sign);
-   GetOutputList()->Add(h_Z_muo0_pt);
-   GetOutputList()->Add(h_Z_muo0_eta);
-   GetOutputList()->Add(h_Z_muo0_phi);
-   GetOutputList()->Add(h_Z_muo1_pt);
-   GetOutputList()->Add(h_Z_muo1_eta);
-   GetOutputList()->Add(h_Z_muo1_phi);
-   GetOutputList()->Add(h_Z_muo_met_pt);
-   GetOutputList()->Add(h_Z_muo_met_phi);
-   GetOutputList()->Add(h_Z_muo_met_sign);
-
-   GetOutputList()->Add(h_TrigObj);
-
-   GetOutputList()->Add(h_W_ele_njets);
-   GetOutputList()->Add(h_W_ele_jet0_pt);
-   GetOutputList()->Add(h_W_ele_jet0_eta);
-   GetOutputList()->Add(h_W_ele_jet0_phi);
-   GetOutputList()->Add(h_W_muo_njets);
-   GetOutputList()->Add(h_W_muo_jet0_pt);
-   GetOutputList()->Add(h_W_muo_jet0_eta);
-   GetOutputList()->Add(h_W_muo_jet0_phi);
-
-   GetOutputList()->Add(h_Z_ele_njets);
-   GetOutputList()->Add(h_Z_ele_jet0_pt);
-   GetOutputList()->Add(h_Z_ele_jet0_eta);
-   GetOutputList()->Add(h_Z_ele_jet0_phi);
-   GetOutputList()->Add(h_Z_muo_njets);
-   GetOutputList()->Add(h_Z_muo_jet0_pt);
-   GetOutputList()->Add(h_Z_muo_jet0_eta);
-   GetOutputList()->Add(h_Z_muo_jet0_phi);
-
-   GetOutputList()->Add(h_W_ele_nphotons);
-   GetOutputList()->Add(h_W_ele_pho0_pt);
-   GetOutputList()->Add(h_W_ele_pho0_eta);
-   GetOutputList()->Add(h_W_ele_pho0_phi);
-   GetOutputList()->Add(h_W_ele_pho0_r9);
-   GetOutputList()->Add(h_W_ele_pho0_sieie);
-   GetOutputList()->Add(h_W_ele_pho1_pt);
-   GetOutputList()->Add(h_W_ele_pho1_eta);
-   GetOutputList()->Add(h_W_ele_pho1_phi);
-   GetOutputList()->Add(h_W_ele_pho1_r9);
-   GetOutputList()->Add(h_W_ele_pho1_sieie);
-   GetOutputList()->Add(h_W_ele_diphoton_pt);
-   GetOutputList()->Add(h_W_muo_nphotons);
-   GetOutputList()->Add(h_W_muo_pho0_pt);
-   GetOutputList()->Add(h_W_muo_pho0_eta);
-   GetOutputList()->Add(h_W_muo_pho0_phi);
-   GetOutputList()->Add(h_W_muo_pho0_r9);
-   GetOutputList()->Add(h_W_muo_pho0_sieie);
-   GetOutputList()->Add(h_W_muo_pho1_pt);
-   GetOutputList()->Add(h_W_muo_pho1_eta);
-   GetOutputList()->Add(h_W_muo_pho1_phi);
-   GetOutputList()->Add(h_W_muo_pho1_r9);
-   GetOutputList()->Add(h_W_muo_pho1_sieie);
-   GetOutputList()->Add(h_W_muo_diphoton_pt);
-
-   GetOutputList()->Add(h_Z_ele_nphotons);
-   GetOutputList()->Add(h_Z_ele_pho0_pt);
-   GetOutputList()->Add(h_Z_ele_pho0_eta);
-   GetOutputList()->Add(h_Z_ele_pho0_phi);
-   GetOutputList()->Add(h_Z_ele_pho0_r9);
-   GetOutputList()->Add(h_Z_ele_pho0_sieie);
-   GetOutputList()->Add(h_Z_ele_pho1_pt);
-   GetOutputList()->Add(h_Z_ele_pho1_eta);
-   GetOutputList()->Add(h_Z_ele_pho1_phi);
-   GetOutputList()->Add(h_Z_ele_pho1_r9);
-   GetOutputList()->Add(h_Z_ele_pho1_sieie);
-   GetOutputList()->Add(h_Z_ele_diphoton_pt);
-   GetOutputList()->Add(h_Z_muo_nphotons);
-   GetOutputList()->Add(h_Z_muo_pho0_pt);
-   GetOutputList()->Add(h_Z_muo_pho0_eta);
-   GetOutputList()->Add(h_Z_muo_pho0_phi);
-   GetOutputList()->Add(h_Z_muo_pho0_r9);
-   GetOutputList()->Add(h_Z_muo_pho0_sieie);
-   GetOutputList()->Add(h_Z_muo_pho1_pt);
-   GetOutputList()->Add(h_Z_muo_pho1_eta);
-   GetOutputList()->Add(h_Z_muo_pho1_phi);
-   GetOutputList()->Add(h_Z_muo_pho1_r9);
-   GetOutputList()->Add(h_Z_muo_pho1_sieie);
-   GetOutputList()->Add(h_Z_muo_diphoton_pt);
-
-   GetOutputList()->Add(h_W_ele_pho0_dR);
-   GetOutputList()->Add(h_W_ele_pho1_dR);
-   GetOutputList()->Add(h_W_muo_pho0_dR);
-   GetOutputList()->Add(h_W_muo_pho1_dR);
-   GetOutputList()->Add(h_Z_ele_pho0_dR);
-   GetOutputList()->Add(h_Z_ele_pho1_dR);
-   GetOutputList()->Add(h_Z_muo_pho0_dR);
-   GetOutputList()->Add(h_Z_muo_pho1_dR);
-
-   GetOutputList()->Add(h_W_ele_pho0);
-   GetOutputList()->Add(h_W_muo_pho0);
-   GetOutputList()->Add(h_Z_ele_pho0);
-   GetOutputList()->Add(h_Z_muo_pho0);
-
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   GetOutputList()->Add(h_W_ele_gen);
-   GetOutputList()->Add(h_W_muo_gen);
-
-   GetOutputList()->Add(h_Z_ele_gen);
-   GetOutputList()->Add(h_Z_muo_gen);
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   while ((obj = next())) {
+     if (!TString(obj->ClassName()).Contains("TH")) continue;
+     if (!TString(obj->GetName()).Contains("h_")) continue;
+     GetOutputList()->Add(obj);
+   }
 
 }
 

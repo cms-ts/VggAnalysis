@@ -98,6 +98,7 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
   TObject* obj = 0;
   while ((obj = next())) {
     if (!TString(obj->ClassName()).Contains("TH")) continue;
+    if (!TString(obj->GetName()).Contains("h_")) continue;
     Info("run", "writing %s", obj->GetName());
     obj->Write();
   }

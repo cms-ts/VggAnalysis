@@ -20,6 +20,8 @@
 #include "TH1D.h"
 #include "TH2D.h"
 
+#define QCD(H) GetOutputList()->FindObject((TString(H->GetName()) + "_qcd").Data())
+
 #if defined(mainSelectorDT16H_h)
 #define mainSelectorDT16_h
 #endif // defined(mainSelectorDT16H_h)
