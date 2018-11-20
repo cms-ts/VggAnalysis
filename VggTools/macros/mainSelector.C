@@ -57,11 +57,13 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (option.Contains("WGToLNuG"))      isWGToLNuG      = true;
    if (option.Contains("WGG"))           isWGG           = true;
    if (option.Contains("WGGJets"))       isWGGJets       = true;
+   if (option.Contains("WTauNu"))        isWTauNu        = true;
 
    if (option.Contains("DYJetsToLL"))    isDYJetsToLL    = true;
    if (option.Contains("ZGTo2LG"))       isZGTo2LG       = true;
    if (option.Contains("ZGGToLLGG"))     isZGGToLLGG     = true;
    if (option.Contains("ZGGJetsToLLGG")) isZGGJetsToLLGG = true;
+   if (option.Contains("ZTauTau"))       isZTauTau       = true;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    TFile* file_ele_pu;
@@ -589,6 +591,37 @@ Bool_t mainSelector::Process(Long64_t entry)
    h_nevt->Fill(1.5, weight_gen);
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   if (isWJetsToLNu || isWGToLNuG || isWGG || isWGGJets || isWTauNu || isDYJetsToLL || isZGTo2LG || isZGGToLLGG || isZGGJetsToLLGG || isZTauTau) {
+
+     bool W_tau_sel = false;
+     bool Z_tau_sel = false;
+
+     for (uint i = 0; i < *nGenPart; i++) {
+       if (fabs(GenPart_pdgId[i]) != 15) continue;
+       if (GenPart_genPartIdxMother[i] == -1) continue;
+       if (isWJetsToLNu || isWGToLNuG || isWGG || isWGGJets) {
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 24) return kTRUE; 
+       }
+       if (isDYJetsToLL || isZGTo2LG || isZGGToLLGG || isZGGJetsToLLGG) {
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 23) return kTRUE;
+       }
+       if (isWTauNu) {
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 24) W_tau_sel = true;
+       }
+       if (isZTauTau) {
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 23) Z_tau_sel = true;
+       }
+     }
+   
+     if (isWTauNu) {
+       if (W_tau_sel == false) return kTRUE;
+     }
+     if (isZTauTau) {
+       if (Z_tau_sel == false) return kTRUE;
+     }
+
+   }
+
    if (isWJetsToLNu || isWGToLNuG || isWGG || isWGGJets || isDYJetsToLL || isZGTo2LG || isZGGToLLGG || isZGGJetsToLLGG) {
 
      int iele0_gen = -1;
@@ -707,7 +740,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint i = 0; i < *nGenPart; i++) {
        if (GenPart_status[i] != 1) continue;
-       if (GenPart_pdgId[i] != 22) continue;
+       if (fabs(GenPart_pdgId[i]) != 22) continue;
        if ((GenPart_statusFlags[i] & 1) == 0) continue;
        if (GenPart_pt[i] < 10) continue;
        if (fabs(GenPart_eta[i]) > 2.500) continue;

@@ -44,11 +44,13 @@ public :
    bool isWGToLNuG      = false;
    bool isWGG           = false;
    bool isWGGJets       = false;
+   bool isWTauNu        = false;
 
    bool isDYJetsToLL    = false;
    bool isZGTo2LG       = false;
    bool isZGGToLLGG     = false;
    bool isZGGJetsToLLGG = false;
+   bool isZTauTau       = false;
 
    TH1D* h_nevt = 0;
 
