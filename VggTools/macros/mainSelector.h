@@ -41,15 +41,13 @@ public :
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
    bool isWJetsToLNu    = false;
-   bool isWGToLNuG      = false;
+   bool isWG            = false;
    bool isWGG           = false;
-   bool isWGGJets       = false;
    bool isWTauNu        = false;
 
    bool isDYJetsToLL    = false;
-   bool isZGTo2LG       = false;
-   bool isZGGToLLGG     = false;
-   bool isZGGJetsToLLGG = false;
+   bool isZG            = false;
+   bool isZGG           = false;
    bool isZTauTau       = false;
 
    TH1D* h_nevt = 0;

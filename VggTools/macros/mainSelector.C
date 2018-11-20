@@ -54,15 +54,13 @@ void mainSelector::Begin(TTree * /*tree*/)
    Info("Begin", "%s : options = %s", now.AsSQLString(), option.Data());
 
    if (option.Contains("WJetsToLNu"))    isWJetsToLNu    = true;
-   if (option.Contains("WGToLNuG"))      isWGToLNuG      = true;
+   if (option.Contains("WG"))            isWG            = true;
    if (option.Contains("WGG"))           isWGG           = true;
-   if (option.Contains("WGGJets"))       isWGGJets       = true;
    if (option.Contains("WTauNu"))        isWTauNu        = true;
 
    if (option.Contains("DYJetsToLL"))    isDYJetsToLL    = true;
-   if (option.Contains("ZGTo2LG"))       isZGTo2LG       = true;
-   if (option.Contains("ZGGToLLGG"))     isZGGToLLGG     = true;
-   if (option.Contains("ZGGJetsToLLGG")) isZGGJetsToLLGG = true;
+   if (option.Contains("ZG"))            isZG            = true;
+   if (option.Contains("ZGG"))           isZGG           = true;
    if (option.Contains("ZTauTau"))       isZTauTau       = true;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
@@ -591,7 +589,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    h_nevt->Fill(1.5, weight_gen);
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   if (isWJetsToLNu || isWGToLNuG || isWGG || isWGGJets || isWTauNu || isDYJetsToLL || isZGTo2LG || isZGGToLLGG || isZGGJetsToLLGG || isZTauTau) {
+   if (isWJetsToLNu || isWG || isWGG || isWTauNu || isDYJetsToLL || isZG || isZGG || isZTauTau) {
 
      bool W_tau_sel = false;
      bool Z_tau_sel = false;
@@ -599,10 +597,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      for (uint i = 0; i < *nGenPart; i++) {
        if (fabs(GenPart_pdgId[i]) != 15) continue;
        if (GenPart_genPartIdxMother[i] == -1) continue;
-       if (isWJetsToLNu || isWGToLNuG || isWGG || isWGGJets) {
+       if (isWJetsToLNu || isWG || isWGG) {
          if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 24) return kTRUE; 
        }
-       if (isDYJetsToLL || isZGTo2LG || isZGGToLLGG || isZGGJetsToLLGG) {
+       if (isDYJetsToLL || isZG || isZGG) {
          if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 23) return kTRUE;
        }
        if (isWTauNu) {
@@ -622,7 +620,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    }
 
-   if (isWJetsToLNu || isWGToLNuG || isWGG || isWGGJets || isDYJetsToLL || isZGTo2LG || isZGGToLLGG || isZGGJetsToLLGG) {
+   if (isWJetsToLNu || isWG || isWGG || isDYJetsToLL || isZG || isZGG) {
 
      int iele0_gen = -1;
      int iele1_gen = -1;
@@ -815,20 +813,20 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (isWJetsToLNu) {
        if (n_photons_gen != 0) return kTRUE;
      }
-     if (isWGToLNuG) {
+     if (isWG) {
        if (n_photons_gen != 1) return kTRUE;
      }
-     if (isWGG || isWGGJets) {
+     if (isWGG) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
      }
 
      if (isDYJetsToLL) {
        if (n_photons_gen != 0) return kTRUE;
      }
-     if (isZGTo2LG) {
+     if (isZG) {
        if (n_photons_gen != 1) return kTRUE;
      }
-     if (isZGGToLLGG || isZGGJetsToLLGG) {
+     if (isZGG) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
      }
 
