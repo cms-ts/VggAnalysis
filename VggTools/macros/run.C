@@ -50,17 +50,17 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
 
   if (option.Contains("DT")) {
 #if defined(__APPLE__)
-    if (option.Contains("DT16H")) selector = TSelector::GetSelector("mainSelectorDT16H.C");
+    if (option.Contains("DT16H"))                             selector = TSelector::GetSelector("mainSelectorDT16H.C");
     if (option.Contains("DT16") && !option.Contains("DT16H")) selector = TSelector::GetSelector("mainSelectorDT16.C");
-    if (option.Contains("DT17B")) selector = TSelector::GetSelector("mainSelectorDT17B.C");
+    if (option.Contains("DT17B"))                             selector = TSelector::GetSelector("mainSelectorDT17B.C");
     if (option.Contains("DT17") && !option.Contains("DT17B")) selector = TSelector::GetSelector("mainSelectorDT17.C");
-    if (option.Contains("DT18")) selector = TSelector::GetSelector("mainSelectorDT18.C");
+    if (option.Contains("DT18"))                              selector = TSelector::GetSelector("mainSelectorDT18.C");
 #else
-    if (option.Contains("DT16H")) selector = TSelector::GetSelector("mainSelectorDT16H.C+");
+    if (option.Contains("DT16H"))                             selector = TSelector::GetSelector("mainSelectorDT16H.C+");
     if (option.Contains("DT16") && !option.Contains("DT16H")) selector = TSelector::GetSelector("mainSelectorDT16.C+");
-    if (option.Contains("DT17B")) selector = TSelector::GetSelector("mainSelectorDT17B.C+");
+    if (option.Contains("DT17B"))                             selector = TSelector::GetSelector("mainSelectorDT17B.C+");
     if (option.Contains("DT17") && !option.Contains("DT17B")) selector = TSelector::GetSelector("mainSelectorDT17.C+");
-    if (option.Contains("DT18")) selector = TSelector::GetSelector("mainSelectorDT18.C+");
+    if (option.Contains("DT18"))                              selector = TSelector::GetSelector("mainSelectorDT18.C+");
 #endif
     selector->SetOption("DT");
     workers.Process(files, *selector, "Events", nevt);
@@ -76,14 +76,14 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     if (option.Contains("MC18")) selector = TSelector::GetSelector("mainSelectorMC18.C+");
 #endif
     selector->SetOption("MC");
-    if (input.Contains("WJetsToLNu"))    selector->SetOption("MC,WJetsToLNu");
-    if (input.Contains("WG"))            selector->SetOption("MC,WG");
-    if (input.Contains("WGG"))           selector->SetOption("MC,WGG");
-    if (input.Contains("WTauNu"))        selector->SetOption("MC,WTauNu");
-    if (input.Contains("DYJetsToLL"))    selector->SetOption("MC,DYJetsToLL");
-    if (input.Contains("ZG"))            selector->SetOption("MC,ZG");
-    if (input.Contains("ZGG"))           selector->SetOption("MC,ZGG");
-    if (input.Contains("ZTauTau"))       selector->SetOption("MC,ZTauTau");
+    if (input.Contains("WJetsToLNu"))                   selector->SetOption("MC,WJetsToLNu");
+    if (input.Contains("WG") && !input.Contains("WGG")) selector->SetOption("MC,WG");
+    if (input.Contains("WGG"))                          selector->SetOption("MC,WGG");
+    if (input.Contains("WTauNu"))                       selector->SetOption("MC,WTauNu");
+    if (input.Contains("DYJetsToLL"))                   selector->SetOption("MC,DYJetsToLL");
+    if (input.Contains("ZG") && !input.Contains("ZGG")) selector->SetOption("MC,ZG");
+    if (input.Contains("ZGG"))                          selector->SetOption("MC,ZGG");
+    if (input.Contains("ZTauTau"))                      selector->SetOption("MC,ZTauTau");
     workers.Process(files, *selector, "Events", nevt);
   }
 

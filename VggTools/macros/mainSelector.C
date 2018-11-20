@@ -53,15 +53,15 @@ void mainSelector::Begin(TTree * /*tree*/)
    TDatime now;
    Info("Begin", "%s : options = %s", now.AsSQLString(), option.Data());
 
-   if (option.Contains("WJetsToLNu"))    isWJetsToLNu    = true;
-   if (option.Contains("WG"))            isWG            = true;
-   if (option.Contains("WGG"))           isWGG           = true;
-   if (option.Contains("WTauNu"))        isWTauNu        = true;
+   if (option.Contains("WJetsToLNu"))                    isWJetsToLNu = true;
+   if (option.Contains("WG") && !option.Contains("WGG")) isWG         = true;
+   if (option.Contains("WGG"))                           isWGG        = true;
+   if (option.Contains("WTauNu"))                        isWTauNu     = true;
 
-   if (option.Contains("DYJetsToLL"))    isDYJetsToLL    = true;
-   if (option.Contains("ZG"))            isZG            = true;
-   if (option.Contains("ZGG"))           isZGG           = true;
-   if (option.Contains("ZTauTau"))       isZTauTau       = true;
+   if (option.Contains("DYJetsToLL"))                    isDYJetsToLL = true;
+   if (option.Contains("ZG") && !option.Contains("ZGG")) isZG         = true;
+   if (option.Contains("ZGG"))                           isZGG        = true;
+   if (option.Contains("ZTauTau"))                       isZTauTau    = true;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    TFile* file_ele_pu;
