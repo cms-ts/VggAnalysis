@@ -402,7 +402,7 @@ public :
 
 };
 
-#endif
+#endif // mainSelector_h
 
 #ifdef mainSelector_cxx
 void mainSelector::Init(TTree *tree)
@@ -444,4 +444,4 @@ float getWeight(TH1* h, float x, float y) {
   }
 }
 
-#endif // mainSelector_h
+#endif // mainSelector_cxx
