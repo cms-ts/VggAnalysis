@@ -20,7 +20,7 @@
 #include "TH1D.h"
 #include "TH2D.h"
 
-#define QCD(H) GetOutputList()->FindObject((TString(H->GetName()) + "_qcd").Data())
+#define QCD(H) ((TH1*)GetOutputList()->FindObject((TString(H->GetName()) + "_qcd").Data()))
 
 #if defined(mainSelectorDT16H_h)
 #define mainSelectorDT16_h
@@ -284,10 +284,13 @@ public :
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
+   TTreeReaderArray<Float_t> Electron_mvaSpring16GP = {fReader, "Electron_mvaSpring16GP"};
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+   TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
    TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
+   TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
    TTreeReaderValue<Bool_t> HLT_Ele27_WPTight_Gsf = {fReader, "HLT_Ele27_WPTight_Gsf"};
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
@@ -308,10 +311,13 @@ public :
 #if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
    TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
+   TTreeReaderArray<Float_t> Electron_mvaFall17Iso = {fReader, "Electron_mvaFall17Iso"};
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+   TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
    TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
+   TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
    TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"};
@@ -328,10 +334,13 @@ public :
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
+   TTreeReaderArray<Float_t> Electron_mvaFall17V2Iso = {fReader, "Electron_mvaFall17V2Iso"};
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+   TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
    TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
+   TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
    TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf = {fReader, "HLT_Ele32_WPTight_Gsf"};
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"};
