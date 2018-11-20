@@ -283,12 +283,14 @@ public :
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 
-   TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
+   TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
+   //TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
    TTreeReaderArray<Float_t> Electron_mvaSpring16GP = {fReader, "Electron_mvaSpring16GP"};
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
    TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
+   //TTreeReaderArray<Bool_t> Photon_mvaID_WP80 = {fReader, "Photon_mvaID_WP80"};
    TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
@@ -310,12 +312,14 @@ public :
 
 #if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
-   TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
+   TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP80 = {fReader, "Electron_mvaFall17Iso_WP80"};
+   //TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
    TTreeReaderArray<Float_t> Electron_mvaFall17Iso = {fReader, "Electron_mvaFall17Iso"};
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
    TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
+   //TTreeReaderArray<Bool_t> Photon_mvaID_WP80 = {fReader, "Photon_mvaID_WP80"};
    TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
@@ -333,12 +337,14 @@ public :
 
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
-   TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
+   TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP80 = {fReader, "Electron_mvaFall17V2Iso_WP80"};
+   //TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
    TTreeReaderArray<Float_t> Electron_mvaFall17V2Iso = {fReader, "Electron_mvaFall17V2Iso"};
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
    TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
+   //TTreeReaderArray<Bool_t> Photon_mvaID_WP80 = {fReader, "Photon_mvaID_WP80"};
    TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
