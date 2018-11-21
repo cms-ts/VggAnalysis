@@ -205,6 +205,8 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   pad1->cd();
   pad1->SetLogy();
 
+  hstack_mc->SetMaximum(1.2*TMath::Max(hstack_mc->GetMaximum(),histo[0]->GetMaximum()));
+
   hstack_mc->Draw("HIST");
 
   hstack_mc->SetTitle("");
