@@ -41,7 +41,7 @@ for L in $LISTS; do
   grep -v '+++' | \
   grep -v '(M)' | \
   grep -v '#'`
-  printf "Checking %-128s : " `basename \`dirname $L\``/`basename $L`
+  printf "Checking %-132s : " `basename \`dirname $L\``/`basename $L`
   if [ -z "$O" ]; then
     echo -n "GOOD"
     grep -q "processed events" $L && echo " - done" || echo " - running"
