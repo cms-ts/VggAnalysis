@@ -1212,7 +1212,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float W_muo0_mt_qcd = 0.;
 
-   if (imuo0_qcd != -1 && imuo1_qcd == -1 && imuo0_qcd == -1 && imuo1_qcd == -1) {
+   if (imuo0_qcd != -1 && imuo1_qcd == -1 && iele0_qcd == -1 && iele1_qcd == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_IsoMu24 || *HLT_IsoTkMu24) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
