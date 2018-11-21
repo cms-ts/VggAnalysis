@@ -142,6 +142,9 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
 
+   sf_muo_id = (TH2D*)sf_muo_id_RunBCDEF->Clone();
+   sf_muo_iso = (TH2D*)sf_muo_iso_RunBCDEF->Clone();
+
    sf_muo_id->Add(sf_muo_id_RunBCDEF, sf_muo_id_RunGH, 19.69/35.917, 16.227/35.917);
    sf_muo_iso->Add(sf_muo_iso_RunBCDEF, sf_muo_iso_RunGH, 19.69/35.917, 16.227/35.917);
 
