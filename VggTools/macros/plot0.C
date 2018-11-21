@@ -2,13 +2,18 @@
 
 #include "CMS_lumi.C"
 
-void plot0(string plot="", string title="", string version="v00", string test="") {
+void plot0(string plot="", string title="", string version="v00", string flags="") {
 
   string year = "";
 
   if (plot.find("2016") != string::npos) year = "2016";
   if (plot.find("2017") != string::npos) year = "2017";
   if (plot.find("2018") != string::npos) year = "2018";
+
+  if (flags == "qcd") title = title + "_qcd";
+
+  plot = plot + ".dat";
+  if (flags == "test") plot = plot + ".test";
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -17,9 +22,6 @@ void plot0(string plot="", string title="", string version="v00", string test=""
   map<string, float> xsecMap;
   readMap("xsec.dat", xsecMap);
   cout << "Read xsec map for " << xsecMap.size() << " datasets from " << "xsec.dat" << endl;
-
-  plot = plot + ".dat";
-  if (test.size()) plot = plot + "." + test;
 
   multimap<string, float> plotMap;
   readMultiMap(plot, plotMap);
@@ -276,7 +278,7 @@ void plot0(string plot="", string title="", string version="v00", string test=""
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
 
-  if (test.size()) version = version + "." + test;
+  if (flags == "test") version = version + ".test";
 
   gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE);
   c1->SaveAs(("html/" + version + "/" + year + "/" + title + ".pdf").c_str());
