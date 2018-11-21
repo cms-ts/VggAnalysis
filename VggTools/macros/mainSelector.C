@@ -121,14 +121,29 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_muo_sf_id = TFile::Open("root/sf_muo_2016_RunBCDEF_ID.root");
    file_muo_sf_iso = TFile::Open("root/sf_muo_2016_RunBCDEF_ISO.root");
 
-   sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
-   sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
+   TH2D* sf_muo_id_RunBCDEF = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
+   TH2D* sf_muo_iso_RunBCDEF = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
 
-   sf_muo_id->SetDirectory(0);
-   sf_muo_iso->SetDirectory(0);
+   sf_muo_id_RunBCDEF->SetDirectory(0);
+   sf_muo_iso_RunBCDEF->SetDirectory(0);
 
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
+
+   file_muo_sf_id = TFile::Open("root/sf_muo_2016_RunGH_ID.root");
+   file_muo_sf_iso = TFile::Open("root/sf_muo_2016_RunGH_ISO.root");
+
+   TH2D* sf_muo_id_RunGH = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
+   TH2D* sf_muo_iso_RunGH = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
+
+   sf_muo_id_RunGH->SetDirectory(0);
+   sf_muo_iso_RunGH->SetDirectory(0);
+
+   file_muo_sf_id->Close();
+   file_muo_sf_iso->Close();
+
+   sf_muo_id->Add(sf_muo_id_RunBCDEF, sf_muo_id_RunGH, 19.69/35.917, 16.227/35.917);
+   sf_muo_iso->Add(sf_muo_iso_RunBCDEF, sf_muo_iso_RunGH, 19.69/35.917, 16.227/35.917);
 
    //file_pho_sf_eff = TFile::Open("root/sf_pho_2016_LegacyReReco_PhotonMVAwp80.root");
    file_pho_sf_eff = TFile::Open("root/sf_pho_2016_LegacyReReco_PhotonMVAwp90.root");
