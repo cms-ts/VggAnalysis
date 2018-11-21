@@ -145,8 +145,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_id->Add(sf_muo_id_RunBCDEF, sf_muo_id_RunGH, 19.69/35.917, 16.227/35.917);
    sf_muo_iso->Add(sf_muo_iso_RunBCDEF, sf_muo_iso_RunGH, 19.69/35.917, 16.227/35.917);
 
-   //file_pho_sf_eff = TFile::Open("root/sf_pho_2016_LegacyReReco_PhotonMVAwp80.root");
-   file_pho_sf_eff = TFile::Open("root/sf_pho_2016_LegacyReReco_PhotonMVAwp90.root");
+   file_pho_sf_eff = TFile::Open("root/sf_pho_2016_LegacyReReco_PhotonMVAwp80.root");
+   //file_pho_sf_eff = TFile::Open("root/sf_pho_2016_LegacyReReco_PhotonMVAwp90.root");
 // FIXME
    //file_pho_sf_reco = TFile::Open("root/sf_pho_2016_EGM2D_BtoH_GT20GeV_RecoSF_2018.root");
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
@@ -184,8 +184,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
 
-   //file_pho_sf_eff = TFile::Open("root/sf_pho_2017_PhotonsMVAwp80.root");
-   file_pho_sf_eff = TFile::Open("root/sf_pho_2017_PhotonsMVAwp90.root");
+   file_pho_sf_eff = TFile::Open("root/sf_pho_2017_PhotonsMVAwp80.root");
+   //file_pho_sf_eff = TFile::Open("root/sf_pho_2017_PhotonsMVAwp90.root");
 // FIXME
    //file_pho_sf_reco = TFile::Open("root/sf_pho_2017_EGM2D_BtoH_GT20GeV_RecoSF_2018.root");
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
@@ -225,8 +225,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_muo_sf_iso->Close();
 // FIXME
 
-   //file_pho_sf_eff = TFile::Open("root/sf_pho_2018_PhotonsMVAwp80.root");
-   file_pho_sf_eff = TFile::Open("root/sf_pho_2018_PhotonsMVAwp90.root");
+   file_pho_sf_eff = TFile::Open("root/sf_pho_2018_PhotonsMVAwp80.root");
+   //file_pho_sf_eff = TFile::Open("root/sf_pho_2018_PhotonsMVAwp90.root");
 // FIXME
    //file_pho_sf_reco = TFile::Open("root/sf_pho_2018_EGM2D_BtoH_GT20GeV_RecoSF_2018.root");
 
@@ -569,7 +569,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0_gen != -1 && iele1_gen == -1 && imuo0_gen == -1 && imuo1_gen == -1) {
        W_ele0_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * (*MET_fiducialGenPt) * (1. - TMath::Cos(ele0_gen.Phi() - (*MET_fiducialGenPhi))));
-       if (*MET_fiducialGenPt > 40 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 40) {
+       if (*MET_fiducialGenPt > 20 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 40) {
          W_ele_sel_gen = true;
        }
      }
@@ -976,8 +976,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
-     //if (Photon_mvaID_WP80[i] == 0) continue;
-     if (Photon_mvaID_WP90[i] == 0) continue;
+     if (Photon_mvaID_WP80[i] == 0) continue;
+     //if (Photon_mvaID_WP90[i] == 0) continue;
      if (Photon_electronVeto[i] == 0) continue;
      //if (Photon_pixelSeed[i] == 0) continue;
 
@@ -1157,7 +1157,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele32_WPTight_Gsf) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_ele0_mt = TMath::Sqrt(2. * ele0.Pt() * (*MET_pt) * (1. - TMath::Cos(ele0.Phi() - (*MET_phi))));
-       if (*MET_pt > 40 && W_ele0_mt > 20 && ele0.Pt() > 40) {
+       if (*MET_pt > 20 && W_ele0_mt > 20 && ele0.Pt() > 40) {
          W_ele_sel_wide = true;
          if (W_ele0_mt > 40) {
            W_ele_sel = true;
@@ -1184,7 +1184,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele32_WPTight_Gsf) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_ele0_mt_qcd = TMath::Sqrt(2. * ele0_qcd.Pt() * (*MET_pt) * (1. - TMath::Cos(ele0_qcd.Phi() - (*MET_phi))));
-       if (*MET_pt < 40 && W_ele0_mt_qcd > 20 && ele0_qcd.Pt() > 40) {
+       if (*MET_pt < 20 && W_ele0_mt_qcd > 20 && ele0_qcd.Pt() > 40) {
          W_ele_sel_wide_qcd = true;
          if (W_ele0_mt_qcd > 40) {
            W_ele_sel_qcd = true;
@@ -1603,6 +1603,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // W photon(s) plots
 
+   if (W_ele_sel_wide) {
+     if (n_photons >= 1) {
+       h_W_ele_pho0->Fill(W_ele0_mt, weight_W_ele * weight_pho0);
+     }
+   }
+
    if (W_ele_sel) {
      h_W_ele_nphotons->Fill(n_photons, weight_W_ele);
      if (n_photons >= 1) {
@@ -1612,7 +1618,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_W_ele_pho0_r9->Fill(Photon_r9[ipho0], weight_W_ele * weight_pho0);
        h_W_ele_pho0_sieie->Fill(Photon_sieie[ipho0], weight_W_ele * weight_pho0);
        h_W_ele_pho0_dR->Fill(pho0.DeltaR(ele0), weight_W_ele * weight_pho0);
-       h_W_ele_pho0->Fill(W_ele0_mt, weight_W_ele * weight_pho0);
      }
      if (n_photons >= 2) {
        h_W_ele_pho1_pt->Fill(Photon_pt[ipho1], weight_W_ele * weight_pho0 * weight_pho1);
@@ -1625,6 +1630,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+   if (W_ele_sel_wide_qcd) {
+     if (n_photons >= 1) {
+       QCD(h_W_ele_pho0)->Fill(W_ele0_mt_qcd, weight_pu_ele * weight_pho0);
+     }
+   }
+
    if (W_ele_sel_qcd) {
      QCD(h_W_ele_nphotons)->Fill(n_photons, weight_pu_ele);
      if (n_photons >= 1) {
@@ -1634,7 +1645,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_W_ele_pho0_r9)->Fill(Photon_r9[ipho0], weight_pu_ele * weight_pho0);
        QCD(h_W_ele_pho0_sieie)->Fill(Photon_sieie[ipho0], weight_pu_ele * weight_pho0);
        QCD(h_W_ele_pho0_dR)->Fill(pho0.DeltaR(ele0_qcd), weight_pu_ele * weight_pho0);
-       QCD(h_W_ele_pho0)->Fill(W_ele0_mt_qcd, weight_pu_ele * weight_pho0);
      }
      if (n_photons >= 2) {
        QCD(h_W_ele_pho1_pt)->Fill(Photon_pt[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
@@ -1647,6 +1657,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+   if (W_muo_sel_wide) {
+     if (n_photons >= 1) {
+       h_W_muo_pho0->Fill(W_muo0_mt, weight_W_muo * weight_pho0);
+     }
+   }
+
    if (W_muo_sel) {
      h_W_muo_nphotons->Fill(n_photons, weight_W_muo);
      if (n_photons >= 1) {
@@ -1656,7 +1672,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_W_muo_pho0_r9->Fill(Photon_r9[ipho0], weight_W_muo * weight_pho0);
        h_W_muo_pho0_sieie->Fill(Photon_sieie[ipho0], weight_W_muo * weight_pho0);
        h_W_muo_pho0_dR->Fill(pho0.DeltaR(muo0), weight_W_muo * weight_pho0);
-       h_W_muo_pho0->Fill(W_muo0_mt, weight_W_muo * weight_pho0);
      }
      if (n_photons >= 2) {
        h_W_muo_pho1_pt->Fill(Photon_pt[ipho1], weight_W_muo * weight_pho0 * weight_pho1);
@@ -1669,6 +1684,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+   if (W_muo_sel_wide_qcd) {
+     if (n_photons >= 1) {
+       QCD(h_W_muo_pho0)->Fill(W_muo0_mt_qcd, weight_pu_muo * weight_pho0);
+     }
+   }
+
    if (W_muo_sel_qcd) {
      QCD(h_W_muo_nphotons)->Fill(n_photons, weight_pu_muo);
      if (n_photons >= 1) {
@@ -1678,7 +1699,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_W_muo_pho0_r9)->Fill(Photon_r9[ipho0], weight_pu_muo * weight_pho0);
        QCD(h_W_muo_pho0_sieie)->Fill(Photon_sieie[ipho0], weight_pu_muo * weight_pho0);
        QCD(h_W_muo_pho0_dR)->Fill(pho0.DeltaR(muo0_qcd), weight_pu_muo * weight_pho0);
-       QCD(h_W_muo_pho0)->Fill(W_muo0_mt_qcd, weight_pu_muo * weight_pho0);
      }
      if (n_photons >= 2) {
        QCD(h_W_muo_pho1_pt)->Fill(Photon_pt[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
