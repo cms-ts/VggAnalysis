@@ -280,6 +280,8 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
 
+  if (flags == "qcd") year = year + ".qcd";
+
   if (flags == "test") version = version + ".test";
 
   gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE);
