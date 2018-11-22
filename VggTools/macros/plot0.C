@@ -10,10 +10,11 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   if (plot.find("2017") != string::npos) year = "2017";
   if (plot.find("2018") != string::npos) year = "2018";
 
-  if (flags.find("qcd")) title = title + "_qcd";
-
   plot = plot + ".dat";
-  if (flags.find("test")) plot = plot + ".test";
+  if (flags.find("test") != string::npos) plot = plot + ".test";
+
+  if (flags.find("qcd") != string::npos) year = year + ".qcd";
+  if (flags.find("qcd") != string::npos) title = title + "_qcd";
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -280,9 +281,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
 
-  if (flags.find("qcd")) year = year + ".qcd";
-
-  if (flags.find("test")) version = version + ".test";
+  if (flags.find("test") != string::npos) version = version + ".test";
 
   gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE);
   c1->SaveAs(("html/" + version + "/" + year + "/" + title + ".pdf").c_str());
