@@ -1211,7 +1211,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele32_WPTight_Gsf) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_ele0_mt_qcd = TMath::Sqrt(2. * ele0_qcd.Pt() * (*MET_pt) * (1. - TMath::Cos(ele0_qcd.Phi() - (*MET_phi))));
-       if (*MET_pt < 20 && W_ele0_mt_qcd > 20 && ele0_qcd.Pt() > 40) {
+       if (*MET_pt > 20 && W_ele0_mt_qcd > 20 && ele0_qcd.Pt() > 40) {
          W_ele_sel_wide_qcd = true;
          if (W_ele0_mt_qcd > 40) {
            W_ele_sel_qcd = true;
@@ -1265,7 +1265,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_IsoMu24) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_muo0_mt_qcd = TMath::Sqrt(2. * muo0_qcd.Pt() * (*MET_pt) * (1. - TMath::Cos(muo0_qcd.Phi() - (*MET_phi))));
-       if (*MET_pt < 20 && W_muo0_mt_qcd > 20 && muo0_qcd.Pt() > 30) {
+       if (*MET_pt > 20 && W_muo0_mt_qcd > 20 && muo0_qcd.Pt() > 30) {
          W_muo_sel_wide_qcd = true;
          if (W_muo0_mt_qcd > 40) {
            W_muo_sel_qcd = true;
