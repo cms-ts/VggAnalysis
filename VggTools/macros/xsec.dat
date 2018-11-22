@@ -45,7 +45,10 @@ RunIIFall18NanoAOD_W2JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	3120
 RunIIFall18NanoAOD_W3JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	942.3
 RunIIFall18NanoAOD_W4JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	524.2
 #
-RunIIFall18NanoAOD_TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8				831.76
+RunIIFall18NanoAOD_TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8		831.76
+RunIIAutumn18NanoAOD_TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8		88.34
+RunIIAutumn18NanoAOD_TTToHadronic_TuneCP5_13TeV-powheg-pythia8		377.97
+RunIIAutumn18NanoAOD_TTToSemiLeptonic_TuneCP5up_13TeV-powheg-pythia8	365.46
 RunIIFall18NanoAOD_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8	35.6
 RunIIFall18NanoAOD_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8		35.6
 #
