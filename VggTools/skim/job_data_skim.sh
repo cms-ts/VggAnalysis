@@ -12,14 +12,6 @@ if [ -e $D/$G.root ]; then
   exit
 fi
 
-if [ -z "${1##*Run2016*05Feb2018*}" ]; then
-  python nano_postproc.py \
-  -P -J /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt \
-  . $F > logs/$G.log 2>&1
-  eos cp $G.root $D/$G.root >> logs/$G.log 2>&1
-  rm $G.root >> logs/$G.log 2>&1
-fi
-
 if [ -z "${1##*Run2016*22Aug2018*}" ]; then
   python nano_postproc.py \
   -P -J /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt \

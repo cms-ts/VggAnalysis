@@ -8,13 +8,6 @@ cd $WORKDIR
 
 for D1 in `ls $DATADIR/ | grep Run2016`; do
   for D2 in `ls $DATADIR/$D1`; do
-    find $DATADIR/$D1/$D2 -type f | grep 05Feb2018 | \
-    awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/${D1}_${D2}_05Feb2018.list
-  done
-done
-
-for D1 in `ls $DATADIR/ | grep Run2016`; do
-  for D2 in `ls $DATADIR/$D1`; do
     find $DATADIR/$D1/$D2 -type f | grep 22Aug2018 | \
     awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/${D1}_${D2}_22Aug2018.list
   done
@@ -32,11 +25,6 @@ for D1 in `ls $DATADIR/ | grep Run2018`; do
     find $DATADIR/$D1/$D2 -type f | grep 14Sep2018 | \
     awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/${D1}_${D2}_14Sep2018.list
   done
-done
-
-for D2 in `ls $DATADIR/Run2016B/`; do
-  find $DATADIR/Run2016*/$D2 -type f | grep 05Feb2018 | \
-  awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/Run2016_${D2}_05Feb2018.list
 done
 
 for D2 in `ls $DATADIR/Run2016B/`; do
