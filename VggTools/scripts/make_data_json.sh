@@ -12,15 +12,6 @@ cd $WORKDIR
 
 for D1 in `ls $DATADIR/ | grep Run2016`; do
   for D2 in `ls $DATADIR/$D1`; do
-    N=`find $DATADIR/$D1/$D2 -type f | grep 05Feb2018 | wc -l`
-    echo "checking ${D1}/${D2} - $N files"
-    python nano_report.py -o json/${D1}_${D2}_05Feb2018.json \
-    `find $DATADIR/$D1/$D2 -type f | grep 05Feb2018`
-  done
-done
-
-for D1 in `ls $DATADIR/ | grep Run2016`; do
-  for D2 in `ls $DATADIR/$D1`; do
     N=`find $DATADIR/$D1/$D2 -type f | grep 22Aug2018 | wc -l`
     echo "checking ${D1}/${D2} - $N files"
     python nano_report.py -o json/${D1}_${D2}_22Aug2018.json \
@@ -44,13 +35,6 @@ for D1 in `ls $DATADIR/ | grep Run2018`; do
     python nano_report.py -o json/${D1}_${D2}_14Sep2018.json \
     `find $DATADIR/$D1/$D2 -type f | grep 14Sep2018`
   done
-done
-
-for D2 in `ls $DATADIR/Run2016B/`; do
-  N=`find $DATADIR/Run2016*/$D2 -type f | grep 05Feb2018 | wc -l`
-  echo "checking Run2016/${D2} - $N files"
-  python nano_report.py -o json/Run2016_${D2}_05Feb2018.json \
-  `find $DATADIR/Run2016*/$D2 -type f | grep 05Feb2018`
 done
 
 for D2 in `ls $DATADIR/Run2016B/`; do
