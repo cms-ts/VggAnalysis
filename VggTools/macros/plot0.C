@@ -196,8 +196,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   TH1D* h_ratio = (TH1D*) histo[0]->Clone();
   h_ratio->Divide(h_mcsum);  
 
-  TCanvas* c1 = 0;
-  c1 = new TCanvas("c", "c", 10, 10, 800, 600);
+  TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
   c1->cd();
 
   TPad* pad1 = new TPad("pad1", "pad1", 0.0, 0.3, 1.0, 1.0);
