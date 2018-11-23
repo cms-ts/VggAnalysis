@@ -62,7 +62,7 @@ void plot1(string plot="", string title="", string version="v00", string flags="
     fitter->ExecuteCommand("MIGRAD",arglist, 0);
 
     ofstream out;
-    out.open(("html/" + version + "/" + year + "/root/" + title + "_qcd.dat").c_str());
+    out.open(("html/" + version + "/" + year + "/root/" + title + "_qcd_fit.dat").c_str());
     out << fitter->GetParameter(0) << " " << fitter->GetParError(0) << endl;
     out.close();
 
@@ -75,7 +75,7 @@ void plot1(string plot="", string title="", string version="v00", string flags="
     h2->Draw("same");
     h2->SetLineColor(kRed);
 
-    c1->SaveAs(("html/" + version + "/" + year + "/root/" + title + "_qcdfit.pdf").c_str());
+    c1->SaveAs(("html/" + version + "/" + year + "/root/" + title + "_qcd_fit.pdf").c_str());
 
   }
 
