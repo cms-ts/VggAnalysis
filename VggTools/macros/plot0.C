@@ -229,7 +229,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
 
   leg->Draw();
 
-  if (histo[0]->GetEntries() != 0) pad1->SetLogy();
+  if (h_mcsum->GetMaximum() != 0) pad1->SetLogy();
 
   pad1->Update();
   c1->Update();
