@@ -205,6 +205,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   pad1->cd();
 
   hstack_mc->SetMaximum(1.2*TMath::Max(hstack_mc->GetMaximum(),histo[0]->GetMaximum()));
+  hstack_mc->SetMinimum(0.0001*hstack_mc->GetMaximum());
 
   hstack_mc->Draw("HIST");
 
@@ -217,7 +218,6 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   hstack_mc->GetYaxis()->SetTitleSize(0.05);
   hstack_mc->GetYaxis()->SetTitleOffset(1.0);
   hstack_mc->GetYaxis()->SetLabelSize(0.045);
-  hstack_mc->SetMinimum(0.5);
 
   histo[0]->SetStats(0);
   histo[0]->SetMarkerColor(kBlack);
