@@ -36,11 +36,17 @@ void plot1(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("fit") != string::npos) {
 
-    TFile* f1 = TFile::Open(("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
-    TFile* f2 = TFile::Open(("html/" + version + "/" + year + "/root/" + title + "_qcd.root").c_str());
+    TFile f1(("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
+    TFile f2(("html/" + version + "/" + year + "/root/" + title + "_qcd.root").c_str());
 
-    TH1D* h1 = (TH1D*)f1->Get((title).c_str());
-    TH1D* h2 = (TH1D*)f2->Get((title + "_qcd").c_str());
+    TH1D* h1 = (TH1D*)f1.Get((title).c_str());
+    TH1D* h2 = (TH1D*)f2.Get((title + "_qcd").c_str());
+
+    h1->SetDirectory(0);
+    h2->SetDirectory(0);
+
+    f1.Close();
+    f2.Close();
 
     for (int i = h1->FindBin(40.); i <= h1->GetNbinsX(); i++) {
       h1->SetBinContent(i, 0.);
@@ -108,6 +114,10 @@ void plot1(string plot="", string title="", string version="v00", string flags="
     int index = int(it->second);
     if (index == 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
+      if (!file.IsOpen()) {
+        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
+        return;
+      }
       if (lumiMap[it->first] != 0) {
         lumi = lumi + lumiMap[it->first];
       } else {

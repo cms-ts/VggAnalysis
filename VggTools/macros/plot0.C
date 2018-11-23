@@ -40,13 +40,17 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
+      TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
+      if (!file.IsOpen()) {
+        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
+        return;
+      }
       if (lumiMap[it->first] != 0) {
         lumi = lumi + lumiMap[it->first];
       } else {
         cout << "ERROR: luminosity for " << it->first << " is ZERO !!" << endl;
         return;
       }
-      TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
       if (histo[index]) {
         histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()));
       } else {
