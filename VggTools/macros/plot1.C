@@ -2,6 +2,28 @@
 
 #include "CMS_lumi.C"
 
+TH1D* h_fit1 = 0;
+TH1D* h_fit2 = 0;
+
+void fcn(int& npar, double* gin, double& fun, double* par, int iflag) {
+  double chisq = 0.0;
+  if (npar) {}
+  if (iflag) {}
+  if (gin) {}
+
+  for (int i = 1; i < h_fit1->FindBin(40.); i++) {
+    double xn = h_fit1->GetBinContent(i);
+    double xd = TMath::Power(h_fit1->GetBinError(i),2);
+    xn = xn - par[0]*h_fit2->GetBinContent(i);
+    xd = xd + TMath::Power(par[0]*h_fit2->GetBinError(i),2);
+
+    if (xd!=0) chisq = chisq + (xn*xn)/xd;
+  }
+
+  fun = chisq;
+}
+
+
 void plot1(string plot="", string title="", string version="v00", string flags="") {
 
   string year = "";
@@ -30,14 +52,24 @@ void plot1(string plot="", string title="", string version="v00", string flags="
       h2->SetBinError(i, 0.);
     }
 
-    double xval = h1->Integral() / h2->Integral();
+    h_fit1 = (TH1D*)h1->Clone();
+    h_fit2 = (TH1D*)h2->Clone();
+
+    TVirtualFitter::SetDefaultFitter("Minuit");
+    TVirtualFitter* fitter=0;
+    fitter = TVirtualFitter::Fitter(0, 1);
+    fitter->SetFCN(fcn);
+    double arglist[1] = {-1.0};
+    fitter->ExecuteCommand("SET PRINT", arglist, 1);
+    fitter->SetParameter(0, "c", 1., 1., 0., 999.);
+    fitter->ExecuteCommand("MIGRAD",arglist, 0);
 
     ofstream out;
     out.open(("html/" + version + "/" + year + "/root/" + title + "_qcd.dat").c_str());
-    out << xval << " " << xval << endl;
+    out << fitter->GetParameter(0) << " " << fitter->GetParError(0) << endl;
     out.close();
 
-    h2->Scale(xval);
+    h2->Scale(fitter->GetParameter(0));
 
     TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
     c1->cd();
