@@ -203,7 +203,6 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   pad1->SetBottomMargin(0.001);
   pad1->Draw();
   pad1->cd();
-  pad1->SetLogy();
 
   hstack_mc->SetMaximum(1.2*TMath::Max(hstack_mc->GetMaximum(),histo[0]->GetMaximum()));
 
@@ -229,6 +228,8 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   histo[0]->Draw("EXP0SAMES");
 
   leg->Draw();
+
+  if (histo[0]->GetEntries() != 0) pad1->SetLogy();
 
   pad1->Update();
   c1->Update();
