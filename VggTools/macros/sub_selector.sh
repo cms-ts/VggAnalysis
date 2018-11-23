@@ -43,7 +43,7 @@ if [ ! -z "$2" ]; then
   fi
 fi
 
-./compile.sh
+./compile.sh force
 
 for L in $LISTS; do
   L=`basename $L .list`.list
