@@ -10,7 +10,6 @@ void fcn(int& npar, double* gin, double& fun, double* par, int iflag) {
   if (npar) {}
   if (iflag) {}
   if (gin) {}
-
   for (int i = 1; i < h_fit1->FindBin(40.); i++) {
     double xn = h_fit1->GetBinContent(i);
     double xd = TMath::Power(h_fit1->GetBinError(i),2);
@@ -19,10 +18,8 @@ void fcn(int& npar, double* gin, double& fun, double* par, int iflag) {
 
     if (xd!=0) chisq = chisq + (xn*xn)/xd;
   }
-
   fun = chisq;
 }
-
 
 void plot1(string plot="", string title="", string version="v00", string flags="") {
 
@@ -56,12 +53,12 @@ void plot1(string plot="", string title="", string version="v00", string flags="
     h_fit2 = (TH1D*)h2->Clone();
 
     TVirtualFitter::SetDefaultFitter("Minuit");
-    TVirtualFitter* fitter=0;
+    TVirtualFitter* fitter = 0;
     fitter = TVirtualFitter::Fitter(0, 1);
     fitter->SetFCN(fcn);
     double arglist[1] = {-1.0};
     fitter->ExecuteCommand("SET PRINT", arglist, 1);
-    fitter->SetParameter(0, "c", 1., 1., 0., 999.);
+    fitter->SetParameter(0, "c", 1.0, 0.1, 0., 999.);
     fitter->ExecuteCommand("MIGRAD",arglist, 0);
 
     ofstream out;
