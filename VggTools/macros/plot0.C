@@ -228,7 +228,6 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   histo[0]->SetMarkerStyle(20);
   histo[0]->SetMarkerSize (1.0);
 
-  histo[0]->Draw("HISTSAMES");
   histo[0]->Draw("EXP0SAMES");
 
   leg->Draw();
