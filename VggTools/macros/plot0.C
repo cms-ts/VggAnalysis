@@ -233,7 +233,9 @@ void plot0(string plot="", string title="", string version="v00", string flags="
 
   leg->Draw();
 
-  if (h_mcsum->GetMaximum() != 0) pad1->SetLogy();
+  if (flags.find("nolog") == string::npos) {
+    if (h_mcsum->GetMaximum() != 0) pad1->SetLogy();
+  }
 
   pad1->Update();
   c1->Update();
