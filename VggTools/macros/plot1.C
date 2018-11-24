@@ -48,12 +48,12 @@ void plot1(string plot="", string title="", string version="v00", string flags="
     f1.Close();
     f2.Close();
 
-    for (int i = h1->FindBin(40.); i <= h1->GetNbinsX(); i++) {
-      h1->SetBinContent(i, 0.);
-      h1->SetBinError(i, 0.);
-      h2->SetBinContent(i, 0.);
-      h2->SetBinError(i, 0.);
-    }
+//    for (int i = h1->FindBin(40.); i <= h1->GetNbinsX(); i++) {
+//      h1->SetBinContent(i, 0.);
+//      h1->SetBinError(i, 0.);
+//      h2->SetBinContent(i, 0.);
+//      h2->SetBinError(i, 0.);
+//    }
 
     h_fit1 = (TH1D*)h1->Clone();
     h_fit2 = (TH1D*)h2->Clone();
