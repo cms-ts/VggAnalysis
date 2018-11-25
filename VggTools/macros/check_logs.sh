@@ -49,7 +49,7 @@ for L in $LISTS; do
   printf "Checking %-132s : " `basename \`dirname $L\``/`basename $L`
   if [ -z "$O" ]; then
     echo -n "GOOD"
-    if [ `grep -q "processed events" $L` ]; then
+    if grep -q "processed events" $L ; then
       echo " - done"
       done=$((done+1))
     else
