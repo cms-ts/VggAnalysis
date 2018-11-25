@@ -1565,7 +1565,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      h_W_ele0_pf_iso_all->Fill(Electron_pfRelIso03_all[iele0], weight_W_ele);
-     h_W_ele0_pf_iso_chg->Fill(Electron_pfRelIso03_all[iele0], weight_W_ele);
+     h_W_ele0_pf_iso_chg->Fill(Electron_pfRelIso03_chg[iele0], weight_W_ele);
      h_W_ele_met_pt->Fill(*MET_pt, weight_W_ele);
      h_W_ele_met_phi->Fill(*MET_phi, weight_W_ele);
      h_W_ele_met_sign->Fill(*MET_significance, weight_W_ele);
@@ -1595,7 +1595,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      QCD(h_W_ele0_pf_iso_all)->Fill(Electron_pfRelIso03_all[iele0_qcd], weight_pu_ele);
-     QCD(h_W_ele0_pf_iso_chg)->Fill(Electron_pfRelIso03_all[iele0_qcd], weight_pu_ele);
+     QCD(h_W_ele0_pf_iso_chg)->Fill(Electron_pfRelIso03_chg[iele0_qcd], weight_pu_ele);
      QCD(h_W_ele_met_pt)->Fill(*MET_pt, weight_pu_ele);
      QCD(h_W_ele_met_phi)->Fill(*MET_phi, weight_pu_ele);
      QCD(h_W_ele_met_sign)->Fill(*MET_significance, weight_pu_ele);
@@ -1612,7 +1612,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      h_W_muo0_eta->Fill(Muon_eta[imuo0], weight_W_muo);
      h_W_muo0_phi->Fill(Muon_phi[imuo0], weight_W_muo);
      h_W_muo0_pf_iso_all->Fill(Muon_pfRelIso03_all[imuo0], weight_W_muo);
-     h_W_muo0_pf_iso_chg->Fill(Muon_pfRelIso03_all[imuo0], weight_W_muo);
+     h_W_muo0_pf_iso_chg->Fill(Muon_pfRelIso03_chg[imuo0], weight_W_muo);
      h_W_muo_met_pt->Fill(*MET_pt, weight_W_muo);
      h_W_muo_met_phi->Fill(*MET_phi, weight_W_muo);
      h_W_muo_met_sign->Fill(*MET_significance, weight_W_muo);
@@ -1629,7 +1629,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      QCD(h_W_muo0_eta)->Fill(Muon_eta[imuo0_qcd], weight_pu_muo);
      QCD(h_W_muo0_phi)->Fill(Muon_phi[imuo0_qcd], weight_pu_muo);
      QCD(h_W_muo0_pf_iso_all)->Fill(Muon_pfRelIso03_all[imuo0_qcd], weight_pu_muo);
-     QCD(h_W_muo0_pf_iso_chg)->Fill(Muon_pfRelIso03_all[imuo0_qcd], weight_pu_muo);
+     QCD(h_W_muo0_pf_iso_chg)->Fill(Muon_pfRelIso03_chg[imuo0_qcd], weight_pu_muo);
      QCD(h_W_muo_met_pt)->Fill(*MET_pt, weight_pu_muo);
      QCD(h_W_muo_met_phi)->Fill(*MET_phi, weight_pu_muo);
      QCD(h_W_muo_met_sign)->Fill(*MET_significance, weight_pu_muo);
@@ -1661,14 +1661,14 @@ Bool_t mainSelector::Process(Long64_t entry)
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      h_Z_ele0_pf_iso_all->Fill(Electron_pfRelIso03_all[iele0], weight_Z_ele);
-     h_Z_ele0_pf_iso_chg->Fill(Electron_pfRelIso03_all[iele0], weight_Z_ele);
+     h_Z_ele0_pf_iso_chg->Fill(Electron_pfRelIso03_chg[iele0], weight_Z_ele);
      h_Z_ele1_pt->Fill(Electron_pt[iele1], weight_Z_ele);
      h_Z_ele1_eta->Fill(Electron_eta[iele1], weight_Z_ele);
      h_Z_ele1_phi->Fill(Electron_phi[iele1], weight_Z_ele);
      h_Z_ele1_r9->Fill(Electron_r9[iele1], weight_Z_ele);
      h_Z_ele1_sieie->Fill(Electron_sieie[iele1], weight_Z_ele);
      h_Z_ele1_pf_iso_all->Fill(Electron_pfRelIso03_all[iele1], weight_Z_ele);
-     h_Z_ele1_pf_iso_chg->Fill(Electron_pfRelIso03_all[iele1], weight_Z_ele);
+     h_Z_ele1_pf_iso_chg->Fill(Electron_pfRelIso03_chg[iele1], weight_Z_ele);
      h_Z_ele_met_pt->Fill(*MET_pt, weight_Z_ele);
      h_Z_ele_met_phi->Fill(*MET_phi, weight_Z_ele);
      h_Z_ele_met_sign->Fill(*MET_significance, weight_Z_ele);
@@ -1698,14 +1698,14 @@ Bool_t mainSelector::Process(Long64_t entry)
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      QCD(h_Z_ele0_pf_iso_all)->Fill(Electron_pfRelIso03_all[iele0_qcd], weight_pu_ele);
-     QCD(h_Z_ele0_pf_iso_chg)->Fill(Electron_pfRelIso03_all[iele0_qcd], weight_pu_ele);
+     QCD(h_Z_ele0_pf_iso_chg)->Fill(Electron_pfRelIso03_chg[iele0_qcd], weight_pu_ele);
      QCD(h_Z_ele1_pt)->Fill(Electron_pt[iele1_qcd], weight_pu_ele);
      QCD(h_Z_ele1_eta)->Fill(Electron_eta[iele1_qcd], weight_pu_ele);
      QCD(h_Z_ele1_phi)->Fill(Electron_phi[iele1_qcd], weight_pu_ele);
      QCD(h_Z_ele1_r9)->Fill(Electron_r9[iele1_qcd], weight_pu_ele);
      QCD(h_Z_ele1_sieie)->Fill(Electron_sieie[iele1_qcd], weight_pu_ele);
      QCD(h_Z_ele1_pf_iso_all)->Fill(Electron_pfRelIso03_all[iele1_qcd], weight_pu_ele);
-     QCD(h_Z_ele1_pf_iso_chg)->Fill(Electron_pfRelIso03_all[iele1_qcd], weight_pu_ele);
+     QCD(h_Z_ele1_pf_iso_chg)->Fill(Electron_pfRelIso03_chg[iele1_qcd], weight_pu_ele);
      QCD(h_Z_ele_met_pt)->Fill(*MET_pt, weight_pu_ele);
      QCD(h_Z_ele_met_phi)->Fill(*MET_phi, weight_pu_ele);
      QCD(h_Z_ele_met_sign)->Fill(*MET_significance, weight_pu_ele);
@@ -1719,12 +1719,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      h_Z_muo0_eta->Fill(Muon_eta[imuo0], weight_Z_muo);
      h_Z_muo0_phi->Fill(Muon_phi[imuo0], weight_Z_muo);
      h_Z_muo0_pf_iso_all->Fill(Muon_pfRelIso03_all[imuo0], weight_Z_muo);
-     h_Z_muo0_pf_iso_chg->Fill(Muon_pfRelIso03_all[imuo0], weight_Z_muo);
+     h_Z_muo0_pf_iso_chg->Fill(Muon_pfRelIso03_chg[imuo0], weight_Z_muo);
      h_Z_muo1_pt->Fill(Muon_pt[imuo1], weight_Z_muo);
      h_Z_muo1_eta->Fill(Muon_eta[imuo1], weight_Z_muo);
      h_Z_muo1_phi->Fill(Muon_phi[imuo1], weight_Z_muo);
      h_Z_muo1_pf_iso_all->Fill(Muon_pfRelIso03_all[imuo1], weight_Z_muo);
-     h_Z_muo1_pf_iso_chg->Fill(Muon_pfRelIso03_all[imuo1], weight_Z_muo);
+     h_Z_muo1_pf_iso_chg->Fill(Muon_pfRelIso03_chg[imuo1], weight_Z_muo);
      h_Z_muo_met_pt->Fill(*MET_pt, weight_Z_muo);
      h_Z_muo_met_phi->Fill(*MET_phi, weight_Z_muo);
      h_Z_muo_met_sign->Fill(*MET_significance, weight_Z_muo);
@@ -1738,12 +1738,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      QCD(h_Z_muo0_eta)->Fill(Muon_eta[imuo0_qcd], weight_pu_muo);
      QCD(h_Z_muo0_phi)->Fill(Muon_phi[imuo0_qcd], weight_pu_muo);
      QCD(h_Z_muo0_pf_iso_all)->Fill(Muon_pfRelIso03_all[imuo0_qcd], weight_pu_muo);
-     QCD(h_Z_muo0_pf_iso_chg)->Fill(Muon_pfRelIso03_all[imuo0_qcd], weight_pu_muo);
+     QCD(h_Z_muo0_pf_iso_chg)->Fill(Muon_pfRelIso03_chg[imuo0_qcd], weight_pu_muo);
      QCD(h_Z_muo1_pt)->Fill(Muon_pt[imuo1_qcd], weight_pu_muo);
      QCD(h_Z_muo1_eta)->Fill(Muon_eta[imuo1_qcd], weight_pu_muo);
      QCD(h_Z_muo1_phi)->Fill(Muon_phi[imuo1_qcd], weight_pu_muo);
      QCD(h_Z_muo1_pf_iso_all)->Fill(Muon_pfRelIso03_all[imuo1_qcd], weight_pu_muo);
-     QCD(h_Z_muo1_pf_iso_chg)->Fill(Muon_pfRelIso03_all[imuo1_qcd], weight_pu_muo);
+     QCD(h_Z_muo1_pf_iso_chg)->Fill(Muon_pfRelIso03_chg[imuo1_qcd], weight_pu_muo);
      QCD(h_Z_muo_met_pt)->Fill(*MET_pt, weight_pu_muo);
      QCD(h_Z_muo_met_phi)->Fill(*MET_phi, weight_pu_muo);
      QCD(h_Z_muo_met_sign)->Fill(*MET_significance, weight_pu_muo);
