@@ -16,7 +16,7 @@ hist = ROOT.TH1D("pileup", "pileup", binMax-binMin, binMin, binMax)
 for bin in mix.input.nbPileupEvents.probFunctionVariable:
     hist.SetBinContent(bin+1, mix.input.nbPileupEvents.probValue[bin])
 
-file = ROOT.TFile.Open("pileup/pileup_mc_2016.root", "recreate")
+file = ROOT.TFile.Open("root/pileup_mc_2016.root", "recreate")
 
 hist.Write()
 file.Write()
