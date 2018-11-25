@@ -310,10 +310,10 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    h_W_ele0_mva = new TH1D("h_W_ele0_mva", "h_W_ele0_mva", 100, -1., 1.);
 
-   h_W_ele0_pf_iso_all = new TH1D("h_W_ele0_pf_iso_all", "h_W_ele0_pf_iso_all", 100, 0., 2.);
-   h_W_ele0_pf_iso_chg = new TH1D("h_W_ele0_pf_iso_chg", "h_W_ele0_pf_iso_chg", 100, 0., 2.);
-   h_W_muo0_pf_iso_all = new TH1D("h_W_muo0_pf_iso_all", "h_W_muo0_pf_iso_all", 100, 0., 2.);
-   h_W_muo0_pf_iso_chg = new TH1D("h_W_muo0_pf_iso_chg", "h_W_muo0_pf_iso_chg", 100, 0., 2.);
+   h_W_ele0_pf_iso_all = new TH1D("h_W_ele0_pf_iso_all", "h_W_ele0_pf_iso_all", 100, 0., 1.);
+   h_W_ele0_pf_iso_chg = new TH1D("h_W_ele0_pf_iso_chg", "h_W_ele0_pf_iso_chg", 100, 0., 1.);
+   h_W_muo0_pf_iso_all = new TH1D("h_W_muo0_pf_iso_all", "h_W_muo0_pf_iso_all", 100, 0., 1.);
+   h_W_muo0_pf_iso_chg = new TH1D("h_W_muo0_pf_iso_chg", "h_W_muo0_pf_iso_chg", 100, 0., 1.);
 
    h_Z_ele = new TH1D("h_Z_ele", "h_Z_ele", 80, 71., 111.);
    h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 80, 71., 111.);
@@ -349,14 +349,14 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_ele0_mva = new TH1D("h_Z_ele0_mva", "h_Z_ele0_mva", 100, -1., 1.);
    h_Z_ele1_mva = new TH1D("h_Z_ele1_mva", "h_Z_ele1_mva", 100, -1., 1.);
 
-   h_Z_ele0_pf_iso_all = new TH1D("h_Z_ele0_pf_iso_all", "h_Z_ele0_pf_iso_all", 100, 0., 2.);
-   h_Z_ele0_pf_iso_chg = new TH1D("h_Z_ele0_pf_iso_chg", "h_Z_ele0_pf_iso_chg", 100, 0., 2.);
-   h_Z_ele1_pf_iso_all = new TH1D("h_Z_ele1_pf_iso_all", "h_Z_ele1_pf_iso_all", 100, 0., 2.);
-   h_Z_ele1_pf_iso_chg = new TH1D("h_Z_ele1_pf_iso_chg", "h_Z_ele1_pf_iso_chg", 100, 0., 2.);
-   h_Z_muo0_pf_iso_all = new TH1D("h_Z_muo0_pf_iso_all", "h_Z_muo0_pf_iso_all", 100, 0., 2.);
-   h_Z_muo0_pf_iso_chg = new TH1D("h_Z_muo0_pf_iso_chg", "h_Z_muo0_pf_iso_chg", 100, 0., 2.);
-   h_Z_muo1_pf_iso_all = new TH1D("h_Z_muo1_pf_iso_all", "h_Z_muo1_pf_iso_all", 100, 0., 2.);
-   h_Z_muo1_pf_iso_chg = new TH1D("h_Z_muo1_pf_iso_chg", "h_Z_muo1_pf_iso_chg", 100, 0., 2.);
+   h_Z_ele0_pf_iso_all = new TH1D("h_Z_ele0_pf_iso_all", "h_Z_ele0_pf_iso_all", 100, 0., 1.);
+   h_Z_ele0_pf_iso_chg = new TH1D("h_Z_ele0_pf_iso_chg", "h_Z_ele0_pf_iso_chg", 100, 0., 1.);
+   h_Z_ele1_pf_iso_all = new TH1D("h_Z_ele1_pf_iso_all", "h_Z_ele1_pf_iso_all", 100, 0., 1.);
+   h_Z_ele1_pf_iso_chg = new TH1D("h_Z_ele1_pf_iso_chg", "h_Z_ele1_pf_iso_chg", 100, 0., 1.);
+   h_Z_muo0_pf_iso_all = new TH1D("h_Z_muo0_pf_iso_all", "h_Z_muo0_pf_iso_all", 100, 0., 1.);
+   h_Z_muo0_pf_iso_chg = new TH1D("h_Z_muo0_pf_iso_chg", "h_Z_muo0_pf_iso_chg", 100, 0., 1.);
+   h_Z_muo1_pf_iso_all = new TH1D("h_Z_muo1_pf_iso_all", "h_Z_muo1_pf_iso_all", 100, 0., 1.);
+   h_Z_muo1_pf_iso_chg = new TH1D("h_Z_muo1_pf_iso_chg", "h_Z_muo1_pf_iso_chg", 100, 0., 1.);
 
    h_TrigObj = new TH2D("h_TrigObj", "h_TrigObj", 34, -1.5, 32.5, 25, -0.5, 24.5);
 
@@ -406,14 +406,14 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_W_muo_pho0_mva = new TH1D("h_W_muo_pho0_mva", "h_W_muo_pho0_mva", 100, -1., 1.);
    h_W_muo_pho1_mva = new TH1D("h_W_muo_pho1_mva", "h_W_muo_pho1_mva", 100, -1., 1.);
 
-   h_W_ele_pho0_pf_iso_all = new TH1D("h_W_ele_pho0_pf_iso_all", "h_W_ele_pho0_pf_iso_all", 100, 0., 2.);
-   h_W_ele_pho0_pf_iso_chg = new TH1D("h_W_ele_pho0_pf_iso_chg", "h_W_ele_pho0_pf_iso_chg", 100, 0., 2.);
-   h_W_ele_pho1_pf_iso_all = new TH1D("h_W_ele_pho1_pf_iso_all", "h_W_ele_pho1_pf_iso_all", 100, 0., 2.);
-   h_W_ele_pho1_pf_iso_chg = new TH1D("h_W_ele_pho1_pf_iso_chg", "h_W_ele_pho1_pf_iso_chg", 100, 0., 2.);
-   h_W_muo_pho0_pf_iso_all = new TH1D("h_W_muo_pho0_pf_iso_all", "h_W_muo_pho0_pf_iso_all", 100, 0., 2.);
-   h_W_muo_pho0_pf_iso_chg = new TH1D("h_W_muo_pho0_pf_iso_chg", "h_W_muo_pho0_pf_iso_chg", 100, 0., 2.);
-   h_W_muo_pho1_pf_iso_all = new TH1D("h_W_muo_pho1_pf_iso_all", "h_W_muo_pho1_pf_iso_all", 100, 0., 2.);
-   h_W_muo_pho1_pf_iso_chg = new TH1D("h_W_muo_pho1_pf_iso_chg", "h_W_muo_pho1_pf_iso_chg", 100, 0., 2.);
+   h_W_ele_pho0_pf_iso_all = new TH1D("h_W_ele_pho0_pf_iso_all", "h_W_ele_pho0_pf_iso_all", 100, 0., 1.);
+   h_W_ele_pho0_pf_iso_chg = new TH1D("h_W_ele_pho0_pf_iso_chg", "h_W_ele_pho0_pf_iso_chg", 100, 0., 1.);
+   h_W_ele_pho1_pf_iso_all = new TH1D("h_W_ele_pho1_pf_iso_all", "h_W_ele_pho1_pf_iso_all", 100, 0., 1.);
+   h_W_ele_pho1_pf_iso_chg = new TH1D("h_W_ele_pho1_pf_iso_chg", "h_W_ele_pho1_pf_iso_chg", 100, 0., 1.);
+   h_W_muo_pho0_pf_iso_all = new TH1D("h_W_muo_pho0_pf_iso_all", "h_W_muo_pho0_pf_iso_all", 100, 0., 1.);
+   h_W_muo_pho0_pf_iso_chg = new TH1D("h_W_muo_pho0_pf_iso_chg", "h_W_muo_pho0_pf_iso_chg", 100, 0., 1.);
+   h_W_muo_pho1_pf_iso_all = new TH1D("h_W_muo_pho1_pf_iso_all", "h_W_muo_pho1_pf_iso_all", 100, 0., 1.);
+   h_W_muo_pho1_pf_iso_chg = new TH1D("h_W_muo_pho1_pf_iso_chg", "h_W_muo_pho1_pf_iso_chg", 100, 0., 1.);
 
    h_Z_ele_nphotons = new TH1D("h_Z_ele_nphotons", "h_Z_ele_nphotons", 6, -0.5, 5.5);
    h_Z_ele_pho0_pt = new TH1D("h_Z_ele_pho0_pt", "h_Z_ele_pho0_pt", 50, 0., 200.);
@@ -443,14 +443,14 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo_pho0_mva = new TH1D("h_Z_muo_pho0_mva", "h_Z_muo_pho0_mva", 100, -1., 1.);
    h_Z_muo_pho1_mva = new TH1D("h_Z_muo_pho1_mva", "h_Z_muo_pho1_mva", 100, -1., 1.);
 
-   h_Z_ele_pho0_pf_iso_all = new TH1D("h_Z_ele_pho0_pf_iso_all", "h_Z_ele_pho0_pf_iso_all", 100, 0., 2.);
-   h_Z_ele_pho0_pf_iso_chg = new TH1D("h_Z_ele_pho0_pf_iso_chg", "h_Z_ele_pho0_pf_iso_chg", 100, 0., 2.);
-   h_Z_ele_pho1_pf_iso_all = new TH1D("h_Z_ele_pho1_pf_iso_all", "h_Z_ele_pho1_pf_iso_all", 100, 0., 2.);
-   h_Z_ele_pho1_pf_iso_chg = new TH1D("h_Z_ele_pho1_pf_iso_chg", "h_Z_ele_pho1_pf_iso_chg", 100, 0., 2.);
-   h_Z_muo_pho0_pf_iso_all = new TH1D("h_Z_muo_pho0_pf_iso_all", "h_Z_muo_pho0_pf_iso_all", 100, 0., 2.);
-   h_Z_muo_pho0_pf_iso_chg = new TH1D("h_Z_muo_pho0_pf_iso_chg", "h_Z_muo_pho0_pf_iso_chg", 100, 0., 2.);
-   h_Z_muo_pho1_pf_iso_all = new TH1D("h_Z_muo_pho1_pf_iso_all", "h_Z_muo_pho1_pf_iso_all", 100, 0., 2.);
-   h_Z_muo_pho1_pf_iso_chg = new TH1D("h_Z_muo_pho1_pf_iso_chg", "h_Z_muo_pho1_pf_iso_chg", 100, 0., 2.);
+   h_Z_ele_pho0_pf_iso_all = new TH1D("h_Z_ele_pho0_pf_iso_all", "h_Z_ele_pho0_pf_iso_all", 100, 0., 1.);
+   h_Z_ele_pho0_pf_iso_chg = new TH1D("h_Z_ele_pho0_pf_iso_chg", "h_Z_ele_pho0_pf_iso_chg", 100, 0., 1.);
+   h_Z_ele_pho1_pf_iso_all = new TH1D("h_Z_ele_pho1_pf_iso_all", "h_Z_ele_pho1_pf_iso_all", 100, 0., 1.);
+   h_Z_ele_pho1_pf_iso_chg = new TH1D("h_Z_ele_pho1_pf_iso_chg", "h_Z_ele_pho1_pf_iso_chg", 100, 0., 1.);
+   h_Z_muo_pho0_pf_iso_all = new TH1D("h_Z_muo_pho0_pf_iso_all", "h_Z_muo_pho0_pf_iso_all", 100, 0., 1.);
+   h_Z_muo_pho0_pf_iso_chg = new TH1D("h_Z_muo_pho0_pf_iso_chg", "h_Z_muo_pho0_pf_iso_chg", 100, 0., 1.);
+   h_Z_muo_pho1_pf_iso_all = new TH1D("h_Z_muo_pho1_pf_iso_all", "h_Z_muo_pho1_pf_iso_all", 100, 0., 1.);
+   h_Z_muo_pho1_pf_iso_chg = new TH1D("h_Z_muo_pho1_pf_iso_chg", "h_Z_muo_pho1_pf_iso_chg", 100, 0., 1.);
 
    h_W_ele_pho0_dR = new TH1D("h_W_ele_pho0_dR", "h_W_ele_pho0_dR", 50, 0., 5.);
    h_W_ele_pho1_dR = new TH1D("h_W_ele_pho1_dR", "h_W_ele_pho1_dR", 50, 0., 5.);
