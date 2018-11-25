@@ -967,7 +967,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Muon_tightId[i] == 0) continue;
 
-      bool muo_trg = false;
+     bool muo_trg = false;
 
      for (uint j = 0; j < *nTrigObj; j++) {
        TLorentzVector tmp_sel;
