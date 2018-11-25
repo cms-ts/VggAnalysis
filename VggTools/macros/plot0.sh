@@ -59,6 +59,13 @@ for YEAR in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_met_pt\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_met_phi\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_met_sign\",\"$VERSION\",\"$FLAGS\"\)
+
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_mva\",\"$VERSION\",\"$FLAGS\"\)
+
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo0_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo0_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
  
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_njets\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_jet0_pt\",\"$VERSION\",\"$FLAGS\"\)
@@ -91,6 +98,20 @@ for YEAR in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho1_phi\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho1_r9\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho1_sieie\",\"$VERSION\",\"$FLAGS\"\)
+
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_W_ele_pho0_mva\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_W_ele_pho1_mva\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho0_mva\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho1_mva\",\"$VERSION\",\"$FLAGS\"\)
+
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_W_ele_pho0_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_W_ele_pho0_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_W_ele_pho1_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_W_ele_pho1_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_W_muo_pho0_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_W_muo_pho0_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_W_muo_pho1_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_W_muo_pho1_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
  
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_pho0_dR\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho0_dR\",\"$VERSION\",\"$FLAGS\"\)
@@ -140,6 +161,18 @@ for YEAR in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_met_pt\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_met_phi\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_met_sign\",\"$VERSION\",\"$FLAGS\"\)
+
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_mva\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele1_mva\",\"$VERSION\",\"$FLAGS\"\)
+
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele1_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele1_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo0_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo0_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo1_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo1_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
  
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_njets\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_jet0_pt\",\"$VERSION\",\"$FLAGS\"\)
@@ -172,6 +205,20 @@ for YEAR in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_pho1_phi\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_pho1_r9\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_pho1_sieie\",\"$VERSION\",\"$FLAGS\"\)
+
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_pho0_mva\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_pho1_mva\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_pho0_mva\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_pho1_mva\",\"$VERSION\",\"$FLAGS\"\)
+
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_pho0_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_pho0_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_pho1_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_pho1_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_pho0_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_pho0_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_pho1_pf_iso_all\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_pho1_pf_iso_chg\",\"$VERSION\",\"$FLAGS\"\)
  
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_pho0_dR\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_pho0_dR\",\"$VERSION\",\"$FLAGS\"\)
