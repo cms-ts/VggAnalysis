@@ -22,12 +22,14 @@ if [ ! -z "$2" ]; then
   LISTS=`ls data/$VERSION/$2.log`
 fi
 
+total=0
 running=0
 errors=0
 done=0
 nofiles=0
 
 for L in $LISTS; do
+  total=$((total+1))
   O=`cat $L | \
   grep [a-z,A-Z] | \
   grep -v 'Processing' | \
@@ -49,7 +51,8 @@ for L in $LISTS; do
   printf "Checking %-132s : " `basename \`dirname $L\``/`basename $L`
   if [ -z "$O" ]; then
     echo -n "GOOD"
-    if grep -q "processed events" $L ; then
+    grep -q "processed events" $L
+    if [ $? -eq 0 ]; then
       echo " - done"
       done=$((done+1))
     else
@@ -72,7 +75,7 @@ for L in $LISTS; do
 done
 
 echo
-echo "Running: "$running" - Done: "$done" - Errors: "$errors" - No files: "$nofiles
+echo "Total: "$total" - Running: "$running" - Done: "$done" - Errors: "$errors" - No files: "$nofiles
 echo
 
 exit
