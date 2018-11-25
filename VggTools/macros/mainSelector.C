@@ -1550,9 +1550,9 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (W_muo_sel_qcd) {
      QCD(h_W_muo_npvs)->Fill(*PV_npvsGood, weight_gen);
      QCD(h_W_muo_npvs_w)->Fill(*PV_npvsGood, weight_pu_muo);
-     QCD(h_W_muo0_pt)->Fill(Electron_pt[imuo0_qcd], weight_pu_muo);
-     QCD(h_W_muo0_eta)->Fill(Electron_eta[imuo0_qcd], weight_pu_muo);
-     QCD(h_W_muo0_phi)->Fill(Electron_phi[imuo0_qcd], weight_pu_muo);
+     QCD(h_W_muo0_pt)->Fill(Muon_pt[imuo0_qcd], weight_pu_muo);
+     QCD(h_W_muo0_eta)->Fill(Muon_eta[imuo0_qcd], weight_pu_muo);
+     QCD(h_W_muo0_phi)->Fill(Muon_phi[imuo0_qcd], weight_pu_muo);
      QCD(h_W_muo_met_pt)->Fill(*MET_pt, weight_pu_muo);
      QCD(h_W_muo_met_phi)->Fill(*MET_phi, weight_pu_muo);
      QCD(h_W_muo_met_sign)->Fill(*MET_significance, weight_pu_muo);
@@ -1617,12 +1617,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      QCD(h_Z_muo)->Fill(Z_muo0_muo1_m_qcd, weight_pu_muo);
      QCD(h_Z_muo_npvs)->Fill(*PV_npvsGood, weight_gen);
      QCD(h_Z_muo_npvs_w)->Fill(*PV_npvsGood, weight_pu_muo);
-     QCD(h_Z_muo0_pt)->Fill(Electron_pt[imuo0_qcd], weight_pu_muo);
-     QCD(h_Z_muo0_eta)->Fill(Electron_eta[imuo0_qcd], weight_pu_muo);
-     QCD(h_Z_muo0_phi)->Fill(Electron_phi[imuo0_qcd], weight_pu_muo);
-     QCD(h_Z_muo1_pt)->Fill(Electron_pt[imuo1_qcd], weight_pu_muo);
-     QCD(h_Z_muo1_eta)->Fill(Electron_eta[imuo1_qcd], weight_pu_muo);
-     QCD(h_Z_muo1_phi)->Fill(Electron_phi[imuo1_qcd], weight_pu_muo);
+     QCD(h_Z_muo0_pt)->Fill(Muon_pt[imuo0_qcd], weight_pu_muo);
+     QCD(h_Z_muo0_eta)->Fill(Muon_eta[imuo0_qcd], weight_pu_muo);
+     QCD(h_Z_muo0_phi)->Fill(Muon_phi[imuo0_qcd], weight_pu_muo);
+     QCD(h_Z_muo1_pt)->Fill(Muon_pt[imuo1_qcd], weight_pu_muo);
+     QCD(h_Z_muo1_eta)->Fill(Muon_eta[imuo1_qcd], weight_pu_muo);
+     QCD(h_Z_muo1_phi)->Fill(Muon_phi[imuo1_qcd], weight_pu_muo);
      QCD(h_Z_muo_met_pt)->Fill(*MET_pt, weight_pu_muo);
      QCD(h_Z_muo_met_phi)->Fill(*MET_phi, weight_pu_muo);
      QCD(h_Z_muo_met_sign)->Fill(*MET_significance, weight_pu_muo);
