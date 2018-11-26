@@ -10,10 +10,11 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   if (plot.find("2017") != string::npos) year = "2017";
   if (plot.find("2018") != string::npos) year = "2018";
 
-  if (flags == "qcd") title = title + "_qcd";
-
   plot = plot + ".dat";
-  if (flags == "test") plot = plot + ".test";
+  if (flags.find("test") != string::npos) plot = plot + ".test";
+
+  if (flags.find("qcd") != string::npos) year = year + ".qcd";
+  if (flags.find("qcd") != string::npos) title = title + "_qcd";
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -40,6 +41,10 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     int index = int(it->second);
     if (index == 0) {
       TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
+      if (!file.IsOpen()) {
+        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
+        return;
+      }
       if (lumiMap[it->first] != 0) {
         lumi = lumi + lumiMap[it->first];
       } else {
@@ -195,17 +200,16 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   TH1D* h_ratio = (TH1D*) histo[0]->Clone();
   h_ratio->Divide(h_mcsum);  
 
-  TCanvas* c1 = 0;
-  c1 = new TCanvas("c", "c", 10, 10, 800, 600);
+  TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
   c1->cd();
 
   TPad* pad1 = new TPad("pad1", "pad1", 0.0, 0.3, 1.0, 1.0);
   pad1->SetBottomMargin(0.001);
   pad1->Draw();
   pad1->cd();
-  pad1->SetLogy();
 
   hstack_mc->SetMaximum(1.2*TMath::Max(hstack_mc->GetMaximum(),histo[0]->GetMaximum()));
+  hstack_mc->SetMinimum(0.0001*hstack_mc->GetMaximum());
 
   hstack_mc->Draw("HIST");
 
@@ -218,17 +222,19 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   hstack_mc->GetYaxis()->SetTitleSize(0.05);
   hstack_mc->GetYaxis()->SetTitleOffset(1.0);
   hstack_mc->GetYaxis()->SetLabelSize(0.045);
-  hstack_mc->SetMinimum(0.5);
 
   histo[0]->SetStats(0);
   histo[0]->SetMarkerColor(kBlack);
   histo[0]->SetMarkerStyle(20);
   histo[0]->SetMarkerSize (1.0);
 
-  histo[0]->Draw("HISTSAMES");
   histo[0]->Draw("EXP0SAMES");
 
   leg->Draw();
+
+  if (flags.find("nolog") == string::npos) {
+    if (h_mcsum->GetMaximum() != 0) pad1->SetLogy();
+  }
 
   pad1->Update();
   c1->Update();
@@ -280,9 +286,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
 
-  if (flags == "qcd") year = year + ".qcd";
-
-  if (flags == "test") version = version + ".test";
+  if (flags.find("test") != string::npos) version = version + ".test";
 
   gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE);
   c1->SaveAs(("html/" + version + "/" + year + "/" + title + ".pdf").c_str());

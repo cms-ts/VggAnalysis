@@ -308,6 +308,13 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_W_muo_met_phi = new TH1D("h_W_muo_met_phi", "h_W_muo_met_phi", 24, -TMath::Pi(), TMath::Pi());
    h_W_muo_met_sign = new TH1D("h_W_muo_met_sign", "h_W_muo_met_sign", 100, 0., 100.);
 
+   h_W_ele0_mva = new TH1D("h_W_ele0_mva", "h_W_ele0_mva", 100, -1., 1.);
+
+   h_W_ele0_pf_iso_all = new TH1D("h_W_ele0_pf_iso_all", "h_W_ele0_pf_iso_all", 100, 0., 1.);
+   h_W_ele0_pf_iso_chg = new TH1D("h_W_ele0_pf_iso_chg", "h_W_ele0_pf_iso_chg", 100, 0., 1.);
+   h_W_muo0_pf_iso_all = new TH1D("h_W_muo0_pf_iso_all", "h_W_muo0_pf_iso_all", 100, 0., 1.);
+   h_W_muo0_pf_iso_chg = new TH1D("h_W_muo0_pf_iso_chg", "h_W_muo0_pf_iso_chg", 100, 0., 1.);
+
    h_Z_ele = new TH1D("h_Z_ele", "h_Z_ele", 80, 71., 111.);
    h_Z_muo = new TH1D("h_Z_muo", "h_Z_muo", 80, 71., 111.);
 
@@ -338,6 +345,18 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo_met_pt = new TH1D("h_Z_muo_met_pt", "h_Z_muo_met_pt", 100, 0., 200.);
    h_Z_muo_met_phi = new TH1D("h_Z_muo_met_phi", "h_Z_muo_met_phi", 24, -TMath::Pi(), TMath::Pi());
    h_Z_muo_met_sign = new TH1D("h_Z_muo_met_sign", "h_Z_muo_met_sign", 100, 0., 100.);
+
+   h_Z_ele0_mva = new TH1D("h_Z_ele0_mva", "h_Z_ele0_mva", 100, -1., 1.);
+   h_Z_ele1_mva = new TH1D("h_Z_ele1_mva", "h_Z_ele1_mva", 100, -1., 1.);
+
+   h_Z_ele0_pf_iso_all = new TH1D("h_Z_ele0_pf_iso_all", "h_Z_ele0_pf_iso_all", 100, 0., 1.);
+   h_Z_ele0_pf_iso_chg = new TH1D("h_Z_ele0_pf_iso_chg", "h_Z_ele0_pf_iso_chg", 100, 0., 1.);
+   h_Z_ele1_pf_iso_all = new TH1D("h_Z_ele1_pf_iso_all", "h_Z_ele1_pf_iso_all", 100, 0., 1.);
+   h_Z_ele1_pf_iso_chg = new TH1D("h_Z_ele1_pf_iso_chg", "h_Z_ele1_pf_iso_chg", 100, 0., 1.);
+   h_Z_muo0_pf_iso_all = new TH1D("h_Z_muo0_pf_iso_all", "h_Z_muo0_pf_iso_all", 100, 0., 1.);
+   h_Z_muo0_pf_iso_chg = new TH1D("h_Z_muo0_pf_iso_chg", "h_Z_muo0_pf_iso_chg", 100, 0., 1.);
+   h_Z_muo1_pf_iso_all = new TH1D("h_Z_muo1_pf_iso_all", "h_Z_muo1_pf_iso_all", 100, 0., 1.);
+   h_Z_muo1_pf_iso_chg = new TH1D("h_Z_muo1_pf_iso_chg", "h_Z_muo1_pf_iso_chg", 100, 0., 1.);
 
    h_TrigObj = new TH2D("h_TrigObj", "h_TrigObj", 34, -1.5, 32.5, 25, -0.5, 24.5);
 
@@ -382,6 +401,20 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_W_muo_pho1_r9 = new TH1D("h_W_muo_pho1_r9", "h_W_muo_pho1_r9", 50, 0., 5.);
    h_W_muo_pho1_sieie = new TH1D("h_W_muo_pho1_sieie", "h_W_muo_pho1_sieie", 50, 0., 0.05);
 
+   h_W_ele_pho0_mva = new TH1D("h_W_ele_pho0_mva", "h_W_ele_pho0_mva", 100, -1., 1.);
+   h_W_ele_pho1_mva = new TH1D("h_W_ele_pho1_mva", "h_W_ele_pho1_mva", 100, -1., 1.);
+   h_W_muo_pho0_mva = new TH1D("h_W_muo_pho0_mva", "h_W_muo_pho0_mva", 100, -1., 1.);
+   h_W_muo_pho1_mva = new TH1D("h_W_muo_pho1_mva", "h_W_muo_pho1_mva", 100, -1., 1.);
+
+   h_W_ele_pho0_pf_iso_all = new TH1D("h_W_ele_pho0_pf_iso_all", "h_W_ele_pho0_pf_iso_all", 100, 0., 1.);
+   h_W_ele_pho0_pf_iso_chg = new TH1D("h_W_ele_pho0_pf_iso_chg", "h_W_ele_pho0_pf_iso_chg", 100, 0., 1.);
+   h_W_ele_pho1_pf_iso_all = new TH1D("h_W_ele_pho1_pf_iso_all", "h_W_ele_pho1_pf_iso_all", 100, 0., 1.);
+   h_W_ele_pho1_pf_iso_chg = new TH1D("h_W_ele_pho1_pf_iso_chg", "h_W_ele_pho1_pf_iso_chg", 100, 0., 1.);
+   h_W_muo_pho0_pf_iso_all = new TH1D("h_W_muo_pho0_pf_iso_all", "h_W_muo_pho0_pf_iso_all", 100, 0., 1.);
+   h_W_muo_pho0_pf_iso_chg = new TH1D("h_W_muo_pho0_pf_iso_chg", "h_W_muo_pho0_pf_iso_chg", 100, 0., 1.);
+   h_W_muo_pho1_pf_iso_all = new TH1D("h_W_muo_pho1_pf_iso_all", "h_W_muo_pho1_pf_iso_all", 100, 0., 1.);
+   h_W_muo_pho1_pf_iso_chg = new TH1D("h_W_muo_pho1_pf_iso_chg", "h_W_muo_pho1_pf_iso_chg", 100, 0., 1.);
+
    h_Z_ele_nphotons = new TH1D("h_Z_ele_nphotons", "h_Z_ele_nphotons", 6, -0.5, 5.5);
    h_Z_ele_pho0_pt = new TH1D("h_Z_ele_pho0_pt", "h_Z_ele_pho0_pt", 50, 0., 200.);
    h_Z_ele_pho0_eta = new TH1D("h_Z_ele_pho0_eta", "h_Z_ele_pho0_eta", 50, -2.5, 2.5);
@@ -404,6 +437,20 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo_pho1_phi = new TH1D("h_Z_muo_pho1_phi", "h_Z_muo_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_Z_muo_pho1_r9 = new TH1D("h_Z_muo_pho1_r9", "h_Z_muo_pho1_r9", 50, 0., 5.);
    h_Z_muo_pho1_sieie = new TH1D("h_Z_muo_pho1_sieie", "h_Z_muo_pho1_sieie", 50, 0., 0.05);
+
+   h_Z_ele_pho0_mva = new TH1D("h_Z_ele_pho0_mva", "h_Z_ele_pho0_mva", 100, -1., 1.);
+   h_Z_ele_pho1_mva = new TH1D("h_Z_ele_pho1_mva", "h_Z_ele_pho1_mva", 100, -1., 1.);
+   h_Z_muo_pho0_mva = new TH1D("h_Z_muo_pho0_mva", "h_Z_muo_pho0_mva", 100, -1., 1.);
+   h_Z_muo_pho1_mva = new TH1D("h_Z_muo_pho1_mva", "h_Z_muo_pho1_mva", 100, -1., 1.);
+
+   h_Z_ele_pho0_pf_iso_all = new TH1D("h_Z_ele_pho0_pf_iso_all", "h_Z_ele_pho0_pf_iso_all", 100, 0., 1.);
+   h_Z_ele_pho0_pf_iso_chg = new TH1D("h_Z_ele_pho0_pf_iso_chg", "h_Z_ele_pho0_pf_iso_chg", 100, 0., 1.);
+   h_Z_ele_pho1_pf_iso_all = new TH1D("h_Z_ele_pho1_pf_iso_all", "h_Z_ele_pho1_pf_iso_all", 100, 0., 1.);
+   h_Z_ele_pho1_pf_iso_chg = new TH1D("h_Z_ele_pho1_pf_iso_chg", "h_Z_ele_pho1_pf_iso_chg", 100, 0., 1.);
+   h_Z_muo_pho0_pf_iso_all = new TH1D("h_Z_muo_pho0_pf_iso_all", "h_Z_muo_pho0_pf_iso_all", 100, 0., 1.);
+   h_Z_muo_pho0_pf_iso_chg = new TH1D("h_Z_muo_pho0_pf_iso_chg", "h_Z_muo_pho0_pf_iso_chg", 100, 0., 1.);
+   h_Z_muo_pho1_pf_iso_all = new TH1D("h_Z_muo_pho1_pf_iso_all", "h_Z_muo_pho1_pf_iso_all", 100, 0., 1.);
+   h_Z_muo_pho1_pf_iso_chg = new TH1D("h_Z_muo_pho1_pf_iso_chg", "h_Z_muo_pho1_pf_iso_chg", 100, 0., 1.);
 
    h_W_ele_pho0_dR = new TH1D("h_W_ele_pho0_dR", "h_W_ele_pho0_dR", 50, 0., 5.);
    h_W_ele_pho1_dR = new TH1D("h_W_ele_pho1_dR", "h_W_ele_pho1_dR", 50, 0., 5.);
@@ -596,7 +643,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0_gen != -1 && iele1_gen == -1 && imuo0_gen == -1 && imuo1_gen == -1) {
        W_ele0_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * (*MET_fiducialGenPt) * (1. - TMath::Cos(ele0_gen.Phi() - (*MET_fiducialGenPhi))));
-       if (*MET_fiducialGenPt > 20 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 40) {
+       if (*MET_fiducialGenPt > 0 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 40) {
          W_ele_sel_gen = true;
        }
      }
@@ -607,7 +654,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (imuo0_gen != -1 && imuo1_gen == -1 && iele0_gen == -1 && iele1_gen == -1) {
        W_muo0_gen_mt = TMath::Sqrt(2. * muo0_gen.Pt() * (*MET_fiducialGenPt) * (1. - TMath::Cos(muo0_gen.Phi() - (*MET_fiducialGenPhi))));
-       if (*MET_fiducialGenPt > 20 && W_muo0_gen_mt > 40 && muo0_gen.Pt() > 30) {
+       if (*MET_fiducialGenPt > 0 && W_muo0_gen_mt > 40 && muo0_gen.Pt() > 30) {
          W_muo_sel_gen = true;
        }
      }
@@ -795,16 +842,13 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (Electron_mvaSpring16GP_WP80[i] == 0) continue;
-     //if (Electron_mvaSpring16GP_WP90[i] == 0) continue;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      if (Electron_mvaFall17Iso_WP80[i] == 0) continue;
-     //if (Electron_mvaFall17Iso_WP90[i] == 0) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 // FIXME
      if (Electron_mvaFall17V2Iso_WP80[i] == 0) continue;
-     //if (Electron_mvaFall17V2Iso_WP90[i] == 0) continue;
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -923,7 +967,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Muon_tightId[i] == 0) continue;
 
-      bool muo_trg = false;
+     bool muo_trg = false;
 
      for (uint j = 0; j < *nTrigObj; j++) {
        TLorentzVector tmp_sel;
@@ -1184,7 +1228,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele32_WPTight_Gsf) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_ele0_mt = TMath::Sqrt(2. * ele0.Pt() * (*MET_pt) * (1. - TMath::Cos(ele0.Phi() - (*MET_phi))));
-       if (*MET_pt > 20 && W_ele0_mt > 20 && ele0.Pt() > 40) {
+       if (*MET_pt > 0 && W_ele0_mt > 20 && ele0.Pt() > 40) {
          W_ele_sel_wide = true;
          if (W_ele0_mt > 40) {
            W_ele_sel = true;
@@ -1211,7 +1255,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele32_WPTight_Gsf) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_ele0_mt_qcd = TMath::Sqrt(2. * ele0_qcd.Pt() * (*MET_pt) * (1. - TMath::Cos(ele0_qcd.Phi() - (*MET_phi))));
-       if (*MET_pt < 20 && W_ele0_mt_qcd > 20 && ele0_qcd.Pt() > 40) {
+       if (*MET_pt > 0 && W_ele0_mt_qcd > 20 && ele0_qcd.Pt() > 40) {
          W_ele_sel_wide_qcd = true;
          if (W_ele0_mt_qcd > 40) {
            W_ele_sel_qcd = true;
@@ -1238,7 +1282,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_IsoMu24) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_muo0_mt = TMath::Sqrt(2. * muo0.Pt() * (*MET_pt) * (1. - TMath::Cos(muo0.Phi() - (*MET_phi))));
-       if (*MET_pt > 20 && W_muo0_mt > 20 && muo0.Pt() > 30) {
+       if (*MET_pt > 0 && W_muo0_mt > 20 && muo0.Pt() > 30) {
          W_muo_sel_wide = true;
          if (W_muo0_mt > 40) {
            W_muo_sel = true;
@@ -1265,7 +1309,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_IsoMu24) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_muo0_mt_qcd = TMath::Sqrt(2. * muo0_qcd.Pt() * (*MET_pt) * (1. - TMath::Cos(muo0_qcd.Phi() - (*MET_phi))));
-       if (*MET_pt < 20 && W_muo0_mt_qcd > 20 && muo0_qcd.Pt() > 30) {
+       if (*MET_pt > 0 && W_muo0_mt_qcd > 20 && muo0_qcd.Pt() > 30) {
          W_muo_sel_wide_qcd = true;
          if (W_muo0_mt_qcd > 40) {
            W_muo_sel_qcd = true;
@@ -1506,6 +1550,19 @@ Bool_t mainSelector::Process(Long64_t entry)
      h_W_ele0_phi->Fill(Electron_phi[iele0], weight_W_ele);
      h_W_ele0_r9->Fill(Electron_r9[iele0], weight_W_ele);
      h_W_ele0_sieie->Fill(Electron_sieie[iele0], weight_W_ele);
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     h_W_ele0_mva->Fill(Electron_mvaSpring16GP[iele0], weight_W_ele);
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+     h_W_ele0_mva->Fill(Electron_mvaFall17Iso[iele0], weight_W_ele);
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+// FIXME
+     h_W_ele0_mva->Fill(Electron_mvaFall17V2Iso[iele0], weight_W_ele);
+// FIXME
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     h_W_ele0_pf_iso_all->Fill(Electron_pfRelIso03_all[iele0], weight_W_ele);
+     h_W_ele0_pf_iso_chg->Fill(Electron_pfRelIso03_chg[iele0], weight_W_ele);
      h_W_ele_met_pt->Fill(*MET_pt, weight_W_ele);
      h_W_ele_met_phi->Fill(*MET_phi, weight_W_ele);
      h_W_ele_met_sign->Fill(*MET_significance, weight_W_ele);
@@ -1523,6 +1580,19 @@ Bool_t mainSelector::Process(Long64_t entry)
      QCD(h_W_ele0_phi)->Fill(Electron_phi[iele0_qcd], weight_pu_ele);
      QCD(h_W_ele0_r9)->Fill(Electron_r9[iele0_qcd], weight_pu_ele);
      QCD(h_W_ele0_sieie)->Fill(Electron_sieie[iele0_qcd], weight_pu_ele);
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     QCD(h_W_ele0_mva)->Fill(Electron_mvaSpring16GP[iele0_qcd], weight_pu_ele);
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+     QCD(h_W_ele0_mva)->Fill(Electron_mvaFall17Iso[iele0_qcd], weight_pu_ele);
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+// FIXME
+     QCD(h_W_ele0_mva)->Fill(Electron_mvaFall17V2Iso[iele0_qcd], weight_pu_ele);
+// FIXME
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     QCD(h_W_ele0_pf_iso_all)->Fill(Electron_pfRelIso03_all[iele0_qcd], weight_pu_ele);
+     QCD(h_W_ele0_pf_iso_chg)->Fill(Electron_pfRelIso03_chg[iele0_qcd], weight_pu_ele);
      QCD(h_W_ele_met_pt)->Fill(*MET_pt, weight_pu_ele);
      QCD(h_W_ele_met_phi)->Fill(*MET_phi, weight_pu_ele);
      QCD(h_W_ele_met_sign)->Fill(*MET_significance, weight_pu_ele);
@@ -1538,6 +1608,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      h_W_muo0_pt->Fill(Muon_pt[imuo0], weight_W_muo);
      h_W_muo0_eta->Fill(Muon_eta[imuo0], weight_W_muo);
      h_W_muo0_phi->Fill(Muon_phi[imuo0], weight_W_muo);
+     h_W_muo0_pf_iso_all->Fill(Muon_pfRelIso03_all[imuo0], weight_W_muo);
+     h_W_muo0_pf_iso_chg->Fill(Muon_pfRelIso03_chg[imuo0], weight_W_muo);
      h_W_muo_met_pt->Fill(*MET_pt, weight_W_muo);
      h_W_muo_met_phi->Fill(*MET_phi, weight_W_muo);
      h_W_muo_met_sign->Fill(*MET_significance, weight_W_muo);
@@ -1550,9 +1622,11 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (W_muo_sel_qcd) {
      QCD(h_W_muo_npvs)->Fill(*PV_npvsGood, weight_gen);
      QCD(h_W_muo_npvs_w)->Fill(*PV_npvsGood, weight_pu_muo);
-     QCD(h_W_muo0_pt)->Fill(Electron_pt[imuo0_qcd], weight_pu_muo);
-     QCD(h_W_muo0_eta)->Fill(Electron_eta[imuo0_qcd], weight_pu_muo);
-     QCD(h_W_muo0_phi)->Fill(Electron_phi[imuo0_qcd], weight_pu_muo);
+     QCD(h_W_muo0_pt)->Fill(Muon_pt[imuo0_qcd], weight_pu_muo);
+     QCD(h_W_muo0_eta)->Fill(Muon_eta[imuo0_qcd], weight_pu_muo);
+     QCD(h_W_muo0_phi)->Fill(Muon_phi[imuo0_qcd], weight_pu_muo);
+     QCD(h_W_muo0_pf_iso_all)->Fill(Muon_pfRelIso03_all[imuo0_qcd], weight_pu_muo);
+     QCD(h_W_muo0_pf_iso_chg)->Fill(Muon_pfRelIso03_chg[imuo0_qcd], weight_pu_muo);
      QCD(h_W_muo_met_pt)->Fill(*MET_pt, weight_pu_muo);
      QCD(h_W_muo_met_phi)->Fill(*MET_phi, weight_pu_muo);
      QCD(h_W_muo_met_sign)->Fill(*MET_significance, weight_pu_muo);
@@ -1569,11 +1643,29 @@ Bool_t mainSelector::Process(Long64_t entry)
      h_Z_ele0_phi->Fill(Electron_phi[iele0], weight_Z_ele);
      h_Z_ele0_r9->Fill(Electron_r9[iele0], weight_Z_ele);
      h_Z_ele0_sieie->Fill(Electron_sieie[iele0], weight_Z_ele);
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     h_Z_ele0_mva->Fill(Electron_mvaSpring16GP[iele0], weight_Z_ele);
+     h_Z_ele1_mva->Fill(Electron_mvaSpring16GP[iele1], weight_Z_ele);
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+     h_Z_ele0_mva->Fill(Electron_mvaFall17Iso[iele0], weight_Z_ele);
+     h_Z_ele1_mva->Fill(Electron_mvaFall17Iso[iele1], weight_Z_ele);
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+// FIXME
+     h_Z_ele0_mva->Fill(Electron_mvaFall17V2Iso[iele0], weight_Z_ele);
+     h_Z_ele1_mva->Fill(Electron_mvaFall17V2Iso[iele1], weight_Z_ele);
+// FIXME
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     h_Z_ele0_pf_iso_all->Fill(Electron_pfRelIso03_all[iele0], weight_Z_ele);
+     h_Z_ele0_pf_iso_chg->Fill(Electron_pfRelIso03_chg[iele0], weight_Z_ele);
      h_Z_ele1_pt->Fill(Electron_pt[iele1], weight_Z_ele);
      h_Z_ele1_eta->Fill(Electron_eta[iele1], weight_Z_ele);
      h_Z_ele1_phi->Fill(Electron_phi[iele1], weight_Z_ele);
      h_Z_ele1_r9->Fill(Electron_r9[iele1], weight_Z_ele);
      h_Z_ele1_sieie->Fill(Electron_sieie[iele1], weight_Z_ele);
+     h_Z_ele1_pf_iso_all->Fill(Electron_pfRelIso03_all[iele1], weight_Z_ele);
+     h_Z_ele1_pf_iso_chg->Fill(Electron_pfRelIso03_chg[iele1], weight_Z_ele);
      h_Z_ele_met_pt->Fill(*MET_pt, weight_Z_ele);
      h_Z_ele_met_phi->Fill(*MET_phi, weight_Z_ele);
      h_Z_ele_met_sign->Fill(*MET_significance, weight_Z_ele);
@@ -1588,11 +1680,29 @@ Bool_t mainSelector::Process(Long64_t entry)
      QCD(h_Z_ele0_phi)->Fill(Electron_phi[iele0_qcd], weight_pu_ele);
      QCD(h_Z_ele0_r9)->Fill(Electron_r9[iele0_qcd], weight_pu_ele);
      QCD(h_Z_ele0_sieie)->Fill(Electron_sieie[iele0_qcd], weight_pu_ele);
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     QCD(h_Z_ele0_mva)->Fill(Electron_mvaSpring16GP[iele0_qcd], weight_pu_ele);
+     QCD(h_Z_ele1_mva)->Fill(Electron_mvaSpring16GP[iele1_qcd], weight_pu_ele);
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+     QCD(h_Z_ele0_mva)->Fill(Electron_mvaFall17Iso[iele0_qcd], weight_pu_ele);
+     QCD(h_Z_ele1_mva)->Fill(Electron_mvaFall17Iso[iele1_qcd], weight_pu_ele);
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+// FIXME
+     QCD(h_Z_ele0_mva)->Fill(Electron_mvaFall17V2Iso[iele0_qcd], weight_pu_ele);
+     QCD(h_Z_ele1_mva)->Fill(Electron_mvaFall17V2Iso[iele1_qcd], weight_pu_ele);
+// FIXME
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     QCD(h_Z_ele0_pf_iso_all)->Fill(Electron_pfRelIso03_all[iele0_qcd], weight_pu_ele);
+     QCD(h_Z_ele0_pf_iso_chg)->Fill(Electron_pfRelIso03_chg[iele0_qcd], weight_pu_ele);
      QCD(h_Z_ele1_pt)->Fill(Electron_pt[iele1_qcd], weight_pu_ele);
      QCD(h_Z_ele1_eta)->Fill(Electron_eta[iele1_qcd], weight_pu_ele);
      QCD(h_Z_ele1_phi)->Fill(Electron_phi[iele1_qcd], weight_pu_ele);
      QCD(h_Z_ele1_r9)->Fill(Electron_r9[iele1_qcd], weight_pu_ele);
      QCD(h_Z_ele1_sieie)->Fill(Electron_sieie[iele1_qcd], weight_pu_ele);
+     QCD(h_Z_ele1_pf_iso_all)->Fill(Electron_pfRelIso03_all[iele1_qcd], weight_pu_ele);
+     QCD(h_Z_ele1_pf_iso_chg)->Fill(Electron_pfRelIso03_chg[iele1_qcd], weight_pu_ele);
      QCD(h_Z_ele_met_pt)->Fill(*MET_pt, weight_pu_ele);
      QCD(h_Z_ele_met_phi)->Fill(*MET_phi, weight_pu_ele);
      QCD(h_Z_ele_met_sign)->Fill(*MET_significance, weight_pu_ele);
@@ -1605,9 +1715,13 @@ Bool_t mainSelector::Process(Long64_t entry)
      h_Z_muo0_pt->Fill(Muon_pt[imuo0], weight_Z_muo);
      h_Z_muo0_eta->Fill(Muon_eta[imuo0], weight_Z_muo);
      h_Z_muo0_phi->Fill(Muon_phi[imuo0], weight_Z_muo);
+     h_Z_muo0_pf_iso_all->Fill(Muon_pfRelIso03_all[imuo0], weight_Z_muo);
+     h_Z_muo0_pf_iso_chg->Fill(Muon_pfRelIso03_chg[imuo0], weight_Z_muo);
      h_Z_muo1_pt->Fill(Muon_pt[imuo1], weight_Z_muo);
      h_Z_muo1_eta->Fill(Muon_eta[imuo1], weight_Z_muo);
      h_Z_muo1_phi->Fill(Muon_phi[imuo1], weight_Z_muo);
+     h_Z_muo1_pf_iso_all->Fill(Muon_pfRelIso03_all[imuo1], weight_Z_muo);
+     h_Z_muo1_pf_iso_chg->Fill(Muon_pfRelIso03_chg[imuo1], weight_Z_muo);
      h_Z_muo_met_pt->Fill(*MET_pt, weight_Z_muo);
      h_Z_muo_met_phi->Fill(*MET_phi, weight_Z_muo);
      h_Z_muo_met_sign->Fill(*MET_significance, weight_Z_muo);
@@ -1617,12 +1731,16 @@ Bool_t mainSelector::Process(Long64_t entry)
      QCD(h_Z_muo)->Fill(Z_muo0_muo1_m_qcd, weight_pu_muo);
      QCD(h_Z_muo_npvs)->Fill(*PV_npvsGood, weight_gen);
      QCD(h_Z_muo_npvs_w)->Fill(*PV_npvsGood, weight_pu_muo);
-     QCD(h_Z_muo0_pt)->Fill(Electron_pt[imuo0_qcd], weight_pu_muo);
-     QCD(h_Z_muo0_eta)->Fill(Electron_eta[imuo0_qcd], weight_pu_muo);
-     QCD(h_Z_muo0_phi)->Fill(Electron_phi[imuo0_qcd], weight_pu_muo);
-     QCD(h_Z_muo1_pt)->Fill(Electron_pt[imuo1_qcd], weight_pu_muo);
-     QCD(h_Z_muo1_eta)->Fill(Electron_eta[imuo1_qcd], weight_pu_muo);
-     QCD(h_Z_muo1_phi)->Fill(Electron_phi[imuo1_qcd], weight_pu_muo);
+     QCD(h_Z_muo0_pt)->Fill(Muon_pt[imuo0_qcd], weight_pu_muo);
+     QCD(h_Z_muo0_eta)->Fill(Muon_eta[imuo0_qcd], weight_pu_muo);
+     QCD(h_Z_muo0_phi)->Fill(Muon_phi[imuo0_qcd], weight_pu_muo);
+     QCD(h_Z_muo0_pf_iso_all)->Fill(Muon_pfRelIso03_all[imuo0_qcd], weight_pu_muo);
+     QCD(h_Z_muo0_pf_iso_chg)->Fill(Muon_pfRelIso03_chg[imuo0_qcd], weight_pu_muo);
+     QCD(h_Z_muo1_pt)->Fill(Muon_pt[imuo1_qcd], weight_pu_muo);
+     QCD(h_Z_muo1_eta)->Fill(Muon_eta[imuo1_qcd], weight_pu_muo);
+     QCD(h_Z_muo1_phi)->Fill(Muon_phi[imuo1_qcd], weight_pu_muo);
+     QCD(h_Z_muo1_pf_iso_all)->Fill(Muon_pfRelIso03_all[imuo1_qcd], weight_pu_muo);
+     QCD(h_Z_muo1_pf_iso_chg)->Fill(Muon_pfRelIso03_chg[imuo1_qcd], weight_pu_muo);
      QCD(h_Z_muo_met_pt)->Fill(*MET_pt, weight_pu_muo);
      QCD(h_Z_muo_met_phi)->Fill(*MET_phi, weight_pu_muo);
      QCD(h_Z_muo_met_sign)->Fill(*MET_significance, weight_pu_muo);
@@ -1644,6 +1762,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_W_ele_pho0_phi->Fill(Photon_phi[ipho0], weight_W_ele * weight_pho0);
        h_W_ele_pho0_r9->Fill(Photon_r9[ipho0], weight_W_ele * weight_pho0);
        h_W_ele_pho0_sieie->Fill(Photon_sieie[ipho0], weight_W_ele * weight_pho0);
+       h_W_ele_pho0_mva->Fill(Photon_mvaID[ipho0], weight_W_ele * weight_pho0);
+       h_W_ele_pho0_pf_iso_all->Fill(Photon_pfRelIso03_all[ipho0], weight_W_ele * weight_pho0);
+       h_W_ele_pho0_pf_iso_chg->Fill(Photon_pfRelIso03_chg[ipho0], weight_W_ele * weight_pho0);
        h_W_ele_pho0_dR->Fill(pho0.DeltaR(ele0), weight_W_ele * weight_pho0);
        h_W_ele_ele0_pho0->Fill((ele0+pho0).M(), weight_W_ele * weight_pho0);
      }
@@ -1653,6 +1774,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_W_ele_pho1_phi->Fill(Photon_phi[ipho1], weight_W_ele * weight_pho0 * weight_pho1);
        h_W_ele_pho1_r9->Fill(Photon_r9[ipho1], weight_W_ele * weight_pho0 * weight_pho1);
        h_W_ele_pho1_sieie->Fill(Photon_sieie[ipho1], weight_W_ele * weight_pho0 * weight_pho1);
+       h_W_ele_pho1_mva->Fill(Photon_mvaID[ipho1], weight_W_ele * weight_pho0 * weight_pho1);
+       h_W_ele_pho1_pf_iso_all->Fill(Photon_pfRelIso03_all[ipho1], weight_W_ele * weight_pho0 * weight_pho1);
+       h_W_ele_pho1_pf_iso_chg->Fill(Photon_pfRelIso03_chg[ipho1], weight_W_ele * weight_pho0 * weight_pho1);
        h_W_ele_pho1_dR->Fill(pho1.DeltaR(ele0), weight_W_ele * weight_pho0 * weight_pho1);
        h_W_ele_pho0_pho1_pt->Fill((pho0+pho1).Pt(), weight_W_ele * weight_pho0 * weight_pho1);
        h_W_ele_ele0_pho1->Fill((ele0+pho1).M(), weight_W_ele * weight_pho1);
@@ -1674,6 +1798,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_W_ele_pho0_phi)->Fill(Photon_phi[ipho0], weight_pu_ele * weight_pho0);
        QCD(h_W_ele_pho0_r9)->Fill(Photon_r9[ipho0], weight_pu_ele * weight_pho0);
        QCD(h_W_ele_pho0_sieie)->Fill(Photon_sieie[ipho0], weight_pu_ele * weight_pho0);
+       QCD(h_W_ele_pho0_mva)->Fill(Photon_mvaID[ipho0], weight_pu_ele * weight_pho0);
+       QCD(h_W_ele_pho0_pf_iso_all)->Fill(Photon_pfRelIso03_all[ipho0], weight_pu_ele * weight_pho0);
+       QCD(h_W_ele_pho0_pf_iso_chg)->Fill(Photon_pfRelIso03_chg[ipho0], weight_pu_ele * weight_pho0);
        QCD(h_W_ele_pho0_dR)->Fill(pho0.DeltaR(ele0_qcd), weight_pu_ele * weight_pho0);
        QCD(h_W_ele_ele0_pho0)->Fill((ele0+pho0).M(), weight_W_ele * weight_pho0);
      }
@@ -1683,6 +1810,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_W_ele_pho1_phi)->Fill(Photon_phi[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
        QCD(h_W_ele_pho1_r9)->Fill(Photon_r9[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
        QCD(h_W_ele_pho1_sieie)->Fill(Photon_sieie[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
+       QCD(h_W_ele_pho1_mva)->Fill(Photon_mvaID[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
+       QCD(h_W_ele_pho1_pf_iso_all)->Fill(Photon_pfRelIso03_all[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
+       QCD(h_W_ele_pho1_pf_iso_chg)->Fill(Photon_pfRelIso03_chg[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
        QCD(h_W_ele_pho1_dR)->Fill(pho1.DeltaR(ele0_qcd), weight_pu_ele * weight_pho0 * weight_pho1);
        QCD(h_W_ele_pho0_pho1_pt)->Fill((pho0+pho1).Pt(), weight_pu_ele * weight_pho0 * weight_pho1);
        QCD(h_W_ele_ele0_pho1)->Fill((ele0+pho1).M(), weight_W_ele * weight_pho1);
@@ -1704,6 +1834,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_W_muo_pho0_phi->Fill(Photon_phi[ipho0], weight_W_muo * weight_pho0);
        h_W_muo_pho0_r9->Fill(Photon_r9[ipho0], weight_W_muo * weight_pho0);
        h_W_muo_pho0_sieie->Fill(Photon_sieie[ipho0], weight_W_muo * weight_pho0);
+       h_W_muo_pho0_mva->Fill(Photon_mvaID[ipho0], weight_W_muo * weight_pho0);
+       h_W_muo_pho0_pf_iso_all->Fill(Photon_pfRelIso03_all[ipho0], weight_W_muo * weight_pho0);
+       h_W_muo_pho0_pf_iso_chg->Fill(Photon_pfRelIso03_chg[ipho0], weight_W_muo * weight_pho0);
        h_W_muo_pho0_dR->Fill(pho0.DeltaR(muo0), weight_W_muo * weight_pho0);
        h_W_muo_muo0_pho0->Fill((muo0+pho0).M(), weight_W_muo * weight_pho0);
      }
@@ -1713,6 +1846,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_W_muo_pho1_phi->Fill(Photon_phi[ipho1], weight_W_muo * weight_pho0 * weight_pho1);
        h_W_muo_pho1_r9->Fill(Photon_r9[ipho1], weight_W_muo * weight_pho0 * weight_pho1);
        h_W_muo_pho1_sieie->Fill(Photon_sieie[ipho1], weight_W_muo * weight_pho0 * weight_pho1);
+       h_W_muo_pho1_mva->Fill(Photon_mvaID[ipho1], weight_W_muo * weight_pho0 * weight_pho1);
+       h_W_muo_pho1_pf_iso_all->Fill(Photon_pfRelIso03_all[ipho1], weight_W_muo * weight_pho0 * weight_pho1);
+       h_W_muo_pho1_pf_iso_chg->Fill(Photon_pfRelIso03_chg[ipho1], weight_W_muo * weight_pho0 * weight_pho1);
        h_W_muo_pho1_dR->Fill(pho1.DeltaR(muo0), weight_W_muo * weight_pho0 * weight_pho1);
        h_W_muo_pho0_pho1_pt->Fill((pho0+pho1).Pt(), weight_W_muo * weight_pho0 * weight_pho1);
        h_W_muo_muo0_pho1->Fill((muo0+pho1).M(), weight_W_muo * weight_pho1);
@@ -1734,6 +1870,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_W_muo_pho0_phi)->Fill(Photon_phi[ipho0], weight_pu_muo * weight_pho0);
        QCD(h_W_muo_pho0_r9)->Fill(Photon_r9[ipho0], weight_pu_muo * weight_pho0);
        QCD(h_W_muo_pho0_sieie)->Fill(Photon_sieie[ipho0], weight_pu_muo * weight_pho0);
+       QCD(h_W_muo_pho0_mva)->Fill(Photon_mvaID[ipho0], weight_pu_muo * weight_pho0);
+       QCD(h_W_muo_pho0_pf_iso_all)->Fill(Photon_pfRelIso03_all[ipho0], weight_pu_muo * weight_pho0);
+       QCD(h_W_muo_pho0_pf_iso_chg)->Fill(Photon_pfRelIso03_chg[ipho0], weight_pu_muo * weight_pho0);
        QCD(h_W_muo_pho0_dR)->Fill(pho0.DeltaR(muo0_qcd), weight_pu_muo * weight_pho0);
        QCD(h_W_muo_muo0_pho0)->Fill((muo0+pho0).M(), weight_W_muo * weight_pho0);
      }
@@ -1743,6 +1882,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_W_muo_pho1_phi)->Fill(Photon_phi[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
        QCD(h_W_muo_pho1_r9)->Fill(Photon_r9[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
        QCD(h_W_muo_pho1_sieie)->Fill(Photon_sieie[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
+       QCD(h_W_muo_pho1_mva)->Fill(Photon_mvaID[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
+       QCD(h_W_muo_pho1_pf_iso_all)->Fill(Photon_pfRelIso03_all[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
+       QCD(h_W_muo_pho1_pf_iso_chg)->Fill(Photon_pfRelIso03_chg[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
        QCD(h_W_muo_pho1_dR)->Fill(pho1.DeltaR(muo0_qcd), weight_pu_muo * weight_pho0 * weight_pho1);
        QCD(h_W_muo_pho0_pho1_pt)->Fill((pho0+pho1).Pt(), weight_pu_muo * weight_pho0 * weight_pho1);
        QCD(h_W_muo_muo0_pho1)->Fill((muo0+pho1).M(), weight_W_muo * weight_pho1);
@@ -1760,6 +1902,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_Z_ele_pho0_phi->Fill(Photon_phi[ipho0], weight_Z_ele * weight_pho0);
        h_Z_ele_pho0_r9->Fill(Photon_r9[ipho0], weight_Z_ele * weight_pho0);
        h_Z_ele_pho0_sieie->Fill(Photon_sieie[ipho0], weight_Z_ele * weight_pho0);
+       h_Z_ele_pho0_mva->Fill(Photon_mvaID[ipho0], weight_Z_ele * weight_pho0);
+       h_Z_ele_pho0_pf_iso_all->Fill(Photon_pfRelIso03_all[ipho0], weight_Z_ele * weight_pho0);
+       h_Z_ele_pho0_pf_iso_chg->Fill(Photon_pfRelIso03_chg[ipho0], weight_Z_ele * weight_pho0);
        h_Z_ele_pho0_dR->Fill(TMath::Min(pho0.DeltaR(ele0), pho0.DeltaR(ele1)), weight_Z_ele * weight_pho0);
        h_Z_ele_pho0->Fill(Z_ele0_ele1_m, weight_Z_ele * weight_pho0);
        h_Z_ele_ele0_pho0->Fill((ele0+pho0).M(), weight_Z_ele * weight_pho0);
@@ -1771,6 +1916,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_Z_ele_pho1_phi->Fill(Photon_phi[ipho1], weight_Z_ele * weight_pho0 * weight_pho1);
        h_Z_ele_pho1_r9->Fill(Photon_r9[ipho1], weight_Z_ele * weight_pho0 * weight_pho1);
        h_Z_ele_pho1_sieie->Fill(Photon_sieie[ipho1], weight_Z_ele * weight_pho0 * weight_pho1);
+       h_Z_ele_pho1_mva->Fill(Photon_mvaID[ipho1], weight_Z_ele * weight_pho0 * weight_pho1);
+       h_Z_ele_pho1_pf_iso_all->Fill(Photon_pfRelIso03_all[ipho1], weight_Z_ele * weight_pho0 * weight_pho1);
+       h_Z_ele_pho1_pf_iso_chg->Fill(Photon_pfRelIso03_chg[ipho1], weight_Z_ele * weight_pho0 * weight_pho1);
        h_Z_ele_pho1_dR->Fill(TMath::Min(pho1.DeltaR(ele0), pho1.DeltaR(ele1)), weight_Z_ele * weight_pho0 * weight_pho1);
        h_Z_ele_pho0_pho1_pt->Fill((pho0+pho1).Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
        h_Z_ele_ele0_pho1->Fill((ele0+pho1).M(), weight_Z_ele * weight_pho1);
@@ -1789,6 +1937,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_Z_ele_pho0_phi)->Fill(Photon_phi[ipho0], weight_pu_ele * weight_pho0);
        QCD(h_Z_ele_pho0_r9)->Fill(Photon_r9[ipho0], weight_pu_ele * weight_pho0);
        QCD(h_Z_ele_pho0_sieie)->Fill(Photon_sieie[ipho0], weight_pu_ele * weight_pho0);
+       QCD(h_Z_ele_pho0_mva)->Fill(Photon_mvaID[ipho0], weight_pu_ele * weight_pho0);
+       QCD(h_Z_ele_pho0_pf_iso_all)->Fill(Photon_pfRelIso03_all[ipho0], weight_pu_ele * weight_pho0);
+       QCD(h_Z_ele_pho0_pf_iso_chg)->Fill(Photon_pfRelIso03_chg[ipho0], weight_pu_ele * weight_pho0);
        QCD(h_Z_ele_pho0_dR)->Fill(TMath::Min(pho0.DeltaR(ele0_qcd), pho0.DeltaR(ele1_qcd)), weight_pu_ele * weight_pho0);
        QCD(h_Z_ele_pho0)->Fill(Z_ele0_ele1_m_qcd, weight_pu_ele * weight_pho0);
        QCD(h_Z_ele_ele0_pho0)->Fill((ele0+pho0).M(), weight_Z_ele * weight_pho0);
@@ -1800,6 +1951,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_Z_ele_pho1_phi)->Fill(Photon_phi[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
        QCD(h_Z_ele_pho1_r9)->Fill(Photon_r9[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
        QCD(h_Z_ele_pho1_sieie)->Fill(Photon_sieie[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
+       QCD(h_Z_ele_pho1_mva)->Fill(Photon_mvaID[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
+       QCD(h_Z_ele_pho1_pf_iso_all)->Fill(Photon_pfRelIso03_all[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
+       QCD(h_Z_ele_pho1_pf_iso_chg)->Fill(Photon_pfRelIso03_chg[ipho1], weight_pu_ele * weight_pho0 * weight_pho1);
        QCD(h_Z_ele_pho1_dR)->Fill(TMath::Min(pho1.DeltaR(ele0_qcd), pho1.DeltaR(ele1_qcd)), weight_pu_ele * weight_pho0 * weight_pho1);
        QCD(h_Z_ele_pho0_pho1_pt)->Fill((pho0+pho1).Pt(), weight_pu_ele * weight_pho0 * weight_pho1);
        QCD(h_Z_ele_ele0_pho1)->Fill((ele0+pho1).M(), weight_Z_ele * weight_pho1);
@@ -1818,6 +1972,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_Z_muo_pho0_phi->Fill(Photon_phi[ipho0], weight_Z_muo * weight_pho0);
        h_Z_muo_pho0_r9->Fill(Photon_r9[ipho0], weight_Z_muo * weight_pho0);
        h_Z_muo_pho0_sieie->Fill(Photon_sieie[ipho0], weight_Z_muo * weight_pho0);
+       h_Z_muo_pho0_mva->Fill(Photon_mvaID[ipho0], weight_Z_muo * weight_pho0);
+       h_Z_muo_pho0_pf_iso_all->Fill(Photon_pfRelIso03_all[ipho0], weight_Z_muo * weight_pho0);
+       h_Z_muo_pho0_pf_iso_chg->Fill(Photon_pfRelIso03_chg[ipho0], weight_Z_muo * weight_pho0);
        h_Z_muo_pho0_dR->Fill(TMath::Min(pho0.DeltaR(muo0), pho0.DeltaR(muo1)), weight_Z_muo * weight_pho0);
        h_Z_muo_pho0->Fill(Z_muo0_muo1_m, weight_Z_muo * weight_pho0);
        h_Z_muo_muo0_pho0->Fill((muo0+pho0).M(), weight_Z_muo * weight_pho0);
@@ -1829,6 +1986,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_Z_muo_pho1_phi->Fill(Photon_phi[ipho1], weight_Z_muo * weight_pho0 * weight_pho1);
        h_Z_muo_pho1_r9->Fill(Photon_r9[ipho1], weight_Z_muo * weight_pho0 * weight_pho1);
        h_Z_muo_pho1_sieie->Fill(Photon_sieie[ipho1], weight_Z_muo * weight_pho0 * weight_pho1);
+       h_Z_muo_pho1_mva->Fill(Photon_mvaID[ipho1], weight_Z_muo * weight_pho0 * weight_pho1);
+       h_Z_muo_pho1_pf_iso_all->Fill(Photon_pfRelIso03_all[ipho1], weight_Z_muo * weight_pho0 * weight_pho1);
+       h_Z_muo_pho1_pf_iso_chg->Fill(Photon_pfRelIso03_chg[ipho1], weight_Z_muo * weight_pho0 * weight_pho1);
        h_Z_muo_pho1_dR->Fill(TMath::Min(pho1.DeltaR(muo0), pho1.DeltaR(muo1)), weight_Z_muo * weight_pho0 * weight_pho1);
        h_Z_muo_pho0_pho1_pt->Fill((pho0+pho1).Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
        h_Z_muo_muo0_pho1->Fill((muo0+pho1).M(), weight_Z_muo * weight_pho1);
@@ -1847,6 +2007,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_Z_muo_pho0_phi)->Fill(Photon_phi[ipho0], weight_pu_muo * weight_pho0);
        QCD(h_Z_muo_pho0_r9)->Fill(Photon_r9[ipho0], weight_pu_muo * weight_pho0);
        QCD(h_Z_muo_pho0_sieie)->Fill(Photon_sieie[ipho0], weight_pu_muo * weight_pho0);
+       QCD(h_Z_muo_pho0_mva)->Fill(Photon_mvaID[ipho0], weight_pu_muo * weight_pho0);
+       QCD(h_Z_muo_pho0_pf_iso_all)->Fill(Photon_pfRelIso03_all[ipho0], weight_pu_muo * weight_pho0);
+       QCD(h_Z_muo_pho0_pf_iso_chg)->Fill(Photon_pfRelIso03_chg[ipho0], weight_pu_muo * weight_pho0);
        QCD(h_Z_muo_pho0_dR)->Fill(TMath::Min(pho0.DeltaR(muo0_qcd), pho0.DeltaR(muo1_qcd)), weight_pu_muo * weight_pho0);
        QCD(h_Z_muo_pho0)->Fill(Z_muo0_muo1_m_qcd, weight_pu_muo * weight_pho0);
        QCD(h_Z_muo_muo0_pho0)->Fill((muo0+pho0).M(), weight_Z_muo * weight_pho0);
@@ -1858,6 +2021,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_Z_muo_pho1_phi)->Fill(Photon_phi[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
        QCD(h_Z_muo_pho1_r9)->Fill(Photon_r9[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
        QCD(h_Z_muo_pho1_sieie)->Fill(Photon_sieie[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
+       QCD(h_Z_muo_pho1_mva)->Fill(Photon_mvaID[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
+       QCD(h_Z_muo_pho1_pf_iso_all)->Fill(Photon_pfRelIso03_all[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
+       QCD(h_Z_muo_pho1_pf_iso_chg)->Fill(Photon_pfRelIso03_chg[ipho1], weight_pu_muo * weight_pho0 * weight_pho1);
        QCD(h_Z_muo_pho1_dR)->Fill(TMath::Min(pho1.DeltaR(muo0_qcd), pho1.DeltaR(muo1_qcd)), weight_pu_muo * weight_pho0 * weight_pho1);
        QCD(h_Z_muo_pho0_pho1_pt)->Fill((pho0+pho1).Pt(), weight_pu_muo * weight_pho0 * weight_pho1);
        QCD(h_Z_muo_muo0_pho1)->Fill((muo0+pho1).M(), weight_Z_muo * weight_pho1);

@@ -77,6 +77,13 @@ public :
    TH1D* h_W_muo_met_phi = 0;
    TH1D* h_W_muo_met_sign = 0;
 
+   TH1D* h_W_ele0_mva = 0;
+
+   TH1D* h_W_ele0_pf_iso_all = 0;
+   TH1D* h_W_ele0_pf_iso_chg = 0;
+   TH1D* h_W_muo0_pf_iso_all = 0;
+   TH1D* h_W_muo0_pf_iso_chg = 0;
+
    TH1D* h_Z_ele = 0;
    TH1D* h_Z_muo = 0;
 
@@ -107,6 +114,18 @@ public :
    TH1D* h_Z_muo_met_pt = 0;
    TH1D* h_Z_muo_met_phi = 0;
    TH1D* h_Z_muo_met_sign = 0;
+
+   TH1D* h_Z_ele0_mva = 0;
+   TH1D* h_Z_ele1_mva = 0;
+
+   TH1D* h_Z_ele0_pf_iso_all = 0;
+   TH1D* h_Z_ele0_pf_iso_chg = 0;
+   TH1D* h_Z_ele1_pf_iso_all = 0;
+   TH1D* h_Z_ele1_pf_iso_chg = 0;
+   TH1D* h_Z_muo0_pf_iso_all = 0;
+   TH1D* h_Z_muo0_pf_iso_chg = 0;
+   TH1D* h_Z_muo1_pf_iso_all = 0;
+   TH1D* h_Z_muo1_pf_iso_chg = 0;
 
    TH2D* h_TrigObj = 0;
 
@@ -151,6 +170,20 @@ public :
    TH1D* h_W_muo_pho1_r9 = 0;
    TH1D* h_W_muo_pho1_sieie = 0;
 
+   TH1D* h_W_ele_pho0_mva = 0;
+   TH1D* h_W_ele_pho1_mva = 0;
+   TH1D* h_W_muo_pho0_mva = 0;
+   TH1D* h_W_muo_pho1_mva = 0;
+
+   TH1D* h_W_ele_pho0_pf_iso_all = 0;
+   TH1D* h_W_ele_pho0_pf_iso_chg = 0;
+   TH1D* h_W_ele_pho1_pf_iso_all = 0;
+   TH1D* h_W_ele_pho1_pf_iso_chg = 0;
+   TH1D* h_W_muo_pho0_pf_iso_all = 0;
+   TH1D* h_W_muo_pho0_pf_iso_chg = 0;
+   TH1D* h_W_muo_pho1_pf_iso_all = 0;
+   TH1D* h_W_muo_pho1_pf_iso_chg = 0;
+
    TH1D* h_Z_ele_nphotons = 0;
    TH1D* h_Z_ele_pho0_pt = 0;
    TH1D* h_Z_ele_pho0_eta = 0;
@@ -173,6 +206,20 @@ public :
    TH1D* h_Z_muo_pho1_phi = 0;
    TH1D* h_Z_muo_pho1_r9 = 0;
    TH1D* h_Z_muo_pho1_sieie = 0;
+
+   TH1D* h_Z_ele_pho0_mva = 0;
+   TH1D* h_Z_ele_pho1_mva = 0;
+   TH1D* h_Z_muo_pho0_mva = 0;
+   TH1D* h_Z_muo_pho1_mva = 0;
+
+   TH1D* h_Z_ele_pho0_pf_iso_all = 0;
+   TH1D* h_Z_ele_pho0_pf_iso_chg = 0;
+   TH1D* h_Z_ele_pho1_pf_iso_all = 0;
+   TH1D* h_Z_ele_pho1_pf_iso_chg = 0;
+   TH1D* h_Z_muo_pho0_pf_iso_all = 0;
+   TH1D* h_Z_muo_pho0_pf_iso_chg = 0;
+   TH1D* h_Z_muo_pho1_pf_iso_all = 0;
+   TH1D* h_Z_muo_pho1_pf_iso_chg = 0;
 
    TH1D* h_W_ele_pho0_dR = 0;
    TH1D* h_W_ele_pho1_dR = 0;
@@ -261,6 +308,9 @@ public :
    TTreeReaderArray<Float_t> Electron_r9 = {fReader, "Electron_r9"};
    TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
 
+   TTreeReaderArray<Float_t> Electron_pfRelIso03_all = {fReader, "Electron_pfRelIso03_all"};
+   TTreeReaderArray<Float_t> Electron_pfRelIso03_chg = {fReader, "Electron_pfRelIso03_chg"};
+
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
    TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
@@ -271,6 +321,9 @@ public :
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    TTreeReaderArray<Int_t> Muon_nTrackerLayers = {fReader, "Muon_nTrackerLayers"};
 
+   TTreeReaderArray<Float_t> Muon_pfRelIso03_all = {fReader, "Muon_pfRelIso03_all"};
+   TTreeReaderArray<Float_t> Muon_pfRelIso03_chg = {fReader, "Muon_pfRelIso03_chg"};
+
    TTreeReaderValue<UInt_t> nPhoton = {fReader, "nPhoton"};
    TTreeReaderArray<Float_t> Photon_pt = {fReader, "Photon_pt"};
    TTreeReaderArray<Float_t> Photon_eta = {fReader, "Photon_eta"};
@@ -280,6 +333,9 @@ public :
    TTreeReaderArray<Float_t> Photon_sieie = {fReader, "Photon_sieie"};
    TTreeReaderArray<Bool_t> Photon_electronVeto = {fReader, "Photon_electronVeto"};
    TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
+
+   TTreeReaderArray<Float_t> Photon_pfRelIso03_all = {fReader, "Photon_pfRelIso03_all"};
+   TTreeReaderArray<Float_t> Photon_pfRelIso03_chg = {fReader, "Photon_pfRelIso03_chg"};
 
    TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
    TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};
@@ -308,14 +364,15 @@ public :
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
-   //TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
+   TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
    TTreeReaderArray<Float_t> Electron_mvaSpring16GP = {fReader, "Electron_mvaSpring16GP"};
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+   TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
    TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
    TTreeReaderArray<Bool_t> Photon_mvaID_WP80 = {fReader, "Photon_mvaID_WP80"};
-   //TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
+   TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
    TTreeReaderValue<Bool_t> HLT_Ele27_WPTight_Gsf = {fReader, "HLT_Ele27_WPTight_Gsf"};
@@ -337,14 +394,15 @@ public :
 #if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
    TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP80 = {fReader, "Electron_mvaFall17Iso_WP80"};
-   //TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
+   TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
    TTreeReaderArray<Float_t> Electron_mvaFall17Iso = {fReader, "Electron_mvaFall17Iso"};
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+   TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
    TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
    TTreeReaderArray<Bool_t> Photon_mvaID_WP80 = {fReader, "Photon_mvaID_WP80"};
-   //TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
+   TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
    TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
@@ -362,14 +420,15 @@ public :
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP80 = {fReader, "Electron_mvaFall17V2Iso_WP80"};
-   //TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
+   TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
    TTreeReaderArray<Float_t> Electron_mvaFall17V2Iso = {fReader, "Electron_mvaFall17V2Iso"};
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
+   TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
    TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
    TTreeReaderArray<Bool_t> Photon_mvaID_WP80 = {fReader, "Photon_mvaID_WP80"};
-   //TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
+   TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
    TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf = {fReader, "HLT_Ele32_WPTight_Gsf"};
