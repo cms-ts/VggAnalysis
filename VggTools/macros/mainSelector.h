@@ -363,17 +363,39 @@ public :
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 
+// FIXME
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
    TTreeReaderArray<Float_t> Electron_mvaSpring16GP = {fReader, "Electron_mvaSpring16GP"};
+#define Electron_mvaID_WP80 Electron_mvaSpring16GP_WP80
+#define Electron_mvaID_WP90 Electron_mvaSpring16GP_WP90
+#define Electron_mvaID Electron_mvaSpring16GP
+//   TTreeReaderArray<Bool_t> Electron_mvaFall17noIso_WP80 = {fReader, "Electron_mvaFall17noIso_WP80"};
+//   TTreeReaderArray<Bool_t> Electron_mvaFall17noIso_WP90 = {fReader, "Electron_mvaFall17noIso_WP90"};
+//   TTreeReaderArray<Float_t> Electron_mvaFall17noIso = {fReader, "Electron_mvaFall17noIso"};
+//#define Electron_mvaID_WP80 Electron_mvaFall17noIso_WP80
+//#define Electron_mvaID_WP90 Electron_mvaFall17noIso_WP90
+//#define Electron_mvaID Electron_mvaFall17noIso
+// FIXME
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
    TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
    TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
+// FIXME
    TTreeReaderArray<Bool_t> Photon_mvaID_WP80 = {fReader, "Photon_mvaID_WP80"};
    TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
+#define Photon_mvaID_WP80 Photon_mvaID_WP80
+#define Photon_mvaID_WP90 Photon_mvaID_WP90
+#define Photon_mvaID Photon_mvaID
+//   TTreeReaderArray<Bool_t> Photon_mvaID17_WP80 = {fReader, "Photon_mvaID17_WP80"};
+//   TTreeReaderArray<Bool_t> Photon_mvaID17_WP90 = {fReader, "Photon_mvaID17_WP90"};
+//   TTreeReaderArray<Float_t> Photon_mvaID17 = {fReader, "Photon_mvaID17"};
+//#define Photon_mvaID_WP80 Photon_mvaID17_WP80
+//#define Photon_mvaID_WP90 Photon_mvaID17_WP90
+//#define Photon_mvaID Photon_mvaID17
+// FIXME
 
    TTreeReaderValue<Bool_t> HLT_Ele27_WPTight_Gsf = {fReader, "HLT_Ele27_WPTight_Gsf"};
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
@@ -393,9 +415,12 @@ public :
 
 #if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
-   TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP80 = {fReader, "Electron_mvaFall17Iso_WP80"};
-   TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
-   TTreeReaderArray<Float_t> Electron_mvaFall17Iso = {fReader, "Electron_mvaFall17Iso"};
+   TTreeReaderArray<Bool_t> Electron_mvaFall17noIso_WP80 = {fReader, "Electron_mvaFall17noIso_WP80"};
+   TTreeReaderArray<Bool_t> Electron_mvaFall17noIso_WP90 = {fReader, "Electron_mvaFall17noIso_WP90"};
+   TTreeReaderArray<Float_t> Electron_mvaFall17noIso = {fReader, "Electron_mvaFall17noIso"};
+#define Electron_mvaID_WP80 Electron_mvaFall17noIso_WP80
+#define Electron_mvaID_WP90 Electron_mvaFall17noIso_WP90
+#define Electron_mvaID Electron_mvaFall17noIso
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
    TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
@@ -419,9 +444,12 @@ public :
 
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
-   TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP80 = {fReader, "Electron_mvaFall17V2Iso_WP80"};
-   TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
-   TTreeReaderArray<Float_t> Electron_mvaFall17V2Iso = {fReader, "Electron_mvaFall17V2Iso"};
+   TTreeReaderArray<Bool_t> Electron_mvaFall17V2noIso_WP80 = {fReader, "Electron_mvaFall17V2noIso_WP80"};
+   TTreeReaderArray<Bool_t> Electron_mvaFall17V2noIso_WP90 = {fReader, "Electron_mvaFall17V2noIso_WP90"};
+   TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso = {fReader, "Electron_mvaFall17V2noIso"};
+#define Electron_mvaID_WP80 Electron_mvaFall17V2noIso_WP80
+#define Electron_mvaID_WP90 Electron_mvaFall17V2noIso_WP90
+#define Electron_mvaID Electron_mvaFall17V2noIso
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
    TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
