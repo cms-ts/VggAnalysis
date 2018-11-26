@@ -12,6 +12,7 @@ for F in `ls json/Run2016*.json`; do
   G=`basename $F .json`
   echo $G > logs/$G.log
   brilcalc lumi \
+  -b "STABLE BEAMS" \
   -c /cvmfs/cms.cern.ch/SITECONF/local/JobConfig/site-local-config.xml \
   --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json \
   -u /fb -i $F >> logs/$G.log
@@ -23,6 +24,7 @@ for F in `ls json/Run2017*.json`; do
   G=`basename $F .json`
   echo $G > logs/$G.log
   brilcalc lumi \
+  -b "STABLE BEAMS" \
   -c /cvmfs/cms.cern.ch/SITECONF/local/JobConfig/site-local-config.xml \
   --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json \
   -u /fb -i $F >> logs/$G.log
@@ -36,6 +38,7 @@ for F in `ls json/Run2018*.json`; do
   G=`basename $F .json`
   echo $G > logs/$G.log
   brilcalc lumi \
+  -b "STABLE BEAMS" \
   -c /cvmfs/cms.cern.ch/SITECONF/local/JobConfig/site-local-config.xml \
   --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_BRIL.json \
   -u /fb -i $F >> logs/$G.log
