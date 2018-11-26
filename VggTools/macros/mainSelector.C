@@ -106,7 +106,6 @@ void mainSelector::Begin(TTree * /*tree*/)
 
 #if defined(mainSelectorMC16_cxx)
    file_ele_sf_eff = TFile::Open("root/sf_ele_2016_LegacyReReco_ElectronMVAwp80.root");
-   //file_ele_sf_eff = TFile::Open("root/sf_ele_2016_LegacyReReco_ElectronMVAwp90.root");
    file_ele_sf_reco = TFile::Open("root/sf_ele_2016_LegacyReReco_EGM2D_RECO.root");
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
@@ -149,7 +148,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_iso->Add(sf_muo_iso_RunBCDEF, sf_muo_iso_RunGH, 19.69/35.917, 16.227/35.917);
 
    file_pho_sf_eff = TFile::Open("root/sf_pho_2016_LegacyReReco_PhotonMVAwp80.root");
-   //file_pho_sf_eff = TFile::Open("root/sf_pho_2016_LegacyReReco_PhotonMVAwp90.root");
 // FIXME
    //file_pho_sf_reco = TFile::Open("root/sf_pho_2016_EGM2D_BtoH_GT20GeV_RecoSF_2018.root");
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
@@ -163,7 +161,6 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
    file_ele_sf_eff = TFile::Open("root/sf_ele_2017_ElectronMVA80.root");
-   //file_ele_sf_eff = TFile::Open("root/sf_ele_2017_ElectronMVA90.root");
    file_ele_sf_reco = TFile::Open("root/sf_ele_2017_EGM2D_RECO.root");
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
@@ -188,7 +185,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_muo_sf_iso->Close();
 
    file_pho_sf_eff = TFile::Open("root/sf_pho_2017_PhotonsMVAwp80.root");
-   //file_pho_sf_eff = TFile::Open("root/sf_pho_2017_PhotonsMVAwp90.root");
 // FIXME
    //file_pho_sf_reco = TFile::Open("root/sf_pho_2017_EGM2D_BtoH_GT20GeV_RecoSF_2018.root");
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
@@ -202,7 +198,6 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
    file_ele_sf_eff = TFile::Open("root/sf_ele_2018_ElectronMVA80.root");
-   //file_ele_sf_eff = TFile::Open("root/sf_ele_2018_ElectronMVA90.root");
    file_ele_sf_reco = TFile::Open("root/sf_ele_2018_EGM2D_RECO.root");
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
@@ -229,7 +224,6 @@ void mainSelector::Begin(TTree * /*tree*/)
 // FIXME
 
    file_pho_sf_eff = TFile::Open("root/sf_pho_2018_PhotonsMVAwp80.root");
-   //file_pho_sf_eff = TFile::Open("root/sf_pho_2018_PhotonsMVAwp90.root");
 // FIXME
    //file_pho_sf_reco = TFile::Open("root/sf_pho_2018_EGM2D_BtoH_GT20GeV_RecoSF_2018.root");
 
@@ -1048,9 +1042,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
      if (Photon_mvaID_WP80[i] == 0) continue;
-     //if (Photon_mvaID_WP90[i] == 0) continue;
      if (Photon_electronVeto[i] == 0) continue;
-     //if (Photon_pixelSeed[i] == 0) continue;
 
      if (ipho0 != -1 && ipho1 == -1) {
        ipho1 = i;

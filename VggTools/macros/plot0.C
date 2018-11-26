@@ -209,7 +209,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   pad1->cd();
 
   hstack_mc->SetMaximum(1.2*TMath::Max(hstack_mc->GetMaximum(),histo[0]->GetMaximum()));
-  hstack_mc->SetMinimum(0.0001*hstack_mc->GetMaximum());
+  if (flags.find("nolog") == string::npos) hstack_mc->SetMinimum(0.0001*hstack_mc->GetMaximum());
 
   hstack_mc->Draw("HIST");
 
