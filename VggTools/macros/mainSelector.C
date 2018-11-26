@@ -1048,9 +1048,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
      if (Photon_mvaID_WP80[i] == 0) continue;
-     //if (Photon_mvaID_WP90[i] == 0) continue;
      if (Photon_electronVeto[i] == 0) continue;
-     //if (Photon_pixelSeed[i] == 0) continue;
 
      if (ipho0 != -1 && ipho1 == -1) {
        ipho1 = i;
