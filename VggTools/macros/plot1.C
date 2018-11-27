@@ -36,6 +36,9 @@ void plot1(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("fit") != string::npos) {
 
+    if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+    if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
+
     TFile f1(("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
     TFile f2(("html/" + version + "/" + year + "/root/" + title + "_qcd.root").c_str());
 
@@ -47,13 +50,6 @@ void plot1(string plot="", string title="", string version="v00", string flags="
 
     f1.Close();
     f2.Close();
-
-//    for (int i = h1->FindBin(40.); i <= h1->GetNbinsX(); i++) {
-//      h1->SetBinContent(i, 0.);
-//      h1->SetBinError(i, 0.);
-//      h2->SetBinContent(i, 0.);
-//      h2->SetBinError(i, 0.);
-//    }
 
     h_fit1 = (TH1D*)h1->Clone();
     h_fit2 = (TH1D*)h2->Clone();
@@ -83,11 +79,14 @@ void plot1(string plot="", string title="", string version="v00", string flags="
 
     c1->SaveAs(("html/" + version + "/" + year + "/root/" + title + "_qcd_fit.pdf").c_str());
 
+    return;
+
   }
 
-  if (flags.find("fit") != string::npos) return;
-
   if (flags.find("qcd") != string::npos) title = title + "_qcd";
+
+  if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
+  if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -168,6 +167,11 @@ void plot1(string plot="", string title="", string version="v00", string flags="
     }
   }
 
+  if (flags.find("test") != string::npos) version = version + ".test";
+
+  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
+
   TH1D* h_mcsum = (TH1D*) histo[0]->Clone("h_mcsum");
   h_mcsum->Reset();  
 
@@ -181,10 +185,9 @@ void plot1(string plot="", string title="", string version="v00", string flags="
 
   h_qcd->Add(h_mcsum, -1);
 
-  if (flags.find("test") != string::npos) version = version + ".test";
-
   gSystem->mkdir(("html/" + version + "/" + year + "/root/").c_str(), kTRUE);
   TFile f(("html/" + version + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
   h_qcd->Write(title.c_str());
   f.Close();
 

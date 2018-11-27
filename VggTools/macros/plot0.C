@@ -1,5 +1,5 @@
 #include "plot0.h"
-
+ 
 #include "CMS_lumi.C"
 
 void plot0(string plot="", string title="", string version="v00", string flags="") {
@@ -13,8 +13,13 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   plot = plot + ".dat";
   if (flags.find("test") != string::npos) plot = plot + ".test";
 
-  if (flags.find("qcd") != string::npos) year = year + ".qcd";
-  if (flags.find("qcd") != string::npos) title = title + "_qcd";
+  if (flags.find("qcd") != string::npos) {
+    year = year + ".qcd";
+    title = title + "_qcd";
+  }
+
+  if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
+  if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -92,6 +97,30 @@ void plot0(string plot="", string title="", string version="v00", string flags="
         histo[index]->Scale(norm);
       }
       file.Close();
+    }
+  }
+
+  if (flags.find("test") != string::npos) version = version + ".test";
+
+  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
+
+  if (flags.find("qcd") == string::npos) {
+    float fitval = 0.;
+    float fiterr = 0.;
+    int index = 9001;
+    ifstream file1;
+    file1.open(("html/" + version + "/" + year + ".qcd/root/" + title.substr(0, 7) + "_qcd_fit.dat").c_str());
+    if (file1.good()) {
+      file1 >> fitval >> fiterr;
+      file1.close();
+      TFile file2(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd.root").c_str());
+      if (file2.IsOpen()) { 
+        histo[index] = (TH1D*)gDirectory->Get((title + "_qcd").c_str());
+        histo[index]->SetDirectory(0);
+        histo[index]->Scale(fitval);
+        file2.Close();
+      }
     }
   }
 
@@ -195,6 +224,11 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
+
+    if (it->first == 9001) {
+      it->second->SetFillColor(kMagenta+3);
+      leg->AddEntry(it->second, "QCD", "f");
+    }
   }
 
   TH1D* h_ratio = (TH1D*) histo[0]->Clone();
@@ -285,8 +319,6 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   int iPos = 0;
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
-
-  if (flags.find("test") != string::npos) version = version + ".test";
 
   gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE);
   c1->SaveAs(("html/" + version + "/" + year + "/" + title + ".pdf").c_str());
