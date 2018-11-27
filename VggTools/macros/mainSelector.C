@@ -1482,8 +1482,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-
-
 // Z -> ele ele
 
    bool Z_ele_sel = false;
@@ -1608,6 +1606,15 @@ Bool_t mainSelector::Process(Long64_t entry)
          Z_muo_sel_qcd = true;
        }
      }
+   }
+
+   if (W_ele_sel || W_ele_sel_wide || W_muo_sel || W_muo_sel_wide || Z_ele_sel || Z_muo_sel) {
+     W_ele_sel_qcd = false;
+     W_ele_sel_wide_qcd = false;
+     W_muo_sel_qcd = false;
+     W_muo_sel_wide_qcd = false;
+     Z_ele_sel_qcd = false;
+     Z_muo_sel_qcd = false;
    }
 
 // electron(s) scale factors
