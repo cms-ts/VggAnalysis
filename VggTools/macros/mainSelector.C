@@ -1613,18 +1613,18 @@ Bool_t mainSelector::Process(Long64_t entry)
      W_ele_sel_wide = false;
      W_muo_sel = false;
      W_muo_sel_wide = false;
-     Z_ele_sel = false;
-     Z_muo_sel = false;
    }
+   if (iele0_qcd != -1) Z_ele_sel = false;
+   if (imuo0_qcd != -1) Z_muo_sel = false;
 
    if (iele0 != -1 || imuo0 != -1) {
      W_ele_sel_qcd = false;
      W_ele_sel_wide_qcd = false;
      W_muo_sel_qcd = false;
      W_muo_sel_wide_qcd = false;
-     Z_ele_sel_qcd = false;
-     Z_muo_sel_qcd = false;
    }
+   if (iele0 != -1) Z_ele_sel_qcd = false;
+   if (imuo0 != -1) Z_muo_sel_qcd = false;
 
 // electron(s) scale factors
 
