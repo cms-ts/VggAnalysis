@@ -1608,7 +1608,16 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-   if (W_ele_sel || W_ele_sel_wide || W_muo_sel || W_muo_sel_wide || Z_ele_sel || Z_muo_sel) {
+   if (iele0_qcd != -1 || imuo0_qcd != -1) {
+     W_ele_sel = false;
+     W_ele_sel_wide = false;
+     W_muo_sel = false;
+     W_muo_sel_wide = false;
+     Z_ele_sel = false;
+     Z_muo_sel = false;
+   }
+
+   if (iele0 != -1 || imuo0 != -1) {
      W_ele_sel_qcd = false;
      W_ele_sel_wide_qcd = false;
      W_muo_sel_qcd = false;
