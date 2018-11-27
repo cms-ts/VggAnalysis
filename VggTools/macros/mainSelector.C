@@ -1256,12 +1256,21 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nJet; i++) {
 
-     if (iele0 != -1 && (uint)Electron_jetIdx[iele0] == i) continue;
-     if (iele1 != -1 && (uint)Electron_jetIdx[iele1] == i) continue;
-     if (imuo0 != -1 && (uint)Muon_jetIdx[imuo0] == i) continue;
-     if (imuo1 != -1 && (uint)Muon_jetIdx[imuo1] == i) continue;
-     if (ipho0 != -1 && (uint)Photon_jetIdx[ipho0] == i) continue;
-     if (ipho1 != -1 && (uint)Photon_jetIdx[ipho1] == i) continue;
+     if (iele0 != -1 && Electron_jetIdx[iele0] == (int)i) continue;
+     if (iele1 != -1 && Electron_jetIdx[iele1] == (int)i) continue;
+     if (imuo0 != -1 && Muon_jetIdx[imuo0] == (int)i) continue;
+     if (imuo1 != -1 && Muon_jetIdx[imuo1] == (int)i) continue;
+     if (ipho0 != -1 && Photon_jetIdx[ipho0] == (int)i) continue;
+     if (ipho1 != -1 && Photon_jetIdx[ipho1] == (int)i) continue;
+
+     if (iele0 != -1 && Jet_electronIdx1[i] == iele0) continue;
+     if (iele0 != -1 && Jet_electronIdx2[i] == iele0) continue;
+     if (iele1 != -1 && Jet_electronIdx1[i] == iele1) continue;
+     if (iele1 != -1 && Jet_electronIdx2[i] == iele1) continue;
+     if (imuo0 != -1 && Jet_muonIdx1[i] == imuo0) continue;
+     if (imuo0 != -1 && Jet_muonIdx2[i] == imuo0) continue;
+     if (imuo1 != -1 && Jet_muonIdx1[i] == imuo1) continue;
+     if (imuo1 != -1 && Jet_muonIdx2[i] == imuo1) continue;
 
 #if defined(mainSelectorMC16_cxx)
 // MC jets smearing not needed
@@ -1273,7 +1282,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      jer_parameters.setRho(*fixedGridRhoFastjetAll);
 
      bool jet_match = false;
-     if (Jet_genJetIdx[i] >= 0 && (uint)Jet_genJetIdx[i] < *nGenJet) {
+     if (Jet_genJetIdx[i] >= 0 && Jet_genJetIdx[i] < (int)*nGenJet) {
        TLorentzVector tmp_jet;
        tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
        TLorentzVector tmp_jet_gen;
@@ -1323,6 +1332,46 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (ijet0 != -1) {
      jet0.SetPtEtaPhiM(Jet_pt[ijet0], Jet_eta[ijet0], Jet_phi[ijet0], Jet_mass[ijet0]);
+   }
+
+// jets QCD
+
+   int n_jets_qcd = 0;
+   int ijet0_qcd = -1;
+
+   for (uint i = 0; i < *nJet; i++) {
+
+     if (iele0_qcd != -1 && Electron_jetIdx[iele0_qcd] == (int)i) continue;
+     if (iele1_qcd != -1 && Electron_jetIdx[iele1_qcd] == (int)i) continue;
+     if (imuo0_qcd != -1 && Muon_jetIdx[imuo0_qcd] == (int)i) continue;
+     if (imuo1_qcd != -1 && Muon_jetIdx[imuo1_qcd] == (int)i) continue;
+     if (ipho0_qcd != -1 && Photon_jetIdx[ipho0_qcd] == (int)i) continue;
+     if (ipho1_qcd != -1 && Photon_jetIdx[ipho1_qcd] == (int)i) continue;
+
+     if (iele0_qcd != -1 && Jet_electronIdx1[i] == iele0_qcd) continue;
+     if (iele0_qcd != -1 && Jet_electronIdx2[i] == iele0_qcd) continue;
+     if (iele1_qcd != -1 && Jet_electronIdx1[i] == iele1_qcd) continue;
+     if (iele1_qcd != -1 && Jet_electronIdx2[i] == iele1_qcd) continue;
+     if (imuo0_qcd != -1 && Jet_muonIdx1[i] == imuo0_qcd) continue;
+     if (imuo0_qcd != -1 && Jet_muonIdx2[i] == imuo0_qcd) continue;
+     if (imuo1_qcd != -1 && Jet_muonIdx1[i] == imuo1_qcd) continue;
+     if (imuo1_qcd != -1 && Jet_muonIdx2[i] == imuo1_qcd) continue;
+
+     if (Jet_pt[i] < 30) continue;
+     if (fabs(Jet_eta[i]) > 2.400) continue;
+
+     if (ijet0_qcd == -1) {
+       ijet0_qcd = i;
+     }
+
+     n_jets_qcd++;
+
+   }
+
+   TLorentzVector jet0_qcd;
+
+   if (ijet0_qcd != -1) {
+     jet0_qcd.SetPtEtaPhiM(Jet_pt[ijet0_qcd], Jet_eta[ijet0_qcd], Jet_phi[ijet0_qcd], Jet_mass[ijet0_qcd]);
    }
 
 // W -> ele nu
@@ -1952,7 +2001,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_ele_sel_qcd) {
-     QCD(h_W_ele_nphotons)->Fill(n_photons, weight_W_ele_qcd);
+     QCD(h_W_ele_nphotons)->Fill(n_photons_qcd, weight_W_ele_qcd);
      if (n_photons_qcd >= 1) {
        QCD(h_W_ele_pho0_pt)->Fill(Photon_pt[ipho0_qcd], weight_W_ele_qcd * weight_pho0_qcd);
        QCD(h_W_ele_pho0_eta)->Fill(Photon_eta[ipho0_qcd], weight_W_ele_qcd * weight_pho0_qcd);
@@ -2024,7 +2073,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_muo_sel_qcd) {
-     QCD(h_W_muo_nphotons)->Fill(n_photons, weight_W_muo_qcd);
+     QCD(h_W_muo_nphotons)->Fill(n_photons_qcd, weight_W_muo_qcd);
      if (n_photons_qcd >= 1) {
        QCD(h_W_muo_pho0_pt)->Fill(Photon_pt[ipho0_qcd], weight_W_muo_qcd * weight_pho0_qcd);
        QCD(h_W_muo_pho0_eta)->Fill(Photon_eta[ipho0_qcd], weight_W_muo_qcd * weight_pho0_qcd);
@@ -2091,7 +2140,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (Z_ele_sel_qcd) {
-     QCD(h_Z_ele_nphotons)->Fill(n_photons, weight_Z_ele_qcd);
+     QCD(h_Z_ele_nphotons)->Fill(n_photons_qcd, weight_Z_ele_qcd);
      if (n_photons_qcd >= 1) {
        QCD(h_Z_ele_pho0_pt)->Fill(Photon_pt[ipho0_qcd], weight_Z_ele_qcd * weight_pho0_qcd);
        QCD(h_Z_ele_pho0_eta)->Fill(Photon_eta[ipho0_qcd], weight_Z_ele_qcd * weight_pho0_qcd);
@@ -2161,7 +2210,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (Z_muo_sel_qcd) {
-     QCD(h_Z_muo_nphotons)->Fill(n_photons, weight_Z_muo_qcd);
+     QCD(h_Z_muo_nphotons)->Fill(n_photons_qcd, weight_Z_muo_qcd);
      if (n_photons_qcd >= 1) {
        QCD(h_Z_muo_pho0_pt)->Fill(Photon_pt[ipho0_qcd], weight_Z_muo_qcd * weight_pho0_qcd);
        QCD(h_Z_muo_pho0_eta)->Fill(Photon_eta[ipho0_qcd], weight_Z_muo_qcd * weight_pho0_qcd);
@@ -2207,11 +2256,11 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_ele_sel_qcd) {
-     QCD(h_W_ele_njets)->Fill(n_jets, weight_W_ele);
-     if (n_jets >= 1) {
-       QCD(h_W_ele_jet0_pt)->Fill(Jet_pt[ijet0], weight_W_ele);
-       QCD(h_W_ele_jet0_eta)->Fill(Jet_eta[ijet0], weight_W_ele);
-       QCD(h_W_ele_jet0_phi)->Fill(Jet_phi[ijet0], weight_W_ele);
+     QCD(h_W_ele_njets)->Fill(n_jets_qcd, weight_W_ele_qcd);
+     if (n_jets_qcd >= 1) {
+       QCD(h_W_ele_jet0_pt)->Fill(Jet_pt[ijet0_qcd], weight_W_ele_qcd);
+       QCD(h_W_ele_jet0_eta)->Fill(Jet_eta[ijet0_qcd], weight_W_ele_qcd);
+       QCD(h_W_ele_jet0_phi)->Fill(Jet_phi[ijet0_qcd], weight_W_ele_qcd);
      }
    }
 
@@ -2225,11 +2274,11 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_muo_sel_qcd) {
-     QCD(h_W_muo_njets)->Fill(n_jets, weight_W_muo);
-     if (n_jets >= 1) {
-       QCD(h_W_muo_jet0_pt)->Fill(Jet_pt[ijet0], weight_W_muo);
-       QCD(h_W_muo_jet0_eta)->Fill(Jet_eta[ijet0], weight_W_muo);
-       QCD(h_W_muo_jet0_phi)->Fill(Jet_phi[ijet0], weight_W_muo);
+     QCD(h_W_muo_njets)->Fill(n_jets_qcd, weight_W_muo_qcd);
+     if (n_jets_qcd >= 1) {
+       QCD(h_W_muo_jet0_pt)->Fill(Jet_pt[ijet0_qcd], weight_W_muo_qcd);
+       QCD(h_W_muo_jet0_eta)->Fill(Jet_eta[ijet0_qcd], weight_W_muo_qcd);
+       QCD(h_W_muo_jet0_phi)->Fill(Jet_phi[ijet0_qcd], weight_W_muo_qcd);
      }
    }
 
@@ -2245,11 +2294,11 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (Z_ele_sel_qcd) {
-     QCD(h_Z_ele_njets)->Fill(n_jets, weight_Z_ele);
-     if (n_jets >= 1) {
-       QCD(h_Z_ele_jet0_pt)->Fill(Jet_pt[ijet0], weight_Z_ele);
-       QCD(h_Z_ele_jet0_eta)->Fill(Jet_eta[ijet0], weight_Z_ele);
-       QCD(h_Z_ele_jet0_phi)->Fill(Jet_phi[ijet0], weight_Z_ele);
+     QCD(h_Z_ele_njets)->Fill(n_jets_qcd, weight_Z_ele_qcd);
+     if (n_jets_qcd >= 1) {
+       QCD(h_Z_ele_jet0_pt)->Fill(Jet_pt[ijet0_qcd], weight_Z_ele_qcd);
+       QCD(h_Z_ele_jet0_eta)->Fill(Jet_eta[ijet0_qcd], weight_Z_ele_qcd);
+       QCD(h_Z_ele_jet0_phi)->Fill(Jet_phi[ijet0_qcd], weight_Z_ele_qcd);
      }
    }
 
@@ -2263,11 +2312,11 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (Z_muo_sel_qcd) {
-     QCD(h_Z_muo_njets)->Fill(n_jets, weight_Z_muo);
-     if (n_jets >= 1) {
-       QCD(h_Z_muo_jet0_pt)->Fill(Jet_pt[ijet0], weight_Z_muo);
-       QCD(h_Z_muo_jet0_eta)->Fill(Jet_eta[ijet0], weight_Z_muo);
-       QCD(h_Z_muo_jet0_phi)->Fill(Jet_phi[ijet0], weight_Z_muo);
+     QCD(h_Z_muo_njets)->Fill(n_jets_qcd, weight_Z_muo_qcd);
+     if (n_jets_qcd >= 1) {
+       QCD(h_Z_muo_jet0_pt)->Fill(Jet_pt[ijet0_qcd], weight_Z_muo_qcd);
+       QCD(h_Z_muo_jet0_eta)->Fill(Jet_eta[ijet0_qcd], weight_Z_muo_qcd);
+       QCD(h_Z_muo_jet0_phi)->Fill(Jet_phi[ijet0_qcd], weight_Z_muo_qcd);
      }
    }
 
