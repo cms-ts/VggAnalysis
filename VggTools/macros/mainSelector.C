@@ -905,6 +905,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int iele1_qcd = -1;
 
    for (uint i = 0; i < *nElectron; i++) {
+     float eCorr_ele = 1.;
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 // electron energy corrections not needed
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -1036,6 +1037,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int imuo1_qcd = -1;
 
    for (uint i = 0; i < *nMuon; i++) {
+     float eCorr_muo = 1.;
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
      eCorr_muo = roccor->kScaleDT(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], 0, 0);
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
