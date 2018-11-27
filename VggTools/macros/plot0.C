@@ -18,11 +18,11 @@ void plot0(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("amcatnlo") != string::npos) {
     plot = "amcatnlo/" + plot;
-    year = year + ".amcatnlo";
+    version = version + ".amcatnlo";
   }
   if (flags.find("madgraph") != string::npos) {
     plot = "madgraph/" + plot;
-    year = year + ".madgraph";
+    version = version + ".madgraph";
   }
 
   map<string, float> lumiMap;
