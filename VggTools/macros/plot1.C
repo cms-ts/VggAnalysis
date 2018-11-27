@@ -51,13 +51,6 @@ void plot1(string plot="", string title="", string version="v00", string flags="
     f1.Close();
     f2.Close();
 
-//    for (int i = h1->FindBin(40.); i <= h1->GetNbinsX(); i++) {
-//      h1->SetBinContent(i, 0.);
-//      h1->SetBinError(i, 0.);
-//      h2->SetBinContent(i, 0.);
-//      h2->SetBinError(i, 0.);
-//    }
-
     h_fit1 = (TH1D*)h1->Clone();
     h_fit2 = (TH1D*)h2->Clone();
 
@@ -174,6 +167,11 @@ void plot1(string plot="", string title="", string version="v00", string flags="
     }
   }
 
+  if (flags.find("test") != string::npos) version = version + ".test";
+
+  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
+
   TH1D* h_mcsum = (TH1D*) histo[0]->Clone("h_mcsum");
   h_mcsum->Reset();  
 
@@ -186,11 +184,6 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   TH1D* h_qcd = (TH1D*) histo[0]->Clone("h_qcd");
 
   h_qcd->Add(h_mcsum, -1);
-
-  if (flags.find("test") != string::npos) version = version + ".test";
-
-  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
-  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
 
   gSystem->mkdir(("html/" + version + "/" + year + "/root/").c_str(), kTRUE);
   TFile f(("html/" + version + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");

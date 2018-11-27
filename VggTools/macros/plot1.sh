@@ -46,7 +46,7 @@ FLAGS=$FLAGS",qcd"
  
   root-6.12 -l -q -b plot1.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele\",\"$VERSION\",\"$FLAGS,fit\"\)
   root-6.12 -l -q -b plot1.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo\",\"$VERSION\",\"$FLAGS,fit\"\)
-exit;
+
 
   root-6.12 -l -q -b plot1.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_npvs\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot1.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_npvs\",\"$VERSION\",\"$FLAGS\"\)
@@ -118,6 +118,7 @@ exit;
   root-6.12 -l -q -b plot1.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_muo0_pho0_pho1\",\"$VERSION\",\"$FLAGS\"\)
 
 
+exit;
   root-6.12 -l -q -b plot1.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot1.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo\",\"$VERSION\",\"$FLAGS\"\)
  
