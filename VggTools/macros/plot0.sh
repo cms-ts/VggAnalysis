@@ -99,8 +99,8 @@ for YEAR in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho1_r9\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho1_sieie\",\"$VERSION\",\"$FLAGS\"\)
 
-  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_W_ele_pho0_mva\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_W_ele_pho1_mva\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_pho0_mva\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_pho1_mva\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho0_mva\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho1_mva\",\"$VERSION\",\"$FLAGS\"\)
 
