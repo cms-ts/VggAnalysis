@@ -83,11 +83,12 @@ void plot1(string plot="", string title="", string version="v00", string flags="
 
     c1->SaveAs(("html/" + version + "/" + year + "/root/" + title + "_qcd_fit.pdf").c_str());
 
+    return;
+
   }
 
-  if (flags.find("fit") != string::npos) return;
-
-  if (flags.find("qcd") != string::npos) title = title + "_qcd";
+  if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
+  if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
