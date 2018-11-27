@@ -36,6 +36,9 @@ void plot1(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("fit") != string::npos) {
 
+    if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+    if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
+
     TFile f1(("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
     TFile f2(("html/" + version + "/" + year + "/root/" + title + "_qcd.root").c_str());
 
@@ -86,6 +89,8 @@ void plot1(string plot="", string title="", string version="v00", string flags="
     return;
 
   }
+
+  if (flags.find("qcd") != string::npos) title = title + "_qcd";
 
   if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
   if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
@@ -184,8 +189,12 @@ void plot1(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("test") != string::npos) version = version + ".test";
 
+  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
+
   gSystem->mkdir(("html/" + version + "/" + year + "/root/").c_str(), kTRUE);
   TFile f(("html/" + version + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
   h_qcd->Write(title.c_str());
   f.Close();
 
