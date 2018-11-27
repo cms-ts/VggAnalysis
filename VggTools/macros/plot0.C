@@ -16,6 +16,15 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   if (flags.find("qcd") != string::npos) year = year + ".qcd";
   if (flags.find("qcd") != string::npos) title = title + "_qcd";
 
+  if (flags.find("amcatnlo") != string::npos) {
+    plot = "amcatnlo/" + plot;
+    year = year + ".amcatnlo";
+  }
+  if (flags.find("madgraph") != string::npos) {
+    plot = "madgraph/" + plot;
+    year = year + ".madgraph";
+  }
+
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
