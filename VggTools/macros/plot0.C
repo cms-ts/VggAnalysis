@@ -16,14 +16,8 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   if (flags.find("qcd") != string::npos) year = year + ".qcd";
   if (flags.find("qcd") != string::npos) title = title + "_qcd";
 
-  if (flags.find("amcatnlo") != string::npos) {
-    plot = "amcatnlo/" + plot;
-    version = version + ".amcatnlo";
-  }
-  if (flags.find("madgraph") != string::npos) {
-    plot = "madgraph/" + plot;
-    version = version + ".madgraph";
-  }
+  if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
+  if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -296,6 +290,9 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   c1->cd();
 
   if (flags.find("test") != string::npos) version = version + ".test";
+
+  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
 
   gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE);
   c1->SaveAs(("html/" + version + "/" + year + "/" + title + ".pdf").c_str());
