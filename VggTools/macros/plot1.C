@@ -77,6 +77,19 @@ void plot1(string plot="", string title="", string version="v00", string flags="
     h2->Draw("same");
     h2->SetLineColor(kRed);
 
+    c1->Update();
+    TBox* box1 = new TBox(20., c1->GetFrame()->GetY1(), c1->GetFrame()->GetX2(), c1->GetFrame()->GetY2());
+    box1->SetFillStyle(3344);
+    box1->SetFillColor(kGray);
+    box1->Draw();
+    TBox* box2 = (TBox*)box1->Clone();
+    box2->SetFillStyle(0);
+    box2->SetLineColor(kGray);
+    box2->Draw();
+
+    h1->Draw("same");
+    h2->Draw("same");
+
     c1->SaveAs(("html/" + version + "/" + year + "/root/" + title + "_qcd_fit.pdf").c_str());
 
     return;
