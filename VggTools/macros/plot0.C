@@ -13,9 +13,10 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   plot = plot + ".dat";
   if (flags.find("test") != string::npos) plot = plot + ".test";
 
-  if (flags.find("qcd") != string::npos && flags.find("noqcd") == string::npos) {
+  if (flags.find("qcd") != string::npos) {
     year = year + ".qcd";
     title = title + "_qcd";
+    flags = flags + ",nofit";
   }
 
   if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
@@ -105,7 +106,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
 
-  if (flags.find("noqcd") == string::npos && flags.find("qcd") == string::npos) {
+  if (flags.find("nofit") == string::npos) {
     float fitval = 0.;
     float fiterr = 0.;
     int index = 9001;
