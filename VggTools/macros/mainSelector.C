@@ -1381,7 +1381,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float W_ele0_mt = 0.;
 
-   if (iele0 != -1 && iele1 == -1 && imuo0 == -1 && imuo1 == -1) {
+   if (iele0 != -1 && iele1 == -1 && imuo0 == -1 && iele0_qcd == -1 && imuo0_qcd == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_Ele27_WPTight_Gsf) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -1408,7 +1408,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float W_ele0_mt_qcd = 0.;
 
-   if (iele0_qcd != -1 && iele1_qcd == -1 && imuo0_qcd == -1 && imuo1_qcd == -1) {
+   if (iele0_qcd != -1 && iele1_qcd == -1 && imuo0_qcd == -1 && iele0 == -1 && imuo0 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_Ele27_WPTight_Gsf) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -1435,7 +1435,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float W_muo0_mt = 0.;
 
-   if (imuo0 != -1 && imuo1 == -1 && iele0 == -1 && iele1 == -1) {
+   if (imuo0 != -1 && imuo1 == -1 && iele0 == -1 && iele0_qcd == -1 && imu0_qcd == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_IsoMu24 || *HLT_IsoTkMu24) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -1462,7 +1462,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float W_muo0_mt_qcd = 0.;
 
-   if (imuo0_qcd != -1 && imuo1_qcd == -1 && iele0_qcd == -1 && iele1_qcd == -1) {
+   if (imuo0_qcd != -1 && imuo1_qcd == -1 && iele0_qcd == -1 && iele0 == -1 && imuo0 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_IsoMu24 || *HLT_IsoTkMu24) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -1607,24 +1607,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
    }
-
-   if (iele0_qcd != -1 || imuo0_qcd != -1) {
-     W_ele_sel = false;
-     W_ele_sel_wide = false;
-     W_muo_sel = false;
-     W_muo_sel_wide = false;
-   }
-   if (iele0_qcd != -1) Z_ele_sel = false;
-   if (imuo0_qcd != -1) Z_muo_sel = false;
-
-   if (iele0 != -1 || imuo0 != -1) {
-     W_ele_sel_qcd = false;
-     W_ele_sel_wide_qcd = false;
-     W_muo_sel_qcd = false;
-     W_muo_sel_wide_qcd = false;
-   }
-   if (iele0 != -1) Z_ele_sel_qcd = false;
-   if (imuo0 != -1) Z_muo_sel_qcd = false;
 
 // electron(s) scale factors
 
