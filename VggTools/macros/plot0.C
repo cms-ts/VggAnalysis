@@ -13,9 +13,11 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   plot = plot + ".dat";
   if (flags.find("test") != string::npos) plot = plot + ".test";
 
-  if (flags.find("qcd") != string::npos && flags.find("noqcd") == string::npos) {
+  if (flags.find("qcd") != string::npos) {
     year = year + ".qcd";
     title = title + "_qcd";
+    flags = flags + ",nofit";
+    if (flags.find("nofit") == string::npos) flags = flags + ",nofit";
   }
 
   if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
@@ -105,7 +107,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
 
-  if (flags.find("noqcd") == string::npos && flags.find("qcd") == string::npos) {
+  if (flags.find("nofit") == string::npos) {
     float fitval = 0.;
     float fiterr = 0.;
     int index = 9001;
@@ -114,15 +116,17 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     if (file1.good()) {
       file1 >> fitval >> fiterr;
       file1.close();
-      TFile file2(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd.root").c_str());
+      TFile file2(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
       if (file2.IsOpen()) { 
-        histo[index] = (TH1D*)gDirectory->Get((title + "_qcd").c_str());
+        histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
         histo[index]->SetDirectory(0);
         histo[index]->Scale(fitval);
         file2.Close();
       }
     }
   }
+
+  if (flags.find("nofit") != string::npos) title = title + "_nofit";
 
   THStack* hstack_mc = new THStack("hstack_mc", "hstack_mc");
 
@@ -141,6 +145,16 @@ void plot0(string plot="", string title="", string version="v00", string flags="
        h_mcsum->Add(it->second);
     }
   }
+
+  TH1D* h_qcd = (TH1D*) histo[0]->Clone("h_qcd");
+
+  h_qcd->Add(h_mcsum, -1);
+
+  gSystem->mkdir(("html/" + version + "/" + year + "/root/").c_str(), kTRUE);
+  TFile f(("html/" + version + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
+  h_qcd->Write(title.c_str());
+  f.Close();
 
   for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     if (it->first == 0) {
@@ -242,7 +256,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   pad1->Draw();
   pad1->cd();
 
-  hstack_mc->SetMaximum(1.2*TMath::Max(hstack_mc->GetMaximum(),histo[0]->GetMaximum()));
+  hstack_mc->SetMaximum(1.2*TMath::Max(hstack_mc->GetMaximum(), histo[0]->GetMaximum()));
   if (flags.find("nolog") == string::npos) hstack_mc->SetMinimum(0.0001*hstack_mc->GetMaximum());
 
   hstack_mc->Draw("HIST");

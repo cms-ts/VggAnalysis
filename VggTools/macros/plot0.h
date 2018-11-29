@@ -19,6 +19,7 @@
 #include "TGraphErrors.h"
 #include "TGraphAsymmErrors.h"
 #include "TPad.h"
+#include "TFrame.h"
 #include "TCanvas.h"
 #include "TLegend.h"
 #include "TLatex.h"

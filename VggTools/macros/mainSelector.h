@@ -70,6 +70,7 @@ public :
    TH1D* h_W_ele_met_pt = 0;
    TH1D* h_W_ele_met_phi = 0;
    TH1D* h_W_ele_met_sign = 0;
+
    TH1D* h_W_muo0_pt = 0;
    TH1D* h_W_muo0_eta = 0;
    TH1D* h_W_muo0_phi = 0;
@@ -105,6 +106,7 @@ public :
    TH1D* h_Z_ele_met_pt = 0;
    TH1D* h_Z_ele_met_phi = 0;
    TH1D* h_Z_ele_met_sign = 0;
+
    TH1D* h_Z_muo0_pt = 0;
    TH1D* h_Z_muo0_eta = 0;
    TH1D* h_Z_muo0_phi = 0;
@@ -343,14 +345,14 @@ public :
    TTreeReaderArray<Float_t> Jet_phi = {fReader, "Jet_phi"};
    TTreeReaderArray<Float_t> Jet_mass = {fReader, "Jet_mass"};
 
-   TTreeReaderArray<Int_t> Jet_electronIdx1 = {fReader, "Jet_electronIdx1"};
-   TTreeReaderArray<Int_t> Jet_electronIdx2 = {fReader, "Jet_electronIdx2"};
-   TTreeReaderArray<Int_t> Jet_muonIdx1 = {fReader, "Jet_muonIdx1"};
-   TTreeReaderArray<Int_t> Jet_muonIdx2 = {fReader, "Jet_muonIdx2"};
+//   TTreeReaderArray<Int_t> Jet_electronIdx1 = {fReader, "Jet_electronIdx1"};
+//   TTreeReaderArray<Int_t> Jet_electronIdx2 = {fReader, "Jet_electronIdx2"};
+//   TTreeReaderArray<Int_t> Jet_muonIdx1 = {fReader, "Jet_muonIdx1"};
+//   TTreeReaderArray<Int_t> Jet_muonIdx2 = {fReader, "Jet_muonIdx2"};
 
-   TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
-   TTreeReaderArray<Int_t> Muon_jetIdx = {fReader, "Muon_jetIdx"};
-   TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
+//   TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
+//   TTreeReaderArray<Int_t> Muon_jetIdx = {fReader, "Muon_jetIdx"};
+//   TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
 
    TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
    TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};

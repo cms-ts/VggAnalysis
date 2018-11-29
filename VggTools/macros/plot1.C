@@ -32,163 +32,61 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   plot = plot + ".dat";
   if (flags.find("test") != string::npos) plot = plot + ".test";
 
-  year = year + ".qcd";
-
-  if (flags.find("fit") != string::npos) {
-
-    if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
-    if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
-
-    TFile f1(("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
-    TFile f2(("html/" + version + "/" + year + "/root/" + title + "_qcd.root").c_str());
-
-    TH1D* h1 = (TH1D*)f1.Get((title).c_str());
-    TH1D* h2 = (TH1D*)f2.Get((title + "_qcd").c_str());
-
-    h1->SetDirectory(0);
-    h2->SetDirectory(0);
-
-    f1.Close();
-    f2.Close();
-
-    h_fit1 = (TH1D*)h1->Clone();
-    h_fit2 = (TH1D*)h2->Clone();
-
-    TVirtualFitter::SetDefaultFitter("Minuit");
-    TVirtualFitter* fitter = 0;
-    fitter = TVirtualFitter::Fitter(0, 1);
-    fitter->SetFCN(fcn);
-    double arglist[1] = {-1.0};
-    fitter->ExecuteCommand("SET PRINT", arglist, 1);
-    fitter->SetParameter(0, "c", 1.0, 0.1, 0., 999.);
-    fitter->ExecuteCommand("MIGRAD",arglist, 0);
-
-    ofstream out;
-    out.open(("html/" + version + "/" + year + "/root/" + title + "_qcd_fit.dat").c_str());
-    out << fitter->GetParameter(0) << " " << fitter->GetParError(0) << endl;
-    out.close();
-
-    h2->Scale(fitter->GetParameter(0));
-
-    TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
-    c1->cd();
-
-    h1->Draw();
-    h2->Draw("same");
-    h2->SetLineColor(kRed);
-
-    c1->SaveAs(("html/" + version + "/" + year + "/root/" + title + "_qcd_fit.pdf").c_str());
-
-    return;
-
-  }
-
-  if (flags.find("qcd") != string::npos) title = title + "_qcd";
-
-  if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
-  if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
-
-  map<string, float> lumiMap;
-  readMap("lumi.dat", lumiMap);
-  cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
-
-  map<string, float> xsecMap;
-  readMap("xsec.dat", xsecMap);
-  cout << "Read xsec map for " << xsecMap.size() << " datasets from " << "xsec.dat" << endl;
-
-  multimap<string, float> plotMap;
-  readMultiMap(plot, plotMap);
-  cout << "Read plot map for " << plotMap.size() << " datasets from " << plot << endl;
-
-  if (plotMap.size() == 0) {
-    cout << "ERROR: plot map " << plot << " is EMPTY or MISSING !!" << endl;
-    return;
-  }
-
-  map<int, TH1D*> histo;
-
-  float lumi = 0.;
-
-  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
-    int index = int(it->second);
-    if (index == 0) {
-      TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
-      if (!file.IsOpen()) {
-        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
-        return;
-      }
-      if (lumiMap[it->first] != 0) {
-        lumi = lumi + lumiMap[it->first];
-      } else {
-        cout << "ERROR: luminosity for " << it->first << " is ZERO !!" << endl;
-        return;
-      }
-      if (histo[index]) {
-        histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()));
-      } else {
-        histo[index] = (TH1D*)gDirectory->Get(title.c_str());
-        if (histo[index]) {
-          histo[index]->SetDirectory(0);
-        } else {
-          Error("plot0", "skip missing histogram: %s", title.c_str());
-          return;
-        }
-      }
-      file.Close();
-    }
-  }
-
-  double ngen = 0.;
-
-  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
-    int index = int(it->second);
-    if (index > 0) {
-      TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
-      if (!file.IsOpen()) {
-        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
-        return;
-      }
-      ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
-      double norm = 1.;
-      if (xsecMap[it->first] != 0) {
-        norm = xsecMap[it->first] * 1000. * lumi / ngen;
-      } else {
-        cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
-        return;
-      }
-      if (histo[index]) {
-        histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()), norm);
-      } else {
-        histo[index] = (TH1D*)gDirectory->Get(title.c_str());
-        histo[index]->SetDirectory(0);
-        histo[index]->Scale(norm);
-      }
-      file.Close();
-    }
-  }
-
-  if (flags.find("test") != string::npos) version = version + ".test";
-
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
 
-  TH1D* h_mcsum = (TH1D*) histo[0]->Clone("h_mcsum");
-  h_mcsum->Reset();  
+  TFile f1(("html/" + version + "/" + year + "/root/" + title + "_nofit.root").c_str());
+  TFile f2(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
 
-  for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
-    if (it->first > 0) {
-       h_mcsum->Add(it->second);
-    }
-  }
+  TH1D* h1 = (TH1D*)f1.Get((title + "_nofit").c_str());
+  TH1D* h2 = (TH1D*)f2.Get((title + "_qcd_nofit").c_str());
 
-  TH1D* h_qcd = (TH1D*) histo[0]->Clone("h_qcd");
+  h1->SetDirectory(0);
+  h2->SetDirectory(0);
 
-  h_qcd->Add(h_mcsum, -1);
+  f1.Close();
+  f2.Close();
 
-  gSystem->mkdir(("html/" + version + "/" + year + "/root/").c_str(), kTRUE);
-  TFile f(("html/" + version + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
-  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
-  h_qcd->Write(title.c_str());
-  f.Close();
+  h_fit1 = (TH1D*)h1->Clone();
+  h_fit2 = (TH1D*)h2->Clone();
+
+  TVirtualFitter::SetDefaultFitter("Minuit");
+  TVirtualFitter* fitter = 0;
+  fitter = TVirtualFitter::Fitter(0, 1);
+  fitter->SetFCN(fcn);
+  double arglist[1] = {-1.0};
+  fitter->ExecuteCommand("SET PRINT", arglist, 1);
+  fitter->SetParameter(0, "c", 1.0, 0.1, 0., 999.);
+  fitter->ExecuteCommand("MIGRAD",arglist, 0);
+
+  ofstream out;
+  out.open(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_fit.dat").c_str());
+  out << fitter->GetParameter(0) << " " << fitter->GetParError(0) << endl;
+  out.close();
+
+  h2->Scale(fitter->GetParameter(0));
+
+  TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
+  c1->cd();
+
+  h1->Draw();
+  h2->Draw("same");
+  h2->SetLineColor(kRed);
+
+  c1->Update();
+  TBox* box1 = new TBox(20., c1->GetFrame()->GetY1(), c1->GetFrame()->GetX2(), c1->GetFrame()->GetY2());
+  box1->SetFillStyle(3344);
+  box1->SetFillColor(kGray);
+  box1->Draw();
+  TBox* box2 = (TBox*)box1->Clone();
+  box2->SetFillStyle(0);
+  box2->SetLineColor(kGray);
+  box2->Draw();
+
+  h1->Draw("same");
+  h2->Draw("same");
+
+  gSystem->mkdir(("html/" + version + "/" + year + ".qcd/root/").c_str(), kTRUE);
+  c1->SaveAs(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_fit.pdf").c_str());
 
 }
