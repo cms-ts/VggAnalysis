@@ -3,7 +3,14 @@
 VERSION="v04"
 
 if [ ! -z "$1" ]; then
-  if [ "$1" == "all" ]; then
+  if [ "$1" == "list" ]; then
+    echo
+    echo "Available versions:"
+    echo
+    ls data/
+    echo
+    exit
+  elif [ "$1" == "all" ]; then
     VERSION="*"
   elif [ "$1" == "last" ]; then
     VERSION=`ls -tr data/ | tail -1`
