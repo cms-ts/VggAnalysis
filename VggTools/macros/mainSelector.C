@@ -883,12 +883,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 //     if (ele_trg == 0) continue;
 
-     if (iele0 != -1 && iele1 == -1 && Electron_charge[iele0] != Electron_charge[i]) {
-       iele1 = i;
-     }
-     if (iele0 == -1) {
-       iele0 = i;
-     }
+     if (iele0 != -1 && iele1 == -1 && Electron_charge[iele0] != Electron_charge[i]) iele1 = i;
+     if (iele0 == -1) iele0 = i;
    }
 
    TLorentzVector ele0;
@@ -940,12 +936,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Electron_mvaID_WP80[i] == 0) continue;
 
-     if (iele0_qcd != -1 && iele1_qcd == -1 && Electron_charge[iele0_qcd] != Electron_charge[i]) {
-       iele1_qcd = i;
-     }
-     if (iele0_qcd == -1) {
-       iele0_qcd = i;
-     }
+     if (iele0_qcd != -1 && iele1_qcd == -1 && Electron_charge[iele0_qcd] != Electron_charge[i]) iele1_qcd = i;
+     if (iele0_qcd == -1) iele0_qcd = i;
    }
 
    TLorentzVector ele0_qcd;
@@ -1007,12 +999,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 //   if (muo_trg == 0) continue;
 
-     if (imuo0 != -1 && imuo1 == -1 && Muon_charge[imuo0] != Muon_charge[i]) {
-       imuo1 = i;
-     }
-     if (imuo0 == -1) {
-       imuo0 = i;
-     }
+     if (imuo0 != -1 && imuo1 == -1 && Muon_charge[imuo0] != Muon_charge[i]) imuo1 = i;
+     if (imuo0 == -1) imuo0 = i;
    }
 
    TLorentzVector muo0;
@@ -1041,12 +1029,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Muon_tightId[i] == 0) continue;
 
-     if (imuo0_qcd != -1 && imuo1_qcd == -1 && Muon_charge[imuo0_qcd] != Muon_charge[i]) {
-       imuo1_qcd = i;
-     }
-     if (imuo0_qcd == -1) {
-       imuo0_qcd = i;
-     }
+     if (imuo0_qcd != -1 && imuo1_qcd == -1 && Muon_charge[imuo0_qcd] != Muon_charge[i]) imuo1_qcd = i;
+     if (imuo0_qcd == -1) imuo0_qcd = i;
    }
 
    TLorentzVector muo0_qcd;
