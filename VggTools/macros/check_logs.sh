@@ -16,8 +16,19 @@ if [ ! -z "$1" ]; then
     VERSION=`ls -tr data/ | tail -1`
   else
     VERSION=$1
+    if [ ! -e "data/$VERSION" ]; then
+        echo
+        echo "ERROR: version "$VERSION" not available !"
+        echo
+        echo "Available versions:"
+        echo
+        ls data/
+        echo
+        exit
+    fi
   fi
 fi
+
 
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 
