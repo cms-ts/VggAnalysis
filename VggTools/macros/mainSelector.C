@@ -565,7 +565,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(GenPart_pdgId[i]) != 15) continue;
        if (GenPart_genPartIdxMother[i] == -1) continue;
        if (isWJetsToLNu || isWG || isWGG) {
-         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 24) return kTRUE; 
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 24) return kTRUE;
        }
        if (isDYJetsToLL || isZG || isZGG) {
          if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 23) return kTRUE;
@@ -596,12 +596,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(GenDressedLepton_pdgId[i]) != 11) continue;
        if (GenDressedLepton_pt[i] < 15) continue;
        if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
-       if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[iele0_gen] != GenDressedLepton_pdgId[i]) {
-         iele1_gen = i;
-       }
-       if (iele0_gen == -1) {
-         iele0_gen = i;
-       }
+
+       if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[iele0_gen] != GenDressedLepton_pdgId[i]) iele1_gen = i;
+       if (iele0_gen == -1) iele0_gen = i;
      }
 
      TLorentzVector ele0_gen;
@@ -621,12 +618,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(GenDressedLepton_pdgId[i]) != 13) continue;
        if (GenDressedLepton_pt[i] < 15) continue;
        if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
-       if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[imuo0_gen] != GenDressedLepton_pdgId[i]) {
-         imuo1_gen = i;
-       }
-       if (imuo0_gen == -1) {
-         imuo0_gen = i;
-       }
+
+       if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[imuo0_gen] != GenDressedLepton_pdgId[i]) imuo1_gen = i;
+       if (imuo0_gen == -1) imuo0_gen = i;
      }
 
      TLorentzVector muo0_gen;
@@ -710,70 +704,37 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (GenPart_pt[i] < 10) continue;
        if (fabs(GenPart_eta[i]) > 2.500) continue;
 
-       if (ipho0_gen != -1 && ipho1_gen == -1) {
-         ipho1_gen = i;
+       bool skip = false;
+       TLorentzVector tmp_pho_gen;
+       tmp_pho_gen.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
+
+       for (uint j = 0; j < *nGenDressedLepton; j++) {
+         if (skip) continue;
+         if (fabs(GenDressedLepton_pdgId[j]) != 11 && fabs(GenDressedLepton_pdgId[j]) != 13) continue;
+         if (GenDressedLepton_pt[j] < 10) continue;
+         if (fabs(GenDressedLepton_eta[j]) > 2.500) continue;
+
+         TLorentzVector tmp_lept_gen;
+         tmp_lept_gen.SetPtEtaPhiM(GenDressedLepton_pt[j], GenDressedLepton_eta[j], GenDressedLepton_phi[j], GenDressedLepton_mass[j]);
+         if (tmp_lept_gen.DeltaR(tmp_pho_gen) < 0.4) skip = true;
+       }
+
+       if (ipho0_gen != -1) {
+         TLorentzVector tmp_pho0_gen;
+         tmp_pho0_gen.SetPtEtaPhiM(GenPart_pt[ipho0_gen], GenPart_eta[ipho0_gen], GenPart_phi[ipho0_gen], GenPart_mass[ipho0_gen]);
+         if (tmp_pho0_gen.DeltaR(tmp_pho_gen) < 0.4) skip = true;
+       }
+
+       if (ipho1_gen != -1) {
          TLorentzVector tmp_pho1_gen;
          tmp_pho1_gen.SetPtEtaPhiM(GenPart_pt[ipho1_gen], GenPart_eta[ipho1_gen], GenPart_phi[ipho1_gen], GenPart_mass[ipho1_gen]);
-         if (iele0_gen != -1) {
-           if (tmp_pho1_gen.DeltaR(ele0_gen) < 0.4) {
-             ipho1_gen = -1;
-             continue;
-           }
-         }
-         if (iele1_gen != -1) {
-           if (tmp_pho1_gen.DeltaR(ele1_gen) < 0.4) {
-             ipho1_gen = -1;
-             continue;
-           }
-         }
-         if (imuo0_gen != -1) {
-           if (tmp_pho1_gen.DeltaR(muo0_gen) < 0.4) {
-             ipho1_gen = -1;
-             continue;
-           }
-         }
-         if (imuo1_gen != -1) {
-           if (tmp_pho1_gen.DeltaR(muo1_gen) < 0.4) {
-             ipho1_gen = -1;
-             continue;
-           }
-         }
-         TLorentzVector tmp_pho0_gen;
-         tmp_pho0_gen.SetPtEtaPhiM(GenPart_pt[ipho0_gen], GenPart_eta[ipho0_gen], GenPart_phi[ipho0_gen], GenPart_mass[ipho0_gen]);
-         if (tmp_pho1_gen.DeltaR(tmp_pho0_gen) < 0.4) {
-           ipho1_gen = -1;
-           continue;
-         }
+         if (tmp_pho1_gen.DeltaR(tmp_pho_gen) < 0.4) skip = true;
        }
-       if (ipho0_gen == -1) {
-         ipho0_gen = i;
-         TLorentzVector tmp_pho0_gen;
-         tmp_pho0_gen.SetPtEtaPhiM(GenPart_pt[ipho0_gen], GenPart_eta[ipho0_gen], GenPart_phi[ipho0_gen], GenPart_mass[ipho0_gen]);
-         if (iele0_gen != -1) {
-           if (tmp_pho0_gen.DeltaR(ele0_gen) < 0.4) {
-             ipho0_gen = -1;
-             continue;
-           }
-         }
-         if (iele1_gen != -1) {
-           if (tmp_pho0_gen.DeltaR(ele1_gen) < 0.4) {
-             ipho0_gen = -1;
-             continue;
-           }
-         }
-         if (imuo0_gen != -1) {
-           if (tmp_pho0_gen.DeltaR(muo0_gen) < 0.4) {
-             ipho0_gen = -1;
-             continue;
-           }
-         }
-         if (imuo1_gen != -1) {
-           if (tmp_pho0_gen.DeltaR(muo1_gen) < 0.4) {
-             ipho0_gen = -1;
-             continue;
-           }
-         }
-       }
+
+       if (skip) continue;
+       if (ipho0_gen != -1 && ipho1_gen == -1) ipho1_gen = i;
+       if (ipho0_gen == -1 && GenPart_pt[i] > 20) ipho0_gen = i;
+
        n_photons_gen++;
      }
 
@@ -1104,6 +1065,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho0 != -1) {
        TLorentzVector tmp_pho0;
        tmp_pho0.SetPtEtaPhiM(Photon_pt[ipho0], Photon_eta[ipho0], Photon_phi[ipho0], Photon_mass[ipho0]);
+       if (tmp_pho0.DeltaR(tmp_pho) < 0.4) skip = true;
        if (iele0 != -1 && fabs((ele0+tmp_pho0+tmp_pho).M()-91.2) < 5) skip = true;
        if (iele1 != -1 && fabs((ele1+tmp_pho0+tmp_pho).M()-91.2) < 5) skip = true;
        if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho).M()-91.2) < 5) skip = true;
@@ -1113,6 +1075,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho1 != -1) {
        TLorentzVector tmp_pho1;
        tmp_pho1.SetPtEtaPhiM(Photon_pt[ipho1], Photon_eta[ipho1], Photon_phi[ipho1], Photon_mass[ipho1]);
+       if (tmp_pho1.DeltaR(tmp_pho) < 0.4) skip = true;
        if (iele0 != -1 && fabs((ele0+tmp_pho1+tmp_pho).M()-91.2) < 5) skip = true;
        if (iele1 != -1 && fabs((ele1+tmp_pho1+tmp_pho).M()-91.2) < 5) skip = true;
        if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho).M()-91.2) < 5) skip = true;
@@ -1197,6 +1160,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho0_qcd != -1) {
        TLorentzVector tmp_pho0_qcd;
        tmp_pho0_qcd.SetPtEtaPhiM(Photon_pt[ipho0_qcd], Photon_eta[ipho0_qcd], Photon_phi[ipho0_qcd], Photon_mass[ipho0_qcd]);
+       if (tmp_pho0_qcd.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
        if (iele0_qcd != -1 && fabs((ele0_qcd+tmp_pho0_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
        if (iele1_qcd != -1 && fabs((ele1_qcd+tmp_pho0_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
        if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
@@ -1206,6 +1170,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho1_qcd != -1) {
        TLorentzVector tmp_pho1_qcd;
        tmp_pho1_qcd.SetPtEtaPhiM(Photon_pt[ipho1_qcd], Photon_eta[ipho1_qcd], Photon_phi[ipho1_qcd], Photon_mass[ipho1_qcd]);
+       if (tmp_pho1_qcd.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
        if (iele0_qcd != -1 && fabs((ele0_qcd+tmp_pho1_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
        if (iele1_qcd != -1 && fabs((ele1_qcd+tmp_pho1_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
        if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
