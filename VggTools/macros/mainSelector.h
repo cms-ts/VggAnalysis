@@ -345,15 +345,6 @@ public :
    TTreeReaderArray<Float_t> Jet_phi = {fReader, "Jet_phi"};
    TTreeReaderArray<Float_t> Jet_mass = {fReader, "Jet_mass"};
 
-//   TTreeReaderArray<Int_t> Jet_electronIdx1 = {fReader, "Jet_electronIdx1"};
-//   TTreeReaderArray<Int_t> Jet_electronIdx2 = {fReader, "Jet_electronIdx2"};
-//   TTreeReaderArray<Int_t> Jet_muonIdx1 = {fReader, "Jet_muonIdx1"};
-//   TTreeReaderArray<Int_t> Jet_muonIdx2 = {fReader, "Jet_muonIdx2"};
-
-//   TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
-//   TTreeReaderArray<Int_t> Muon_jetIdx = {fReader, "Muon_jetIdx"};
-//   TTreeReaderArray<Int_t> Photon_jetIdx = {fReader, "Photon_jetIdx"};
-
    TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
    TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
    TTreeReaderValue<Float_t> MET_significance = {fReader, "MET_significance"};

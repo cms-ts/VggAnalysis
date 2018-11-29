@@ -1066,7 +1066,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int ipho1 = -1;
 
    for (uint i = 0; i < *nPhoton; i++) {
-     if (Photon_pt[i] < 20) continue;
+     if (Photon_pt[i] < 15) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
@@ -1136,7 +1136,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      if (skip) continue;
-     if (ipho0 == -1) ipho0 = i;
+     if (ipho0 == -1 && Photon_pt[i] > 20) ipho0 = i;
      if (ipho0 != -1 && ipho1 == -1) ipho1 = i;
 
      n_photons++;
@@ -1159,7 +1159,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int ipho1_qcd = -1;
 
    for (uint i = 0; i < *nPhoton; i++) {
-     if (Photon_pt[i] < 20) continue;
+     if (Photon_pt[i] < 15) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
@@ -1229,7 +1229,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      if (skip) continue;
-     if (ipho0_qcd == -1) ipho0_qcd = i;
+     if (ipho0_qcd == -1 && Photon_pt[i] > 20) ipho0_qcd = i;
      if (ipho0_qcd != -1 && ipho1_qcd == -1) ipho1_qcd = i;
 
      n_photons_qcd++;
