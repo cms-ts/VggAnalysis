@@ -1252,8 +1252,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Jet_eta[i]) > 2.400) continue;
 
      bool skip = false;
-     TLorentzVector tmp_jet0;
-     tmp_jet0.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
+     TLorentzVector tmp_jet;
+     tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
 
      for (uint j = 0; j < *nElectron; j++) {
        if (skip) continue;
@@ -1273,7 +1273,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        TLorentzVector tmp_ele;
        tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
-       if (tmp_ele.DeltaR(tmp_jet0) < 0.4) skip = true;
+       if (tmp_ele.DeltaR(tmp_jet) < 0.4) skip = true;
      }
 
      for (uint j = 0; j < *nMuon; j++) {
@@ -1286,7 +1286,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        TLorentzVector tmp_muo;
        tmp_muo.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
-       if (tmp_muo.DeltaR(tmp_jet0) < 0.4) skip = true;
+       if (tmp_muo.DeltaR(tmp_jet) < 0.4) skip = true;
      }
 
 //     for (uint i = 0; i < *nPhoton; i++) {
@@ -1300,7 +1300,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 //       TLorentzVector tmp_pho;
 //       tmp_pho.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
-//       if (tmp_pho.DeltaR(tmp_jet0) < 0.4) skip = true;
+//       if (tmp_pho.DeltaR(tmp_jet) < 0.4) skip = true;
 //     }
 
      if (skip) continue;
@@ -1330,8 +1330,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Jet_eta[i]) > 2.400) continue;
 
      bool skip = false;
-     TLorentzVector tmp_jet0_qcd;
-     tmp_jet0_qcd.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
+     TLorentzVector tmp_jet_qcd;
+     tmp_jet_qcd.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
 
      for (uint j = 0; j < *nElectron; j++) {
        if (skip) continue;
@@ -1351,7 +1351,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        TLorentzVector tmp_ele_qcd;
        tmp_ele_qcd.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
-       if (tmp_ele_qcd.DeltaR(tmp_jet0_qcd) < 0.4) skip = true;
+       if (tmp_ele_qcd.DeltaR(tmp_jet_qcd) < 0.4) skip = true;
      }
 
      for (uint j = 0; j < *nMuon; j++) {
@@ -1364,7 +1364,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        TLorentzVector tmp_muo_qcd;
        tmp_muo_qcd.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
-       if (tmp_muo_qcd.DeltaR(tmp_jet0_qcd) < 0.4) skip = true;
+       if (tmp_muo_qcd.DeltaR(tmp_jet_qcd) < 0.4) skip = true;
      }
 
 //     for (uint i = 0; i < *nPhoton; i++) {
@@ -1378,7 +1378,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 //       TLorentzVector tmp_pho_qcd;
 //       tmp_pho_qcd.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
-//       if (tmp_pho_qcd.DeltaR(tmp_jet0_qcd) < 0.4) skip = true;
+//       if (tmp_pho_qcd.DeltaR(tmp_jet_qcd) < 0.4) skip = true;
 //     }
 
      if (skip) continue;
