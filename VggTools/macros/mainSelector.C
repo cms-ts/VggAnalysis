@@ -1208,6 +1208,29 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    for (uint i = 0; i < *nJet; i++) {
+
+     TLorentzVector tmp_jet;
+     tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
+
+     if (iele0 != -1) {
+       if (ele0.DeltaR(tmp_jet) < 0.4) continue;
+     }
+     if (iele1 != -1) {
+       if (ele1.DeltaR(tmp_jet) < 0.4) continue;
+     }
+     if (imuo0 != -1) {
+       if (muo0.DeltaR(tmp_jet) < 0.4) continue;
+     }
+     if (imuo1 != -1) {
+       if (muo1.DeltaR(tmp_jet) < 0.4) continue;
+     }
+     if (ipho0 != -1) {
+       if (pho0.DeltaR(tmp_jet) < 0.4) continue;
+     }
+     if (ipho1 != -1) {
+       if (pho1.DeltaR(tmp_jet) < 0.4) continue;
+     }
+
 #if defined(mainSelectorMC16_cxx)
 // MC jets smearing not needed
 #endif // defined(mainSelectorMC16_cxx)
@@ -1251,43 +1274,41 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Jet_pt[i] < 30) continue;
      if (fabs(Jet_eta[i]) > 2.400) continue;
 
-     bool skip = false;
-     TLorentzVector tmp_jet;
-     tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
+//     bool skip = false;
 
-     for (uint j = 0; j < *nElectron; j++) {
-       if (skip) continue;
-       if (Electron_pt[j] < 10) continue;
-       if (fabs(Electron_eta[j]) > 1.442 && fabs(Electron_eta[j]) < 1.566) continue;
-       if (fabs(Electron_eta[j]) > 2.400) continue;
+//     for (uint j = 0; j < *nElectron; j++) {
+//       if (skip) continue;
+//       if (Electron_pt[j] < 10) continue;
+//       if (fabs(Electron_eta[j]) > 1.442 && fabs(Electron_eta[j]) < 1.566) continue;
+//       if (fabs(Electron_eta[j]) > 2.400) continue;
 
-       if (fabs(Electron_eta[j]) < 1.442) {
-         if (fabs(Electron_dxy[j]) > 0.05) continue;
-         if (fabs(Electron_dz[j]) > 0.10) continue;
-       }
-       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.400) {
-         if (fabs(Electron_dxy[j]) > 0.10) continue;
-         if (fabs(Electron_dz[j]) > 0.20) continue;
-       }
-       if (Electron_mvaID_WP80[j] == 0) continue;
+//       if (fabs(Electron_eta[j]) < 1.442) {
+//         if (fabs(Electron_dxy[j]) > 0.05) continue;
+//         if (fabs(Electron_dz[j]) > 0.10) continue;
+//       }
+//       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.400) {
+//         if (fabs(Electron_dxy[j]) > 0.10) continue;
+//         if (fabs(Electron_dz[j]) > 0.20) continue;
+//       }
+//       if (Electron_mvaID_WP80[j] == 0) continue;
 
-       TLorentzVector tmp_ele;
-       tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
-       if (tmp_ele.DeltaR(tmp_jet) < 0.4) skip = true;
-     }
+//       TLorentzVector tmp_ele;
+//       tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
+//       if (tmp_ele.DeltaR(tmp_jet) < 0.4) skip = true;
+//     }
 
-     for (uint j = 0; j < *nMuon; j++) {
-       if (skip) continue;
-       if (Muon_pt[j] < 10) continue;
-       if (fabs(Muon_eta[j]) > 2.400) continue;
-       if (fabs(Muon_dxy[j]) > 0.20) continue;
-       if (fabs(Muon_dz[j]) > 0.50) continue;
-       if (Muon_tightId[j] == 0) continue;
+//     for (uint j = 0; j < *nMuon; j++) {
+//       if (skip) continue;
+//       if (Muon_pt[j] < 10) continue;
+//       if (fabs(Muon_eta[j]) > 2.400) continue;
+//       if (fabs(Muon_dxy[j]) > 0.20) continue;
+//       if (fabs(Muon_dz[j]) > 0.50) continue;
+//       if (Muon_tightId[j] == 0) continue;
 
-       TLorentzVector tmp_muo;
-       tmp_muo.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
-       if (tmp_muo.DeltaR(tmp_jet) < 0.4) skip = true;
-     }
+//       TLorentzVector tmp_muo;
+//       tmp_muo.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
+//       if (tmp_muo.DeltaR(tmp_jet) < 0.4) skip = true;
+//     }
 
 //     for (uint i = 0; i < *nPhoton; i++) {
 //       if (skip) continue;
@@ -1303,7 +1324,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 //       if (tmp_pho.DeltaR(tmp_jet) < 0.4) skip = true;
 //     }
 
-     if (skip) continue;
+//     if (skip) continue;
      if (ijet0 == -1) ijet0 = i;
      n_jets++;
    }
@@ -1326,46 +1347,66 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nJet; i++) {
 
-     if (Jet_pt[i] < 30) continue;
-     if (fabs(Jet_eta[i]) > 2.400) continue;
-
-     bool skip = false;
      TLorentzVector tmp_jet_qcd;
      tmp_jet_qcd.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
 
-     for (uint j = 0; j < *nElectron; j++) {
-       if (skip) continue;
-       if (Electron_pt[j] < 10) continue;
-       if (fabs(Electron_eta[j]) > 1.442 && fabs(Electron_eta[j]) < 1.566) continue;
-       if (fabs(Electron_eta[j]) > 2.400) continue;
-
-       if (fabs(Electron_eta[j]) < 1.442) {
-         if (fabs(Electron_dxy[j]) > 0.05) continue;
-         if (fabs(Electron_dz[j]) > 0.10) continue;
-       }
-       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.400) {
-         if (fabs(Electron_dxy[j]) > 0.10) continue;
-         if (fabs(Electron_dz[j]) > 0.20) continue;
-       }
-       if (Electron_mvaID_WP80[j] == 0) continue;
-
-       TLorentzVector tmp_ele_qcd;
-       tmp_ele_qcd.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
-       if (tmp_ele_qcd.DeltaR(tmp_jet_qcd) < 0.4) skip = true;
+     if (iele0_qcd != -1) {
+       if (ele0_qcd.DeltaR(tmp_jet_qcd) < 0.4) continue;
+     }
+     if (iele1_qcd != -1) {
+       if (ele1_qcd.DeltaR(tmp_jet_qcd) < 0.4) continue;
+     }
+     if (imuo0_qcd != -1) {
+       if (muo0_qcd.DeltaR(tmp_jet_qcd) < 0.4) continue;
+     }
+     if (imuo1_qcd != -1) {
+       if (muo1_qcd.DeltaR(tmp_jet_qcd) < 0.4) continue;
+     }
+     if (ipho0_qcd != -1) {
+       if (pho0_qcd.DeltaR(tmp_jet_qcd) < 0.4) continue;
+     }
+     if (ipho1_qcd != -1) {
+       if (pho1_qcd.DeltaR(tmp_jet_qcd) < 0.4) continue;
      }
 
-     for (uint j = 0; j < *nMuon; j++) {
-       if (skip) continue;
-       if (Muon_pt[j] < 10) continue;
-       if (fabs(Muon_eta[j]) > 2.400) continue;
-       if (fabs(Muon_dxy[j]) > 0.20) continue;
-       if (fabs(Muon_dz[j]) > 0.50) continue;
-       if (Muon_tightId[j] == 0) continue;
+     if (Jet_pt[i] < 30) continue;
+     if (fabs(Jet_eta[i]) > 2.400) continue;
 
-       TLorentzVector tmp_muo_qcd;
-       tmp_muo_qcd.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
-       if (tmp_muo_qcd.DeltaR(tmp_jet_qcd) < 0.4) skip = true;
-     }
+//     bool skip = false;
+
+//     for (uint j = 0; j < *nElectron; j++) {
+//       if (skip) continue;
+//       if (Electron_pt[j] < 10) continue;
+//       if (fabs(Electron_eta[j]) > 1.442 && fabs(Electron_eta[j]) < 1.566) continue;
+//       if (fabs(Electron_eta[j]) > 2.400) continue;
+
+//       if (fabs(Electron_eta[j]) < 1.442) {
+//         if (fabs(Electron_dxy[j]) > 0.05) continue;
+//         if (fabs(Electron_dz[j]) > 0.10) continue;
+//       }
+//       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.400) {
+//         if (fabs(Electron_dxy[j]) > 0.10) continue;
+//         if (fabs(Electron_dz[j]) > 0.20) continue;
+//       }
+//       if (Electron_mvaID_WP80[j] == 0) continue;
+
+//       TLorentzVector tmp_ele_qcd;
+//       tmp_ele_qcd.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
+//       if (tmp_ele_qcd.DeltaR(tmp_jet_qcd) < 0.4) skip = true;
+//     }
+
+//     for (uint j = 0; j < *nMuon; j++) {
+//       if (skip) continue;
+//       if (Muon_pt[j] < 10) continue;
+//       if (fabs(Muon_eta[j]) > 2.400) continue;
+//       if (fabs(Muon_dxy[j]) > 0.20) continue;
+//       if (fabs(Muon_dz[j]) > 0.50) continue;
+//       if (Muon_tightId[j] == 0) continue;
+
+//       TLorentzVector tmp_muo_qcd;
+//       tmp_muo_qcd.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
+//       if (tmp_muo_qcd.DeltaR(tmp_jet_qcd) < 0.4) skip = true;
+//     }
 
 //     for (uint i = 0; i < *nPhoton; i++) {
 //       if (skip) continue;
@@ -1381,7 +1422,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 //       if (tmp_pho_qcd.DeltaR(tmp_jet_qcd) < 0.4) skip = true;
 //     }
 
-     if (skip) continue;
+//     if (skip) continue;
      if (ijet0_qcd == -1) ijet0_qcd = i;
      n_jets_qcd++;
    }
