@@ -1369,7 +1369,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 //     for (uint i = 0; i < *nPhoton; i++) {
 //       if (skip) continue;
-//       if (Photon_pt[i] < 20) continue; //FIXME
+//       if (Photon_pt[i] < 20) continue;
 //       if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
 //       if (fabs(Photon_eta[i]) > 2.400) continue;
 //       if (Photon_mvaID_WP80[i] == 0) continue;
