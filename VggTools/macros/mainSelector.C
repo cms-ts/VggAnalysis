@@ -1018,7 +1018,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Photon_pfRelIso03_all[i] > 0.15) continue;
 
      if (Photon_mvaID_WP80[i] == 0) continue;
-     if (Photon_electronVeto[i] == 0) continue;
+     //if (Photon_electronVeto[i] == 0) continue;
+     if (Photon_pixelSeed[i] != 0) continue;
 
      bool skip = false;
      TLorentzVector tmp_pho;
@@ -1113,7 +1114,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Photon_pfRelIso03_all[i] > 0.15) continue;
 
      if (Photon_mvaID_WP80[i] == 0) continue;
-     if (Photon_electronVeto[i] == 0) continue;
+     //if (Photon_electronVeto[i] == 0) continue;
+     if (Photon_pixelSeed[i] != 0) continue;
 
      bool skip = false;
      TLorentzVector tmp_pho_qcd;
@@ -1293,7 +1295,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 //       if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
 //       if (fabs(Photon_eta[i]) > 2.400) continue;
 //       if (Photon_mvaID_WP80[i] == 0) continue;
-//       if (Photon_electronVeto[i] == 0) continue;
+//       //if (Photon_electronVeto[i] == 0) continue;
+//       if (Photon_pixelSeed[i] != 0) continue;
 
 //       TLorentzVector tmp_pho;
 //       tmp_pho.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
@@ -1370,7 +1373,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 //       if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
 //       if (fabs(Photon_eta[i]) > 2.400) continue;
 //       if (Photon_mvaID_WP80[i] == 0) continue;
-//       if (Photon_electronVeto[i] == 0) continue;
+//       //if (Photon_electronVeto[i] == 0) continue;
+//       if (Photon_pixelSeed[i] != 0) continue;
 
 //       TLorentzVector tmp_pho_qcd;
 //       tmp_pho_qcd.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
@@ -1379,9 +1383,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (skip) continue;
      if (ijet0_qcd == -1) ijet0_qcd = i;
-
      n_jets_qcd++;
-
    }
 
    TLorentzVector jet0_qcd;
