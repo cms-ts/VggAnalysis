@@ -1,24 +1,24 @@
 #!/bin/sh
 
-if [ -z "$2" ]; then
+VERSION="v04"
+
+if [ ! -z "$1" ]; then
+  VERSION=$1
+fi
+
+if [ -z "$1" ]; then
   echo "ERROR: missing version !!"
   exit
 fi
 
 YEARS="2016 2017 2018"
 
-if [ ! -z "$1" ]; then
-  if [ "$1" == "all" ]; then
+if [ ! -z "$2" ]; then
+  if [ "$2" == "all" ]; then
     YEARS="2016 2017 2018"
   else
-    YEARS=$1
+    YEARS=$2
   fi
-fi
-
-VERSION="v04"
-
-if [ ! -z "$2" ]; then
-  VERSION=$2
 fi
 
 FLAGS="nolog,amcatnlo nolog,madgraph"

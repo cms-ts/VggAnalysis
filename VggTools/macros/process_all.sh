@@ -1,5 +1,5 @@
 #!/bin/sh
 
-./process.sh all v04
+./process.sh v04 all
 
 exit
