@@ -261,13 +261,17 @@ void mainSelector::Begin(TTree * /*tree*/)
    jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Summer16_25nsV1_MC_SF_AK4PFchs.txt");
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
-   jet_resolution = new JME::JetResolution("jme/Fall17_25nsV1_MC_PtResolution_AK4PFchs.txt");
-   jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Fall17_25nsV1_MC_SF_AK4PFchs.txt");
+   //jet_resolution = new JME::JetResolution("jme/Fall17_25nsV1_MC_PtResolution_AK4PFchs.txt");
+   //jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Fall17_25nsV1_MC_SF_AK4PFchs.txt");
+   jet_resolution = new JME::JetResolution("jme/Fall17_V3_MC_PtResolution_AK4PFchs.txt");
+   jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Fall17_V3_MC_SF_AK4PFchs.txt");
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 // FIXME
-   jet_resolution = new JME::JetResolution("jme/Fall17_25nsV1_MC_PtResolution_AK4PFchs.txt");
-   jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Fall17_25nsV1_MC_SF_AK4PFchs.txt");
+   //jet_resolution = new JME::JetResolution("jme/Fall17_25nsV1_MC_PtResolution_AK4PFchs.txt");
+   //jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Fall17_25nsV1_MC_SF_AK4PFchs.txt");
+   jet_resolution = new JME::JetResolution("jme/Fall17_V3_MC_PtResolution_AK4PFchs.txt");
+   jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Fall17_V3_MC_SF_AK4PFchs.txt");
 // FIXME
 #endif // defined(mainSelectorMC18_cxx)
 
