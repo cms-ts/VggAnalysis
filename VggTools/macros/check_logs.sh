@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION="v04"
+VERSION="v05"
 
 if [ ! -z "$1" ]; then
   if [ "$1" == "list" ]; then
