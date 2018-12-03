@@ -577,7 +577,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 23) Z_tau_sel_gen = true;
        }
      }
-   
+
      if (isWTauNu) {
        if (W_tau_sel_gen == false) return kTRUE;
      }
@@ -1062,7 +1062,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        tmp_muo.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
        if (tmp_muo.DeltaR(tmp_pho) < 0.4) skip = true;
      }
- 
+
      if (ipho0 != -1) {
        TLorentzVector tmp_pho0;
        tmp_pho0.SetPtEtaPhiM(Photon_pt[ipho0], Photon_eta[ipho0], Photon_phi[ipho0], Photon_mass[ipho0]);
