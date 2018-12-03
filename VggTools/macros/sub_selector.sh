@@ -51,6 +51,8 @@ fi
 
 ./compile.sh force
 
+cp -pv mainSelector.[hC] data/$VERSION/
+
 for L in $LISTS; do
   L=`basename $L .list`.list
   if [ ! -e lists/$L ]; then
