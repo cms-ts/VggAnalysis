@@ -29,7 +29,7 @@ if [ ! -z "$2" ]; then
   VERSION=$2
 fi
 
-FLAGS=""
+FLAGS="nolog,amcatnlo"
 
 if [ ! -z "$3" ]; then
   FLAGS=$3
