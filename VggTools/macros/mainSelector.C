@@ -1209,28 +1209,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nJet; i++) {
 
-     TLorentzVector tmp_jet;
-     tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
-
-     if (iele0 != -1) {
-       if (ele0.DeltaR(tmp_jet) < 0.4) continue;
-     }
-     if (iele1 != -1) {
-       if (ele1.DeltaR(tmp_jet) < 0.4) continue;
-     }
-     if (imuo0 != -1) {
-       if (muo0.DeltaR(tmp_jet) < 0.4) continue;
-     }
-     if (imuo1 != -1) {
-       if (muo1.DeltaR(tmp_jet) < 0.4) continue;
-     }
-     if (ipho0 != -1) {
-       if (pho0.DeltaR(tmp_jet) < 0.4) continue;
-     }
-     if (ipho1 != -1) {
-       if (pho1.DeltaR(tmp_jet) < 0.4) continue;
-     }
-
 #if defined(mainSelectorMC16_cxx)
 // MC jets smearing not needed
 #endif // defined(mainSelectorMC16_cxx)
@@ -1273,6 +1251,28 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Jet_pt[i] < 30) continue;
      if (fabs(Jet_eta[i]) > 2.400) continue;
+
+     TLorentzVector tmp_jet;
+     tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
+
+     if (iele0 != -1) {
+       if (ele0.DeltaR(tmp_jet) < 0.4) continue;
+     }
+     if (iele1 != -1) {
+       if (ele1.DeltaR(tmp_jet) < 0.4) continue;
+     }
+     if (imuo0 != -1) {
+       if (muo0.DeltaR(tmp_jet) < 0.4) continue;
+     }
+     if (imuo1 != -1) {
+       if (muo1.DeltaR(tmp_jet) < 0.4) continue;
+     }
+     if (ipho0 != -1) {
+       if (pho0.DeltaR(tmp_jet) < 0.4) continue;
+     }
+     if (ipho1 != -1) {
+       if (pho1.DeltaR(tmp_jet) < 0.4) continue;
+     }
 
 //     bool skip = false;
 
@@ -1347,6 +1347,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nJet; i++) {
 
+     if (Jet_pt[i] < 30) continue;
+     if (fabs(Jet_eta[i]) > 2.400) continue;
+
      TLorentzVector tmp_jet_qcd;
      tmp_jet_qcd.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
 
@@ -1368,9 +1371,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho1_qcd != -1) {
        if (pho1_qcd.DeltaR(tmp_jet_qcd) < 0.4) continue;
      }
-
-     if (Jet_pt[i] < 30) continue;
-     if (fabs(Jet_eta[i]) > 2.400) continue;
 
 //     bool skip = false;
 
