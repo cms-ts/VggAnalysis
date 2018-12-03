@@ -30,10 +30,10 @@
 #define mainSelectorDT17_h
 #endif // defined(mainSelectorDT17B_h)
 
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 #define STANDALONE
 #include "JetMETCorrections/Modules/interface/JetResolution.h"
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
 #include "roccor.Run2.v2/RoccoR.h"
 
@@ -290,10 +290,10 @@ public :
 
    RoccoR* roccor;
 
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
    JME::JetResolution* jet_resolution;
    JME::JetResolutionScaleFactor* jet_resolution_sf;
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
    TTreeReaderValue<UInt_t> run = {fReader, "run"};
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
