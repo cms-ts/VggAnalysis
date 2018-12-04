@@ -310,6 +310,8 @@ public :
    TTreeReaderArray<Float_t> Electron_r9 = {fReader, "Electron_r9"};
    TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
 
+   TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
+
    TTreeReaderArray<Float_t> Electron_pfRelIso03_all = {fReader, "Electron_pfRelIso03_all"};
    TTreeReaderArray<Float_t> Electron_pfRelIso03_chg = {fReader, "Electron_pfRelIso03_chg"};
 
