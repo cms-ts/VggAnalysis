@@ -1025,6 +1025,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      TLorentzVector tmp_pho;
      tmp_pho.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
 
+     if (iele0 != -1 && ele0.DeltaR(tmp_pho) < 0.4) continue;
+     if (iele1 != -1 && ele1.DeltaR(tmp_pho) < 0.4) continue;
+
      if (iele0 != -1 && fabs((ele0+tmp_pho).M()-91.2) < 5) continue;
      if (iele1 != -1 && fabs((ele1+tmp_pho).M()-91.2) < 5) continue;
      if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho).M()-91.2) < 5) continue;
@@ -1122,6 +1125,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      bool skip = false;
      TLorentzVector tmp_pho_qcd;
      tmp_pho_qcd.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
+
+     if (iele0_qcd != -1 && ele0_qcd.DeltaR(tmp_pho_qcd) < 0.4) continue;
+     if (iele1_qcd != -1 && ele1_qcd.DeltaR(tmp_pho_qcd) < 0.4) continue;
 
      if (iele0_qcd != -1 && fabs((ele0_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
      if (iele1_qcd != -1 && fabs((ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
