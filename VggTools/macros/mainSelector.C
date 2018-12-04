@@ -722,13 +722,13 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (ipho0_gen != -1) {
          TLorentzVector tmp_pho0_gen;
          tmp_pho0_gen.SetPtEtaPhiM(GenPart_pt[ipho0_gen], GenPart_eta[ipho0_gen], GenPart_phi[ipho0_gen], GenPart_mass[ipho0_gen]);
-         if (tmp_pho0_gen.DeltaR(tmp_pho_gen) < 0.4) skip = true;
+         if (tmp_pho0_gen.DeltaR(tmp_pho_gen) < 0.4) continue;
        }
 
        if (ipho1_gen != -1) {
          TLorentzVector tmp_pho1_gen;
          tmp_pho1_gen.SetPtEtaPhiM(GenPart_pt[ipho1_gen], GenPart_eta[ipho1_gen], GenPart_phi[ipho1_gen], GenPart_mass[ipho1_gen]);
-         if (tmp_pho1_gen.DeltaR(tmp_pho_gen) < 0.4) skip = true;
+         if (tmp_pho1_gen.DeltaR(tmp_pho_gen) < 0.4) continue;
        }
 
        if (skip) continue;
@@ -1025,9 +1025,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      TLorentzVector tmp_pho;
      tmp_pho.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
 
-     if (iele0 != -1 && fabs((ele0+tmp_pho).M()-91.2) < 5) skip = true;
-     if (iele1 != -1 && fabs((ele1+tmp_pho).M()-91.2) < 5) skip = true;
-     if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho).M()-91.2) < 5) skip = true;
+     if (iele0 != -1 && fabs((ele0+tmp_pho).M()-91.2) < 5) continue;
+     if (iele1 != -1 && fabs((ele1+tmp_pho).M()-91.2) < 5) continue;
+     if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho).M()-91.2) < 5) continue;
 
      for (uint j = 0; j < *nElectron; j++) {
        if (skip) continue;
@@ -1069,20 +1069,20 @@ Bool_t mainSelector::Process(Long64_t entry)
        TLorentzVector tmp_pho0;
        tmp_pho0.SetPtEtaPhiM(Photon_pt[ipho0], Photon_eta[ipho0], Photon_phi[ipho0], Photon_mass[ipho0]);
        if (tmp_pho0.DeltaR(tmp_pho) < 0.4) skip = true;
-       if (iele0 != -1 && fabs((ele0+tmp_pho0+tmp_pho).M()-91.2) < 5) skip = true;
-       if (iele1 != -1 && fabs((ele1+tmp_pho0+tmp_pho).M()-91.2) < 5) skip = true;
-       if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho).M()-91.2) < 5) skip = true;
-       if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho0+tmp_pho).M()-91.2) < 5) skip = true;
+       if (iele0 != -1 && fabs((ele0+tmp_pho0+tmp_pho).M()-91.2) < 5) continue;
+       if (iele1 != -1 && fabs((ele1+tmp_pho0+tmp_pho).M()-91.2) < 5) continue;
+       if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho).M()-91.2) < 5) continue;
+       if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho0+tmp_pho).M()-91.2) < 5) continue;
      }
 
      if (ipho1 != -1) {
        TLorentzVector tmp_pho1;
        tmp_pho1.SetPtEtaPhiM(Photon_pt[ipho1], Photon_eta[ipho1], Photon_phi[ipho1], Photon_mass[ipho1]);
-       if (tmp_pho1.DeltaR(tmp_pho) < 0.4) skip = true;
-       if (iele0 != -1 && fabs((ele0+tmp_pho1+tmp_pho).M()-91.2) < 5) skip = true;
-       if (iele1 != -1 && fabs((ele1+tmp_pho1+tmp_pho).M()-91.2) < 5) skip = true;
-       if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho).M()-91.2) < 5) skip = true;
-       if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho1+tmp_pho).M()-91.2) < 5) skip = true;
+       if (tmp_pho1.DeltaR(tmp_pho) < 0.4) continue;
+       if (iele0 != -1 && fabs((ele0+tmp_pho1+tmp_pho).M()-91.2) < 5) continue;
+       if (iele1 != -1 && fabs((ele1+tmp_pho1+tmp_pho).M()-91.2) < 5) continue;
+       if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho).M()-91.2) < 5) continue;
+       if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho1+tmp_pho).M()-91.2) < 5) continue;
      }
 
      if (skip) continue;
@@ -1123,9 +1123,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      TLorentzVector tmp_pho_qcd;
      tmp_pho_qcd.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
 
-     if (iele0_qcd != -1 && fabs((ele0_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
-     if (iele1_qcd != -1 && fabs((ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
-     if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
+     if (iele0_qcd != -1 && fabs((ele0_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
+     if (iele1_qcd != -1 && fabs((ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
+     if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
 
      for (uint j = 0; j < *nElectron; j++) {
        if (skip) continue;
@@ -1166,21 +1166,21 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho0_qcd != -1) {
        TLorentzVector tmp_pho0_qcd;
        tmp_pho0_qcd.SetPtEtaPhiM(Photon_pt[ipho0_qcd], Photon_eta[ipho0_qcd], Photon_phi[ipho0_qcd], Photon_mass[ipho0_qcd]);
-       if (tmp_pho0_qcd.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
-       if (iele0_qcd != -1 && fabs((ele0_qcd+tmp_pho0_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
-       if (iele1_qcd != -1 && fabs((ele1_qcd+tmp_pho0_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
-       if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
-       if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho0_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
+       if (tmp_pho0_qcd.DeltaR(tmp_pho_qcd) < 0.4) continue;
+       if (iele0_qcd != -1 && fabs((ele0_qcd+tmp_pho0_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
+       if (iele1_qcd != -1 && fabs((ele1_qcd+tmp_pho0_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
+       if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
+       if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho0_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
      }
 
      if (ipho1_qcd != -1) {
        TLorentzVector tmp_pho1_qcd;
        tmp_pho1_qcd.SetPtEtaPhiM(Photon_pt[ipho1_qcd], Photon_eta[ipho1_qcd], Photon_phi[ipho1_qcd], Photon_mass[ipho1_qcd]);
-       if (tmp_pho1_qcd.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
-       if (iele0_qcd != -1 && fabs((ele0_qcd+tmp_pho1_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
-       if (iele1_qcd != -1 && fabs((ele1_qcd+tmp_pho1_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
-       if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
-       if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho1_qcd+tmp_pho_qcd).M()-91.2) < 5) skip = true;
+       if (tmp_pho1_qcd.DeltaR(tmp_pho_qcd) < 0.4) continue;
+       if (iele0_qcd != -1 && fabs((ele0_qcd+tmp_pho1_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
+       if (iele1_qcd != -1 && fabs((ele1_qcd+tmp_pho1_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
+       if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
+       if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho1_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
      }
 
      if (skip) continue;
