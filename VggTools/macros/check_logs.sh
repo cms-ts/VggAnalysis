@@ -1,5 +1,7 @@
 #!/bin/sh
 
+WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
+
 VERSION="v05"
 
 if [ ! -z "$1" ]; then
@@ -29,8 +31,6 @@ if [ ! -z "$1" ]; then
   fi
 fi
 
-
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 
 cd $WORKDIR
 

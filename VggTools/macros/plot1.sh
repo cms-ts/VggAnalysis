@@ -11,8 +11,6 @@ WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 
 cd $WORKDIR
 
-export ROOT_HIST=0
-
 YEARS="2016 2017 2018"
 
 if [ ! -z "$1" ]; then
@@ -34,6 +32,8 @@ FLAGS="nolog,amcatnlo"
 if [ ! -z "$3" ]; then
   FLAGS=$3
 fi
+
+export ROOT_HIST=0
 
 for YEAR in $YEARS; do
 

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
+
 QUEUE=normal
 export USE_LSF_STARTER=no
 
@@ -17,11 +19,7 @@ if [ ! -z "$1" ]; then
   VERSION=$1
 fi
 
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
-
 cd $WORKDIR
-
-mkdir -p data/$VERSION
 
 LISTS=`ls lists/`
 
@@ -50,6 +48,8 @@ if [ ! -z "$2" ]; then
 fi
 
 ./compile.sh force
+
+mkdir -p data/$VERSION
 
 cp -pv mainSelector.[hC] data/$VERSION/
 
