@@ -594,8 +594,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 11) continue;
-       if (GenDressedLepton_pt[i] < 15) continue;
-       if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
+       if (GenDressedLepton_pt[i] < 25) continue;
+       if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
 
        if (iele0_gen != -1 && iele1_gen == -1 && GenDressedLepton_pdgId[iele0_gen] != GenDressedLepton_pdgId[i]) iele1_gen = i;
        if (iele0_gen == -1) iele0_gen = i;
@@ -616,8 +616,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 13) continue;
-       if (GenDressedLepton_pt[i] < 15) continue;
-       if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
+       if (GenDressedLepton_pt[i] < 25) continue;
+       if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
 
        if (imuo0_gen != -1 && imuo1_gen == -1 && GenDressedLepton_pdgId[imuo0_gen] != GenDressedLepton_pdgId[i]) imuo1_gen = i;
        if (imuo0_gen == -1) imuo0_gen = i;
@@ -701,8 +701,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (GenPart_status[i] != 1) continue;
        if (fabs(GenPart_pdgId[i]) != 22) continue;
        if ((GenPart_statusFlags[i] & 1) == 0) continue;
-       if (GenPart_pt[i] < 10) continue;
-       if (fabs(GenPart_eta[i]) > 2.500) continue;
+       if (GenPart_pt[i] < 15) continue;
+       if (fabs(GenPart_eta[i]) > 2.400) continue;
 
        bool skip = false;
        TLorentzVector tmp_pho_gen;
@@ -712,7 +712,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (skip) continue;
          if (fabs(GenDressedLepton_pdgId[j]) != 11 && fabs(GenDressedLepton_pdgId[j]) != 13) continue;
          if (GenDressedLepton_pt[j] < 10) continue;
-         if (fabs(GenDressedLepton_eta[j]) > 2.500) continue;
+         if (fabs(GenDressedLepton_eta[j]) > 2.400) continue;
 
          TLorentzVector tmp_lept_gen;
          tmp_lept_gen.SetPtEtaPhiM(GenDressedLepton_pt[j], GenDressedLepton_eta[j], GenDressedLepton_phi[j], GenDressedLepton_mass[j]);
