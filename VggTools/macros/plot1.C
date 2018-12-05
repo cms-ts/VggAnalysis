@@ -38,17 +38,20 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
 
-  TFile f1(("html/" + version + "/" + year + "/root/" + title + "_nofit.root").c_str());
-  TFile f2(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+  TFile* f1 = new TFile(("html/" + version + "/" + year + "/root/" + title + "_nofit.root").c_str());
+  TFile* f2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
 
-  TH1D* h1 = (TH1D*)f1.Get((title + "_nofit").c_str());
-  TH1D* h2 = (TH1D*)f2.Get((title + "_qcd_nofit").c_str());
+  TH1D* h1 = (TH1D*)f1->Get((title + "_nofit").c_str());
+  TH1D* h2 = (TH1D*)f2->Get((title + "_qcd_nofit").c_str());
 
   h1->SetDirectory(0);
   h2->SetDirectory(0);
 
-  f1.Close();
-  f2.Close();
+  f1->Close();
+  f2->Close();
+
+  delete f1;
+  delete f2;
 
   h_fit1 = (TH1D*)h1->Clone();
   h_fit2 = (TH1D*)h2->Clone();

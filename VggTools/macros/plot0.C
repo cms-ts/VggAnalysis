@@ -47,8 +47,8 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
-      TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
-      if (!file.IsOpen()) {
+      TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str()); 
+      if (!file->IsOpen()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
       }
@@ -69,7 +69,8 @@ void plot0(string plot="", string title="", string version="v00", string flags="
           return;
         }
       }
-      file.Close();
+      file->Close();
+      delete file;
     }
   }
 
@@ -78,8 +79,8 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index > 0) {
-      TFile file(("data/" + version + "/" + it->first + ".root").c_str()); 
-      if (!file.IsOpen()) {
+      TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str()); 
+      if (!file->IsOpen()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
       }
@@ -98,7 +99,8 @@ void plot0(string plot="", string title="", string version="v00", string flags="
         histo[index]->SetDirectory(0);
         histo[index]->Scale(norm);
       }
-      file.Close();
+      file->Close();
+      delete file;
     }
   }
 
@@ -116,12 +118,13 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     if (file1.good()) {
       file1 >> fitval >> fiterr;
       file1.close();
-      TFile file2(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
-      if (file2.IsOpen()) { 
+      TFile* file2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+      if (file2->IsOpen()) { 
         histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
         histo[index]->SetDirectory(0);
         histo[index]->Scale(fitval);
-        file2.Close();
+        file2->Close();
+        delete file2;
       }
     }
   }
@@ -151,10 +154,11 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   h_qcd->Add(h_mcsum, -1);
 
   gSystem->mkdir(("html/" + version + "/" + year + "/root/").c_str(), kTRUE);
-  TFile f(("html/" + version + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
+  TFile* file = new TFile(("html/" + version + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
   h_qcd->Write(title.c_str());
-  f.Close();
+  file->Close();
+  delete file;
 
   for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     if (it->first == 0) {
