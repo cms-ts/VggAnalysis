@@ -30,9 +30,10 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   if (plot.find("2018") != string::npos) year = "2018";
 
   plot = plot + ".dat";
-  if (flags.find("test") != string::npos) plot = plot + ".test";
-
-  if (flags.find("test") != string::npos) version = version + ".test";
+  if (flags.find("test") != string::npos) {
+    plot = plot + ".test";
+    version = version + ".test";
+  }
 
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
