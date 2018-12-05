@@ -44,7 +44,6 @@ total=0
 running=0
 errors=0
 done=0
-nofiles=0
 
 for L in $LISTS; do
   total=$((total+1))
@@ -81,19 +80,14 @@ for L in $LISTS; do
     if [ "$2" == "-d" ]; then
       echo "$O"
     else
-      if [ "$O" == "no files to process" ]; then
-        echo "$O"
-        nofiles=$((nofiles+1))
-      else
-        echo "ERROR"
-        errors=$((errors+1))
-      fi
+      echo "ERROR"
+      errors=$((errors+1))
     fi
   fi
 done
 
 echo
-echo "Total: "$total" - Running: "$running" - Done: "$done" - Errors: "$errors" - No files: "$nofiles
+echo "Total: "$total" - Running: "$running" - Done: "$done" - Errors: "$errors
 echo
 
 exit
