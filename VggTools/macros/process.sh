@@ -1,5 +1,8 @@
 #!/bin/sh
 
+WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
+cd $WORKDIR
+
 VERSION="v05"
 
 if [ ! -z "$1" ]; then
@@ -11,7 +14,7 @@ if [ -z "$1" ]; then
   exit
 fi
 
-YEARS="2016 2017 2018"
+YEARS="2016"
 
 if [ ! -z "$2" ]; then
   if [ "$2" == "all" ]; then
@@ -31,7 +34,7 @@ for YEAR in $YEARS; do
 
   for FLAG in $FLAGS; do
 
-    ( ./plot1.sh $YEAR $VERSION $FLAG ; ./plot0.sh $YEAR $VERSION $FLAG",qcd,nofit" ; ./plot0.sh $YEAR $VERSION $FLAG ) &
+    ( ./plot1.sh $VERSION $YEAR $FLAG ; ./plot0.sh $VERSION $YEAR $FLAG",qcd,nofit" ; ./plot0.sh $VERSION $YEAR $FLAG ) &
 
   done
 

@@ -8,23 +8,22 @@ if [ -r $CMS_PATH/slc6_amd64_gcc700/cms/cmssw/CMSSW_10_2_5 ]; then
 fi
 
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
-
 cd $WORKDIR
-
-YEARS="2016 2017 2018"
-
-if [ ! -z "$1" ]; then
-  if [ "$1" == "all" ]; then
-    YEARS="2016 2017 2018"
-  else
-    YEARS=$1
-  fi
-fi
 
 VERSION="v05"
 
+if [ ! -z "$1" ]; then
+  VERSION=$1
+fi
+
+YEARS="2016"
+
 if [ ! -z "$2" ]; then
-  VERSION=$2
+  if [ "$2" == "all" ]; then
+    YEARS="2016 2017 2018"
+  else
+    YEARS=$2
+  fi
 fi
 
 FLAGS="nolog,amcatnlo"
