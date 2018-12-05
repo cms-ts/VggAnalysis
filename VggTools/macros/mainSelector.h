@@ -275,6 +275,12 @@ public :
    TH1D* h_Z_ele_gen = 0;
    TH1D* h_Z_muo_gen = 0;
 
+   TH1D* h_W_ele_nphotons_gen = 0;
+   TH1D* h_W_muo_nphotons_gen = 0;
+
+   TH1D* h_Z_ele_nphotons_gen = 0;
+   TH1D* h_Z_muo_nphotons_gen = 0;
+
    TH1D* pu_ele_weights = 0;
    TH1D* pu_muo_weights = 0;
 

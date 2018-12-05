@@ -502,6 +502,12 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    h_Z_ele_gen = new TH1D("h_Z_ele_gen", "h_Z_ele_gen", 80, 71., 111.);
    h_Z_muo_gen = new TH1D("h_Z_muo_gen", "h_Z_muo_gen", 80, 71., 111.);
+
+   h_W_ele_nphotons_gen = new TH1D("h_W_ele_nphotons_gen", "h_W_ele_nphotons_gen", 6, -0.5, 5.5);
+   h_W_muo_nphotons_gen = new TH1D("h_W_muo_nphotons_gen", "h_W_muo_nphotons_gen", 6, -0.5, 5.5);
+
+   h_Z_ele_nphotons_gen = new TH1D("h_Z_ele_nphotons_gen", "h_Z_ele_nphotons_gen", 6, -0.5, 5.5);
+   h_Z_muo_nphotons_gen = new TH1D("h_Z_muo_nphotons_gen", "h_Z_muo_nphotons_gen", 6, -0.5, 5.5);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    TObject* obj = 0;
@@ -677,22 +683,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-     if (W_ele_sel_gen) {
-       h_W_ele_gen->Fill(W_ele0_gen_mt);
-     }
-
-     if (W_muo_sel_gen) {
-       h_W_muo_gen->Fill(W_muo0_gen_mt);
-     }
-
-     if (Z_ele_sel_gen) {
-       h_Z_ele_gen->Fill(Z_ele0_ele1_gen_m);
-     }
-
-     if (Z_muo_sel_gen) {
-       h_Z_muo_gen->Fill(Z_muo0_muo1_gen_m);
-     }
-
      int n_photons_gen = 0;
      int ipho0_gen = -1;
      int ipho1_gen = -1;
@@ -756,6 +746,26 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
      if (isZGG) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
+     }
+
+     if (W_ele_sel_gen) {
+       h_W_ele_gen->Fill(W_ele0_gen_mt);
+       h_W_ele_nphotons_gen->Fill(n_photons_gen);
+     }
+
+     if (W_muo_sel_gen) {
+       h_W_muo_gen->Fill(W_muo0_gen_mt);
+       h_W_muo_nphotons_gen->Fill(n_photons_gen);
+     }
+
+     if (Z_ele_sel_gen) {
+       h_Z_ele_gen->Fill(Z_ele0_ele1_gen_m);
+       h_Z_ele_nphotons_gen->Fill(n_photons_gen);
+     }
+
+     if (Z_muo_sel_gen) {
+       h_Z_muo_gen->Fill(Z_muo0_muo1_gen_m);
+       h_Z_muo_nphotons_gen->Fill(n_photons_gen);
      }
 
    }
