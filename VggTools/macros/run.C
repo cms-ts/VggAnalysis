@@ -92,8 +92,8 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
   Info("run", "%s", now.AsSQLString());
 
   Info("run", "output file: %s", output.Data());
-  TFile* file = new TFile(output.Data(), "RECREATE");
-  file->cd();
+  TFile* f = new TFile(output.Data(), "RECREATE");
+  f->cd();
   TList* fOutput = selector->GetOutputList();
   TIter next(fOutput);
   TObject* obj = 0;
@@ -103,8 +103,8 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     Info("run", "writing %s", obj->GetName());
     obj->Write();
   }
-  file->Close();
-  delete file;
+  f->Close();
+  delete f;
 
   TH1D* h_nevt = dynamic_cast<TH1D*>(fOutput->FindObject("h_nevt"));
   int nevt0 = 0;
