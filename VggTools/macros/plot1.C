@@ -1,7 +1,5 @@
 #include "plot1.h"
 
-#include "CMS_lumi.C"
-
 TH1D* h_fit1 = 0;
 TH1D* h_fit2 = 0;
 

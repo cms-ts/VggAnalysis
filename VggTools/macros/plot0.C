@@ -74,8 +74,6 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     }
   }
 
-  double ngen = 0.;
-
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index > 0) {
@@ -84,8 +82,8 @@ void plot0(string plot="", string title="", string version="v00", string flags="
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
       }
-      ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
       double norm = 1.;
+      double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
       if (xsecMap[it->first] != 0) {
         norm = xsecMap[it->first] * 1000. * lumi / ngen;
       } else {

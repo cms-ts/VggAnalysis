@@ -1,7 +1,5 @@
 #include "plot2.h"
 
-#include "CMS_lumi.C"
-
 void plot2(string plot="", string title="", string version="v00", string flags="") {
 
   string year = "";
@@ -27,9 +25,6 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   TH1D* h1 = 0;
   TH1D* h2 = 0;
 
-  double lumi = 0.001;
-  double ngen = 0.;
-
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
@@ -38,10 +33,10 @@ void plot2(string plot="", string title="", string version="v00", string flags="
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
       }
-      ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
       double norm = 1.;
+      double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
       if (xsecMap[it->first] != 0) {
-        norm = xsecMap[it->first] * 1000. * lumi / ngen;
+        norm = xsecMap[it->first] / ngen;
       } else {
         cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
         return;
