@@ -154,6 +154,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   h_qcd->Add(h_mcsum, -1);
 
   gSystem->mkdir(("html/" + version + "/" + year + "/root/").c_str(), kTRUE);
+
   TFile* file = new TFile(("html/" + version + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
   h_qcd->Write(title.c_str());
