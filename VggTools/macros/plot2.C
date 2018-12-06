@@ -47,14 +47,14 @@ void plot2(string plot="", string title="", string version="v00", string flags="
         return;
       }
       if (h1) {
-        h1->Add((TH1D*)gDirectory->Get(title.c_str()));
+        h1->Add((TH1D*)gDirectory->Get(title.c_str()), norm);
       } else {
         h1 = (TH1D*)gDirectory->Get(title.c_str());
         h1->SetDirectory(0);
         h1->Scale(norm);
       }
       if (h2) {
-        h2->Add((TH1D*)gDirectory->Get((title + "_gen").c_str()));
+        h2->Add((TH1D*)gDirectory->Get((title + "_gen").c_str()), norm);
       } else {
         h2 = (TH1D*)gDirectory->Get((title + "_gen").c_str());
         h2->SetDirectory(0);
@@ -77,14 +77,7 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
   c1->cd();
 
-  c1->Divide(2, 2);
-  c1->cd(1);
-  gPad->SetLogy();
-  h1->Draw();
-  c1->cd(2);
-  gPad->SetLogy();
-  h2->Draw();
-  c1->cd(4);
+  h_eff->SetStats(kFALSE);
 
   h_eff->Draw();
 
