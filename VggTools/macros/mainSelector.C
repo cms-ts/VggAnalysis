@@ -1335,6 +1335,11 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (pho1.DeltaR(tmp_jet) < 0.4) continue;
      }
 
+     if (ijet0 != -1) {
+       if (Jet_pt[i] > Jet_pt[ijet0]) {
+         ijet0 = i;
+       }
+     }
      if (ijet0 == -1) ijet0 = i;
      n_jets++;
    }
@@ -1382,6 +1387,11 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (pho1_qcd.DeltaR(tmp_jet_qcd) < 0.4) continue;
      }
 
+     if (ijet0_qcd != -1) {
+       if (Jet_pt[i] > Jet_pt[ijet0_qcd]) {
+         ijet0_qcd = i;
+       }
+     }
      if (ijet0_qcd == -1) ijet0_qcd = i;
      n_jets_qcd++;
    }
