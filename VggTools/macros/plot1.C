@@ -65,11 +65,6 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   fitter->SetParameter(0, "c", 1.0, 0.1, 0., 999.);
   fitter->ExecuteCommand("MIGRAD",arglist, 0);
 
-  ofstream out;
-  out.open(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_fit.dat").c_str());
-  out << fitter->GetParameter(0) << " " << fitter->GetParError(0) << endl;
-  out.close();
-
   h2->Scale(fitter->GetParameter(0));
 
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
@@ -93,5 +88,10 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   h2->Draw("same");
 
   c1->SaveAs(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_fit.pdf").c_str());
+
+  ofstream out;
+  out.open(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_fit.dat").c_str());
+  out << fitter->GetParameter(0) << " " << fitter->GetParError(0) << endl;
+  out.close();
 
 }
