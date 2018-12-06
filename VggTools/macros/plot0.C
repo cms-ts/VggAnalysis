@@ -144,8 +144,8 @@ void plot0(string plot="", string title="", string version="v00", string flags="
 
   for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
     if (it->first > 0) {
-       hstack_mc->Add(it->second);
-       h_mcsum->Add(it->second);
+      hstack_mc->Add(it->second);
+      h_mcsum->Add(it->second);
     }
   }
 
