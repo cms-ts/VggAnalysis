@@ -133,7 +133,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
 
   THStack* hstack_mc = new THStack("hstack_mc", "hstack_mc");
 
-  TH1D* h_mcsum = (TH1D*) histo[0]->Clone("h_mcsum");
+  TH1D* h_mcsum = (TH1D*)histo[0]->Clone("h_mcsum");
   h_mcsum->Reset();  
 
   TLegend* leg = new TLegend(0.65, 0.640, 0.91, 0.88);
@@ -149,7 +149,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     }
   }
 
-  TH1D* h_qcd = (TH1D*) histo[0]->Clone("h_qcd");
+  TH1D* h_qcd = (TH1D*)histo[0]->Clone("h_qcd");
 
   h_qcd->Add(h_mcsum, -1);
 
@@ -249,7 +249,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     }
   }
 
-  TH1D* h_ratio = (TH1D*) histo[0]->Clone();
+  TH1D* h_ratio = (TH1D*)histo[0]->Clone();
   h_ratio->Divide(h_mcsum);  
 
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
