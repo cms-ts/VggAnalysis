@@ -779,31 +779,33 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (isZGG) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
      }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
+   h_nevt->Fill(2.5, weight_gen);
+
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      if (W_ele_sel_gen) {
-       h_W_ele_gen->Fill(W_ele0_gen_mt);
-       h_W_ele_nphotons_gen->Fill(n_photons_gen);
+       h_W_ele_gen->Fill(W_ele0_gen_mt, weight_gen);
+       h_W_ele_nphotons_gen->Fill(n_photons_gen, weight_gen);
      }
 
      if (W_muo_sel_gen) {
-       h_W_muo_gen->Fill(W_muo0_gen_mt);
-       h_W_muo_nphotons_gen->Fill(n_photons_gen);
+       h_W_muo_gen->Fill(W_muo0_gen_mt, weight_gen);
+       h_W_muo_nphotons_gen->Fill(n_photons_gen, weight_gen);
      }
 
      if (Z_ele_sel_gen) {
-       h_Z_ele_gen->Fill(Z_ele0_ele1_gen_m);
-       h_Z_ele_nphotons_gen->Fill(n_photons_gen);
+       h_Z_ele_gen->Fill(Z_ele0_ele1_gen_m, weight_gen);
+       h_Z_ele_nphotons_gen->Fill(n_photons_gen, weight_gen);
      }
 
      if (Z_muo_sel_gen) {
-       h_Z_muo_gen->Fill(Z_muo0_muo1_gen_m);
-       h_Z_muo_nphotons_gen->Fill(n_photons_gen);
+       h_Z_muo_gen->Fill(Z_muo0_muo1_gen_m, weight_gen);
+       h_Z_muo_nphotons_gen->Fill(n_photons_gen, weight_gen);
      }
 
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-
-   h_nevt->Fill(2.5, weight_gen);
 
    if (*Flag_goodVertices == 0) return kTRUE;
    if (*Flag_METFilters == 0) return kTRUE;
