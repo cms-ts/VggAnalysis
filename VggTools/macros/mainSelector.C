@@ -754,7 +754,20 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        if (skip) continue;
-       if (ipho0_gen != -1 && ipho1_gen == -1) ipho1_gen = i;
+       if (ipho0_gen != -1) {
+         if (GenPart_pt[i] > GenPart_pt[ipho0_gen]) {
+           ipho1_gen = ipho0_gen;
+           ipho0_gen = i;
+         } else {
+           if (ipho1_gen == -1) {
+             ipho1_gen = i;
+           } else {
+             if (GenPart_pt[i] > GenPart_pt[ipho1_gen]) {
+               ipho1_gen = i;
+             }
+           }
+         }
+       }
        if (ipho0_gen == -1 && GenPart_pt[i] > 20) ipho0_gen = i;
 
        n_photons_gen++;
