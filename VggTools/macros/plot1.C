@@ -62,7 +62,7 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   fitter->SetFCN(fcn);
   double arglist[1] = {-1.0};
   fitter->ExecuteCommand("SET PRINT", arglist, 1);
-  fitter->SetParameter(0, "c", 1.0, 0.1, 0., 999.);
+  fitter->SetParameter(0, "c_qcd", 1.0, 0.1, 0., 999.);
   fitter->ExecuteCommand("MIGRAD",arglist, 0);
 
   h2->Scale(fitter->GetParameter(0));
@@ -86,6 +86,15 @@ void plot1(string plot="", string title="", string version="v00", string flags="
 
   h1->Draw("same");
   h2->Draw("same");
+
+  TLatex* label = new TLatex();
+  label->SetTextSize(0.0275);
+  label->SetTextFont(42);
+  label->SetLineWidth(2);
+  label->SetNDC();
+  char buff[100];
+  sprintf(buff, "c_{qcd} = %5.3f #pm %5.3f", fitter->GetParameter(0), fitter->GetParError(0));
+  label->DrawLatex(0.50, 0.68, buff);
 
   c1->SaveAs(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_fit.pdf").c_str());
 
