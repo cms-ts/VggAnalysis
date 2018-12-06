@@ -92,7 +92,6 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   h1->Draw("same");
   h2->Draw("same");
 
-  gSystem->mkdir(("html/" + version + "/" + year + ".qcd/root/").c_str(), kTRUE);
   c1->SaveAs(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_fit.pdf").c_str());
 
 }
