@@ -24,15 +24,15 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
 
   vector<std::string> files;
 
-  ifstream file(input.Data());
-  while (file.good()) {
+  ifstream in(input.Data());
+  while (in.good()) {
     TString line;
-    line.ReadLine(file);
+    line.ReadLine(in);
     if (!line.IsWhitespace() && !line.BeginsWith("#")) {
       files.push_back(line.Data());
     }
   }
-  file.close();
+  in.close();
 
   if (files.size()==0) {
     cout << "no files to process" << endl;
@@ -92,8 +92,8 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
   Info("run", "%s", now.AsSQLString());
 
   Info("run", "output file: %s", output.Data());
-  TFile* f = new TFile(output.Data(), "RECREATE");
-  f->cd();
+  TFile* file = new TFile(output.Data(), "RECREATE");
+  file->cd();
   TList* fOutput = selector->GetOutputList();
   TIter next(fOutput);
   TObject* obj = 0;
@@ -103,8 +103,8 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     Info("run", "writing %s", obj->GetName());
     obj->Write();
   }
-  f->Close();
-  delete f;
+  file->Close();
+  delete file;
 
   TH1D* h_nevt = dynamic_cast<TH1D*>(fOutput->FindObject("h_nevt"));
   int nevt0 = 0;
