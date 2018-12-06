@@ -77,16 +77,12 @@ for L in $LISTS; do
       running=$((running+1))
     fi
   else
-    if [ "$2" == "-d" ]; then
-      echo "$O"
-    else
-      if [ "$O" == "no files to process" ]; then
-        echo "ERROR (no files)"
-      else 
-        echo "ERROR"
-      fi
-      errors=$((errors+1))
+    if [ "$O" == "no files to process" ]; then
+      echo "ERROR (no files)"
+    else 
+      echo "ERROR"
     fi
+    errors=$((errors+1))
   fi
 done
 
