@@ -34,7 +34,12 @@ for YEAR in $YEARS; do
 
   for FLAG in $FLAGS; do
 
-    ( ./plot1.sh $VERSION $YEAR $FLAG ; ./plot0.sh $VERSION $YEAR $FLAG",qcd,nofit" ; ./plot0.sh $VERSION $YEAR $FLAG ) &
+    ( \
+      ./plot1.sh $VERSION $YEAR $FLAG ; \
+      ./plot0.sh $VERSION $YEAR $FLAG",qcd,nofit" ; \
+      ./plot0.sh $VERSION $YEAR $FLAG ; \
+      ./plot2.sh $VERSION $YEAR $FLAG \
+    ) &
 
   done
 
