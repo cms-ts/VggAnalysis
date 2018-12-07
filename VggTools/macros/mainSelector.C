@@ -768,9 +768,15 @@ Bool_t mainSelector::Process(Long64_t entry)
            }
          }
        }
-       if (ipho0_gen == -1 && GenPart_pt[i] > 20) ipho0_gen = i;
+       if (ipho0_gen == -1) ipho0_gen = i;
 
        n_photons_gen++;
+     }
+
+     if (ipho0_gen != -1 && GenPart_pt[ipho0_gen] < 20) {
+       ipho0_gen = -1;
+       ipho1_gen = -1;
+       n_photons_gen = 0;
      }
 
      if (isWJetsToLNu) {
@@ -1146,10 +1152,29 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      if (skip) continue;
-     if (ipho0 != -1 && ipho1 == -1) ipho1 = i;
-     if (ipho0 == -1 && Photon_pt[i] > 20) ipho0 = i;
+     if (ipho0 != -1) {
+       if (Photon_pt[i] > Photon_pt[ipho0]) {
+         ipho1 = ipho0;
+         ipho0 = i;
+       } else {
+         if (ipho1 == -1) {
+           ipho1 = i;
+         } else {
+           if (Photon_pt[i] > Photon_pt[ipho1]) {
+             ipho1 = i;
+           }
+         }
+       }
+     }
+     if (ipho0 == -1) ipho0 = i;
 
      n_photons++;
+   }
+
+   if (ipho0 != -1 && Photon_pt[ipho0] < 20) {
+     ipho0 = -1;
+     ipho1 = -1;
+     n_photons = 0;
    }
 
    TLorentzVector pho0;
@@ -1247,10 +1272,29 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      if (skip) continue;
-     if (ipho0_qcd != -1 && ipho1_qcd == -1) ipho1_qcd = i;
-     if (ipho0_qcd == -1 && Photon_pt[i] > 20) ipho0_qcd = i;
+     if (ipho0_qcd != -1) {
+       if (Photon_pt[i] > Photon_pt[ipho0_qcd]) {
+         ipho1_qcd = ipho0_qcd;
+         ipho0_qcd = i;
+       } else {
+         if (ipho1_qcd == -1) {
+           ipho1_qcd = i;
+         } else {
+           if (Photon_pt[i] > Photon_pt[ipho1_qcd]) {
+             ipho1_qcd = i;
+           }
+         }
+       }
+     }
+     if (ipho0_qcd == -1) ipho0_qcd = i;
 
      n_photons_qcd++;
+   }
+
+   if (ipho0_qcd != -1 && Photon_pt[i] < 20) {
+     ipho0_qcd = -1;
+     ipho1_qcd = -1;
+     n_photons_qcd = 0;
    }
 
    TLorentzVector pho0_qcd;
