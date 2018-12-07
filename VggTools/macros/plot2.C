@@ -100,8 +100,8 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   out.close();
 
   gSystem->mkdir(("html/" + version + "/" + year + ".eff/root/").c_str(), kTRUE);
-  TFile* file = new TFile(("html/" + version + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
-  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
+  TFile* file = new TFile(("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str());
   h_eff->Write((title + "_eff").c_str());
   file->Close();
   delete file;
