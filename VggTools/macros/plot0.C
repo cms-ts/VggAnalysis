@@ -310,10 +310,10 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   hstack_mc->GetYaxis()->SetTitleOffset(1.0);
   hstack_mc->GetYaxis()->SetLabelSize(0.045);
 
-  histo[0]->SetStats(0);
+  histo[0]->SetStats(kFALSE);
   histo[0]->SetMarkerColor(kBlack);
   histo[0]->SetMarkerStyle(20);
-  histo[0]->SetMarkerSize (1.0);
+  histo[0]->SetMarkerSize(1.0);
 
   histo[0]->Draw("EXP0SAMES");
 
@@ -334,7 +334,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   pad2->cd();
 
   h_ratio->SetTitle("");
-  h_ratio->SetStats(0);
+  h_ratio->SetStats(kFALSE);
 
   if (title == "h_W_ele" || title == "h_W_muo") {
     h_ratio->GetXaxis()->SetTitle("M_{T} [GeV]");
