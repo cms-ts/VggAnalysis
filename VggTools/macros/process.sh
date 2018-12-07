@@ -38,7 +38,8 @@ for YEAR in $YEARS; do
       ./plot1.sh $VERSION $YEAR $FLAG ; \
       ./plot0.sh $VERSION $YEAR $FLAG",qcd,nofit" ; \
       ./plot0.sh $VERSION $YEAR $FLAG ; \
-      ./plot2.sh $VERSION $YEAR $FLAG \
+      ./plot2.sh $VERSION $YEAR $FLAG ; \
+      ./plot3.sh $VERSION $YEAR $FLAG \
     ) &
 
   done

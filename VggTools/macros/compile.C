@@ -14,5 +14,6 @@ void compile(string option="kcO") {
   gSystem->CompileMacro("plot0.C", option.c_str());
   gSystem->CompileMacro("plot1.C", option.c_str());
   gSystem->CompileMacro("plot2.C", option.c_str());
+  gSystem->CompileMacro("plot3.C", option.c_str());
 
 }
