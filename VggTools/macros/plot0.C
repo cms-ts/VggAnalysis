@@ -41,6 +41,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   }
 
   map<int, TH1D*> histo;
+  map<int, TH1D*> histo_gen;
 
   float lumi = 0.;
 
@@ -58,11 +59,15 @@ void plot0(string plot="", string title="", string version="v00", string flags="
         cout << "ERROR: luminosity for " << it->first << " is ZERO !!" << endl;
         return;
       }
-      if (histo[index]) {
-        histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()));
+      if (histo.find(index) != histo.end()) {
+        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        if (h) {
+          histo[index]->Add(h);
+        }
       } else {
-        histo[index] = (TH1D*)gDirectory->Get(title.c_str());
-        if (histo[index]) {
+        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        if (h) {
+          histo[index] = h;
           histo[index]->SetDirectory(0);
         } else {
           Error("plot0", "skip missing histogram: %s", title.c_str());
@@ -90,12 +95,35 @@ void plot0(string plot="", string title="", string version="v00", string flags="
         cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
         return;
       }
-      if (histo[index]) {
-        histo[index]->Add((TH1D*)gDirectory->Get(title.c_str()), norm);
+      if (histo.find(index) != histo.end()) {
+        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        if (h) {
+          histo[index]->Add(h, norm);
+        }
       } else {
-        histo[index] = (TH1D*)gDirectory->Get(title.c_str());
-        histo[index]->SetDirectory(0);
-        histo[index]->Scale(norm);
+        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        if (h) {
+          histo[index] = h;
+          histo[index]->SetDirectory(0);
+          histo[index]->Scale(norm);
+        }
+      }
+      if (flags.find("qcd") == string::npos) {
+        if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
+          if (histo_gen.find(index) != histo_gen.end()) {
+            TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
+            if (h) {
+              histo_gen[index]->Add(h, norm);
+            }
+          } else {
+            TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
+            if (h) {
+              histo_gen[index] = h;
+              histo_gen[index]->SetDirectory(0);
+              histo_gen[index]->Scale(norm);
+            }
+          }
+        }
       }
       file->Close();
       delete file;
@@ -134,22 +162,38 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   TH1D* h_mcsum = (TH1D*)histo[0]->Clone("h_mcsum");
   h_mcsum->Reset();  
 
+  TH1D* h_bkg = (TH1D*)histo[0]->Clone("h_bkg");
+  h_bkg->Reset();  
+
+  for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
+    int index = int(it->first);
+    if (index > 0) {
+      hstack_mc->Add(it->second);
+      h_mcsum->Add(it->second);
+      if ((index >= 20 && index <= 1000) || (index >= 1020 && index <= 2000) || index == 9001) {
+        h_bkg->Add(it->second);
+      }
+    }
+  }
+
+  TH1D* h_nobs_gen = (TH1D*)histo[0]->Clone("h_nobs_gen");
+  h_nobs_gen->Reset();
+
+  for (map<int, TH1D*>::iterator it = histo_gen.begin(); it != histo_gen.end(); it++) {
+    h_nobs_gen->Add(it->second);
+  }
+
+  TH1D* h_qcd = (TH1D*)histo[0]->Clone("h_qcd");
+  if (flags.find("nofit") != string::npos) h_qcd->Add(h_mcsum, -1);
+
+  TH1D* h_nobs = (TH1D*)histo[0]->Clone("h_nobs");
+  if (flags.find("nofit") == string::npos) h_nobs->Add(h_bkg, -1);
+
   TLegend* leg = new TLegend(0.65, 0.640, 0.91, 0.88);
   leg->SetBorderSize(0);
   leg->SetEntrySeparation(0.01);
   leg->SetFillColor(0);
   leg->SetFillStyle(0);
-
-  for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
-    if (it->first > 0) {
-      hstack_mc->Add(it->second);
-      h_mcsum->Add(it->second);
-    }
-  }
-
-  TH1D* h_qcd = (TH1D*)histo[0]->Clone("h_qcd");
-
-  h_qcd->Add(h_mcsum, -1);
 
   for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     if (it->first == 0) {
@@ -335,7 +379,11 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   gSystem->mkdir(("html/" + version + "/" + year + "/root/").c_str(), kTRUE);
   TFile* file = new TFile(("html/" + version + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
-  h_qcd->Write(title.c_str());
+  if (flags.find("nofit") != string::npos) h_qcd->Write(title.c_str());
+  if (flags.find("nofit") == string::npos) {
+    h_nobs->Write(title.c_str());
+    h_nobs_gen->Write((title + "_gen").c_str());
+  }
   file->Close();
   delete file;
 
