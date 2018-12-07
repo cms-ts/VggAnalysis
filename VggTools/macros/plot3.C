@@ -90,7 +90,7 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   h_xsec->GetXaxis()->SetTitleOffset(0.7);
   h_xsec->GetXaxis()->SetLabelSize(0.08);
 
-  h_xsec->GetYaxis()->SetTitle("Cross Section");
+  h_xsec->GetYaxis()->SetTitle("#sigma [pb]");
   h_xsec->GetYaxis()->SetTitleSize(0.05);
   h_xsec->GetYaxis()->SetTitleOffset(1.0);
   h_xsec->GetYaxis()->SetLabelSize(0.045);
@@ -118,7 +118,7 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   h_ratio->GetXaxis()->SetLabelFont(42);
   h_ratio->GetXaxis()->SetLabelSize(0.10);
 
-  h_ratio->GetYaxis()->SetTitle("Data/MC");
+  h_ratio->GetYaxis()->SetTitle("Data/Theory");
   h_ratio->GetYaxis()->SetTitleSize(0.11);
   h_ratio->GetYaxis()->SetTitleOffset(0.47);
   h_ratio->GetYaxis()->SetLabelSize(0.10);
