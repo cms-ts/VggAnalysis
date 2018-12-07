@@ -61,6 +61,7 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   delete f2;
 
   TH1D* h_xsec = (TH1D*)h1->Clone();
+  TH1D* h_gen = (TH1D*)h3->Clone();
 
 //
 //
@@ -72,6 +73,12 @@ void plot3(string plot="", string title="", string version="v00", string flags="
 //
 //
 
+  gROOT->GetColor(kRed)->SetAlpha(0.5);
+  gROOT->GetColor(kGreen+2)->SetAlpha(0.5);
+  gROOT->GetColor(kMagenta-6)->SetAlpha(0.5);
+  gROOT->GetColor(kBlue-4)->SetAlpha(0.5);
+  gROOT->GetColor(kOrange+7)->SetAlpha(0.5);
+
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
   c1->cd();
 
@@ -81,9 +88,23 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   pad1->cd();
 
 //
-  h_xsec->SetStats(kFALSE);
 
-  h_xsec->Draw();
+  h_gen->SetStats(kFALSE);
+
+  h_gen->SetTitle("");
+
+  h_gen->SetLineColor(kGreen+2);
+  h_gen->SetLineWidth(2);
+  h_gen->SetFillColor(kGreen+2);
+  h_gen->SetMarkerColor(kGreen+2);
+
+  h_gen->Draw("E5");
+
+  TH1D* h_gen1 = (TH1D*)h_gen->Clone();
+  h_gen1->SetFillColor(0);
+  h_gen1->Draw("HISTLSAME");
+
+  h_xsec->SetStats(kFALSE);
 
   h_xsec->SetTitle("");
 
@@ -94,6 +115,14 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   h_xsec->GetYaxis()->SetTitleSize(0.05);
   h_xsec->GetYaxis()->SetTitleOffset(1.0);
   h_xsec->GetYaxis()->SetLabelSize(0.045);
+
+  h_xsec->SetMarkerStyle(24);
+  h_xsec->SetMarkerSize(0.7);
+
+  h_xsec->SetMarkerColor(kBlack);
+  h_xsec->SetLineColor(kBlack);
+
+  h_xsec->Draw("E1PX0SAME");
 
   pad1->Update();
   c1->Update();
@@ -125,7 +154,13 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   h_ratio->GetYaxis()->SetNdivisions(505);
   h_ratio->GetYaxis()->SetRangeUser(0.5, 1.5);
 
-  h_ratio->SetMarkerStyle(20);
+  h_ratio->SetLineColor(kGreen+2);
+  h_ratio->SetLineWidth(1);
+  h_ratio->SetFillColor(kGreen+2);
+  h_ratio->SetMarkerColor(kGreen+2);
+  h_ratio->SetMarkerStyle(24);
+  h_ratio->SetMarkerSize(0.7);
+
   h_ratio->Draw("E0PX0");
 
   TLine* line = new TLine(h_ratio->GetXaxis()->GetXmin(), 1.0, h_ratio->GetXaxis()->GetXmax(), 1.0);
