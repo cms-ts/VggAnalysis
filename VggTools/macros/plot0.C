@@ -371,6 +371,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   int iPeriod = 4; 
   int iPos = 0;
   CMS_lumi(pad1, iPeriod, iPos);
+  c1->cd();
 
   gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE);
   c1->SaveAs(("html/" + version + "/" + year + "/" + title + ".pdf").c_str());
