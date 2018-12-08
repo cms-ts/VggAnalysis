@@ -46,13 +46,13 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   TFile* f1 = new TFile(("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
   TFile* f2 = new TFile(("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str());
 
-  TH1D* h1 = (TH1D*)f1->Get(title.c_str());
-  TH1D* h2 = (TH1D*)f1->Get((title + "_gen").c_str());
-  TH1D* h3 = (TH1D*)f2->Get((title + "_eff").c_str());
+  TH1D* h_rec = (TH1D*)f1->Get(title.c_str());
+  TH1D* h_gen = (TH1D*)f1->Get((title + "_gen").c_str());
+  TH1D* h_eff = (TH1D*)f2->Get((title + "_eff").c_str());
 
-  h1->SetDirectory(0);
-  h2->SetDirectory(0);
-  h3->SetDirectory(0);
+  h_rec->SetDirectory(0);
+  h_gen->SetDirectory(0);
+  h_eff->SetDirectory(0);
 
   f1->Close();
   f2->Close();
@@ -60,18 +60,22 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   delete f1;
   delete f2;
 
-  TH1D* h_xsec = (TH1D*)h1->Clone();
-  TH1D* h_gen = (TH1D*)h3->Clone();
+  TH1D* h_xsec_rec = (TH1D*)h_rec->Clone();
 
-//
-//
-//
+  h_xsec_rec->Divide(h_eff);
+  h_xsec_rec->Scale(1./lumi/1000.);
 
-  TH1D* h_ratio = (TH1D*)h1->Clone();
+  TH1D* h_xsec_gen = (TH1D*)h_gen->Clone();
 
-//
-//
-//
+  h_xsec_gen->Scale(1./lumi/1000.);
+
+  TH1D* h_ratio = (TH1D*)h_xsec_rec->Clone();
+
+  h_ratio->Divide(h_xsec_gen);
+
+  h_xsec_gen->GetXaxis()->SetRangeUser(-0.5, 2.5);
+  h_xsec_rec->GetXaxis()->SetRangeUser(-0.5, 2.5);
+  h_ratio->GetXaxis()->SetRangeUser(-0.5, 2.5);
 
   gROOT->GetColor(kRed)->SetAlpha(0.5);
   gROOT->GetColor(kGreen+2)->SetAlpha(0.5);
@@ -87,42 +91,45 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   pad1->Draw();
   pad1->cd();
 
-//
+  h_xsec_gen->SetMaximum(1.2*TMath::Max(h_xsec_gen->GetMaximum(), h_xsec_rec->GetMaximum()));
+  h_xsec_gen->SetMinimum(0.8*TMath::Min(h_xsec_gen->GetMinimum(), h_xsec_rec->GetMinimum()));
 
-  h_gen->SetStats(kFALSE);
+  pad1->SetLogy();
 
-  h_gen->SetTitle("");
+  h_xsec_gen->SetStats(kFALSE);
 
-  h_gen->SetLineColor(kGreen+2);
-  h_gen->SetLineWidth(2);
-  h_gen->SetFillColor(kGreen+2);
-  h_gen->SetMarkerColor(kGreen+2);
+  h_xsec_gen->SetTitle("");
 
-  h_gen->Draw("E5");
+  h_xsec_gen->SetLineColor(kBlue-4);
+  h_xsec_gen->SetLineWidth(2);
+  h_xsec_gen->SetFillColor(kBlue-4);
+  h_xsec_gen->SetMarkerColor(kBlue-4);
 
-  TH1D* h_gen1 = (TH1D*)h_gen->Clone();
-  h_gen1->SetFillColor(0);
-  h_gen1->Draw("HISTLSAME");
+  h_xsec_gen->GetXaxis()->SetTitleOffset(0.7);
+  h_xsec_gen->GetXaxis()->SetLabelSize(0.08);
 
-  h_xsec->SetStats(kFALSE);
+  h_xsec_gen->GetYaxis()->SetTitle("#sigma [pb]");
+  h_xsec_gen->GetYaxis()->SetTitleSize(0.05);
+  h_xsec_gen->GetYaxis()->SetTitleOffset(0.8);
+  h_xsec_gen->GetYaxis()->SetLabelSize(0.045);
 
-  h_xsec->SetTitle("");
+  h_xsec_gen->Draw("E5");
 
-  h_xsec->GetXaxis()->SetTitleOffset(0.7);
-  h_xsec->GetXaxis()->SetLabelSize(0.08);
+  TH1D* h_xsec_gen1 = (TH1D*)h_xsec_gen->Clone();
+  h_xsec_gen1->SetFillColor(0);
+  h_xsec_gen1->Draw("HISTLSAME");
 
-  h_xsec->GetYaxis()->SetTitle("#sigma [pb]");
-  h_xsec->GetYaxis()->SetTitleSize(0.05);
-  h_xsec->GetYaxis()->SetTitleOffset(1.0);
-  h_xsec->GetYaxis()->SetLabelSize(0.045);
+  h_xsec_rec->SetStats(kFALSE);
 
-  h_xsec->SetMarkerStyle(24);
-  h_xsec->SetMarkerSize(0.7);
+  h_xsec_rec->SetTitle("");
 
-  h_xsec->SetMarkerColor(kBlack);
-  h_xsec->SetLineColor(kBlack);
+  h_xsec_rec->SetMarkerStyle(24);
+  h_xsec_rec->SetMarkerSize(0.7);
 
-  h_xsec->Draw("E1PX0SAME");
+  h_xsec_rec->SetMarkerColor(kBlack);
+  h_xsec_rec->SetLineColor(kBlack);
+
+  h_xsec_rec->Draw("E1PX0SAME");
 
   pad1->Update();
   c1->Update();
@@ -137,34 +144,36 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   h_ratio->SetTitle("");
   h_ratio->SetStats(kFALSE);
 
-//
-//
-//
-
   h_ratio->GetXaxis()->SetTitleFont(42);
   h_ratio->GetXaxis()->SetTitleSize(0.11);
-  h_ratio->GetXaxis()->SetTitleOffset(1.1);
+  h_ratio->GetXaxis()->SetTitleOffset(1.0);
   h_ratio->GetXaxis()->SetLabelFont(42);
   h_ratio->GetXaxis()->SetLabelSize(0.10);
 
   h_ratio->GetYaxis()->SetTitle("Data/Theory");
   h_ratio->GetYaxis()->SetTitleSize(0.11);
-  h_ratio->GetYaxis()->SetTitleOffset(0.47);
+  h_ratio->GetYaxis()->SetTitleOffset(0.35);
   h_ratio->GetYaxis()->SetLabelSize(0.10);
   h_ratio->GetYaxis()->SetNdivisions(505);
   h_ratio->GetYaxis()->SetRangeUser(0.5, 1.5);
 
-  h_ratio->SetLineColor(kGreen+2);
+  h_ratio->SetLineColor(kBlack);
   h_ratio->SetLineWidth(1);
-  h_ratio->SetFillColor(kGreen+2);
-  h_ratio->SetMarkerColor(kGreen+2);
+  h_ratio->SetFillColor(kBlack);
+  h_ratio->SetMarkerColor(kBlack);
   h_ratio->SetMarkerStyle(24);
   h_ratio->SetMarkerSize(0.7);
 
   h_ratio->Draw("E0PX0");
 
-  TLine* line = new TLine(h_ratio->GetXaxis()->GetXmin(), 1.0, h_ratio->GetXaxis()->GetXmax(), 1.0);
-  line->SetLineColor(kRed);
+  h_ratio->GetXaxis()->SetNdivisions(1003);
+  h_ratio->GetXaxis()->SetTickLength(0.1);
+
+  h_ratio->GetXaxis()->SetTitle("N_{#gamma}");
+  h_xsec_gen->GetYaxis()->SetTitle("d#sigma / dN_{#gamma} [pb]");
+
+  TLine* line = new TLine(h_ratio->GetXaxis()->GetBinLowEdge(h_ratio->GetMinimumBin()), 1.0, h_ratio->GetXaxis()->GetBinUpEdge(h_ratio->GetMaximumBin()), 1.0);
+  line->SetLineColor(kBlue-4);
   line->SetLineWidth(2);
   line->Draw();
 
@@ -182,7 +191,8 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   gSystem->mkdir(("html/" + version + "/" + year + ".xsec/root/").c_str(), kTRUE);
   TFile* file = new TFile(("html/" + version + "/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + ".xsec/root/" + title + ".root").c_str());
-  h_xsec->Write((title + "_eff").c_str());
+  h_xsec_rec->Write((title + "_xsec").c_str());
+  h_xsec_gen->Write((title + "_xsec_gen").c_str());
   file->Close();
   delete file;
 
