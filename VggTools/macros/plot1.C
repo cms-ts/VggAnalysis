@@ -51,8 +51,8 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   delete f1;
   delete f2;
 
-  h_fit1 = (TH1D*)h1->Clone();
-  h_fit2 = (TH1D*)h2->Clone();
+  h_fit1 = (TH1D*)h1->Clone("h_fit1");
+  h_fit2 = (TH1D*)h2->Clone("h_fit2");
 
   TVirtualFitter::SetDefaultFitter("Minuit");
   TVirtualFitter* fitter = 0;

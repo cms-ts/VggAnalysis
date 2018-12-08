@@ -65,7 +65,7 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
 
-  TH1D* h_eff = (TH1D*)h1->Clone();
+  TH1D* h_eff = (TH1D*)h1->Clone("h_eff");
 
   h_eff->Divide(h2);
 

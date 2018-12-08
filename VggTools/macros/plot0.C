@@ -284,7 +284,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     }
   }
 
-  TH1D* h_ratio = (TH1D*)histo[0]->Clone();
+  TH1D* h_ratio = (TH1D*)histo[0]->Clone("h_ratio");
   h_ratio->Divide(h_mcsum);  
 
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);

@@ -60,12 +60,12 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   delete f1;
   delete f2;
 
-  TH1D* h_xsec_rec = (TH1D*)h_rec->Clone();
+  TH1D* h_xsec_rec = (TH1D*)h_rec->Clone("h_xsec_rec");
 
   h_xsec_rec->Divide(h_eff);
   h_xsec_rec->Scale(1. / (1000. * lumi));
 
-  TH1D* h_xsec_gen = (TH1D*)h_gen->Clone();
+  TH1D* h_xsec_gen = (TH1D*)h_gen->Clone("h_xsec_gen");
 
   h_xsec_gen->Scale(1. / (1000. * lumi));
 
@@ -111,7 +111,7 @@ void plot3(string plot="", string title="", string version="v00", string flags="
 
   h_xsec_gen->Draw("E5");
 
-  TH1D* h_xsec_gen1 = (TH1D*)h_xsec_gen->Clone();
+  TH1D* h_xsec_gen1 = (TH1D*)h_xsec_gen->Clone("h_xsec_gen1");
   h_xsec_gen1->SetFillColor(0);
   h_xsec_gen1->Draw("HISTLSAME");
 
@@ -134,9 +134,9 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   c1->Update();
   c1->cd();
 
-  TH1D* h_ratio_rec = (TH1D*)h_xsec_rec->Clone();
+  TH1D* h_ratio_rec = (TH1D*)h_xsec_rec->Clone("h_ratio_rec");
 
-  TH1D* h_xsec_gen2 = (TH1D*)h_xsec_gen->Clone();
+  TH1D* h_xsec_gen2 = (TH1D*)h_xsec_gen->Clone("h_xsec_gen2");
   for (int i = 0; i < h_xsec_gen2->GetNbinsX()+1; i++) {
     h_xsec_gen2->SetBinError(i, 0.);
   }
@@ -148,7 +148,7 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   pad2->Draw();
   pad2->cd();
 
-  TH1D* h_ratio_gen = (TH1D*)h_xsec_gen->Clone();
+  TH1D* h_ratio_gen = (TH1D*)h_xsec_gen->Clone("h_ratio_gen");
   h_ratio_gen->Divide(h_xsec_gen2);
 
   h_ratio_gen->SetTitle("");
