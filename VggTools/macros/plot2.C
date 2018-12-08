@@ -34,8 +34,8 @@ void plot2(string plot="", string title="", string version="v00", string flags="
         return;
       }
       double norm = 1.;
-      double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
       if (xsecMap[it->first] != 0) {
+        double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
         norm = xsecMap[it->first] / ngen;
       } else {
         cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
@@ -65,16 +65,16 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
 
-  TH1D* h_eff = (TH1D*)h1->Clone("h_eff");
+  TH1D* h_mc_eff = (TH1D*)h1->Clone("h_mc_eff");
 
-  h_eff->Divide(h2);
+  h_mc_eff->Divide(h2);
 
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
   c1->cd();
 
-  h_eff->SetStats(kFALSE);
+  h_mc_eff->SetStats(kFALSE);
 
-  h_eff->Draw();
+  h_mc_eff->Draw();
 
   TLatex* label = new TLatex();
   label->SetTextSize(0.0275);
@@ -82,11 +82,11 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   label->SetLineWidth(2);
   label->SetNDC();
   char buff[100];
-  sprintf(buff, "< #epsilon 0 > = %5.3f #pm %5.3f", h_eff->GetBinContent(1), h_eff->GetBinError(1));
+  sprintf(buff, "< #epsilon 0 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(1), h_mc_eff->GetBinError(1));
   label->DrawLatex(0.50, 0.65, buff);
-  sprintf(buff, "< #epsilon 1 > = %5.3f #pm %5.3f", h_eff->GetBinContent(2), h_eff->GetBinError(2));
+  sprintf(buff, "< #epsilon 1 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(2), h_mc_eff->GetBinError(2));
   label->DrawLatex(0.50, 0.60, buff);
-  sprintf(buff, "< #epsilon 2 > = %5.3f #pm %5.3f", h_eff->GetBinContent(3), h_eff->GetBinError(3));
+  sprintf(buff, "< #epsilon 2 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(3), h_mc_eff->GetBinError(3));
   label->DrawLatex(0.50, 0.55, buff);
 
   gSystem->mkdir(("html/" + version + "/" + year + ".eff/").c_str(), kTRUE);
@@ -94,15 +94,15 @@ void plot2(string plot="", string title="", string version="v00", string flags="
 
   ofstream out;
   out.open(("html/" + version + "/" + year + ".eff/" + title + ".dat").c_str());
-  out << 0 << " " << h_eff->GetBinContent(1) << " " << h_eff->GetBinError(1) << endl;
-  out << 1 << " " << h_eff->GetBinContent(2) << " " << h_eff->GetBinError(2) << endl;
-  out << 2 << " " << h_eff->GetBinContent(3) << " " << h_eff->GetBinError(3) << endl;
+  out << 0 << " " << h_mc_eff->GetBinContent(1) << " " << h_mc_eff->GetBinError(1) << endl;
+  out << 1 << " " << h_mc_eff->GetBinContent(2) << " " << h_mc_eff->GetBinError(2) << endl;
+  out << 2 << " " << h_mc_eff->GetBinContent(3) << " " << h_mc_eff->GetBinError(3) << endl;
   out.close();
 
   gSystem->mkdir(("html/" + version + "/" + year + ".eff/root/").c_str(), kTRUE);
   TFile* file = new TFile(("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str());
-  h_eff->Write((title + "_eff").c_str());
+  h_mc_eff->Write((title + "_mc_eff").c_str());
   file->Close();
   delete file;
 
