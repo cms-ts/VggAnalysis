@@ -195,6 +195,25 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
 
+  TLatex* label = new TLatex();
+  label->SetTextFont(43);
+  label->SetTextSize(16);
+  label->SetLineWidth(2);
+  label->SetNDC();
+
+  if (plot.find("W") != string::npos) {
+    label->DrawLatex(0.70, 0.85, "W, W#gamma, W#gamma#gamma selection");
+    if (plot.find("ele") != string::npos) label->DrawLatex(0.70, 0.80, "W #rightarrow e#nu");
+    if (plot.find("muo") != string::npos) label->DrawLatex(0.70, 0.80, "W #rightarrow #mu#nu");
+  }
+  if (plot.find("Z") != string::npos) {
+    label->DrawLatex(0.70, 0.85, "Z, Z#gamma, Z#gamma#gamma selection");
+    if (plot.find("ele") != string::npos) label->DrawLatex(0.70, 0.80, "Z #rightarrow ee");
+    if (plot.find("muo") != string::npos) label->DrawLatex(0.70, 0.80, "Z #rightarrow #mu#mu");
+  }
+
+  label->Draw("same");
+
   gSystem->mkdir(("html/" + version + "/" + year + ".xsec/").c_str(), kTRUE);
   c1->SaveAs(("html/" + version + "/" + year + ".xsec/" + title + ".pdf").c_str());
 
