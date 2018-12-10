@@ -117,6 +117,8 @@ RunIIAutumn18NanoAOD_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8	365.46
 RunIIFall18NanoAOD_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8	35.6
 RunIIFall18NanoAOD_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8		35.6
 #
+RunIIAutumn18NanoAOD_ZZ_TuneCP5_13TeV-pythia8	15.4
+#
 RunIIFall18NanoAOD_WWG_TuneCP5_13TeV-amcatnlo-pythia8	0.2147
 #
 # ZTauTau exclusive samples from Z inclusive samples
