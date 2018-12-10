@@ -20,7 +20,7 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     return;
   }
 
-  cout << "input list: " << input << endl;
+  Info("run", "input list: %s", input.Data());
 
   vector<std::string> files;
 
