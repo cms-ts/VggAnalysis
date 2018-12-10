@@ -20,7 +20,7 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     return;
   }
 
-  Info("run", "input list: %s", input.Data());
+  Info("run", "input list = %s", input.Data());
 
   vector<std::string> files;
 
@@ -91,7 +91,7 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
   now = TDatime();
   Info("run", "%s", now.AsSQLString());
 
-  Info("run", "output file: %s", output.Data());
+  Info("run", "output file = %s", output.Data());
   TFile* file = new TFile(output.Data(), "RECREATE");
   file->cd();
   TList* fOutput = selector->GetOutputList();
