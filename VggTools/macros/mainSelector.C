@@ -782,6 +782,8 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (tmp_lept_gen.DeltaR(tmp_pho_gen) < 0.4) skip = true;
        }
 
+       if (skip) continue;
+
        if (ipho0_gen != -1) {
          TLorentzVector tmp_pho0_gen;
          tmp_pho0_gen.SetPtEtaPhiM(GenPart_pt[ipho0_gen], GenPart_eta[ipho0_gen], GenPart_phi[ipho0_gen], GenPart_mass[ipho0_gen]);
@@ -794,7 +796,6 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (tmp_pho1_gen.DeltaR(tmp_pho_gen) < 0.4) continue;
        }
 
-       if (skip) continue;
        if (ipho0_gen != -1) {
          if (GenPart_pt[i] > GenPart_pt[ipho0_gen]) {
            ipho1_gen = ipho0_gen;
@@ -1238,10 +1239,12 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (tmp_muo.DeltaR(tmp_pho) < 0.4) skip = true;
      }
 
+     if (skip) continue;
+
      if (ipho0 != -1) {
        TLorentzVector tmp_pho0;
        tmp_pho0.SetPtEtaPhiM(Photon_pt[ipho0], Photon_eta[ipho0], Photon_phi[ipho0], Photon_mass[ipho0]);
-       if (tmp_pho0.DeltaR(tmp_pho) < 0.4) skip = true;
+       if (tmp_pho0.DeltaR(tmp_pho) < 0.4) continue;
        if (iele0 != -1 && fabs((ele0+tmp_pho0+tmp_pho).M()-91.2) < 5) continue;
        if (iele1 != -1 && fabs((ele1+tmp_pho0+tmp_pho).M()-91.2) < 5) continue;
        if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho).M()-91.2) < 5) continue;
@@ -1258,7 +1261,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho1+tmp_pho).M()-91.2) < 5) continue;
      }
 
-     if (skip) continue;
      if (ipho0 != -1) {
        if (Photon_pt[i] > Photon_pt[ipho0]) {
          ipho1 = ipho0;
