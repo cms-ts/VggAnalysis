@@ -830,25 +830,33 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    h_nevt->Fill(2.5, weight_gen);
 
+   float weight_pu_ele = 1.;
+   float weight_pu_muo = 1.;
+
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   weight_pu_ele = getWeight(pu_ele_weights, *Pileup_nTrueInt, 0);
+   weight_pu_muo = getWeight(pu_muo_weights, *Pileup_nTrueInt, 0);
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      if (W_ele_sel_gen) {
-       h_W_ele_gen->Fill(W_ele0_gen_mt, weight_gen);
-       h_W_ele_nphotons_gen->Fill(n_photons_gen, weight_gen);
+       h_W_ele_gen->Fill(W_ele0_gen_mt, weight_gen * weight_pu_ele);
+       h_W_ele_nphotons_gen->Fill(n_photons_gen, weight_gen * weight_pu_ele);
      }
 
      if (W_muo_sel_gen) {
-       h_W_muo_gen->Fill(W_muo0_gen_mt, weight_gen);
-       h_W_muo_nphotons_gen->Fill(n_photons_gen, weight_gen);
+       h_W_muo_gen->Fill(W_muo0_gen_mt, weight_gen * weight_pu_muo);
+       h_W_muo_nphotons_gen->Fill(n_photons_gen, weight_gen * weight_pu_muo);
      }
 
      if (Z_ele_sel_gen) {
-       h_Z_ele_gen->Fill(Z_ele0_ele1_gen_m, weight_gen);
-       h_Z_ele_nphotons_gen->Fill(n_photons_gen, weight_gen);
+       h_Z_ele_gen->Fill(Z_ele0_ele1_gen_m, weight_gen * weight_pu_ele);
+       h_Z_ele_nphotons_gen->Fill(n_photons_gen, weight_gen * weight_pu_ele);
      }
 
      if (Z_muo_sel_gen) {
-       h_Z_muo_gen->Fill(Z_muo0_muo1_gen_m, weight_gen);
-       h_Z_muo_nphotons_gen->Fill(n_photons_gen, weight_gen);
+       h_Z_muo_gen->Fill(Z_muo0_muo1_gen_m, weight_gen * weight_pu_muo);
+       h_Z_muo_nphotons_gen->Fill(n_photons_gen, weight_gen * weight_pu_muo);
      }
 
    }
@@ -858,14 +866,6 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (*Flag_METFilters == 0) return kTRUE;
 
    h_nevt->Fill(3.5, weight_gen);
-
-   float weight_pu_ele = 1.;
-   float weight_pu_muo = 1.;
-
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   weight_pu_ele = getWeight(pu_ele_weights, *Pileup_nTrueInt, 0);
-   weight_pu_muo = getWeight(pu_muo_weights, *Pileup_nTrueInt, 0);
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 // electrons
 
