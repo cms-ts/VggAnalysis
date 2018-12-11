@@ -39,7 +39,7 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     return;
   }
 
-  int nWorkers = 10;
+  int nWorkers = 30;
   if (gROOT->IsBatch()) nWorkers = 2;
 
   ROOT::EnableThreadSafety();
