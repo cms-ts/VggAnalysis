@@ -1151,6 +1151,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      muo1_qcd.SetPtEtaPhiM(Muon_pt[imuo1_qcd], Muon_eta[imuo1_qcd], Muon_phi[imuo1_qcd], Muon_mass[imuo1_qcd]);
    }
 
+   if (iele0 == -1 && iele0_qcd == -1 && imuo0 == -1 && imuo0_qcd == -1) {
+     return kTRUE;
+   }
+
 // photons
 
    int n_photons = 0;
