@@ -593,6 +593,14 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    h_nevt->Fill(1.5, weight_gen);
 
+   float weight_pu_ele = 1.;
+   float weight_pu_muo = 1.;
+
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   weight_pu_ele = getWeight(pu_ele_weights, *Pileup_nTrueInt, 0);
+   weight_pu_muo = getWeight(pu_muo_weights, *Pileup_nTrueInt, 0);
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (isWJetsToLNu || isWG || isWGG || isWTauNu || isDYJetsToLL || isZG || isZGG || isZTauTau) {
 
@@ -624,6 +632,14 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
    }
+
+   bool W_ele_sel_gen = false;
+   bool W_muo_sel_gen = false;
+
+   bool Z_ele_sel_gen = false;
+   bool Z_muo_sel_gen = false;
+
+   int n_photons_gen = 0;
 
    if (isWJetsToLNu || isWG || isWGG || isDYJetsToLL || isZG || isZGG) {
 
@@ -699,8 +715,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo1_gen], GenDressedLepton_eta[imuo1_gen], GenDressedLepton_phi[imuo1_gen], GenDressedLepton_mass[imuo1_gen]);
      }
 
-     bool W_ele_sel_gen = false;
-
      float W_ele0_gen_mt = 0.;
 
      if (iele0_gen != -1 && iele1_gen == -1 && imuo0_gen == -1) {
@@ -709,8 +723,6 @@ Bool_t mainSelector::Process(Long64_t entry)
          W_ele_sel_gen = true;
        }
      }
-
-     bool W_muo_sel_gen = false;
 
      float W_muo0_gen_mt = 0.;
 
@@ -721,8 +733,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-     bool Z_ele_sel_gen = false;
-
      float Z_ele0_ele1_gen_m = 0.;
 
      if (iele0_gen != -1 && iele1_gen != -1) {
@@ -731,8 +741,6 @@ Bool_t mainSelector::Process(Long64_t entry)
          Z_ele_sel_gen = true;
        }
      }
-
-     bool Z_muo_sel_gen = false;
 
      float Z_muo0_muo1_gen_m = 0.;
 
@@ -743,7 +751,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-     int n_photons_gen = 0;
      int ipho0_gen = -1;
      int ipho1_gen = -1;
 
@@ -828,16 +835,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   h_nevt->Fill(2.5, weight_gen);
-
-   float weight_pu_ele = 1.;
-   float weight_pu_muo = 1.;
-
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   weight_pu_ele = getWeight(pu_ele_weights, *Pileup_nTrueInt, 0);
-   weight_pu_muo = getWeight(pu_muo_weights, *Pileup_nTrueInt, 0);
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      if (W_ele_sel_gen) {
        h_W_ele_gen->Fill(W_ele0_gen_mt, weight_gen * weight_pu_ele);
@@ -861,6 +858,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
+   h_nevt->Fill(2.5, weight_gen);
 
    if (*Flag_goodVertices == 0) return kTRUE;
    if (*Flag_METFilters == 0) return kTRUE;
