@@ -1360,6 +1360,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (tmp_muo_qcd.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
      }
 
+     if (skip) continue;
+
      if (ipho0_qcd != -1) {
        TLorentzVector tmp_pho0_qcd;
        tmp_pho0_qcd.SetPtEtaPhiM(Photon_pt[ipho0_qcd], Photon_eta[ipho0_qcd], Photon_phi[ipho0_qcd], Photon_mass[ipho0_qcd]);
@@ -1380,7 +1382,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho1_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
      }
 
-     if (skip) continue;
      if (ipho0_qcd != -1) {
        if (Photon_pt[i] > Photon_pt[ipho0_qcd]) {
          ipho1_qcd = ipho0_qcd;
