@@ -435,6 +435,11 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_W_muo_pho1_r9 = new TH1D("h_W_muo_pho1_r9", "h_W_muo_pho1_r9", 50, 0., 5.);
    h_W_muo_pho1_sieie = new TH1D("h_W_muo_pho1_sieie", "h_W_muo_pho1_sieie", 50, 0., 0.05);
 
+   h_W_ele_pho0_jet0_dR = new TH1D("h_W_ele_pho0_jet0_dR", "h_W_ele_pho0_jet0_dR", 50, 0., 5.);
+   h_W_ele_pho1_jet0_dR = new TH1D("h_W_ele_pho1_jet0_dR", "h_W_ele_pho1_jet0_dR", 50, 0., 5.);
+   h_W_muo_pho0_jet0_dR = new TH1D("h_W_muo_pho0_jet0_dR", "h_W_muo_pho0_jet0_dR", 50, 0., 5.);
+   h_W_muo_pho1_jet0_dR = new TH1D("h_W_muo_pho1_jet0_dR", "h_W_muo_pho1_jet0_dR", 50, 0., 5.);
+
    h_W_ele_pho0_mva = new TH1D("h_W_ele_pho0_mva", "h_W_ele_pho0_mva", 100, 0., 1.);
    h_W_ele_pho1_mva = new TH1D("h_W_ele_pho1_mva", "h_W_ele_pho1_mva", 100, 0., 1.);
    h_W_muo_pho0_mva = new TH1D("h_W_muo_pho0_mva", "h_W_muo_pho0_mva", 100, 0., 1.);
@@ -471,6 +476,11 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo_pho1_phi = new TH1D("h_Z_muo_pho1_phi", "h_Z_muo_pho1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_Z_muo_pho1_r9 = new TH1D("h_Z_muo_pho1_r9", "h_Z_muo_pho1_r9", 50, 0., 5.);
    h_Z_muo_pho1_sieie = new TH1D("h_Z_muo_pho1_sieie", "h_Z_muo_pho1_sieie", 50, 0., 0.05);
+
+   h_Z_ele_pho0_jet0_dR = new TH1D("h_Z_ele_pho0_jet0_dR", "h_Z_ele_pho0_jet0_dR", 50, 0., 5.);
+   h_Z_ele_pho1_jet0_dR = new TH1D("h_Z_ele_pho1_jet0_dR", "h_Z_ele_pho1_jet0_dR", 50, 0., 5.);
+   h_Z_muo_pho0_jet0_dR = new TH1D("h_Z_muo_pho0_jet0_dR", "h_Z_muo_pho0_jet0_dR", 50, 0., 5.);
+   h_Z_muo_pho1_jet0_dR = new TH1D("h_Z_muo_pho1_jet0_dR", "h_Z_muo_pho1_jet0_dR", 50, 0., 5.);
 
    h_Z_ele_pho0_mva = new TH1D("h_Z_ele_pho0_mva", "h_Z_ele_pho0_mva", 100, 0., 1.);
    h_Z_ele_pho1_mva = new TH1D("h_Z_ele_pho1_mva", "h_Z_ele_pho1_mva", 100, 0., 1.);
@@ -2431,6 +2441,12 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_W_ele_jet0_pt->Fill(Jet_pt[ijet0], weight_W_ele);
        h_W_ele_jet0_eta->Fill(Jet_eta[ijet0], weight_W_ele);
        h_W_ele_jet0_phi->Fill(Jet_phi[ijet0], weight_W_ele);
+       if (ipho0 != -1) {
+         h_W_ele_pho0_jet0_dR->Fill(pho0.DeltaR(jet0), weight_W_ele * weight_pho0);
+       }
+       if (ipho1 != -1) {
+         h_W_ele_pho1_jet0_dR->Fill(pho1.DeltaR(jet0), weight_W_ele * weight_pho1);
+       }
      }
    }
 
@@ -2440,6 +2456,12 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_W_ele_jet0_pt)->Fill(Jet_pt[ijet0_qcd], weight_W_ele_qcd);
        QCD(h_W_ele_jet0_eta)->Fill(Jet_eta[ijet0_qcd], weight_W_ele_qcd);
        QCD(h_W_ele_jet0_phi)->Fill(Jet_phi[ijet0_qcd], weight_W_ele_qcd);
+       if (ipho0_qcd != -1) {
+         QCD(h_W_ele_pho0_jet0_dR)->Fill(pho0_qcd.DeltaR(jet0_qcd), weight_W_ele_qcd * weight_pho0_qcd);
+       }
+       if (ipho1_qcd != -1) {
+         QCD(h_W_ele_pho1_jet0_dR)->Fill(pho1_qcd.DeltaR(jet0_qcd), weight_W_ele_qcd * weight_pho1_qcd);
+       }
      }
    }
 
@@ -2449,6 +2471,12 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_W_muo_jet0_pt->Fill(Jet_pt[ijet0], weight_W_muo);
        h_W_muo_jet0_eta->Fill(Jet_eta[ijet0], weight_W_muo);
        h_W_muo_jet0_phi->Fill(Jet_phi[ijet0], weight_W_muo);
+       if (ipho0 != -1) {
+         h_W_muo_pho0_jet0_dR->Fill(pho0.DeltaR(jet0), weight_W_muo * weight_pho0);
+       }
+       if (ipho1 != -1) {
+         h_W_muo_pho1_jet0_dR->Fill(pho1.DeltaR(jet0), weight_W_muo * weight_pho1);
+       }
      }
    }
 
@@ -2458,6 +2486,12 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_W_muo_jet0_pt)->Fill(Jet_pt[ijet0_qcd], weight_W_muo_qcd);
        QCD(h_W_muo_jet0_eta)->Fill(Jet_eta[ijet0_qcd], weight_W_muo_qcd);
        QCD(h_W_muo_jet0_phi)->Fill(Jet_phi[ijet0_qcd], weight_W_muo_qcd);
+       if (ipho0_qcd != -1) {
+         QCD(h_W_muo_pho0_jet0_dR)->Fill(pho0_qcd.DeltaR(jet0_qcd), weight_W_muo_qcd * weight_pho0_qcd);
+       }
+       if (ipho1_qcd != -1) {
+         QCD(h_W_muo_pho1_jet0_dR)->Fill(pho1_qcd.DeltaR(jet0_qcd), weight_W_muo_qcd * weight_pho1_qcd);
+       }
      }
    }
 
@@ -2469,6 +2503,12 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_Z_ele_jet0_pt->Fill(Jet_pt[ijet0], weight_Z_ele);
        h_Z_ele_jet0_eta->Fill(Jet_eta[ijet0], weight_Z_ele);
        h_Z_ele_jet0_phi->Fill(Jet_phi[ijet0], weight_Z_ele);
+       if (ipho0 != -1) {
+         h_Z_ele_pho0_jet0_dR->Fill(pho0.DeltaR(jet0), weight_Z_ele * weight_pho0);
+       }
+       if (ipho1 != -1) {
+         h_Z_ele_pho1_jet0_dR->Fill(pho1.DeltaR(jet0), weight_Z_ele * weight_pho1);
+       }
      }
    }
 
@@ -2478,6 +2518,12 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_Z_ele_jet0_pt)->Fill(Jet_pt[ijet0_qcd], weight_Z_ele_qcd);
        QCD(h_Z_ele_jet0_eta)->Fill(Jet_eta[ijet0_qcd], weight_Z_ele_qcd);
        QCD(h_Z_ele_jet0_phi)->Fill(Jet_phi[ijet0_qcd], weight_Z_ele_qcd);
+       if (ipho0_qcd != -1) {
+         QCD(h_Z_ele_pho0_jet0_dR)->Fill(pho0_qcd.DeltaR(jet0_qcd), weight_Z_ele_qcd * weight_pho0_qcd);
+       }
+       if (ipho1_qcd != -1) {
+         QCD(h_Z_ele_pho1_jet0_dR)->Fill(pho1_qcd.DeltaR(jet0_qcd), weight_Z_ele_qcd * weight_pho1_qcd);
+       }
      }
    }
 
@@ -2487,6 +2533,12 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_Z_muo_jet0_pt->Fill(Jet_pt[ijet0], weight_Z_muo);
        h_Z_muo_jet0_eta->Fill(Jet_eta[ijet0], weight_Z_muo);
        h_Z_muo_jet0_phi->Fill(Jet_phi[ijet0], weight_Z_muo);
+       if (ipho0 != -1) {
+         h_Z_muo_pho0_jet0_dR->Fill(pho0.DeltaR(jet0), weight_Z_muo * weight_pho0);
+       }
+       if (ipho1 != -1) {
+         h_Z_muo_pho1_jet0_dR->Fill(pho1.DeltaR(jet0), weight_Z_muo * weight_pho1);
+       }
      }
    }
 
@@ -2496,6 +2548,12 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_Z_muo_jet0_pt)->Fill(Jet_pt[ijet0_qcd], weight_Z_muo_qcd);
        QCD(h_Z_muo_jet0_eta)->Fill(Jet_eta[ijet0_qcd], weight_Z_muo_qcd);
        QCD(h_Z_muo_jet0_phi)->Fill(Jet_phi[ijet0_qcd], weight_Z_muo_qcd);
+       if (ipho0_qcd != -1) {
+         QCD(h_Z_muo_pho0_jet0_dR)->Fill(pho0_qcd.DeltaR(jet0_qcd), weight_Z_muo_qcd * weight_pho0_qcd);
+       }
+       if (ipho1_qcd != -1) {
+         QCD(h_Z_muo_pho1_jet0_dR)->Fill(pho1_qcd.DeltaR(jet0_qcd), weight_Z_muo_qcd * weight_pho1_qcd);
+       }
      }
    }
 
