@@ -24,6 +24,11 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   readMultiMap(plot, plotMap);
   cout << "Read plot map for " << plotMap.size() << " datasets from " << plot << endl;
 
+  if (plotMap.size() == 0) {
+    cout << "ERROR: plot map " << plot << " is EMPTY or MISSING !!" << endl;
+    return;
+  }
+
   float lumi = 0.;
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
