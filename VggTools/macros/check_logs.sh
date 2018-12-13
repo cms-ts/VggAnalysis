@@ -2,7 +2,7 @@
 
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 
-VERSION="v05"
+VERSION="v06"
 
 if [ ! -z "$1" ]; then
   if [ "$1" == "list" ]; then
