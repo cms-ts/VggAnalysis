@@ -28,13 +28,10 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   if (plot.find("2018") != string::npos) year = "2018";
 
   plot = plot + ".dat";
-  if (flags.find("test") != string::npos) {
-    plot = plot + ".test";
-    version = version + ".test";
-  }
+  if (flags.find("test") != string::npos) plot = plot + ".test";
 
-  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
-  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
+  if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
 
   multimap<string, float> plotMap;
   readMultiMap(plot, plotMap);
@@ -44,6 +41,11 @@ void plot1(string plot="", string title="", string version="v00", string flags="
     cout << "ERROR: plot map " << plot << " is EMPTY or MISSING !!" << endl;
     return;
   }
+
+  if (flags.find("test") != string::npos) version = version + ".test";
+
+  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
 
   TFile* f1 = new TFile(("html/" + version + "/" + year + "/root/" + title + "_nofit.root").c_str());
   TFile* f2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
