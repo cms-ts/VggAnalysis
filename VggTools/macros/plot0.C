@@ -184,10 +184,26 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   }
 
   TH1D* h_qcd = (TH1D*)histo[0]->Clone("h_qcd");
-  if (flags.find("nofit") != string::npos) h_qcd->Add(h_mc_sum, -1);
+  if (flags.find("nofit") != string::npos) {
+    h_qcd->Add(h_mc_sum, -1);
+    for (int i = 0; i < h_qcd->GetNbinsX()+1; i++) {
+      if (h_qcd->GetBinContent(i) < 0) {
+        h_qcd->SetBinContent(i, 0);
+        h_qcd->SetBinError(i, 0);
+      }
+    }
+  }
 
   TH1D* h_nobs = (TH1D*)histo[0]->Clone("h_nobs");
-  if (flags.find("nofit") == string::npos) h_nobs->Add(h_bkg, -1);
+  if (flags.find("nofit") == string::npos) {
+    h_nobs->Add(h_bkg, -1);
+    for (int i = 0; i < h_nobs->GetNbinsX()+1; i++) {
+      if (h_nobs->GetBinContent(i) < 0) {
+        h_nobs->SetBinContent(i, 0);
+        h_nobs->SetBinError(i, 0);
+      }
+    }
+  }
 
   TLegend* leg = new TLegend(0.65, 0.640, 0.91, 0.88);
   leg->SetBorderSize(0);
