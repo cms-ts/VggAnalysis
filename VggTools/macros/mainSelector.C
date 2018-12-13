@@ -62,6 +62,11 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (option.Contains("ZGG"))                           isZGG        = true;
    if (option.Contains("ZTauTau"))                       isZTauTau    = true;
 
+   if (option.Contains("WG_WJetsToLNu"))                 isWG_WJetsToLNu  = true;
+   if (option.Contains("WGG_WJetsToLNu"))                isWGG_WJetsToLNu = true;
+   if (option.Contains("ZG_DYJetsToLL"))                 isZG_DYJetsToLL  = true;
+   if (option.Contains("ZGG_DYJetsToLL"))                isZGG_DYJetsToLL = true;
+
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    TFile* file_ele_pu;
    TFile* file_muo_pu;
@@ -831,23 +836,36 @@ Bool_t mainSelector::Process(Long64_t entry)
        n_photons_gen = 0;
      }
 
-     if (isWJetsToLNu) {
-       if (n_photons_gen != 0) return kTRUE;
+     if (isWJetsToLNu && !isWG_WJetsToLNu && !isWGG_WJetsToLNu) {
+       if (n_photons_gen >= 1) return kTRUE;
      }
-     if (isWG) {
-       if (n_photons_gen != 1) return kTRUE;
+     if (isWG && !isWG_WJetsToLNu) {
+       if (n_photons_gen >= 2) return kTRUE;
      }
-     if (isWGG) {
-       if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
+     if (isWGG && !isWGG_WJetsToLNu) {
+       ; // null statement
      }
 
-     if (isDYJetsToLL) {
-       if (n_photons_gen != 0) return kTRUE;
+     if (isDYJetsToLL && !isZG_DYJetsToLL && !isZGG_DYJetsToLL) {
+       if (n_photons_gen >= 1) return kTRUE;
      }
-     if (isZG) {
+     if (isZG && !isZG_DYJetsToLL) {
+       if (n_photons_gen >= 2) return kTRUE;
+     }
+     if (isZGG && !isZGG_DYJetsToLL) {
+       ; // null statement
+     }
+
+     if (isWG_WJetsToLNu) {
        if (n_photons_gen != 1) return kTRUE;
      }
-     if (isZGG) {
+     if (isWGG_WJetsToLNu) {
+       if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
+     }
+     if (isZG_DYJetsToLL) {
+       if (n_photons_gen != 1) return kTRUE;
+     }
+     if (isZGG_DYJetsToLL) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
      }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
