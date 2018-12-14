@@ -29,6 +29,15 @@ if [ ! -z "$1" ]; then
         exit
     fi
   fi
+elif [ ! -e "data/$VERSION" ]; then
+  echo
+  echo "ERROR: version "$VERSION" not available !"
+  echo
+  echo "Available versions:"
+  echo
+  ls data/
+  echo
+  exit
 fi
 
 
