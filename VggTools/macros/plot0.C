@@ -140,7 +140,11 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     float fiterr = 0.;
     int index = 9001;
     ifstream file1;
-    file1.open(("html/" + version + "/" + year + ".qcd/root/" + title.substr(0, 7) + "_qcd_fit.dat").c_str());
+    if (title.find("pho0") != string::npos || title.find("pho1") != string::npos) {
+      file1.open(("html/" + version + "/" + year + ".qcd/root/" + title.substr(0, 7) + "_pho0_qcd_fit.dat").c_str());
+    } else {
+      file1.open(("html/" + version + "/" + year + ".qcd/root/" + title.substr(0, 7) + "_qcd_fit.dat").c_str());
+    }
     if (file1.good()) {
       file1 >> fitval >> fiterr;
       file1.close();

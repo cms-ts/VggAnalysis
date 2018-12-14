@@ -38,12 +38,21 @@ for YEAR in $YEARS; do
 
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele\",\"$VERSION\",\"$FLAGS,nofit\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo\",\"$VERSION\",\"$FLAGS,nofit\"\)
- 
+
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele\",\"$VERSION\",\"$FLAGS,qcd,nofit\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo\",\"$VERSION\",\"$FLAGS,qcd,nofit\"\)
- 
+
   root-6.12 -l -q -b plot1.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot1.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo\",\"$VERSION\",\"$FLAGS\"\)
+
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_pho0\",\"$VERSION\",\"$FLAGS,nofit\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho0\",\"$VERSION\",\"$FLAGS,nofit\"\)
+
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_pho0\",\"$VERSION\",\"$FLAGS,qcd,nofit\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho0\",\"$VERSION\",\"$FLAGS,qcd,nofit\"\)
+
+  root-6.12 -l -q -b plot1.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_pho0\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot1.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_pho0\",\"$VERSION\",\"$FLAGS\"\)
 
 done
 
