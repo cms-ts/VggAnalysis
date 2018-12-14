@@ -242,6 +242,10 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
+    if (it->first == 35) {
+      it->second->SetFillColor(kGreen+2);
+      leg->AddEntry(it->second, "Triboson", "f");
+    }
     if (it->first == 40) {
       it->second->SetFillColor(kBlue);
       leg->AddEntry(it->second, "TTJets", "f");
@@ -292,6 +296,10 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     if (it->first == 1050) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
+    }
+    if (it->first == 1055) {
+      it->second->SetFillColor(kGreen+2);
+      leg->AddEntry(it->second, "Triboson", "f");
     }
 
     if (it->first == 9001) {
