@@ -18,32 +18,19 @@ if [ ! -z "$1" ]; then
     VERSION=`ls -tr data/ | tail -1`
   else
     VERSION=$1
-    if [ ! -e "data/$VERSION" ]; then
-        echo
-        echo "ERROR: version "$VERSION" not available !"
-        echo
-        echo "Available versions:"
-        echo
-        ls data/
-        echo
-        exit
-    fi
   fi
-elif [ ! -e "data/$VERSION" ]; then
-  echo
-  echo "ERROR: version "$VERSION" not available !"
-  echo
-  echo "Available versions:"
-  echo
-  ls data/
-  echo
-  exit
 fi
-
 
 cd $WORKDIR
 
-LISTS=`ls data/$VERSION/*.log`
+LISTS=`ls data/$VERSION/*.log 2>&1`
+
+if [ $? -ne 0 ]; then
+  echo
+  echo "ERROR: version "$VERSION" not available !"
+  echo
+  exit
+fi
 
 if [ ! -z "$2" ]; then
   LISTS=`ls data/$VERSION/$2.log`
