@@ -862,6 +862,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (isWGG_WJetsToLNu) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
      }
+
      if (isZG_DYJetsToLL) {
        if (n_photons_gen != 1) return kTRUE;
      }
