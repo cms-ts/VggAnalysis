@@ -1236,6 +1236,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (iele0 != -1 && ele0.DeltaR(tmp_pho) < 0.4) continue;
      if (iele1 != -1 && ele1.DeltaR(tmp_pho) < 0.4) continue;
 
+     if (imuo0 != -1 && muo0.DeltaR(tmp_pho) < 0.4) continue;
+     if (imuo1 != -1 && muo1.DeltaR(tmp_pho) < 0.4) continue;
+
      if (iele0 != -1 && fabs((ele0+tmp_pho).M()-91.2) < 5) continue;
      if (iele1 != -1 && fabs((ele1+tmp_pho).M()-91.2) < 5) continue;
      if (iele0 != -1 && iele1 != -1 && fabs((ele0+ele1+tmp_pho).M()-91.2) < 5) continue;
