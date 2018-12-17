@@ -879,9 +879,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (isZGG_DYJetsToLL) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
      }
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      if (W_ele_sel_gen) {
        h_W_ele_gen->Fill(W_ele0_gen_mt, weight_gen * weight_pu_ele);
        h_W_ele_nphotons_gen->Fill(n_photons_gen, weight_gen * weight_pu_ele);
