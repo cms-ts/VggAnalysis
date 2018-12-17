@@ -654,18 +654,33 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    }
 
+   int iele0_gen = -1;
+   int iele1_gen = -1;
+
+   TLorentzVector ele0_gen;
+   TLorentzVector ele1_gen;
+
+   int imuo0_gen = -1;
+   int imuo1_gen = -1;
+
+   TLorentzVector muo0_gen;
+   TLorentzVector muo1_gen;
+
    bool W_ele_sel_gen = false;
    bool W_muo_sel_gen = false;
 
    bool Z_ele_sel_gen = false;
    bool Z_muo_sel_gen = false;
 
+   int ipho0_gen = -1;
+   int ipho1_gen = -1;
+
+   TLorentzVector pho0_gen;
+   TLorentzVector pho1_gen;
+
    int n_photons_gen = 0;
 
    if (isWJetsToLNu || isWG || isWGG || isDYJetsToLL || isZG || isZGG) {
-
-     int iele0_gen = -1;
-     int iele1_gen = -1;
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 11) continue;
@@ -690,18 +705,12 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (iele0_gen == -1) iele0_gen = i;
      }
 
-     TLorentzVector ele0_gen;
-     TLorentzVector ele1_gen;
-
      if (iele0_gen != -1) {
        ele0_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele0_gen], GenDressedLepton_eta[iele0_gen], GenDressedLepton_phi[iele0_gen], GenDressedLepton_mass[iele0_gen]);
      }
      if (iele1_gen != -1) {
        ele1_gen.SetPtEtaPhiM(GenDressedLepton_pt[iele1_gen], GenDressedLepton_eta[iele1_gen], GenDressedLepton_phi[iele1_gen], GenDressedLepton_mass[iele1_gen]);
      }
-
-     int imuo0_gen = -1;
-     int imuo1_gen = -1;
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 13) continue;
@@ -725,9 +734,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
        if (imuo0_gen == -1) imuo0_gen = i;
      }
-
-     TLorentzVector muo0_gen;
-     TLorentzVector muo1_gen;
 
      if (imuo0_gen != -1) {
        muo0_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo0_gen], GenDressedLepton_eta[imuo0_gen], GenDressedLepton_phi[imuo0_gen], GenDressedLepton_mass[imuo0_gen]);
@@ -771,9 +777,6 @@ Bool_t mainSelector::Process(Long64_t entry)
          Z_muo_sel_gen = true;
        }
      }
-
-     int ipho0_gen = -1;
-     int ipho1_gen = -1;
 
      for (uint i = 0; i < *nGenPart; i++) {
        if (GenPart_status[i] != 1) continue;
@@ -834,6 +837,13 @@ Bool_t mainSelector::Process(Long64_t entry)
        ipho0_gen = -1;
        ipho1_gen = -1;
        n_photons_gen = 0;
+     }
+
+     if (ipho0_gen != -1) {
+       pho0_gen.SetPtEtaPhiM(GenPart_pt[ipho0_gen], GenPart_eta[ipho0_gen], GenPart_phi[ipho0_gen], GenPart_mass[ipho0_gen]);
+     }
+     if (ipho1_gen != -1) {
+       pho1_gen.SetPtEtaPhiM(GenPart_pt[ipho1_gen], GenPart_eta[ipho1_gen], GenPart_phi[ipho1_gen], GenPart_mass[ipho1_gen]);
      }
 
      if (isWJetsToLNu && !isWG_WJetsToLNu && !isWGG_WJetsToLNu) {
