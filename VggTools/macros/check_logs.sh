@@ -44,7 +44,7 @@ done=0
 for L in $LISTS; do
   total=$((total+1))
   O=`cat $L | \
-  grep [a-z,A-Z] | \
+  grep '[a-z,A-Z]' | \
   grep -v 'Processing' | \
   grep -v 'input list' | \
   grep -v 'Starting PROOF-Lite' | \
