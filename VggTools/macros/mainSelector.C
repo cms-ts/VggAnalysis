@@ -510,8 +510,8 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo_pho0_dR = new TH1D("h_Z_muo_pho0_dR", "h_Z_muo_pho0_dR", 50, 0., 5.);
    h_Z_muo_pho1_dR = new TH1D("h_Z_muo_pho1_dR", "h_Z_muo_pho1_dR", 50, 0., 5.);
 
-   h_W_ele_pho0 = new TH1D("h_W_ele_pho0", "h_W_ele_pho0", 90, 20, 200);
-   h_W_muo_pho0 = new TH1D("h_W_muo_pho0", "h_W_muo_pho0", 90, 20, 200);
+   h_W_ele_pho0 = new TH1D("h_W_ele_pho0", "h_W_ele_pho0", 100, 0, 200);
+   h_W_muo_pho0 = new TH1D("h_W_muo_pho0", "h_W_muo_pho0", 100, 0, 200);
    h_Z_ele_pho0 = new TH1D("h_Z_ele_pho0", "h_Z_ele_pho0", 40, 71, 111);
    h_Z_muo_pho0 = new TH1D("h_Z_muo_pho0", "h_Z_muo_pho0", 40, 71, 111);
 
