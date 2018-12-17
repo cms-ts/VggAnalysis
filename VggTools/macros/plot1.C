@@ -84,7 +84,7 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   h2->SetLineColor(kRed);
 
   c1->Update();
-  TBox* box1 = new TBox(20., c1->GetFrame()->GetY1(), c1->GetFrame()->GetX2(), c1->GetFrame()->GetY2());
+  TBox* box1 = new TBox(40., c1->GetFrame()->GetY1(), c1->GetFrame()->GetX2(), c1->GetFrame()->GetY2());
   box1->SetFillStyle(3344);
   box1->SetFillColor(kGray);
   box1->Draw();
