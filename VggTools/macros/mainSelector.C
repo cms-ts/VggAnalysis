@@ -2289,7 +2289,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_muo_sel_wide_qcd) {
-     if (n_photons_qcd >= 1) {
+     if (ipho0_qcd != -1) {
        QCD(h_W_muo_pho0)->Fill(W_muo0_mt_qcd, weight_W_muo_qcd * weight_pho0_qcd);
      }
    }
