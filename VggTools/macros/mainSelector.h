@@ -349,6 +349,7 @@ public :
 
    TTreeReaderArray<Float_t> Muon_pfRelIso03_all = {fReader, "Muon_pfRelIso03_all"};
    TTreeReaderArray<Float_t> Muon_pfRelIso03_chg = {fReader, "Muon_pfRelIso03_chg"};
+   TTreeReaderArray<Float_t> Muon_pfRelIso04_all = {fReader, "Muon_pfRelIso04_all"};
 
    TTreeReaderValue<UInt_t> nPhoton = {fReader, "nPhoton"};
    TTreeReaderArray<Float_t> Photon_pt = {fReader, "Photon_pt"};

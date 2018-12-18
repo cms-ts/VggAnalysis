@@ -1091,7 +1091,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Muon_dxy[i]) > 0.20) continue;
      if (fabs(Muon_dz[i]) > 0.50) continue;
 
-     if (Muon_pfRelIso03_all[i] > 0.15) continue;
+     if (Muon_pfRelIso04_all[i] > 0.15) continue;
 
      if (Muon_tightId[i] == 0) continue;
 
@@ -1155,7 +1155,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Muon_dxy[i]) > 0.20) continue;
      if (fabs(Muon_dz[i]) > 0.50) continue;
 
-     if (Muon_pfRelIso03_all[i] < 0.15) continue;
+     if (Muon_pfRelIso04_all[i] < 0.15) continue;
 
      if (Muon_tightId[i] == 0) continue;
 
