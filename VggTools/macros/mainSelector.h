@@ -42,20 +42,15 @@ public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
-   bool isWJetsToLNu     = false;
-   bool isWG             = false;
-   bool isWGG            = false;
-   bool isWTauNu         = false;
+   bool isWJetsToLNu = false;
+   bool isWG = false;
+   bool isWGG = false;
+   bool isWTauNu = false;
 
-   bool isDYJetsToLL     = false;
-   bool isZG             = false;
-   bool isZGG            = false;
-   bool isZTauTau        = false;
-
-   bool isWG_WJetsToLNu  = false;
-   bool isWGG_WJetsToLNu = false;
-   bool isZG_DYJetsToLL  = false;
-   bool isZGG_DYJetsToLL = false;
+   bool isDYJetsToLL = false;
+   bool isZG = false;
+   bool isZGG = false;
+   bool isZTauTau = false;
 
    TH1D* h_nevt = 0;
 

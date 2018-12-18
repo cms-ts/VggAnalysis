@@ -62,11 +62,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (option.Contains("ZGG"))                           isZGG        = true;
    if (option.Contains("ZTauTau"))                       isZTauTau    = true;
 
-   if (option.Contains("WG_WJetsToLNu"))                 isWG_WJetsToLNu  = true;
-   if (option.Contains("WGG_WJetsToLNu"))                isWGG_WJetsToLNu = true;
-   if (option.Contains("ZG_DYJetsToLL"))                 isZG_DYJetsToLL  = true;
-   if (option.Contains("ZGG_DYJetsToLL"))                isZGG_DYJetsToLL = true;
-
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    TFile* file_ele_pu;
    TFile* file_muo_pu;
@@ -672,13 +667,12 @@ Bool_t mainSelector::Process(Long64_t entry)
    bool Z_ele_sel_gen = false;
    bool Z_muo_sel_gen = false;
 
+   int n_photons_gen = 0;
    int ipho0_gen = -1;
    int ipho1_gen = -1;
 
    TLorentzVector pho0_gen;
    TLorentzVector pho1_gen;
-
-   int n_photons_gen = 0;
 
    if (isWJetsToLNu || isWG || isWGG || isDYJetsToLL || isZG || isZGG) {
 
@@ -802,6 +796,19 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (skip) continue;
 
+       for (uint j = 0; j < *nGenPart; j++) {
+         if (skip) continue;
+         if (fabs(GenPart_pdgId[j]) >= 6 && fabs(GenPart_pdgId[j]) != 21) continue;
+         if (GenPart_pt[j] < 15) continue;
+         if (fabs(GenPart_eta[j]) > 2.400) continue;
+
+         TLorentzVector tmp_part_gen;
+         tmp_part_gen.SetPtEtaPhiM(GenPart_pt[j], GenPart_eta[j], GenPart_phi[j], GenPart_mass[j]);
+         if (tmp_part_gen.DeltaR(tmp_pho_gen) < 0.1) skip = true;
+       }
+
+       if (skip) continue;
+
        if (ipho0_gen != -1) {
          TLorentzVector tmp_pho0_gen;
          tmp_pho0_gen.SetPtEtaPhiM(GenPart_pt[ipho0_gen], GenPart_eta[ipho0_gen], GenPart_phi[ipho0_gen], GenPart_mass[ipho0_gen]);
@@ -846,37 +853,23 @@ Bool_t mainSelector::Process(Long64_t entry)
        pho1_gen.SetPtEtaPhiM(GenPart_pt[ipho1_gen], GenPart_eta[ipho1_gen], GenPart_phi[ipho1_gen], GenPart_mass[ipho1_gen]);
      }
 
-     if (isWJetsToLNu && !isWG_WJetsToLNu && !isWGG_WJetsToLNu) {
-       if (n_photons_gen >= 1) return kTRUE;
+     if (isWJetsToLNu) {
+       if (n_photons_gen != 0) return kTRUE;
      }
-     if (isWG && !isWG_WJetsToLNu) {
-       if (n_photons_gen >= 2) return kTRUE;
-     }
-     if (isWGG && !isWGG_WJetsToLNu) {
-       ; // null statement
-     }
-
-     if (isDYJetsToLL && !isZG_DYJetsToLL && !isZGG_DYJetsToLL) {
-       if (n_photons_gen >= 1) return kTRUE;
-     }
-     if (isZG && !isZG_DYJetsToLL) {
-       if (n_photons_gen >= 2) return kTRUE;
-     }
-     if (isZGG && !isZGG_DYJetsToLL) {
-       ; // null statement
-     }
-
-     if (isWG_WJetsToLNu) {
+     if (isWG) {
        if (n_photons_gen != 1) return kTRUE;
      }
-     if (isWGG_WJetsToLNu) {
+     if (isWGG) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
      }
 
-     if (isZG_DYJetsToLL) {
+     if (isDYJetsToLL) {
+       if (n_photons_gen != 0) return kTRUE;
+     }
+     if (isZG) {
        if (n_photons_gen != 1) return kTRUE;
      }
-     if (isZGG_DYJetsToLL) {
+     if (isZGG) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
      }
 
