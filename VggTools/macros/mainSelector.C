@@ -1360,6 +1360,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (iele0_qcd != -1 && ele0_qcd.DeltaR(tmp_pho_qcd) < 0.4) continue;
      if (iele1_qcd != -1 && ele1_qcd.DeltaR(tmp_pho_qcd) < 0.4) continue;
 
+     if (imuo0_qcd != -1 && muo0_qcd.DeltaR(tmp_pho_qcd) < 0.4) continue;
+     if (imuo1_qcd != -1 && muo1_qcd.DeltaR(tmp_pho_qcd) < 0.4) continue;
+
      if (iele0_qcd != -1 && fabs((ele0_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
      if (iele1_qcd != -1 && fabs((ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
      if (iele0_qcd != -1 && iele1_qcd != -1 && fabs((ele0_qcd+ele1_qcd+tmp_pho_qcd).M()-91.2) < 5) continue;
