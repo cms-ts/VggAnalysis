@@ -406,17 +406,9 @@ public :
    TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
 // FIXME
-   TTreeReaderArray<Bool_t> Photon_mvaID_WP80 = {fReader, "Photon_mvaID_WP80"};
-   TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
-#define Photon_mvaID_WP80 Photon_mvaID_WP80
-#define Photon_mvaID_WP90 Photon_mvaID_WP90
 #define Photon_mvaID Photon_mvaID
-//   TTreeReaderArray<Bool_t> Photon_mvaID17_WP80 = {fReader, "Photon_mvaID17_WP80"};
-//   TTreeReaderArray<Bool_t> Photon_mvaID17_WP90 = {fReader, "Photon_mvaID17_WP90"};
 //   TTreeReaderArray<Float_t> Photon_mvaID17 = {fReader, "Photon_mvaID17"};
-//#define Photon_mvaID_WP80 Photon_mvaID17_WP80
-//#define Photon_mvaID_WP90 Photon_mvaID17_WP90
 //#define Photon_mvaID Photon_mvaID17
 // FIXME
 
@@ -449,8 +441,6 @@ public :
    TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
    TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
-   TTreeReaderArray<Bool_t> Photon_mvaID_WP80 = {fReader, "Photon_mvaID_WP80"};
-   TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
    TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
@@ -478,8 +468,6 @@ public :
    TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
    TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
-   TTreeReaderArray<Bool_t> Photon_mvaID_WP80 = {fReader, "Photon_mvaID_WP80"};
-   TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
    TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf = {fReader, "HLT_Ele32_WPTight_Gsf"};
