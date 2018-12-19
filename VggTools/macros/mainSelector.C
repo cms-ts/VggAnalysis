@@ -163,7 +163,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_iso->Add(sf_muo_iso_RunBCDEF, sf_muo_iso_RunGH, 19.69/35.917, 16.227/35.917);
 
 // FIXME
-   file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonMVAwp80.root");
+   file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonMVAwp90.root");
    //file_pho_sf_eff = new TFile("root/sf_pho_2016_EGM2D_runBCDEF_passingMVA94Xwp80iso.root");
 // FIXME
    //file_pho_sf_reco = new TFile("root/sf_pho_2016_EGM2D_BtoH_GT20GeV_RecoSF_2018.root");
@@ -210,7 +210,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_muo_sf_id;
    delete file_muo_sf_iso;
 
-   file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp80iso.root");
+   file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90iso.root");
 // FIXME
    //file_pho_sf_reco = new TFile("root/sf_pho_2017_EGM2D_BtoH_GT20GeV_RecoSF_2018.root");
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
@@ -258,7 +258,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_muo_sf_iso;
 // FIXME
 
-   file_pho_sf_eff = new TFile("root/sf_pho_2018_PhotonsMVAwp80.root");
+   file_pho_sf_eff = new TFile("root/sf_pho_2018_PhotonsMVAwp90.root");
 // FIXME
    //file_pho_sf_reco = new TFile("root/sf_pho_2018_EGM2D_BtoH_GT20GeV_RecoSF_2018.root");
 
@@ -1218,7 +1218,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Photon_pfRelIso03_all[i] > 0.15) continue;
 
-     if (Photon_mvaID_WP80[i] == 0) continue;
+     if (Photon_mvaID_WP90[i] == 0) continue;
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
@@ -1342,7 +1342,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Photon_pfRelIso03_all[i] > 0.15) continue;
 
-     if (Photon_mvaID_WP80[i] == 0) continue;
+     if (Photon_mvaID_WP90[i] == 0) continue;
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
