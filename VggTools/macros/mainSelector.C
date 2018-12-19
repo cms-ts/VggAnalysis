@@ -104,15 +104,10 @@ void mainSelector::Begin(TTree * /*tree*/)
    TFile* file_muo_sf_iso;
 
    TFile* file_pho_sf_eff;
-   TFile* file_pho_sf_reco;
 
 #if defined(mainSelectorMC16_cxx)
-// FIXME
    file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVAwp80.root");
-   file_ele_sf_reco = new TFile("root/sf_ele_2016_LegacyReReco_EGM2D_RECO.root");
-   //file_ele_sf_eff = new TFile("root/sf_ele_2016_EGM2D_runBCDEF_passingMVA94Xwp80.root");
-   //file_ele_sf_reco = new TFile("root/sf_ele_2016_EGM2D_runBCDEF_passingRECO.root");
-// FIXME
+   file_ele_sf_reco = new TFile("root/sf_ele_2016_EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root");
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
@@ -162,25 +157,18 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_id->Add(sf_muo_id_RunBCDEF, sf_muo_id_RunGH, 19.69/35.917, 16.227/35.917);
    sf_muo_iso->Add(sf_muo_iso_RunBCDEF, sf_muo_iso_RunGH, 19.69/35.917, 16.227/35.917);
 
-// FIXME
-   file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonMVAwp90.root");
-   //file_pho_sf_eff = new TFile("root/sf_pho_2016_EGM2D_runBCDEF_passingMVA94Xwp80iso.root");
-// FIXME
-   //file_pho_sf_reco = new TFile("root/sf_pho_2016_EGM2D_BtoH_GT20GeV_RecoSF_2018.root");
+   file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonMVAWP90.root");
+
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
-   //sf_pho_reco = (TH2D*)file_pho_sf_reco->Get("EGamma_SF2D");
 
    sf_pho_eff->SetDirectory(0);
-   //sf_pho_reco->SetDirectory(0);
 
    file_pho_sf_eff->Close();
-   //file_pho_sf_reco->Close();
 
    delete file_pho_sf_eff;
-   //delete file_pho_sf_reco;
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
-   file_ele_sf_eff = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp80.root");
+   file_ele_sf_eff = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp80noiso.root");
    file_ele_sf_reco = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
@@ -210,24 +198,23 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_muo_sf_id;
    delete file_muo_sf_iso;
 
-   file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90iso.root");
-// FIXME
-   //file_pho_sf_reco = new TFile("root/sf_pho_2017_EGM2D_BtoH_GT20GeV_RecoSF_2018.root");
+   file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
+
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
-   //sf_pho_reco = (TH2D*)file_pho_sf_reco->Get("EGamma_SF2D");
 
    sf_pho_eff->SetDirectory(0);
-   //sf_pho_reco->SetDirectory(0);
 
    file_pho_sf_eff->Close();
-   //file_pho_sf_reco->Close();
 
    delete file_pho_sf_eff;
-   //delete file_pho_sf_reco;
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
-   file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronMVA80.root");
-   file_ele_sf_reco = new TFile("root/sf_ele_2018_EGM2D_RECO.root");
+// FIXME
+   file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronMVA80noiso.root");
+   file_ele_sf_reco = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
+   //file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronMVA80noiso.root");
+   //file_ele_sf_reco = new TFile("root/sf_ele_2018_EGM2D_runBCDEF_passingRECO.root");
+// FIXME
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
@@ -258,21 +245,18 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_muo_sf_iso;
 // FIXME
 
-   file_pho_sf_eff = new TFile("root/sf_pho_2018_PhotonsMVAwp90.root");
 // FIXME
-   //file_pho_sf_reco = new TFile("root/sf_pho_2018_EGM2D_BtoH_GT20GeV_RecoSF_2018.root");
+   file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
+   //file_pho_sf_eff = new TFile("root/sf_pho_2018_EGM2D_runBCDEF_passingMVA94Xwp90.root");
+// FIXME
 
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
-   //sf_pho_reco = (TH2D*)file_pho_sf_reco->Get("EGamma_SF2D");
 
    sf_pho_eff->SetDirectory(0);
-   //sf_pho_reco->SetDirectory(0);
 
    file_pho_sf_eff->Close();
-   //file_pho_sf_reco->Close();
 
    delete file_pho_sf_eff;
-   //delete file_pho_sf_reco;
 #endif // defined(mainSelectorMC18_cxx)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -1988,15 +1972,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0 != -1) {
      weight_eff_pho0 = getWeight(sf_pho_eff, Photon_eta[ipho0], Photon_pt[ipho0]);
-// FIXME
-//     weight_reco_pho0 = getWeight(sf_pho_reco, Photon_eta[ipho0], Photon_pt[ipho0]);
-// FIXME
    }
    if (ipho1 != -1) {
      weight_eff_pho1 = getWeight(sf_pho_eff, Photon_eta[ipho1], Photon_pt[ipho1]);
-// FIXME
-//     weight_reco_pho1 = getWeight(sf_pho_reco, Photon_eta[ipho1], Photon_pt[ipho1]);
-// FIXME
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -2014,15 +1992,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0_qcd != -1) {
      weight_eff_pho0_qcd = getWeight(sf_pho_eff, Photon_eta[ipho0_qcd], Photon_pt[ipho0_qcd]);
-// FIXME
-//     weight_reco_pho0_qcd = getWeight(sf_pho_reco, Photon_eta[ipho0_qcd], Photon_pt[ipho0_qcd]);
-// FIXME
    }
    if (ipho1_qcd != -1) {
      weight_eff_pho1_qcd = getWeight(sf_pho_eff, Photon_eta[ipho1_qcd], Photon_pt[ipho1_qcd]);
-// FIXME
-//     weight_reco_pho1_qcd = getWeight(sf_pho_reco, Photon_eta[ipho1_qcd], Photon_pt[ipho1_qcd]);
-// FIXME
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
