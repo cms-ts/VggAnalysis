@@ -8,7 +8,6 @@ if [ -r $CMS_PATH/slc6_amd64_gcc700/cms/cmssw/CMSSW_10_3_2 ]; then
 fi
 
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
-
 cd $WORKDIR
 
 export ROOT_HIST=0
