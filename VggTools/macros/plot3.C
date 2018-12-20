@@ -233,10 +233,14 @@ void plot3(string plot="", string title="", string version="v00", string flags="
 
   label->Draw("same");
 
-  while (gSystem->mkdir(("html/" + version + "/" + year + ".xsec/").c_str(), kTRUE)) {}
+  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".xsec/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + year + ".xsec/").c_str(), kTRUE);
+  }
   c1->SaveAs(("html/" + version + "/" + year + ".xsec/" + title + ".pdf").c_str());
 
-  while (gSystem->mkdir(("html/" + version + "/" + year + ".xsec/root/").c_str(), kTRUE)) {}
+  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".xsec/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + year + ".xsec/root/").c_str(), kTRUE);
+  }
   TFile* file = new TFile(("html/" + version + "/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + ".xsec/root/" + title + ".root").c_str());
   h_xsec_rec->Write((title + "_xsec").c_str());
