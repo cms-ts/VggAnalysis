@@ -105,7 +105,7 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   sprintf(buff, "c_{qcd} = %5.3f #pm %5.3f", fitter->GetParameter(0), fitter->GetParError(0));
   label->DrawLatex(0.50, 0.68, buff);
 
-  gSystem->mkdir(("html/" + version + "/" + year + ".qcd/root/").c_str(), kTRUE);
+  while (gSystem->mkdir(("html/" + version + "/" + year + ".qcd/root/").c_str(), kTRUE)) {}
   c1->SaveAs(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_fit.pdf").c_str());
 
   ofstream out;

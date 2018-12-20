@@ -94,7 +94,7 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   sprintf(buff, "< #epsilon 2 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(3), h_mc_eff->GetBinError(3));
   label->DrawLatex(0.50, 0.55, buff);
 
-  gSystem->mkdir(("html/" + version + "/" + year + ".eff/").c_str(), kTRUE);
+  while (gSystem->mkdir(("html/" + version + "/" + year + ".eff/").c_str(), kTRUE)) {}
   c1->SaveAs(("html/" + version + "/" + year + ".eff/" + title + ".pdf").c_str());
 
   ofstream out;
@@ -104,7 +104,7 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   out << 2 << " " << h_mc_eff->GetBinContent(3) << " " << h_mc_eff->GetBinError(3) << endl;
   out.close();
 
-  gSystem->mkdir(("html/" + version + "/" + year + ".eff/root/").c_str(), kTRUE);
+  while (gSystem->mkdir(("html/" + version + "/" + year + ".eff/root/").c_str(), kTRUE)) {}
   TFile* file = new TFile(("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str());
   h_mc_eff->Write((title + "_mc_eff").c_str());

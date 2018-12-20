@@ -402,10 +402,10 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
 
-  gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE);
+  while (gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE)) {}
   c1->SaveAs(("html/" + version + "/" + year + "/" + title + ".pdf").c_str());
 
-  gSystem->mkdir(("html/" + version + "/" + year + "/root/").c_str(), kTRUE);
+  while (gSystem->mkdir(("html/" + version + "/" + year + "/root/").c_str(), kTRUE)) {}
   TFile* file = new TFile(("html/" + version + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
   if (flags.find("nofit") != string::npos) h_qcd->Write(title.c_str());
