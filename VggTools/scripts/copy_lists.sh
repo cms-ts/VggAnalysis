@@ -3,7 +3,7 @@
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
 
-for F in `ls lists/Run2016*.list`; do
+for F in `ls lists/Run2016[A-Z]*.list`; do
   [ -z "${F##*DoubleEG*}"       ] && cp -p lists/$L ../macros/lists/
   [ -z "${F##*DoubleMuon*}"     ] && cp -p lists/$L ../macros/lists/
   [ -z "${F##*SingleElectron*}" ] && cp -p lists/$L ../macros/lists/
@@ -11,7 +11,7 @@ for F in `ls lists/Run2016*.list`; do
   [ -z "${F##*MuonEG*}"         ] && cp -p lists/$L ../macros/lists/
 done
 
-for F in `ls lists/Run2017*.list`; do
+for F in `ls lists/Run2017[A-Z]*.list`; do
   [ -z "${F##*DoubleEG*}"       ] && cp -p lists/$L ../macros/lists/
   [ -z "${F##*DoubleMuon*}"     ] && cp -p lists/$L ../macros/lists/
   [ -z "${F##*SingleElectron*}" ] && cp -p lists/$L ../macros/lists/
@@ -19,7 +19,7 @@ for F in `ls lists/Run2017*.list`; do
   [ -z "${F##*MuonEG*}"         ] && cp -p lists/$L ../macros/lists/
 done
 
-for F in `ls lists/Run2018*.list`; do
+for F in `ls lists/Run2018[A-Z]*.list`; do
   [ -z "${F##*EGamma*}"         ] && cp -p lists/$L ../macros/lists/
   [ -z "${F##*DoubleMuon*}"     ] && cp -p lists/$L ../macros/lists/
   [ -z "${F##*SingleMuon*}"     ] && cp -p lists/$L ../macros/lists/
