@@ -1,7 +1,6 @@
 #!/bin/sh
 
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
-
 cd $WORKDIR
 
 for F in `ls logs/Run2016*.log | grep Run2016[A-Z]`; do

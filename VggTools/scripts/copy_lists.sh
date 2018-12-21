@@ -1,7 +1,6 @@
 #!/bin/sh
 
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
-
 cd $WORKDIR
 
 LISTS=`ls lists/`

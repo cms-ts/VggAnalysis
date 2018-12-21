@@ -1,7 +1,6 @@
 #!/bin/sh
 
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
-
 cd $WORKDIR
 
 export ROOT_HIST=0

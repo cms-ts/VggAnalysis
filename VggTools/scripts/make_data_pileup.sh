@@ -5,7 +5,6 @@ eval `scramv1 runtime -sh`
 cd $OLDPWD
 
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
-
 cd $WORKDIR
 
 for F in `ls json/Run2016_*.json`; do
