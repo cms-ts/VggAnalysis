@@ -10,19 +10,19 @@ WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
 
 for F in `ls lists/Run2016*.list`; do
-  echo "checking $F - "`wc -l $F`" files"
+  echo "checking $F - "`cat $F | wc -l`" files"
   python nano_report.py -o json/`basename $F .list`.json \
   `cat $F | sed -e 's;root://eosinfnts.ts.infn.it/;;'`
 done
 
 for F in `ls lists/Run2017*.list`; do
-  echo "checking $F - "`wc -l $F`" files"
+  echo "checking $F - "`cat $F | wc -l`" files"
   python nano_report.py -o json/`basename $F .list`.json \
   `cat $F | sed -e 's;root://eosinfnts.ts.infn.it/;;'`
 done
 
 for F in `ls lists/Run2018*.list`; do
-  echo "checking $F - "`wc -l $F`" files"
+  echo "checking $F - "`cat $F | wc -l`" files"
   python nano_report.py -o json/`basename $F .list`.json \
   `cat $F | sed -e 's;root://eosinfnts.ts.infn.it/;;'`
 done
