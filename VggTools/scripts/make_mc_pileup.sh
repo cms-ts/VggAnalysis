@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd $CMS_PATH/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_2_0/
+cd $CMS_PATH/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_2_9/
 eval `scramv1 runtime -sh`
 cd $OLDPWD
 
