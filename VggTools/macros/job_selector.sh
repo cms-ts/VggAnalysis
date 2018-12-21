@@ -14,8 +14,8 @@ cd $WORKDIR
 VERSION=$1
 LIST=$2
 
-FILE=data/$VERSION/`basename $2 | sed -e 's;.list;;'`.root
-LOG=data/$VERSION/`basename $2 | sed -e 's;.list;;'`.log
+FILE=data/$VERSION/`basename $LIST .list`.root
+LOG=data/$VERSION/`basename $LIST .list`.log
 
 export ROOT_HIST=0
 
