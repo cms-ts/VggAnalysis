@@ -44,7 +44,7 @@ done
 for D1 in `ls $DATADIR/ | grep Run2016`; do
   for D2 in `ls $DATADIR/$D1`; do
     find $DATADIR/$D1/$D2 -type f | grep 14Dec2018 | \
-    awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/`echo $D1 | sed -e 's/_ver1//' -e 's/_ver2//'`_${D2}_14Dec2018.list
+    awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/`echo $D1 | sed -e 's/_ver1//;s/_ver2//'`_${D2}_14Dec2018.list
   done
 done
 
