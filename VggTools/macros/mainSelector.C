@@ -768,11 +768,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      for (uint i = 0; i < *nGenPart; i++) {
        if (GenPart_status[i] != 1) continue;
        if (fabs(GenPart_pdgId[i]) != 22) continue;
-       if ((GenPart_statusFlags[i] & 1) == 0) continue;
+       if ((GenPart_statusFlags[i] & 1) != 1) continue;
        if (GenPart_pt[i] < 15) continue;
        if (fabs(GenPart_eta[i]) > 2.400) continue;
 
        bool skip = false;
+
        TLorentzVector tmp_pho_gen;
        tmp_pho_gen.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
 
@@ -943,9 +944,10 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Electron_mvaID_WP80[i] == 0) continue;
 
-     bool ele_trg = false;
+     bool match = false;
 
      for (uint j = 0; j < *nTrigObj; j++) {
+       if (match) continue;
        TLorentzVector tmp_sel;
        TLorentzVector tmp_trg;
        tmp_sel.SetPtEtaPhiM(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i]);
@@ -953,16 +955,17 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (tmp_sel.DeltaR(tmp_trg) > 0.1) continue;
        for (uint k = 0; k < 32; k++) {
          h_TrigObj->Fill(-1, TrigObj_id[i]);
-         if ((TrigObj_filterBits[j] >> k) & 1) h_TrigObj->Fill(k, TrigObj_id[j]);
+         if ((TrigObj_filterBits[j] & BIT(k)) == BIT(k)) h_TrigObj->Fill(k, TrigObj_id[j]);
        }
        if (TrigObj_id[j] != 11) continue;
-       if ((TrigObj_filterBits[j] & 0x1) == 0) continue; // 1 = CaloIdL_TrackIdL_IsoVL
-       if (((TrigObj_filterBits[j] & 0x2) == 0) && ((TrigObj_filterBits[j] & 0x4) == 0)) continue; // 2 = 1e (WPTight) || 4 = 1e (WPLoose)
-       ele_trg = true;
-       break;
+       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] &  2) ==  2) match = true; // 1 = CaloIdL_TrackIdL_IsoVL +  2 = 1e (WPTight)
+       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] &  4) ==  4) match = true; // 1 = CaloIdL_TrackIdL_IsoVL +  4 = 1e (WPLoose)
+       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = CaloIdL_TrackIdL_IsoVL + 16 = 2e
      }
 
-//     if (ele_trg == 0) continue;
+#if defined(AODv4)
+     if (!match) continue;
+#endif
 
      if (iele0 != -1) {
        if (Electron_charge[i] == Electron_charge[iele0]) {
@@ -1088,9 +1091,10 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Muon_tightId[i] == 0) continue;
 
-     bool muo_trg = false;
+     bool match = false;
 
      for (uint j = 0; j < *nTrigObj; j++) {
+       if (match) continue;
        TLorentzVector tmp_sel;
        TLorentzVector tmp_trg;
        tmp_sel.SetPtEtaPhiM(Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_mass[i]);
@@ -1098,15 +1102,18 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (tmp_sel.DeltaR(tmp_trg) > 0.1) continue;
        for (uint k = 0; k < 32; k++) {
          h_TrigObj->Fill(-1, TrigObj_id[i]);
-         if ((TrigObj_filterBits[j] >> k) & 1) h_TrigObj->Fill(k, TrigObj_id[j]);
+         if ((TrigObj_filterBits[j] & BIT(k)) == BIT(k)) h_TrigObj->Fill(k, TrigObj_id[j]);
        }
        if (TrigObj_id[j] != 13) continue;
-       if ((TrigObj_filterBits[j] & 0x1) == 0) continue; // 1 = TrkIsoVVL
-       muo_trg = true;
-       break;
+       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] &  8) ==  8) match = true; // 1 = TrkIsoVVL +  8 = 1mu
+       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = TrkIsoVVL + 16 = 2mu
+       if ((TrigObj_filterBits[j] & 2) == 2 && (TrigObj_filterBits[j] &  8) ==  8) match = true; // 2 = Iso +  8 = 1mu
+       if ((TrigObj_filterBits[j] & 2) == 2 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 2 = Iso + 16 = 2mu
      }
 
-//   if (muo_trg == 0) continue;
+#if defined(AODv4)
+     if (!match) continue;
+#endif
 
      if (imuo0 != -1) {
        if (Muon_charge[i] == Muon_charge[imuo0]) {
@@ -1238,6 +1245,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Photon_pixelSeed[i] != 0) continue;
 
      bool skip = false;
+
      TLorentzVector tmp_pho;
      tmp_pho.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
 
@@ -1384,6 +1392,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Photon_pixelSeed[i] != 0) continue;
 
      bool skip = false;
+
      TLorentzVector tmp_pho_qcd;
      tmp_pho_qcd.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
 
