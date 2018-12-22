@@ -71,14 +71,12 @@ public :
    TH1D* h_W_ele0_sieie = 0;
    TH1D* h_W_ele_met_pt = 0;
    TH1D* h_W_ele_met_phi = 0;
-   TH1D* h_W_ele_met_sign = 0;
 
    TH1D* h_W_muo0_pt = 0;
    TH1D* h_W_muo0_eta = 0;
    TH1D* h_W_muo0_phi = 0;
    TH1D* h_W_muo_met_pt = 0;
    TH1D* h_W_muo_met_phi = 0;
-   TH1D* h_W_muo_met_sign = 0;
 
    TH1D* h_W_ele0_mva = 0;
 
@@ -107,7 +105,6 @@ public :
    TH1D* h_Z_ele1_sieie = 0;
    TH1D* h_Z_ele_met_pt = 0;
    TH1D* h_Z_ele_met_phi = 0;
-   TH1D* h_Z_ele_met_sign = 0;
 
    TH1D* h_Z_muo0_pt = 0;
    TH1D* h_Z_muo0_eta = 0;
@@ -117,7 +114,6 @@ public :
    TH1D* h_Z_muo1_phi = 0;
    TH1D* h_Z_muo_met_pt = 0;
    TH1D* h_Z_muo_met_phi = 0;
-   TH1D* h_Z_muo_met_sign = 0;
 
    TH1D* h_Z_ele0_mva = 0;
    TH1D* h_Z_ele1_mva = 0;
@@ -373,7 +369,6 @@ public :
 
    TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
    TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
-   TTreeReaderValue<Float_t> MET_significance = {fReader, "MET_significance"};
 
    TTreeReaderValue<UInt_t> nTrigObj = {fReader, "nTrigObj"};
    TTreeReaderArray<Float_t> TrigObj_pt = {fReader, "TrigObj_pt"};

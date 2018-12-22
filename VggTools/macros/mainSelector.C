@@ -325,14 +325,12 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_W_ele0_sieie = new TH1D("h_W_ele0_sieie", "h_W_ele0_sieie", 50, 0., 0.05);
    h_W_ele_met_pt = new TH1D("h_W_ele_met_pt", "h_W_ele_met_pt", 100, 0., 200.);
    h_W_ele_met_phi = new TH1D("h_W_ele_met_phi", "h_W_ele_met_phi", 24, -TMath::Pi(), TMath::Pi());
-   h_W_ele_met_sign = new TH1D("h_W_ele_met_sign", "h_W_ele_met_sign", 100, 0., 100.);
 
    h_W_muo0_pt = new TH1D("h_W_muo0_pt", "h_W_muo0_pt", 100, 0., 200.);
    h_W_muo0_eta = new TH1D("h_W_muo0_eta", "h_W_muo0_eta", 50, -2.5, 2.5);
    h_W_muo0_phi = new TH1D("h_W_muo0_phi", "h_W_muo0_phi", 24, -TMath::Pi(), TMath::Pi());
    h_W_muo_met_pt = new TH1D("h_W_muo_met_pt", "h_W_muo_met_pt", 100, 0., 200.);
    h_W_muo_met_phi = new TH1D("h_W_muo_met_phi", "h_W_muo_met_phi", 24, -TMath::Pi(), TMath::Pi());
-   h_W_muo_met_sign = new TH1D("h_W_muo_met_sign", "h_W_muo_met_sign", 100, 0., 100.);
 
    h_W_ele0_mva = new TH1D("h_W_ele0_mva", "h_W_ele0_mva", 100, 0., 1.);
 
@@ -361,7 +359,6 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_ele1_sieie = new TH1D("h_Z_ele1_sieie", "h_Z_ele1_sieie", 50, 0., 0.05);
    h_Z_ele_met_pt = new TH1D("h_Z_ele_met_pt", "h_Z_ele_met_pt", 100, 0., 200.);
    h_Z_ele_met_phi = new TH1D("h_Z_ele_met_phi", "h_Z_ele_met_phi", 24, -TMath::Pi(), TMath::Pi());
-   h_Z_ele_met_sign = new TH1D("h_Z_ele_met_sign", "h_Z_ele_met_sign", 100, 0., 100.);
 
    h_Z_muo0_pt = new TH1D("h_Z_muo0_pt", "h_Z_muo0_pt", 100, 0., 200.);
    h_Z_muo0_eta = new TH1D("h_Z_muo0_eta", "h_Z_muo0_eta", 50, -2.5, 2.5);
@@ -371,7 +368,6 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo1_phi = new TH1D("h_Z_muo1_phi", "h_Z_muo1_phi", 24, -TMath::Pi(), TMath::Pi());
    h_Z_muo_met_pt = new TH1D("h_Z_muo_met_pt", "h_Z_muo_met_pt", 100, 0., 200.);
    h_Z_muo_met_phi = new TH1D("h_Z_muo_met_phi", "h_Z_muo_met_phi", 24, -TMath::Pi(), TMath::Pi());
-   h_Z_muo_met_sign = new TH1D("h_Z_muo_met_sign", "h_Z_muo_met_sign", 100, 0., 100.);
 
    h_Z_ele0_mva = new TH1D("h_Z_ele0_mva", "h_Z_ele0_mva", 100, 0., 1.);
    h_Z_ele1_mva = new TH1D("h_Z_ele1_mva", "h_Z_ele1_mva", 100, 0., 1.);
@@ -2045,7 +2041,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      h_W_ele->Fill(W_ele0_mt, weight_W_ele);
      h_W_ele_met_pt->Fill(*MET_pt, weight_W_ele);
      h_W_ele_met_phi->Fill(*MET_phi, weight_W_ele);
-     h_W_ele_met_sign->Fill(*MET_significance, weight_W_ele);
    }
 
    if (W_ele_sel) {
@@ -2065,7 +2060,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      QCD(h_W_ele)->Fill(W_ele0_mt_qcd, weight_W_ele_qcd);
      QCD(h_W_ele_met_pt)->Fill(*MET_pt, weight_W_ele_qcd);
      QCD(h_W_ele_met_phi)->Fill(*MET_phi, weight_W_ele_qcd);
-     QCD(h_W_ele_met_sign)->Fill(*MET_significance, weight_W_ele_qcd);
    }
 
    if (W_ele_sel_qcd) {
@@ -2085,7 +2079,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      h_W_muo->Fill(W_muo0_mt, weight_W_muo);
      h_W_muo_met_pt->Fill(*MET_pt, weight_W_muo);
      h_W_muo_met_phi->Fill(*MET_phi, weight_W_muo);
-     h_W_muo_met_sign->Fill(*MET_significance, weight_W_muo);
    }
 
    if (W_muo_sel) {
@@ -2102,7 +2095,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      QCD(h_W_muo)->Fill(W_muo0_mt_qcd, weight_W_muo_qcd);
      QCD(h_W_muo_met_pt)->Fill(*MET_pt, weight_W_muo_qcd);
      QCD(h_W_muo_met_phi)->Fill(*MET_phi, weight_W_muo_qcd);
-     QCD(h_W_muo_met_sign)->Fill(*MET_significance, weight_W_muo_qcd);
    }
 
    if (W_muo_sel_qcd) {
@@ -2139,7 +2131,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      h_Z_ele1_pf_iso_chg->Fill(Electron_pfRelIso03_chg[iele1], weight_Z_ele);
      h_Z_ele_met_pt->Fill(*MET_pt, weight_Z_ele);
      h_Z_ele_met_phi->Fill(*MET_phi, weight_Z_ele);
-     h_Z_ele_met_sign->Fill(*MET_significance, weight_Z_ele);
    }
 
    if (Z_ele_sel_qcd) {
@@ -2164,7 +2155,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      QCD(h_Z_ele1_pf_iso_chg)->Fill(Electron_pfRelIso03_chg[iele1_qcd], weight_Z_ele_qcd);
      QCD(h_Z_ele_met_pt)->Fill(*MET_pt, weight_Z_ele_qcd);
      QCD(h_Z_ele_met_phi)->Fill(*MET_phi, weight_Z_ele_qcd);
-     QCD(h_Z_ele_met_sign)->Fill(*MET_significance, weight_Z_ele_qcd);
    }
 
    if (Z_muo_sel) {
@@ -2183,7 +2173,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      h_Z_muo1_pf_iso_chg->Fill(Muon_pfRelIso03_chg[imuo1], weight_Z_muo);
      h_Z_muo_met_pt->Fill(*MET_pt, weight_Z_muo);
      h_Z_muo_met_phi->Fill(*MET_phi, weight_Z_muo);
-     h_Z_muo_met_sign->Fill(*MET_significance, weight_Z_muo);
    }
 
    if (Z_muo_sel_qcd) {
@@ -2202,7 +2191,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      QCD(h_Z_muo1_pf_iso_chg)->Fill(Muon_pfRelIso03_chg[imuo1_qcd], weight_Z_muo_qcd);
      QCD(h_Z_muo_met_pt)->Fill(*MET_pt, weight_Z_muo_qcd);
      QCD(h_Z_muo_met_phi)->Fill(*MET_phi, weight_Z_muo_qcd);
-     QCD(h_Z_muo_met_sign)->Fill(*MET_significance, weight_Z_muo_qcd);
    }
 
 // W photon(s) plots
