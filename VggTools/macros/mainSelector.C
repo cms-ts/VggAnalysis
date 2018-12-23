@@ -948,7 +948,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        TLorentzVector tmp_trg;
        tmp_sel.SetPtEtaPhiM(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i]);
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Electron_mass[i]);
-       if (tmp_sel.DeltaR(tmp_trg) > 0.1) continue;
+       if (tmp_sel.DeltaR(tmp_trg) > 0.3) continue;
 
        if ((TrigObj_filterBits[j] & 2) == 2) match = true; // 2 = 1e (WPTight)
        if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = CaloIdL_TrackIdL_IsoVL + 16 = 2e
@@ -1090,7 +1090,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        TLorentzVector tmp_trg;
        tmp_sel.SetPtEtaPhiM(Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_mass[i]);
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Muon_mass[i]);
-       if (tmp_sel.DeltaR(tmp_trg) > 0.1) continue;
+       if (tmp_sel.DeltaR(tmp_trg) > 0.3) continue;
 
        if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] &  8) ==  8) match = true; // 1 = TrkIsoVVL +  8 = 1mu
        if ((TrigObj_filterBits[j] & 2) == 2 && (TrigObj_filterBits[j] &  8) ==  8) match = true; // 2 = Iso +  8 = 1mu
