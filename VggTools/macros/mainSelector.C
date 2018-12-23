@@ -950,14 +950,11 @@ Bool_t mainSelector::Process(Long64_t entry)
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Electron_mass[i]);
        if (tmp_sel.DeltaR(tmp_trg) > 0.1) continue;
 
-       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] &  2) ==  2) match = true; // 1 = CaloIdL_TrackIdL_IsoVL +  2 = 1e (WPTight)
-       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] &  4) ==  4) match = true; // 1 = CaloIdL_TrackIdL_IsoVL +  4 = 1e (WPLoose)
+       if ((TrigObj_filterBits[j] & 2) == 2) match = true; // 2 = 1e (WPTight)
        if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = CaloIdL_TrackIdL_IsoVL + 16 = 2e
      }
 
-#if defined(AODv4)
      if (!match) continue;
-#endif
 
      if (iele0 != -1) {
        if (Electron_charge[i] == Electron_charge[iele0]) {
@@ -1101,7 +1098,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if ((TrigObj_filterBits[j] & 2) == 2 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 2 = Iso + 16 = 2mu
      }
 
-#if defined(AODv4)
+#if defined(AODv4) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (!match) continue;
 #endif
 
