@@ -381,8 +381,6 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo1_pf_iso_all = new TH1D("h_Z_muo1_pf_iso_all", "h_Z_muo1_pf_iso_all", 100, 0.0, 0.2);
    h_Z_muo1_pf_iso_chg = new TH1D("h_Z_muo1_pf_iso_chg", "h_Z_muo1_pf_iso_chg", 100, 0.0, 0.2);
 
-   h_TrigObj = new TH2D("h_TrigObj", "h_TrigObj", 34, -1.5, 32.5, 25, -0.5, 24.5);
-
    h_W_ele_njets = new TH1D("h_W_ele_njets", "h_W_ele_njets", 10, -0.5, 9.5);
    h_W_ele_jet0_pt = new TH1D("h_W_ele_jet0_pt", "h_W_ele_jet0_pt", 100, 0., 200.);
    h_W_ele_jet0_eta = new TH1D("h_W_ele_jet0_eta", "h_W_ele_jet0_eta", 50, -2.5, 2.5);
@@ -944,16 +942,14 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint j = 0; j < *nTrigObj; j++) {
        if (match) continue;
+       if (TrigObj_id[j] != 11) continue;
+
        TLorentzVector tmp_sel;
        TLorentzVector tmp_trg;
        tmp_sel.SetPtEtaPhiM(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i]);
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Electron_mass[i]);
        if (tmp_sel.DeltaR(tmp_trg) > 0.1) continue;
-       for (uint k = 0; k < 32; k++) {
-         h_TrigObj->Fill(-1, TrigObj_id[i]);
-         if ((TrigObj_filterBits[j] & BIT(k)) == BIT(k)) h_TrigObj->Fill(k, TrigObj_id[j]);
-       }
-       if (TrigObj_id[j] != 11) continue;
+
        if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] &  2) ==  2) match = true; // 1 = CaloIdL_TrackIdL_IsoVL +  2 = 1e (WPTight)
        if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] &  4) ==  4) match = true; // 1 = CaloIdL_TrackIdL_IsoVL +  4 = 1e (WPLoose)
        if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = CaloIdL_TrackIdL_IsoVL + 16 = 2e
@@ -1091,16 +1087,14 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint j = 0; j < *nTrigObj; j++) {
        if (match) continue;
+       if (TrigObj_id[j] != 13) continue;
+
        TLorentzVector tmp_sel;
        TLorentzVector tmp_trg;
        tmp_sel.SetPtEtaPhiM(Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_mass[i]);
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Muon_mass[i]);
        if (tmp_sel.DeltaR(tmp_trg) > 0.1) continue;
-       for (uint k = 0; k < 32; k++) {
-         h_TrigObj->Fill(-1, TrigObj_id[i]);
-         if ((TrigObj_filterBits[j] & BIT(k)) == BIT(k)) h_TrigObj->Fill(k, TrigObj_id[j]);
-       }
-       if (TrigObj_id[j] != 13) continue;
+
        if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] &  8) ==  8) match = true; // 1 = TrkIsoVVL +  8 = 1mu
        if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = TrkIsoVVL + 16 = 2mu
        if ((TrigObj_filterBits[j] & 2) == 2 && (TrigObj_filterBits[j] &  8) ==  8) match = true; // 2 = Iso +  8 = 1mu

@@ -127,8 +127,6 @@ public :
    TH1D* h_Z_muo1_pf_iso_all = 0;
    TH1D* h_Z_muo1_pf_iso_chg = 0;
 
-   TH2D* h_TrigObj = 0;
-
    TH1D* h_W_ele_njets = 0;
    TH1D* h_W_ele_jet0_pt = 0;
    TH1D* h_W_ele_jet0_eta = 0;
