@@ -1096,8 +1096,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (tmp_sel.DeltaR(tmp_trg) > 0.1) continue;
 
        if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] &  8) ==  8) match = true; // 1 = TrkIsoVVL +  8 = 1mu
-       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = TrkIsoVVL + 16 = 2mu
        if ((TrigObj_filterBits[j] & 2) == 2 && (TrigObj_filterBits[j] &  8) ==  8) match = true; // 2 = Iso +  8 = 1mu
+       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = TrkIsoVVL + 16 = 2mu
        if ((TrigObj_filterBits[j] & 2) == 2 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 2 = Iso + 16 = 2mu
      }
 
