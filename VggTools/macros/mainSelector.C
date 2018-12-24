@@ -1082,6 +1082,10 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      bool match = false;
 
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     match = true;
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+
      for (uint j = 0; j < *nTrigObj; j++) {
        if (match) continue;
        if (TrigObj_id[j] != 13) continue;
@@ -1092,15 +1096,11 @@ Bool_t mainSelector::Process(Long64_t entry)
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Muon_mass[i]);
        if (tmp_sel.DeltaR(tmp_trg) > 0.3) continue;
 
-       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] &  8) ==  8) match = true; // 1 = TrkIsoVVL +  8 = 1mu
-       if ((TrigObj_filterBits[j] & 2) == 2 && (TrigObj_filterBits[j] &  8) ==  8) match = true; // 2 = Iso +  8 = 1mu
+       if ((TrigObj_filterBits[j] & 2) == 2 && (TrigObj_filterBits[j] &  8) ==  8) match = true; // 2 = Iso + 8 = 1mu
        if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = TrkIsoVVL + 16 = 2mu
-       if ((TrigObj_filterBits[j] & 2) == 2 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 2 = Iso + 16 = 2mu
      }
 
-#if defined(AODv4) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (!match) continue;
-#endif
 
      if (imuo0 != -1) {
        if (Muon_charge[i] == Muon_charge[imuo0]) {
