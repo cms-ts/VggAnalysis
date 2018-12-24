@@ -1085,6 +1085,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      match = true;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if !defined(AODv4)
+     match = true;
+#endif // !defined(AODv4)
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 
      for (uint j = 0; j < *nTrigObj; j++) {
        if (match) continue;
