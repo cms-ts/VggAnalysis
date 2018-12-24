@@ -950,8 +950,12 @@ Bool_t mainSelector::Process(Long64_t entry)
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Electron_mass[i]);
        if (tmp_sel.DeltaR(tmp_trg) > 0.3) continue;
 
-       if ((TrigObj_filterBits[j] & 2) == 2) match = true; // 2 = 1e (WPTight)
-       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = CaloIdL_TrackIdL_IsoVL + 16 = 2e
+#if defined(AODv4) || defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       if ((TrigObj_filterBits[j] & 2) == 2) match = true; // 2 = WPTight
+#else
+       if ((TrigObj_filterBits[j] & 4) == 4) match = true; // 4 = WPTight
+#endif // defined(AODv4) || defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       if ((TrigObj_filterBits[j] & 1) == 1) match = true; // 1 = CaloIdL_TrackIdL_IsoVL
      }
 
      if (!match) continue;
@@ -1085,11 +1089,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      match = true;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#if !defined(AODv4)
-     match = true;
-#endif // !defined(AODv4)
-#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 
      for (uint j = 0; j < *nTrigObj; j++) {
        if (match) continue;
@@ -1101,8 +1100,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Muon_mass[i]);
        if (tmp_sel.DeltaR(tmp_trg) > 0.3) continue;
 
-       if ((TrigObj_filterBits[j] & 2) == 2 && (TrigObj_filterBits[j] &  8) ==  8) match = true; // 2 = Iso + 8 = 1mu
-       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = TrkIsoVVL + 16 = 2mu
+       if ((TrigObj_filterBits[j] & 2) == 2) match = true; // 2 = Iso
+       if ((TrigObj_filterBits[j] & 1) == 1) match = true; // 1 = TrkIsoVVL
      }
 
      if (!match) continue;
