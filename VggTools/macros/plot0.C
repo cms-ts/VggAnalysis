@@ -57,8 +57,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       if (lumiMap[it->first] != 0) {
         lumi = lumi + lumiMap[it->first];
       } else {
-        cout << "ERROR: luminosity for " << it->first << " is ZERO !!" << endl;
-        return;
+        cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
       }
       if (histo[index]) {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
@@ -78,6 +77,11 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       file->Close();
       delete file;
     }
+  }
+
+  if (lumi == 0) {
+    cout << "ERROR: total luminosity is ZERO !!" << endl;
+    return;
   }
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {

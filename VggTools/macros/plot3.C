@@ -38,10 +38,14 @@ void plot3(string plot="", string title="", string version="v00", string flags="
       if (lumiMap[it->first] != 0) {
         lumi = lumi + lumiMap[it->first];
       } else {
-        cout << "ERROR: luminosity for " << it->first << " is ZERO !!" << endl;
-        return;
+        cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
       }
     }
+  }
+
+  if (lumi == 0) {
+    cout << "ERROR: total luminosity is ZERO !!" << endl;
+    return;
   }
 
   if (flags.find("test") != string::npos) version = version + ".test";
