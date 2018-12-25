@@ -954,7 +954,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if ((TrigObj_filterBits[j] & 2) == 2) match = true; // 2 = 1e (WPTight)
        if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = CaloIdL_TrackIdL_IsoVL + 16 = 2e
 #else
-       if ((TrigObj_filterBits[j] & 4) == 4) match = true; // 4 = WPTight
+       if ((TrigObj_filterBits[j] & 2) == 2) match = true; // 2 = WPTight
        if ((TrigObj_filterBits[j] & 1) == 1) match = true; // 1 = CaloIdL_TrackIdL_IsoVL
 #endif // defined(AODv4) || defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
