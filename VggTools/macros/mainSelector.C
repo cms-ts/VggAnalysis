@@ -952,7 +952,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 #if defined(AODv4) || defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        if ((TrigObj_filterBits[j] & 2) == 2) match = true; // 2 = 1e (WPTight)
-       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = CaloIdL_TrackIdL_IsoVL + 16 = 2e
+       if ((TrigObj_filterBits[j] & 1) == 1 || (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = CaloIdL_TrackIdL_IsoVL || 16 = 2e
 #else
        if ((TrigObj_filterBits[j] & 2) == 2) match = true; // 2 = WPTight
        if ((TrigObj_filterBits[j] & 1) == 1) match = true; // 1 = CaloIdL_TrackIdL_IsoVL
@@ -1102,8 +1102,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (tmp_sel.DeltaR(tmp_trg) > 0.3) continue;
 
 #if defined(AODv4) || defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if ((TrigObj_filterBits[j] & 2) == 2 && (TrigObj_filterBits[j] & 8) == 8) match = true; // 2 = Iso + 8 = 1mu
-       if ((TrigObj_filterBits[j] & 1) == 1 && (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = TrkIsoVVL + 16 = 2mu
+       if ((TrigObj_filterBits[j] & 2) == 2 || (TrigObj_filterBits[j] & 8) == 8) match = true; // 2 = Iso || 8 = 1mu
+       if ((TrigObj_filterBits[j] & 1) == 1 || (TrigObj_filterBits[j] & 16) == 16) match = true; // 1 = TrkIsoVVL || 16 = 2mu
 #else
        if ((TrigObj_filterBits[j] & 2) == 2) match = true; // 2 = Iso
        if ((TrigObj_filterBits[j] & 1) == 1) match = true; // 1 = TrkIsoVVL
