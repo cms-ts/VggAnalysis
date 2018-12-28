@@ -33,4 +33,9 @@ root-6.12 -l -q -b compile.C\(\"plot0.C\",\"$OPTION\"\)
 root-6.12 -l -q -b compile.C\(\"plot1.C\",\"$OPTION\"\)
 root-6.12 -l -q -b compile.C\(\"plot2.C\",\"$OPTION\"\)
 
+#g++ -O2 -pthread -std=c++1z -m64 -I$ROOTSYS/include -L$ROOTSYS/lib \
+#-lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad \
+#-lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore \
+#-lThread -lMultiProc -pthread -lm -ldl -rdynamic -lASImage plot0.C -o plot0.exe
+
 exit
