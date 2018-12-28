@@ -1,4 +1,6 @@
 
+using namespace std;
+
 #include "TROOT.h"
 #include "TSystem.h"
 #include "TObject.h"
