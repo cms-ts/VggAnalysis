@@ -12,10 +12,25 @@ cd $WORKDIR
 
 export ROOT_HIST=0
 
-if [ -z "$1" ]; then
-  root-6.12 -l -q -b compile.C\(\"kcO\"\)
-else
-  root-6.12 -l -q -b compile.C\(\"kcOf\"\)
+OPTION="kcO"
+
+if [ ! -z "$1" ]; then
+  OPTION="kcOf"
 fi
+
+root-6.12 -l -q -b compile.C\(\"mainSelectorDT16.C\",\"$OPTION\"\)
+root-6.12 -l -q -b compile.C\(\"mainSelectorDT16H.C\",\"$OPTION\"\)
+root-6.12 -l -q -b compile.C\(\"mainSelectorMC16.C\",\"$OPTION\"\)
+
+root-6.12 -l -q -b compile.C\(\"mainSelectorDT17.C\",\"$OPTION\"\)
+root-6.12 -l -q -b compile.C\(\"mainSelectorDT17B.C\",\"$OPTION\"\)
+root-6.12 -l -q -b compile.C\(\"mainSelectorMC17.C\",\"$OPTION\"\)
+
+root-6.12 -l -q -b compile.C\(\"mainSelectorDT18.C\",\"$OPTION\"\)
+root-6.12 -l -q -b compile.C\(\"mainSelectorMC18.C\",\"$OPTION\"\)
+
+root-6.12 -l -q -b compile.C\(\"plot0.C\",\"$OPTION\"\)
+root-6.12 -l -q -b compile.C\(\"plot1.C\",\"$OPTION\"\)
+root-6.12 -l -q -b compile.C\(\"plot2.C\",\"$OPTION\"\)
 
 exit
