@@ -169,6 +169,8 @@ RunIIFall18NanoAOD_WWZ_TuneCP5_13TeV-amcatnlo-pythia8		0.1651
 RunIIFall18NanoAOD_WZZ_TuneCP5_13TeV-amcatnlo-pythia8		0.05565
 RunIIFall18NanoAOD_ZZZ_TuneCP5_13TeV-amcatnlo-pythia8		0.01398
 #
+RunIIAutumn18NanoAOD_WWZ_TuneCP5_13TeV-amcatnlo-pythia8		0.1651
+#
 RunIIFall18NanoAOD_WWG_TuneCP5_13TeV-amcatnlo-pythia8	0.2147
 #
 # ZTauTau exclusive samples from Z inclusive samples

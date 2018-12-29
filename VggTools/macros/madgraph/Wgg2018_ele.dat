@@ -23,6 +23,6 @@ RunIIAutumn18NanoAOD_WW_TuneCP5_13TeV-pythia8	1050
 RunIIAutumn18NanoAOD_WZ_TuneCP5_13TeV-pythia8	1050
 RunIIAutumn18NanoAOD_ZZ_TuneCP5_13TeV-pythia8	1050
 RunIIFall18NanoAOD_WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8	1055
-RunIIFall18NanoAOD_WWZ_TuneCP5_13TeV-amcatnlo-pythia8		1055
+RunIIAutumn18NanoAOD_WWZ_TuneCP5_13TeV-amcatnlo-pythia8		1055
 RunIIFall18NanoAOD_WZZ_TuneCP5_13TeV-amcatnlo-pythia8		1055
 RunIIFall18NanoAOD_ZZZ_TuneCP5_13TeV-amcatnlo-pythia8		1055
