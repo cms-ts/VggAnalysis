@@ -1,4 +1,4 @@
-Run2016B_DoubleEG_14Dec2018              0.000
+Run2016B_DoubleEG_14Dec2018              5.750
 Run2016B_DoubleEG_22Aug2018              5.750
 Run2016B_DoubleMuon_14Dec2018            5.746
 Run2016B_DoubleMuon_22Aug2018            5.746
@@ -38,6 +38,7 @@ Run2016E_SingleElectron_14Dec2018        2.015
 Run2016E_SingleElectron_22Aug2018        4.025
 Run2016E_SingleMuon_14Dec2018            4.025
 Run2016E_SingleMuon_22Aug2018            4.025
+Run2016F_DoubleEG_14Dec2018              3.105
 Run2016F_DoubleEG_22Aug2018              3.105
 Run2016F_DoubleMuon_14Dec2018            3.105
 Run2016F_DoubleMuon_22Aug2018            3.105
@@ -67,7 +68,7 @@ Run2016H_SingleElectron_14Dec2018        8.651
 Run2016H_SingleElectron_22Aug2018        8.651
 Run2016H_SingleMuon_14Dec2018            8.651
 Run2016H_SingleMuon_22Aug2018            8.651
-Run2016_DoubleEG_14Dec2018              23.568
+Run2016_DoubleEG_14Dec2018              32.422
 Run2016_DoubleEG_22Aug2018              35.922
 Run2016_DoubleMuon_14Dec2018            35.917
 Run2016_DoubleMuon_22Aug2018            35.917
