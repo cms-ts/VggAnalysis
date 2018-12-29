@@ -34,24 +34,15 @@ root-6.12 -l -q -b compile.C\(\"plot1.C\",\"$OPTION\"\)
 root-6.12 -l -q -b compile.C\(\"plot2.C\",\"$OPTION\"\)
 root-6.12 -l -q -b compile.C\(\"plot3.C\",\"$OPTION\"\)
 
-#g++ -O2 -pthread -std=c++1z -m64 -I$ROOTSYS/include -L$ROOTSYS/lib \
-#-lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad \
-#-lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore \
-#-lThread -lMultiProc -pthread -lm -ldl -rdynamic -lASImage plot0.C -o plot0.exe
+exit
 
-#g++ -O2 -pthread -std=c++1z -m64 -I$ROOTSYS/include -L$ROOTSYS/lib \
-#-lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad \
-#-lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore \
-#-lThread -lMultiProc -pthread -lm -ldl -rdynamic -lASImage plot1.C -o plot1.exe
+FILES="plot0 plot1 plot2 plot3"
 
-#g++ -O2 -pthread -std=c++1z -m64 -I$ROOTSYS/include -L$ROOTSYS/lib \
-#-lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad \
-#-lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore \
-#-lThread -lMultiProc -pthread -lm -ldl -rdynamic -lASImage plot2.C -o plot2.exe
-
-#g++ -O2 -pthread -std=c++1z -m64 -I$ROOTSYS/include -L$ROOTSYS/lib \
-#-lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad \
-#-lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore \
-#-lThread -lMultiProc -pthread -lm -ldl -rdynamic -lASImage plot3.C -o plot3.exe
+for F in $FILES; do
+  g++ -O2 -pthread -std=c++1z -m64 -I$ROOTSYS/include -L$ROOTSYS/lib \
+      -lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad \
+      -lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore \
+      -lThread -lMultiProc -pthread -lm -ldl -rdynamic -lASImage $F.C -o $F.exe
+done
 
 exit
