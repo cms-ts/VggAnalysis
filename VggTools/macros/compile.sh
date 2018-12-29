@@ -36,13 +36,14 @@ root-6.12 -l -q -b compile.C\(\"plot3.C\",\"$OPTION\"\)
 
 exit
 
-FILES="plot0 plot1 plot2 plot3"
+FILES="plot0.C plot1.C plot2.C plot3.C"
 
 for F in $FILES; do
+  echo "Compiling $F ..."
   g++ -O2 -pthread -std=c++1z -m64 -I$ROOTSYS/include -L$ROOTSYS/lib \
       -lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad \
       -lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore \
-      -lThread -lMultiProc -pthread -lm -ldl -rdynamic -lASImage $F.C -o $F.exe
+      -lThread -lMultiProc -pthread -lm -ldl -rdynamic -lASImage $F -o `basename $F .C`.exe
 done
 
 exit
