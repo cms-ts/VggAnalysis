@@ -107,7 +107,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 
 #if defined(mainSelectorMC16_cxx)
 #if defined(AODv4)
-   file_ele_sf_eff = new TFile("root/sf_ele_2016_ElectronMVA80noiso_Fall17V2.root");
+   file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVA80noiso_Fall17V2.root");
 #else
    file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVAwp80.root");
 #endif
