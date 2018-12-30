@@ -1660,19 +1660,13 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (iele0_qcd != -1 && iele1_qcd == -1 && imuo0_qcd == -1 && iele0 == -1 && imuo0 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-     if (*HLT_Ele27_WPTight_Gsf || *HLT_Photon175 || *HLT_Ele115_CaloIdVT_GsfTrkIdT) {
+     if (*HLT_Ele27_WPTight_Gsf || *HLT_Photon175) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17_cxx) && !defined(mainSelectorDT17B_h)
-     if (*HLT_Ele35_WPTight_Gsf || *HLT_Photon200 || *HLT_Ele115_CaloIdVT_GsfTrkIdT) {
-#endif // defined(mainSelectorDT17_cxx) && !defined(mainSelectorDT17B_h)
-#if defined(mainSelectorDT17B_h)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      if (*HLT_Ele35_WPTight_Gsf || *HLT_Photon200) {
-#endif // defined(mainSelectorDT17B_h)
-#if defined(mainSelectorMC17_cxx)
-     if (*HLT_Ele35_WPTight_Gsf || *HLT_Photon200 || *HLT_Ele115_CaloIdVT_GsfTrkIdT) {
-#endif // defined(mainSelectorMC17_cxx)
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-     if (*HLT_Ele32_WPTight_Gsf || *HLT_Photon200 || *HLT_Ele115_CaloIdVT_GsfTrkIdT) {
+     if (*HLT_Ele32_WPTight_Gsf || *HLT_Photon200) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_ele0_mt_qcd = TMath::Sqrt(2. * ele0_qcd.Pt() * (*MET_pt) * (1. - TMath::Cos(ele0_qcd.Phi() - (*MET_phi))));
        if (*MET_pt > 0 && W_ele0_mt_qcd > 0 && ele0_qcd.Pt() > 40) {
@@ -1720,13 +1714,13 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (imuo0_qcd != -1 && imuo1_qcd == -1 && iele0_qcd == -1 && iele0 == -1 && imuo0 == -1) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-     if (*HLT_IsoMu24 || *HLT_IsoTkMu24 || *HLT_Mu50) {
+     if (*HLT_IsoMu24 || *HLT_IsoTkMu24) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-     if (*HLT_IsoMu24 || *HLT_IsoMu27 || *HLT_Mu50) {
+     if (*HLT_IsoMu24 || *HLT_IsoMu27) {
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-     if (*HLT_IsoMu24 || *HLT_Mu50) {
+     if (*HLT_IsoMu24) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        W_muo0_mt_qcd = TMath::Sqrt(2. * muo0_qcd.Pt() * (*MET_pt) * (1. - TMath::Cos(muo0_qcd.Phi() - (*MET_phi))));
        if (*MET_pt > 0 && W_muo0_mt_qcd > 0 && muo0_qcd.Pt() > 30) {
