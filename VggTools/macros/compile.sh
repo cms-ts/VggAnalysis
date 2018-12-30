@@ -18,32 +18,30 @@ if [ ! -z "$1" ]; then
   OPTION="kcOf"
 fi
 
-root-6.12 -l -q -b compile.C\(\"mainSelectorDT16.C\",\"$OPTION\"\)
-root-6.12 -l -q -b compile.C\(\"mainSelectorDT16H.C\",\"$OPTION\"\)
-root-6.12 -l -q -b compile.C\(\"mainSelectorMC16.C\",\"$OPTION\"\)
+make_lib() {
+  FILES=$1
+  for F in $FILES; do
+    root-6.12 -l -b -q -e 'cout << "Compiling '$F' ..." << endl ; gSystem->Exit(gSystem->CompileMacro("'$F'","'$OPTION'"))'
+  done
+}
 
-root-6.12 -l -q -b compile.C\(\"mainSelectorDT17.C\",\"$OPTION\"\)
-root-6.12 -l -q -b compile.C\(\"mainSelectorDT17B.C\",\"$OPTION\"\)
-root-6.12 -l -q -b compile.C\(\"mainSelectorMC17.C\",\"$OPTION\"\)
+make_lib "mainSelectorDT16.C mainSelectorDT16H.C mainSelectorMC16.C"
+make_lib "mainSelectorDT17.C mainSelectorDT17B.C mainSelectorMC17.C"
+make_lib "mainSelectorDT18.C mainSelectorMC18.C"
+make_lib "plot0.C plot1.C plot2.C plot3.C"
 
-root-6.12 -l -q -b compile.C\(\"mainSelectorDT18.C\",\"$OPTION\"\)
-root-6.12 -l -q -b compile.C\(\"mainSelectorMC18.C\",\"$OPTION\"\)
+make_exe() {
+  FILES=$1
+  for F in $FILES; do
+    echo ""
+    echo "Compiling $F ..."
+    g++ -O2 -pthread -std=c++1z -m64 -I$ROOTSYS/include -L$ROOTSYS/lib \
+        -lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad \
+        -lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore \
+        -lThread -lMultiProc -pthread -lm -ldl -rdynamic -lASImage $F -o `basename $F .C`.exe
+  done
+}
 
-root-6.12 -l -q -b compile.C\(\"plot0.C\",\"$OPTION\"\)
-root-6.12 -l -q -b compile.C\(\"plot1.C\",\"$OPTION\"\)
-root-6.12 -l -q -b compile.C\(\"plot2.C\",\"$OPTION\"\)
-root-6.12 -l -q -b compile.C\(\"plot3.C\",\"$OPTION\"\)
-
-exit
-
-FILES="plot0.C plot1.C plot2.C plot3.C"
-
-for F in $FILES; do
-  echo "Compiling $F ..."
-  g++ -O2 -pthread -std=c++1z -m64 -I$ROOTSYS/include -L$ROOTSYS/lib \
-      -lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad \
-      -lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore \
-      -lThread -lMultiProc -pthread -lm -ldl -rdynamic -lASImage $F -o `basename $F .C`.exe
-done
+# make_exe "plot0.C plot1.C plot2.C plot3.C"
 
 exit
