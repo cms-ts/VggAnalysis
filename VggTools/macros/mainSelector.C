@@ -125,8 +125,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_ele_sf_eff;
    delete file_ele_sf_reco;
 
-   file_muo_sf_id = new TFile("root/sf_muo_2016_RunBCDEF_ID.root");
-   file_muo_sf_iso = new TFile("root/sf_muo_2016_RunBCDEF_ISO.root");
+   file_muo_sf_id = new TFile("root/sf_muo_2016_RunBCDEF_SF_ID.root");
+   file_muo_sf_iso = new TFile("root/sf_muo_2016_RunBCDEF_SF_ISO.root");
 
    TH2D* sf_muo_id_RunBCDEF = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
    TH2D* sf_muo_iso_RunBCDEF = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
@@ -140,8 +140,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_muo_sf_id;
    delete file_muo_sf_iso;
 
-   file_muo_sf_id = new TFile("root/sf_muo_2016_RunGH_ID.root");
-   file_muo_sf_iso = new TFile("root/sf_muo_2016_RunGH_ISO.root");
+   file_muo_sf_id = new TFile("root/sf_muo_2016_RunGH_SF_ID.root");
+   file_muo_sf_iso = new TFile("root/sf_muo_2016_RunGH_SF_ISO.root");
 
    TH2D* sf_muo_id_RunGH = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
    TH2D* sf_muo_iso_RunGH = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
@@ -195,8 +195,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_ele_sf_eff;
    delete file_ele_sf_reco;
 
-   file_muo_sf_id = new TFile("root/sf_muo_2017_RunBCDEF_ID.root");
-   file_muo_sf_iso = new TFile("root/sf_muo_2017_RunBCDEF_ISO.root");
+   file_muo_sf_id = new TFile("root/sf_muo_2017_RunBCDEF_SF_ID.root");
+   file_muo_sf_iso = new TFile("root/sf_muo_2017_RunBCDEF_SF_ISO.root");
 
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
    sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
@@ -241,8 +241,9 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_ele_sf_reco;
 
 // FIXME
-   file_muo_sf_id = new TFile("root/sf_muo_2017_RunBCDEF_ID.root");
-   file_muo_sf_iso = new TFile("root/sf_muo_2017_RunBCDEF_ISO.root");
+   file_muo_sf_id = new TFile("root/sf_muo_2017_RunBCDEF_SF_ID.root");
+   file_muo_sf_iso = new TFile("root/sf_muo_2017_RunBCDEF_SF_ISO.root");
+// FIXME
 
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
    sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
@@ -255,7 +256,6 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    delete file_muo_sf_id;
    delete file_muo_sf_iso;
-// FIXME
 
    file_pho_sf_eff = new TFile("root/sf_pho_2018_PhotonsMVAwp90_Fall17V2.root");
 
