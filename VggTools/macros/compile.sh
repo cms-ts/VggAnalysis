@@ -21,7 +21,7 @@ fi
 make_lib() {
   FILES=$1
   for F in $FILES; do
-    root-6.12 -l -b -q -e 'cout << "Compiling '$F' ..." << endl ; gSystem->Exit(gSystem->CompileMacro("'$F'","'$OPTION'"))'
+    root-6.12 -l -b -q -e 'cout << "Checking '$F' ..." << endl ; gSystem->Exit(gSystem->CompileMacro("'$F'","'$OPTION'"))'
   done
 }
 
@@ -29,6 +29,8 @@ make_lib "mainSelectorDT16.C mainSelectorDT16H.C mainSelectorMC16.C"
 make_lib "mainSelectorDT17.C mainSelectorDT17B.C mainSelectorMC17.C"
 make_lib "mainSelectorDT18.C mainSelectorMC18.C"
 make_lib "plot0.C plot1.C plot2.C plot3.C"
+
+exit
 
 make_exe() {
   FILES=$1
@@ -42,6 +44,6 @@ make_exe() {
   done
 }
 
-# make_exe "plot0.C plot1.C plot2.C plot3.C"
+make_exe "plot0.C plot1.C plot2.C plot3.C"
 
 exit
