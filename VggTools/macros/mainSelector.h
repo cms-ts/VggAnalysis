@@ -448,7 +448,9 @@ public :
 
    TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
    TTreeReaderValue<Bool_t> HLT_Photon200 = {fReader, "HLT_Photon200"};
+#if !defined(mainSelectorDT17B_h)
    TTreeReaderValue<Bool_t> HLT_Ele115_CaloIdVT_GsfTrkIdT = {fReader, "HLT_Ele115_CaloIdVT_GsfTrkIdT"};
+#endif // !defined(mainSelectorDT17B_h)
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"};
    TTreeReaderValue<Bool_t> HLT_DoublePhoton70 = {fReader, "HLT_DoublePhoton70"};
 

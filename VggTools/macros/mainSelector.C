@@ -1662,9 +1662,15 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_Ele27_WPTight_Gsf || *HLT_Photon175 || *HLT_Ele115_CaloIdVT_GsfTrkIdT) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT17_cxx) && !defined(mainSelectorDT17B_h)
      if (*HLT_Ele35_WPTight_Gsf || *HLT_Photon200 || *HLT_Ele115_CaloIdVT_GsfTrkIdT) {
-#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#endif // defined(mainSelectorDT17_cxx) && !defined(mainSelectorDT17B_h)
+#if defined(mainSelectorDT17B_h)
+     if (*HLT_Ele35_WPTight_Gsf || *HLT_Photon200) {
+#endif // defined(mainSelectorDT17B_h)
+#if defined(mainSelectorMC17_cxx)
+     if (*HLT_Ele35_WPTight_Gsf || *HLT_Photon200 || *HLT_Ele115_CaloIdVT_GsfTrkIdT) {
+#endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_Ele32_WPTight_Gsf || *HLT_Photon200 || *HLT_Ele115_CaloIdVT_GsfTrkIdT) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
