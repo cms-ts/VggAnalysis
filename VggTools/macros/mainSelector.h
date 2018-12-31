@@ -361,7 +361,6 @@ public :
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
    TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
-   TTreeReaderArray<Bool_t> Muon_softId = {fReader, "Muon_softId"};
 
    TTreeReaderValue<UInt_t> nPhoton = {fReader, "nPhoton"};
    TTreeReaderArray<Float_t> Photon_pt = {fReader, "Photon_pt"};
