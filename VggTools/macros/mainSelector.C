@@ -107,7 +107,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 
 #if defined(mainSelectorMC16_cxx)
 #if defined(AODv4)
-   file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVA80noiso_Fall17V2.root");
+   file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVA80_Fall17V2.root");
 #else
    file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVAwp80.root");
 #endif
@@ -177,9 +177,9 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
 #if defined(AODv4)
-   file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronMVA80noiso_Fall17V2.root");
+   file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronMVA80_Fall17V2.root");
 #else
-   file_ele_sf_eff = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp80noiso.root");
+   file_ele_sf_eff = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp80iso.root");
 #endif
    file_ele_sf_reco = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
 
@@ -225,7 +225,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_pho_sf_eff;
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
-   file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronMVA80noiso_Fall17V2.root");
+   file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronMVA80_Fall17V2.root");
    file_ele_sf_reco = new TFile("root/sf_ele_2018_EGM2D_passingRECO.root");
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
