@@ -316,7 +316,6 @@ public :
    JME::JetResolutionScaleFactor* jet_resolution_sf;
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
-   TTreeReaderValue<UInt_t> run = {fReader, "run"};
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
