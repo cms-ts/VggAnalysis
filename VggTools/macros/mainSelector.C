@@ -1197,6 +1197,14 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
+#if defined(AODv4)
+     if (fabs(Photon_eta[i]) < 1.442) {
+       if (Photon_mvaID[i] < -0.02) continue;
+     }
+     if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+       if (Photon_mvaID[i] < -0.26) continue;
+     }
+#else
      if (fabs(Photon_eta[i]) < 1.442) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
        if (Photon_mvaID[i] < 0.20) continue;
@@ -1204,9 +1212,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
        if (Photon_mvaID[i] < 0.27) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if (Photon_mvaID[i] < 0.27) continue;
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
      if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -1215,10 +1220,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
        if (Photon_mvaID[i] < 0.14) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if (Photon_mvaID[i] < 0.14) continue;
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
+#endif // defined(AODv4)
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
@@ -1344,6 +1347,14 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
+#if defined(AODv4)
+     if (fabs(Photon_eta[i]) < 1.442) {
+       if (Photon_mvaID[i] < -0.02) continue;
+     }
+     if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+       if (Photon_mvaID[i] < -0.26) continue;
+     }
+#else
      if (fabs(Photon_eta[i]) < 1.442) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
        if (Photon_mvaID[i] < 0.20) continue;
@@ -1351,9 +1362,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
        if (Photon_mvaID[i] < 0.27) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if (Photon_mvaID[i] < 0.27) continue;
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
      if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -1362,10 +1370,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
        if (Photon_mvaID[i] < 0.14) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if (Photon_mvaID[i] < 0.14) continue;
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
+#endif // defined(AODv4)
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
