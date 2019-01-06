@@ -924,21 +924,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Electron_mvaID_WP80[i] == 0) continue;
 
-#if defined(AODv4)
      if (fabs(Electron_eta[i]) < 1.442) {
-       if (Electron_pfRelIso03_all[i] > 0.0287 + 0.506/Electron_pt[i]) continue;
+       if (Electron_pfRelIso03_all[i] > 0.05) continue;
      }
      if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
-       if (Electron_pfRelIso03_all[i] > 0.0445 + 0.963/Electron_pt[i]) continue;
+       if (Electron_pfRelIso03_all[i] > 0.10) continue;
      }
-#else
-     if (fabs(Electron_eta[i]) < 1.442) {
-       if (Electron_pfRelIso03_all[i] > 0.0361) continue;
-     }
-     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
-       if (Electron_pfRelIso03_all[i] > 0.094) continue;
-     }
-#endif // defined(AODv4)
 
      bool match = false;
 
@@ -1007,21 +998,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Electron_mvaID_WP80[i] == 0) continue;
 
-#if defined(AODv4)
      if (fabs(Electron_eta[i]) < 1.442) {
-       if (Electron_pfRelIso03_all[i] < 0.0287 + 0.506/Electron_pt[i]) continue;
+       if (Electron_pfRelIso03_all[i] < 0.05) continue;
      }
      if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
-       if (Electron_pfRelIso03_all[i] < 0.0445 + 0.963/Electron_pt[i]) continue;
+       if (Electron_pfRelIso03_all[i] < 0.10) continue;
      }
-#else
-     if (fabs(Electron_eta[i]) < 1.442) {
-       if (Electron_pfRelIso03_all[i] < 0.0361) continue;
-     }
-     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
-       if (Electron_pfRelIso03_all[i] < 0.094) continue;
-     }
-#endif // defined(AODv4)
 
      if (iele0_qcd != -1) {
        if (Electron_charge[i] == Electron_charge[iele0_qcd]) {
