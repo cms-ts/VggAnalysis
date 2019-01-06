@@ -336,10 +336,10 @@ public :
    TTreeReaderArray<Float_t> Electron_pfRelIso03_chg = {fReader, "Electron_pfRelIso03_chg"};
 
 #if defined(AODv4)
-   TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP80 = {fReader, "Electron_mvaFall17V2Iso_WP80"};
-   TTreeReaderArray<Float_t> Electron_mvaFall17V2Iso = {fReader, "Electron_mvaFall17V2Iso"};
-#define Electron_mvaID_WP80 Electron_mvaFall17V2Iso_WP80
-#define Electron_mvaID Electron_mvaFall17V2Iso
+   TTreeReaderArray<Bool_t> Electron_mvaFall17V2noIso_WP80 = {fReader, "Electron_mvaFall17V2noIso_WP80"};
+   TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso = {fReader, "Electron_mvaFall17V2noIso"};
+#define Electron_mvaID_WP80 Electron_mvaFall17V2noIso_WP80
+#define Electron_mvaID Electron_mvaFall17V2noIso
 #endif // defined(AODv4)
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
@@ -418,10 +418,10 @@ public :
 #if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
 #if !defined(AODv4)
-   TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP80 = {fReader, "Electron_mvaFall17Iso_WP80"};
-   TTreeReaderArray<Float_t> Electron_mvaFall17Iso = {fReader, "Electron_mvaFall17Iso"};
-#define Electron_mvaID_WP80 Electron_mvaFall17Iso_WP80
-#define Electron_mvaID Electron_mvaFall17Iso
+   TTreeReaderArray<Bool_t> Electron_mvaFall17noIso_WP80 = {fReader, "Electron_mvaFall17noIso_WP80"};
+   TTreeReaderArray<Float_t> Electron_mvaFall17noIso = {fReader, "Electron_mvaFall17noIso"};
+#define Electron_mvaID_WP80 Electron_mvaFall17noIso_WP80
+#define Electron_mvaID Electron_mvaFall17noIso
 #endif
 
    TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
