@@ -337,10 +337,8 @@ public :
 
 #if defined(AODv4)
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP80 = {fReader, "Electron_mvaFall17V2Iso_WP80"};
-   TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
    TTreeReaderArray<Float_t> Electron_mvaFall17V2Iso = {fReader, "Electron_mvaFall17V2Iso"};
 #define Electron_mvaID_WP80 Electron_mvaFall17V2Iso_WP80
-#define Electron_mvaID_WP90 Electron_mvaFall17V2Iso_WP90
 #define Electron_mvaID Electron_mvaFall17V2Iso
 #endif // defined(AODv4)
 
@@ -357,7 +355,6 @@ public :
    TTreeReaderArray<Float_t> Muon_pfRelIso04_all = {fReader, "Muon_pfRelIso04_all"};
 
    TTreeReaderArray<Bool_t> Muon_tightId = {fReader, "Muon_tightId"};
-   TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
 
    TTreeReaderValue<UInt_t> nPhoton = {fReader, "nPhoton"};
    TTreeReaderArray<Float_t> Photon_pt = {fReader, "Photon_pt"};
@@ -397,10 +394,8 @@ public :
 
 #if !defined(AODv4)
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
-   TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP90 = {fReader, "Electron_mvaSpring16GP_WP90"};
    TTreeReaderArray<Float_t> Electron_mvaSpring16GP = {fReader, "Electron_mvaSpring16GP"};
 #define Electron_mvaID_WP80 Electron_mvaSpring16GP_WP80
-#define Electron_mvaID_WP90 Electron_mvaSpring16GP_WP90
 #define Electron_mvaID Electron_mvaSpring16GP
 #endif
 
@@ -424,10 +419,8 @@ public :
 
 #if !defined(AODv4)
    TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP80 = {fReader, "Electron_mvaFall17Iso_WP80"};
-   TTreeReaderArray<Bool_t> Electron_mvaFall17Iso_WP90 = {fReader, "Electron_mvaFall17Iso_WP90"};
    TTreeReaderArray<Float_t> Electron_mvaFall17Iso = {fReader, "Electron_mvaFall17Iso"};
 #define Electron_mvaID_WP80 Electron_mvaFall17Iso_WP80
-#define Electron_mvaID_WP90 Electron_mvaFall17Iso_WP90
 #define Electron_mvaID Electron_mvaFall17Iso
 #endif
 
