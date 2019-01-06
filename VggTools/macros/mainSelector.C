@@ -912,29 +912,27 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Electron_eta[i]) < 1.442) {
        if (fabs(Electron_dxy[i]) > 0.05) continue;
        if (fabs(Electron_dz[i]) > 0.10) continue;
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-       if (Electron_pfRelIso03_all[i] > 0.0361) continue;
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-       if (Electron_pfRelIso03_all[i] > 0.0361) continue;
-#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if (Electron_pfRelIso03_all[i] > 0.0287 + 0.506/Electron_pt[i]) continue;
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
      if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
        if (fabs(Electron_dxy[i]) > 0.10) continue;
        if (fabs(Electron_dz[i]) > 0.20) continue;
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-       if (Electron_pfRelIso03_all[i] > 0.094) continue;
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-       if (Electron_pfRelIso03_all[i] > 0.094) continue;
-#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if (Electron_pfRelIso03_all[i] > 0.0445 + 0.963/Electron_pt[i]) continue;
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
+
+#if defined(AODv4)
+     if (fabs(Electron_eta[i]) < 1.442) {
+       if (Electron_pfRelIso03_all[i] > 0.0287 + 0.506/Electron_pt[i]) continue;
+     }
+     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
+       if (Electron_pfRelIso03_all[i] > 0.0445 + 0.963/Electron_pt[i]) continue;
+     }
+#else
+     if (fabs(Electron_eta[i]) < 1.442) {
+       if (Electron_pfRelIso03_all[i] > 0.0361) continue;
+     }
+     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
+       if (Electron_pfRelIso03_all[i] > 0.094) continue;
+     }
+#endif // defined(AODv4)
 
      if (Electron_mvaID_WP80[i] == 0) continue;
 
@@ -997,29 +995,27 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Electron_eta[i]) < 1.442) {
        if (fabs(Electron_dxy[i]) > 0.05) continue;
        if (fabs(Electron_dz[i]) > 0.10) continue;
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-       if (Electron_pfRelIso03_all[i] < 0.0361) continue;
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-       if (Electron_pfRelIso03_all[i] < 0.0361) continue;
-#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if (Electron_pfRelIso03_all[i] < 0.0287 + 0.506/Electron_pt[i]) continue;
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
      if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
        if (fabs(Electron_dxy[i]) > 0.10) continue;
        if (fabs(Electron_dz[i]) > 0.20) continue;
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-       if (Electron_pfRelIso03_all[i] < 0.094) continue;
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-       if (Electron_pfRelIso03_all[i] < 0.094) continue;
-#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if (Electron_pfRelIso03_all[i] < 0.0445 + 0.963/Electron_pt[i]) continue;
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
+
+#if defined(AODv4)
+     if (fabs(Electron_eta[i]) < 1.442) {
+       if (Electron_pfRelIso03_all[i] < 0.0287 + 0.506/Electron_pt[i]) continue;
+     }
+     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
+       if (Electron_pfRelIso03_all[i] < 0.0445 + 0.963/Electron_pt[i]) continue;
+     }
+#else
+     if (fabs(Electron_eta[i]) < 1.442) {
+       if (Electron_pfRelIso03_all[i] < 0.0361) continue;
+     }
+     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
+       if (Electron_pfRelIso03_all[i] < 0.094) continue;
+     }
+#endif // defined(AODv4)
 
      if (Electron_mvaID_WP80[i] == 0) continue;
 
