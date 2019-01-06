@@ -1073,9 +1073,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Muon_pt[i] < 25) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
 
-     if (fabs(Muon_dxy[i]) > 0.20) continue;
-     if (fabs(Muon_dz[i]) > 0.50) continue;
-
      if (Muon_pfRelIso04_all[i] > 0.15) continue;
 
      if (Muon_tightId[i] == 0) continue;
@@ -1138,9 +1135,6 @@ Bool_t mainSelector::Process(Long64_t entry)
    for (uint i = 0; i < *nMuon; i++) {
      if (Muon_pt[i] < 25) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
-
-     if (fabs(Muon_dxy[i]) > 0.20) continue;
-     if (fabs(Muon_dz[i]) > 0.50) continue;
 
      if (Muon_pfRelIso04_all[i] < 0.15) continue;
 
@@ -1273,8 +1267,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Muon_pt[j] < 10) continue;
        if (fabs(Muon_eta[j]) > 2.400) continue;
-       if (fabs(Muon_dxy[j]) > 0.20) continue;
-       if (fabs(Muon_dz[j]) > 0.50) continue;
        if (Muon_tightId[j] == 0) continue;
 
        TLorentzVector tmp_muo;
@@ -1420,8 +1412,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Muon_pt[j] < 10) continue;
        if (fabs(Muon_eta[j]) > 2.400) continue;
-       if (fabs(Muon_dxy[j]) > 0.20) continue;
-       if (fabs(Muon_dz[j]) > 0.50) continue;
        if (Muon_tightId[j] == 0) continue;
 
        TLorentzVector tmp_muo_qcd;
