@@ -922,6 +922,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(Electron_dz[i]) > 0.20) continue;
      }
 
+     if (Electron_mvaID_WP80[i] == 0) continue;
+
 #if defined(AODv4)
      if (fabs(Electron_eta[i]) < 1.442) {
        if (Electron_pfRelIso03_all[i] > 0.0287 + 0.506/Electron_pt[i]) continue;
@@ -937,8 +939,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (Electron_pfRelIso03_all[i] > 0.094) continue;
      }
 #endif // defined(AODv4)
-
-     if (Electron_mvaID_WP80[i] == 0) continue;
 
      bool match = false;
 
@@ -1005,6 +1005,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(Electron_dz[i]) > 0.20) continue;
      }
 
+     if (Electron_mvaID_WP80[i] == 0) continue;
+
 #if defined(AODv4)
      if (fabs(Electron_eta[i]) < 1.442) {
        if (Electron_pfRelIso03_all[i] < 0.0287 + 0.506/Electron_pt[i]) continue;
@@ -1020,8 +1022,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (Electron_pfRelIso03_all[i] < 0.094) continue;
      }
 #endif // defined(AODv4)
-
-     if (Electron_mvaID_WP80[i] == 0) continue;
 
      if (iele0_qcd != -1) {
        if (Electron_charge[i] == Electron_charge[iele0_qcd]) {
@@ -1073,9 +1073,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Muon_pt[i] < 25) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
 
-     if (Muon_pfRelIso04_all[i] > 0.15) continue;
-
      if (Muon_tightId[i] == 0) continue;
+
+     if (Muon_pfRelIso04_all[i] > 0.15) continue;
 
      bool match = false;
 
@@ -1136,9 +1136,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Muon_pt[i] < 25) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
 
-     if (Muon_pfRelIso04_all[i] < 0.15) continue;
-
      if (Muon_tightId[i] == 0) continue;
+
+     if (Muon_pfRelIso04_all[i] < 0.15) continue;
 
      if (imuo0_qcd != -1) {
        if (Muon_charge[i] == Muon_charge[imuo0_qcd]) {
@@ -1197,8 +1197,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
-     if (Photon_pfRelIso03_all[i] > 0.15) continue;
-
      if (fabs(Photon_eta[i]) < 1.442) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
        if (Photon_mvaID[i] < 0.20) continue;
@@ -1224,6 +1222,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
+
+     if (Photon_pfRelIso03_all[i] > 0.15) continue;
 
      bool skip = false;
 
@@ -1254,6 +1254,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
+
        if (Electron_mvaID_WP80[j] == 0) continue;
 
        if (Electron_photonIdx[j] == (int)i) continue;
@@ -1267,6 +1268,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Muon_pt[j] < 10) continue;
        if (fabs(Muon_eta[j]) > 2.400) continue;
+
        if (Muon_tightId[j] == 0) continue;
 
        TLorentzVector tmp_muo;
@@ -1342,8 +1344,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
-     if (Photon_pfRelIso03_all[i] > 0.15) continue;
-
      if (fabs(Photon_eta[i]) < 1.442) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
        if (Photon_mvaID[i] < 0.20) continue;
@@ -1369,6 +1369,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
+
+     if (Photon_pfRelIso03_all[i] > 0.15) continue;
 
      bool skip = false;
 
@@ -1399,6 +1401,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
+
        if (Electron_mvaID_WP80[j] == 0) continue;
 
        if (Electron_photonIdx[j] == (int)i) continue;
@@ -1412,6 +1415,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Muon_pt[j] < 10) continue;
        if (fabs(Muon_eta[j]) > 2.400) continue;
+
        if (Muon_tightId[j] == 0) continue;
 
        TLorentzVector tmp_muo_qcd;
