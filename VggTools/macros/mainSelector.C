@@ -39,6 +39,10 @@
 #define mainSelectorDT17_cxx
 #endif // defined(mainSelectorDT17B_cxx)
 
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#define AODv4
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+
 #include "roccor.Run2.v2/RoccoR.cc"
 
 void mainSelector::Begin(TTree * /*tree*/)
