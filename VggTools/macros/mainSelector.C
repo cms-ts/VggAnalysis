@@ -28,6 +28,7 @@
 #include "mainSelector.h"
 
 #include <TDatime.h>
+#include <TSystem.h>
 #include <TRandom.h>
 #include <TLorentzVector.h>
 
@@ -310,6 +311,9 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    TDatime now;
    Info("SlaveBegin", "%s", now.AsSQLString());
+
+   // set random seed
+   gRandom->SetSeed(gSystem->GetPid());
 
    // create the histograms
    h_nevt = new TH1D("h_nevt", "h_nevt", 10, 0., 10.);
