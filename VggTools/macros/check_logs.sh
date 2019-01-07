@@ -1,6 +1,7 @@
 #!/bin/sh
 
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
+cd $WORKDIR
 
 VERSION="v07"
 
@@ -20,8 +21,6 @@ if [ ! -z "$1" ]; then
     VERSION=$1
   fi
 fi
-
-cd $WORKDIR
 
 LISTS=`ls data/$VERSION/*.log 2>&1`
 
