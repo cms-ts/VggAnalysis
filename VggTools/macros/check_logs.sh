@@ -85,7 +85,7 @@ for L in $LISTS; do
 done
 
 echo
-echo "Total: "$total" - Running: "$running" - Done: "$done" - Errors: "$errors
+printf "Total: %3d - Running: %3d - Done: %3d - Errors: %3d\n" $total $running $done $errors
 echo
 
 exit
