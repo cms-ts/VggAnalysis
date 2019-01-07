@@ -14,7 +14,7 @@ if [ ! -z "$1" ]; then
     echo
     exit
   elif [ "$1" == "all" ]; then
-    VERSION="*"
+    VERSION=`ls data/`
   elif [ "$1" == "last" ]; then
     VERSION=`ls -tr data/ | tail -1`
   else
@@ -22,9 +22,12 @@ if [ ! -z "$1" ]; then
   fi
 fi
 
-LISTS=`ls data/$VERSION/*.log 2>&1`
+LISTS=""
+for V in $VERSION; do
+  LISTS=$LISTS" "`find data/ -type f -name *.log | grep /$V/`
+done
 
-if [ $? -ne 0 ]; then
+if [ -z "$LISTS" ]; then
   echo
   echo "ERROR: version "$VERSION" not available !"
   echo
