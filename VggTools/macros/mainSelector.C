@@ -913,7 +913,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 // electron energy corrections not needed
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      Electron_pt[i] = Electron_pt[i] * eCorr_ele;
-     if (Electron_pt[i] < 35) continue;
+     if (Electron_pt[i] < 25) continue;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) continue;
      if (fabs(Electron_eta[i]) > 2.400) continue;
 
@@ -982,7 +982,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int iele1_qcd = -1;
 
    for (uint i = 0; i < *nElectron; i++) {
-     if (Electron_pt[i] < 35) continue;
+     if (Electron_pt[i] < 25) continue;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) continue;
      if (fabs(Electron_eta[i]) > 2.400) continue;
 
@@ -1046,7 +1046,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      Muon_pt[i] = Muon_pt[i] * eCorr_muo;
-     if (Muon_pt[i] < 30) continue;
+     if (Muon_pt[i] < 25) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
 
      if (Muon_tightId[i] == 0) continue;
@@ -1109,7 +1109,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int imuo1_qcd = -1;
 
    for (uint i = 0; i < *nMuon; i++) {
-     if (Muon_pt[i] < 30) continue;
+     if (Muon_pt[i] < 25) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
 
      if (Muon_tightId[i] == 0) continue;
