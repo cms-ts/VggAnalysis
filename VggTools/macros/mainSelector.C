@@ -928,7 +928,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Electron_mvaID_WP80[i] == 0) continue;
 
-     if (Electron_pfRelIso03_all[i] > 0.06) continue;
+     if (Electron_pfRelIso03_all[i] > 0.15) continue;
 
      if (iele0 != -1) {
        if (Electron_charge[i] == Electron_charge[iele0]) {
@@ -979,7 +979,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Electron_mvaID_WP80[i] == 0) continue;
 
-     if (Electron_pfRelIso03_all[i] < 0.06 || Electron_pfRelIso03_all[i] > 0.15) continue;
+     if (Electron_pfRelIso03_all[i] < 0.15) continue;
 
      if (iele0_qcd != -1) {
        if (Electron_charge[i] == Electron_charge[iele0_qcd]) {
@@ -1033,7 +1033,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Muon_tightId[i] == 0) continue;
 
-     if (Muon_pfRelIso04_all[i] > 0.06) continue;
+     if (Muon_pfRelIso04_all[i] > 0.15) continue;
 
      if (imuo0 != -1) {
        if (Muon_charge[i] == Muon_charge[imuo0]) {
@@ -1074,7 +1074,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Muon_tightId[i] == 0) continue;
 
-     if (Muon_pfRelIso04_all[i] < 0.06 || Muon_pfRelIso04_all[i] > 0.15) continue;
+     if (Muon_pfRelIso04_all[i] < 0.15) continue;
 
      if (imuo0_qcd != -1) {
        if (Muon_charge[i] == Muon_charge[imuo0_qcd]) {
