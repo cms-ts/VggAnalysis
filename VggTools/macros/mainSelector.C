@@ -930,24 +930,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Electron_pfRelIso03_all[i] > 0.06) continue;
 
-     bool match = false;
-
-     for (uint j = 0; j < *nTrigObj; j++) {
-       if (match) continue;
-       if (TrigObj_id[j] != 11) continue;
-
-       TLorentzVector tmp_sel;
-       TLorentzVector tmp_trg;
-       tmp_sel.SetPtEtaPhiM(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i]);
-       tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Electron_mass[i]);
-       if (tmp_sel.DeltaR(tmp_trg) > 0.3) continue;
-
-       if ((TrigObj_filterBits[j] & 2) == 2) match = true; // 2 = WPTight
-       if ((TrigObj_filterBits[j] & 1) == 1) match = true; // 1 = CaloIdL_TrackIdL_IsoVL
-     }
-
-     if (!match) continue;
-
      if (iele0 != -1) {
        if (Electron_charge[i] == Electron_charge[iele0]) {
          if (Electron_pt[i] > Electron_pt[iele0]) {
@@ -1052,28 +1034,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Muon_tightId[i] == 0) continue;
 
      if (Muon_pfRelIso04_all[i] > 0.06) continue;
-
-     bool match = false;
-
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-     match = true;
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-
-     for (uint j = 0; j < *nTrigObj; j++) {
-       if (match) continue;
-       if (TrigObj_id[j] != 13) continue;
-
-       TLorentzVector tmp_sel;
-       TLorentzVector tmp_trg;
-       tmp_sel.SetPtEtaPhiM(Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_mass[i]);
-       tmp_trg.SetPtEtaPhiM(TrigObj_pt[j], TrigObj_eta[j], TrigObj_phi[j], Muon_mass[i]);
-       if (tmp_sel.DeltaR(tmp_trg) > 0.3) continue;
-
-       if ((TrigObj_filterBits[j] & 2) == 2) match = true; // 2 = Iso
-       if ((TrigObj_filterBits[j] & 1) == 1) match = true; // 1 = TrkIsoVVL
-     }
-
-     if (!match) continue;
 
      if (imuo0 != -1) {
        if (Muon_charge[i] == Muon_charge[imuo0]) {
@@ -1627,6 +1587,28 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+   if (W_ele_sel || W_ele_sel_wide) {
+
+     bool match0 = false;
+
+     for (uint i = 0; i < *nTrigObj; i++) {
+       if (match0) continue;
+       if (TrigObj_id[i] != 11) continue;
+
+       TLorentzVector tmp_trg;
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0.M());
+       if (ele0.DeltaR(tmp_trg) < 0.3) {
+         if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = WPTight
+       }
+     }
+
+     if (!match0) {
+       W_ele_sel = false;
+       W_ele_sel_wide = false;
+     }
+
+   }
+
 // W -> ele nu QCD
 
    bool W_ele_sel_qcd = false;
@@ -1681,6 +1663,32 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+   if (W_muo_sel || W_muo_sel_wide) {
+
+     bool match0 = false;
+
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     match0 = true;
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+
+     for (uint i = 0; i < *nTrigObj; i++) {
+       if (match0) continue;
+       if (TrigObj_id[i] != 13) continue;
+
+       TLorentzVector tmp_trg;
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo0.M());
+       if (muo0.DeltaR(tmp_trg) < 0.3) {
+         if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = Iso
+       }
+     }
+
+     if (!match0) {
+       W_muo_sel = false;
+       W_muo_sel_wide = false;
+     }
+
+   }
+
 // W -> muo nu QCD
 
    bool W_muo_sel_qcd = false;
@@ -1729,6 +1737,32 @@ Bool_t mainSelector::Process(Long64_t entry)
          Z_ele_sel = true;
        }
      }
+   }
+
+   if (Z_ele_sel) {
+
+     bool match0 = false;
+     bool match1 = false;
+
+     for (uint i = 0; i < *nTrigObj; i++) {
+       if (match0 && match1) continue;
+       if (TrigObj_id[i] != 11) continue;
+
+       TLorentzVector tmp_trg;
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0.M());
+       if (ele0.DeltaR(tmp_trg) < 0.3) {
+         if ((TrigObj_filterBits[i] & 1) == 1) match0 = true; // 1 = CaloIdL_TrackIdL_IsoVL
+       }
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele1.M());
+       if (ele1.DeltaR(tmp_trg) < 0.3) {
+         if ((TrigObj_filterBits[i] & 1) == 1) match1 = true; // 1 = CaloIdL_TrackIdL_IsoVL
+       }
+     }
+
+     if (!match0 || !match1) {
+       Z_ele_sel = false;
+     }
+
    }
 
 // Z -> ele ele QCD
@@ -1792,6 +1826,37 @@ Bool_t mainSelector::Process(Long64_t entry)
          Z_muo_sel = true;
        }
      }
+   }
+
+   if (Z_muo_sel) {
+
+     bool match0 = false;
+     bool match1 = false;
+
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     match0 = true;
+     match1 = true;
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+
+     for (uint i = 0; i < *nTrigObj; i++) {
+       if (match0 && match1) continue;
+       if (TrigObj_id[i] != 13) continue;
+
+       TLorentzVector tmp_trg;
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo0.M());
+       if (muo0.DeltaR(tmp_trg) < 0.3) {
+         if ((TrigObj_filterBits[i] & 1) == 1) match0 = true; // 1 = TrkIsoVVL
+       }
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo1.M());
+       if (muo1.DeltaR(tmp_trg) < 0.3) {
+         if ((TrigObj_filterBits[i] & 1) == 1) match1 = true; // 1 = TrkIsoVVL
+       }
+     }
+
+     if (!match0 || !match1) {
+       Z_muo_sel = false;
+     }
+
    }
 
 // Z -> muo muo QCD
