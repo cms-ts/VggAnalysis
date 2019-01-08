@@ -342,6 +342,8 @@ public :
 #define Electron_mvaID Electron_mvaFall17V2noIso
 #endif // defined(AODv4)
 
+   TTreeReaderArray<Int_t> Electron_vidNestedWPBitmap = {fReader, "Electron_vidNestedWPBitmap"};
+
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
    TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
    TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
