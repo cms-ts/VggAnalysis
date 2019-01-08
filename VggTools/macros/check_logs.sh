@@ -27,7 +27,7 @@ for V in $VERSION; do
   LISTS=$LISTS" "`find data/ -type f -name *.log | grep /$V/`
 done
 
-if [ -z "$LISTS" ]; then
+if [ -z "${LISTS// }" ]; then
   echo
   echo "ERROR: version "$VERSION" not available !"
   echo
