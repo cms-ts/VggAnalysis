@@ -1733,7 +1733,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_ele0_ele1_m = (ele0 + ele1).M();
-       if (Z_ele0_ele1_m >= 71. && Z_ele0_ele1_m <= 111. && ele0.Pt() > 35 && ele1.Pt() > 35) {
+       if (Z_ele0_ele1_m >= 71. && Z_ele0_ele1_m <= 111. && ele0.Pt() > 28 && ele1.Pt() > 28) {
          Z_ele_sel = true;
        }
      }
@@ -1782,7 +1782,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_ele0_ele1_m_qcd = (ele0_qcd + ele1_qcd).M();
-       if (Z_ele0_ele1_m_qcd >= 71. && Z_ele0_ele1_m_qcd <= 111. && ele0_qcd.Pt() > 35 && ele1_qcd.Pt() > 35) {
+       if (Z_ele0_ele1_m_qcd >= 71. && Z_ele0_ele1_m_qcd <= 111. && ele0_qcd.Pt() > 28 && ele1_qcd.Pt() > 28) {
          Z_ele_sel_qcd = true;
        }
      }
@@ -1822,7 +1822,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_muo0_muo1_m = (muo0 + muo1).M();
-       if (Z_muo0_muo1_m >= 71. && Z_muo0_muo1_m <= 111. && muo0.Pt() > 30 && muo1.Pt() > 30) {
+       if (Z_muo0_muo1_m >= 71. && Z_muo0_muo1_m <= 111. && muo0.Pt() > 28 && muo1.Pt() > 28) {
          Z_muo_sel = true;
        }
      }
@@ -1893,7 +1893,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_muo0_muo1_m_qcd = (muo0_qcd + muo1_qcd).M();
-       if (Z_muo0_muo1_m_qcd >= 71. && Z_muo0_muo1_m_qcd <= 111. && muo0_qcd.Pt() > 30 && muo1_qcd.Pt() > 30) {
+       if (Z_muo0_muo1_m_qcd >= 71. && Z_muo0_muo1_m_qcd <= 111. && muo0_qcd.Pt() > 28 && muo1_qcd.Pt() > 28) {
          Z_muo_sel_qcd = true;
        }
      }
