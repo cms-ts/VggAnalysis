@@ -678,7 +678,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 11) continue;
-       if (GenDressedLepton_pt[i] < 20) continue;
+       if (GenDressedLepton_pt[i] < 10) continue;
        if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
 
        if (iele0_gen != -1) {
@@ -708,7 +708,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 13) continue;
-       if (GenDressedLepton_pt[i] < 20) continue;
+       if (GenDressedLepton_pt[i] < 10) continue;
        if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
 
        if (imuo0_gen != -1) {
