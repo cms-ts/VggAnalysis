@@ -58,6 +58,11 @@ public :
    bool isZGG = false;
    bool isZTauTau = false;
 
+// FIXME
+   bool ele_vid_2bit = false;
+   bool ele_vid_3bit = false;
+// FIXME
+
    TH1D* h_nevt = 0;
 
    TH1D* h_W_ele = 0;
@@ -520,6 +525,11 @@ void mainSelector::Init(TTree *tree)
    // code, but the routine can be extended by the user if needed.
    // Init() will be called many times when running on PROOF
    // (once per file to be processed).
+
+// FIXME
+   if (strstr(tree->GetBranch("Electron_vidNestedWPBitmap")->GetTitle(), "2 bits per cut")) ele_vid_2bit = true;
+   if (strstr(tree->GetBranch("Electron_vidNestedWPBitmap")->GetTitle(), "3 bits per cut")) ele_vid_3bit = true;
+// FIXME
 
    fReader.SetTree(tree);
 }
