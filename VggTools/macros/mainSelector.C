@@ -678,7 +678,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 11) continue;
-       if (GenDressedLepton_pt[i] < 25) continue;
+       if (GenDressedLepton_pt[i] < 20) continue;
        if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
 
        if (iele0_gen != -1) {
@@ -708,7 +708,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 13) continue;
-       if (GenDressedLepton_pt[i] < 25) continue;
+       if (GenDressedLepton_pt[i] < 20) continue;
        if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
 
        if (imuo0_gen != -1) {
@@ -758,7 +758,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0_gen != -1 && iele1_gen != -1) {
        Z_ele0_ele1_gen_m = (ele0_gen + ele1_gen).M();
-       if (Z_ele0_ele1_gen_m >= 71. && Z_ele0_ele1_gen_m <= 111. && ele0_gen.Pt() > 28 && ele1_gen.Pt() > 28) {
+       if (Z_ele0_ele1_gen_m >= 71. && Z_ele0_ele1_gen_m <= 111. && ele0_gen.Pt() > 25 && ele1_gen.Pt() > 25) {
          Z_ele_sel_gen = true;
        }
      }
@@ -767,7 +767,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (imuo0_gen != -1 && imuo1_gen != -1) {
        Z_muo0_muo1_gen_m = (muo0_gen + muo1_gen).M();
-       if (Z_muo0_muo1_gen_m >= 71. && Z_muo0_muo1_gen_m <= 111. && muo0_gen.Pt() > 28 && muo1_gen.Pt() > 28) {
+       if (Z_muo0_muo1_gen_m >= 71. && Z_muo0_muo1_gen_m <= 111. && muo0_gen.Pt() > 20 && muo1_gen.Pt() > 20) {
          Z_muo_sel_gen = true;
        }
      }
@@ -918,7 +918,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 // electron energy corrections not needed
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      Electron_pt[i] = Electron_pt[i] * eCorr_ele;
-     if (Electron_pt[i] < 25) continue;
+     if (Electron_pt[i] < 20) continue;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) continue;
      if (fabs(Electron_eta[i]) > 2.400) continue;
 
@@ -977,7 +977,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int iele1_qcd = -1;
 
    for (uint i = 0; i < *nElectron; i++) {
-     if (Electron_pt[i] < 25) continue;
+     if (Electron_pt[i] < 20) continue;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) continue;
      if (fabs(Electron_eta[i]) > 2.400) continue;
 
@@ -1049,7 +1049,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      Muon_pt[i] = Muon_pt[i] * eCorr_muo;
-     if (Muon_pt[i] < 25) continue;
+     if (Muon_pt[i] < 20) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
 
      if (Muon_tightId[i] == 0) continue;
@@ -1090,7 +1090,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int imuo1_qcd = -1;
 
    for (uint i = 0; i < *nMuon; i++) {
-     if (Muon_pt[i] < 25) continue;
+     if (Muon_pt[i] < 20) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
 
      if (Muon_tightId[i] == 0) continue;
@@ -1757,7 +1757,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_ele0_ele1_m = (ele0 + ele1).M();
-       if (Z_ele0_ele1_m >= 71. && Z_ele0_ele1_m <= 111. && ele0.Pt() > 28 && ele1.Pt() > 28) {
+       if (Z_ele0_ele1_m >= 71. && Z_ele0_ele1_m <= 111. && ele0.Pt() > 25 && ele1.Pt() > 25) {
          Z_ele_sel = true;
        }
      }
@@ -1810,7 +1810,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_ele0_ele1_m_qcd = (ele0_qcd + ele1_qcd).M();
-       if (Z_ele0_ele1_m_qcd >= 71. && Z_ele0_ele1_m_qcd <= 111. && ele0_qcd.Pt() > 28 && ele1_qcd.Pt() > 28) {
+       if (Z_ele0_ele1_m_qcd >= 71. && Z_ele0_ele1_m_qcd <= 111. && ele0_qcd.Pt() > 25 && ele1_qcd.Pt() > 25) {
          Z_ele_sel_qcd = true;
        }
      }
@@ -1850,7 +1850,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_muo0_muo1_m = (muo0 + muo1).M();
-       if (Z_muo0_muo1_m >= 71. && Z_muo0_muo1_m <= 111. && muo0.Pt() > 28 && muo1.Pt() > 28) {
+       if (Z_muo0_muo1_m >= 71. && Z_muo0_muo1_m <= 111. && muo0.Pt() > 20 && muo1.Pt() > 20) {
          Z_muo_sel = true;
        }
      }
@@ -1929,7 +1929,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_muo0_muo1_m_qcd = (muo0_qcd + muo1_qcd).M();
-       if (Z_muo0_muo1_m_qcd >= 71. && Z_muo0_muo1_m_qcd <= 111. && muo0_qcd.Pt() > 28 && muo1_qcd.Pt() > 28) {
+       if (Z_muo0_muo1_m_qcd >= 71. && Z_muo0_muo1_m_qcd <= 111. && muo0_qcd.Pt() > 20 && muo1_qcd.Pt() > 20) {
          Z_muo_sel_qcd = true;
        }
      }
