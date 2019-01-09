@@ -935,7 +935,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if ((Electron_vidNestedWPBitmap[i] & 605178148) != 605178148) continue;
 
      //if (Electron_pfRelIso03_all[i] > 0.15) continue;
-     if ((Electron_vidNestedWPBitmap[0] & 8388608) != 8388608) continue;
+     if ((Electron_vidNestedWPBitmap[i] & 8388608) != 8388608) continue;
 
      if (iele0 != -1) {
        if (Electron_charge[i] == Electron_charge[iele0]) {
@@ -988,7 +988,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if ((Electron_vidNestedWPBitmap[i] & 605178148) != 605178148) continue;
 
      //if (Electron_pfRelIso03_all[i] < 0.15) continue;
-     if ((Electron_vidNestedWPBitmap[0] & 8388608) == 8388608) continue;
+     if ((Electron_vidNestedWPBitmap[i] & 8388608) == 8388608) continue;
 
      if (iele0_qcd != -1) {
        if (Electron_charge[i] == Electron_charge[iele0_qcd]) {
