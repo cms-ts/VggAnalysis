@@ -758,7 +758,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0_gen != -1 && iele1_gen != -1) {
        Z_ele0_ele1_gen_m = (ele0_gen + ele1_gen).M();
-       if (Z_ele0_ele1_gen_m >= 71. && Z_ele0_ele1_gen_m <= 111. && ele0_gen.Pt() > 25 && ele1_gen.Pt() > 25) {
+       if (Z_ele0_ele1_gen_m >= 71. && Z_ele0_ele1_gen_m <= 111. && ele0_gen.Pt() > 28 && ele1_gen.Pt() > 20) {
          Z_ele_sel_gen = true;
        }
      }
@@ -767,7 +767,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (imuo0_gen != -1 && imuo1_gen != -1) {
        Z_muo0_muo1_gen_m = (muo0_gen + muo1_gen).M();
-       if (Z_muo0_muo1_gen_m >= 71. && Z_muo0_muo1_gen_m <= 111. && muo0_gen.Pt() > 20 && muo1_gen.Pt() > 20) {
+       if (Z_muo0_muo1_gen_m >= 71. && Z_muo0_muo1_gen_m <= 111. && muo0_gen.Pt() > 20 && muo1_gen.Pt() > 10) {
          Z_muo_sel_gen = true;
        }
      }
@@ -996,7 +996,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 605178148) != 605178148) continue;
 // FIXME
 
-     //if (Electron_pfRelIso03_all[i] < 0.15) continue;
+     if (Electron_pfRelIso03_all[i] < 0.15) continue;
 // FIXME
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 49152) == 49152) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 8388608) == 8388608) continue;
@@ -1757,7 +1757,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_ele0_ele1_m = (ele0 + ele1).M();
-       if (Z_ele0_ele1_m >= 71. && Z_ele0_ele1_m <= 111. && ele0.Pt() > 25 && ele1.Pt() > 25) {
+       if (Z_ele0_ele1_m >= 71. && Z_ele0_ele1_m <= 111. && ele0.Pt() > 28 && ele1.Pt() > 20) {
          Z_ele_sel = true;
        }
      }
@@ -1810,7 +1810,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_ele0_ele1_m_qcd = (ele0_qcd + ele1_qcd).M();
-       if (Z_ele0_ele1_m_qcd >= 71. && Z_ele0_ele1_m_qcd <= 111. && ele0_qcd.Pt() > 25 && ele1_qcd.Pt() > 25) {
+       if (Z_ele0_ele1_m_qcd >= 71. && Z_ele0_ele1_m_qcd <= 111. && ele0_qcd.Pt() > 28 && ele1_qcd.Pt() > 20) {
          Z_ele_sel_qcd = true;
        }
      }
@@ -1850,7 +1850,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_muo0_muo1_m = (muo0 + muo1).M();
-       if (Z_muo0_muo1_m >= 71. && Z_muo0_muo1_m <= 111. && muo0.Pt() > 20 && muo1.Pt() > 20) {
+       if (Z_muo0_muo1_m >= 71. && Z_muo0_muo1_m <= 111. && muo0.Pt() > 20 && muo1.Pt() > 10) {
          Z_muo_sel = true;
        }
      }
@@ -1929,7 +1929,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        Z_muo0_muo1_m_qcd = (muo0_qcd + muo1_qcd).M();
-       if (Z_muo0_muo1_m_qcd >= 71. && Z_muo0_muo1_m_qcd <= 111. && muo0_qcd.Pt() > 20 && muo1_qcd.Pt() > 20) {
+       if (Z_muo0_muo1_m_qcd >= 71. && Z_muo0_muo1_m_qcd <= 111. && muo0_qcd.Pt() > 20 && muo1_qcd.Pt() > 10) {
          Z_muo_sel_qcd = true;
        }
      }
