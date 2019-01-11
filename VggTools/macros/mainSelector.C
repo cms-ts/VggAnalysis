@@ -1609,6 +1609,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+#if 0
    if (W_ele_sel || W_ele_sel_wide) {
 
      bool match0 = false;
@@ -1631,6 +1632,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
    }
+#endif
 
 // W -> ele nu QCD
 
@@ -1686,6 +1688,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+#if 0
    if (W_muo_sel || W_muo_sel_wide) {
 
      bool match0 = false;
@@ -1713,6 +1716,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
    }
+#endif
 
 // W -> muo nu QCD
 
@@ -1764,6 +1768,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+#if 0
    if (Z_ele_sel) {
 
      bool match0 = false;
@@ -1791,6 +1796,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
    }
+#endif
 
 // Z -> ele ele QCD
 
@@ -1855,6 +1861,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+#if 0
    if (Z_muo_sel) {
 
      bool match0 = false;
@@ -1893,6 +1900,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
    }
+#endif
 
 // Z -> muo muo QCD
 
