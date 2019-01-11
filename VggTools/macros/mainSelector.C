@@ -1776,13 +1776,11 @@ Bool_t mainSelector::Process(Long64_t entry)
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0.M());
        if (ele0.DeltaR(tmp_trg) < 0.3) {
          if ((TrigObj_filterBits[i] &  1) ==  1) match0 = true; //  1 = CaloIdL_TrackIdL_IsoVL
-         if ((TrigObj_filterBits[i] &  4) ==  4) match0 = true; //  4 = WPLoose
          if ((TrigObj_filterBits[i] & 16) == 16) match0 = true; // 16 = 2e
        }
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele1.M());
        if (ele1.DeltaR(tmp_trg) < 0.3) {
          if ((TrigObj_filterBits[i] &  1) ==  1) match1 = true; //  1 = CaloIdL_TrackIdL_IsoVL
-         if ((TrigObj_filterBits[i] &  4) ==  4) match1 = true; //  4 = WPLoose
          if ((TrigObj_filterBits[i] & 16) == 16) match1 = true; // 16 = 2e
        }
      }
