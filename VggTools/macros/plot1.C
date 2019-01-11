@@ -73,7 +73,9 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   fitter->SetFCN(fcn);
   double arglist[1] = {-1.0};
   fitter->ExecuteCommand("SET PRINT", arglist, 1);
-  fitter->SetParameter(0, "c_qcd", 1.0, 0.1, 0., 999.);
+  float xval = 1.;
+  if (h2->Integral(0., 40.) != 0) xval = h1->Integral(0., 40.) / h2->Integral(0., 40.);
+  fitter->SetParameter(0, "c_qcd", xval, 0.1, 0., 999.);
   fitter->ExecuteCommand("MIGRAD",arglist, 0);
 
   h2->Scale(fitter->GetParameter(0));
