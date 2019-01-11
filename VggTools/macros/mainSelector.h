@@ -20,7 +20,9 @@
 #include "TH1D.h"
 #include "TH2D.h"
 
-// #define AODv4
+// #define NANOAODv4
+
+// #define TRIGGER_OBJECTS
 
 #if defined(mainSelectorDT16H_h)
 #define mainSelectorDT16_h
@@ -31,7 +33,7 @@
 #endif // defined(mainSelectorDT17B_h)
 
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
-#define AODv4
+#define NANOAODv4
 #endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
 #define QCD(H) ((TH1*)GetOutputList()->FindObject((TString(H->GetName()) + "_qcd").Data()))
@@ -340,12 +342,12 @@ public :
    TTreeReaderArray<Float_t> Electron_pfRelIso03_all = {fReader, "Electron_pfRelIso03_all"};
    TTreeReaderArray<Float_t> Electron_pfRelIso03_chg = {fReader, "Electron_pfRelIso03_chg"};
 
-#if defined(AODv4)
+#if defined(NANOAODv4)
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2noIso_WP80 = {fReader, "Electron_mvaFall17V2noIso_WP80"};
    TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso = {fReader, "Electron_mvaFall17V2noIso"};
 #define Electron_mvaID_WP80 Electron_mvaFall17V2noIso_WP80
 #define Electron_mvaID Electron_mvaFall17V2noIso
-#endif // defined(AODv4)
+#endif // defined(NANOAODv4)
 
    TTreeReaderArray<Int_t> Electron_vidNestedWPBitmap = {fReader, "Electron_vidNestedWPBitmap"};
 
@@ -387,19 +389,21 @@ public :
    TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
    TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
 
+#if defined(TRIGGER_OBJECTS)
    TTreeReaderValue<UInt_t> nTrigObj = {fReader, "nTrigObj"};
    TTreeReaderArray<Float_t> TrigObj_pt = {fReader, "TrigObj_pt"};
    TTreeReaderArray<Float_t> TrigObj_eta = {fReader, "TrigObj_eta"};
    TTreeReaderArray<Float_t> TrigObj_phi = {fReader, "TrigObj_phi"};
    TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
    TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
+#endif
 
    TTreeReaderValue<Bool_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 
-#if !defined(AODv4)
+#if !defined(NANOAODv4)
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
    TTreeReaderArray<Float_t> Electron_mvaSpring16GP = {fReader, "Electron_mvaSpring16GP"};
 #define Electron_mvaID_WP80 Electron_mvaSpring16GP_WP80
@@ -424,7 +428,7 @@ public :
 
 #if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
-#if !defined(AODv4)
+#if !defined(NANOAODv4)
    TTreeReaderArray<Bool_t> Electron_mvaFall17noIso_WP80 = {fReader, "Electron_mvaFall17noIso_WP80"};
    TTreeReaderArray<Float_t> Electron_mvaFall17noIso = {fReader, "Electron_mvaFall17noIso"};
 #define Electron_mvaID_WP80 Electron_mvaFall17noIso_WP80

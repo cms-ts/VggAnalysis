@@ -41,7 +41,7 @@
 #endif // defined(mainSelectorDT17B_cxx)
 
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-#define AODv4
+#define NANOAODv4
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 #include "roccor.Run2.v2/RoccoR.cc"
@@ -111,7 +111,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    TFile* file_pho_sf_eff;
 
 #if defined(mainSelectorMC16_cxx)
-#if defined(AODv4)
+#if defined(NANOAODv4)
    //file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVA80noiso_Fall17V2.root");
    file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronTight_Fall17V2.root");
 #else
@@ -168,7 +168,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_id->Add(sf_muo_id_RunBCDEF, sf_muo_id_RunGH, 19.69/35.917, 16.227/35.917);
    sf_muo_iso->Add(sf_muo_iso_RunBCDEF, sf_muo_iso_RunGH, 19.69/35.917, 16.227/35.917);
 
-#if defined(AODv4)
+#if defined(NANOAODv4)
    file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonsMVAwp90_Fall17V2.root");
 #else
    file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonMVAWP90.root");
@@ -183,7 +183,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_pho_sf_eff;
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
-#if defined(AODv4)
+#if defined(NANOAODv4)
    //file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronMVA80noiso_Fall17V2.root");
    file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronTight_Fall17V2.root");
 #else
@@ -219,7 +219,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_muo_sf_id;
    delete file_muo_sf_iso;
 
-#if defined(AODv4)
+#if defined(NANOAODv4)
    file_pho_sf_eff = new TFile("root/sf_pho_2017_PhotonsMVAwp90_Fall17V2.root");
 #else
    file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
@@ -1155,7 +1155,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
-#if defined(AODv4)
+#if defined(NANOAODv4)
      if (fabs(Photon_eta[i]) < 1.442) {
        if (Photon_mvaID[i] < -0.02) continue;
      }
@@ -1179,7 +1179,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (Photon_mvaID[i] < 0.14) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      }
-#endif // defined(AODv4)
+#endif // defined(NANOAODv4)
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
@@ -1305,7 +1305,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
-#if defined(AODv4)
+#if defined(NANOAODv4)
      if (fabs(Photon_eta[i]) < 1.442) {
        if (Photon_mvaID[i] < -0.02) continue;
      }
@@ -1329,7 +1329,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (Photon_mvaID[i] < 0.14) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      }
-#endif // defined(AODv4)
+#endif // defined(NANOAODv4)
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
@@ -1609,7 +1609,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-#if 0
+#if defined(TRIGGER_OBJECTS)
    if (W_ele_sel || W_ele_sel_wide) {
 
      bool match0 = false;
@@ -1688,7 +1688,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-#if 0
+#if defined(TRIGGER_OBJECTS)
    if (W_muo_sel || W_muo_sel_wide) {
 
      bool match0 = false;
@@ -1768,7 +1768,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-#if 0
+#if defined(TRIGGER_OBJECTS)
    if (Z_ele_sel) {
 
      bool match0 = false;
@@ -1861,7 +1861,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-#if 0
+#if defined(TRIGGER_OBJECTS)
    if (Z_muo_sel) {
 
      bool match0 = false;
