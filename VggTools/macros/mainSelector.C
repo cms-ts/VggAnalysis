@@ -996,10 +996,11 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 605178148) != 605178148) continue;
 // FIXME
 
-     if (Electron_pfRelIso03_all[i] < 0.15) continue;
+     //if (Electron_pfRelIso03_all[i] < 0.15) continue;
 // FIXME
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 49152) == 49152) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 8388608) == 8388608) continue;
+     if (Electron_pfRelIso03_all[i] > 0.15) continue;
 // FIXME
 
      if (iele0_qcd != -1) {
