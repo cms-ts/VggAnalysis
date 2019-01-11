@@ -36,14 +36,14 @@
 #define NANOAODv4
 #endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
-#define QCD(H) ((TH1*)GetOutputList()->FindObject((TString(H->GetName()) + "_qcd").Data()))
-
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 #define STANDALONE
 #include "JetMETCorrections/Modules/interface/JetResolution.h"
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
 #include "roccor.Run2.v2/RoccoR.h"
+
+#define QCD(H) ((TH1*)GetOutputList()->FindObject((TString(H->GetName()) + "_qcd").Data()))
 
 class mainSelector : public TSelector {
 public :
