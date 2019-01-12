@@ -1632,7 +1632,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
    }
-#endif
+#endif // defined(TRIGGER_OBJECTS)
 
 // W -> ele nu QCD
 
@@ -1716,7 +1716,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
    }
-#endif
+#endif // defined(TRIGGER_OBJECTS)
 
 // W -> muo nu QCD
 
@@ -1796,7 +1796,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
    }
-#endif
+#endif // defined(TRIGGER_OBJECTS)
 
 // Z -> ele ele QCD
 
@@ -1900,7 +1900,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
    }
-#endif
+#endif // defined(TRIGGER_OBJECTS)
 
 // Z -> muo muo QCD
 
