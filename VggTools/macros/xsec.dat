@@ -161,6 +161,7 @@ RunIIFall17NanoAODv4_W2JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	3120.
 RunIIFall17NanoAODv4_W3JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	942.3
 #
 RunIIAutumn18NanoAOD_W2JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	3120.
+RunIIAutumn18NanoAOD_W3JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	942.3
 RunIIAutumn18NanoAOD_W4JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	524.2
 #
 RunIIFall18NanoAOD_TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8		831.76
