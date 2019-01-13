@@ -396,7 +396,7 @@ public :
    TTreeReaderArray<Float_t> TrigObj_phi = {fReader, "TrigObj_phi"};
    TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
    TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
-#endif
+#endif // defined(TRIGGER_OBJECTS)
 
    TTreeReaderValue<Bool_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
