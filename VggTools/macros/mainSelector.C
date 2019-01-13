@@ -1609,7 +1609,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-#if defined(TRIGGER_OBJECTS)
    if (W_ele_sel || W_ele_sel_wide) {
 
      bool match0 = false;
@@ -1626,13 +1625,14 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
+#if defined(TRIGGER_OBJECTS)
      if (!match0) {
        W_ele_sel = false;
        W_ele_sel_wide = false;
      }
+#endif // defined(TRIGGER_OBJECTS)
 
    }
-#endif // defined(TRIGGER_OBJECTS)
 
 // W -> ele nu QCD
 
@@ -1688,14 +1688,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-#if defined(TRIGGER_OBJECTS)
    if (W_muo_sel || W_muo_sel_wide) {
 
      bool match0 = false;
-
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-     match0 = true;
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 
      for (uint i = 0; i < *nTrigObj; i++) {
        if (match0) continue;
@@ -1710,13 +1705,20 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+// FIXME
+     match0 = true;
+// FIXME
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+
+#if defined(TRIGGER_OBJECTS)
      if (!match0) {
        W_muo_sel = false;
        W_muo_sel_wide = false;
      }
+#endif // defined(TRIGGER_OBJECTS)
 
    }
-#endif // defined(TRIGGER_OBJECTS)
 
 // W -> muo nu QCD
 
@@ -1768,7 +1770,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-#if defined(TRIGGER_OBJECTS)
    if (Z_ele_sel) {
 
      bool match0 = false;
@@ -1791,12 +1792,13 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
+#if defined(TRIGGER_OBJECTS)
      if (!match0 || !match1) {
        Z_ele_sel = false;
      }
+#endif // defined(TRIGGER_OBJECTS)
 
    }
-#endif // defined(TRIGGER_OBJECTS)
 
 // Z -> ele ele QCD
 
@@ -1861,18 +1863,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
-#if defined(TRIGGER_OBJECTS)
    if (Z_muo_sel) {
 
      bool match0 = false;
      bool match1 = false;
-
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-// FIXME
-     match0 = true;
-     match1 = true;
-// FIXME
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 
      for (uint i = 0; i < *nTrigObj; i++) {
        if (match0 && match1) continue;
@@ -1895,12 +1889,20 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+// FIXME
+     match0 = true;
+     match1 = true;
+// FIXME
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+
+#if defined(TRIGGER_OBJECTS)
      if (!match0 || !match1) {
        Z_muo_sel = false;
      }
+#endif // defined(TRIGGER_OBJECTS)
 
    }
-#endif // defined(TRIGGER_OBJECTS)
 
 // Z -> muo muo QCD
 

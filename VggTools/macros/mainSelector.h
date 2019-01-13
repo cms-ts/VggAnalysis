@@ -389,14 +389,12 @@ public :
    TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
    TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
 
-#if defined(TRIGGER_OBJECTS)
    TTreeReaderValue<UInt_t> nTrigObj = {fReader, "nTrigObj"};
    TTreeReaderArray<Float_t> TrigObj_pt = {fReader, "TrigObj_pt"};
    TTreeReaderArray<Float_t> TrigObj_eta = {fReader, "TrigObj_eta"};
    TTreeReaderArray<Float_t> TrigObj_phi = {fReader, "TrigObj_phi"};
    TTreeReaderArray<Int_t> TrigObj_id = {fReader, "TrigObj_id"};
    TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
-#endif // defined(TRIGGER_OBJECTS)
 
    TTreeReaderValue<Bool_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
