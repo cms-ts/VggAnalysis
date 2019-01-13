@@ -282,6 +282,16 @@ public :
    TH1D* h_Z_muo_muo1_pho0_pho1 = 0;
    TH1D* h_Z_muo_muo0_muo1_pho0_pho1 = 0;
 
+   TH1D* h_W_ele0_trig = 0;
+
+   TH1D* h_W_muo0_trig = 0;
+
+   TH1D* h_Z_ele0_trig = 0;
+   TH1D* h_Z_ele1_trig = 0;
+
+   TH1D* h_Z_muo0_trig = 0;
+   TH1D* h_Z_muo1_trig = 0;
+
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 

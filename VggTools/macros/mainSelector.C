@@ -538,6 +538,16 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo_muo1_pho0_pho1 = new TH1D("h_Z_muo_muo1_pho0_pho1", "h_Z_muo_muo1_pho0_pho1", 40, 71., 111.);
    h_Z_muo_muo0_muo1_pho0_pho1 = new TH1D("h_Z_muo_muo0_muo1_pho0_pho1", "h_Z_muo_muo0_muo1_pho0_pho1", 40, 71., 111.);
 
+   h_W_ele0_trig = new TH1D("h_W_ele0_trig", "h_W_ele0_trig", 32, 0., 32.);
+
+   h_W_muo0_trig = new TH1D("h_W_muo0_trig", "h_W_muo0_trig", 32, 0., 32.);
+
+   h_Z_ele0_trig = new TH1D("h_Z_ele0_trig", "h_Z_ele0_trig", 32, 0., 32.);
+   h_Z_ele1_trig = new TH1D("h_Z_ele1_trig", "h_Z_ele1_trig", 32, 0., 32.);
+
+   h_Z_muo0_trig = new TH1D("h_Z_muo0_trig", "h_Z_muo0_trig", 32, 0., 32.);
+   h_Z_muo1_trig = new TH1D("h_Z_muo1_trig", "h_Z_muo1_trig", 32, 0., 32.);
+
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    h_W_ele_gen = new TH1D("h_W_ele_gen", "h_W_ele_gen", 100, 0., 200.);
    h_W_muo_gen = new TH1D("h_W_muo_gen", "h_W_muo_gen", 100, 0., 200.);
@@ -1997,8 +2007,16 @@ Bool_t mainSelector::Process(Long64_t entry)
        TLorentzVector tmp_trg;
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0.M());
        if (ele0.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_W_ele0_trig->Fill(j+0.5, weight_W_ele);
+         }
          if ((TrigObj_filterBits[i] & 1) == 1) match0 = true; // 1 = CaloIdL_TrackIdL_IsoVL
          if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = WPTight
+       }
+       if (ele0_qcd.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_W_ele0_trig)->Fill(j+0.5, weight_W_ele_qcd);
+         }
        }
      }
 
@@ -2024,9 +2042,17 @@ Bool_t mainSelector::Process(Long64_t entry)
        TLorentzVector tmp_trg;
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo0.M());
        if (muo0.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_W_muo0_trig->Fill(j+0.5, weight_W_muo);
+         }
          if ((TrigObj_filterBits[i] & 1) == 1) match0 = true; // 1 = TrkIsoVVL
          if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = Iso
          if ((TrigObj_filterBits[i] & 8) == 8) match0 = true; // 8 = IsoTkMu or 1mu
+       }
+       if (muo0_qcd.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_W_muo0_trig)->Fill(j+0.5, weight_W_muo_qcd);
+         }
        }
      }
 
@@ -2059,13 +2085,29 @@ Bool_t mainSelector::Process(Long64_t entry)
        TLorentzVector tmp_trg;
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0.M());
        if (ele0.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_Z_ele0_trig->Fill(j+0.5, weight_Z_ele);
+         }
          if ((TrigObj_filterBits[i] &  1) ==  1) match0 = true; //  1 = CaloIdL_TrackIdL_IsoVL
          if ((TrigObj_filterBits[i] & 16) == 16) match0 = true; // 16 = 2e
        }
+       if (ele0_qcd.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_ele0_trig)->Fill(j+0.5, weight_Z_ele_qcd);
+         }
+       }
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele1.M());
        if (ele1.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_Z_ele1_trig->Fill(j+0.5, weight_Z_ele);
+         }
          if ((TrigObj_filterBits[i] &  1) ==  1) match1 = true; //  1 = CaloIdL_TrackIdL_IsoVL
          if ((TrigObj_filterBits[i] & 16) == 16) match1 = true; // 16 = 2e
+       }
+       if (ele1_qcd.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_ele1_trig)->Fill(j+0.5, weight_Z_ele_qcd);
+         }
        }
      }
 
@@ -2091,17 +2133,33 @@ Bool_t mainSelector::Process(Long64_t entry)
        TLorentzVector tmp_trg;
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo0.M());
        if (muo0.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_Z_muo0_trig->Fill(j+0.5, weight_Z_muo);
+         }
          if ((TrigObj_filterBits[i] &  1) ==  1) match0 = true; //  1 = TrkIsoVVL
          if ((TrigObj_filterBits[i] &  2) ==  2) match0 = true; //  2 = Iso
          if ((TrigObj_filterBits[i] &  8) ==  8) match0 = true; //  8 = IsoTkMu or 1mu
          if ((TrigObj_filterBits[i] & 16) == 16) match0 = true; // 16 = 2mu
        }
+       if (muo0_qcd.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_muo0_trig)->Fill(j+0.5, weight_Z_muo_qcd);
+         }
+       }
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo1.M());
        if (muo1.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_Z_muo1_trig->Fill(j+0.5, weight_Z_muo);
+         }
          if ((TrigObj_filterBits[i] &  1) ==  1) match1 = true; //  1 = TrkIsoVVL
          if ((TrigObj_filterBits[i] &  2) ==  2) match1 = true; //  2 = Iso
          if ((TrigObj_filterBits[i] &  8) ==  8) match1 = true; //  8 = IsoTkMu or 1mu
          if ((TrigObj_filterBits[i] & 16) == 16) match1 = true; // 16 = 2mu
+       }
+       if (muo1_qcd.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_muo1_trig)->Fill(j+0.5, weight_Z_muo_qcd);
+         }
        }
      }
 
