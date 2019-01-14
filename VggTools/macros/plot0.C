@@ -379,6 +379,14 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     h_ratio->GetXaxis()->SetTitle("M_{ll} [GeV]");
   }
 
+  if (title == "h_WG_ele" || title == "h_WG_muo") {
+    h_ratio->GetXaxis()->SetTitle("M_{T} [GeV]");
+  }
+
+  if (title == "h_ZG_ele" || title == "h_ZG_muo") {
+    h_ratio->GetXaxis()->SetTitle("M_{ll} [GeV]");
+  }
+
   h_ratio->GetXaxis()->SetTitleFont(42);
   h_ratio->GetXaxis()->SetTitleSize(0.11);
   h_ratio->GetXaxis()->SetTitleOffset(1.1);
