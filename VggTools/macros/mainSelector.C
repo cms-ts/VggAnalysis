@@ -2010,7 +2010,6 @@ Bool_t mainSelector::Process(Long64_t entry)
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_W_ele0_trig->Fill(j+0.5, weight_W_ele);
          }
-         if ((TrigObj_filterBits[i] & 1) == 1) match0 = true; // 1 = CaloIdL_TrackIdL_IsoVL
          if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = WPTight
        }
        if (ele0_qcd.DeltaR(tmp_trg) < 0.3) {
@@ -2045,7 +2044,6 @@ Bool_t mainSelector::Process(Long64_t entry)
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_W_muo0_trig->Fill(j+0.5, weight_W_muo);
          }
-         if ((TrigObj_filterBits[i] & 1) == 1) match0 = true; // 1 = TrkIsoVVL
          if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = Iso
          if ((TrigObj_filterBits[i] & 8) == 8) match0 = true; // 8 = IsoTkMu or 1mu
        }
