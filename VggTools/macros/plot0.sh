@@ -238,6 +238,11 @@ for YEAR in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_ZG_ele\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_ZG_muo\",\"$VERSION\",\"$FLAGS\"\)
 
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_ele\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo\",\"$VERSION\",\"$FLAGS\"\)
+
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_WG_ele_ele0_pho0\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho0_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho0_pho1\",\"$VERSION\",\"$FLAGS\"\)

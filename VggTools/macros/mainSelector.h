@@ -269,6 +269,11 @@ public :
    TH1D* h_ZG_ele = 0;
    TH1D* h_ZG_muo = 0;
 
+   TH1D* h_WGG_ele = 0;
+   TH1D* h_WGG_muo = 0;
+   TH1D* h_ZGG_ele = 0;
+   TH1D* h_ZGG_muo = 0;
+
    TH1D* h_WG_ele_ele0_pho0 = 0;
    TH1D* h_WGG_ele_pho0_pho1_pt = 0;
    TH1D* h_WGG_ele_pho0_pho1 = 0;
