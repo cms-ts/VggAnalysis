@@ -91,6 +91,7 @@ RunIIFall17NanoAOD_DY4JetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8	54.
 RunIIFall17NanoAODv4_DY1JetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8	1012.
 RunIIFall17NanoAODv4_DY2JetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8	335.
 RunIIFall17NanoAODv4_DY3JetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8	102.
+RunIIFall17NanoAODv4_DY4JetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8	54.
 #
 RunIIFall17NanoAOD_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8		61526.7
 #
@@ -122,6 +123,8 @@ RunIIFall17NanoAOD_WWZ_4F_TuneCP5_13TeV-amcatnlo-pythia8	0.1651
 RunIIFall17NanoAOD_WZZ_TuneCP5_13TeV-amcatnlo-pythia8		0.05565
 RunIIFall17NanoAOD_ZZZ_TuneCP5_13TeV-amcatnlo-pythia8		0.01398
 #
+RunIIFall17NanoAODv4_WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8	0.2086
+RunIIFall17NanoAODv4_WWZ_4F_TuneCP5_13TeV-amcatnlo-pythia8	0.1651
 RunIIFall17NanoAODv4_ZZZ_TuneCP5_13TeV-amcatnlo-pythia8		0.01398
 #
 RunIIFall17NanoAOD_WWG_TuneCP5_13TeV-amcatnlo-pythia8	0.2147
