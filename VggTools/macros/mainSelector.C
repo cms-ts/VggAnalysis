@@ -2034,7 +2034,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_W_ele0_trig->Fill(j+0.5, weight_W_ele);
          }
-         if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = WPTight
+         if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = WPTight or 1e
        }
        if (ele0_qcd.DeltaR(tmp_trg) < 0.3) {
          for (uint j = 0; j < 32; j++) {
