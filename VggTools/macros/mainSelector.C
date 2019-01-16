@@ -1248,8 +1248,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (Electron_cutBased[j] != 4) continue;
 
-       if (Electron_photonIdx[j] == (int)i) continue;
-
        TLorentzVector tmp_ele;
        tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
        if (tmp_ele.DeltaR(tmp_pho) < 0.4) skip = true;
@@ -1404,8 +1402,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        if (Electron_cutBased[j] != 4) continue;
-
-       if (Electron_photonIdx[j] == (int)i) continue;
 
        TLorentzVector tmp_ele_qcd;
        tmp_ele_qcd.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
