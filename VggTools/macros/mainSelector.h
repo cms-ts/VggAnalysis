@@ -383,6 +383,7 @@ public :
 #define Electron_mvaID Electron_mvaFall17V2noIso
 #endif // defined(NANOAODv4)
 
+   TTreeReaderArray<Int_t> Electron_cutBased = {fReader, "Electron_cutBased"};
    TTreeReaderArray<Int_t> Electron_vidNestedWPBitmap = {fReader, "Electron_vidNestedWPBitmap"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};

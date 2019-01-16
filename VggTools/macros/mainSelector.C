@@ -1246,7 +1246,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
 
-       if (Electron_mvaID_WP80[j] == 0) continue;
+       if (Electron_cutBased[j] != 4) continue;
 
        if (Electron_photonIdx[j] == (int)i) continue;
 
@@ -1403,7 +1403,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
 
-       if (Electron_mvaID_WP80[j] == 0) continue;
+       if (Electron_cutBased[j] != 4) continue;
 
        if (Electron_photonIdx[j] == (int)i) continue;
 
