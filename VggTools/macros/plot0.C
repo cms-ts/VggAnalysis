@@ -146,11 +146,16 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     float fiterr = 0.;
     int index = 9001;
     ifstream file1;
-    if (title.find("pho0") != string::npos || title.find("pho1") != string::npos) {
-      file1.open(("html/" + version + "/" + year + ".qcd/root/" + title.substr(0, 7) + "_pho0_qcd_fit.dat").c_str());
-    } else {
-      file1.open(("html/" + version + "/" + year + ".qcd/root/" + title.substr(0, 7) + "_qcd_fit.dat").c_str());
+    if (title.find("h_W_") != string::npos) {
+      file1.open(("html/" + version + "/" + year + ".qcd/root/" + "h_W_" + title.substr(4, 3) + "_qcd_fit.dat").c_str());
     }
+    if (title.find("h_WG_") != string::npos) {
+      file1.open(("html/" + version + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
+    }
+    if (title.find("h_WGG_") != string::npos) {
+      file1.open(("html/" + version + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(6, 3) + "_qcd_fit.dat").c_str());
+    }
+
     if (file1.good()) {
       file1 >> fitval >> fiterr;
       file1.close();
