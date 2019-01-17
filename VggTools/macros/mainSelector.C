@@ -437,7 +437,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_WGG_ele_pho1_pt = new TH1D("h_WGG_ele_pho1_pt", "h_WGG_ele_pho1_pt", 25, 0., 300.);
    h_WGG_ele_ele0_pt = new TH1D("h_WGG_ele_ele0_pt", "h_WGG_ele_ele0_pt", 25, 0., 300.);
    h_WGG_ele_ele1_pt = new TH1D("h_WGG_ele_ele1_pt", "h_WGG_ele_ele1_pt", 25, 0., 300.);
-   h_WGG_ele_pho0_pho1_dR = new TH1D("h_WGG_ele_pho0_pho1_dR", "h_WGG_ele_pho0_pho1_dR", 25, 0., 0.05);
+   h_WGG_ele_pho0_pho1_dR = new TH1D("h_WGG_ele_pho0_pho1_dR", "h_WGG_ele_pho0_pho1_dR", 25, 0., 5.);
 
    h_W_muo_nphotons = new TH1D("h_W_muo_nphotons", "h_W_muo_nphotons", 6, -0.5, 5.5);
    h_WG_muo_pho0_pt = new TH1D("h_WG_muo_pho0_pt", "h_WG_muo_pho0_pt", 75, 0., 300.);
@@ -464,7 +464,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_WGG_muo_pho1_pt = new TH1D("h_WGG_muo_pho1_pt", "h_WGG_muo_pho1_pt", 25, 0., 300.);
    h_WGG_muo_muo0_pt = new TH1D("h_WGG_muo_muo0_pt", "h_WGG_muo_muo0_pt", 25, 0., 300.);
    h_WGG_muo_muo1_pt = new TH1D("h_WGG_muo_muo1_pt", "h_WGG_muo_muo1_pt", 25, 0., 300.);
-   h_WGG_muo_pho0_pho1_dR = new TH1D("h_WGG_muo_pho0_pho1_dR", "h_WGG_muo_pho0_pho1_dR", 25, 0., 0.05);
+   h_WGG_muo_pho0_pho1_dR = new TH1D("h_WGG_muo_pho0_pho1_dR", "h_WGG_muo_pho0_pho1_dR", 25, 0., 5.);
 
    h_Z_ele_nphotons = new TH1D("h_Z_ele_nphotons", "h_Z_ele_nphotons", 6, -0.5, 5.5);
    h_ZG_ele_pho0_pt = new TH1D("h_ZG_ele_pho0_pt", "h_ZG_ele_pho0_pt", 75, 0., 300.);
@@ -491,7 +491,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_ZGG_ele_pho1_pt = new TH1D("h_ZGG_ele_pho1_pt", "h_ZGG_ele_pho1_pt", 25, 0., 300.);
    h_ZGG_ele_ele0_pt = new TH1D("h_ZGG_ele_ele0_pt", "h_ZGG_ele_ele0_pt", 25, 0., 300.);
    h_ZGG_ele_ele1_pt = new TH1D("h_ZGG_ele_ele1_pt", "h_ZGG_ele_ele1_pt", 25, 0., 300.);
-   h_ZGG_ele_pho0_pho1_dR = new TH1D("h_ZGG_ele_pho0_pho1_dR", "h_ZGG_ele_pho0_pho1_dR", 25, 0., 0.05);
+   h_ZGG_ele_pho0_pho1_dR = new TH1D("h_ZGG_ele_pho0_pho1_dR", "h_ZGG_ele_pho0_pho1_dR", 25, 0., 5.);
 
    h_Z_muo_nphotons = new TH1D("h_Z_muo_nphotons", "h_Z_muo_nphotons", 6, -0.5, 5.5);
    h_ZG_muo_pho0_pt = new TH1D("h_ZG_muo_pho0_pt", "h_ZG_muo_pho0_pt", 75, 0., 300.);
@@ -518,7 +518,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_ZGG_muo_pho1_pt = new TH1D("h_ZGG_muo_pho1_pt", "h_ZGG_muo_pho1_pt", 25, 0., 300.);
    h_ZGG_muo_muo0_pt = new TH1D("h_ZGG_muo_muo0_pt", "h_ZGG_muo_muo0_pt", 25, 0., 300.);
    h_ZGG_muo_muo1_pt = new TH1D("h_ZGG_muo_muo1_pt", "h_ZGG_muo_muo1_pt", 25, 0., 300.);
-   h_ZGG_muo_pho0_pho1_dR = new TH1D("h_ZGG_muo_pho0_pho1_dR", "h_ZGG_muo_pho0_pho1_dR", 25, 0., 0.05);
+   h_ZGG_muo_pho0_pho1_dR = new TH1D("h_ZGG_muo_pho0_pho1_dR", "h_ZGG_muo_pho0_pho1_dR", 25, 0., 5.);
 
    h_WG_ele = new TH1D("h_WG_ele", "h_WG_ele", 100, 0., 200.);
    h_WG_muo = new TH1D("h_WG_muo", "h_WG_muo", 100, 0., 200.);
