@@ -542,6 +542,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    h_ZG_ele_ele0_pho0 = new TH1D("h_ZG_ele_ele0_pho0", "h_ZG_ele_ele0_pho0", 80, 51., 131.);
    h_ZG_ele_ele1_pho0 = new TH1D("h_ZG_ele_ele1_pho0", "h_ZG_ele_ele1_pho0", 80, 51., 131.);
+   h_ZG_ele_ele0_ele1_pho0 = new TH1D("h_ZG_ele_ele0_ele1_pho0", "h_ZG_ele_ele0_ele1_pho0", 80, 51., 131.);
    h_ZGG_ele_pho0_pho1_pt = new TH1D("h_ZGG_ele_pho0_pho1_pt", "h_ZGG_ele_pho0_pho1_pt", 15, 0., 300.);
    h_ZGG_ele_pho0_pho1 = new TH1D("h_ZGG_ele_pho0_pho1", "h_ZGG_ele_pho0_pho1", 15, 0., 300.);
    h_ZGG_ele_ele0_pho1 = new TH1D("h_ZGG_ele_ele0_pho1", "h_ZGG_ele_ele0_pho1", 20, 51., 131.);
@@ -552,6 +553,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    h_ZG_muo_muo0_pho0 = new TH1D("h_ZG_muo_muo0_pho0", "h_ZG_muo_muo0_pho0", 80, 51., 131.);
    h_ZG_muo_muo1_pho0 = new TH1D("h_ZG_muo_muo1_pho0", "h_ZG_muo_muo1_pho0", 80, 51., 131.);
+   h_ZG_muo_muo0_muo1_pho0 = new TH1D("h_ZG_muo_muo0_muo1_pho0", "h_ZG_muo_muo0_muo1_pho0", 80, 51., 131.);
    h_ZGG_muo_pho0_pho1_pt = new TH1D("h_ZGG_muo_pho0_pho1_pt", "h_ZGG_muo_pho0_pho1_pt", 15, 0., 300.);
    h_ZGG_muo_pho0_pho1 = new TH1D("h_ZGG_muo_pho0_pho1", "h_ZGG_muo_pho0_pho1", 15, 0., 300.);
    h_ZGG_muo_muo0_pho1 = new TH1D("h_ZGG_muo_muo0_pho1", "h_ZGG_muo_muo0_pho1", 20, 51., 131.);
@@ -2573,6 +2575,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_ZG_ele_pho0_dR->Fill(TMath::Min(pho0.DeltaR(ele0), pho0.DeltaR(ele1)), weight_Z_ele * weight_pho0);
        h_ZG_ele_ele0_pho0->Fill((ele0+pho0).M(), weight_Z_ele * weight_pho0);
        h_ZG_ele_ele1_pho0->Fill((ele1+pho0).M(), weight_Z_ele * weight_pho0);
+       h_ZG_ele_ele0_ele1_pho0->Fill((ele0+ele1+pho0).M(), weight_Z_ele * weight_pho0);
      }
      if (ipho1 != -1) {
        h_ZGG_ele->Fill(Z_ele0_ele1_m, weight_Z_ele * weight_pho0 * weight_pho1);
@@ -2615,6 +2618,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_ZG_ele_pho0_dR)->Fill(TMath::Min(pho0_qcd.DeltaR(ele0_qcd), pho0_qcd.DeltaR(ele1_qcd)), weight_Z_ele_qcd * weight_pho0_qcd);
        QCD(h_ZG_ele_ele0_pho0)->Fill((ele0_qcd+pho0_qcd).M(), weight_Z_ele_qcd * weight_pho0_qcd);
        QCD(h_ZG_ele_ele1_pho0)->Fill((ele1_qcd+pho0_qcd).M(), weight_Z_ele_qcd * weight_pho0_qcd);
+       QCD(h_ZG_ele_ele0_ele1_pho0)->Fill((ele0_qcd+ele1_qcd+pho0_qcd).M(), weight_Z_ele_qcd * weight_pho0_qcd);
      }
      if (ipho1_qcd != -1) {
        QCD(h_ZGG_ele)->Fill(Z_ele0_ele1_m_qcd, weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -2657,6 +2661,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_ZG_muo_pho0_dR->Fill(TMath::Min(pho0.DeltaR(muo0), pho0.DeltaR(muo1)), weight_Z_muo * weight_pho0);
        h_ZG_muo_muo0_pho0->Fill((muo0+pho0).M(), weight_Z_muo * weight_pho0);
        h_ZG_muo_muo1_pho0->Fill((muo1+pho0).M(), weight_Z_muo * weight_pho0);
+       h_ZG_muo_muo0_muo1_pho0->Fill((muo0+muo1+pho0).M(), weight_Z_muo * weight_pho0);
      }
      if (ipho1 != -1) {
        h_ZGG_muo->Fill(Z_muo0_muo1_m, weight_Z_muo * weight_pho0 * weight_pho1);
@@ -2700,6 +2705,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_ZG_muo_pho0_dR)->Fill(TMath::Min(pho0_qcd.DeltaR(muo0_qcd), pho0_qcd.DeltaR(muo1_qcd)), weight_Z_muo_qcd * weight_pho0_qcd);
        QCD(h_ZG_muo_muo0_pho0)->Fill((muo0_qcd+pho0_qcd).M(), weight_Z_muo_qcd * weight_pho0_qcd);
        QCD(h_ZG_muo_muo1_pho0)->Fill((muo1_qcd+pho0_qcd).M(), weight_Z_muo_qcd * weight_pho0_qcd);
+       QCD(h_ZG_muo_muo0_muo1_pho0)->Fill((muo0_qcd+muo1_qcd+pho0_qcd).M(), weight_Z_muo_qcd * weight_pho0_qcd);
      }
      if (ipho1_qcd != -1) {
        QCD(h_ZGG_muo)->Fill(Z_muo0_muo1_m_qcd, weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);

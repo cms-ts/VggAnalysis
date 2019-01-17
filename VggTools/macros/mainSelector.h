@@ -286,6 +286,7 @@ public :
 
    TH1D* h_ZG_ele_ele0_pho0 = 0;
    TH1D* h_ZG_ele_ele1_pho0 = 0;
+   TH1D* h_ZG_ele_ele0_ele1_pho0 = 0;
    TH1D* h_ZGG_ele_pho0_pho1_pt = 0;
    TH1D* h_ZGG_ele_pho0_pho1 = 0;
    TH1D* h_ZGG_ele_ele0_pho1 = 0;
@@ -296,6 +297,7 @@ public :
 
    TH1D* h_ZG_muo_muo0_pho0 = 0;
    TH1D* h_ZG_muo_muo1_pho0 = 0;
+   TH1D* h_ZG_muo_muo0_muo1_pho0 = 0;
    TH1D* h_ZGG_muo_pho0_pho1_pt = 0;
    TH1D* h_ZGG_muo_pho0_pho1 = 0;
    TH1D* h_ZGG_muo_muo0_pho1 = 0;
