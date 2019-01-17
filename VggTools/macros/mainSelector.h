@@ -439,6 +439,10 @@ public :
    TTreeReaderValue<Bool_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
 
+#if defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+   TTreeReaderValue<UChar_t> Flag_ecalBadCalibFilterV2 = {fReader, "Flag_ecalBadCalibFilterV2"};
+#endif // defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 
 #if !defined(NANOAODv4)

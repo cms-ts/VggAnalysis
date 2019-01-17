@@ -934,6 +934,10 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (*Flag_goodVertices == 0) return kTRUE;
    if (*Flag_METFilters == 0) return kTRUE;
 
+#if defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+   if (*Flag_ecalBadCalibFilterV2 == 0) return kTRUE;
+#endif // defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+
    h_nevt->Fill(3.5, weight_gen);
 
 // electrons
