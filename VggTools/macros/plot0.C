@@ -376,6 +376,9 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   h_ratio->SetTitle("");
   h_ratio->SetStats(kFALSE);
 
+  string tmp_title = title;
+  h_ratio->GetXaxis()->SetTitle(tmp_title.erase(0,2).c_str());
+
   if (title == "h_W_ele" || title == "h_W_muo") {
     h_ratio->GetXaxis()->SetTitle("M_{T} [GeV]");
   }
@@ -392,6 +395,14 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     h_ratio->GetXaxis()->SetTitle("M_{ll} [GeV]");
   }
 
+  if (title == "h_WGG_ele" || title == "h_WGG_muo") {
+    h_ratio->GetXaxis()->SetTitle("M_{T} [GeV]");
+  }
+
+  if (title == "h_ZGG_ele" || title == "h_ZGG_muo") {
+    h_ratio->GetXaxis()->SetTitle("M_{ll} [GeV]");
+  }
+
   h_ratio->GetXaxis()->SetTitleFont(42);
   h_ratio->GetXaxis()->SetTitleSize(0.11);
   h_ratio->GetXaxis()->SetTitleOffset(1.1);
@@ -400,8 +411,9 @@ void plot0(string plot="", string title="", string version="v00", string flags="
 
   h_ratio->GetYaxis()->SetTitle("Data/MC");
   h_ratio->GetYaxis()->SetTitleSize(0.11);
-  h_ratio->GetYaxis()->SetTitleOffset(0.47);
-  h_ratio->GetYaxis()->SetLabelSize(0.10);
+  h_ratio->GetYaxis()->SetTitleOffset(0.36);
+  h_ratio->GetYaxis()->SetLabelSize(0.1);
+  h_ratio->GetYaxis()->SetLabelOffset(0.01);
   h_ratio->GetYaxis()->SetNdivisions(505);
   h_ratio->GetYaxis()->SetRangeUser(0.5, 1.5);
 
