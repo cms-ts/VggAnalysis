@@ -141,9 +141,9 @@ Run2017_SingleMuon_31Mar2018            41.525
 Run2018A_DoubleMuon_14Dec2018           14.002
 Run2018A_DoubleMuon_14Sep2018           14.001
 Run2018A_EGamma_14Sep2018               14.001
-Run2018A_MuonEG_14Dec2018               13.064
+Run2018A_MuonEG_14Dec2018               14.002
 Run2018A_MuonEG_14Sep2018               14.002
-Run2018A_SingleMuon_14Dec2018           13.997
+Run2018A_SingleMuon_14Dec2018           14.002
 Run2018A_SingleMuon_14Sep2018           14.002
 Run2018B_DoubleMuon_14Dec2018            7.091
 Run2018B_DoubleMuon_14Sep2018            7.091
@@ -160,7 +160,7 @@ Run2018C_SingleMuon_14Dec2018            6.937
 Run2018C_SingleMuon_14Sep2018            6.937
 Run2018D_DoubleMuon_14Dec2018           31.923
 Run2018D_DoubleMuon_14Sep2018           31.926
-Run2018D_EGamma_14Dec2018               31.219
+Run2018D_EGamma_14Dec2018               31.239
 Run2018D_EGamma_14Sep2018               31.249
 Run2018D_MuonEG_14Dec2018               31.923
 Run2018D_MuonEG_14Sep2018               31.927
@@ -168,9 +168,9 @@ Run2018D_SingleMuon_14Dec2018           31.389
 Run2018D_SingleMuon_14Sep2018           31.482
 Run2018_DoubleMuon_14Dec2018            59.953
 Run2018_DoubleMuon_14Sep2018            59.956
-Run2018_EGamma_14Dec2018                38.310
+Run2018_EGamma_14Dec2018                38.330
 Run2018_EGamma_14Sep2018                59.279
-Run2018_MuonEG_14Dec2018                44.987
+Run2018_MuonEG_14Dec2018                45.925
 Run2018_MuonEG_14Sep2018                59.954
-Run2018_SingleMuon_14Dec2018            59.414
+Run2018_SingleMuon_14Dec2018            59.419
 Run2018_SingleMuon_14Sep2018            59.512
