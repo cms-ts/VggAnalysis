@@ -32,6 +32,8 @@ using namespace std;
 #include <iomanip>
 #include <iostream>
 
+#include <map>
+
 void readMap(string myFile, map<string, float> &myMap) {
   ifstream input(myFile.data());
   string line;
