@@ -102,6 +102,7 @@ RunIIFall17NanoAOD_WZ_TuneCP5_13TeV-pythia8	47.13
 RunIIFall17NanoAOD_ZZ_TuneCP5_13TeV-pythia8	15.4
 #
 RunIIFall17NanoAODv4_WZ_TuneCP5_13TeV-pythia8	47.13
+RunIIFall17NanoAODv4_ZZ_TuneCP5_13TeV-pythia8	15.4
 #
 RunIIFall17NanoAOD_WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8	0.2086
 RunIIFall17NanoAOD_WWZ_4F_TuneCP5_13TeV-amcatnlo-pythia8	0.1651
