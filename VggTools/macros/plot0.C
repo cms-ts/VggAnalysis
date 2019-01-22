@@ -493,10 +493,14 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     h_ratio->GetXaxis()->SetTitle("#phi^{#gamma}");
   } else if (tmp_title == "h_WGG_ele_pho1_r9" || tmp_title == "h_WGG_muo_pho1_r9") {
     h_ratio->GetXaxis()->SetTitle("R_{9}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho0_sieie" || tmp_title == "h_WGG_muo_pho0_sieie") {
+    h_ratio->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
   } else if (tmp_title == "h_WGG_ele_pho1_sieie" || tmp_title == "h_WGG_muo_pho1_sieie") {
     h_ratio->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
   } else if (tmp_title == "h_WGG_ele_pho1_jet0_dR" || tmp_title == "h_WGG_muo_pho1_jet0_dR") {
     h_ratio->GetXaxis()->SetTitle("#DeltaR^{j#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho0_mva" || tmp_title == "h_WGG_muo_pho0_mva") {
+    h_ratio->GetXaxis()->SetTitle("mva^{#gamma}");
   } else if (tmp_title == "h_WGG_ele_pho1_mva" || tmp_title == "h_WGG_muo_pho1_mva") {
     h_ratio->GetXaxis()->SetTitle("mva^{#gamma}");
   } else if (tmp_title == "h_WGG_ele_pho1_pf_iso_all" || tmp_title == "h_WGG_muo_pf_iso_all") {
@@ -541,10 +545,14 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     h_ratio->GetXaxis()->SetTitle("#phi^{#gamma}");
   } else if (tmp_title == "h_ZGG_ele_pho1_r9" || tmp_title == "h_ZGG_muo_pho1_r9") {
     h_ratio->GetXaxis()->SetTitle("R_{9}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_sieie" || tmp_title == "h_ZGG_muo_pho0_sieie") {
+    h_ratio->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
   } else if (tmp_title == "h_ZGG_ele_pho1_sieie" || tmp_title == "h_ZGG_muo_pho1_sieie") {
     h_ratio->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
   } else if (tmp_title == "h_ZGG_ele_pho1_jet0_dR" || tmp_title == "h_ZGG_muo_pho1_jet0_dR") {
     h_ratio->GetXaxis()->SetTitle("#DeltaR^{j#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_mva" || tmp_title == "h_ZGG_muo_pho0_mva") {
+    h_ratio->GetXaxis()->SetTitle("mva^{#gamma}");
   } else if (tmp_title == "h_ZGG_ele_pho1_mva" || tmp_title == "h_ZGG_muo_pho1_mva") {
     h_ratio->GetXaxis()->SetTitle("mva^{#gamma}");
   } else if (tmp_title == "h_ZGG_ele_pho1_pf_iso_all" || tmp_title == "h_ZGG_muo_pf_iso_all") {
