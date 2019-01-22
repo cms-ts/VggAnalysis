@@ -65,6 +65,11 @@ public :
    bool ele_vid_3bit = false;
 // FIXME
 
+// FIXME
+   bool pho_vid_1bit = false;
+   bool pho_vid_2bit = false;
+// FIXME
+
    TH1D* h_nevt = 0;
 
    TH1D* h_W_ele = 0;
@@ -383,7 +388,6 @@ public :
 #define Electron_mvaID Electron_mvaFall17V2noIso
 #endif // defined(NANOAODv4)
 
-   TTreeReaderArray<Int_t> Electron_cutBased = {fReader, "Electron_cutBased"};
    TTreeReaderArray<Int_t> Electron_vidNestedWPBitmap = {fReader, "Electron_vidNestedWPBitmap"};
 
    TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
@@ -414,6 +418,8 @@ public :
    TTreeReaderArray<Float_t> Photon_pfRelIso03_chg = {fReader, "Photon_pfRelIso03_chg"};
 
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
+
+   TTreeReaderArray<Int_t> Photon_vidNestedWPBitmap = {fReader, "Photon_vidNestedWPBitmap"};
 
    TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
    TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};
@@ -577,6 +583,11 @@ void mainSelector::Init(TTree *tree)
 // FIXME
    if (strstr(tree->GetBranch("Electron_vidNestedWPBitmap")->GetTitle(), "2 bits per cut")) ele_vid_2bit = true;
    if (strstr(tree->GetBranch("Electron_vidNestedWPBitmap")->GetTitle(), "3 bits per cut")) ele_vid_3bit = true;
+// FIXME
+
+// FIXME
+   if (strstr(tree->GetBranch("Photon_vidNestedWPBitmap")->GetTitle(), "1 bits per cut")) pho_vid_1bit = true;
+   if (strstr(tree->GetBranch("Photon_vidNestedWPBitmap")->GetTitle(), "2 bits per cut")) pho_vid_2bit = true;
 // FIXME
 
    fReader.SetTree(tree);
