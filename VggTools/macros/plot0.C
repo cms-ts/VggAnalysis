@@ -582,7 +582,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   } else if (tmp_title == "h_WG_ele_ele0_pho0" || tmp_title == "h_WG_muo_muo0_pho0") {
     h_ratio->GetXaxis()->SetTitle("M^{l#gamma}");
   } else if (tmp_title == "h_WGG_ele_pho0_pho1_pt" || tmp_title == "h_WGG_muo_pho0_pho1_pt") {
-    h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma#gamma");
+    h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma#gamma}");
   } else if (tmp_title == "h_WGG_ele_pho0_pho1" || tmp_title == "h_WGG_muo_pho0_pho1") {
     h_ratio->GetXaxis()->SetTitle("M^{#gamma#gamma");
   } else if (tmp_title == "h_WGG_ele_ele0_pho1" || tmp_title == "h_WGG_muo_muo0_pho1") {
@@ -596,7 +596,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   } else if (tmp_title == "h_ZG_ele_ele0_ele1_pho0" || tmp_title == "h_ZG_muo_ele0_ele1_pho0") {
     h_ratio->GetXaxis()->SetTitle("M^{ll#gamma}");
   } else if (tmp_title == "h_ZGG_ele_pho0_pho1_pt" || tmp_title == "h_ZGG_muo_pho0_pho1_pt") {
-    h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma#gamma");
+    h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma#gamma}");
   } else if (tmp_title == "h_ZGG_ele_pho0_pho1" || tmp_title == "h_ZGG_muo_pho0_pho1") {
     h_ratio->GetXaxis()->SetTitle("M^{#gamma#gamma");
   } else if (tmp_title == "h_ZGG_ele_ele0_pho1" || tmp_title == "h_ZGG_muo_muo0_pho1") {
