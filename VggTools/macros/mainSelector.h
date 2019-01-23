@@ -325,6 +325,22 @@ public :
    TH1D* h_ZGG_muo_muo1_pho0_pho1 = 0;
    TH1D* h_ZGG_muo_muo0_muo1_pho0_pho1 = 0;
 
+   TH1D* h_WG_ele_pho0_noiso_mva = 0;
+   TH1D* h_WGG_ele_pho0_noiso_mva = 0;
+   TH1D* h_WGG_ele_pho1_noiso_mva = 0;
+
+   TH1D* h_WG_muo_pho0_noiso_mva = 0;
+   TH1D* h_WGG_muo_pho0_noiso_mva = 0;
+   TH1D* h_WGG_muo_pho1_noiso_mva = 0;
+
+   TH1D* h_ZG_ele_pho0_noiso_mva = 0;
+   TH1D* h_ZGG_ele_pho0_noiso_mva = 0;
+   TH1D* h_ZGG_ele_pho1_noiso_mva = 0;
+
+   TH1D* h_ZG_muo_pho0_noiso_mva = 0;
+   TH1D* h_ZGG_muo_pho0_noiso_mva = 0;
+   TH1D* h_ZGG_muo_pho1_noiso_mva = 0;
+
    TH1D* h_W_ele0_trig = 0;
 
    TH1D* h_W_muo0_trig = 0;
