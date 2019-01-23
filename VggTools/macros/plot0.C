@@ -232,8 +232,9 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     }
 
     if (it->first == 10) {
-      it->second->SetFillColor(kYellow-4);
-      leg->AddEntry(it->second, "DYJets", "f");
+      it->second->SetFillColor(kOrange+7);
+      it->second->SetFillStyle(3254);
+      leg->AddEntry(it->second, "Z #gamma #gamma", "f");
     }
     if (it->first == 11) {
       it->second->SetFillColor(kOrange-4);
@@ -241,9 +242,8 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       leg->AddEntry(it->second, "Z #gamma", "f");
     }
     if (it->first == 12) {
-      it->second->SetFillColor(kOrange+7);
-      it->second->SetFillStyle(3254);
-      leg->AddEntry(it->second, "Z #gamma #gamma", "f");
+      it->second->SetFillColor(kYellow-4);
+      leg->AddEntry(it->second, "DYJets", "f");
     }
     if (it->first == 13) {
       it->second->SetFillColor(kOrange+2);
@@ -271,8 +271,9 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     }
 
     if (it->first == 1010) {
-      it->second->SetFillColor(kYellow-4);
-      leg->AddEntry(it->second, "WJets", "f");
+      it->second->SetFillColor(kOrange+7);
+      it->second->SetFillStyle(3254);
+      leg->AddEntry(it->second, "W #gamma #gamma", "f");
     }
     if (it->first == 1011) {
       it->second->SetFillColor(kOrange-4);
@@ -280,9 +281,8 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       leg->AddEntry(it->second, "W #gamma", "f");
     }
     if (it->first == 1012) {
-      it->second->SetFillColor(kOrange+7);
-      it->second->SetFillStyle(3254);
-      leg->AddEntry(it->second, "W #gamma #gamma", "f");
+      it->second->SetFillColor(kYellow-4);
+      leg->AddEntry(it->second, "WJets", "f");
     }
     if (it->first == 1013) {
       it->second->SetFillColor(kOrange+2);
