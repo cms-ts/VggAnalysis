@@ -162,6 +162,7 @@ public :
    TH1D* h_Z_muo_jet0_phi = 0;
 
    TH1D* h_W_ele_nphotons = 0;
+   TH1D* h_WG_ele_ele0_pt = 0;
    TH1D* h_WG_ele_pho0_pt = 0;
    TH1D* h_WG_ele_pho0_eta = 0;
    TH1D* h_WG_ele_pho0_phi = 0;
@@ -190,6 +191,7 @@ public :
    TH1D* h_WGG_ele_pho0_pho1_dR = 0;
 
    TH1D* h_W_muo_nphotons = 0;
+   TH1D* h_WG_muo_muo0_pt = 0;
    TH1D* h_WG_muo_pho0_pt = 0;
    TH1D* h_WG_muo_pho0_eta = 0;
    TH1D* h_WG_muo_pho0_phi = 0;
@@ -218,6 +220,7 @@ public :
    TH1D* h_WGG_muo_pho0_pho1_dR = 0;
 
    TH1D* h_Z_ele_nphotons = 0;
+   TH1D* h_ZG_ele_ele0_pt = 0;
    TH1D* h_ZG_ele_pho0_pt = 0;
    TH1D* h_ZG_ele_pho0_eta = 0;
    TH1D* h_ZG_ele_pho0_phi = 0;
@@ -247,6 +250,7 @@ public :
    TH1D* h_ZGG_ele_pho0_pho1_dR = 0;
 
    TH1D* h_Z_muo_nphotons = 0;
+   TH1D* h_ZG_muo_muo0_pt = 0;
    TH1D* h_ZG_muo_pho0_pt = 0;
    TH1D* h_ZG_muo_pho0_eta = 0;
    TH1D* h_ZG_muo_pho0_phi = 0;
@@ -288,12 +292,14 @@ public :
    TH1D* h_WG_ele_ele0_pho0 = 0;
    TH1D* h_WGG_ele_pho0_pho1_pt = 0;
    TH1D* h_WGG_ele_pho0_pho1 = 0;
+   TH1D* h_WGG_ele_ele0_pho0 = 0;
    TH1D* h_WGG_ele_ele0_pho1 = 0;
    TH1D* h_WGG_ele_ele0_pho0_pho1 = 0;
 
    TH1D* h_WG_muo_muo0_pho0 = 0;
    TH1D* h_WGG_muo_pho0_pho1_pt = 0;
    TH1D* h_WGG_muo_pho0_pho1 = 0;
+   TH1D* h_WGG_muo_muo0_pho0 = 0;
    TH1D* h_WGG_muo_muo0_pho1 = 0;
    TH1D* h_WGG_muo_muo0_pho0_pho1 = 0;
 
