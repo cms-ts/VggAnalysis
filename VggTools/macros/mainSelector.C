@@ -1210,33 +1210,31 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
-/*
 #if defined(NANOAODv4)
-     if (fabs(Photon_eta[i]) < 1.442) {
-       if (Photon_mvaID[i] < -0.02) continue;
-     }
-     if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
-       if (Photon_mvaID[i] < -0.26) continue;
-     }
+     //if (fabs(Photon_eta[i]) < 1.442) {
+     //  if (Photon_mvaID[i] < -0.02) continue;
+     //}
+     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+     //  if (Photon_mvaID[i] < -0.26) continue;
+     //}
 #else
-     if (fabs(Photon_eta[i]) < 1.442) {
+     //if (fabs(Photon_eta[i]) < 1.442) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-       if (Photon_mvaID[i] < 0.20) continue;
+     //  if (Photon_mvaID[i] < 0.20) continue;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-       if (Photon_mvaID[i] < 0.27) continue;
+     //  if (Photon_mvaID[i] < 0.27) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-     }
-     if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+     //}
+     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-       if (Photon_mvaID[i] < 0.20) continue;
+     //  if (Photon_mvaID[i] < 0.20) continue;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-       if (Photon_mvaID[i] < 0.14) continue;
+     //  if (Photon_mvaID[i] < 0.14) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-     }
+     //}
 #endif // defined(NANOAODv4)
-*/
 // FIXME
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000000001111) != 0b0000000000001111) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
@@ -1384,33 +1382,31 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
-/*
 #if defined(NANOAODv4)
-     if (fabs(Photon_eta[i]) < 1.442) {
-       if (Photon_mvaID[i] < -0.02) continue;
-     }
-     if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
-       if (Photon_mvaID[i] < -0.26) continue;
-     }
+     //if (fabs(Photon_eta[i]) < 1.442) {
+     //  if (Photon_mvaID[i] < -0.02) continue;
+     //}
+     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+     //  if (Photon_mvaID[i] < -0.26) continue;
+     //}
 #else
-     if (fabs(Photon_eta[i]) < 1.442) {
+     //if (fabs(Photon_eta[i]) < 1.442) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-       if (Photon_mvaID[i] < 0.20) continue;
+     //  if (Photon_mvaID[i] < 0.20) continue;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-       if (Photon_mvaID[i] < 0.27) continue;
+     //  if (Photon_mvaID[i] < 0.27) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-     }
-     if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+     //}
+     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-       if (Photon_mvaID[i] < 0.20) continue;
+     //  if (Photon_mvaID[i] < 0.20) continue;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-       if (Photon_mvaID[i] < 0.14) continue;
+     //  if (Photon_mvaID[i] < 0.14) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-     }
+     //}
 #endif // defined(NANOAODv4)
-*/
 // FIXME
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000000001111) != 0b0000000000001111) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
