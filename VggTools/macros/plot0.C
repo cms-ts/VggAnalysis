@@ -194,9 +194,16 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
     int index = int(it->first);
     if (index > 0) {
-      hstack_mc->Add(it->second);
-      h_mc_sum->Add(it->second);
-      if ((index >= 20 && index <= 1000) || (index >= 1020 && index <= 2000) || index == 9001) {
+      if (flags.find("nobkg") != string::npos) {
+        if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
+          hstack_mc->Add(it->second);
+          h_mc_sum->Add(it->second);
+        }
+      } else {
+        hstack_mc->Add(it->second);
+        h_mc_sum->Add(it->second);
+      }
+      if (index == 13 || (index >= 20 && index <= 1000) || index == 1013 || (index >= 1020 && index <= 2000) || index == 9001) {
         h_bkg->Add(it->second);
       }
     }
@@ -334,8 +341,12 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     }
   }
 
+  if (flags.find("nobkg") != string::npos) {
+    histo[0]->Add(h_bkg, -1);
+  }
+
   TH1D* h_ratio = (TH1D*)histo[0]->Clone("h_ratio");
-  h_ratio->Divide(h_mc_sum);  
+  h_ratio->Divide(h_mc_sum);
 
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
   c1->cd();
