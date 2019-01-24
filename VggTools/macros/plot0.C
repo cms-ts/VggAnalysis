@@ -9,6 +9,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   if (plot.find("2016") != string::npos) year = "2016";
   if (plot.find("2017") != string::npos) year = "2017";
   if (plot.find("2018") != string::npos) year = "2018";
+  if (plot.find("Run2") != string::npos) year = "Run2";
 
   plot = plot + ".dat";
   if (flags.find("test") != string::npos) plot = plot + ".test";
@@ -45,6 +46,9 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   map<int, TH1D*> histo_mc_gen;
 
   float lumi = 0.;
+  float lumi2016 = 0.;
+  float lumi2017 = 0.;
+  float lumi2018 = 0.;
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
@@ -56,6 +60,9 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       }
       if (lumiMap[it->first] != 0) {
         lumi = lumi + lumiMap[it->first];
+        if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first];
+        if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first];
+        if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first];
       } else {
         cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
       }
@@ -96,6 +103,9 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       if (xsecMap[it->first] != 0) {
         double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
         norm = xsecMap[it->first] * 1000. * lumi / ngen;
+        if (it->first.find("16") != string::npos) norm = norm * lumi2016 / lumi;
+        if (it->first.find("17") != string::npos) norm = norm * lumi2017 / lumi;
+        if (it->first.find("18") != string::npos) norm = norm * lumi2018 / lumi;
       } else {
         cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
         return;

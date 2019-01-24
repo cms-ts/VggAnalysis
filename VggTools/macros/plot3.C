@@ -9,6 +9,7 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   if (plot.find("2016") != string::npos) year = "2016";
   if (plot.find("2017") != string::npos) year = "2017";
   if (plot.find("2018") != string::npos) year = "2018";
+  if (plot.find("Run2") != string::npos) year = "Run2";
 
   plot = plot + ".dat";
   if (flags.find("test") != string::npos) plot = plot + ".test";
@@ -31,12 +32,18 @@ void plot3(string plot="", string title="", string version="v00", string flags="
   }
 
   float lumi = 0.;
+  float lumi2016 = 0.;
+  float lumi2017 = 0.;
+  float lumi2018 = 0.;
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
       if (lumiMap[it->first] != 0) {
         lumi = lumi + lumiMap[it->first];
+        lumi2016 = lumi2016 + lumiMap[it->first];
+        lumi2017 = lumi2017 + lumiMap[it->first];
+        lumi2018 = lumi2018 + lumiMap[it->first];
       } else {
         cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
       }

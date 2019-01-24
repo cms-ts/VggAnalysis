@@ -26,6 +26,7 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   if (plot.find("2016") != string::npos) year = "2016";
   if (plot.find("2017") != string::npos) year = "2017";
   if (plot.find("2018") != string::npos) year = "2018";
+  if (plot.find("Run2") != string::npos) year = "Run2";
 
   plot = plot + ".dat";
   if (flags.find("test") != string::npos) plot = plot + ".test";
