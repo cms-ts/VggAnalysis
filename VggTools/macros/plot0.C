@@ -238,6 +238,13 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     }
   }
 
+  if (flags.find("nobkg") != string::npos) {
+    histo[0]->Add(h_bkg, -1);
+  }
+
+  TH1D* h_ratio = (TH1D*)histo[0]->Clone("h_ratio");
+  h_ratio->Divide(h_mc_sum);
+
   TLegend* leg = new TLegend(0.65, 0.640, 0.91, 0.88);
   leg->SetBorderSize(0);
   leg->SetEntrySeparation(0.01);
@@ -263,27 +270,27 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "DYJets", "f");
     }
-    if (it->first == 13) {
+    if (flags.find("nobkg") == string::npos && it->first == 13) {
       it->second->SetFillColor(kOrange+2);
       leg->AddEntry(it->second, "Z #rightarrow #tau #tau", "f");
     }
-    if (it->first == 20) {
+    if (flags.find("nobkg") == string::npos && it->first == 20) {
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "WJets", "f");
     }
-    if (it->first == 30) {
+    if (flags.find("nobkg") == string::npos && it->first == 30) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
-    if (it->first == 35) {
+    if (flags.find("nobkg") == string::npos && it->first == 35) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Triboson", "f");
     }
-    if (it->first == 40) {
+    if (flags.find("nobkg") == string::npos && it->first == 40) {
       it->second->SetFillColor(kBlue);
       leg->AddEntry(it->second, "TTJets", "f");
     }
-    if (it->first == 50) {
+    if (flags.find("nobkg") == string::npos && it->first == 50) {
       it->second->SetFillColor(kOrange-3);
       leg->AddEntry(it->second, "SingleTop", "f");
     }
@@ -302,51 +309,44 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "WJets", "f");
     }
-    if (it->first == 1013) {
+    if (flags.find("nobkg") == string::npos && it->first == 1013) {
       it->second->SetFillColor(kOrange+2);
       leg->AddEntry(it->second, "W #rightarrow #tau #nu", "f");
     }
-    if (it->first == 1020) {
+    if (flags.find("nobkg") == string::npos && it->first == 1020) {
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "DYJets", "f");
     }
-    if (it->first == 1021) {
+    if (flags.find("nobkg") == string::npos && it->first == 1021) {
       it->second->SetFillColor(kOrange-5);
       leg->AddEntry(it->second, "Z #gamma", "f");
     }
-    if (it->first == 1022) {
+    if (flags.find("nobkg") == string::npos && it->first == 1022) {
       it->second->SetFillColor(kOrange-6);
       leg->AddEntry(it->second, "Z #gamma #gamma", "f");
     }
-    if (it->first == 1030) {
+    if (flags.find("nobkg") == string::npos && it->first == 1030) {
       it->second->SetFillColor(kBlue);
       leg->AddEntry(it->second, "TTJets", "f");
     }
-    if (it->first == 1040) {
+    if (flags.find("nobkg") == string::npos && it->first == 1040) {
       it->second->SetFillColor(kOrange-3);
       leg->AddEntry(it->second, "SingleTop", "f");
     }
-    if (it->first == 1050) {
+    if (flags.find("nobkg") == string::npos && it->first == 1050) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
-    if (it->first == 1055) {
+    if (flags.find("nobkg") == string::npos && it->first == 1055) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Triboson", "f");
     }
 
-    if (it->first == 9001) {
+    if (flags.find("nobkg") == string::npos && it->first == 9001) {
       it->second->SetFillColor(kMagenta+3);
       leg->AddEntry(it->second, "QCD", "f");
     }
   }
-
-  if (flags.find("nobkg") != string::npos) {
-    histo[0]->Add(h_bkg, -1);
-  }
-
-  TH1D* h_ratio = (TH1D*)histo[0]->Clone("h_ratio");
-  h_ratio->Divide(h_mc_sum);
 
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
   c1->cd();
@@ -689,7 +689,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   int iPos = 0;
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
-
+/*
   while (gSystem->AccessPathName(("html/" + version + "/" + year + "/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE);
   }
@@ -707,7 +707,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   }
   file->Close();
   delete file;
-
+*/
 }
 
 int main(int argc, char *argv[]) {
