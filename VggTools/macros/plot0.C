@@ -689,7 +689,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   int iPos = 0;
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
-/*
+
   while (gSystem->AccessPathName(("html/" + version + "/" + year + "/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + year + "/").c_str(), kTRUE);
   }
@@ -707,7 +707,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   }
   file->Close();
   delete file;
-*/
+
 }
 
 int main(int argc, char *argv[]) {
