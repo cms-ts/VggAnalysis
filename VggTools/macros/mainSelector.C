@@ -583,19 +583,19 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    
    h_WG_ele_pho0_noiso_mva = new TH1D("h_WG_ele_pho0_noiso_mva", "h_WG_ele_pho0_noiso_mva", 50, -1., 1.);
    h_WGG_ele_pho0_noiso_mva = new TH1D("h_WGG_ele_pho0_noiso_mva", "h_WGG_ele_pho0_noiso_mva", 15, -1., 1.);
-   h_WGG_ele_pho1_noiso_mva = new TH1D("h_WGG_ele_pho0_noiso_mva", "h_WGG_ele_pho0_noiso_mva", 15, -1., 1.);
+   h_WGG_ele_pho1_noiso_mva = new TH1D("h_WGG_ele_pho1_noiso_mva", "h_WGG_ele_pho1_noiso_mva", 15, -1., 1.);
 
    h_WG_muo_pho0_noiso_mva = new TH1D("h_WG_muo_pho0_noiso_mva", "h_WG_muo_pho0_noiso_mva", 50, -1., 1.);
    h_WGG_muo_pho0_noiso_mva = new TH1D("h_WGG_muo_pho0_noiso_mva", "h_WGG_muo_pho0_noiso_mva", 15, -1., 1.);
-   h_WGG_muo_pho1_noiso_mva = new TH1D("h_WGG_muo_pho0_noiso_mva", "h_WGG_muo_pho0_noiso_mva", 15, -1., 1.);
+   h_WGG_muo_pho1_noiso_mva = new TH1D("h_WGG_muo_pho1_noiso_mva", "h_WGG_muo_pho1_noiso_mva", 15, -1., 1.);
    
    h_ZG_ele_pho0_noiso_mva = new TH1D("h_ZG_ele_pho0_noiso_mva", "h_ZG_ele_pho0_noiso_mva", 50, -1., 1.);
    h_ZGG_ele_pho0_noiso_mva = new TH1D("h_ZGG_ele_pho0_noiso_mva", "h_ZGG_ele_pho0_noiso_mva", 10, -1., 1.);
-   h_ZGG_ele_pho1_noiso_mva = new TH1D("h_ZGG_ele_pho0_noiso_mva", "h_ZGG_ele_pho0_noiso_mva", 10, -1., 1.);
+   h_ZGG_ele_pho1_noiso_mva = new TH1D("h_ZGG_ele_pho1_noiso_mva", "h_ZGG_ele_pho1_noiso_mva", 10, -1., 1.);
 
    h_ZG_muo_pho0_noiso_mva = new TH1D("h_ZG_muo_pho0_noiso_mva", "h_ZG_muo_pho0_noiso_mva", 50, -1., 1.);
    h_ZGG_muo_pho0_noiso_mva = new TH1D("h_ZGG_muo_pho0_noiso_mva", "h_ZGG_muo_pho0_noiso_mva", 10, -1., 1.);
-   h_ZGG_muo_pho1_noiso_mva = new TH1D("h_ZGG_muo_pho0_noiso_mva", "h_ZGG_muo_pho0_noiso_mva", 10, -1., 1.);
+   h_ZGG_muo_pho1_noiso_mva = new TH1D("h_ZGG_muo_pho1_noiso_mva", "h_ZGG_muo_pho1_noiso_mva", 10, -1., 1.);
    
    h_W_ele0_trig = new TH1D("h_W_ele0_trig", "h_W_ele0_trig", 32, 0., 32.);
 
