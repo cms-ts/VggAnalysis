@@ -10,13 +10,13 @@ if [ ! -z "$1" ]; then
     echo
     echo "Available versions:"
     echo
-    ls data/
+    ls ./data/
     echo
     exit
   elif [ "$1" == "all" ]; then
-    VERSION=`ls data/`
+    VERSION=`ls ./data/`
   elif [ "$1" == "last" ]; then
-    VERSION=`ls -tr data/ | tail -1`
+    VERSION=`ls -tr ./data/ | tail -1`
   else
     VERSION=$1
   fi
@@ -24,7 +24,7 @@ fi
 
 LISTS=""
 for V in $VERSION; do
-  LISTS=$LISTS" "`find data/ -type f -name *.log | grep /$V/`
+  LISTS=$LISTS" "`find ./data/ -type f -name *.log | grep /$V/`
 done
 
 if [ -z "${LISTS// }" ]; then
@@ -35,7 +35,7 @@ if [ -z "${LISTS// }" ]; then
 fi
 
 if [ ! -z "$2" ]; then
-  LISTS=`ls data/$VERSION/$2.log`
+  LISTS=`ls ./data/$VERSION/$2.log`
 fi
 
 total=0
@@ -63,25 +63,25 @@ for L in $LISTS; do
   grep -v '+++' | \
   grep -v '(M)' | \
   grep -v '#'`
-  printf "Checking %-132s : " `basename \`dirname $L\``/`basename $L`
   if [ -z "$O" ]; then
-    echo -n "GOOD"
+    printf "GOOD - "
     grep -q "processed events" $L
     if [ $? -eq 0 ]; then
-      echo " - done"
+      printf "done     "
       done=$((done+1))
     else
-      echo " - running"
+      printf "running  "
       running=$((running+1))
     fi
   else
     if [ "$O" == "no files to process" ]; then
-      echo "ERROR (no files)"
+      printf "ERROR (no files)"
     else 
-      echo "ERROR"
+      printf "ERROR           "
     fi
     errors=$((errors+1))
   fi
+  printf ": ./data/%s \n" `basename \`dirname $L\``/`basename $L`
 done
 
 echo
