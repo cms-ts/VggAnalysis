@@ -103,9 +103,10 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       if (xsecMap[it->first] != 0) {
         double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
         norm = xsecMap[it->first] * 1000. * lumi / ngen;
-        if (it->first.find("16") != string::npos) norm = norm * lumi2016 / lumi;
-        if (it->first.find("17") != string::npos) norm = norm * lumi2017 / lumi;
-        if (it->first.find("18") != string::npos) norm = norm * lumi2018 / lumi;
+        if (it->first.find("RunIISummer16") != string::npos) norm = norm * lumi2016 / lumi;
+        if (it->first.find("RunIIFall17") != string::npos) norm = norm * lumi2017 / lumi;
+        if (it->first.find("RunIIFall18") != string::npos) norm = norm * lumi2018 / lumi;
+        if (it->first.find("RunIIAutumn18") != string::npos) norm = norm * lumi2018 / lumi;
       } else {
         cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
         return;
