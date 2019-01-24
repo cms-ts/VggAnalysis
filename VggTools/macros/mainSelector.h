@@ -24,6 +24,8 @@
 
 // #define TRIGGER_OBJECTS
 
+// #define DOUBLE_TRIGGER
+
 #if defined(mainSelectorDT16H_h)
 #define mainSelectorDT16_h
 #endif // defined(mainSelectorDT16H_h)
@@ -491,10 +493,13 @@ public :
 #endif
 
    TTreeReaderValue<Bool_t> HLT_Ele27_WPTight_Gsf = {fReader, "HLT_Ele27_WPTight_Gsf"};
+#if defined(DOUBLE_TRIGGER)
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
+#endif // defined(DOUBLE_TRIGGER)
 
    TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "HLT_IsoMu24"};
    TTreeReaderValue<Bool_t> HLT_IsoTkMu24 = {fReader, "HLT_IsoTkMu24"};
+#if defined(DOUBLE_TRIGGER)
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL"};
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = {fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL"};
@@ -503,6 +508,7 @@ public :
    TTreeReaderValue<Bool_t> HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL = {fReader, "HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL"};
    TTreeReaderValue<Bool_t> HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = {fReader, "HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ"};
 #endif // defined(mainSelectorDT16H_h) || defined(mainSelectorMC16_h)
+#endif // defined(DOUBLE_TRIGGER)
 
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 
@@ -516,24 +522,32 @@ public :
 #endif
 
    TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
+#if defined(DOUBLE_TRIGGER)
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"};
+#endif // defined(DOUBLE_TRIGGER)
 
    TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "HLT_IsoMu24"};
    TTreeReaderValue<Bool_t> HLT_IsoMu27 = {fReader, "HLT_IsoMu27"};
+#if defined(DOUBLE_TRIGGER)
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8"};
 #if !defined(mainSelectorDT17B_h) || defined(mainSelectorMC17_h)
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8"};
 #endif // !defined(mainSelectorDT17B_h) || defined(mainSelectorMC17_h)
+#endif // defined(DOUBLE_TRIGGER)
 
 #endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
    TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf = {fReader, "HLT_Ele32_WPTight_Gsf"};
+#if defined(DOUBLE_TRIGGER)
    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"};
+#endif // defined(DOUBLE_TRIGGER)
 
    TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "HLT_IsoMu24"};
+#if defined(DOUBLE_TRIGGER)
    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8"};
+#endif // defined(DOUBLE_TRIGGER)
 
 #endif // defined(mainSelectorDT18_h)
 
