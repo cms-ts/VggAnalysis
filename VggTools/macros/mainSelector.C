@@ -2686,8 +2686,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(DOUBLE_TRIGGER)
          if ((TrigObj_filterBits[i] &  1) ==  1) match1 = true; //  1 = CaloIdL_TrackIdL_IsoVL
          if ((TrigObj_filterBits[i] & 16) == 16) match1 = true; // 16 = 2e
-#else
-         if ((TrigObj_filterBits[i] &  2) ==  2) match1 = true; //  2 = WPTight or 1e
 #endif // defined(DOUBLE_TRIGGER)
        }
        if (ele1_qcd.DeltaR(tmp_trg) < 0.3) {
@@ -2752,9 +2750,6 @@ Bool_t mainSelector::Process(Long64_t entry)
          if ((TrigObj_filterBits[i] &  2) ==  2) match1 = true; //  2 = Iso
          if ((TrigObj_filterBits[i] &  8) ==  8) match1 = true; //  8 = IsoTkMu or 1mu
          if ((TrigObj_filterBits[i] & 16) == 16) match1 = true; // 16 = 2mu
-#else
-         if ((TrigObj_filterBits[i] &  2) ==  2) match1 = true; //  2 = Iso
-         if ((TrigObj_filterBits[i] &  8) ==  8) match1 = true; //  8 = IsoTkMu or 1mu
 #endif // defined(DOUBLE_TRIGGER)
        }
        if (muo1_qcd.DeltaR(tmp_trg) < 0.3) {
