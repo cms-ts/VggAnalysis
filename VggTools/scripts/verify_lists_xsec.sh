@@ -3,8 +3,44 @@
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 cd $WORKDIR
 
+if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
+
+  echo
+  echo './xsec.dat => ../scripts/lists/'
+  echo
+
+  DATASETS=`cat ./xsec.dat | grep -v \# | awk '{print $1}'`
+
+  check=0
+  for D in $DATASETS; do
+
+    [ -z "${D##*WG_WJetsToLNu*}" ] && continue
+    [ -z "${D##*WGG_WJetsToLNu*}" ] && continue
+    [ -z "${D##*WTauNu_WJetsToLNu*}" ] && continue
+    [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
+    [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
+    [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
+
+    if [ ! -e ../scripts/lists/$D.list ]; then
+      if [ ! -e lists/$D.list ]; then
+        echo "missing in ../scripts/lists/ and ./lists/ : "$D
+        check=1
+      else
+        echo "missing in ../scripts/lists/ : "$D
+        check=1
+      fi
+    elif [ ! -e lists/$D.list ]; then
+      echo "missing in ./lists/ : "$D
+      check=1
+    fi
+  done
+
+  [ $check -eq 0 ] && echo "ok"
+
+fi
+
 echo
-echo './xsec.dat => ../scripts/lists/ ./lists/'
+echo './xsec.dat => ./lists/'
 echo
 
 DATASETS=`cat ./xsec.dat | grep -v \# | awk '{print $1}'`
@@ -19,15 +55,7 @@ for D in $DATASETS; do
   [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
   [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
 
-  if [ ! -e ../scripts/lists/$D.list ]; then
-    if [ ! -e lists/$D.list ]; then
-      echo "missing in ../scripts/lists/ and ./lists/ : "$D
-      check=1
-    else
-      echo "missing in ../scripts/lists/ : "$D
-      check=1
-    fi
-  elif [ ! -e lists/$D.list ]; then
+  if [ ! -e lists/$D.list ]; then
     echo "missing in ./lists/ : "$D
     check=1
   fi
@@ -36,11 +64,41 @@ done
 
 [ $check -eq 0 ] && echo "ok"
 
+if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
+
+  echo
+  echo '../scripts/lists/ => ./xsec.dat'
+  echo
+
+  DATASETS=`ls ../scripts/lists/ | grep -v : | sort | uniq | sed -e 's/.list//' | grep -v 'Run201[678]'`
+
+  check=0
+  for D in $DATASETS; do
+
+    [ -z "${D##*WG_WJetsToLNu*}" ] && continue
+    [ -z "${D##*WGG_WJetsToLNu*}" ] && continue
+    [ -z "${D##*WTauNu_WJetsToLNu*}" ] && continue
+    [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
+    [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
+    [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
+
+    X=`grep $D ./xsec.dat`
+    if [ -z "$X" ]; then
+      echo "missing in ./xsec.dat : "$D
+      check=1
+    fi
+
+  done
+
+  [ $check -eq 0 ] && echo "ok"
+
+fi
+
 echo
-echo '../scripts/lists/ ./lists/ => ./xsec.dat'
+echo './lists/ => ./xsec.dat'
 echo
 
-DATASETS=`ls ../scripts/lists/ ./lists/ | grep -v : | sort | uniq | sed -e 's/.list//' | grep -v 'Run201[678]'`
+DATASETS=`ls ./lists/ | grep -v : | sort | uniq | sed -e 's/.list//' | grep -v 'Run201[678]'`
 
 check=0
 for D in $DATASETS; do
@@ -108,39 +166,43 @@ done
 
 [ $check -eq 0 ] && echo "ok"
 
-echo
-echo './lists/ <=> ../scripts/lists/'
-echo
+if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
 
-DATASETS=`ls ./lists/ | sed -e 's/.list//'`
+  echo
+  echo './lists/ <=> ../scripts/lists/'
+  echo
 
-check=0
-for D in $DATASETS; do
+  DATASETS=`ls ./lists/ | sed -e 's/.list//'`
 
-  [ -z "${D##*WG_WJetsToLNu*}" ] && continue
-  [ -z "${D##*WGG_WJetsToLNu*}" ] && continue
-  [ -z "${D##*WTauNu_WJetsToLNu*}" ] && continue
-  [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
-  [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
-  [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
+  check=0
+  for D in $DATASETS; do
 
-  if [ ! -e ../scripts/lists/$D.list ]; then
-    echo "missing in ../scripts/lists/ : "$D
-    check=1
-  else
-    X=`diff ../scripts/lists/$D.list ./lists/$D.list`
-    if [ ! -z "$X" ]; then
-      echo "different between ../scripts/lists/ and ../lists/ : "$D" ("`wc -l ../scripts/lists/$D.list | awk '{print $1}'`" files / "`wc -l lists/$D.list | awk '{print $1}'`" files)"
+    [ -z "${D##*WG_WJetsToLNu*}" ] && continue
+    [ -z "${D##*WGG_WJetsToLNu*}" ] && continue
+    [ -z "${D##*WTauNu_WJetsToLNu*}" ] && continue
+    [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
+    [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
+    [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
+
+    if [ ! -e ../scripts/lists/$D.list ]; then
+      echo "missing in ../scripts/lists/ : "$D
       check=1
+    else
+      X=`diff ../scripts/lists/$D.list ./lists/$D.list`
+      if [ ! -z "$X" ]; then
+        echo "different between ../scripts/lists/ and ../lists/ : "$D" ("`wc -l ../scripts/lists/$D.list | awk '{print $1}'`" files / "`wc -l lists/$D.list | awk '{print $1}'`" files)"
+        check=1
+      fi
     fi
-  fi
 
-done
+  done
 
-[ $check -eq 0 ] && echo "ok"
+  [ $check -eq 0 ] && echo "ok"
+
+fi
 
 echo
-echo './amcatnlo/ ./madgraph/ => ../scripts/lists/ ./lists/'
+echo './amcatnlo/ ./madgraph/ => ./lists/'
 echo
 
 DATASETS=`cat ./amcatnlo/*.dat* ./madgraph/*.dat* | grep -v Run20 | grep -v \# | awk '{print $1}' | sort | uniq`
@@ -155,15 +217,7 @@ for D in $DATASETS; do
   [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
   [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
 
-  if [ ! -e ../scripts/lists/$D.list ]; then
-    if [ ! -e lists/$D.list ]; then
-      echo "missing in ../scripts/lists/ and ./lists/ : "$D
-      check=1
-    else
-      echo "missing in ../scripts/lists/ : "$D
-      check=1
-    fi
-  elif [ ! -e lists/$D.list ]; then
+  if [ ! -e lists/$D.list ]; then
     echo "missing in ./lists/ : "$D
     check=1
   fi
@@ -172,25 +226,29 @@ done
 
 [ $check -eq 0 ] && echo "ok"
 
-echo
-echo '../scripts/lists/ ./lists/ => empty'
-echo
+if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
 
-DATASETS=`ls ../scripts/lists/ | grep -v : | sort | uniq | sed -e 's/.list//'`
+  echo
+  echo '../scripts/lists/ => empty'
+  echo
 
-check=0
-for D in $DATASETS; do
+  DATASETS=`ls ../scripts/lists/ | grep -v : | sort | uniq | sed -e 's/.list//'`
 
-  if [ -e ../scripts/lists/$D.list ]; then
-    if [ ! -s ../scripts/lists/$D.list ]; then
-      echo "empty : ../scripts/lists/"$D".list"
-      check=1
+  check=0
+  for D in $DATASETS; do
+
+    if [ -e ../scripts/lists/$D.list ]; then
+      if [ ! -s ../scripts/lists/$D.list ]; then
+        echo "empty : ../scripts/lists/"$D".list"
+        check=1
+      fi
     fi
-  fi
 
-done
+  done
 
-[ $check -eq 0 ] && echo "ok"
+  [ $check -eq 0 ] && echo "ok"
+
+fi
 
 echo
 echo './lists/ => empty'
