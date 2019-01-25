@@ -48,13 +48,6 @@ DATASETS=`cat ./xsec.dat | grep -v \# | awk '{print $1}'`
 check=0
 for D in $DATASETS; do
 
-  [ -z "${D##*WG_WJetsToLNu*}" ] && continue
-  [ -z "${D##*WGG_WJetsToLNu*}" ] && continue
-  [ -z "${D##*WTauNu_WJetsToLNu*}" ] && continue
-  [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
-  [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
-  [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
-
   if [ ! -e lists/$D.list ]; then
     echo "missing in ./lists/ : "$D
     check=1
@@ -103,13 +96,6 @@ DATASETS=`ls ./lists/ | grep -v : | sort | uniq | sed -e 's/.list//' | grep -v '
 check=0
 for D in $DATASETS; do
 
-  [ -z "${D##*WG_WJetsToLNu*}" ] && continue
-  [ -z "${D##*WGG_WJetsToLNu*}" ] && continue
-  [ -z "${D##*WTauNu_WJetsToLNu*}" ] && continue
-  [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
-  [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
-  [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
-
   X=`grep $D ./xsec.dat`
   if [ -z "$X" ]; then
     echo "missing in ./xsec.dat : "$D
@@ -134,6 +120,7 @@ for D in $DATASETS; do
 
   [ -z "${D##*WWG*}" ] && continue
   [ -z "${D##*WZG*}" ] && continue
+  [ -z "${D##*ZZG*}" ] && continue
 
   [ -z "${D##*TTG*}" ] && continue
 
@@ -209,13 +196,6 @@ DATASETS=`cat ./amcatnlo/*.dat* ./madgraph/*.dat* | grep -v Run20 | grep -v \# |
 
 check=0
 for D in $DATASETS; do
-
-  [ -z "${D##*WG_WJetsToLNu*}" ] && continue
-  [ -z "${D##*WGG_WJetsToLNu*}" ] && continue
-  [ -z "${D##*WTauNu_WJetsToLNu*}" ] && continue
-  [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
-  [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
-  [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
 
   if [ ! -e lists/$D.list ]; then
     echo "missing in ./lists/ : "$D
