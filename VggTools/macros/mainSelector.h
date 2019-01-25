@@ -22,9 +22,11 @@
 
 // #define NANOAODv4
 
-// #define TRIGGER_OBJECTS
-
 // #define DOUBLE_TRIGGER
+
+#if !defined(DOUBLE_TRIGGER)
+#define TRIGGER_OBJECTS
+#endif // !defined(DOUBLE_TRIGGER)
 
 #if defined(mainSelectorDT16H_h)
 #define mainSelectorDT16_h
