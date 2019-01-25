@@ -50,8 +50,6 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   float lumi2017 = 0.;
   float lumi2018 = 0.;
 
-  bool flowbins = true;
-
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
@@ -71,23 +69,11 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       if (histo[index]) {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
         if (h) {
-          if (flowbins) {
-            h->SetBinContent(1, h->GetBinContent(1) + h->GetBinContent(0));
-            h->SetBinContent(h->GetNbinsX(), h->GetBinContent(h->GetNbinsX()) + h->GetBinContent(h->GetNbinsX() + 1));
-            h->SetBinError(1, TMath::Sqrt(TMath::Power(h->GetBinError(1), 2) + TMath::Power(h->GetBinError(0), 2)));
-            h->SetBinError(h->GetNbinsX(), TMath::Sqrt(TMath::Power(h->GetBinError(h->GetNbinsX()), 2) + TMath::Power(h->GetBinError(h->GetNbinsX() + 1), 2)));
-          }
           histo[index]->Add(h);
         }
       } else {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
         if (h) {
-          if (flowbins) {
-            h->SetBinContent(1, h->GetBinContent(1) + h->GetBinContent(0));
-            h->SetBinContent(h->GetNbinsX(), h->GetBinContent(h->GetNbinsX()) + h->GetBinContent(h->GetNbinsX() + 1));
-            h->SetBinError(1, TMath::Sqrt(TMath::Power(h->GetBinError(1), 2) + TMath::Power(h->GetBinError(0), 2)));
-            h->SetBinError(h->GetNbinsX(), TMath::Sqrt(TMath::Power(h->GetBinError(h->GetNbinsX()), 2) + TMath::Power(h->GetBinError(h->GetNbinsX() + 1), 2)));
-          }
           histo[index] = h;
           histo[index]->SetDirectory(0);
         } else {
@@ -128,23 +114,11 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       if (histo[index]) {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
         if (h) {
-          if (flowbins) {
-            h->SetBinContent(1, h->GetBinContent(1) + h->GetBinContent(0));
-            h->SetBinContent(h->GetNbinsX(), h->GetBinContent(h->GetNbinsX()) + h->GetBinContent(h->GetNbinsX() + 1));
-            h->SetBinError(1, TMath::Sqrt(TMath::Power(h->GetBinError(1), 2) + TMath::Power(h->GetBinError(0), 2)));
-            h->SetBinError(h->GetNbinsX(), TMath::Sqrt(TMath::Power(h->GetBinError(h->GetNbinsX()), 2) + TMath::Power(h->GetBinError(h->GetNbinsX() + 1), 2)));
-          }
           histo[index]->Add(h, norm);
         }
       } else {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
         if (h) {
-          if (flowbins) {
-            h->SetBinContent(1, h->GetBinContent(1) + h->GetBinContent(0));
-            h->SetBinContent(h->GetNbinsX(), h->GetBinContent(h->GetNbinsX()) + h->GetBinContent(h->GetNbinsX() + 1));
-            h->SetBinError(1, TMath::Sqrt(TMath::Power(h->GetBinError(1), 2) + TMath::Power(h->GetBinError(0), 2)));
-            h->SetBinError(h->GetNbinsX(), TMath::Sqrt(TMath::Power(h->GetBinError(h->GetNbinsX()), 2) + TMath::Power(h->GetBinError(h->GetNbinsX() + 1), 2)));
-          }
           histo[index] = h;
           histo[index]->SetDirectory(0);
           histo[index]->Scale(norm);
@@ -155,23 +129,11 @@ void plot0(string plot="", string title="", string version="v00", string flags="
           if (histo_mc_gen[index]) {
             TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
             if (h) {
-              if (flowbins) {
-                h->SetBinContent(1, h->GetBinContent(1) + h->GetBinContent(0));
-                h->SetBinContent(h->GetNbinsX(), h->GetBinContent(h->GetNbinsX()) + h->GetBinContent(h->GetNbinsX() + 1));
-                h->SetBinError(1, TMath::Sqrt(TMath::Power(h->GetBinError(1), 2) + TMath::Power(h->GetBinError(0), 2)));
-                h->SetBinError(h->GetNbinsX(), TMath::Sqrt(TMath::Power(h->GetBinError(h->GetNbinsX()), 2) + TMath::Power(h->GetBinError(h->GetNbinsX() + 1), 2)));
-              }
               histo_mc_gen[index]->Add(h, norm);
             }
           } else {
             TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
             if (h) {
-              if (flowbins) {
-                h->SetBinContent(1, h->GetBinContent(1) + h->GetBinContent(0));
-                h->SetBinContent(h->GetNbinsX(), h->GetBinContent(h->GetNbinsX()) + h->GetBinContent(h->GetNbinsX() + 1));
-                h->SetBinError(1, TMath::Sqrt(TMath::Power(h->GetBinError(1), 2) + TMath::Power(h->GetBinError(0), 2)));
-                h->SetBinError(h->GetNbinsX(), TMath::Sqrt(TMath::Power(h->GetBinError(h->GetNbinsX()), 2) + TMath::Power(h->GetBinError(h->GetNbinsX() + 1), 2)));
-              }
               histo_mc_gen[index] = h;
               histo_mc_gen[index]->SetDirectory(0);
               histo_mc_gen[index]->Scale(norm);
@@ -211,12 +173,6 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       TFile* file2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
       if (file2->IsOpen()) { 
         histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
-        if (flowbins) {
-          histo[index]->SetBinContent(1, histo[index]->GetBinContent(1) + histo[index]->GetBinContent(0));
-          histo[index]->SetBinContent(histo[index]->GetNbinsX(), histo[index]->GetBinContent(histo[index]->GetNbinsX()) + histo[index]->GetBinContent(histo[index]->GetNbinsX() + 1));
-          histo[index]->SetBinError(1, TMath::Sqrt(TMath::Power(histo[index]->GetBinError(1), 2) + TMath::Power(histo[index]->GetBinError(0), 2)));
-          histo[index]->SetBinError(histo[index]->GetNbinsX(), TMath::Sqrt(TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()), 2) + TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX() + 1), 2)));
-        }
         histo[index]->SetDirectory(0);
         histo[index]->Scale(fitval);
         file2->Close();
@@ -235,8 +191,20 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   TH1D* h_bkg = (TH1D*)histo[0]->Clone("h_bkg");
   h_bkg->Reset();  
 
+  bool flowbins = true;
+
   for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
     int index = int(it->first);
+    if (flowbins) {
+      histo[index]->SetBinContent(1, histo[index]->GetBinContent(1) + histo[index]->GetBinContent(0));
+      histo[index]->SetBinContent(histo[index]->GetNbinsX(), histo[index]->GetBinContent(histo[index]->GetNbinsX()) + histo[index]->GetBinContent(histo[index]->GetNbinsX() + 1));
+      histo[index]->SetBinError(1, TMath::Sqrt(TMath::Power(histo[index]->GetBinError(1), 2) + TMath::Power(histo[index]->GetBinError(0), 2)));
+      histo[index]->SetBinError(histo[index]->GetNbinsX(), TMath::Sqrt(TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()), 2) + TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX() + 1), 2)));
+      histo[index]->SetBinContent(0, 0.);
+      histo[index]->SetBinContent(histo[index]->GetNbinsX() + 1, 0.);
+      histo[index]->SetBinError(1, 0.);
+      histo[index]->SetBinError(histo[index]->GetNbinsX() + 1, 0.);
+    }
     if (index > 0) {
       if (flags.find("nobkg") != string::npos) {
         if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
