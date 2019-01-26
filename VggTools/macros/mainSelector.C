@@ -117,7 +117,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 #else
    //file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVAwp80.root");
    file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronTight.root");
-#endif
+#endif // defined(NANOAODv4)
    file_ele_sf_reco = new TFile("root/sf_ele_2016_EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root");
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
@@ -174,7 +174,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 #else
    //file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonMVAWP90.root");
    file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonCutBasedMedium.root");
-#endif
+#endif // defined(NANOAODv4)
 
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
 
@@ -191,7 +191,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 #else
    //file_ele_sf_eff = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp80iso.root");
    file_ele_sf_eff = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingTight94X.root");
-#endif
+#endif // defined(NANOAODv4)
    file_ele_sf_reco = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
@@ -227,7 +227,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 #else
    //file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
    file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMedium94X.root");
-#endif
+#endif // defined(NANOAODv4)
 
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
 
