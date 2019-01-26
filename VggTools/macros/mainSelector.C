@@ -2193,6 +2193,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       Z_ele0_ele1_m = (ele0 + ele1).M();
+       if (Z_ele0_ele1_m >= 51. && Z_ele0_ele1_m <= 131. && ele0.Pt() > 28 && ele1.Pt() > 20) {
+         Z_ele_sel = true;
+       }
+     }
 #else
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_Ele27_WPTight_Gsf) {
@@ -2203,16 +2208,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_Ele32_WPTight_Gsf) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-#endif // defined(DOUBLE_TRIGGER)
        Z_ele0_ele1_m = (ele0 + ele1).M();
-#if defined(DOUBLE_TRIGGER)
-       if (Z_ele0_ele1_m >= 51. && Z_ele0_ele1_m <= 131. && ele0.Pt() > 28 && ele1.Pt() > 20) {
-#else
        if (Z_ele0_ele1_m >= 51. && Z_ele0_ele1_m <= 131. && ele0.Pt() > 40 && ele1.Pt() > 10) {
-#endif // defined(DOUBLE_TRIGGER)
          Z_ele_sel = true;
        }
      }
+#endif // defined(DOUBLE_TRIGGER)
    }
 
 // Z -> ele ele QCD
@@ -2232,6 +2233,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       Z_ele0_ele1_m_qcd = (ele0_qcd + ele1_qcd).M();
+       if (Z_ele0_ele1_m_qcd >= 51. && Z_ele0_ele1_m_qcd <= 131. && ele0_qcd.Pt() > 28 && ele1_qcd.Pt() > 20) {
+         Z_ele_sel_qcd = true;
+       }
+     }
 #else
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_Ele27_WPTight_Gsf) {
@@ -2242,16 +2248,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_Ele32_WPTight_Gsf) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-#endif // defined(DOUBLE_TRIGGER)
        Z_ele0_ele1_m_qcd = (ele0_qcd + ele1_qcd).M();
-#if defined(DOUBLE_TRIGGER)
-       if (Z_ele0_ele1_m_qcd >= 51. && Z_ele0_ele1_m_qcd <= 131. && ele0_qcd.Pt() > 28 && ele1_qcd.Pt() > 20) {
-#else
        if (Z_ele0_ele1_m_qcd >= 51. && Z_ele0_ele1_m_qcd <= 131. && ele0_qcd.Pt() > 40 && ele1_qcd.Pt() > 10) {
-#endif // defined(DOUBLE_TRIGGER)
          Z_ele_sel_qcd = true;
        }
      }
+#endif // defined(DOUBLE_TRIGGER)
    }
 
 // Z -> muo muo
@@ -2288,6 +2290,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       Z_muo0_muo1_m = (muo0 + muo1).M();
+       if (Z_muo0_muo1_m >= 51. && Z_muo0_muo1_m <= 131. && muo0.Pt() > 20 && muo1.Pt() > 10) {
+         Z_muo_sel = true;
+       }
+     }
 #else
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_IsoMu24 || *HLT_IsoTkMu24) {
@@ -2298,16 +2305,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_IsoMu24) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-#endif // defined(DOUBLE_TRIGGER)
        Z_muo0_muo1_m = (muo0 + muo1).M();
-#if defined(DOUBLE_TRIGGER)
-       if (Z_muo0_muo1_m >= 51. && Z_muo0_muo1_m <= 131. && muo0.Pt() > 20 && muo1.Pt() > 10) {
-#else
        if (Z_muo0_muo1_m >= 51. && Z_muo0_muo1_m <= 131. && muo0.Pt() > 30 && muo1.Pt() > 10) {
-#endif // defined(DOUBLE_TRIGGER)
          Z_muo_sel = true;
        }
      }
+#endif // defined(DOUBLE_TRIGGER)
    }
 
 // Z -> muo muo QCD
@@ -2344,6 +2347,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       Z_muo0_muo1_m_qcd = (muo0_qcd + muo1_qcd).M();
+       if (Z_muo0_muo1_m_qcd >= 51. && Z_muo0_muo1_m_qcd <= 131. && muo0_qcd.Pt() > 20 && muo1_qcd.Pt() > 10) {
+         Z_muo_sel_qcd = true;
+       }
+     }
 #else
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_IsoMu24 || *HLT_IsoTkMu24) {
@@ -2354,16 +2362,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_IsoMu24) {
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-#endif // defined(DOUBLE_TRIGGER)
        Z_muo0_muo1_m_qcd = (muo0_qcd + muo1_qcd).M();
-#if defined(DOUBLE_TRIGGER)
-       if (Z_muo0_muo1_m_qcd >= 51. && Z_muo0_muo1_m_qcd <= 131. && muo0_qcd.Pt() > 20 && muo1_qcd.Pt() > 10) {
-#else
        if (Z_muo0_muo1_m_qcd >= 51. && Z_muo0_muo1_m_qcd <= 131. && muo0_qcd.Pt() > 30 && muo1_qcd.Pt() > 10) {
-#endif // defined(DOUBLE_TRIGGER)
          Z_muo_sel_qcd = true;
        }
      }
+#endif // defined(DOUBLE_TRIGGER)
    }
 
 // electron(s) scale factors
@@ -2656,6 +2660,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      bool match0 = false;
      bool match1 = false;
 
+#if !defined(DOUBLE_TRIGGER)
+     match1 = true;
+#endif // defined(DOUBLE_TRIGGER)
+
      for (uint i = 0; i < *nTrigObj; i++) {
        if (match0 && match1) continue;
        if (TrigObj_id[i] != 11) continue;
@@ -2678,32 +2686,27 @@ Bool_t mainSelector::Process(Long64_t entry)
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_ele0_trig)->Fill(j+0.5, weight_Z_ele_qcd);
          }
        }
+#if defined(DOUBLE_TRIGGER)
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele1.M());
        if (ele1.DeltaR(tmp_trg) < 0.3) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_Z_ele1_trig->Fill(j+0.5, weight_Z_ele);
          }
-#if defined(DOUBLE_TRIGGER)
          if ((TrigObj_filterBits[i] &  1) ==  1) match1 = true; //  1 = CaloIdL_TrackIdL_IsoVL
          if ((TrigObj_filterBits[i] & 16) == 16) match1 = true; // 16 = 2e
-#endif // defined(DOUBLE_TRIGGER)
        }
        if (ele1_qcd.DeltaR(tmp_trg) < 0.3) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_ele1_trig)->Fill(j+0.5, weight_Z_ele_qcd);
          }
        }
+#endif // defined(DOUBLE_TRIGGER)
      }
 
 #if defined(TRIGGER_OBJECTS)
-     if (!match0) {
+     if (!match0 || !match1) {
        Z_ele_sel = false;
      }
-#if defined(DOUBLE_TRIGGER)
-     if (!match1) {
-       Z_ele_sel = false;
-     }
-#endif // defined(DOUBLE_TRIGGER)
 #endif // defined(TRIGGER_OBJECTS)
 
    }
@@ -2714,6 +2717,10 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      bool match0 = false;
      bool match1 = false;
+
+#if !defined(DOUBLE_TRIGGER)
+     match1 = true;
+#endif // defined(DOUBLE_TRIGGER)
 
      for (uint i = 0; i < *nTrigObj; i++) {
        if (match0 && match1) continue;
@@ -2740,23 +2747,23 @@ Bool_t mainSelector::Process(Long64_t entry)
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_muo0_trig)->Fill(j+0.5, weight_Z_muo_qcd);
          }
        }
+#if defined(DOUBLE_TRIGGER)
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo1.M());
        if (muo1.DeltaR(tmp_trg) < 0.3) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_Z_muo1_trig->Fill(j+0.5, weight_Z_muo);
          }
-#if defined(DOUBLE_TRIGGER)
          if ((TrigObj_filterBits[i] &  1) ==  1) match1 = true; //  1 = TrkIsoVVL
          if ((TrigObj_filterBits[i] &  2) ==  2) match1 = true; //  2 = Iso
          if ((TrigObj_filterBits[i] &  8) ==  8) match1 = true; //  8 = IsoTkMu or 1mu
          if ((TrigObj_filterBits[i] & 16) == 16) match1 = true; // 16 = 2mu
-#endif // defined(DOUBLE_TRIGGER)
        }
        if (muo1_qcd.DeltaR(tmp_trg) < 0.3) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_muo1_trig)->Fill(j+0.5, weight_Z_muo_qcd);
          }
        }
+#endif // defined(DOUBLE_TRIGGER)
      }
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -2767,14 +2774,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 
 #if defined(TRIGGER_OBJECTS)
-     if (!match0) {
+     if (!match0 || !match1) {
        Z_muo_sel = false;
      }
-#if defined(DOUBLE_TRIGGER)
-     if (!match1) {
-       Z_muo_sel = false;
-     }
-#endif // defined(DOUBLE_TRIGGER)
 #endif // defined(TRIGGER_OBJECTS)
 
    }
