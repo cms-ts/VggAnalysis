@@ -72,22 +72,31 @@ void mainSelector::Begin(TTree * /*tree*/)
    TFile* file_muo_pu;
 
 #if defined(mainSelectorMC16_cxx)
+#if defined(DOUBLE_TRIGGER)
    file_ele_pu = new TFile("root/ratio_pileup_Run2016_DoubleEG_22Aug2018.root");
    file_muo_pu = new TFile("root/ratio_pileup_Run2016_DoubleMuon_22Aug2018.root");
-   //file_ele_pu = new TFile("root/ratio_pileup_Run2016_SingleElectron_22Aug2018.root");
-   //file_muo_pu = new TFile("root/ratio_pileup_Run2016_SingleMuon_22Aug2018.root");
+#else
+   file_ele_pu = new TFile("root/ratio_pileup_Run2016_SingleElectron_22Aug2018.root");
+   file_muo_pu = new TFile("root/ratio_pileup_Run2016_SingleMuon_22Aug2018.root");
+#endif // defined(DOUBLE_TRIGGER)
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
+#if defined(DOUBLE_TRIGGER)
    file_ele_pu = new TFile("root/ratio_pileup_Run2017_DoubleEG_31Mar2018.root");
    file_muo_pu = new TFile("root/ratio_pileup_Run2017_DoubleMuon_31Mar2018.root");
-   //file_ele_pu = new TFile("root/ratio_pileup_Run2017_SingleElectron_31Mar2018.root");
-   //file_muo_pu = new TFile("root/ratio_pileup_Run2017_SingleMuon_31Mar2018.root");
+#else
+   file_ele_pu = new TFile("root/ratio_pileup_Run2017_SingleElectron_31Mar2018.root");
+   file_muo_pu = new TFile("root/ratio_pileup_Run2017_SingleMuon_31Mar2018.root");
+#endif // defined(DOUBLE_TRIGGER)
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
+#if defined(DOUBLE_TRIGGER)
    file_ele_pu = new TFile("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
    file_muo_pu = new TFile("root/ratio_pileup_Run2018_DoubleMuon_14Sep2018.root");
-   //file_ele_pu = new TFile("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
-   //file_muo_pu = new TFile("root/ratio_pileup_Run2018_SingleMuon_14Sep2018.root");
+#else
+   file_ele_pu = new TFile("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
+   file_muo_pu = new TFile("root/ratio_pileup_Run2018_SingleMuon_14Sep2018.root");
+#endif // defined(DOUBLE_TRIGGER)
 #endif // defined(mainSelectorMC18_cxx)
 
    pu_ele_weights = (TH1D*)file_ele_pu->Get("pu_weights");
