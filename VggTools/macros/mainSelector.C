@@ -114,6 +114,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    TFile* file_ele_sf_eff;
    TFile* file_ele_sf_reco;
 
+   TFile* file_muo_sf_trig;
    TFile* file_muo_sf_id;
    TFile* file_muo_sf_iso;
 
@@ -141,39 +142,51 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_ele_sf_eff;
    delete file_ele_sf_reco;
 
+   file_muo_sf_trig = new TFile("root/sf_muo_2016_EfficienciesAndSF_RunBtoF.root");
    file_muo_sf_id = new TFile("root/sf_muo_2016_RunBCDEF_SF_ID.root");
    file_muo_sf_iso = new TFile("root/sf_muo_2016_RunBCDEF_SF_ISO.root");
 
+   TH2D* sf_muo_trig_RunBCDEF = (TH2D*)file_muo_sf_trig->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins/pt_abseta_ratio");
    TH2D* sf_muo_id_RunBCDEF = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
    TH2D* sf_muo_iso_RunBCDEF = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
 
+   sf_muo_trig_RunBCDEF->SetDirectory(0);
    sf_muo_id_RunBCDEF->SetDirectory(0);
    sf_muo_iso_RunBCDEF->SetDirectory(0);
 
+   file_muo_sf_trig->Close();
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
 
+   delete file_muo_sf_trig;
    delete file_muo_sf_id;
    delete file_muo_sf_iso;
 
+   file_muo_sf_trig = new TFile("root/sf_muo_2016_EfficienciesAndSF_Period4.root");
    file_muo_sf_id = new TFile("root/sf_muo_2016_RunGH_SF_ID.root");
    file_muo_sf_iso = new TFile("root/sf_muo_2016_RunGH_SF_ISO.root");
 
+   TH2D* sf_muo_trig_RunGH = (TH2D*)file_muo_sf_trig->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins/pt_abseta_ratio");
    TH2D* sf_muo_id_RunGH = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
    TH2D* sf_muo_iso_RunGH = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
 
+   sf_muo_trig_RunGH->SetDirectory(0);
    sf_muo_id_RunGH->SetDirectory(0);
    sf_muo_iso_RunGH->SetDirectory(0);
 
+   file_muo_sf_trig->Close();
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
 
+   delete file_muo_sf_trig;
    delete file_muo_sf_id;
    delete file_muo_sf_iso;
 
+   sf_muo_trig = (TH2D*)sf_muo_trig_RunBCDEF->Clone();
    sf_muo_id = (TH2D*)sf_muo_id_RunBCDEF->Clone();
    sf_muo_iso = (TH2D*)sf_muo_iso_RunBCDEF->Clone();
 
+   sf_muo_trig->Add(sf_muo_trig_RunBCDEF, sf_muo_trig_RunGH, 19.69/35.917, 16.227/35.917);
    sf_muo_id->Add(sf_muo_id_RunBCDEF, sf_muo_id_RunGH, 19.69/35.917, 16.227/35.917);
    sf_muo_iso->Add(sf_muo_iso_RunBCDEF, sf_muo_iso_RunGH, 19.69/35.917, 16.227/35.917);
 
@@ -215,18 +228,23 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_ele_sf_eff;
    delete file_ele_sf_reco;
 
+   file_muo_sf_trig = new TFile("root/sf_muo_2017_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root");
    file_muo_sf_id = new TFile("root/sf_muo_2017_RunBCDEF_SF_ID.root");
    file_muo_sf_iso = new TFile("root/sf_muo_2017_RunBCDEF_SF_ISO.root");
 
+   sf_muo_trig = (TH2D*)file_muo_sf_trig->Get("IsoMu27_PtEtaBins/pt_abseta_ratio");
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
    sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
 
+   sf_muo_trig->SetDirectory(0);
    sf_muo_id->SetDirectory(0);
    sf_muo_iso->SetDirectory(0);
 
+   file_muo_sf_trig->Close();
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
 
+   delete file_muo_sf_trig;
    delete file_muo_sf_id;
    delete file_muo_sf_iso;
 
@@ -264,19 +282,24 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_ele_sf_reco;
 
 // FIXME
+   file_muo_sf_trig = new TFile("root/sf_muo_2017_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root");
    file_muo_sf_id = new TFile("root/sf_muo_2017_RunBCDEF_SF_ID.root");
    file_muo_sf_iso = new TFile("root/sf_muo_2017_RunBCDEF_SF_ISO.root");
 // FIXME
 
+   sf_muo_trig = (TH2D*)file_muo_sf_trig->Get("IsoMu27_PtEtaBins/pt_abseta_ratio");
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
    sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
 
+   sf_muo_trig->SetDirectory(0);
    sf_muo_id->SetDirectory(0);
    sf_muo_iso->SetDirectory(0);
 
+   file_muo_sf_trig->Close();
    file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
 
+   delete file_muo_sf_trig;
    delete file_muo_sf_id;
    delete file_muo_sf_iso;
 
@@ -2431,28 +2454,38 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // muon(s) scale factors
 
+   float weight_trig_muo0 = 1.;
    float weight_id_muo0 = 1.;
    float weight_iso_muo0 = 1.;
 
+   float weight_trig_muo1 = 1.;
    float weight_id_muo1 = 1.;
    float weight_iso_muo1 = 1.;
 
 #if defined(mainSelectorMC16_cxx)
    if (imuo0 != -1) {
+     weight_trig_muo0 = getWeight(sf_muo_trig, Muon_pt[imuo0], fabs(Muon_eta[imuo0]));
      weight_id_muo0 = getWeight(sf_muo_id, Muon_eta[imuo0], Muon_pt[imuo0]);
      weight_iso_muo0 = getWeight(sf_muo_iso, Muon_eta[imuo0], Muon_pt[imuo0]);
    }
    if (imuo1 != -1) {
+#if defined(DOUBLE_TRIGGER)
+     weight_trig_muo1 = getWeight(sf_muo_trig, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
+#endif // defined(DOUBLE_TRIGGER)
      weight_id_muo1 = getWeight(sf_muo_id, Muon_eta[imuo1], Muon_pt[imuo1]);
      weight_iso_muo1 = getWeight(sf_muo_iso, Muon_eta[imuo1], Muon_pt[imuo1]);
    }
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
    if (imuo0 != -1) {
+     weight_trig_muo0 = getWeight(sf_muo_trig, Muon_pt[imuo0], fabs(Muon_eta[imuo0]));
      weight_id_muo0 = getWeight(sf_muo_id, Muon_pt[imuo0], fabs(Muon_eta[imuo0]));
      weight_iso_muo0 = getWeight(sf_muo_iso, Muon_pt[imuo0], fabs(Muon_eta[imuo0]));
    }
    if (imuo1 != -1) {
+#if defined(DOUBLE_TRIGGER)
+     weight_trig_muo1 = getWeight(sf_muo_trig, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
+#endif // defined(DOUBLE_TRIGGER)
      weight_id_muo1 = getWeight(sf_muo_id, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
      weight_iso_muo1 = getWeight(sf_muo_iso, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
    }
@@ -2463,28 +2496,38 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // muon(s) scale factors QCD
 
+   float weight_trig_muo0_qcd = 1.;
    float weight_id_muo0_qcd = 1.;
    float weight_iso_muo0_qcd = 1.;
 
+   float weight_trig_muo1_qcd = 1.;
    float weight_id_muo1_qcd = 1.;
    float weight_iso_muo1_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx)
    if (imuo0_qcd != -1) {
+     weight_trig_muo0_qcd = getWeight(sf_muo_trig, Muon_pt[imuo0_qcd], fabs(Muon_eta[imuo0_qcd]));
      weight_id_muo0_qcd = getWeight(sf_muo_id, Muon_eta[imuo0_qcd], Muon_pt[imuo0_qcd]);
      weight_iso_muo0_qcd = getWeight(sf_muo_iso, Muon_eta[imuo0_qcd], Muon_pt[imuo0_qcd]);
    }
    if (imuo1_qcd != -1) {
+#if defined(DOUBLE_TRIGGER)
+     weight_trig_muo1_qcd = getWeight(sf_muo_trig, Muon_pt[imuo1_qcd], fabs(Muon_eta[imuo1_qcd]));
+#endif // defined(DOUBLE_TRIGGER)
      weight_id_muo1_qcd = getWeight(sf_muo_id, Muon_eta[imuo1_qcd], Muon_pt[imuo1_qcd]);
      weight_iso_muo1_qcd = getWeight(sf_muo_iso, Muon_eta[imuo1_qcd], Muon_pt[imuo1_qcd]);
    }
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
    if (imuo0_qcd != -1) {
+     weight_trig_muo0_qcd = getWeight(sf_muo_trig, Muon_pt[imuo0_qcd], fabs(Muon_eta[imuo0_qcd]));
      weight_id_muo0_qcd = getWeight(sf_muo_id, Muon_pt[imuo0_qcd], fabs(Muon_eta[imuo0_qcd]));
      weight_iso_muo0_qcd = getWeight(sf_muo_iso, Muon_pt[imuo0_qcd], fabs(Muon_eta[imuo0_qcd]));
    }
    if (imuo1_qcd != -1) {
+#if defined(DOUBLE_TRIGGER)
+     weight_trig_muo1_qcd = getWeight(sf_muo_trig, Muon_pt[imuo1_qcd], fabs(Muon_eta[imuo1_qcd]));
+#endif // defined(DOUBLE_TRIGGER)
      weight_id_muo1_qcd = getWeight(sf_muo_id, Muon_pt[imuo1_qcd], fabs(Muon_eta[imuo1_qcd]));
      weight_iso_muo1_qcd = getWeight(sf_muo_iso, Muon_pt[imuo1_qcd], fabs(Muon_eta[imuo1_qcd]));
    }
@@ -2576,22 +2619,22 @@ Bool_t mainSelector::Process(Long64_t entry)
 // W scale factors
 
    float weight_W_ele = weight_gen * weight_pu_ele * weight_eff_ele0 * weight_reco_ele0 * weight_hlt_ele;
-   float weight_W_muo = weight_gen * weight_pu_muo * weight_id_muo0 * weight_iso_muo0;
+   float weight_W_muo = weight_gen * weight_pu_muo * weight_trig_muo0 * weight_id_muo0 * weight_iso_muo0;
 
 // W scale factors QCD
 
    float weight_W_ele_qcd = weight_gen * weight_pu_ele * weight_eff_ele0_qcd * weight_reco_ele0_qcd * weight_hlt_ele_qcd;
-   float weight_W_muo_qcd = weight_gen * weight_pu_muo * weight_id_muo0_qcd * weight_iso_muo0_qcd;
+   float weight_W_muo_qcd = weight_gen * weight_pu_muo * weight_trig_muo0_qcd * weight_id_muo0_qcd * weight_iso_muo0_qcd;
 
 // Z scale factors
 
    float weight_Z_ele = weight_gen * weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_hlt_ele;
-   float weight_Z_muo = weight_gen * weight_pu_muo * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
+   float weight_Z_muo = weight_gen * weight_pu_muo * weight_trig_muo0 * weight_trig_muo1 * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
 
 // Z scale factors QCD
 
    float weight_Z_ele_qcd = weight_gen * weight_pu_ele * weight_eff_ele0_qcd * weight_eff_ele1_qcd * weight_reco_ele0_qcd * weight_reco_ele1_qcd * weight_hlt_ele_qcd;
-   float weight_Z_muo_qcd = weight_gen * weight_pu_muo * weight_id_muo0_qcd * weight_id_muo1_qcd * weight_iso_muo0_qcd * weight_iso_muo1_qcd;
+   float weight_Z_muo_qcd = weight_gen * weight_pu_muo * weight_trig_muo0_qcd * weight_trig_muo1_qcd * weight_id_muo0_qcd * weight_id_muo1_qcd * weight_iso_muo0_qcd * weight_iso_muo1_qcd;
 
 // W -> ele nu trigger object matching
 
@@ -2639,14 +2682,14 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        TLorentzVector tmp_trg;
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo0.M());
-       if (muo0.DeltaR(tmp_trg) < 0.3) {
+       if (muo0.DeltaR(tmp_trg) < 0.1) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_W_muo0_trig->Fill(j+0.5, weight_W_muo);
          }
          if ((TrigObj_filterBits[i] &  2) ==  2) match0 = true; // 2 = Iso
          if ((TrigObj_filterBits[i] &  8) ==  8) match0 = true; // 8 = IsoTkMu or 1mu
        }
-       if (muo0_qcd.DeltaR(tmp_trg) < 0.3) {
+       if (muo0_qcd.DeltaR(tmp_trg) < 0.1) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_W_muo0_trig)->Fill(j+0.5, weight_W_muo_qcd);
          }
@@ -2743,7 +2786,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        TLorentzVector tmp_trg;
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo0.M());
-       if (muo0.DeltaR(tmp_trg) < 0.3) {
+       if (muo0.DeltaR(tmp_trg) < 0.1) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_Z_muo0_trig->Fill(j+0.5, weight_Z_muo);
          }
@@ -2757,14 +2800,14 @@ Bool_t mainSelector::Process(Long64_t entry)
          if ((TrigObj_filterBits[i] &  8) ==  8) match0 = true; //  8 = IsoTkMu or 1mu
 #endif // defined(DOUBLE_TRIGGER)
        }
-       if (muo0_qcd.DeltaR(tmp_trg) < 0.3) {
+       if (muo0_qcd.DeltaR(tmp_trg) < 0.1) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_muo0_trig)->Fill(j+0.5, weight_Z_muo_qcd);
          }
        }
 #if defined(DOUBLE_TRIGGER)
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo1.M());
-       if (muo1.DeltaR(tmp_trg) < 0.3) {
+       if (muo1.DeltaR(tmp_trg) < 0.1) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_Z_muo1_trig->Fill(j+0.5, weight_Z_muo);
          }
@@ -2773,7 +2816,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if ((TrigObj_filterBits[i] &  8) ==  8) match1 = true; //  8 = IsoTkMu or 1mu
          if ((TrigObj_filterBits[i] & 16) == 16) match1 = true; // 16 = 2mu
        }
-       if (muo1_qcd.DeltaR(tmp_trg) < 0.3) {
+       if (muo1_qcd.DeltaR(tmp_trg) < 0.1) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_muo1_trig)->Fill(j+0.5, weight_Z_muo_qcd);
          }
