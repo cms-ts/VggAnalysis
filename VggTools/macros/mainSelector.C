@@ -292,7 +292,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 // FIXME
-   //roccor = new RoccoR("roccor.Run2.v2/RoccoR2018.txt");
+   roccor = new RoccoR("roccor.Run2.v2/RoccoR2017.txt");
 // FIXME
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -306,8 +306,8 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 // FIXME
-   //jet_resolution = new JME::JetResolution("jme/Autumn18_V0_MC_PtResolution_AK4PFchs.txt");
-   //jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Autumn18_V0_MC_SF_AK4PFchs.txt");
+   jet_resolution = new JME::JetResolution("jme/Fall17_V3_MC_PtResolution_AK4PFchs.txt");
+   jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Fall17_V3_MC_SF_AK4PFchs.txt");
 // FIXME
 #endif // defined(mainSelectorMC18_cxx)
 
@@ -2438,7 +2438,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      weight_iso_muo1 = getWeight(sf_muo_iso, Muon_eta[imuo1], Muon_pt[imuo1]);
    }
 #endif // defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorMC17_cxx)
    if (imuo0 != -1) {
      weight_id_muo0 = getWeight(sf_muo_id, Muon_pt[imuo0], fabs(Muon_eta[imuo0]));
      weight_iso_muo0 = getWeight(sf_muo_iso, Muon_pt[imuo0], fabs(Muon_eta[imuo0]));
@@ -2447,7 +2447,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      weight_id_muo1 = getWeight(sf_muo_id, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
      weight_iso_muo1 = getWeight(sf_muo_iso, Muon_pt[imuo1], fabs(Muon_eta[imuo1]));
    }
-#endif // defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+// FIXME
+#endif // defined(mainSelectorMC18_cxx)
 
 // muon(s) scale factors QCD
 
@@ -2467,7 +2470,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      weight_iso_muo1_qcd = getWeight(sf_muo_iso, Muon_eta[imuo1_qcd], Muon_pt[imuo1_qcd]);
    }
 #endif // defined(mainSelectorMC16_cxx)
-#if defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorMC17_cxx)
    if (imuo0_qcd != -1) {
      weight_id_muo0_qcd = getWeight(sf_muo_id, Muon_pt[imuo0_qcd], fabs(Muon_eta[imuo0_qcd]));
      weight_iso_muo0_qcd = getWeight(sf_muo_iso, Muon_pt[imuo0_qcd], fabs(Muon_eta[imuo0_qcd]));
@@ -2476,7 +2479,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      weight_id_muo1_qcd = getWeight(sf_muo_id, Muon_pt[imuo1_qcd], fabs(Muon_eta[imuo1_qcd]));
      weight_iso_muo1_qcd = getWeight(sf_muo_iso, Muon_pt[imuo1_qcd], fabs(Muon_eta[imuo1_qcd]));
    }
-#endif // defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+// FIXME
+#endif // defined(mainSelectorMC18_cxx)
 
 // photon(s) scale factors
 
