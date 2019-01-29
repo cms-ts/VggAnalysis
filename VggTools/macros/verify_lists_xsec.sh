@@ -22,15 +22,7 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
     [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
 
     if [ ! -e ../scripts/lists/$D.list ]; then
-      if [ ! -e lists/$D.list ]; then
-        echo "missing in ../scripts/lists/ and ./lists/ : "$D
-        check=1
-      else
-        echo "missing in ../scripts/lists/ : "$D
-        check=1
-      fi
-    elif [ ! -e lists/$D.list ]; then
-      echo "missing in ./lists/ : "$D
+      echo "missing in ../scripts/lists/ : "$D
       check=1
     fi
   done
