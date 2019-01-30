@@ -9,7 +9,7 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
   echo './xsec.dat => ../scripts/lists/'
   echo
 
-  DATASETS=`cat ./xsec.dat | grep -v \# | awk '{print $1}'`
+  DATASETS=`grep -v \# ./xsec.dat | awk '{print $1}'`
 
   check=0
   for D in $DATASETS; do
@@ -35,7 +35,7 @@ echo
 echo './xsec.dat => ./lists/'
 echo
 
-DATASETS=`cat ./xsec.dat | grep -v \# | awk '{print $1}'`
+DATASETS=`grep -v \# ./xsec.dat | awk '{print $1}'`
 
 check=0
 for D in $DATASETS; do
@@ -102,7 +102,7 @@ echo
 echo './xsec.dat => ./amcatnlo/ ./madgraph/'
 echo
 
-DATASETS=`cat ./xsec.dat | grep -v \# | awk '{print $1}'`
+DATASETS=`grep -v \# ./xsec.dat | awk '{print $1}'`
 
 check=0
 for D in $DATASETS; do
