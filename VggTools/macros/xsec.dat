@@ -13,6 +13,7 @@ RunIISummer16NanoAODv3_DY3JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8	1
 RunIISummer16NanoAODv3_DY4JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8	54.
 #
 RunIISummer16NanoAODv4_DY1JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8	1012.
+RunIISummer16NanoAODv4_DY2JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8	335.
 #
 RunIISummer16NanoAODv3_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8	61526.7
 RunIISummer16NanoAODv3_WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8	61526.7
@@ -70,6 +71,8 @@ RunIISummer16NanoAODv3_WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8	0.04123
 #
 RunIISummer16NanoAODv3_ZGGToLLGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8	0.6257
 RunIISummer16NanoAODv3_ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8	117.864
+#
+RunIISummer16NanoAODv4_ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8	117.864
 #
 RunIISummer16NanoAODv3_WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8	489.
 RunIISummer16NanoAODv3_WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8	1.869
