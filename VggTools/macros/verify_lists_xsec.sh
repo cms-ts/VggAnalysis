@@ -55,7 +55,7 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
   echo '../scripts/lists/ => ./xsec.dat'
   echo
 
-  DATASETS=`ls ../scripts/lists/ | grep -v : | sort | uniq | sed -e 's/.list//' | grep -v 'Run201[678]'`
+  DATASETS=`ls ../scripts/lists/ | sort | uniq | sed -e 's/.list//' | grep -v 'Run201[678]'`
 
   check=0
   for D in $DATASETS; do
@@ -83,7 +83,7 @@ echo
 echo './lists/ => ./xsec.dat'
 echo
 
-DATASETS=`ls ./lists/ | grep -v : | sort | uniq | sed -e 's/.list//' | grep -v 'Run201[678]'`
+DATASETS=`ls ./lists/ | sort | uniq | sed -e 's/.list//' | grep -v 'Run201[678]'`
 
 check=0
 for D in $DATASETS; do
@@ -204,7 +204,7 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
   echo '../scripts/lists/ => empty'
   echo
 
-  DATASETS=`ls ../scripts/lists/ | grep -v : | sort | uniq | sed -e 's/.list//'`
+  DATASETS=`ls ../scripts/lists/ | sort | uniq | sed -e 's/.list//'`
 
   check=0
   for D in $DATASETS; do
@@ -226,7 +226,7 @@ echo
 echo './lists/ => empty'
 echo
 
-DATASETS=`ls ./lists/ | grep -v : | sort | uniq | sed -e 's/.list//'`
+DATASETS=`ls ./lists/ | sort | uniq | sed -e 's/.list//'`
 
 check=0
 for D in $DATASETS; do
