@@ -70,6 +70,7 @@ RunIISummer16NanoAODv3_WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8	0.04123
 RunIISummer16NanoAODv3_ZGGToLLGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8	0.6257
 RunIISummer16NanoAODv3_ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8	117.864
 #
+RunIISummer16NanoAODv4_ZGGToLLGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8	0.6257
 RunIISummer16NanoAODv4_ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8	117.864
 #
 RunIISummer16NanoAODv3_WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8	489.
