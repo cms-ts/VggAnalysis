@@ -48,6 +48,13 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     return;
   }
 
+  TChain* chain = new TChain("Events");
+  for (uint i=0; i < files.size(); i++) {
+    chain->Add(files[i].c_str());
+  }
+  int nevt0 = chain->GetEntries();
+  delete chain;
+
   int nWorkers = 10;
   if (gROOT->IsBatch()) nWorkers = 2;
 
@@ -56,7 +63,7 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
 
   int nevt = -1;
 
-  TSelector* selector;
+  TSelector* selector = 0;
 
   if (option.Contains("DT")) {
 #if defined(__APPLE__)
@@ -119,20 +126,13 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
   delete file;
 
   TH1D* h_nevt = dynamic_cast<TH1D*>(fOutput->FindObject("h_nevt"));
-  int nevt0 = 0;
-  if (h_nevt) nevt0 = h_nevt->GetBinContent(1);
+  int nevt1 = 0;
+  if (h_nevt) nevt1 = h_nevt->GetBinContent(1);
 
-  Info("run", "processed events: %d", nevt0);
+  Info("run", "processed events: %d", nevt1);
 
-  TChain* chain = new TChain("Events");
-  for (uint i=0; i < files.size(); i++) {
-    chain->Add(files[i].c_str());
-  }
-  int nevt1 = chain->GetEntries();
-  delete chain;
-
-  if (nevt0 != nevt1) {
-    Error("run", "expected events: %d", nevt1);
+  if (nevt1 != nevt0) {
+    Error("run", "expected events: %d", nevt0);
   }
 
   now = TDatime();
