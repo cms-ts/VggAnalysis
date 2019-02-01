@@ -1,5 +1,14 @@
 #pragma cling load("libTreePlayer.so")
 
+#include <fstream>
+
+#include <TROOT.h>
+#include <TChain.h>
+#include <TFile.h>
+#include <TSelector.h>
+
+#include <ROOT/TTreeProcessorMP.hxx>
+
 void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output="selector.root") {
 
   TDatime now;
@@ -64,7 +73,6 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     if (option.Contains("DT18"))                              selector = TSelector::GetSelector("mainSelectorDT18.C+");
 #endif
     selector->SetOption("DT");
-    workers.Process(files, *selector, "Events", nevt);
   }
   if (option.Contains("MC")) {
 #if defined(__APPLE__)
@@ -77,6 +85,9 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     if (option.Contains("MC18")) selector = TSelector::GetSelector("mainSelectorMC18.C+");
 #endif
     selector->SetOption("MC");
+  }
+
+  if (option.Contains("MC")) {
     if (input.Contains("WJetsToLNu"))                   selector->SetOption("MC,WJetsToLNu");
     if (input.Contains("WG") && !input.Contains("WGG")) selector->SetOption("MC,WG");
     if (input.Contains("WGG"))                          selector->SetOption("MC,WGG");
@@ -85,8 +96,9 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     if (input.Contains("ZG") && !input.Contains("ZGG")) selector->SetOption("MC,ZG");
     if (input.Contains("ZGG"))                          selector->SetOption("MC,ZGG");
     if (input.Contains("ZTauTau"))                      selector->SetOption("MC,ZTauTau");
-    workers.Process(files, *selector, "Events", nevt);
   }
+
+  workers.Process(files, *selector, "Events", nevt);
 
   now = TDatime();
   Info("run", "%s", now.AsSQLString());
@@ -113,7 +125,7 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
   Info("run", "processed events: %d", nevt0);
 
   TChain* chain = new TChain("Events");
-  for (int i=0; i < files.size(); i++) {
+  for (uint i=0; i < files.size(); i++) {
     chain->Add(files[i].c_str());
   }
   int nevt1 = chain->GetEntries();
