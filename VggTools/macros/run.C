@@ -48,13 +48,6 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     return;
   }
 
-  TChain* chain = new TChain("Events");
-  for (uint i=0; i < files.size(); i++) {
-    chain->Add(files[i].c_str());
-  }
-  int nevt0 = chain->GetEntries();
-  delete chain;
-
   int nWorkers = 10;
   if (gROOT->IsBatch()) nWorkers = 2;
 
@@ -124,6 +117,13 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
   }
   file->Close();
   delete file;
+
+  TChain* chain = new TChain("Events");
+  for (int i=0; i < files.size(); i++) {
+    chain->Add(files[i].c_str());
+  }
+  int nevt0 = chain->GetEntries();
+  delete chain;
 
   TH1D* h_nevt = dynamic_cast<TH1D*>(fOutput->FindObject("h_nevt"));
   int nevt1 = 0;
