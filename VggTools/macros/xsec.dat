@@ -199,9 +199,10 @@ RunIIFall18NanoAOD_WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8	0.2086
 RunIIFall18NanoAOD_WZZ_TuneCP5_13TeV-amcatnlo-pythia8		0.05565
 RunIIFall18NanoAOD_ZZZ_TuneCP5_13TeV-amcatnlo-pythia8		0.01398
 #
-RunIIAutumn18NanoAODv4_WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8	0.2086
-#
 RunIIAutumn18NanoAOD_WWZ_TuneCP5_13TeV-amcatnlo-pythia8		0.1651
+#
+RunIIAutumn18NanoAODv4_WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8	0.2086
+RunIIAutumn18NanoAODv4_WWZ_TuneCP5_13TeV-amcatnlo-pythia8	0.1651
 #
 RunIIAutumn18NanoAOD_WWG_TuneCP5_13TeV-amcatnlo-pythia8		0.2147
 RunIIAutumn18NanoAOD_WZG_TuneCP5_13TeV-amcatnlo-pythia8		0.04123
@@ -215,6 +216,8 @@ RunIIFall18NanoAOD_TTGamma_Dilept_TuneCP5_13TeV_madgraph_pythia8		0.6343
 RunIIFall18NanoAOD_TTGamma_Hadronic_TuneCP5_13TeV_madgraph_pythia8		0.7301
 RunIIFall18NanoAOD_TTGamma_SingleLeptFromT_TuneCP5_13TeV_madgraph_pythia8	0.704
 RunIIFall18NanoAOD_TTGamma_SingleLeptFromTbar_TuneCP5_13TeV_madgraph_pythia8	0.0.7659
+#
+RunIIAutumn18NanoAODv4_TTGamma_SingleLeptFromT_TuneCP5_13TeV_madgraph_pythia8	0.704
 #
 # ZTauTau exclusive samples from Z inclusive samples
 #
