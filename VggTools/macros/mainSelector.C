@@ -111,6 +111,14 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_ele_pu;
    delete file_muo_pu;
 
+   if (fInput && fInput->FindObject("auto_pu2017")) {
+     Info("Begin", "%s : using auto_pu2017 weights", now.AsSQLString());
+     delete pu_ele_weights;
+     delete pu_muo_weights;
+     pu_ele_weights = dynamic_cast<TH1D*>(fInput->FindObject("pu_ele_weights"));
+     pu_muo_weights = dynamic_cast<TH1D*>(fInput->FindObject("pu_muo_weights"));
+   }
+
    TFile* file_ele_sf_eff;
    TFile* file_ele_sf_reco;
 

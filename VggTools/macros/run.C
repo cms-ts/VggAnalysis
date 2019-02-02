@@ -98,6 +98,34 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
     if (input.Contains("ZTauTau"))                      selector->SetOption("MC,ZTauTau");
   }
 
+  if (option.Contains("MC17")) {
+    TString output_ele = "data/auto_pu2017/" + TString(gSystem->BaseName(input));
+    TString output_muo = "data/auto_pu2017/" + TString(gSystem->BaseName(input));
+    output_ele.ReplaceAll("RunIIFall17NanoAOD", "pileup_ele_RunIIFall17NanoAOD");
+    output_muo.ReplaceAll("RunIIFall17NanoAOD", "pileup_muo_RunIIFall17NanoAOD");
+    output_ele.ReplaceAll(".list", ".root");
+    output_muo.ReplaceAll(".list", ".root");
+    if (!gSystem->AccessPathName(output_ele.Data()) && !gSystem->AccessPathName(output_muo.Data())) {
+      TFile* file_ele_pu = new TFile(output_ele.Data());
+      TFile* file_muo_pu = new TFile(output_muo.Data());
+      TH1D* pu_ele_weights = (TH1D*)file_ele_pu->Get("pu_weights");
+      TH1D* pu_muo_weights = (TH1D*)file_muo_pu->Get("pu_weights");
+      pu_ele_weights->SetDirectory(0);
+      pu_muo_weights->SetDirectory(0);
+      pu_ele_weights->SetName("pu_ele_weights");
+      pu_muo_weights->SetName("pu_muo_weights");
+      file_ele_pu->Close();
+      file_muo_pu->Close();
+      delete file_ele_pu;
+      delete file_muo_pu;
+      TList* fInput = new TList();
+      fInput->Add(new TNamed("auto_pu2017", ""));
+      fInput->Add(pu_ele_weights);
+      fInput->Add(pu_muo_weights);
+      selector->SetInputList(fInput);
+    }
+  }
+
   workers.Process(files, *selector, "Events", nevt);
 
   now = TDatime();

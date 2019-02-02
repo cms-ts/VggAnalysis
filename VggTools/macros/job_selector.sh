@@ -19,6 +19,18 @@ LOG=data/$VERSION/`basename $LIST .list`.log
 
 export ROOT_HIST=0
 
-root-6.12 -l -b -q run.C\(\"$LIST\",\"$FILE\"\) > $LOG 2>&1
+rm -f $LOG
+
+if [ -z "${LIST##*RunIIFall17NanoAOD*}" ]; then
+  [ ! -e data/auto_pu2017 ] && mkdir -p data/auto_pu2017
+  PILEUP_ELE_FILE=data/auto_pu2017/pileup_ele_`basename $LIST .list`.root
+  PILEUP_MUO_FILE=data/auto_pu2017/pileup_muo_`basename $LIST .list`.root
+  if [ $LIST -nt $PILEUP_ELE_FILE ] || [ $LIST -nt $PILEUP_MUO_FILE ] ; then
+    root-6.12 -l -b -q auto_pu2017.C\(\"$LIST\"\,\"$PILEUP_ELE_FILE\"\) >> $LOG 2>&1
+    root-6.12 -l -b -q auto_pu2017.C\(\"$LIST\"\,\"$PILEUP_MUO_FILE\"\) >> $LOG 2>&1
+  fi
+fi
+
+root-6.12 -l -b -q run.C\(\"$LIST\",\"$FILE\"\) >> $LOG 2>&1
 
 exit
