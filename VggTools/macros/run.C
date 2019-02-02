@@ -44,7 +44,7 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
   }
   in.close();
 
-  if (files.size()==0) {
+  if (files.size() == 0) {
     cout << "no files to process" << endl;
     return;
   }
