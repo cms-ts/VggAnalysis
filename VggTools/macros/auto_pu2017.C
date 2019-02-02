@@ -16,6 +16,11 @@ using namespace std;
 
 void auto_pu2017(TString input="lists/RunIIFall17NanoAOD_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8.list", TString output="pileup.root") {
 
+  TDatime now;
+  Info("auto_pu2017", "%s", now.AsSQLString());
+
+  Info("auto_pu2017", "input list = %s", input.Data());
+
   vector<std::string> files;
 
   ifstream in(input.Data());
@@ -33,17 +38,27 @@ void auto_pu2017(TString input="lists/RunIIFall17NanoAOD_DYJetsToLL_M-50_TuneCP5
     return;
   }
 
+  int nWorkers = 10;
+  if (gROOT->IsBatch()) nWorkers = 4;
+
+  ROOT::EnableThreadSafety();
+  ROOT::TTreeProcessorMP workers(nWorkers);
+
+  int nevt = -1;
+
   auto work = [](TTreeReader& fReader) {
-    TTreeReaderValue<Float_t> Pileup_nTrueInt(fReader, "Pileup_nTrueInt");
-    auto h = new TH1D("pileup", "pileup", 100, 0., 100.);
+    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
+    TH1D* h = new TH1D("pileup", "pileup", 100, 0., 100.);
     while (fReader.Next()) {
       h->Fill(*Pileup_nTrueInt);
     }
     return h;
   };
 
-  ROOT::TTreeProcessorMP workers(4);
-  auto hist = workers.Process(files, work, "Events");
+  TH1D* hist = workers.Process(files, work, "Events", nevt);
+
+  now = TDatime();
+  Info("auto_pu2017", "%s", now.AsSQLString());
 
   TChain* chain = new TChain("Events");
   for (uint i=0; i < files.size(); i++) {
@@ -72,6 +87,9 @@ void auto_pu2017(TString input="lists/RunIIFall17NanoAOD_DYJetsToLL_M-50_TuneCP5
   if (output.Contains("pileup_muo")) {
     WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleMuon_31Mar2018.root", true, false, output.Data());
   }
+
+  now = TDatime();
+  Info("auto_pu2017", "%s", now.AsSQLString());
 
 }
 
