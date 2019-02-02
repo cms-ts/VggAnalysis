@@ -104,9 +104,16 @@ void WeightCalculatorFromHistogram(string root_mc, string root_data, bool norm_,
   TFile *f_mc = new TFile(root_mc.c_str(),"OPEN");
   TH1 *h_mc = (TH1*)f_mc->Get("pileup");
   if (!h_mc) h_mc = (TH1*)f_mc->Get("pileup_mc");
+  h_mc->SetDirectory(0);
+  f_mc->Close();
+  delete f_mc;
+
   TFile *f_data = new TFile(root_data.c_str(),"OPEN");
   TH1 *h_data = (TH1*)f_data->Get("pileup");
   if (!h_data) h_data = (TH1*)f_data->Get("pileup_data");
+  h_data->SetDirectory(0);
+  f_data->Close();
+  delete f_data;
 
   TH1* histogram_;
   std::vector<float> refvals_,targetvals_;  
