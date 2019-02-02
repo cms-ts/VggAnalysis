@@ -205,6 +205,7 @@ RunIIAutumn18NanoAOD_WWZ_TuneCP5_13TeV-amcatnlo-pythia8		0.1651
 #
 RunIIAutumn18NanoAODv4_WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8	0.2086
 RunIIAutumn18NanoAODv4_WWZ_TuneCP5_13TeV-amcatnlo-pythia8	0.1651
+RunIIAutumn18NanoAODv4_WZZ_TuneCP5_13TeV-amcatnlo-pythia8	0.05565
 RunIIAutumn18NanoAODv4_ZZZ_TuneCP5_13TeV-amcatnlo-pythia8	0.01398
 #
 RunIIAutumn18NanoAOD_WWG_TuneCP5_13TeV-amcatnlo-pythia8		0.2147
