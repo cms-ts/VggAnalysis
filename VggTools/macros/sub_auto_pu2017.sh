@@ -16,6 +16,21 @@ cd $WORKDIR
 
 LISTS=`ls lists/ | grep RunIIFall17NanoAOD`
 
+check=0
+for L in $LISTS; do
+  FILE_ELE=data/auto_pu2017/pileup_ele_`basename $L .list`.root
+  FILE_MUO=data/auto_pu2017/pileup_muo_`basename $L .list`.root
+  [ $L -ot $FILE_MUO ] && [ $L -ot $FILE_ELE ] && continue
+  check=1
+done
+
+if [ $check -eq 0 ]; then
+  echo
+  echo "all pileup files are up-to-date"
+  echo
+  exit
+fi
+
 ./compile.sh force
 
 mkdir -p data/auto_pu2017
