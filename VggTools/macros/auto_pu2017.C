@@ -1,9 +1,14 @@
+#pragma cling load("libTreePlayer.so")
 
 #include <fstream>
 
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
+#include <TSelector.h>
+#include <TSystem.h>
+
+#include <ROOT/TTreeProcessorMP.hxx>
 
 #include "../scripts/WeightCalculatorFromHistogram.C"
 
@@ -21,22 +26,37 @@ void auto_pu2017(TString input="lists/RunIIFall17NanoAOD_DYJetsToLL_M-50_TuneCP5
   }
   in.close();
 
-  if (files.size()==0) {
+  if (files.size() == 0) {
     cout << "no files to process" << endl;
     return;
   }
 
-  int nthreads = 30;
-  ROOT::EnableImplicitMT(nthreads);
+  auto work = [](TTreeReader& fReader) {
+    TTreeReaderValue<Float_t> Pileup_nTrueInt(fReader, "Pileup_nTrueInt");
+    auto h = new TH1D("pileup", "pileup", 100, 0., 100.);
+    while (fReader.Next()) {
+      h->Fill(*Pileup_nTrueInt);
+    }
+    return h;
+  };
+
+  ROOT::TTreeProcessorMP workers(4);
+  auto hist = workers.Process(files, work, "Events");
 
   TChain* chain = new TChain("Events");
   for (uint i=0; i < files.size(); i++) {
     chain->Add(files[i].c_str());
   }
+  int nevt0 = chain->GetEntries();
+  delete chain;
 
-  TH1D* hist = new TH1D("pileup", "pileup", 100, 0., 100.);
+  int nevt1 = hist->GetEntries();
 
-  chain->Draw("Pileup_nTrueInt>>h_pu2017", "", "goff");
+  Info("auto_pu2017", "processed events: %d", nevt1);
+
+  if (nevt1 != nevt0) {
+    Error("auto_pu2017", "expected events: %d", nevt0);
+  }
 
   TFile* file = new TFile(output.Data(), "RECREATE");
   file->cd();
