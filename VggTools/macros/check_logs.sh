@@ -10,13 +10,13 @@ if [ ! -z "$1" ]; then
     echo
     echo "Available versions:"
     echo
-    ls ./data/
-    echo
+    ls ./data/ | grep -v archive | grep -v auto_pu2017 | tr '\n' ' '
+    echo ; echo
     exit
   elif [ "$1" == "all" ]; then
-    VERSION=`ls ./data/`
+    VERSION=`ls ./data/ | grep -v archive | grep -v auto_pu2017`
   elif [ "$1" == "last" ]; then
-    VERSION=`ls -tr ./data/ | tail -1`
+    VERSION=`ls -tr ./data/ | grep -v archive | grep -v auto_pu2017 | tail -1`
   else
     VERSION=$1
   fi
@@ -42,6 +42,8 @@ total=0
 running=0
 errors=0
 done=0
+
+echo
 
 for L in $LISTS; do
   total=$((total+1))
