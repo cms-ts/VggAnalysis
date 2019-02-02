@@ -1,5 +1,7 @@
 #pragma cling load("libTreePlayer.so")
 
+using namespace std;
+
 #include <fstream>
 
 #include <TROOT.h>
@@ -70,5 +72,11 @@ void auto_pu2017(TString input="lists/RunIIFall17NanoAOD_DYJetsToLL_M-50_TuneCP5
   if (output.Contains("pileup_muo")) {
     WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleMuon_31Mar2018.root", true, false, output.Data());
   }
+
+}
+
+int main(int argc, char *argv[]) {
+
+auto_pu2017(argv[1], argv[2]);
 
 }

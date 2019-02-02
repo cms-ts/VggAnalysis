@@ -28,6 +28,7 @@ make_lib() {
 make_lib "mainSelectorDT16.C mainSelectorDT16H.C mainSelectorMC16.C"
 make_lib "mainSelectorDT17.C mainSelectorDT17B.C mainSelectorMC17.C"
 make_lib "mainSelectorDT18.C mainSelectorMC18.C"
+make_lib "auto_pu2017.C"
 make_lib "plot0.C plot1.C plot2.C plot3.C"
 
 exit
@@ -44,6 +45,7 @@ make_exe() {
   done
 }
 
+make_exe "auto_pu2017.C"
 make_exe "plot0.C plot1.C plot2.C plot3.C"
 
 exit
