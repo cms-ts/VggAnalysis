@@ -6,6 +6,7 @@
 #include <TChain.h>
 #include <TFile.h>
 #include <TSelector.h>
+#include <TSystem.h>
 
 #include <ROOT/TTreeProcessorMP.hxx>
 
@@ -147,7 +148,7 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
   delete file;
 
   TChain* chain = new TChain("Events");
-  for (int i=0; i < files.size(); i++) {
+  for (uint i=0; i < files.size(); i++) {
     chain->Add(files[i].c_str());
   }
   int nevt0 = chain->GetEntries();
