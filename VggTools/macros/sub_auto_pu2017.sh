@@ -16,12 +16,27 @@ cd $WORKDIR
 
 LISTS=`ls lists/ | grep RunIIFall17NanoAOD`
 
+./compile.sh auto_pu2017
+
+mkdir -p data/auto_pu2017
+
 check=0
 for L in $LISTS; do
+  L=`basename $L .list`.list
+  if [ ! -e lists/$L ]; then
+    echo "ERROR: missing file "lists/$L
+    continue
+  fi
   FILE_ELE=data/auto_pu2017/pileup_ele_`basename $L .list`.root
+  if [ ! -e $FILE_ELE ] || [ lists/$L -ot $FILE_ELE ]; then
+    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu2017.sh lists/$L $FILE_ELE
+    check=1
+  fi
   FILE_MUO=data/auto_pu2017/pileup_muo_`basename $L .list`.root
-  [ $L -ot $FILE_MUO ] && [ $L -ot $FILE_ELE ] && continue
-  check=1
+  if [ ! -e $FILE_MUO ] || [ $L -ot $FILE_MUO ]; then
+    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu2017.sh lists/$L $FILE_MUO
+    check=1
+  fi
 done
 
 if [ $check -eq 0 ]; then
@@ -30,18 +45,5 @@ if [ $check -eq 0 ]; then
   echo
   exit
 fi
-
-./compile.sh auto_pu2017
-
-mkdir -p data/auto_pu2017
-
-for L in $LISTS; do
-  L=`basename $L .list`.list
-  if [ ! -e lists/$L ]; then
-    echo "ERROR: missing file "lists/$L
-    continue
-  fi
-  bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu2017.sh lists/$L
-done
 
 exit
