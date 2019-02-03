@@ -11,8 +11,8 @@ WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 cd $WORKDIR
 
 LIST=$1
-
 FILE=$2
+
 LOG=data/auto_pu2017/`basename $FILE .root`.log
 
 export ROOT_HIST=0
