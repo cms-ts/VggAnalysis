@@ -46,7 +46,7 @@ if [ ! -z "$2" ]; then
   fi
 fi
 
-./compile.sh force
+./compile.sh mainSelector
 
 mkdir -p data/$VERSION
 

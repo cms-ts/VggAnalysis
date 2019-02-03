@@ -31,7 +31,7 @@ if [ $check -eq 0 ]; then
   exit
 fi
 
-./compile.sh force
+./compile.sh auto_pu2017
 
 mkdir -p data/auto_pu2017
 

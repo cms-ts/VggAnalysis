@@ -10,26 +10,39 @@ fi
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 cd $WORKDIR
 
-export ROOT_HIST=0
-
-OPTION="kcO"
+FLAGS="kcO"
 
 if [ ! -z "$1" ]; then
-  OPTION="kcOf"
+  FLAGS="kcOf"
+  if [ "$1" == "mainSelector" ] || [ "$1" == "auto_pu2017" ] || [ "$1" == "plot" ]; then
+    OPTION="$1"
+  else
+    OPTION="force"
+  fi
 fi
+
+export ROOT_HIST=0
 
 make_lib() {
   FILES=$1
   for F in $FILES; do
-    root-6.12 -l -b -q -e 'cout << "Checking '$F' ..." << endl ; gSystem->Exit(gSystem->CompileMacro("'$F'","'$OPTION'"))'
+    root-6.12 -l -b -q -e 'cout << "Checking '$F' ..." << endl ; gSystem->Exit(gSystem->CompileMacro("'$F'","'$FLAGS'"))'
   done
 }
 
-make_lib "mainSelectorDT16.C mainSelectorDT16H.C mainSelectorMC16.C"
-make_lib "mainSelectorDT17.C mainSelectorDT17B.C mainSelectorMC17.C"
-make_lib "mainSelectorDT18.C mainSelectorMC18.C"
-make_lib "auto_pu2017.C"
-make_lib "plot0.C plot1.C plot2.C plot3.C"
+if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "mainSelector" ]; then
+  make_lib "mainSelectorDT16.C mainSelectorDT16H.C mainSelectorMC16.C"
+  make_lib "mainSelectorDT17.C mainSelectorDT17B.C mainSelectorMC17.C"
+  make_lib "mainSelectorDT18.C mainSelectorMC18.C"
+fi
+
+if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "auto_pu2017" ]; then
+  make_lib "auto_pu2017.C"
+fi
+
+if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "plot" ]; then
+  make_lib "plot0.C plot1.C plot2.C plot3.C"
+fi
 
 exit
 
