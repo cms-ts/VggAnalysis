@@ -220,6 +220,8 @@ RunIIAutumn18NanoAOD_ZGGToLLGG_5f_TuneCP5_13TeV-amcatnlo-pythia8	0.6257
 #
 RunIIAutumn18NanoAODv4_ZGGToLLGG_5f_TuneCP5_13TeV-amcatnlo-pythia8	0.6257
 #
+RunIIAutumn18NanoAOD_WGToLNuG_TuneCP5_13TeV-madgraphMLM-pythia8		489.
+#
 RunIIFall18NanoAOD_TTGamma_Dilept_TuneCP5_13TeV_madgraph_pythia8		0.6341
 RunIIFall18NanoAOD_TTGamma_Hadronic_TuneCP5_13TeV_madgraph_pythia8		0.7953
 RunIIFall18NanoAOD_TTGamma_SingleLeptFromT_TuneCP5_13TeV_madgraph_pythia8	0.767
