@@ -33,7 +33,7 @@ for L in $LISTS; do
     check=1
   fi
   FILE_MUO=data/auto_pu2017/pileup_muo_`basename $L .list`.root
-  if [ $L -nt $FILE_MUO ]; then
+  if [ lists/$L -nt $FILE_MUO ]; then
     bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu2017.sh lists/$L $FILE_MUO
     check=1
   fi
