@@ -13,10 +13,10 @@ cd $WORKDIR
 LIST=$1
 FILE=$2
 
-LOG=data/auto_pu2017/`basename $FILE .root`.log
+LOG=data/auto_pu/`basename $FILE .root`.log
 
 export ROOT_HIST=0
 
-root-6.12 -l -b -q auto_pu2017.C+\(\"$LIST\"\,\"$FILE\"\) > $LOG 2>&1
+root-6.12 -l -b -q auto_pu.C+\(\"$LIST\"\,\"$FILE\"\) > $LOG 2>&1
 
 exit

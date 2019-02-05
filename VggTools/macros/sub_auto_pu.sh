@@ -16,9 +16,9 @@ cd $WORKDIR
 
 LISTS=`ls lists/ | grep RunIIFall17NanoAOD`
 
-./compile.sh auto_pu2017
+./compile.sh auto_pu
 
-mkdir -p data/auto_pu2017
+mkdir -p data/auto_pu
 
 check=0
 for L in $LISTS; do
@@ -27,14 +27,14 @@ for L in $LISTS; do
     echo "ERROR: missing file "lists/$L
     continue
   fi
-  FILE_ELE=data/auto_pu2017/pileup_ele_`basename $L .list`.root
+  FILE_ELE=data/auto_pu/pileup_ele_`basename $L .list`.root
   if [ lists/$L -nt $FILE_ELE ]; then
-    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu2017.sh lists/$L $FILE_ELE
+    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_ELE
     check=1
   fi
-  FILE_MUO=data/auto_pu2017/pileup_muo_`basename $L .list`.root
+  FILE_MUO=data/auto_pu/pileup_muo_`basename $L .list`.root
   if [ lists/$L -nt $FILE_MUO ]; then
-    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu2017.sh lists/$L $FILE_MUO
+    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_MUO
     check=1
   fi
 done

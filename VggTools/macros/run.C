@@ -102,8 +102,8 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
   }
 
   if (option.Contains("MC17")) {
-    TString output_ele = "data/auto_pu2017/" + TString(gSystem->BaseName(input));
-    TString output_muo = "data/auto_pu2017/" + TString(gSystem->BaseName(input));
+    TString output_ele = "data/auto_pu/" + TString(gSystem->BaseName(input));
+    TString output_muo = "data/auto_pu/" + TString(gSystem->BaseName(input));
     output_ele.ReplaceAll("RunIIFall17NanoAOD", "pileup_ele_RunIIFall17NanoAOD");
     output_muo.ReplaceAll("RunIIFall17NanoAOD", "pileup_muo_RunIIFall17NanoAOD");
     output_ele.ReplaceAll(".list", ".root");
@@ -122,7 +122,7 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
       delete file_ele_pu;
       delete file_muo_pu;
       TList* fInput = new TList();
-      fInput->Add(new TNamed("auto_pu2017", ""));
+      fInput->Add(new TNamed("auto_pu", ""));
       fInput->Add(pu_ele_weights);
       fInput->Add(pu_muo_weights);
       selector->SetInputList(fInput);

@@ -14,7 +14,7 @@ FLAGS="kcO"
 
 if [ ! -z "$1" ]; then
   FLAGS="kcOf"
-  if [ "$1" == "mainSelector" ] || [ "$1" == "auto_pu2017" ] || [ "$1" == "plot" ]; then
+  if [ "$1" == "mainSelector" ] || [ "$1" == "auto_pu" ] || [ "$1" == "plot" ]; then
     OPTION="$1"
   else
     OPTION="force"
@@ -36,8 +36,8 @@ if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "mainSelector"
   make_lib "mainSelectorDT18.C mainSelectorMC18.C"
 fi
 
-if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "auto_pu2017" ]; then
-  make_lib "auto_pu2017.C"
+if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "auto_pu" ]; then
+  make_lib "auto_pu.C"
 fi
 
 if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "plot" ]; then
@@ -58,7 +58,7 @@ make_exe() {
   done
 }
 
-make_exe "auto_pu2017.C"
+make_exe "auto_pu.C"
 make_exe "plot0.C plot1.C plot2.C plot3.C"
 
 exit

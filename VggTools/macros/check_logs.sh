@@ -10,13 +10,13 @@ if [ ! -z "$1" ]; then
     echo
     echo "Available versions:"
     echo
-    ls ./data/ | grep -v archive | grep -v auto_pu2017 | tr '\n' ' '
+    ls ./data/ | grep -v archive | grep -v auto_pu | tr '\n' ' '
     echo ; echo
     exit
   elif [ "$1" == "all" ]; then
-    VERSION=`ls ./data/ | grep -v archive | grep -v auto_pu2017`
+    VERSION=`ls ./data/ | grep -v archive | grep -v auto_pu`
   elif [ "$1" == "last" ]; then
-    VERSION=`ls -tr ./data/ | grep -v archive | grep -v auto_pu2017 | tail -1`
+    VERSION=`ls -tr ./data/ | grep -v archive | grep -v auto_pu | tail -1`
   else
     VERSION=$1
   fi
