@@ -81,7 +81,7 @@ void auto_pu(TString input="lists/RunIIFall17NanoAOD_DYJetsToLL_M-50_TuneCP5_13T
   file->Close();
   delete file;
 
-  if (output.contains("RunIIFall17")) {
+  if (output.Contains("RunIIFall17")) {
     if (output.Contains("pileup_ele")) {
       WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleElectron_31Mar2018.root", true, false, output.Data());
     }
