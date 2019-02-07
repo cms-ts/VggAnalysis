@@ -2,7 +2,7 @@ Run2018A_SingleMuon_14Sep2018	0
 Run2018B_SingleMuon_14Sep2018	0
 Run2018C_SingleMuon_14Sep2018	0
 Run2018D_SingleMuon_14Sep2018	0
-RunIIFall18NanoAOD_WGG_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	1010
+RunIIAutumn18NanoAOD_WGG_5f_TuneCP5_13TeV-amcatnlo-pythia8		1010
 RunIIAutumn18NanoAOD_WGToLNuG_TuneCP5_13TeV-madgraphMLM-pythia8		1011
 RunIIFall18NanoAOD_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8		1012
 RunIIFall18NanoAOD_WTauNu_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	1013
