@@ -62,6 +62,7 @@ for L in $LISTS; do
   grep -v 'TProof::Progress' | \
   grep -v 'Query processing time' | \
   grep -v 'Lite-0' | \
+  grep -v 'Temporary failure in name resolution' | \
   grep -v '+++' | \
   grep -v '(M)' | \
   grep -v '#'`
