@@ -46,11 +46,11 @@ RunIISummer16NanoAODv4_ST_t-channel_top_4f_inclusiveDecays_13TeV-powhegV2-madspi
 RunIISummer16NanoAODv4_ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1			35.6
 RunIISummer16NanoAODv4_ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1				35.6
 #
-RunIISummer16NanoAODv3_WW_TuneCUETP8M1_13TeV-pythia8	51.723
+RunIISummer16NanoAODv3_WW_TuneCUETP8M1_13TeV-pythia8	118.7
 RunIISummer16NanoAODv3_WZ_TuneCUETP8M1_13TeV-pythia8	47.13
 RunIISummer16NanoAODv3_ZZ_TuneCUETP8M1_13TeV-pythia8	16.523
 #
-RunIISummer16NanoAODv4_WW_TuneCUETP8M1_13TeV-pythia8	51.723
+RunIISummer16NanoAODv4_WW_TuneCUETP8M1_13TeV-pythia8	118.7
 RunIISummer16NanoAODv4_WZ_TuneCUETP8M1_13TeV-pythia8	47.13
 RunIISummer16NanoAODv4_ZZ_TuneCUETP8M1_13TeV-pythia8	16.523
 #
@@ -133,7 +133,7 @@ RunIIFall17NanoAODv4_ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-
 RunIIFall17NanoAODv4_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8			35.6
 RunIIFall17NanoAODv4_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8				35.6
 #
-RunIIFall17NanoAOD_WW_TuneCP5_13TeV-pythia8	51.723
+RunIIFall17NanoAOD_WW_TuneCP5_13TeV-pythia8	118.7
 RunIIFall17NanoAOD_WZ_TuneCP5_13TeV-pythia8	47.13
 RunIIFall17NanoAOD_ZZ_TuneCP5_13TeV-pythia8	16.523
 #
@@ -195,7 +195,7 @@ RunIIAutumn18NanoAOD_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythi
 RunIIAutumn18NanoAODv4_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8	35.6
 RunIIAutumn18NanoAODv4_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8	35.6
 #
-RunIIAutumn18NanoAOD_WW_TuneCP5_13TeV-pythia8	51.723
+RunIIAutumn18NanoAOD_WW_TuneCP5_13TeV-pythia8	118.7
 RunIIAutumn18NanoAOD_WZ_TuneCP5_13TeV-pythia8	47.13
 RunIIAutumn18NanoAOD_ZZ_TuneCP5_13TeV-pythia8	16.523
 #
