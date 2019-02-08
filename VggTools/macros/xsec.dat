@@ -37,6 +37,10 @@ RunIISummer16NanoAODv3_WToLNu_0J_13TeV-amcatnloFXFX-pythia8	50126.21
 #RunIISummer16NanoAODv3_WToLNu_1J_13TeV-amcatnloFXFX-pythia8	8423.586
 RunIISummer16NanoAODv3_WToLNu_2J_13TeV-amcatnloFXFX-pythia8	2804.683
 #
+RunIISummer16NanoAODv4_WToLNu_0J_13TeV-amcatnloFXFX-pythia8	50126.21
+#RunIISummer16NanoAODv4_WToLNu_1J_13TeV-amcatnloFXFX-pythia8	8423.586
+RunIISummer16NanoAODv4_WToLNu_2J_13TeV-amcatnloFXFX-pythia8	2804.683
+#
 RunIISummer16NanoAODv3_TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8		831.76
 #
 RunIISummer16NanoAODv4_TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8		831.76
