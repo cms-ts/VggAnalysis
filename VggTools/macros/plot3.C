@@ -17,6 +17,7 @@ void plot3(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
   if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
+  if (flags.find("default") != string::npos) plot = "default/" + plot;
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -60,6 +61,7 @@ void plot3(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (flags.find("default") != string::npos) version = version + ".default";
 
   TFile* f1 = new TFile(("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
   TFile* f2 = new TFile(("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str());

@@ -15,6 +15,7 @@ void plot2(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
   if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
+  if (flags.find("default") != string::npos) plot = "default/" + plot;
 
   map<string, float> xsecMap;
   readMap("xsec.dat", xsecMap);
@@ -72,6 +73,7 @@ void plot2(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (flags.find("default") != string::npos) version = version + ".default";
 
   TH1D* h_mc_eff = (TH1D*)h1->Clone("h_mc_eff");
 

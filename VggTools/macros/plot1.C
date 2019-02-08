@@ -34,6 +34,7 @@ void plot1(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
   if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
+  if (flags.find("default") != string::npos) plot = "default/" + plot;
 
   multimap<string, float> plotMap;
   readMultiMap(plot, plotMap);
@@ -49,6 +50,7 @@ void plot1(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (flags.find("default") != string::npos) version = version + ".default";
 
   TFile* f1 = new TFile(("html/" + version + "/" + year + "/root/" + title + "_nofit.root").c_str());
   TFile* f2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());

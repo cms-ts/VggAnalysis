@@ -24,6 +24,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
   if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
+  if (flags.find("default") != string::npos) plot = "default/" + plot;
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -151,6 +152,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (flags.find("default") != string::npos) version = version + ".default";
 
   if (flags.find("nofit") == string::npos) {
     float fitval = 0.;
