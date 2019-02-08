@@ -67,20 +67,21 @@ for L in $LISTS; do
   grep -v '(M)' | \
   grep -v '#'`
   if [ -z "$O" ]; then
-    printf "GOOD - "
+    printf "GOOD -  "
     grep -q "processed events" $L
     if [ $? -eq 0 ]; then
-      printf "done     "
+      printf "done       "
       done=$((done+1))
     else
-      printf "running  "
+      printf "running    "
       running=$((running+1))
     fi
   else
-    if [ "$O" == "no files to process" ]; then
-      printf "ERROR (no files)"
-    else 
-      printf "ERROR           "
+    printf "ERROR - "
+    if [ -z "${O##*no files to process*}" ]; then
+      printf "(no files) "
+    elif [ -z "${O##*unable to open file*}" ]; then
+      printf "(bad file) "
     fi
     errors=$((errors+1))
   fi
