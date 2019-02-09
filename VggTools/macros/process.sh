@@ -24,7 +24,7 @@ if [ ! -z "$2" ]; then
   fi
 fi
 
-FLAGS="nolog,amcatnlo nolog,madgraph"
+FLAGS="nolog,default"
 
 if [ ! -z "$3" ]; then
   FLAGS=$3
