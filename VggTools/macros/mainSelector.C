@@ -322,6 +322,48 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    delete file_pho_sf_eff;
 #endif // defined(mainSelectorMC18_cxx)
+
+#if defined(L1PREFIRING_WEIGHTS)
+
+   TFile* file_l1prefile_pho;
+   TFile* file_l1prefile_jet;
+
+#if defined(mainSelectorMC16_h)
+   file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2016BtoH.root");
+   file_l1prefile_jet = new TFile("root/L1prefiring_jetpt_2016BtoH.root");
+
+   l1prefiring_pho = (TH2F*)file_l1prefile_pho->Get("L1prefiring_photonpt_2016BtoH");
+   l1prefiring_jet = (TH2F*)file_l1prefile_jet->Get("L1prefiring_jetpt_2016BtoH");
+
+   l1prefiring_pho->SetDirectory(0);
+   l1prefiring_jet->SetDirectory(0);
+
+   file_l1prefile_pho->Close();
+   file_l1prefile_jet->Close();
+
+   delete file_l1prefile_pho;
+   delete file_l1prefile_jet;
+#endif // defined(mainSelectorMC16_h)
+
+#if defined(mainSelectorMC17_h)
+   file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2017BtoF.root");
+   file_l1prefile_jet = new TFile("root/L1prefiring_jetpt_2017BtoF.root");
+
+   l1prefiring_pho = (TH2F*)file_l1prefile_pho->Get("L1prefiring_photonpt_2017BtoF");
+   l1prefiring_jet = (TH2F*)file_l1prefile_jet->Get("L1prefiring_jetpt_2017BtoF");
+
+   l1prefiring_pho->SetDirectory(0);
+   l1prefiring_jet->SetDirectory(0);
+
+   file_l1prefile_pho->Close();
+   file_l1prefile_jet->Close();
+
+   delete file_l1prefile_pho;
+   delete file_l1prefile_jet;
+#endif // defined(mainSelectorMC17_h)
+
+#endif // defined(L1PREFIRING_WEIGHTS)
+
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -2671,6 +2713,70 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float weight_Z_ele_qcd = weight_gen * weight_pu_ele * weight_eff_ele0_qcd * weight_eff_ele1_qcd * weight_reco_ele0_qcd * weight_reco_ele1_qcd * weight_hlt_ele_qcd;
    float weight_Z_muo_qcd = weight_gen * weight_pu_muo * weight_trig_muo0_qcd * weight_trig_muo1_qcd * weight_id_muo0_qcd * weight_id_muo1_qcd * weight_iso_muo0_qcd * weight_iso_muo1_qcd;
+
+#if defined(L1PREFIRING_WEIGHTS)
+
+   float weight_l1prefiring = 1.;
+
+#if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
+
+   for (uint i = 0; i < *nPhoton; i++) {
+     if (Photon_pt[i] < 20) continue;
+     if (fabs(Photon_eta[i]) < 2) continue;
+     if (fabs(Photon_eta[i]) > 3) continue;
+     weight_l1prefiring = weight_l1prefiring * (1. - getWeight(l1prefiring_pho, Photon_eta[i], Photon_pt[i]));
+   }
+
+   for (uint i = 0; i < *nJet; i++) {
+     if (Jet_pt[i] < 20) continue;
+     if (fabs(Jet_eta[i]) < 2) continue;
+     if (fabs(Jet_eta[i]) > 3) continue;
+
+     TLorentzVector tmp_jet;
+     tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
+
+     float weight_l1prefiring_pho = 1.;
+
+     for (uint j = 0; j < *nPhoton; j++) {
+       if (Photon_pt[j] < 20) continue;
+       if (fabs(Photon_eta[j]) < 2) continue;
+       if (fabs(Photon_eta[j]) > 3) continue;
+       TLorentzVector tmp_pho;
+       tmp_pho.SetPtEtaPhiM(Photon_pt[j], Photon_eta[j], Photon_phi[j], Photon_mass[j]);
+       if (tmp_jet.DeltaR(tmp_pho) > 0.4) continue;
+       weight_l1prefiring_pho = weight_l1prefiring_pho * (1. - getWeight(l1prefiring_pho, Photon_eta[j], Photon_pt[j]));
+     }
+
+     float weight_l1prefiring_jet = (1. - getWeight(l1prefiring_jet, Jet_eta[i], Jet_pt[i]));
+
+     if (weight_l1prefiring_pho == 1) {
+       weight_l1prefiring = weight_l1prefiring * weight_l1prefiring_jet;
+     } else {
+       if (weight_l1prefiring_pho > weight_l1prefiring_jet) {
+         if (weight_l1prefiring_pho != 0) {
+           weight_l1prefiring = weight_l1prefiring * weight_l1prefiring_jet / weight_l1prefiring_pho;
+         } else {
+           weight_l1prefiring = 0.;
+         }
+       }
+     }
+   }
+
+#endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
+
+   weight_W_ele = weight_W_ele * (1. - weight_l1prefiring);
+   weight_W_muo = weight_W_muo * (1. - weight_l1prefiring);
+
+   weight_W_ele_qcd = weight_W_ele_qcd * (1. - weight_l1prefiring);
+   weight_W_muo_qcd = weight_W_muo_qcd * (1. - weight_l1prefiring);
+
+   weight_Z_ele = weight_Z_ele * (1. - weight_l1prefiring);
+   weight_Z_muo = weight_Z_muo * (1. - weight_l1prefiring);
+
+   weight_Z_ele_qcd = weight_Z_ele_qcd * (1. - weight_l1prefiring);
+   weight_Z_muo_qcd = weight_Z_muo_qcd * (1. - weight_l1prefiring);
+
+#endif // defined(L1PREFIRING_WEIGHTS)
 
 // W -> ele nu trigger object matching
 

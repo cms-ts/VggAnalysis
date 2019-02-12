@@ -24,6 +24,8 @@
 
 // #define DOUBLE_TRIGGER
 
+// #define L1PREFIRING_WEIGHTS
+
 #if !defined(DOUBLE_TRIGGER)
 #define TRIGGER_OBJECTS
 #endif // !defined(DOUBLE_TRIGGER)
@@ -388,6 +390,9 @@ public :
    TH2D* sf_muo_iso = 0;
 
    TH2D* sf_pho_eff = 0;
+
+   TH2F* l1prefiring_pho = 0;
+   TH2F* l1prefiring_jet = 0;
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
    RoccoR* roccor;
