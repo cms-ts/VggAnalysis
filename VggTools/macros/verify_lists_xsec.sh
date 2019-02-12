@@ -17,6 +17,9 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
     [ -z "${D##*WG_WJetsToLNu*}" ] && continue
     [ -z "${D##*WGG_WJetsToLNu*}" ] && continue
     [ -z "${D##*WTauNu_WJetsToLNu*}" ] && continue
+    [ -z "${D##*WG_WToLNu*}" ] && continue
+    [ -z "${D##*WGG_WToLNu*}" ] && continue
+    [ -z "${D##*WTauNu_WToLNu*}" ] && continue
     [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
     [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
     [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
@@ -63,6 +66,9 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
     [ -z "${D##*WG_WJetsToLNu*}" ] && continue
     [ -z "${D##*WGG_WJetsToLNu*}" ] && continue
     [ -z "${D##*WTauNu_WJetsToLNu*}" ] && continue
+    [ -z "${D##*WG_WToLNu*}" ] && continue
+    [ -z "${D##*WGG_WToLNu*}" ] && continue
+    [ -z "${D##*WTauNu_WToLNu*}" ] && continue
     [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
     [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
     [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
@@ -159,6 +165,9 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
     [ -z "${D##*WG_WJetsToLNu*}" ] && continue
     [ -z "${D##*WGG_WJetsToLNu*}" ] && continue
     [ -z "${D##*WTauNu_WJetsToLNu*}" ] && continue
+    [ -z "${D##*WG_WToLNu*}" ] && continue
+    [ -z "${D##*WGG_WToLNu*}" ] && continue
+    [ -z "${D##*WTauNu_WToLNu*}" ] && continue
     [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
     [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
     [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
