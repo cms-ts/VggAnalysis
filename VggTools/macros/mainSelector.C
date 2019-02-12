@@ -68,8 +68,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (option.Contains("ZTauTau"))                       isZTauTau    = true;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   TFile* file_ele_pu;
-   TFile* file_muo_pu;
+   TFile* file_ele_pu = 0;
+   TFile* file_muo_pu = 0;
 
 #if defined(mainSelectorMC16_cxx)
 #if defined(DOUBLE_TRIGGER)
@@ -119,14 +119,14 @@ void mainSelector::Begin(TTree * /*tree*/)
      pu_muo_weights = dynamic_cast<TH1D*>(fInput->FindObject("pu_muo_weights"));
    }
 
-   TFile* file_ele_sf_eff;
-   TFile* file_ele_sf_reco;
+   TFile* file_ele_sf_eff = 0;
+   TFile* file_ele_sf_reco = 0;
 
-   TFile* file_muo_sf_trig;
-   TFile* file_muo_sf_id;
-   TFile* file_muo_sf_iso;
+   TFile* file_muo_sf_trig = 0;
+   TFile* file_muo_sf_id = 0;
+   TFile* file_muo_sf_iso = 0;
 
-   TFile* file_pho_sf_eff;
+   TFile* file_pho_sf_eff = 0;
 
 #if defined(mainSelectorMC16_cxx)
 #if defined(NANOAODv4)
