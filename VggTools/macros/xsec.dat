@@ -212,11 +212,11 @@ RunIIAutumn18NanoAOD_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8	365.34
 #
 RunIIAutumn18NanoAODv4_TTToHadronic_TuneCP5_13TeV-powheg-pythia8	377.96
 #
-RunIIAutumn18NanoAOD_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8		35.6
 RunIIAutumn18NanoAOD_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8	35.6
+RunIIAutumn18NanoAOD_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8		35.6
 #
-RunIIAutumn18NanoAODv4_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8	35.6
 RunIIAutumn18NanoAODv4_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8	35.6
+RunIIAutumn18NanoAODv4_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8	35.6
 #
 RunIIAutumn18NanoAOD_WW_TuneCP5_13TeV-pythia8	118.7
 RunIIAutumn18NanoAOD_WZ_TuneCP5_13TeV-pythia8	47.13
