@@ -240,6 +240,16 @@ DATASETS=`ls ./lists/ | sort | uniq | sed -e 's/.list//'`
 check=0
 for D in $DATASETS; do
 
+  [ -z "${D##*WG_WJetsToLNu*}" ] && continue
+  [ -z "${D##*WGG_WJetsToLNu*}" ] && continue
+  [ -z "${D##*WTauNu_WJetsToLNu*}" ] && continue
+  [ -z "${D##*WG_WToLNu*}" ] && continue
+  [ -z "${D##*WGG_WToLNu*}" ] && continue
+  [ -z "${D##*WTauNu_WToLNu*}" ] && continue
+  [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
+  [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
+  [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
+
   if [ -e ./lists/$D.list ]; then
     if [ ! -s ./lists/$D.list ]; then
       echo "empty : ./lists/"$D".list"
