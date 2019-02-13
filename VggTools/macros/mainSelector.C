@@ -2764,17 +2764,17 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
 
-   weight_W_ele = weight_W_ele * (1. - weight_l1prefiring);
-   weight_W_muo = weight_W_muo * (1. - weight_l1prefiring);
+   weight_W_ele = weight_W_ele * weight_l1prefiring;
+   weight_W_muo = weight_W_muo * weight_l1prefiring;
 
-   weight_W_ele_qcd = weight_W_ele_qcd * (1. - weight_l1prefiring);
-   weight_W_muo_qcd = weight_W_muo_qcd * (1. - weight_l1prefiring);
+   weight_W_ele_qcd = weight_W_ele_qcd * weight_l1prefiring;
+   weight_W_muo_qcd = weight_W_muo_qcd * weight_l1prefiring;
 
-   weight_Z_ele = weight_Z_ele * (1. - weight_l1prefiring);
-   weight_Z_muo = weight_Z_muo * (1. - weight_l1prefiring);
+   weight_Z_ele = weight_Z_ele * weight_l1prefiring;
+   weight_Z_muo = weight_Z_muo * weight_l1prefiring;
 
-   weight_Z_ele_qcd = weight_Z_ele_qcd * (1. - weight_l1prefiring);
-   weight_Z_muo_qcd = weight_Z_muo_qcd * (1. - weight_l1prefiring);
+   weight_Z_ele_qcd = weight_Z_ele_qcd * weight_l1prefiring;
+   weight_Z_muo_qcd = weight_Z_muo_qcd * weight_l1prefiring;
 
 #endif // defined(L1PREFIRING_WEIGHTS)
 
