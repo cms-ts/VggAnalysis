@@ -323,10 +323,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_pho_sf_eff;
 #endif // defined(mainSelectorMC18_cxx)
 
-#if defined(L1PREFIRING_WEIGHTS)
-
-   TFile* file_l1prefile_pho;
-   TFile* file_l1prefile_jet;
+   TFile* file_l1prefile_pho = 0;
+   TFile* file_l1prefile_jet = 0;
 
 #if defined(mainSelectorMC16_h)
    file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2016BtoH.root");
@@ -361,8 +359,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_l1prefile_pho;
    delete file_l1prefile_jet;
 #endif // defined(mainSelectorMC17_h)
-
-#endif // defined(L1PREFIRING_WEIGHTS)
 
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -2714,8 +2710,6 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_Z_ele_qcd = weight_gen * weight_pu_ele * weight_eff_ele0_qcd * weight_eff_ele1_qcd * weight_reco_ele0_qcd * weight_reco_ele1_qcd * weight_hlt_ele_qcd;
    float weight_Z_muo_qcd = weight_gen * weight_pu_muo * weight_trig_muo0_qcd * weight_trig_muo1_qcd * weight_id_muo0_qcd * weight_id_muo1_qcd * weight_iso_muo0_qcd * weight_iso_muo1_qcd;
 
-#if defined(L1PREFIRING_WEIGHTS)
-
    float weight_l1prefiring = 1.;
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
@@ -2775,8 +2769,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    weight_Z_ele_qcd = weight_Z_ele_qcd * weight_l1prefiring;
    weight_Z_muo_qcd = weight_Z_muo_qcd * weight_l1prefiring;
-
-#endif // defined(L1PREFIRING_WEIGHTS)
 
 // W -> ele nu trigger object matching
 

@@ -24,8 +24,6 @@
 
 // #define DOUBLE_TRIGGER
 
-// #define L1PREFIRING_WEIGHTS
-
 #if !defined(DOUBLE_TRIGGER)
 #define TRIGGER_OBJECTS
 #endif // !defined(DOUBLE_TRIGGER)
