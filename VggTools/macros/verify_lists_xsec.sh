@@ -23,6 +23,9 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
     [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
     [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
     [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
+    [ -z "${D##*ZG_DYToLL*}" ] && continue
+    [ -z "${D##*ZGG_DYToLL*}" ] && continue
+    [ -z "${D##*ZTauTau_DYToLL*}" ] && continue
 
     if [ ! -e ../scripts/lists/$D.list ]; then
       echo "missing in ../scripts/lists/ : "$D
@@ -72,6 +75,9 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
     [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
     [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
     [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
+    [ -z "${D##*ZG_DYToLL*}" ] && continue
+    [ -z "${D##*ZGG_DYToLL*}" ] && continue
+    [ -z "${D##*ZTauTau_DYToLL*}" ] && continue
 
     X=`grep $D ./xsec.dat`
     if [ -z "$X" ]; then
@@ -171,6 +177,9 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
     [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
     [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
     [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
+    [ -z "${D##*ZG_DYToLL*}" ] && continue
+    [ -z "${D##*ZGG_DYToLL*}" ] && continue
+    [ -z "${D##*ZTauTau_DYToLL*}" ] && continue
 
     if [ ! -e ../scripts/lists/$D.list ]; then
       echo "missing in ../scripts/lists/ : "$D
@@ -249,6 +258,9 @@ for D in $DATASETS; do
   [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
   [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
   [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
+    [ -z "${D##*ZG_DYToLL*}" ] && continue
+    [ -z "${D##*ZGG_DYToLL*}" ] && continue
+    [ -z "${D##*ZTauTau_DYToLL*}" ] && continue
 
   if [ -e ./lists/$D.list ]; then
     if [ ! -s ./lists/$D.list ]; then
