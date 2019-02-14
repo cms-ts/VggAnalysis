@@ -31,6 +31,7 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   plot = plot + ".dat";
   if (flags.find("test") != string::npos) plot = plot + ".test";
   if (flags.find("new") != string::npos) plot = plot + ".new";
+  if (flags.find("jet") != string::npos) plot = plot + ".jet";
 
   if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
   if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
@@ -47,6 +48,7 @@ void plot1(string plot="", string title="", string version="v00", string flags="
 
   if (flags.find("test") != string::npos) version = version + ".test";
   if (flags.find("new") != string::npos) version = version + ".new";
+  if (flags.find("jet") != string::npos) version = version + ".jet";
 
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
