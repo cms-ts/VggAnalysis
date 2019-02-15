@@ -79,8 +79,6 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
     [ -z "${D##*ZGG_DYToLL*}" ] && continue
     [ -z "${D##*ZTauTau_DYToLL*}" ] && continue
 
-    [ -z "${D##*RunIISummer16NanoAOD_ST_s-channel_*}" ] && continue
-    [ -z "${D##*RunIISummer16NanoAOD_ZGGJetsToLLGG_*}" ] && continue
     [ -z "${D##*RunIISummer16NanoAODv3_*}" ] && continue
     [ -z "${D##*RunIIFall17NanoAOD_*}" ] && continue
     [ -z "${D##*RunIIFall18NanoAOD_*}" ] && continue
