@@ -91,14 +91,14 @@ void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output=
   }
 
   if (option.Contains("MC")) {
-    if (input.Contains("WJetsToLNu"))                   selector->SetOption("MC,WJetsToLNu");
-    if (input.Contains("WG") && !input.Contains("WGG")) selector->SetOption("MC,WG");
-    if (input.Contains("WGG"))                          selector->SetOption("MC,WGG");
-    if (input.Contains("WTauNu"))                       selector->SetOption("MC,WTauNu");
-    if (input.Contains("DYJetsToLL"))                   selector->SetOption("MC,DYJetsToLL");
-    if (input.Contains("ZG") && !input.Contains("ZGG")) selector->SetOption("MC,ZG");
-    if (input.Contains("ZGG"))                          selector->SetOption("MC,ZGG");
-    if (input.Contains("ZTauTau"))                      selector->SetOption("MC,ZTauTau");
+    if (input.Contains("WJetsToLNu") || input.Contains("WToLNu")) selector->SetOption("MC,WJetsToLNu");
+    if (input.Contains("WG") && !input.Contains("WGG"))           selector->SetOption("MC,WG");
+    if (input.Contains("WGG"))                                    selector->SetOption("MC,WGG");
+    if (input.Contains("WTauNu"))                                 selector->SetOption("MC,WTauNu");
+    if (input.Contains("DYJetsToLL") || input.Contains("DYToLL")) selector->SetOption("MC,DYJetsToLL");
+    if (input.Contains("ZG") && !input.Contains("ZGG"))           selector->SetOption("MC,ZG");
+    if (input.Contains("ZGG"))                                    selector->SetOption("MC,ZGG");
+    if (input.Contains("ZTauTau"))                                selector->SetOption("MC,ZTauTau");
   }
 
   if (option.Contains("MC17")) {
