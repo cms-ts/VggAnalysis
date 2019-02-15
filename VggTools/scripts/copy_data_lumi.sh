@@ -5,7 +5,7 @@ cd $WORKDIR
 
 rm -f ../macros/lumi.dat
 
-for F in `ls logs/Run2016*.log`; do
+for F in `ls logs/Run2016*.log | grep 14Dec2018`; do
   G=`basename $F .log`
   L=`grep -A 5 Summary $F | grep [0-9] | awk '{print $12}'`
   [ -z "${F##*DoubleEG*}"       ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
@@ -15,7 +15,7 @@ for F in `ls logs/Run2016*.log`; do
   [ -z "${F##*MuonEG*}"         ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
 done
 
-for F in `ls logs/Run2017*.log`; do
+for F in `ls logs/Run2017*.log | grep 14Dec2018`; do
   G=`basename $F .log`
   L=`grep -A 5 Summary $F | grep [0-9] | awk '{print $12}'`
   [ -z "${F##*DoubleEG*}"       ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
@@ -25,7 +25,7 @@ for F in `ls logs/Run2017*.log`; do
   [ -z "${F##*MuonEG*}"         ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
 done
 
-for F in `ls logs/Run2018*.log`; do
+for F in `ls logs/Run2018*.log | grep 14Dec2018`; do
   G=`basename $F .log`
   L=`grep -A 5 Summary $F | grep [0-9] | awk '{print $12}'`
   [ -z "${F##*EGamma*}"         ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
