@@ -198,6 +198,10 @@ RunIISummer16NanoAODv4_WTauNu_WToLNu_2J_13TeV-amcatnloFXFX-pythia8		2804.68
 #
 RunIIFall17NanoAODv4_WTauNu_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	61526.7
 #
+RunIIFall17NanoAODv4_WTauNu_WJetsToLNu_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8	50126.2
+#RunIIFall17NanoAODv4_WTauNu_WJetsToLNu_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8	8423.59
+RunIIFall17NanoAODv4_WTauNu_WJetsToLNu_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8	2804.68
+#
 RunIIFall18NanoAOD_WTauNu_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8		61526.7
 #
 # ZG/ZGG exclusive samples from Z inclusive samples
@@ -252,6 +256,13 @@ RunIISummer16NanoAODv4_WGG_WToLNu_2J_13TeV-amcatnloFXFX-pythia8			2804.68
 #
 RunIIFall17NanoAODv4_WG_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8		61526.7
 RunIIFall17NanoAODv4_WGG_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8		61526.7
+#
+RunIIFall17NanoAODv4_WG_WJetsToLNu_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8	50126.2
+RunIIFall17NanoAODv4_WGG_WJetsToLNu_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8	50126.2
+#RunIIFall17NanoAODv4_WG_WJetsToLNu_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8	8423.59
+#RunIIFall17NanoAODv4_WGG_WJetsToLNu_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8	8423.59
+RunIIFall17NanoAODv4_WG_WJetsToLNu_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8	2804.68
+RunIIFall17NanoAODv4_WGG_WJetsToLNu_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8	2804.68
 #
 RunIIFall18NanoAOD_WG_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8		61526.7
 RunIIFall18NanoAOD_WGG_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8		61526.7
