@@ -91,11 +91,11 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 #if defined(DOUBLE_TRIGGER)
-   file_ele_pu = new TFile("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
-   file_muo_pu = new TFile("root/ratio_pileup_Run2018_DoubleMuon_14Sep2018.root");
+   file_ele_pu = new TFile("root/ratio_pileup_Run2018_EGamma_14Dec2018.root");
+   file_muo_pu = new TFile("root/ratio_pileup_Run2018_DoubleMuon_14Dec2018.root");
 #else
-   file_ele_pu = new TFile("root/ratio_pileup_Run2018_EGamma_14Sep2018.root");
-   file_muo_pu = new TFile("root/ratio_pileup_Run2018_SingleMuon_14Sep2018.root");
+   file_ele_pu = new TFile("root/ratio_pileup_Run2018_EGamma_14Dec2018.root");
+   file_muo_pu = new TFile("root/ratio_pileup_Run2018_SingleMuon_14Dec2018.root");
 #endif // defined(DOUBLE_TRIGGER)
 #endif // defined(mainSelectorMC18_cxx)
 
