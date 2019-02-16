@@ -12,7 +12,7 @@ using namespace std;
 
 #include <ROOT/TTreeProcessorMP.hxx>
 
-void run(TString input="lists/Run2017B_DoubleEG_31Mar2018.list", TString output="selector.root") {
+void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output="selector.root") {
 
   TDatime now;
   Info("run", "%s", now.AsSQLString());

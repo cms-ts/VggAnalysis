@@ -83,10 +83,10 @@ void auto_pu(TString input="lists/RunIIFall17NanoAOD_DYJetsToLL_M-50_TuneCP5_13T
 
   if (output.Contains("RunIIFall17")) {
     if (output.Contains("pileup_ele")) {
-      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleElectron_31Mar2018.root", true, false, output.Data());
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleElectron_14Dec2018.root", true, false, output.Data());
     }
     if (output.Contains("pileup_muo")) {
-      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleMuon_31Mar2018.root", true, false, output.Data());
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleMuon_14Dec2018.root", true, false, output.Data());
     }
   }
 
