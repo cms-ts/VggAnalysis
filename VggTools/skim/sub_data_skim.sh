@@ -1,8 +1,5 @@
 #!/bin/sh
 
-DATADIR=/eos/infnts/cms/store/data
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/skim
-
 QUEUE=normal_io
 export USE_LSF_STARTER=no
 
@@ -14,7 +11,10 @@ EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=farm045 && hname!=farm046 && "
 EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=farm073 && hname!=farm074 && hname!=farm075 && hname!=farm076 && "
 EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=farm061 && hname!=farm062 && hname!=farm063 && hname!=farm064"
 
+WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/skim
 cd $WORKDIR
+
+DATADIR=/eos/infnts/cms/store/data
 
 for F in `eos find -f $DATADIR/ | grep Run2016 | grep NANOAOD | grep 14Dec2018`; do
   if [ -s $F ]; then
