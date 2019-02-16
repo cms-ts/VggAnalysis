@@ -12,7 +12,6 @@ for F in `ls logs/Run2016*.log | grep 14Dec2018`; do
   [ -z "${F##*DoubleMuon*}"     ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
   [ -z "${F##*SingleElectron*}" ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
   [ -z "${F##*SingleMuon*}"     ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
-  [ -z "${F##*MuonEG*}"         ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
 done
 
 for F in `ls logs/Run2017*.log | grep 14Dec2018`; do
@@ -22,7 +21,6 @@ for F in `ls logs/Run2017*.log | grep 14Dec2018`; do
   [ -z "${F##*DoubleMuon*}"     ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
   [ -z "${F##*SingleElectron*}" ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
   [ -z "${F##*SingleMuon*}"     ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
-  [ -z "${F##*MuonEG*}"         ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
 done
 
 for F in `ls logs/Run2018*.log | grep 14Dec2018`; do
@@ -31,7 +29,6 @@ for F in `ls logs/Run2018*.log | grep 14Dec2018`; do
   [ -z "${F##*EGamma*}"         ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
   [ -z "${F##*DoubleMuon*}"     ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
   [ -z "${F##*SingleMuon*}"     ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
-  [ -z "${F##*MuonEG*}"         ] && printf "%-40s%6.3f\n" $G $L >> ../macros/lumi.dat
 done
 
 exit
