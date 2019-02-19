@@ -45,7 +45,7 @@
 #include "JetMETCorrections/Modules/interface/JetResolution.h"
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
-#include "roccor.Run2.v2/RoccoR.h"
+#include "roccor.Run2.v3/RoccoR.h"
 
 #define QCD(H) ((TH1*)GetOutputList()->FindObject((TString(H->GetName()) + "_qcd").Data()))
 

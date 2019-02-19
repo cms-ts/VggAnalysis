@@ -1,32 +1,35 @@
 Information:
 ------------
-Muon calibration package for 2016 and 2017 datasets
+Muon calibration package for 2016,2017, and 2018 datasets
 
 2016:
-Data: Run2016{B..H}-07Aug17
-MC: RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6 
+Data: Run2016{B..H}-17Jul2018
+MC:   RunIISummer16MiniAODv3 
 
 2017:
-Data: Run2017{B..F}-17Nov2017
-MC: RunIIFall17MiniAOD-RECOSIMstep_94X_mc2017_realistic_v10
+Data: Run2017{B..F}-31Mar2018
+MC:   RunIIFall17MiniAODv2
+
+2018:
+Data: Run2018{A..C}-17Sep2018 + Run2018DPromptReco
+MC:   RunIIAutumn18MiniAOD
 
 
 Example 
 -------------------------------------------------------------------------------------
 //for root macro
 #include "RoccoR.cc"
-RoccoR  rc("RoccoR2017.txt"); // or "RoccoR2016.txt"
+RoccoR  rc("RoccoR2017.txt"); // or "RoccoR2016.txt" or "RoccoR2018.txt"
 
 //Or in cmssw:
 #include "RoccoR.h"
 RoccoR rc; 
-rc.init(edm::FileInPath("path/to/RoccoR2017.txt").fullPath()); // or "RoccoR2016.txt"
+rc.init(edm::FileInPath("path/to/RoccoR2017.txt").fullPath()); 
 ------
 //scale factors for momentum of each muon:
 double dtSF = rc.kScaleDT(Q, pt, eta, phi, s=0, m=0); //data
 double mcSF = rc.kSpreadMC(Q, pt, eta, phi, genPt, s=0, m=0); //(recommended), MC scale and resolution correction when matched gen muon is available
 double mcSF = rc.kSmearMC(Q, pt, eta, phi, nl, u, s=0, m=0); //MC scale and extra smearing when matched gen muon is not available
-//note different functions for MC are recommended in v1; (previous functions are also available to be only used with 2017v0)
 -------------------------------------------------------------------------------------
 Here: 
 Q is charge
@@ -43,12 +46,13 @@ Following variations are provided to estimate uncertainties.
 Default  0	    1		default, reference based on madgraph sample, with adhoc ewk (sw2eff and Z width) and Z pt (to match data) weights. 
 Stat     1          100         pre-generated stat. replicas; 
 Zpt      2          1           derived without reweighting reference pt to data. 
-Ewk      3          1           derived without applying ad-hoc ewk weights. 
+Ewk      3          1           derived without applying ad-hoc ewk weights 
 deltaM   4          1           one representative set for alternative profile deltaM mass window 
+Ewk2     5          1           weight reference from constant to s-dependent Z width 
 -------------------------------------------------------------------------------------
 For statistical replicas, std. dev. gives uncertainty.
 For the rest, difference wrt the cental is assigned as syst. error.
-Total uncertainty is calculated as a quadrature sum of the four components. 
+Total uncertainty is calculated as a quadrature sum of all components. 
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
 
@@ -61,7 +65,7 @@ If the effect on the analysis is small compared to other uncertainties, then muo
 uncertainties can probably be neglected. 
 
 As an additional option for a quick (single-variation) check, provided functions below return uncertainties, 
-evaluated by propagating the four sets of variations as described above, but for each muon.
+evaluated by propagating the variations described above for each muon.
 ----
 double deltaDtSF = rc.kScaleDTerror(Q, pt, eta, phi);
 double deltaMcSF = rc.kSpreadMCerror(Q, pt, eta, phi, genPt);

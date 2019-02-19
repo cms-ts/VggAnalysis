@@ -44,7 +44,7 @@
 #define NANOAODv4
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
-#include "roccor.Run2.v2/RoccoR.cc"
+#include "roccor.Run2.v3/RoccoR.cc"
 
 void mainSelector::Begin(TTree * /*tree*/)
 {
@@ -363,15 +363,13 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-   roccor = new RoccoR("roccor.Run2.v2/RoccoR2016.txt");
+   roccor = new RoccoR("roccor.Run2.v3/RoccoR2016.txt");
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-   roccor = new RoccoR("roccor.Run2.v2/RoccoR2017.txt");
+   roccor = new RoccoR("roccor.Run2.v3/RoccoR2017.txt");
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-// FIXME
-   roccor = new RoccoR("roccor.Run2.v2/RoccoR2017.txt");
-// FIXME
+   roccor = new RoccoR("roccor.Run2.v3/RoccoR2018.txt");
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorMC16_cxx)
@@ -1197,21 +1195,17 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nMuon; i++) {
      float eCorr_muo = 1.;
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx)
-// FIXME : #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
      eCorr_muo = roccor->kScaleDT(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], 0, 0);
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx)
-// FIXME : #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
-// FIXME : #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      if (Muon_genPartIdx[i] >= 0 && (uint)Muon_genPartIdx[i] < *nGenPart) {
        eCorr_muo = roccor->kSpreadMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], GenPart_pt[Muon_genPartIdx[i]], 0, 0);
      } else {
        eCorr_muo = roccor->kSmearMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_nTrackerLayers[i], gRandom->Rndm(), 0, 0);
        if (TMath::IsNaN(eCorr_muo)) eCorr_muo = 1.;
      }
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
-// FIXME : #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      Muon_pt[i] = Muon_pt[i] * eCorr_muo;
      if (Muon_pt[i] < 10) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
