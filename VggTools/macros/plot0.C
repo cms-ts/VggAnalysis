@@ -206,7 +206,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       histo[index]->SetBinError(histo[index]->GetNbinsX(), TMath::Sqrt(TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()), 2) + TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX() + 1), 2)));
       histo[index]->SetBinContent(0, 0.);
       histo[index]->SetBinContent(histo[index]->GetNbinsX() + 1, 0.);
-      histo[index]->SetBinError(1, 0.);
+      histo[index]->SetBinError(0, 0.);
       histo[index]->SetBinError(histo[index]->GetNbinsX() + 1, 0.);
     }
     if (index > 0) {
