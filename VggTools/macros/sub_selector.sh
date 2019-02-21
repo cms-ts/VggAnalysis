@@ -14,7 +14,7 @@ EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=farm061 && hname!=farm062 && hname!=farm06
 WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
 cd $WORKDIR
 
-VERSION="v08"
+VERSION="v09"
 
 if [ ! -z "$1" ]; then
   VERSION=$1
