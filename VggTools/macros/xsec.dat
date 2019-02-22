@@ -128,10 +128,10 @@ RunIIAutumn18NanoAODv4_DY4JetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8	54.
 #
 RunIIFall18NanoAOD_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8		61526.7
 #
-RunIIAutumn18NanoAOD_W1JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	9493.
-RunIIAutumn18NanoAOD_W2JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	3120.
-RunIIAutumn18NanoAOD_W3JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	942.3
-RunIIAutumn18NanoAOD_W4JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	524.2
+RunIIAutumn18NanoAODv4_W1JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	9493.
+RunIIAutumn18NanoAODv4_W2JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	3120.
+RunIIAutumn18NanoAODv4_W3JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	942.3
+RunIIAutumn18NanoAODv4_W4JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	524.2
 #
 RunIIAutumn18NanoAODv4_TTJets_TuneCP5_13TeV-madgraphMLM-pythia8		831.76
 #
@@ -159,7 +159,7 @@ RunIIAutumn18NanoAODv4_WGG_5f_TuneCP5_13TeV-amcatnlo-pythia8		1.869
 #
 RunIIAutumn18NanoAODv4_WGToLNuG_01J_5f_TuneCP5_13TeV-amcatnloFXFX-pythia8	178.6
 #
-RunIIAutumn18NanoAOD_TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8	3.697
+RunIIAutumn18NanoAODv4_TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8	3.697
 #
 # ZTauTau exclusive samples from Z inclusive samples
 #
