@@ -38,7 +38,7 @@ void plot2(string plot="", string title="", string version="v00", string flags="
     int index = int(it->second);
     if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
       TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
-      if (!file->IsOpen()) {
+      if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
       }

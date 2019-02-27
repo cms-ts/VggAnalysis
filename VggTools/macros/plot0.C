@@ -56,7 +56,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     int index = int(it->second);
     if (index == 0) {
       TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str()); 
-      if (!file->IsOpen()) {
+      if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
       }
@@ -97,7 +97,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     int index = int(it->second);
     if (index > 0) {
       TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str()); 
-      if (!file->IsOpen()) {
+      if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
       }
@@ -175,7 +175,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       file1 >> fitval >> fiterr;
       file1.close();
       TFile* file2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
-      if (file2->IsOpen()) { 
+      if (!file2->IsZombie()) {
         histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
         histo[index]->SetDirectory(0);
         histo[index]->Scale(fitval);
