@@ -36,7 +36,13 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   cout << "Read xsec map for " << xsecMap.size() << " datasets from " << "xsec.dat" << endl;
 
   multimap<string, float> plotMap;
-  readMultiMap(plot, plotMap);
+  if (plot.find("Run2") == string::npos) {
+    readMultiMap(plot, plotMap);
+  } else {
+    readMultiMap(string(plot).replace(plot.find("Run2"), 4, "2016"), plotMap);
+    readMultiMap(string(plot).replace(plot.find("Run2"), 4, "2017"), plotMap);
+    readMultiMap(string(plot).replace(plot.find("Run2"), 4, "2018"), plotMap);
+  }
   cout << "Read plot map for " << plotMap.size() << " datasets from " << plot << endl;
 
   if (plotMap.size() == 0) {
