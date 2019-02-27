@@ -171,7 +171,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       file1.open(("html/" + version + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(6, 3) + "_qcd_fit.dat").c_str());
     }
 
-    if (file1.good()) {
+    if (file1.is_open()) {
       file1 >> fitval >> fiterr;
       file1.close();
       TFile* file2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
