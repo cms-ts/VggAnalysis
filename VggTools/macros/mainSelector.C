@@ -2618,8 +2618,56 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_pho0 = weight_eff_pho0 * weight_reco_pho0;
-   float weight_pho1 = weight_eff_pho1 * weight_reco_pho1;
+   float weight_ele_veto_pho0 = 1.;
+   float weight_ele_veto_pho1 = 1.;
+
+#if defined(mainSelectorMC16_cxx)
+   if (ipho0 != -1) {
+     if (fabs(Photon_eta[ipho0]) < 1.442) {
+       if (Photon_r9[ipho0] < 0.94) weight_ele_veto_pho0 = 1.00479;
+       if (Photon_r9[ipho0] > 0.94) weight_ele_veto_pho0 = 0.985097;
+     }
+     if (fabs(Photon_eta[ipho0]) > 1.566 && fabs(Photon_eta[ipho0]) < 2.400) {
+       if (Photon_r9[ipho0] < 0.94) weight_ele_veto_pho0 = 1.00703;
+       if (Photon_r9[ipho0] > 0.94) weight_ele_veto_pho0 = 0.972969;
+     }
+   }
+   if (ipho1 != -1) {
+     if (fabs(Photon_eta[ipho0]) < 1.442) {
+       if (Photon_r9[ipho1] < 0.94) weight_ele_veto_pho1 = 1.00479;
+       if (Photon_r9[ipho1] > 0.94) weight_ele_veto_pho1 = 0.985097;
+     }
+     if (fabs(Photon_eta[ipho0]) > 1.566 && fabs(Photon_eta[ipho0]) < 2.400) {
+       if (Photon_r9[ipho1] < 0.94) weight_ele_veto_pho1 = 1.00703;
+       if (Photon_r9[ipho1] > 0.94) weight_ele_veto_pho1 = 0.972969;
+     }
+   }
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
+   if (ipho0 != -1) {
+     if (fabs(Photon_eta[ipho0]) < 1.442) {
+       if (Photon_r9[ipho0] < 0.94) weight_ele_veto_pho0 = 0.960239;
+       if (Photon_r9[ipho0] > 0.94) weight_ele_veto_pho0 = 0.974239;
+     }
+     if (fabs(Photon_eta[ipho0]) > 1.566 && fabs(Photon_eta[ipho0]) < 2.400) {
+       if (Photon_r9[ipho0] < 0.94) weight_ele_veto_pho0 = 0.919658;
+       if (Photon_r9[ipho0] > 0.94) weight_ele_veto_pho0 = 0.917715;
+     }
+   }
+   if (ipho1 != -1) {
+     if (fabs(Photon_eta[ipho1]) < 1.442) {
+       if (Photon_r9[ipho1] < 0.94) weight_ele_veto_pho1 = 0.960239;
+       if (Photon_r9[ipho1] > 0.94) weight_ele_veto_pho1 = 0.974239;
+     }
+     if (fabs(Photon_eta[ipho1]) > 1.566 && fabs(Photon_eta[ipho1]) < 2.400) {
+       if (Photon_r9[ipho1] < 0.94) weight_ele_veto_pho1 = 0.919658;
+       if (Photon_r9[ipho1] > 0.94) weight_ele_veto_pho1 = 0.917715;
+     }
+   }
+#endif // defined(mainSelectorMC17_cxx)
+
+   float weight_pho0 = weight_eff_pho0 * weight_reco_pho0 * weight_ele_veto_pho0;
+   float weight_pho1 = weight_eff_pho1 * weight_reco_pho1 * weight_ele_veto_pho1;
 
 // photon(s) noiso scale factors
 
@@ -2638,8 +2686,56 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_pho0_noiso = weight_eff_pho0_noiso * weight_reco_pho0_noiso;
-   float weight_pho1_noiso = weight_eff_pho1_noiso * weight_reco_pho1_noiso;
+   float weight_ele_veto_pho0_noiso = 1.;
+   float weight_ele_veto_pho1_noiso = 1.;
+
+#if defined(mainSelectorMC16_cxx)
+   if (ipho0_noiso != -1) {
+     if (fabs(Photon_eta[ipho0_noiso]) < 1.442) {
+       if (Photon_r9[ipho0_noiso] < 0.94) weight_ele_veto_pho0_noiso = 1.00479;
+       if (Photon_r9[ipho0_noiso] > 0.94) weight_ele_veto_pho0_noiso = 0.985097;
+     }
+     if (fabs(Photon_eta[ipho0_noiso]) > 1.566 && fabs(Photon_eta[ipho0_noiso]) < 2.400) {
+       if (Photon_r9[ipho0_noiso] < 0.94) weight_ele_veto_pho0_noiso = 1.00703;
+       if (Photon_r9[ipho0_noiso] > 0.94) weight_ele_veto_pho0_noiso = 0.972969;
+     }
+   }
+   if (ipho1_noiso != -1) {
+     if (fabs(Photon_eta[ipho1_noiso]) < 1.442) {
+       if (Photon_r9[ipho1_noiso] < 0.94) weight_ele_veto_pho1_noiso = 1.00479;
+       if (Photon_r9[ipho1_noiso] > 0.94) weight_ele_veto_pho1_noiso = 0.985097;
+     }
+     if (fabs(Photon_eta[ipho1_noiso]) > 1.566 && fabs(Photon_eta[ipho1_noiso]) < 2.400) {
+       if (Photon_r9[ipho1_noiso] < 0.94) weight_ele_veto_pho1_noiso = 1.00703;
+       if (Photon_r9[ipho1_noiso] > 0.94) weight_ele_veto_pho1_noiso = 0.972969;
+     }
+   }
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
+   if (ipho0_noiso != -1) {
+     if (fabs(Photon_eta[ipho0_noiso]) < 1.442) {
+       if (Photon_r9[ipho0_noiso] < 0.94) weight_ele_veto_pho0_noiso = 0.960239;
+       if (Photon_r9[ipho0_noiso] > 0.94) weight_ele_veto_pho0_noiso = 0.974239;
+     }
+     if (fabs(Photon_eta[ipho0_noiso]) > 1.566 && fabs(Photon_eta[ipho0_noiso]) < 2.400) {
+       if (Photon_r9[ipho0_noiso] < 0.94) weight_ele_veto_pho0_noiso = 0.919658;
+       if (Photon_r9[ipho0_noiso] > 0.94) weight_ele_veto_pho0_noiso = 0.917715;
+     }
+   }
+   if (ipho1_noiso != -1) {
+     if (fabs(Photon_eta[ipho1_noiso]) < 1.442) {
+       if (Photon_r9[ipho1_noiso] < 0.94) weight_ele_veto_pho1_noiso = 0.960239;
+       if (Photon_r9[ipho1_noiso] > 0.94) weight_ele_veto_pho1_noiso = 0.974239;
+     }
+     if (fabs(Photon_eta[ipho1_noiso]) > 1.566 && fabs(Photon_eta[ipho1_noiso]) < 2.400) {
+       if (Photon_r9[ipho1_noiso] < 0.94) weight_ele_veto_pho1_noiso = 0.919658;
+       if (Photon_r9[ipho1_noiso] > 0.94) weight_ele_veto_pho1_noiso = 0.917715;
+     }
+   }
+#endif // defined(mainSelectorMC17_cxx)
+
+   float weight_pho0_noiso = weight_eff_pho0_noiso * weight_reco_pho0_noiso * weight_ele_veto_pho0_noiso;
+   float weight_pho1_noiso = weight_eff_pho1_noiso * weight_reco_pho1_noiso * weight_ele_veto_pho1_noiso;
 
 // photon(s) scale factors QCD
 
@@ -2658,8 +2754,56 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_pho0_qcd = weight_eff_pho0_qcd * weight_reco_pho0_qcd;
-   float weight_pho1_qcd = weight_eff_pho1_qcd * weight_reco_pho1_qcd;
+   float weight_ele_veto_pho0_qcd = 1.;
+   float weight_ele_veto_pho1_qcd = 1.;
+
+#if defined(mainSelectorMC16_cxx)
+   if (ipho0_qcd != -1) {
+     if (fabs(Photon_eta[ipho0_qcd]) < 1.442) {
+       if (Photon_r9[ipho0_qcd] < 0.94) weight_ele_veto_pho0_qcd = 1.00479;
+       if (Photon_r9[ipho0_qcd] > 0.94) weight_ele_veto_pho0_qcd = 0.985097;
+     }
+     if (fabs(Photon_eta[ipho0_qcd]) > 1.566 && fabs(Photon_eta[ipho0_qcd]) < 2.400) {
+       if (Photon_r9[ipho0_qcd] < 0.94) weight_ele_veto_pho0_qcd = 1.00703;
+       if (Photon_r9[ipho0_qcd] > 0.94) weight_ele_veto_pho0_qcd = 0.972969;
+     }
+   }
+   if (ipho1_qcd != -1) {
+     if (fabs(Photon_eta[ipho1_qcd]) < 1.442) {
+       if (Photon_r9[ipho1_qcd] < 0.94) weight_ele_veto_pho1_qcd = 1.00479;
+       if (Photon_r9[ipho1_qcd] > 0.94) weight_ele_veto_pho1_qcd = 0.985097;
+     }
+     if (fabs(Photon_eta[ipho1_qcd]) > 1.566 && fabs(Photon_eta[ipho1_qcd]) < 2.400) {
+       if (Photon_r9[ipho1_qcd] < 0.94) weight_ele_veto_pho1_qcd = 1.00703;
+       if (Photon_r9[ipho1_qcd] > 0.94) weight_ele_veto_pho1_qcd = 0.972969;
+     }
+   }
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
+   if (ipho0_qcd != -1) {
+     if (fabs(Photon_eta[ipho0_qcd]) < 1.442) {
+       if (Photon_r9[ipho0_qcd] < 0.94) weight_ele_veto_pho0_qcd = 0.960239;
+       if (Photon_r9[ipho0_qcd] > 0.94) weight_ele_veto_pho0_qcd = 0.974239;
+     }
+     if (fabs(Photon_eta[ipho0_qcd]) > 1.566 && fabs(Photon_eta[ipho0_qcd]) < 2.400) {
+       if (Photon_r9[ipho0_qcd] < 0.94) weight_ele_veto_pho0_qcd = 0.919658;
+       if (Photon_r9[ipho0_qcd] > 0.94) weight_ele_veto_pho0_qcd = 0.917715;
+     }
+   }
+   if (ipho1_qcd != -1) {
+     if (fabs(Photon_eta[ipho1_qcd]) < 1.442) {
+       if (Photon_r9[ipho1_qcd] < 0.94) weight_ele_veto_pho1_qcd = 0.960239;
+       if (Photon_r9[ipho1_qcd] > 0.94) weight_ele_veto_pho1_qcd = 0.974239;
+     }
+     if (fabs(Photon_eta[ipho1_qcd]) > 1.566 && fabs(Photon_eta[ipho1_qcd]) < 2.400) {
+       if (Photon_r9[ipho1_qcd] < 0.94) weight_ele_veto_pho1_qcd = 0.919658;
+       if (Photon_r9[ipho1_qcd] > 0.94) weight_ele_veto_pho1_qcd = 0.917715;
+     }
+   }
+#endif // defined(mainSelectorMC17_cxx)
+
+   float weight_pho0_qcd = weight_eff_pho0_qcd * weight_reco_pho0_qcd * weight_ele_veto_pho0_qcd;
+   float weight_pho1_qcd = weight_eff_pho1_qcd * weight_reco_pho1_qcd * weight_ele_veto_pho1_qcd;
 
 // photon(s) noiso scale factors QCD
 
@@ -2678,8 +2822,56 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_pho0_noiso_qcd = weight_eff_pho0_noiso_qcd * weight_reco_pho0_noiso_qcd;
-   float weight_pho1_noiso_qcd = weight_eff_pho1_noiso_qcd * weight_reco_pho1_noiso_qcd;
+   float weight_ele_veto_pho0_noiso_qcd = 1.;
+   float weight_ele_veto_pho1_noiso_qcd = 1.;
+
+#if defined(mainSelectorMC16_cxx)
+   if (ipho0_noiso_qcd != -1) {
+     if (fabs(Photon_eta[ipho0_noiso_qcd]) < 1.442) {
+       if (Photon_r9[ipho0_noiso_qcd] < 0.94) weight_ele_veto_pho0_noiso_qcd = 1.00479;
+       if (Photon_r9[ipho0_noiso_qcd] > 0.94) weight_ele_veto_pho0_noiso_qcd = 0.985097;
+     }
+     if (fabs(Photon_eta[ipho0_noiso_qcd]) > 1.566 && fabs(Photon_eta[ipho0_noiso_qcd]) < 2.400) {
+       if (Photon_r9[ipho0_noiso_qcd] < 0.94) weight_ele_veto_pho0_noiso_qcd = 1.00703;
+       if (Photon_r9[ipho0_noiso_qcd] > 0.94) weight_ele_veto_pho0_noiso_qcd = 0.972969;
+     }
+   }
+   if (ipho1_noiso_qcd != -1) {
+     if (fabs(Photon_eta[ipho1_noiso_qcd]) < 1.442) {
+       if (Photon_r9[ipho1_noiso_qcd] < 0.94) weight_ele_veto_pho1_noiso_qcd = 1.00479;
+       if (Photon_r9[ipho1_noiso_qcd] > 0.94) weight_ele_veto_pho1_noiso_qcd = 0.985097;
+     }
+     if (fabs(Photon_eta[ipho1_noiso_qcd]) > 1.566 && fabs(Photon_eta[ipho1_noiso_qcd]) < 2.400) {
+       if (Photon_r9[ipho1_noiso_qcd] < 0.94) weight_ele_veto_pho1_noiso_qcd = 1.00703;
+       if (Photon_r9[ipho1_noiso_qcd] > 0.94) weight_ele_veto_pho1_noiso_qcd = 0.972969;
+     }
+   }
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
+   if (ipho0_noiso_qcd != -1) {
+     if (fabs(Photon_eta[ipho0_noiso_qcd]) < 1.442) {
+       if (Photon_r9[ipho0_noiso_qcd] < 0.94) weight_ele_veto_pho0_noiso_qcd = 0.960239;
+       if (Photon_r9[ipho0_noiso_qcd] > 0.94) weight_ele_veto_pho0_noiso_qcd = 0.974239;
+     }
+     if (fabs(Photon_eta[ipho0_noiso_qcd]) > 1.566 && fabs(Photon_eta[ipho0_noiso_qcd]) < 2.400) {
+       if (Photon_r9[ipho0_noiso_qcd] < 0.94) weight_ele_veto_pho0_noiso_qcd = 0.919658;
+       if (Photon_r9[ipho0_noiso_qcd] > 0.94) weight_ele_veto_pho0_noiso_qcd = 0.917715;
+     }
+   }
+   if (ipho1_noiso_qcd != -1) {
+     if (fabs(Photon_eta[ipho1_noiso_qcd]) < 1.442) {
+       if (Photon_r9[ipho1_noiso_qcd] < 0.94) weight_ele_veto_pho1_noiso_qcd = 0.960239;
+       if (Photon_r9[ipho1_noiso_qcd] > 0.94) weight_ele_veto_pho1_noiso_qcd = 0.974239;
+     }
+     if (fabs(Photon_eta[ipho1_noiso_qcd]) > 1.566 && fabs(Photon_eta[ipho1_noiso_qcd]) < 2.400) {
+       if (Photon_r9[ipho1_noiso_qcd] < 0.94) weight_ele_veto_pho1_noiso_qcd = 0.919658;
+       if (Photon_r9[ipho1_noiso_qcd] > 0.94) weight_ele_veto_pho1_noiso_qcd = 0.917715;
+     }
+   }
+#endif // defined(mainSelectorMC17_cxx)
+
+   float weight_pho0_noiso_qcd = weight_eff_pho0_noiso_qcd * weight_reco_pho0_noiso_qcd * weight_ele_veto_pho0_noiso_qcd;
+   float weight_pho1_noiso_qcd = weight_eff_pho1_noiso_qcd * weight_reco_pho1_noiso_qcd * weight_ele_veto_pho1_noiso_qcd;
 
 // W scale factors
 
