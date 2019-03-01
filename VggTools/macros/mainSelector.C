@@ -68,46 +68,42 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (option.Contains("ZTauTau"))                       isZTauTau    = true;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   TFile* file_ele_pu = 0;
-   TFile* file_muo_pu = 0;
 
 #if defined(mainSelectorMC16_cxx)
 #if defined(DOUBLE_TRIGGER)
-   file_ele_pu = new TFile("root/ratio_pileup_Run2016_DoubleEG_14Dec2018.root");
-   file_muo_pu = new TFile("root/ratio_pileup_Run2016_DoubleMuon_14Dec2018.root");
+   TFile* file_ele_pu = new TFile("root/ratio_pileup_Run2016_DoubleEG_14Dec2018.root");
+   TFile* file_muo_pu = new TFile("root/ratio_pileup_Run2016_DoubleMuon_14Dec2018.root");
 #else
-   file_ele_pu = new TFile("root/ratio_pileup_Run2016_SingleElectron_14Dec2018.root");
-   file_muo_pu = new TFile("root/ratio_pileup_Run2016_SingleMuon_14Dec2018.root");
+   TFile* file_ele_pu = new TFile("root/ratio_pileup_Run2016_SingleElectron_14Dec2018.root");
+   TFile* file_muo_pu = new TFile("root/ratio_pileup_Run2016_SingleMuon_14Dec2018.root");
 #endif // defined(DOUBLE_TRIGGER)
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
 #if defined(DOUBLE_TRIGGER)
-   file_ele_pu = new TFile("root/ratio_pileup_Run2017_DoubleEG_14Dec2018.root");
-   file_muo_pu = new TFile("root/ratio_pileup_Run2017_DoubleMuon_14Dec2018.root");
+   TFile* file_ele_pu = new TFile("root/ratio_pileup_Run2017_DoubleEG_14Dec2018.root");
+   TFile* file_muo_pu = new TFile("root/ratio_pileup_Run2017_DoubleMuon_14Dec2018.root");
 #else
-   file_ele_pu = new TFile("root/ratio_pileup_Run2017_SingleElectron_14Dec2018.root");
-   file_muo_pu = new TFile("root/ratio_pileup_Run2017_SingleMuon_14Dec2018.root");
+   TFile* file_ele_pu = new TFile("root/ratio_pileup_Run2017_SingleElectron_14Dec2018.root");
+   TFile* file_muo_pu = new TFile("root/ratio_pileup_Run2017_SingleMuon_14Dec2018.root");
 #endif // defined(DOUBLE_TRIGGER)
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 #if defined(DOUBLE_TRIGGER)
-   file_ele_pu = new TFile("root/ratio_pileup_Run2018_EGamma_14Dec2018.root");
-   file_muo_pu = new TFile("root/ratio_pileup_Run2018_DoubleMuon_14Dec2018.root");
+   TFile* file_ele_pu = new TFile("root/ratio_pileup_Run2018_EGamma_14Dec2018.root");
+   TFile* file_muo_pu = new TFile("root/ratio_pileup_Run2018_DoubleMuon_14Dec2018.root");
 #else
-   file_ele_pu = new TFile("root/ratio_pileup_Run2018_EGamma_14Dec2018.root");
-   file_muo_pu = new TFile("root/ratio_pileup_Run2018_SingleMuon_14Dec2018.root");
+   TFile* file_ele_pu = new TFile("root/ratio_pileup_Run2018_EGamma_14Dec2018.root");
+   TFile* file_muo_pu = new TFile("root/ratio_pileup_Run2018_SingleMuon_14Dec2018.root");
 #endif // defined(DOUBLE_TRIGGER)
 #endif // defined(mainSelectorMC18_cxx)
 
    pu_ele_weights = (TH1D*)file_ele_pu->Get("pu_weights");
    pu_muo_weights = (TH1D*)file_muo_pu->Get("pu_weights");
-
    pu_ele_weights->SetDirectory(0);
    pu_muo_weights->SetDirectory(0);
 
    file_ele_pu->Close();
    file_muo_pu->Close();
-
    delete file_ele_pu;
    delete file_muo_pu;
 
@@ -119,266 +115,250 @@ void mainSelector::Begin(TTree * /*tree*/)
      pu_muo_weights = dynamic_cast<TH1D*>(fInput->FindObject("pu_muo_weights"));
    }
 
-   TFile* file_ele_sf_eff = 0;
-   TFile* file_ele_sf_reco = 0;
-
-   TFile* file_muo_sf_trig = 0;
-   TFile* file_muo_sf_id = 0;
-   TFile* file_muo_sf_iso = 0;
-
-   TFile* file_pho_sf_eff = 0;
-
 #if defined(mainSelectorMC16_cxx)
 #if defined(NANOAODv4)
-   //file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVA80noiso_Fall17V2.root");
-   file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronTight_Fall17V2.root");
+   //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVA80noiso_Fall17V2.root");
+   TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronTight_Fall17V2.root");
 #else
-   //file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVAwp80.root");
-   file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronTight.root");
+   //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVAwp80.root");
+   TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronTight.root");
 #endif // defined(NANOAODv4)
-   file_ele_sf_reco = new TFile("root/sf_ele_2016_EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root");
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
-   sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
-
    sf_ele_eff->SetDirectory(0);
-   sf_ele_reco->SetDirectory(0);
 
    file_ele_sf_eff->Close();
-   file_ele_sf_reco->Close();
-
    delete file_ele_sf_eff;
+
+   TFile* file_ele_sf_reco = new TFile("root/sf_ele_2016_EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root");
+
+   sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
+   sf_ele_reco->SetDirectory(0);
+
+   file_ele_sf_reco->Close();
    delete file_ele_sf_reco;
 
-   file_muo_sf_trig = new TFile("root/sf_muo_2016_EfficienciesAndSF_RunBtoF.root");
-   file_muo_sf_id = new TFile("root/sf_muo_2016_RunBCDEF_SF_ID.root");
-   file_muo_sf_iso = new TFile("root/sf_muo_2016_RunBCDEF_SF_ISO.root");
+   TFile* file_muo_sf_trig_1 = new TFile("root/sf_muo_2016_EfficienciesAndSF_RunBtoF.root");
+   TFile* file_muo_sf_trig_2 = new TFile("root/sf_muo_2016_EfficienciesAndSF_Period4.root");
 
-   TH2D* sf_muo_trig_RunBCDEF = (TH2D*)file_muo_sf_trig->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins/pt_abseta_ratio");
-   TH2D* sf_muo_id_RunBCDEF = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
-   TH2D* sf_muo_iso_RunBCDEF = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
+   TH2D* sf_muo_trig_1 = (TH2D*)file_muo_sf_trig_1->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins/pt_abseta_ratio");
+   TH2D* sf_muo_trig_2 = (TH2D*)file_muo_sf_trig_2->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins/pt_abseta_ratio");
+   sf_muo_trig_1->SetDirectory(0);
+   sf_muo_trig_2->SetDirectory(0);
 
-   sf_muo_trig_RunBCDEF->SetDirectory(0);
-   sf_muo_id_RunBCDEF->SetDirectory(0);
-   sf_muo_iso_RunBCDEF->SetDirectory(0);
+   file_muo_sf_trig_1->Close();
+   file_muo_sf_trig_2->Close();
+   delete file_muo_sf_trig_1;
+   delete file_muo_sf_trig_2;
 
-   file_muo_sf_trig->Close();
-   file_muo_sf_id->Close();
-   file_muo_sf_iso->Close();
+   sf_muo_trig = (TH2D*)sf_muo_trig_1->Clone();
+   sf_muo_trig->Reset();
+   sf_muo_trig->Add(sf_muo_trig_1, sf_muo_trig_2, 19.69/35.917, 16.227/35.917);
+   delete sf_muo_trig_1;
+   delete sf_muo_trig_2;
 
-   delete file_muo_sf_trig;
-   delete file_muo_sf_id;
-   delete file_muo_sf_iso;
+   TFile* file_muo_sf_id_1 = new TFile("root/sf_muo_2016_RunBCDEF_SF_ID.root");
+   TFile* file_muo_sf_id_2 = new TFile("root/sf_muo_2016_RunGH_SF_ID.root");
 
-   file_muo_sf_trig = new TFile("root/sf_muo_2016_EfficienciesAndSF_Period4.root");
-   file_muo_sf_id = new TFile("root/sf_muo_2016_RunGH_SF_ID.root");
-   file_muo_sf_iso = new TFile("root/sf_muo_2016_RunGH_SF_ISO.root");
+   TH2D* sf_muo_id_1 = (TH2D*)file_muo_sf_id_1->Get("NUM_TightID_DEN_genTracks_eta_pt");
+   TH2D* sf_muo_id_2 = (TH2D*)file_muo_sf_id_2->Get("NUM_TightID_DEN_genTracks_eta_pt");
+   sf_muo_id_1->SetDirectory(0);
+   sf_muo_id_2->SetDirectory(0);
 
-   TH2D* sf_muo_trig_RunGH = (TH2D*)file_muo_sf_trig->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins/pt_abseta_ratio");
-   TH2D* sf_muo_id_RunGH = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_eta_pt");
-   TH2D* sf_muo_iso_RunGH = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
+   file_muo_sf_id_1->Close();
+   file_muo_sf_id_2->Close();
+   delete file_muo_sf_id_1;
+   delete file_muo_sf_id_2;
 
-   sf_muo_trig_RunGH->SetDirectory(0);
-   sf_muo_id_RunGH->SetDirectory(0);
-   sf_muo_iso_RunGH->SetDirectory(0);
+   sf_muo_id = (TH2D*)sf_muo_id_1->Clone();
+   sf_muo_id->Reset();
+   sf_muo_id->Add(sf_muo_id_1, sf_muo_id_2, 19.69/35.917, 16.227/35.917);
+   delete sf_muo_id_1;
+   delete sf_muo_id_2;
 
-   file_muo_sf_trig->Close();
-   file_muo_sf_id->Close();
-   file_muo_sf_iso->Close();
+   TFile* file_muo_sf_iso_1 = new TFile("root/sf_muo_2016_RunBCDEF_SF_ISO.root");
+   TFile* file_muo_sf_iso_2 = new TFile("root/sf_muo_2016_RunGH_SF_ISO.root");
 
-   delete file_muo_sf_trig;
-   delete file_muo_sf_id;
-   delete file_muo_sf_iso;
+   TH2D* sf_muo_iso_1 = (TH2D*)file_muo_sf_iso_1->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
+   TH2D* sf_muo_iso_2 = (TH2D*)file_muo_sf_iso_2->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
+   sf_muo_iso_1->SetDirectory(0);
+   sf_muo_iso_2->SetDirectory(0);
 
-   sf_muo_trig = (TH2D*)sf_muo_trig_RunBCDEF->Clone();
-   sf_muo_id = (TH2D*)sf_muo_id_RunBCDEF->Clone();
-   sf_muo_iso = (TH2D*)sf_muo_iso_RunBCDEF->Clone();
+   file_muo_sf_iso_1->Close();
+   file_muo_sf_iso_2->Close();
+   delete file_muo_sf_iso_1;
+   delete file_muo_sf_iso_2;
 
-   sf_muo_trig->Add(sf_muo_trig_RunBCDEF, sf_muo_trig_RunGH, 19.69/35.917, 16.227/35.917);
-   sf_muo_id->Add(sf_muo_id_RunBCDEF, sf_muo_id_RunGH, 19.69/35.917, 16.227/35.917);
-   sf_muo_iso->Add(sf_muo_iso_RunBCDEF, sf_muo_iso_RunGH, 19.69/35.917, 16.227/35.917);
-
-   delete sf_muo_trig_RunBCDEF;
-   delete sf_muo_trig_RunGH;
-   delete sf_muo_id_RunBCDEF;
-
-   delete sf_muo_id_RunGH;
-   delete sf_muo_iso_RunBCDEF;
-   delete sf_muo_iso_RunGH;
+   sf_muo_iso = (TH2D*)sf_muo_iso_1->Clone();
+   sf_muo_iso->Reset();
+   sf_muo_iso->Add(sf_muo_iso_1, sf_muo_iso_2, 19.69/35.917, 16.227/35.917);
+   delete sf_muo_iso_1;
+   delete sf_muo_iso_2;
 
 #if defined(NANOAODv4)
-   //file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonsMVAwp90_Fall17V2.root");
-   file_pho_sf_eff = new TFile("root/sf_pho_2016_Medium_photons_Fall17V2.root");
+   //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonsMVAwp90_Fall17V2.root");
+   TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_Medium_photons_Fall17V2.root");
 #else
-   //file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonMVAWP90.root");
-   file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonCutBasedMedium.root");
+   //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonMVAWP90.root");
+   TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonCutBasedMedium.root");
 #endif // defined(NANOAODv4)
 
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
-
    sf_pho_eff->SetDirectory(0);
 
    file_pho_sf_eff->Close();
-
    delete file_pho_sf_eff;
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
 #if defined(NANOAODv4)
-   //file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronMVA80noiso_Fall17V2.root");
-   file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronTight_Fall17V2.root");
+   //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronMVA80noiso_Fall17V2.root");
+   TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronTight_Fall17V2.root");
 #else
-   //file_ele_sf_eff = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp80iso.root");
-   file_ele_sf_eff = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingTight94X.root");
+   //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp80iso.root");
+   TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingTight94X.root");
 #endif // defined(NANOAODv4)
-   file_ele_sf_reco = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
-   sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
-
    sf_ele_eff->SetDirectory(0);
-   sf_ele_reco->SetDirectory(0);
 
    file_ele_sf_eff->Close();
-   file_ele_sf_reco->Close();
-
    delete file_ele_sf_eff;
+
+   TFile* file_ele_sf_reco = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
+
+   sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
+   sf_ele_reco->SetDirectory(0);
+
+   file_ele_sf_reco->Close();
    delete file_ele_sf_reco;
 
-   file_muo_sf_trig = new TFile("root/sf_muo_2017_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root");
-   file_muo_sf_id = new TFile("root/sf_muo_2017_RunBCDEF_SF_ID.root");
-   file_muo_sf_iso = new TFile("root/sf_muo_2017_RunBCDEF_SF_ISO.root");
+   TFile* file_muo_sf_trig = new TFile("root/sf_muo_2017_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root");
 
    sf_muo_trig = (TH2D*)file_muo_sf_trig->Get("IsoMu27_PtEtaBins/pt_abseta_ratio");
-   sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
-   sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
-
    sf_muo_trig->SetDirectory(0);
-   sf_muo_id->SetDirectory(0);
-   sf_muo_iso->SetDirectory(0);
 
    file_muo_sf_trig->Close();
-   file_muo_sf_id->Close();
-   file_muo_sf_iso->Close();
-
    delete file_muo_sf_trig;
+
+   TFile* file_muo_sf_id = new TFile("root/sf_muo_2017_RunBCDEF_SF_ID.root");
+
+   sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
+   sf_muo_id->SetDirectory(0);
+
+   file_muo_sf_id->Close();
    delete file_muo_sf_id;
+
+   TFile* file_muo_sf_iso = new TFile("root/sf_muo_2017_RunBCDEF_SF_ISO.root");
+
+   sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
+   sf_muo_iso->SetDirectory(0);
+
+   file_muo_sf_iso->Close();
    delete file_muo_sf_iso;
 
 #if defined(NANOAODv4)
-   //file_pho_sf_eff = new TFile("root/sf_pho_2017_PhotonsMVAwp90_Fall17V2.root");
-   file_pho_sf_eff = new TFile("root/sf_pho_2017_PhotonsMedium_Fall17V2.root");
+   //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2017_PhotonsMVAwp90_Fall17V2.root");
+   TFile* file_pho_sf_eff = new TFile("root/sf_pho_2017_PhotonsMedium_Fall17V2.root");
 #else
-   //file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
-   file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMedium94X.root");
+   //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
+   TFile* file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMedium94X.root");
 #endif // defined(NANOAODv4)
 
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
-
    sf_pho_eff->SetDirectory(0);
 
    file_pho_sf_eff->Close();
-
    delete file_pho_sf_eff;
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
-   //file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronMVA80noiso_Fall17V2.root");
-   file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronTight_Fall17V2.root");
-   file_ele_sf_reco = new TFile("root/sf_ele_2018_EGM2D_passingRECO.root");
+   //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronMVA80noiso_Fall17V2.root");
+   TFile* file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronTight_Fall17V2.root");
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
-   sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
-
    sf_ele_eff->SetDirectory(0);
-   sf_ele_reco->SetDirectory(0);
 
    file_ele_sf_eff->Close();
-   file_ele_sf_reco->Close();
-
    delete file_ele_sf_eff;
+
+   TFile* file_ele_sf_reco = new TFile("root/sf_ele_2018_EGM2D_passingRECO.root");
+
+   sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
+   sf_ele_reco->SetDirectory(0);
+
+   file_ele_sf_reco->Close();
    delete file_ele_sf_reco;
 
-   file_muo_sf_trig = new TFile("root/sf_muo_2018_EfficienciesAndSF_2018Data_BeforeMuonHLTUpdate.root");
-   file_muo_sf_id = new TFile("root/sf_muo_2018_RunABCD_SF_ID.root");
-   file_muo_sf_iso = new TFile("root/sf_muo_2018_RunABCD_SF_ISO.root");
+   TFile* file_muo_sf_trig_1 = new TFile("root/sf_muo_2018_EfficienciesAndSF_2018Data_BeforeMuonHLTUpdate.root");
+   TFile* file_muo_sf_trig_2 = new TFile("root/sf_muo_2018_EfficienciesAndSF_2018Data_AfterMuonHLTUpdate.root");
 
-   TH2D* sf_muo_trig_BeforeMuonHLTUpdate = (TH2D*)file_muo_sf_trig->Get("IsoMu24_PtEtaBins/pt_abseta_ratio");
+   TH2D* sf_muo_trig_1 = (TH2D*)file_muo_sf_trig_1->Get("IsoMu24_PtEtaBins/pt_abseta_ratio");
+   TH2D* sf_muo_trig_2 = (TH2D*)file_muo_sf_trig_2->Get("IsoMu24_PtEtaBins/pt_abseta_ratio");
+   sf_muo_trig_1->SetDirectory(0);
+   sf_muo_trig_2->SetDirectory(0);
+
+   file_muo_sf_trig_1->Close();
+   file_muo_sf_trig_2->Close();
+   delete file_muo_sf_trig_1;
+   delete file_muo_sf_trig_2;
+
+   sf_muo_trig = (TH2D*)sf_muo_trig_1->Clone();
+   sf_muo_trig->Reset();
+   sf_muo_trig->Add(sf_muo_trig_1, sf_muo_trig_2, 8.958/59.955, 50.997/59.955);
+   delete sf_muo_trig_1;
+   delete sf_muo_trig_2;
+
+   TFile* file_muo_sf_id = new TFile("root/sf_muo_2018_RunABCD_SF_ID.root");
+
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
-   sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
-
-   sf_muo_trig_BeforeMuonHLTUpdate->SetDirectory(0);
    sf_muo_id->SetDirectory(0);
+
+   file_muo_sf_id->Close();
+   delete file_muo_sf_id;
+
+   TFile* file_muo_sf_iso = new TFile("root/sf_muo_2018_RunABCD_SF_ISO.root");
+
+   sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
    sf_muo_iso->SetDirectory(0);
 
-   file_muo_sf_trig->Close();
-   file_muo_sf_id->Close();
    file_muo_sf_iso->Close();
-
-   delete file_muo_sf_trig;
-   delete file_muo_sf_id;
    delete file_muo_sf_iso;
 
-   file_muo_sf_trig = new TFile("root/sf_muo_2018_EfficienciesAndSF_2018Data_AfterMuonHLTUpdate.root");
-
-   TH2D* sf_muo_trig_AfterMuonHLTUpdate = (TH2D*)file_muo_sf_trig->Get("IsoMu24_PtEtaBins/pt_abseta_ratio");
-
-   sf_muo_trig_AfterMuonHLTUpdate->SetDirectory(0);
-
-   file_muo_sf_trig->Close();
-
-   delete file_muo_sf_trig;
-
-   sf_muo_trig = (TH2D*)sf_muo_trig_BeforeMuonHLTUpdate->Clone();
-
-   sf_muo_trig->Add(sf_muo_trig_BeforeMuonHLTUpdate, sf_muo_trig_AfterMuonHLTUpdate, 8.958/59.955, 50.997/59.955);
-
-   delete sf_muo_trig_BeforeMuonHLTUpdate;
-   delete sf_muo_trig_AfterMuonHLTUpdate;
-
-   //file_pho_sf_eff = new TFile("root/sf_pho_2018_PhotonsMVAwp90_Fall17V2.root");
-   file_pho_sf_eff = new TFile("root/sf_pho_2018_PhotonsMedium_Fall17V2.root");
+   //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2018_PhotonsMVAwp90_Fall17V2.root");
+   TFile* file_pho_sf_eff = new TFile("root/sf_pho_2018_PhotonsMedium_Fall17V2.root");
 
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
-
    sf_pho_eff->SetDirectory(0);
 
    file_pho_sf_eff->Close();
-
    delete file_pho_sf_eff;
 #endif // defined(mainSelectorMC18_cxx)
 
-   TFile* file_l1prefile_pho = 0;
-   TFile* file_l1prefile_jet = 0;
-
 #if defined(mainSelectorMC16_h)
-   file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2016BtoH.root");
-   file_l1prefile_jet = new TFile("root/L1prefiring_jetpt_2016BtoH.root");
+   TFile* file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2016BtoH.root");
+   TFile* file_l1prefile_jet = new TFile("root/L1prefiring_jetpt_2016BtoH.root");
 
    l1prefiring_pho = (TH2F*)file_l1prefile_pho->Get("L1prefiring_photonpt_2016BtoH");
    l1prefiring_jet = (TH2F*)file_l1prefile_jet->Get("L1prefiring_jetpt_2016BtoH");
-
    l1prefiring_pho->SetDirectory(0);
    l1prefiring_jet->SetDirectory(0);
 
    file_l1prefile_pho->Close();
    file_l1prefile_jet->Close();
-
    delete file_l1prefile_pho;
    delete file_l1prefile_jet;
 #endif // defined(mainSelectorMC16_h)
 
 #if defined(mainSelectorMC17_h)
-   file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2017BtoF.root");
-   file_l1prefile_jet = new TFile("root/L1prefiring_jetpt_2017BtoF.root");
+   TFile* file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2017BtoF.root");
+   TFile* file_l1prefile_jet = new TFile("root/L1prefiring_jetpt_2017BtoF.root");
 
    l1prefiring_pho = (TH2F*)file_l1prefile_pho->Get("L1prefiring_photonpt_2017BtoF");
    l1prefiring_jet = (TH2F*)file_l1prefile_jet->Get("L1prefiring_jetpt_2017BtoF");
-
    l1prefiring_pho->SetDirectory(0);
    l1prefiring_jet->SetDirectory(0);
 
    file_l1prefile_pho->Close();
    file_l1prefile_jet->Close();
-
    delete file_l1prefile_pho;
    delete file_l1prefile_jet;
 #endif // defined(mainSelectorMC17_h)
@@ -405,8 +385,8 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 // FIXME
-   jet_resolution = new JME::JetResolution("jme/Fall17_V3_MC_PtResolution_AK4PFchs.txt");
-   jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Fall17_V3_MC_SF_AK4PFchs.txt");
+   jet_resolution = 0;
+   jet_resolution_sf = 0;
 // FIXME
 #endif // defined(mainSelectorMC18_cxx)
 
