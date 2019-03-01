@@ -67,7 +67,7 @@ for L in $LISTS; do
   grep -v '(M)' | \
   grep -v '#'`
   if [ -z "$O" ]; then
-    printf "GOOD -  "
+    printf "GOOD  - "
     grep -q "processed events" $L
     if [ $? -eq 0 ]; then
       printf "done       "
@@ -82,6 +82,8 @@ for L in $LISTS; do
       printf "(no files) "
     elif [ -z "${O##*unable to open file*}" ]; then
       printf "(bad file) "
+    else
+      printf "           "
     fi
     errors=$((errors+1))
   fi
