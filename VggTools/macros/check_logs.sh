@@ -82,6 +82,8 @@ for L in $LISTS; do
       printf "(no files) "
     elif [ -z "${O##*unable to open file*}" ]; then
       printf "(bad file) "
+    elif [ -z "${O##*does not have a branch*}" ]; then
+      printf "(version)  "
     else
       printf "           "
     fi
