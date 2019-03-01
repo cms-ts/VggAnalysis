@@ -198,6 +198,14 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_id->Add(sf_muo_id_RunBCDEF, sf_muo_id_RunGH, 19.69/35.917, 16.227/35.917);
    sf_muo_iso->Add(sf_muo_iso_RunBCDEF, sf_muo_iso_RunGH, 19.69/35.917, 16.227/35.917);
 
+   delete sf_muo_trig_RunBCDEF;
+   delete sf_muo_trig_RunGH;
+   delete sf_muo_id_RunBCDEF;
+
+   delete sf_muo_id_RunGH;
+   delete sf_muo_iso_RunBCDEF;
+   delete sf_muo_iso_RunGH;
+
 #if defined(NANOAODv4)
    //file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonsMVAwp90_Fall17V2.root");
    file_pho_sf_eff = new TFile("root/sf_pho_2016_Medium_photons_Fall17V2.root");
@@ -289,17 +297,15 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_ele_sf_eff;
    delete file_ele_sf_reco;
 
-// FIXME
-   file_muo_sf_trig = new TFile("root/sf_muo_2017_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root");
-// FIXME
+   file_muo_sf_trig = new TFile("root/sf_muo_2018_EfficienciesAndSF_2018Data_BeforeMuonHLTUpdate.root");
    file_muo_sf_id = new TFile("root/sf_muo_2018_RunABCD_SF_ID.root");
    file_muo_sf_iso = new TFile("root/sf_muo_2018_RunABCD_SF_ISO.root");
 
-   sf_muo_trig = (TH2D*)file_muo_sf_trig->Get("IsoMu27_PtEtaBins/pt_abseta_ratio");
+   TH2D* sf_muo_trig_BeforeMuonHLTUpdate = (TH2D*)file_muo_sf_trig->Get("IsoMu24_PtEtaBins/pt_abseta_ratio");
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
    sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
 
-   sf_muo_trig->SetDirectory(0);
+   sf_muo_trig_BeforeMuonHLTUpdate->SetDirectory(0);
    sf_muo_id->SetDirectory(0);
    sf_muo_iso->SetDirectory(0);
 
@@ -310,6 +316,23 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_muo_sf_trig;
    delete file_muo_sf_id;
    delete file_muo_sf_iso;
+
+   file_muo_sf_trig = new TFile("root/sf_muo_2018_EfficienciesAndSF_2018Data_AfterMuonHLTUpdate.root");
+
+   TH2D* sf_muo_trig_AfterMuonHLTUpdate = (TH2D*)file_muo_sf_trig->Get("IsoMu24_PtEtaBins/pt_abseta_ratio");
+
+   sf_muo_trig_AfterMuonHLTUpdate->SetDirectory(0);
+
+   file_muo_sf_trig->Close();
+
+   delete file_muo_sf_trig;
+
+   sf_muo_trig = (TH2D*)sf_muo_trig_BeforeMuonHLTUpdate->Clone();
+
+   sf_muo_trig->Add(sf_muo_trig_BeforeMuonHLTUpdate, sf_muo_trig_AfterMuonHLTUpdate, 8.958/59.955, 50.997/59.955);
+
+   delete sf_muo_trig_BeforeMuonHLTUpdate;
+   delete sf_muo_trig_AfterMuonHLTUpdate;
 
    //file_pho_sf_eff = new TFile("root/sf_pho_2018_PhotonsMVAwp90_Fall17V2.root");
    file_pho_sf_eff = new TFile("root/sf_pho_2018_PhotonsMedium_Fall17V2.root");
