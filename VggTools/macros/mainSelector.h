@@ -393,11 +393,11 @@ public :
    TH2F* l1prefiring_jet = 0;
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
-   RoccoR* roccor;
+   RoccoR* roccor = 0;
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
-   JME::JetResolution* jet_resolution;
-   JME::JetResolutionScaleFactor* jet_resolution_sf;
+   JME::JetResolution* jet_resolution = 0;
+   JME::JetResolutionScaleFactor* jet_resolution_sf = 0;
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
