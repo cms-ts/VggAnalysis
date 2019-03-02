@@ -15,4 +15,6 @@ fi
 
 ./process.sh $VERSION all "nolog,default,new"
 
+./process.sh $VERSION all "nolog,default,jet"
+
 exit
