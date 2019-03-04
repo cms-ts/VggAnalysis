@@ -199,7 +199,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   h_mc_sum->Reset();  
 
   TH1D* h_bkg = (TH1D*)histo[0]->Clone("h_bkg");
-  h_bkg->Reset();  
+  h_bkg->Reset();
 
   bool flowbins = true;
 
@@ -726,6 +726,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   if (flags.find("nofit") == string::npos) {
     h_nobs->Write(title.c_str());
     h_mc_gen->Write((title + "_mc_gen").c_str());
+    h_bkg->Write((title + "_bkg").c_str());
   }
   file->Close();
   delete file;
