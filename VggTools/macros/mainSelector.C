@@ -197,7 +197,11 @@ void mainSelector::Begin(TTree * /*tree*/)
 
 #if defined(NANOAODv4)
    //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonsMVAwp90_Fall17V2.root");
-   TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_Medium_photons_Fall17V2.root");
+   //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_Medium_photons_Fall17V2.root");
+// FIXME
+   //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonMVAWP90.root");
+   TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonCutBasedMedium.root");
+// FIXME
 #else
    //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonMVAWP90.root");
    TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonCutBasedMedium.root");
