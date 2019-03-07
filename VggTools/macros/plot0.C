@@ -4,6 +4,13 @@
 
 void plot0(string plot="", string title="", string version="v00", string flags="") {
 
+  if (plot.find("Zgg") != string::npos) {
+    if (flags.find("qcd") != string::npos) {
+      cout << "Skipping plot map " << plot << " for flags " << flags << endl;
+      return;
+    }
+  }
+
   string year = "";
 
   if (plot.find("2016") != string::npos) year = "2016";
