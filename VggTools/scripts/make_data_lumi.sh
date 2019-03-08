@@ -39,7 +39,7 @@ for F in `ls json/Run2018*.json | grep 14Dec2018`; do
   brilcalc lumi \
   -b "STABLE BEAMS" \
   -c /cvmfs/cms.cern.ch/SITECONF/local/JobConfig/site-local-config.xml \
-  --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_BRIL.json \
+  --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PREAPPROVED.json \
   -u /fb -i $F >> logs/$G.log
   grep -A 5 Summary logs/$G.log | grep [0-9] | awk '{print "lumi = "$12" /fb"}'
 done
