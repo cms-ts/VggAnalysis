@@ -30,7 +30,7 @@ fi
 
 if [ -z "${1##*Run2018*14Dec2018*}" ]; then
   python nano_postproc.py \
-  -P -J /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions18/13TeV/PromptReco/Cert_314472-325175_13TeV_PromptReco_Collisions18_JSON.txt \
+  -P -J /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt \
   . $F > logs/$G.log 2>&1
   eos cp $G.root $D/$G.root >> logs/$G.log 2>&1
   rm $G.root >> logs/$G.log 2>&1
