@@ -111,7 +111,7 @@ RunIIFall17NanoAODv4_ZGToLLG_01J_5f_TuneCP5_13TeV-amcatnloFXFX-pythia8	47.46
 #
 RunIIFall17NanoAOD_ZGGToLLGG_5f_TuneCP5_13TeV-amcatnlo-pythia8	0.6257
 #
-RunIIFall17NanoAOD_WGToLNuG_01J_5f_TuneCP5_13TeV-amcatnloFXFX-pythia8	178.6
+RunIIFall17NanoAODv4_WGToLNuG_01J_5f_TuneCP5_13TeV-amcatnloFXFX-pythia8	178.6
 #
 RunIIFall17NanoAOD_WGG_5f_TuneCP5_13TeV-amcatnlo-pythia8	1.869
 RunIIFall17NanoAODv4_WGToLNuG_TuneCP5_13TeV-madgraphMLM-pythia8	489.
