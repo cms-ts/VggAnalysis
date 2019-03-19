@@ -178,6 +178,7 @@ public :
    TH1D* h_WG_ele_pho0_pf_iso_chg = 0;
    TH1D* h_WG_ele_pho0_dR = 0;
 
+   TH1D* h_WGG_ele_pho1_pt = 0;
    TH1D* h_WGG_ele_pho1_eta = 0;
    TH1D* h_WGG_ele_pho1_phi = 0;
    TH1D* h_WGG_ele_pho1_r9 = 0;
@@ -190,7 +191,6 @@ public :
    TH1D* h_WGG_ele_pho1_pf_iso_chg = 0;
    TH1D* h_WGG_ele_pho1_dR = 0;
    TH1D* h_WGG_ele_pho0_pt = 0;
-   TH1D* h_WGG_ele_pho1_pt = 0;
    TH1D* h_WGG_ele_ele0_pt = 0;
    TH1D* h_WGG_ele_pho0_pho1_dR = 0;
 
@@ -207,6 +207,7 @@ public :
    TH1D* h_WG_muo_pho0_pf_iso_chg = 0;
    TH1D* h_WG_muo_pho0_dR = 0;
 
+   TH1D* h_WGG_muo_pho1_pt = 0;
    TH1D* h_WGG_muo_pho1_eta = 0;
    TH1D* h_WGG_muo_pho1_phi = 0;
    TH1D* h_WGG_muo_pho1_r9 = 0;
@@ -219,7 +220,6 @@ public :
    TH1D* h_WGG_muo_pho1_pf_iso_chg = 0;
    TH1D* h_WGG_muo_pho1_dR = 0;
    TH1D* h_WGG_muo_pho0_pt = 0;
-   TH1D* h_WGG_muo_pho1_pt = 0;
    TH1D* h_WGG_muo_muo0_pt = 0;
    TH1D* h_WGG_muo_pho0_pho1_dR = 0;
 
@@ -236,6 +236,7 @@ public :
    TH1D* h_ZG_ele_pho0_pf_iso_chg = 0;
    TH1D* h_ZG_ele_pho0_dR = 0;
 
+   TH1D* h_ZGG_ele_pho1_pt = 0;
    TH1D* h_ZGG_ele_pho1_eta = 0;
    TH1D* h_ZGG_ele_pho1_phi = 0;
    TH1D* h_ZGG_ele_pho1_r9 = 0;
@@ -248,7 +249,6 @@ public :
    TH1D* h_ZGG_ele_pho1_pf_iso_chg = 0;
    TH1D* h_ZGG_ele_pho1_dR = 0;
    TH1D* h_ZGG_ele_pho0_pt = 0;
-   TH1D* h_ZGG_ele_pho1_pt = 0;
    TH1D* h_ZGG_ele_ele0_pt = 0;
    TH1D* h_ZGG_ele_ele1_pt = 0;
    TH1D* h_ZGG_ele_pho0_pho1_dR = 0;
@@ -266,6 +266,7 @@ public :
    TH1D* h_ZG_muo_pho0_pf_iso_chg = 0;
    TH1D* h_ZG_muo_pho0_dR = 0;
 
+   TH1D* h_ZGG_muo_pho1_pt = 0;
    TH1D* h_ZGG_muo_pho1_eta = 0;
    TH1D* h_ZGG_muo_pho1_phi = 0;
    TH1D* h_ZGG_muo_pho1_r9 = 0;
@@ -278,7 +279,6 @@ public :
    TH1D* h_ZGG_muo_pho1_pf_iso_chg = 0;
    TH1D* h_ZGG_muo_pho1_dR = 0;
    TH1D* h_ZGG_muo_pho0_pt = 0;
-   TH1D* h_ZGG_muo_pho1_pt = 0;
    TH1D* h_ZGG_muo_muo0_pt = 0;
    TH1D* h_ZGG_muo_muo1_pt = 0;
    TH1D* h_ZGG_muo_pho0_pho1_dR = 0;
