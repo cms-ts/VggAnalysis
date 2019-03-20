@@ -938,7 +938,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (GenPart_status[i] != 1) continue;
        if (fabs(GenPart_pdgId[i]) != 22) continue;
        if ((GenPart_statusFlags[i] & 1) != 1) continue;
-       if (GenPart_pt[i] < 15) continue;
+       if (GenPart_pt[i] < 20) continue;
        if (fabs(GenPart_eta[i]) > 2.400) continue;
 
        bool skip = false;
@@ -1001,12 +1001,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (ipho0_gen == -1) ipho0_gen = i;
 
        n_photons_gen++;
-     }
-
-     if (ipho0_gen != -1 && GenPart_pt[ipho0_gen] < 20) {
-       ipho0_gen = -1;
-       ipho1_gen = -1;
-       n_photons_gen = 0;
      }
 
      if (ipho0_gen != -1) {
@@ -1317,7 +1311,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int ipho1 = -1;
 
    for (uint i = 0; i < *nPhoton; i++) {
-     if (Photon_pt[i] < 15) continue;
+     if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
@@ -1447,12 +1441,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      n_photons++;
    }
 
-   if (ipho0 != -1 && Photon_pt[ipho0] < 20) {
-     ipho0 = -1;
-     ipho1 = -1;
-     n_photons = 0;
-   }
-
    TLorentzVector pho0;
    TLorentzVector pho1;
 
@@ -1489,7 +1477,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int ipho1_noiso = -1;
 
    for (uint i = 0; i < *nPhoton; i++) {
-     if (Photon_pt[i] < 15) continue;
+     if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
@@ -1619,12 +1607,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      n_photons_noiso++;
    }
 
-   if (ipho0_noiso != -1 && Photon_pt[ipho0_noiso] < 20) {
-     ipho0_noiso = -1;
-     ipho1_noiso = -1;
-     n_photons_noiso = 0;
-   }
-
    TLorentzVector pho0_noiso;
    TLorentzVector pho1_noiso;
 
@@ -1661,7 +1643,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int ipho1_qcd = -1;
 
    for (uint i = 0; i < *nPhoton; i++) {
-     if (Photon_pt[i] < 15) continue;
+     if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
@@ -1791,12 +1773,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      n_photons_qcd++;
    }
 
-   if (ipho0_qcd != -1 && Photon_pt[ipho0_qcd] < 20) {
-     ipho0_qcd = -1;
-     ipho1_qcd = -1;
-     n_photons_qcd = 0;
-   }
-
    TLorentzVector pho0_qcd;
    TLorentzVector pho1_qcd;
 
@@ -1833,7 +1809,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int ipho1_noiso_qcd = -1;
 
    for (uint i = 0; i < *nPhoton; i++) {
-     if (Photon_pt[i] < 15) continue;
+     if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
@@ -1961,12 +1937,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho0_noiso_qcd == -1) ipho0_noiso_qcd = i;
 
      n_photons_noiso_qcd++;
-   }
-
-   if (ipho0_noiso_qcd != -1 && Photon_pt[ipho0_noiso_qcd] < 20) {
-     ipho0_noiso_qcd = -1;
-     ipho1_noiso_qcd = -1;
-     n_photons_noiso_qcd = 0;
    }
 
    TLorentzVector pho0_noiso_qcd;
