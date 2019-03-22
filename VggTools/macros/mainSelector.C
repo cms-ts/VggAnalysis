@@ -691,7 +691,35 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    h_Z_muo0_trig = new TH1D("h_Z_muo0_trig", "h_Z_muo0_trig", 32, 0., 32.);
    h_Z_muo1_trig = new TH1D("h_Z_muo1_trig", "h_Z_muo1_trig", 32, 0., 32.);
+//FIXME
+   h_WG_ele_misid = new TH2D("h_WG_ele_misid","h_WG_ele_misid", 8, -0.5, 7.5, 60, 0., 300.);
+   h_WG_muo_misid = new TH2D("h_WG_muo_misid","h_WG_muo_misid", 8, -0.5, 7.5, 60, 0., 300.);
+   h_ZG_ele_misid = new TH2D("h_ZG_ele_misid","h_ZG_ele_misid", 8, -0.5, 7.5, 60, 0., 300.);
+   h_ZG_muo_misid = new TH2D("h_ZG_muo_misid","h_ZG_muo_misid", 8, -0.5, 7.5, 60, 0., 300.);
 
+   h_WG_ele_pho0_pt_cat1 = new TH1D("h_WG_ele_pho0_pt_cat1","h_WG_ele_pho0_pt_cat1", 60, 0., 300.);
+   h_WG_muo_pho0_pt_cat1 = new TH1D("h_WG_muo_pho0_pt_cat1","h_WG_muo_pho0_pt_cat1", 60, 0., 300.);
+   h_ZG_ele_pho0_pt_cat1 = new TH1D("h_ZG_ele_pho0_pt_cat1","h_ZG_ele_pho0_pt_cat1", 60, 0., 300.);
+   h_ZG_muo_pho0_pt_cat1 = new TH1D("h_ZG_muo_pho0_pt_cat1","h_ZG_muo_pho0_pt_cat1", 60, 0., 300.);
+   h_ZG_muo_muo0_muo1_pho0_cat1 = new TH1D("h_ZG_muo_muo0_muo1_pho0_cat1", "h_ZG_muo_muo0_muo1_pho0_cat1", 35, 60., 200.);
+
+   h_WG_ele_pho0_pt_cat2 = new TH1D("h_WG_ele_pho0_pt_cat2","h_WG_ele_pho0_pt_cat2", 60, 0., 300.);
+   h_WG_muo_pho0_pt_cat2 = new TH1D("h_WG_muo_pho0_pt_cat2","h_WG_muo_pho0_pt_cat2", 60, 0., 300.);
+   h_ZG_ele_pho0_pt_cat2 = new TH1D("h_ZG_ele_pho0_pt_cat2","h_ZG_ele_pho0_pt_cat2", 60, 0., 300.);
+   h_ZG_muo_pho0_pt_cat2 = new TH1D("h_ZG_muo_pho0_pt_cat2","h_ZG_muo_pho0_pt_cat2", 60, 0., 300.);
+   h_ZG_muo_muo0_muo1_pho0_cat2 = new TH1D("h_ZG_muo_muo0_muo1_pho0_cat2", "h_ZG_muo_muo0_muo1_pho0_cat2", 35, 60., 200.);
+
+   h_WG_ele_pho0_pt_cat3 = new TH1D("h_WG_ele_pho0_pt_cat3","h_WG_ele_pho0_pt_cat3", 60, 0., 300.);
+   h_WG_muo_pho0_pt_cat3 = new TH1D("h_WG_muo_pho0_pt_cat3","h_WG_muo_pho0_pt_cat3", 60, 0., 300.);
+   h_ZG_ele_pho0_pt_cat3 = new TH1D("h_ZG_ele_pho0_pt_cat3","h_ZG_ele_pho0_pt_cat3", 60, 0., 300.);
+   h_ZG_muo_pho0_pt_cat3 = new TH1D("h_ZG_muo_pho0_pt_cat3","h_ZG_muo_pho0_pt_cat3", 60, 0., 300.);
+   h_ZG_muo_muo0_muo1_pho0_cat3 = new TH1D("h_ZG_muo_muo0_muo1_pho0_cat3", "h_ZG_muo_muo0_muo1_pho0_cat3", 35, 60., 200.);
+
+   h_WGG_ele_pho0_pho1_pt_map = new TH3D("h_WGG_ele_pho0_pho1_pt_map","h_WGG_ele_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_WGG_muo_pho0_pho1_pt_map = new TH3D("h_WGG_muo_pho0_pho1_pt_map","h_WGG_muo_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_ZGG_ele_pho0_pho1_pt_map = new TH3D("h_ZGG_ele_pho0_pho1_pt_map","h_ZGG_ele_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_ZGG_muo_pho0_pho1_pt_map = new TH3D("h_ZGG_muo_pho0_pho1_pt_map","h_ZGG_muo_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+//FIXME
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    h_W_ele_gen = new TH1D("h_W_ele_gen", "h_W_ele_gen", 100, 0., 200.);
    h_W_muo_gen = new TH1D("h_W_muo_gen", "h_W_muo_gen", 100, 0., 200.);
@@ -1632,6 +1660,230 @@ Bool_t mainSelector::Process(Long64_t entry)
        ipho0_noiso = -1;
        ipho1_noiso = -1;
        n_photons_noiso = n_photons_noiso - 2;
+     }
+
+   }
+
+// photons sieie
+
+   int n_photons_sieie = 0;
+   int ipho0_sieie = -1;
+   int ipho1_sieie = -1;
+
+   for (uint i = 0; i < *nPhoton; i++) {
+     if (Photon_pt[i] < 20) continue;
+     if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
+     if (fabs(Photon_eta[i]) > 2.400) continue;
+
+#if defined(NANOAODv4)
+     //if (fabs(Photon_eta[i]) < 1.442) {
+     //  if (Photon_mvaID[i] < -0.02) continue;
+     //}
+     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+     //  if (Photon_mvaID[i] < -0.26) continue;
+     //}
+#else
+     //if (fabs(Photon_eta[i]) < 1.442) {
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     //  if (Photon_mvaID[i] < 0.20) continue;
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+     //  if (Photon_mvaID[i] < 0.27) continue;
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+     //}
+     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     //  if (Photon_mvaID[i] < 0.20) continue;
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+     //  if (Photon_mvaID[i] < 0.14) continue;
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+     //}
+#endif // defined(NANOAODv4)
+// FIXME
+     if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000001100111) != 0b0000000001100111) continue;
+     if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0010100000101010) != 0b0010100000101010) continue;
+
+     if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0000001100000000) == 0b0000000000000000) continue;
+// FIXME
+
+     //if (Photon_electronVeto[i] == 0) continue;
+     if (Photon_pixelSeed[i] != 0) continue;
+
+     bool skip = false;
+
+     TLorentzVector tmp_pho_sieie;
+     tmp_pho_sieie.SetPtEtaPhiM(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i]);
+
+     if (iele0 != -1 && ele0.DeltaR(tmp_pho_sieie) < 0.4) continue;
+     if (iele1 != -1 && ele1.DeltaR(tmp_pho_sieie) < 0.4) continue;
+
+     if (imuo0 != -1 && muo0.DeltaR(tmp_pho_sieie) < 0.4) continue;
+     if (imuo1 != -1 && muo1.DeltaR(tmp_pho_sieie) < 0.4) continue;
+
+     for (uint j = 0; j < *nElectron; j++) {
+       if (skip) continue;
+       if (Electron_pt[j] < 15) continue;
+       if (fabs(Electron_eta[j]) > 1.442 && fabs(Electron_eta[j]) < 1.566) continue;
+       if (fabs(Electron_eta[j]) > 2.400) continue;
+
+       if (fabs(Electron_eta[j]) < 1.442) {
+         if (fabs(Electron_dxy[j]) > 0.05) continue;
+         if (fabs(Electron_dz[j]) > 0.10) continue;
+       }
+       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.400) {
+         if (fabs(Electron_dxy[j]) > 0.10) continue;
+         if (fabs(Electron_dz[j]) > 0.20) continue;
+       }
+
+       //if (Electron_mvaID_WP80[j] == 0) continue;
+// FIXME
+     if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000011110011111111111111) != 0b00000000000011110011111111111111) continue;
+     if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+// FIXME
+
+// FIXME
+     if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000000001100000000000000) != 0b00000000000000001100000000000000) continue;
+     if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
+// FIXME
+
+       TLorentzVector tmp_ele_sieie;
+       tmp_ele_sieie.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
+       if (tmp_ele_sieie.DeltaR(tmp_pho_sieie) < 0.4) skip = true;
+     }
+
+     for (uint j = 0; j < *nMuon; j++) {
+       if (skip) continue;
+       if (Muon_pt[j] < 15) continue;
+       if (fabs(Muon_eta[j]) > 2.400) continue;
+
+       if (Muon_tightId[j] == 0) continue;
+
+       TLorentzVector tmp_muo_sieie;
+       tmp_muo_sieie.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
+       if (tmp_muo_sieie.DeltaR(tmp_pho_sieie) < 0.4) skip = true;
+     }
+
+     if (skip) continue;
+
+     if (ipho0_sieie != -1) {
+       TLorentzVector tmp_pho0_sieie;
+       tmp_pho0_sieie.SetPtEtaPhiM(Photon_pt[ipho0_sieie], Photon_eta[ipho0_sieie], Photon_phi[ipho0_sieie], Photon_mass[ipho0_sieie]);
+       if (tmp_pho0_sieie.DeltaR(tmp_pho_sieie) < 0.4) continue;
+     }
+
+     if (ipho1_sieie != -1) {
+       TLorentzVector tmp_pho1_sieie;
+       tmp_pho1_sieie.SetPtEtaPhiM(Photon_pt[ipho1_sieie], Photon_eta[ipho1_sieie], Photon_phi[ipho1_sieie], Photon_mass[ipho1_sieie]);
+       if (tmp_pho1_sieie.DeltaR(tmp_pho_sieie) < 0.4) continue;
+     }
+
+     if (ipho0_sieie != -1) {
+       if (Photon_pt[i] > Photon_pt[ipho0_sieie]) {
+         ipho1_sieie = ipho0_sieie;
+         ipho0_sieie = i;
+       } else {
+         if (ipho1_sieie == -1) {
+           ipho1_sieie = i;
+         } else {
+           if (Photon_pt[i] > Photon_pt[ipho1_sieie]) {
+             ipho1_sieie = i;
+           }
+         }
+       }
+     }
+     if (ipho0_sieie == -1) ipho0_sieie = i;
+
+     n_photons_sieie++;
+   }
+
+   TLorentzVector pho0_sieie;
+   TLorentzVector pho1_sieie;
+
+   if (ipho0_sieie != -1) {
+     pho0_sieie.SetPtEtaPhiM(Photon_pt[ipho0_sieie], Photon_eta[ipho0_sieie], Photon_phi[ipho0_sieie], Photon_mass[ipho0_sieie]);
+   }
+   if (ipho1_sieie != -1) {
+     pho1_sieie.SetPtEtaPhiM(Photon_pt[ipho1_sieie], Photon_eta[ipho1_sieie], Photon_phi[ipho1_sieie], Photon_mass[ipho1_sieie]);
+   }
+
+   if (iele0 != -1 && iele1 == -1) {
+
+     if (ipho0_sieie != -1 && fabs((ele0+pho0_sieie).M()-91.2) < 5) {
+       ipho0_sieie = -1;
+       ipho1_sieie = -1;
+       n_photons_sieie = n_photons_sieie - 2;
+     }
+     if (ipho1_sieie != -1 && fabs((ele0+pho1_sieie).M()-91.2) < 5) {
+       ipho1_sieie = -1;
+       n_photons_sieie = n_photons_sieie - 1;
+     }
+     if (ipho1_sieie != -1 && fabs((ele0+pho0_sieie+pho1_sieie).M()-91.2) < 5) {
+       ipho0_sieie = -1;
+       ipho1_sieie = -1;
+       n_photons_sieie = n_photons_sieie - 2;
+     }
+
+   }
+
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   if (isWG || isZG) {
+
+     float min_pho0_sieie = 9999.;
+     float min_pho1_sieie = 9999.;
+
+     for (uint i = 0; i < *nGenPart; i++) {
+       if (GenPart_status[i] != 1) continue;
+       if (fabs(GenPart_pdgId[i]) != 22) continue;
+       if ((GenPart_statusFlags[i] & 1) != 1) continue;
+       if (GenPart_pt[i] < 15) continue;
+       if (fabs(GenPart_eta[i]) > 2.400) continue;
+
+       TLorentzVector tmp_pho_gen_sieie;
+       tmp_pho_gen_sieie.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
+
+       if (ipho0_sieie != -1 && tmp_pho_gen_sieie.DeltaR(pho0_sieie) < min_pho0_sieie) min_pho0_sieie = tmp_pho_gen_sieie.DeltaR(pho0_sieie);
+       if (ipho1_sieie != -1 && tmp_pho_gen_sieie.DeltaR(pho1_sieie) < min_pho1_sieie) min_pho1_sieie = tmp_pho_gen_sieie.DeltaR(pho1_sieie);
+
+     }
+
+     if (min_pho0_sieie > 0.2) {
+       ipho0_sieie = -1;
+       ipho1_sieie = -1;
+       n_photons_sieie = n_photons_sieie - 2;
+     }
+     if (min_pho1_sieie > 0.2) {
+       ipho1_sieie = -1;
+       n_photons_sieie = n_photons_sieie - 1;
+     }
+
+   }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
+   double category = -1.;
+
+   if (ipho0 != -1) {
+
+     category = 0.;
+     if (fabs(pho0.Eta()) > 1.566) category = category + 4.;
+
+   } else {
+
+     if (ipho0_sieie != -1) {
+
+       bool is_iso = false;
+       bool is_sieie = false;
+
+       if (pho_vid_1bit && (Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000000000010000) == 0b0000000000010000) is_iso = true;
+       if (pho_vid_2bit && (Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000001000000000) == 0b0000001000000000) is_iso = true;
+       if (pho_vid_1bit && (Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000000000001000) == 0b0000000000001000) is_sieie = true;
+       if (pho_vid_2bit && (Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000000010000000) == 0b0000000010000000) is_sieie = true;
+
+       if (is_iso && !is_sieie) category = 1.;
+       if (!is_iso && is_sieie) category = 2.;
+       if (!is_iso && !is_sieie) category = 3.;
+       if (fabs(pho0_sieie.Eta()) > 1.566) category = category + 4.;
+
      }
 
    }
@@ -2713,6 +2965,26 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_pho0_noiso = weight_eff_pho0_noiso * weight_reco_pho0_noiso * weight_ele_veto_pho0_noiso;
    float weight_pho1_noiso = weight_eff_pho1_noiso * weight_reco_pho1_noiso * weight_ele_veto_pho1_noiso;
 
+// photon(s) scale factors sieie
+
+   float weight_eff_pho0_sieie = 1.;
+   float weight_reco_pho0_sieie = 1.;
+
+   float weight_eff_pho1_sieie = 1.;
+   float weight_reco_pho1_sieie = 1.;
+
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   if (ipho0_sieie != -1) {
+     weight_eff_pho0_sieie = getWeight(sf_pho_eff, Photon_eta[ipho0_sieie], Photon_pt[ipho0_sieie]);
+   }
+   if (ipho1_sieie != -1) {
+     weight_eff_pho1_sieie = getWeight(sf_pho_eff, Photon_eta[ipho1_sieie], Photon_pt[ipho1_sieie]);
+   }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
+   float weight_pho0_sieie = weight_eff_pho0_sieie * weight_reco_pho0_sieie;
+   float weight_pho1_sieie = weight_eff_pho1_sieie * weight_reco_pho1_sieie;
+
 // photon(s) scale factors QCD
 
    float weight_eff_pho0_qcd = 1.;
@@ -3250,6 +3522,15 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho0_noiso != -1) {
        h_WG_ele_pho0_noiso_mva->Fill(Photon_mvaID[ipho0_noiso], weight_W_ele * weight_pho0_noiso);
      }
+
+     if (category != -1) {
+       if (category == 0 || category == 4) h_WG_ele_misid->Fill(category, Photon_pt[ipho0], weight_W_ele * weight_pho0);
+       if (category != 0 && category != 4) h_WG_ele_misid->Fill(category, Photon_pt[ipho0_sieie], weight_W_ele * weight_pho0_sieie);
+       if (category == 1) h_WG_ele_pho0_pt_cat1->Fill(Photon_pt[ipho0_sieie], weight_W_ele * weight_pho0_sieie);
+       if (category == 2) h_WG_ele_pho0_pt_cat2->Fill(Photon_pt[ipho0_sieie], weight_W_ele * weight_pho0_sieie);
+       if (category == 3) h_WG_ele_pho0_pt_cat3->Fill(Photon_pt[ipho0_sieie], weight_W_ele * weight_pho0_sieie);
+     }
+
      if (ipho1 != -1) {
        h_WGG_ele_pho1_pt->Fill(Photon_pt[ipho1], weight_W_ele * weight_pho0 * weight_pho1);
        h_WGG_ele_pho1_eta->Fill(Photon_eta[ipho1], weight_W_ele * weight_pho0 * weight_pho1);
@@ -3270,6 +3551,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_WGG_ele_pho0_pt->Fill(pho0.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
        h_WGG_ele_ele0_pt->Fill(ele0.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
        h_WGG_ele_pho0_pho1_dR->Fill(pho0.DeltaR(pho1), weight_W_ele * weight_pho0 * weight_pho1);
+
+       h_WGG_ele_pho0_pho1_pt_map->Fill(pho0.Pt(), pho1.Pt(), (pho0+pho1).Pt(), weight_W_ele * weight_pho0 * weight_pho1);
      }
      if (ipho1_noiso != -1) {
        h_WGG_ele_pho0_noiso_mva->Fill(Photon_mvaID[ipho0_noiso], weight_W_ele * weight_pho0_noiso * weight_pho1_noiso);
@@ -3304,6 +3587,15 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho0_noiso != -1) {
        h_WG_muo_pho0_noiso_mva->Fill(Photon_mvaID[ipho0_noiso], weight_W_muo * weight_pho0_noiso);
      }
+
+     if (category != -1) {
+       if (category == 0 || category == 4) h_WG_muo_misid->Fill(category, Photon_pt[ipho0], weight_W_muo * weight_pho0);
+       if (category != 0 && category != 4) h_WG_muo_misid->Fill(category, Photon_pt[ipho0_sieie], weight_W_muo * weight_pho0_sieie);
+       if (category == 1) h_WG_muo_pho0_pt_cat1->Fill(Photon_pt[ipho0_sieie], weight_W_muo * weight_pho0_sieie);
+       if (category == 2) h_WG_muo_pho0_pt_cat2->Fill(Photon_pt[ipho0_sieie], weight_W_muo * weight_pho0_sieie);
+       if (category == 3) h_WG_muo_pho0_pt_cat3->Fill(Photon_pt[ipho0_sieie], weight_W_muo * weight_pho0_sieie);
+     }
+
      if (ipho1 != -1) {
        h_WGG_muo_pho1_pt->Fill(Photon_pt[ipho1], weight_W_muo * weight_pho0 * weight_pho1);
        h_WGG_muo_pho1_eta->Fill(Photon_eta[ipho1], weight_W_muo * weight_pho0 * weight_pho1);
@@ -3324,6 +3616,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_WGG_muo_pho0_pt->Fill(pho0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
        h_WGG_muo_muo0_pt->Fill(muo0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
        h_WGG_muo_pho0_pho1_dR->Fill(pho0.DeltaR(pho1), weight_W_muo * weight_pho0 * weight_pho1);
+
+       h_WGG_muo_pho0_pho1_pt_map->Fill(pho0.Pt(), pho1.Pt(), (pho0+pho1).Pt(), weight_W_muo * weight_pho0 * weight_pho1);
      }
      if (ipho1_noiso != -1) {
        h_WGG_muo_pho0_noiso_mva->Fill(Photon_mvaID[ipho0_noiso], weight_W_muo * weight_pho0_noiso * weight_pho1_noiso);
@@ -3362,6 +3656,15 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho0_noiso != -1) {
        h_ZG_ele_pho0_noiso_mva->Fill(Photon_mvaID[ipho0_noiso], weight_Z_ele * weight_pho0_noiso);
      }
+
+     if (category != -1) {
+       if (category == 0 || category == 4) h_ZG_ele_misid->Fill(category, Photon_pt[ipho0], weight_Z_ele * weight_pho0);
+       if (category != 0 && category != 4) h_ZG_ele_misid->Fill(category, Photon_pt[ipho0_sieie], weight_Z_ele * weight_pho0_sieie);
+       if (category == 1) h_ZG_ele_pho0_pt_cat1->Fill(Photon_pt[ipho0_sieie], weight_Z_ele * weight_pho0_sieie);
+       if (category == 2) h_ZG_ele_pho0_pt_cat2->Fill(Photon_pt[ipho0_sieie], weight_Z_ele * weight_pho0_sieie);
+       if (category == 3) h_ZG_ele_pho0_pt_cat3->Fill(Photon_pt[ipho0_sieie], weight_Z_ele * weight_pho0_sieie);
+     }
+
      if (ipho1 != -1) {
        h_ZGG_ele_pho1_pt->Fill(Photon_pt[ipho1], weight_Z_ele * weight_pho0 * weight_pho1);
        h_ZGG_ele_pho1_eta->Fill(Photon_eta[ipho1], weight_Z_ele * weight_pho0 * weight_pho1);
@@ -3385,6 +3688,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_ZGG_ele_ele0_pt->Fill(ele0.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
        h_ZGG_ele_ele1_pt->Fill(ele1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
        h_ZGG_ele_pho0_pho1_dR->Fill(pho0.DeltaR(pho1), weight_Z_ele * weight_pho0 * weight_pho1);
+
+       h_ZGG_ele_pho0_pho1_pt_map->Fill(pho0.Pt(), pho1.Pt(), (pho0+pho1).Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
      }
      if (ipho1_noiso != -1) {
        h_ZGG_ele_pho0_noiso_mva->Fill(Photon_mvaID[ipho0_noiso], weight_Z_ele * weight_pho0_noiso * weight_pho1_noiso);
@@ -3421,6 +3726,15 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho0_noiso != -1) {
        h_ZG_muo_pho0_noiso_mva->Fill(Photon_mvaID[ipho0_noiso], weight_Z_muo * weight_pho0_noiso);
      }
+
+     if (category != -1) {
+       if (category == 0 || category == 4) h_ZG_muo_misid->Fill(category, Photon_pt[ipho0], weight_Z_muo * weight_pho0);
+       if (category != 0 && category != 4) h_ZG_muo_misid->Fill(category, Photon_pt[ipho0_sieie], weight_Z_muo * weight_pho0_sieie);
+       if (category == 1) h_ZG_muo_pho0_pt_cat1->Fill(Photon_pt[ipho0_sieie], weight_Z_muo * weight_pho0_sieie);
+       if (category == 2) h_ZG_muo_pho0_pt_cat2->Fill(Photon_pt[ipho0_sieie], weight_Z_muo * weight_pho0_sieie);
+       if (category == 3) h_ZG_muo_pho0_pt_cat3->Fill(Photon_pt[ipho0_sieie], weight_Z_muo * weight_pho0_sieie);
+     }
+
      if (ipho1 != -1) {
        h_ZGG_muo_pho1_pt->Fill(Photon_pt[ipho1], weight_Z_muo * weight_pho0 * weight_pho1);
        h_ZGG_muo_pho1_eta->Fill(Photon_eta[ipho1], weight_Z_muo * weight_pho0 * weight_pho1);
@@ -3444,6 +3758,8 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_ZGG_muo_muo0_pt->Fill(muo0.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
        h_ZGG_muo_muo1_pt->Fill(muo1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
        h_ZGG_muo_pho0_pho1_dR->Fill(pho0.DeltaR(pho1), weight_Z_muo * weight_pho0 * weight_pho1);
+
+       h_ZGG_muo_pho0_pho1_pt_map->Fill(pho0.Pt(), pho1.Pt(), (pho0+pho1).Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
      }
      if (ipho1_noiso != -1) {
        h_ZGG_muo_pho0_noiso_mva->Fill(Photon_mvaID[ipho0_noiso], weight_Z_muo * weight_pho0_noiso * weight_pho1_noiso);

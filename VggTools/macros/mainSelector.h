@@ -19,6 +19,7 @@
 
 #include "TH1D.h"
 #include "TH2D.h"
+#include "TH3D.h"
 
 // #define NANOAODv4
 
@@ -354,6 +355,34 @@ public :
 
    TH1D* h_Z_muo0_trig = 0;
    TH1D* h_Z_muo1_trig = 0;
+
+   TH2D* h_WG_ele_misid = 0;
+   TH2D* h_WG_muo_misid = 0;
+   TH2D* h_ZG_ele_misid = 0;
+   TH2D* h_ZG_muo_misid = 0;
+
+   TH1D* h_WG_ele_pho0_pt_cat1 = 0;
+   TH1D* h_WG_muo_pho0_pt_cat1 = 0;
+   TH1D* h_ZG_ele_pho0_pt_cat1 = 0;
+   TH1D* h_ZG_muo_pho0_pt_cat1 = 0;
+   TH1D* h_ZG_muo_muo0_muo1_pho0_cat1 = 0;
+
+   TH1D* h_WG_ele_pho0_pt_cat2 = 0;
+   TH1D* h_WG_muo_pho0_pt_cat2 = 0;
+   TH1D* h_ZG_ele_pho0_pt_cat2 = 0;
+   TH1D* h_ZG_muo_pho0_pt_cat2 = 0;
+   TH1D* h_ZG_muo_muo0_muo1_pho0_cat2 = 0;
+
+   TH1D* h_WG_ele_pho0_pt_cat3 = 0;
+   TH1D* h_WG_muo_pho0_pt_cat3 = 0;
+   TH1D* h_ZG_ele_pho0_pt_cat3 = 0;
+   TH1D* h_ZG_muo_pho0_pt_cat3 = 0;
+   TH1D* h_ZG_muo_muo0_muo1_pho0_cat3 = 0;
+
+   TH3D* h_WGG_ele_pho0_pho1_pt_map = 0;
+   TH3D* h_WGG_muo_pho0_pho1_pt_map = 0;
+   TH3D* h_ZGG_ele_pho0_pho1_pt_map = 0;
+   TH3D* h_ZGG_muo_pho0_pho1_pt_map = 0;
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
