@@ -1829,30 +1829,28 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (isWG || isZG) {
 
-     float min_pho0_sieie = 9999.;
-     float min_pho1_sieie = 9999.;
+     bool match0 = false;
+     bool match1 = false;
 
      for (uint i = 0; i < *nGenPart; i++) {
        if (GenPart_status[i] != 1) continue;
        if (fabs(GenPart_pdgId[i]) != 22) continue;
        if ((GenPart_statusFlags[i] & 1) != 1) continue;
-       if (GenPart_pt[i] < 15) continue;
+       if (GenPart_pt[i] < 20) continue;
        if (fabs(GenPart_eta[i]) > 2.400) continue;
 
        TLorentzVector tmp_pho_gen_sieie;
        tmp_pho_gen_sieie.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
-
-       if (ipho0_sieie != -1 && tmp_pho_gen_sieie.DeltaR(pho0_sieie) < min_pho0_sieie) min_pho0_sieie = tmp_pho_gen_sieie.DeltaR(pho0_sieie);
-       if (ipho1_sieie != -1 && tmp_pho_gen_sieie.DeltaR(pho1_sieie) < min_pho1_sieie) min_pho1_sieie = tmp_pho_gen_sieie.DeltaR(pho1_sieie);
-
+       if (ipho0_sieie != -1 && tmp_pho_gen_sieie.DeltaR(pho0_sieie) < 0.2) match0 = true;
+       if (ipho1_sieie != -1 && tmp_pho_gen_sieie.DeltaR(pho1_sieie) < 0.2) match1 = true;
      }
 
-     if (min_pho0_sieie > 0.2) {
+     if (ipho0_sieie != -1 && !match0) {
        ipho0_sieie = -1;
        ipho1_sieie = -1;
        n_photons_sieie = n_photons_sieie - 2;
      }
-     if (min_pho1_sieie > 0.2) {
+     if (ipho1_sieie != -1 && !match1) {
        ipho1_sieie = -1;
        n_photons_sieie = n_photons_sieie - 1;
      }
