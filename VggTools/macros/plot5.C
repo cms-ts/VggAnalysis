@@ -1,8 +1,8 @@
-#include "plot3.h"
+#include "plot5.h"
 
 #include "CMS_lumi.C"
 
-void plot3(string plot="", string title="", string version="v00", string flags="") {
+void plot5(string plot="", string title="", string version="v00", string flags="") {
 
   string year = "";
 
@@ -275,6 +275,6 @@ void plot3(string plot="", string title="", string version="v00", string flags="
 
 int main(int argc, char *argv[]) {
 
-plot3(argv[1], argv[2], argv[3], argv[4]);
+plot5(argv[1], argv[2], argv[3], argv[4]);
 
 }

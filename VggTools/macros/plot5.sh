@@ -36,11 +36,11 @@ export ROOT_HIST=0
 
 for YEAR in $YEARS; do
 
-  root-6.12 -l -q -b plot3.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_nphotons\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot3.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_nphotons\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_nphotons\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_nphotons\",\"$VERSION\",\"$FLAGS\"\)
 
-  root-6.12 -l -q -b plot3.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_nphotons\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot3.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_nphotons\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_nphotons\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_nphotons\",\"$VERSION\",\"$FLAGS\"\)
 
 done
 

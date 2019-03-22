@@ -41,7 +41,7 @@ if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "auto_pu" ]; t
 fi
 
 if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "plot" ]; then
-  make_lib "plot0.C plot1.C plot2.C plot3.C"
+  make_lib "plot0.C plot1.C plot2.C plot5.C"
 fi
 
 exit
@@ -59,6 +59,6 @@ make_exe() {
 }
 
 make_exe "auto_pu.C"
-make_exe "plot0.C plot1.C plot2.C plot3.C"
+make_exe "plot0.C plot1.C plot2.C plot5.C"
 
 exit
