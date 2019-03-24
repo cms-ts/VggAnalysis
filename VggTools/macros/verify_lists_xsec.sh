@@ -61,7 +61,7 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
   echo '../scripts/lists/ => ./xsec.dat'
   echo
 
-  DATASETS=`ls ../scripts/lists/ | sort | uniq | sed -e 's/.list//' | grep -v 'Run201[678]'`
+  DATASETS=`ls ../scripts/lists/ | sort | uniq | sed -e 's/.list//' | grep RunII`
 
   check=0
   for D in $DATASETS; do
@@ -101,7 +101,7 @@ echo
 echo './lists/ => ./xsec.dat'
 echo
 
-DATASETS=`ls ./lists/ | sort | uniq | sed -e 's/.list//' | grep -v 'Run201[678]'`
+DATASETS=`ls ./lists/ | sort | uniq | sed -e 's/.list//' | grep RunII`
 
 check=0
 for D in $DATASETS; do
@@ -148,7 +148,7 @@ echo
 echo './amcatnlo/ ./madgraph/ => ./xsec.dat'
 echo
 
-DATASETS=`cat ./amcatnlo/*.dat* ./madgraph/*.dat* | grep -v Run20 | grep -v \# | awk '{print $1}' | sort | uniq`
+DATASETS=`cat ./amcatnlo/*.dat* ./madgraph/*.dat* | grep RunII | grep -v \# | awk '{print $1}' | sort | uniq`
 
 check=0
 for D in $DATASETS; do
@@ -208,7 +208,7 @@ echo
 echo './amcatnlo/ ./madgraph/ => ./lists/'
 echo
 
-DATASETS=`cat ./amcatnlo/*.dat* ./madgraph/*.dat* | grep -v Run20 | grep -v \# | awk '{print $1}' | sort | uniq`
+DATASETS=`cat ./amcatnlo/*.dat* ./madgraph/*.dat* | grep RunII | grep -v \# | awk '{print $1}' | sort | uniq`
 
 check=0
 for D in $DATASETS; do
