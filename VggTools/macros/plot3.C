@@ -21,11 +21,11 @@ void plot3(string plot="", string title="", string version="", string flags="") 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
- 
+
   map<string, float> xsecMap;
   readMap("xsec.dat", xsecMap);
   cout << "Read xsec map for " << xsecMap.size() << " datasets from " << "xsec.dat" << endl;
- 
+
   multimap<string, float> plotMap;
   if (plot.find("Run2") == string::npos) {
     readMultiMap(plot, plotMap);
@@ -35,14 +35,14 @@ void plot3(string plot="", string title="", string version="", string flags="") 
     readMultiMap(string(plot).replace(plot.find("Run2"), 4, "2018"), plotMap);
   }
   cout << "Read plot map for " << plotMap.size() << " datasets from " << plot << endl;
- 
+
   if (plotMap.size() == 0) {
     cout << "ERROR: plot map " << plot << " is EMPTY or MISSING !!" << endl;
     return;
   }
 
   map<int, TH1D*> histo;
-  
+
   float lumi = 0.;
   float lumi2016 = 0.;
   float lumi2017 = 0.;
@@ -169,7 +169,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
           histo2[index]->SetDirectory(0);
           histo2[index]->Scale(norm);
         }
-      }  
+      }
       file->Close();
       delete file;
     }
@@ -180,7 +180,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
 
   TH1D* h_sgn = (TH1D*)histo[0]->Clone("h_sgn");
   h_sgn->Reset();
-  
+
   TH1D* h_bkg = (TH1D*)histo[0]->Clone("h_bkg");
   h_bkg->Reset();
 
@@ -206,7 +206,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
     double s1_b = histo2[index]->GetBinContent(2, i);
     double s2_b = histo2[index]->GetBinContent(3, i);
     double s3_b = histo2[index]->GetBinContent(4, i);
-    
+
     double d0_b = histo2[0]->GetBinContent(1, i);
     double d0_b_err = histo2[0]->GetBinError(1, i);
     double d1_b = histo2[0]->GetBinContent(2, i);
@@ -312,7 +312,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
     } else {
       h_sgn->SetBinContent(i, 0.);
       h_sgn->SetBinError(i, 0.);
-    } 
+    }
     if (alpha_jet > -1e20 && alpha_jet < 1e20) {
       h_bkg->SetBinContent(i, alpha_jet);
       h_bkg->SetBinError(i, alpha_jet_err);
@@ -320,7 +320,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
       h_bkg->SetBinContent(i, 0.);
       h_bkg->SetBinError(i, 0.);
     }
-  } 
+  }
 
   h_bkg->SetFillColor(kBlue);
   h_sgn->SetFillColor(kYellow);
@@ -364,7 +364,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
   histo[0]->SetMarkerSize(1.0);
 
   histo[0]->Draw("EXP0SAMES");
-  
+
   pad1_c1->SetLogy();
 
   pad1_c1->Update();
@@ -412,12 +412,12 @@ void plot3(string plot="", string title="", string version="", string flags="") 
 
   while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + year + ".matrix/").c_str(), kTRUE);
-  } 
-  c1->SaveAs(("html/" + version + "/" + year + ".matrix" + title +"_consistency.pdf").c_str());  
+  }
+  c1->SaveAs(("html/" + version + "/" + year + ".matrix" + title +"_consistency.pdf").c_str());
 
   while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + year + ".matrix/root/").c_str(), kTRUE);
-  } 
+  }
   TFile* file = new TFile(("html/" + version + "/" + year + ".matrix/root/matrix_weight.root").c_str(), "update");
   h_weight->Write((title.substr(0, 8) + "_weight_" + year).c_str());
   file->Close();

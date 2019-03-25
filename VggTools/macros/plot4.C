@@ -419,13 +419,13 @@ void plot4(string plot="", string title="", string version="v00", string flags="
     gSystem->mkdir(("html/" + version + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
   TFile* file = new TFile(("html/" + version + "/" + year + ".matrix/root/" + title + "_map.root").c_str(), "update");
-  histo[0]->Write((title + "_data").c_str();
-  histo[8001]->Write((title + "_misid").c_str();
+  histo[0]->Write((title + "_data").c_str());
+  histo[8001]->Write((title + "_misid").c_str());
   if (plot.find("Wgg") != string::npos) {
-    histo[1010]->Write((title + "_wgg").c_str(); 
-    histo[1022]->Write((title + "_zgg").c_str(); 
+    histo[1010]->Write((title + "_wgg").c_str());
+    histo[1022]->Write((title + "_zgg").c_str());
   }
-  if (plot.find("Zgg") != string::npos) histo[10]->Write((title + "_zgg").c_str(); 
+  if (plot.find("Zgg") != string::npos) histo[10]->Write((title + "_zgg").c_str());
   file->Close();
   delete file;
 
