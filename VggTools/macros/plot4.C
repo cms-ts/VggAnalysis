@@ -11,6 +11,11 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   if (plot.find("2018") != string::npos) year = "2018";
   if (plot.find("Run2") != string::npos) year = "Run2";
 
+  plot = plot + ".dat";
+  if (flags.find("test") != string::npos) plot = plot + ".test";
+  if (flags.find("new") != string::npos) plot = plot + ".new";
+  if (flags.find("jet") != string::npos) plot = plot + ".jet";
+
   if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
   if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
   if (flags.find("default") != string::npos) plot = "default/" + plot;

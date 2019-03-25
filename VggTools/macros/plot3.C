@@ -413,7 +413,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
   while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + year + ".matrix/").c_str(), kTRUE);
   }
-  c1->SaveAs(("html/" + version + "/" + year + ".matrix" + title +"_consistency.pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + year + ".matrix/" + title +"_consistency.pdf").c_str());
 
   while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + year + ".matrix/root/").c_str(), kTRUE);
