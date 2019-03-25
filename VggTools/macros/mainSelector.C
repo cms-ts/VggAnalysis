@@ -2980,8 +2980,56 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_pho0_sieie = weight_eff_pho0_sieie * weight_reco_pho0_sieie;
-   float weight_pho1_sieie = weight_eff_pho1_sieie * weight_reco_pho1_sieie;
+   float weight_ele_veto_pho0_sieie = 1.;
+   float weight_ele_veto_pho1_sieie = 1.;
+
+#if defined(mainSelectorMC16_cxx)
+   if (ipho0_sieie != -1) {
+     if (fabs(Photon_eta[ipho0_sieie]) < 1.442) {
+       if (Photon_r9[ipho0_sieie] < 0.94) weight_ele_veto_pho0_sieie = 1.00479;
+       if (Photon_r9[ipho0_sieie] > 0.94) weight_ele_veto_pho0_sieie = 0.985097;
+     }
+     if (fabs(Photon_eta[ipho0_sieie]) > 1.566 && fabs(Photon_eta[ipho0_sieie]) < 2.400) {
+       if (Photon_r9[ipho0_sieie] < 0.94) weight_ele_veto_pho0_sieie = 1.00703;
+       if (Photon_r9[ipho0_sieie] > 0.94) weight_ele_veto_pho0_sieie = 0.972969;
+     }
+   }
+   if (ipho1_sieie != -1) {
+     if (fabs(Photon_eta[ipho1_sieie]) < 1.442) {
+       if (Photon_r9[ipho1_sieie] < 0.94) weight_ele_veto_pho1_sieie = 1.00479;
+       if (Photon_r9[ipho1_sieie] > 0.94) weight_ele_veto_pho1_sieie = 0.985097;
+     }
+     if (fabs(Photon_eta[ipho1_sieie]) > 1.566 && fabs(Photon_eta[ipho1_sieie]) < 2.400) {
+       if (Photon_r9[ipho1_sieie] < 0.94) weight_ele_veto_pho1_sieie = 1.00703;
+       if (Photon_r9[ipho1_sieie] > 0.94) weight_ele_veto_pho1_sieie = 0.972969;
+     }
+   }
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
+   if (ipho0_sieie != -1) {
+     if (fabs(Photon_eta[ipho0_sieie]) < 1.442) {
+       if (Photon_r9[ipho0_sieie] < 0.94) weight_ele_veto_pho0_sieie = 0.960239;
+       if (Photon_r9[ipho0_sieie] > 0.94) weight_ele_veto_pho0_sieie = 0.974239;
+     }
+     if (fabs(Photon_eta[ipho0_sieie]) > 1.566 && fabs(Photon_eta[ipho0_sieie]) < 2.400) {
+       if (Photon_r9[ipho0_sieie] < 0.94) weight_ele_veto_pho0_sieie = 0.919658;
+       if (Photon_r9[ipho0_sieie] > 0.94) weight_ele_veto_pho0_sieie = 0.917715;
+     }
+   }
+   if (ipho1_sieie != -1) {
+     if (fabs(Photon_eta[ipho1_sieie]) < 1.442) {
+       if (Photon_r9[ipho1_sieie] < 0.94) weight_ele_veto_pho1_sieie = 0.960239;
+       if (Photon_r9[ipho1_sieie] > 0.94) weight_ele_veto_pho1_sieie = 0.974239;
+     }
+     if (fabs(Photon_eta[ipho1_sieie]) > 1.566 && fabs(Photon_eta[ipho1_sieie]) < 2.400) {
+       if (Photon_r9[ipho1_sieie] < 0.94) weight_ele_veto_pho1_sieie = 0.919658;
+       if (Photon_r9[ipho1_sieie] > 0.94) weight_ele_veto_pho1_sieie = 0.917715;
+     }
+   }
+#endif // defined(mainSelectorMC17_cxx)
+
+   float weight_pho0_sieie = weight_eff_pho0_sieie * weight_reco_pho0_sieie * weight_ele_veto_pho0_sieie;
+   float weight_pho1_sieie = weight_eff_pho1_sieie * weight_reco_pho1_sieie * weight_ele_veto_pho1_sieie;
 
 // photon(s) scale factors QCD
 
