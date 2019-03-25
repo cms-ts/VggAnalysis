@@ -418,7 +418,9 @@ void plot3(string plot="", string title="", string version="", string flags="") 
   while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + year + ".matrix/root/").c_str(), kTRUE);
   } 
-  TFile* file1 = new TFile(("html/" + version + "/" + year + ".matrix/root/matrix_weight.root").c_str(), "update");
+  TFile* file = new TFile(("html/" + version + "/" + year + ".matrix/root/matrix_weight.root").c_str(), "update");
   h_weight->Write((title.substr(0, 8) + "_weight_" + year).c_str());
-  file1->Close();
+  file->Close();
+  delete file;
+
 }

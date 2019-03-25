@@ -410,9 +410,23 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + year + "/matrix/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + year + "/matrix/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + year + ".matrix/").c_str(), kTRUE);
   }
   c1->SaveAs(("html/" + version + "/" + year + ".matrix/" + title + "_map.pdf").c_str());
+
+  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + year + ".matrix/root/").c_str(), kTRUE);
+  }
+  TFile* file = new TFile(("html/" + version + "/" + year + ".matrix/root/" + title + "_map.root").c_str(), "update");
+  histo[0]->Write((title + "_data").c_str();
+  histo[8001]->Write((title + "_misid").c_str();
+  if (plot.find("Wgg") != string::npos) {
+    histo[1010]->Write((title + "_wgg").c_str(); 
+    histo[1022]->Write((title + "_zgg").c_str(); 
+  }
+  if (plot.find("Zgg") != string::npos) histo[10]->Write((title + "_zgg").c_str(); 
+  file->Close();
+  delete file;
 
 }
