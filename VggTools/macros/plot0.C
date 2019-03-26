@@ -307,6 +307,14 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "WJets", "f");
     }
+    if (flags.find("nobkg") == string::npos && it->first == 21) {
+      it->second->SetFillColor(kOrange-5);
+      leg->AddEntry(it->second, "W #gamma", "f");
+    }
+    if (flags.find("nobkg") == string::npos && it->first == 22) {
+      it->second->SetFillColor(kOrange-6);
+      leg->AddEntry(it->second, "W #gamma #gamma", "f");
+    }
     if (flags.find("nobkg") == string::npos && it->first == 30) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
