@@ -29,7 +29,13 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   cout << "Read xsec map for " << xsecMap.size() << " datasets from " << "xsec.dat" << endl;
 
   multimap<string, float> plotMap;
-  readMultiMap(plot, plotMap);
+  if (plot.find("Run2") == string::npos) {
+    readMultiMap(plot, plotMap);
+  } else {
+    readMultiMap(string(plot).replace(plot.find("Run2"), 4, "2016"), plotMap);
+    readMultiMap(string(plot).replace(plot.find("Run2"), 4, "2017"), plotMap);
+    readMultiMap(string(plot).replace(plot.find("Run2"), 4, "2018"), plotMap);
+  }
   cout << "Read plot map for " << plotMap.size() << " datasets from " << plot << endl;
 
   if (plotMap.size() == 0) {
@@ -145,11 +151,35 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
   if (flags.find("default") != string::npos) version = version + ".default";
 
-  TFile * file_matrix = TFile::Open( ("html/" + version + "/" + year + ".matrix/root/matrix_weight.root").c_str() );
+  TFile* file_matrix_2016 = TFile::Open( ("html/" + version + "/2016.matrix/root/matrix_weight.root").c_str() );
+  TFile* file_matrix_2017 = TFile::Open( ("html/" + version + "/2017.matrix/root/matrix_weight.root").c_str() );
+  TFile* file_matrix_2018 = TFile::Open( ("html/" + version + "/2018.matrix/root/matrix_weight.root").c_str() );
 
-  TH1D * h_weight = 0;
-  if (title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) h_weight = (TH1D*) file_matrix->Get((title.substr(0, 9) + "weight_" + year).c_str());
-  if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) h_weight = (TH1D*) file_matrix->Get((title.substr(0, 4) + title.substr(5, 5) + "weight_" + year).c_str());
+  TH1D* h_weight_2016 = 0;
+  TH1D* h_weight_2017 = 0;
+  TH1D* h_weight_2018 = 0;
+  
+  if (title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) {
+    if (!file_matrix_2016->IsZombie()) h_weight_2016 = (TH1D*) file_matrix_2016->Get((title.substr(0, 9) + "weight_2016").c_str());
+    if (!file_matrix_2017->IsZombie()) h_weight_2017 = (TH1D*) file_matrix_2017->Get((title.substr(0, 9) + "weight_2017").c_str());
+    if (!file_matrix_2018->IsZombie()) h_weight_2018 = (TH1D*) file_matrix_2018->Get((title.substr(0, 9) + "weight_2018").c_str());
+  }
+  if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
+    if (!file_matrix_2016->IsZombie()) h_weight_2016 = (TH1D*) file_matrix_2016->Get((title.substr(0, 4) + title.substr(5, 5) + "weight_2016").c_str());
+    if (!file_matrix_2017->IsZombie()) h_weight_2017 = (TH1D*) file_matrix_2017->Get((title.substr(0, 4) + title.substr(5, 5) + "weight_2017").c_str());
+    if (!file_matrix_2018->IsZombie()) h_weight_2018 = (TH1D*) file_matrix_2018->Get((title.substr(0, 4) + title.substr(5, 5) + "weight_2018").c_str());
+  }
+
+  TH1D* h_weight = 0;
+
+  if (!h_weight && !file_matrix_2016->IsZombie()) h_weight = (TH1D*)h_weight_2016->Clone("h_weight");
+  if (!h_weight && !file_matrix_2017->IsZombie()) h_weight = (TH1D*)h_weight_2017->Clone("h_weight");
+  if (!h_weight && !file_matrix_2018->IsZombie()) h_weight = (TH1D*)h_weight_2018->Clone("h_weight");
+
+  h_weight->Reset();
+  if (!file_matrix_2016->IsZombie()) h_weight->Add(h_weight_2016, lumi2016/lumi);
+  if (!file_matrix_2017->IsZombie()) h_weight->Add(h_weight_2017, lumi2017/lumi);
+  if (!file_matrix_2018->IsZombie()) h_weight->Add(h_weight_2018, lumi2018/lumi);
 
   histo[8001] = (TH1D*)histo[0]->Clone();
   histo[8001]->Reset();
