@@ -100,7 +100,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index == 10 || index == 1010 || index == 1022) {
+    if (index == 10 || index == 11 || index == 21|| index == 22|| index == 1010 || index == 1011 || index == 1021|| index == 1022) {
       TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
       if (!file->IsOpen()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
@@ -147,21 +147,35 @@ void plot4(string plot="", string title="", string version="v00", string flags="
 
   TFile * file_matrix = TFile::Open( ("html/" + version + "/" + year + ".matrix/root/matrix_weight.root").c_str() );
 
-  TH1D * h_weight = (TH1D*) file_matrix->Get((title.substr(0, 4) + title.substr(5, 5) + "weight_" + year).c_str());
+  TH1D * h_weight = 0;
+  if (title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) h_weight = (TH1D*) file_matrix->Get((title.substr(0, 9) + "weight_" + year).c_str());
+  if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) h_weight = (TH1D*) file_matrix->Get((title.substr(0, 4) + title.substr(5, 5) + "weight_" + year).c_str());
 
   histo[8001] = (TH1D*)histo[0]->Clone();
   histo[8001]->Reset();
 
-  for (int var = 0; var < histo3[0]->GetNbinsZ(); var++) {
-    for (int pho0 = 0; pho0 < histo3[0]->GetNbinsX(); pho0++) {
-      for (int pho1 = 0; pho1 < histo3[0]->GetNbinsY(); pho1++) {
-        histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + histo3[0]->GetBinContent(pho0, pho1, var) * (1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1)));
-        histo[8001]->SetBinError(var, histo[8001]->GetBinError(var) +  histo3[0]->GetBinContent(pho0, pho1, var) * TMath::Power(1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1), 2));
+  if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
+    for (int var = 0; var < histo3[0]->GetNbinsZ(); var++) {
+      for (int pho0 = 0; pho0 < histo3[0]->GetNbinsX(); pho0++) {
+        for (int pho1 = 0; pho1 < histo3[0]->GetNbinsY(); pho1++) {
+          histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + histo3[0]->GetBinContent(pho0, pho1, var) * (1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1)));
+          histo[8001]->SetBinError(var, histo[8001]->GetBinError(var) +  histo3[0]->GetBinContent(pho0, pho1, var) * TMath::Power(1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1), 2));
+        }
       }
     }
+    for (int var = 0; var < histo3[0]->GetNbinsZ(); var++) {
+      histo[8001]->SetBinError(var, TMath::Sqrt(histo[8001]->GetBinError(var)));
+    }
   }
-  for (int var = 0; var < histo3[0]->GetNbinsZ(); var++) {
-    histo[8001]->SetBinError(var, TMath::Sqrt(histo[8001]->GetBinError(var)));
+
+  if (title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) {
+    for (int i = 0; i < histo[0]->GetNbinsX(); i++) {
+      histo[8001]->SetBinContent(i, histo[8001]->GetBinContent(i) + histo[0]->GetBinContent(i) * (1. - h_weight->GetBinContent(i)));
+      histo[8001]->SetBinError(i, histo[8001]->GetBinError(i) +  histo[0]->GetBinContent(i) * TMath::Power(1. - h_weight->GetBinContent(i), 2));
+    }
+    for (int i = 0; i < histo[0]->GetNbinsX(); i++) {
+      histo[8001]->SetBinError(i, TMath::Sqrt(histo[8001]->GetBinError(i)));
+    }
   }
 
   THStack* hstack_mc = new THStack("hstack_mc", "hstack_mc");
@@ -188,16 +202,31 @@ void plot4(string plot="", string title="", string version="v00", string flags="
     }
     if (index > 0) {
       if (flags.find("nobkg") != string::npos) {
-        if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
+        if ((title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) && ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012))) {
+          hstack_mc->Add(it->second);
+          h_mc_sum->Add(it->second);
+        }
+        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index == 10 && index == 1010)) {
           hstack_mc->Add(it->second);
           h_mc_sum->Add(it->second);
         }
       } else {
-        hstack_mc->Add(it->second);
-        h_mc_sum->Add(it->second);
+        if ((title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos)) {
+          hstack_mc->Add(it->second);
+          h_mc_sum->Add(it->second);
+        }
+        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index != 11 && index != 21 && index != 1011 && index != 1021)) {
+          hstack_mc->Add(it->second);
+          h_mc_sum->Add(it->second);
+        }
       }
       if (index == 13 || (index >= 20 && index <= 1000) || index == 1013 || (index >= 1020 && index <= 2000) || index == 8001 || index == 9001) {
-        h_bkg->Add(it->second);
+        if ((title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos)) {
+          h_bkg->Add(it->second);
+        }
+        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index != 11 && index != 21 && index != 1011 && index != 1021)) {
+          h_bkg->Add(it->second);
+        }
       }
     }
   }
@@ -219,9 +248,29 @@ void plot4(string plot="", string title="", string version="v00", string flags="
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "Z #gamma #gamma", "f");
     }
+    if (title.find("h_ZG_") != string::npos && it->first == 11) {
+      it->second->SetFillColor(kOrange-5);
+      leg->AddEntry(it->second, "Z #gamma", "f");
+    }
+    if (title.find("h_ZG_") != string::npos && it->first == 21) {
+      it->second->SetFillColor(kViolet-5);
+      leg->AddEntry(it->second, "W #gamma", "f");
+    }
+    if (it->first == 22) {
+      it->second->SetFillColor(kViolet);
+      leg->AddEntry(it->second, "W #gamma #gamma", "f");
+    }
     if (it->first == 1010) {
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "W #gamma #gamma", "f");
+    }
+    if (title.find("h_WG_") != string::npos && it->first == 1011) {
+      it->second->SetFillColor(kOrange-5);
+      leg->AddEntry(it->second, "W #gamma", "f");
+    }
+    if (title.find("h_WG_") != string::npos && it->first == 1021) {
+      it->second->SetFillColor(kViolet-5);
+      leg->AddEntry(it->second, "Z #gamma", "f");
     }
     if (it->first == 1022) {
       it->second->SetFillColor(kViolet);
@@ -285,8 +334,11 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   h_ratio->SetStats(kFALSE);
 
   string tmp_title = title;
-
-  if (tmp_title == "h_WGG_ele_pho1_eta" || tmp_title == "h_WGG_muo_pho1_eta") {
+  if (tmp_title == "h_WG_ele_pho0_pt" || tmp_title == "h_WG_muo_pho0_pt") {
+    h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_ZG_ele_pho0_pt" || tmp_title == "h_ZG_muo_pho0_pt") {
+    h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_eta" || tmp_title == "h_WGG_muo_pho1_eta") {
     h_ratio->GetXaxis()->SetTitle("#eta^{#gamma}");
   } else if (tmp_title == "h_WGG_ele_pho1_phi" || tmp_title == "h_WGG_muo_pho1_phi") {
     h_ratio->GetXaxis()->SetTitle("#phi^{#gamma}");
@@ -426,11 +478,14 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   TFile* file = new TFile(("html/" + version + "/" + year + ".matrix/root/" + title + "_map.root").c_str(), "update");
   histo[0]->Write((title + "_data").c_str());
   histo[8001]->Write((title + "_misid").c_str());
-  if (plot.find("Wgg") != string::npos) {
+  if (title.find("h_WGG_") != string::npos) {
     histo[1010]->Write((title + "_wgg").c_str());
     histo[1022]->Write((title + "_zgg").c_str());
   }
-  if (plot.find("Zgg") != string::npos) histo[10]->Write((title + "_zgg").c_str());
+  if (title.find("h_ZGG_") != string::npos) {
+    histo[10]->Write((title + "_zgg").c_str());
+    histo[22]->Write((title + "_Wgg").c_str());
+  }
   file->Close();
   delete file;
 

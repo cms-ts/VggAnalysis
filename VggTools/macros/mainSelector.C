@@ -691,7 +691,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
 
    h_Z_muo0_trig = new TH1D("h_Z_muo0_trig", "h_Z_muo0_trig", 32, 0., 32.);
    h_Z_muo1_trig = new TH1D("h_Z_muo1_trig", "h_Z_muo1_trig", 32, 0., 32.);
-//FIXME
+
    h_WG_ele_misid = new TH2D("h_WG_ele_misid","h_WG_ele_misid", 8, -0.5, 7.5, 60, 0., 300.);
    h_WG_muo_misid = new TH2D("h_WG_muo_misid","h_WG_muo_misid", 8, -0.5, 7.5, 60, 0., 300.);
    h_ZG_ele_misid = new TH2D("h_ZG_ele_misid","h_ZG_ele_misid", 8, -0.5, 7.5, 60, 0., 300.);
@@ -719,7 +719,7 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_WGG_muo_pho0_pho1_pt_map = new TH3D("h_WGG_muo_pho0_pho1_pt_map","h_WGG_muo_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
    h_ZGG_ele_pho0_pho1_pt_map = new TH3D("h_ZGG_ele_pho0_pho1_pt_map","h_ZGG_ele_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
    h_ZGG_muo_pho0_pho1_pt_map = new TH3D("h_ZGG_muo_pho0_pho1_pt_map","h_ZGG_muo_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-//FIXME
+
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    h_W_ele_gen = new TH1D("h_W_ele_gen", "h_W_ele_gen", 100, 0., 200.);
    h_W_muo_gen = new TH1D("h_W_muo_gen", "h_W_muo_gen", 100, 0., 200.);
