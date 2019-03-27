@@ -558,7 +558,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
     gSystem->mkdir(("html/" + version + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
   TFile* file = new TFile(("html/" + version + "/" + year + ".matrix/root/matrix_weight.root").c_str(), "update");
-  h_weight->Write((title.substr(0, 8) + "_weight_" + year).c_str());
+  h_weight->Write((title.substr(0, 8) + "_weight").c_str());
   file->Close();
   delete file;
 

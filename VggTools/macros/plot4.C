@@ -151,23 +151,23 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
   if (flags.find("default") != string::npos) version = version + ".default";
 
-  TFile* file_matrix_2016 = TFile::Open( ("html/" + version + "/2016.matrix/root/matrix_weight.root").c_str() );
-  TFile* file_matrix_2017 = TFile::Open( ("html/" + version + "/2017.matrix/root/matrix_weight.root").c_str() );
-  TFile* file_matrix_2018 = TFile::Open( ("html/" + version + "/2018.matrix/root/matrix_weight.root").c_str() );
+  TFile* file_matrix_2016 = new TFile(("html/" + version + "/2016.matrix/root/matrix_weight.root").c_str());
+  TFile* file_matrix_2017 = new TFile(("html/" + version + "/2017.matrix/root/matrix_weight.root").c_str());
+  TFile* file_matrix_2018 = new TFile(("html/" + version + "/2018.matrix/root/matrix_weight.root").c_str());
 
   TH1D* h_weight_2016 = 0;
   TH1D* h_weight_2017 = 0;
   TH1D* h_weight_2018 = 0;
   
   if (title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) {
-    if (!file_matrix_2016->IsZombie()) h_weight_2016 = (TH1D*) file_matrix_2016->Get((title.substr(0, 9) + "weight_2016").c_str());
-    if (!file_matrix_2017->IsZombie()) h_weight_2017 = (TH1D*) file_matrix_2017->Get((title.substr(0, 9) + "weight_2017").c_str());
-    if (!file_matrix_2018->IsZombie()) h_weight_2018 = (TH1D*) file_matrix_2018->Get((title.substr(0, 9) + "weight_2018").c_str());
+    if (!file_matrix_2016->IsZombie()) h_weight_2016 = (TH1D*) file_matrix_2016->Get((title.substr(0, 9) + "weight").c_str());
+    if (!file_matrix_2017->IsZombie()) h_weight_2017 = (TH1D*) file_matrix_2017->Get((title.substr(0, 9) + "weight").c_str());
+    if (!file_matrix_2018->IsZombie()) h_weight_2018 = (TH1D*) file_matrix_2018->Get((title.substr(0, 9) + "weight").c_str());
   }
   if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
-    if (!file_matrix_2016->IsZombie()) h_weight_2016 = (TH1D*) file_matrix_2016->Get((title.substr(0, 4) + title.substr(5, 5) + "weight_2016").c_str());
-    if (!file_matrix_2017->IsZombie()) h_weight_2017 = (TH1D*) file_matrix_2017->Get((title.substr(0, 4) + title.substr(5, 5) + "weight_2017").c_str());
-    if (!file_matrix_2018->IsZombie()) h_weight_2018 = (TH1D*) file_matrix_2018->Get((title.substr(0, 4) + title.substr(5, 5) + "weight_2018").c_str());
+    if (!file_matrix_2016->IsZombie()) h_weight_2016 = (TH1D*) file_matrix_2016->Get((title.substr(0, 4) + title.substr(5, 5) + "weight").c_str());
+    if (!file_matrix_2017->IsZombie()) h_weight_2017 = (TH1D*) file_matrix_2017->Get((title.substr(0, 4) + title.substr(5, 5) + "weight").c_str());
+    if (!file_matrix_2018->IsZombie()) h_weight_2018 = (TH1D*) file_matrix_2018->Get((title.substr(0, 4) + title.substr(5, 5) + "weight").c_str());
   }
 
   TH1D* h_weight = 0;
@@ -245,7 +245,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
           hstack_mc->Add(it->second);
           h_mc_sum->Add(it->second);
         }
-        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index != 11 && index != 21 && index != 1011 && index != 1021)) {
+        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index != 11 && index != 21 && index != 1011)) {
           hstack_mc->Add(it->second);
           h_mc_sum->Add(it->second);
         }
@@ -254,7 +254,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
         if ((title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos)) {
           h_bkg->Add(it->second);
         }
-        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index != 11 && index != 21 && index != 1011 && index != 1021)) {
+        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index != 11 && index != 21 && index != 1011)) {
           h_bkg->Add(it->second);
         }
       }
@@ -298,7 +298,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
       it->second->SetFillColor(kOrange-5);
       leg->AddEntry(it->second, "W #gamma", "f");
     }
-    if (title.find("h_WG_") != string::npos && it->first == 1021) {
+    if ((title.find("h_WG_") != string::npos || title.find("h_WGG_") != string::npos) && it->first == 1021) {
       it->second->SetFillColor(kViolet-5);
       leg->AddEntry(it->second, "Z #gamma", "f");
     }
