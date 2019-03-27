@@ -92,7 +92,10 @@ void plot2(string plot="", string title="", string version="v00", string flags="
 
   h_mc_eff->SetStats(kFALSE);
 
-  h_mc_eff->Draw();
+  h_mc_eff->SetMinimum(0.);
+  h_mc_eff->SetMaximum(1.);
+
+  h_mc_eff->Draw("0");
 
   TLatex* label = new TLatex();
   label->SetTextSize(0.0275);
@@ -100,12 +103,22 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   label->SetLineWidth(2);
   label->SetNDC();
   char buff[100];
-  sprintf(buff, "< #epsilon 0 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(1), h_mc_eff->GetBinError(1));
-  label->DrawLatex(0.50, 0.65, buff);
-  sprintf(buff, "< #epsilon 1 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(2), h_mc_eff->GetBinError(2));
-  label->DrawLatex(0.50, 0.60, buff);
-  sprintf(buff, "< #epsilon 2 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(3), h_mc_eff->GetBinError(3));
-  label->DrawLatex(0.50, 0.55, buff);
+  if (title.find("nphotons") != string::npos) {
+    sprintf(buff, "< #epsilon 0 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(1), h_mc_eff->GetBinError(1));
+    label->DrawLatex(0.50, 0.65, buff);
+    sprintf(buff, "< #epsilon 1 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(2), h_mc_eff->GetBinError(2));
+    label->DrawLatex(0.50, 0.60, buff);
+    sprintf(buff, "< #epsilon 2 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(3), h_mc_eff->GetBinError(3));
+    label->DrawLatex(0.50, 0.55, buff);
+  } else {
+    double xval = 0.;
+    double xerr = 0.;
+    xval = h1->IntegralAndError(0, h1->GetNbinsX()+1, xerr);
+    xval = xval / h2->Integral(0, h2->GetNbinsX()+1);
+    xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1);
+    sprintf(buff, "< #epsilon > = %5.3f #pm %5.3f", xval, xerr);
+    label->DrawLatex(0.50, 0.65, buff);
+  }
 
   while (gSystem->AccessPathName(("html/" + version + "/" + year + ".eff/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + year + ".eff/").c_str(), kTRUE);
@@ -114,9 +127,9 @@ void plot2(string plot="", string title="", string version="v00", string flags="
 
   ofstream out;
   out.open(("html/" + version + "/" + year + ".eff/" + title + ".dat").c_str());
-  out << 0 << " " << h_mc_eff->GetBinContent(1) << " " << h_mc_eff->GetBinError(1) << endl;
-  out << 1 << " " << h_mc_eff->GetBinContent(2) << " " << h_mc_eff->GetBinError(2) << endl;
-  out << 2 << " " << h_mc_eff->GetBinContent(3) << " " << h_mc_eff->GetBinError(3) << endl;
+  for (int i = 0; i < h_mc_eff->GetNbinsX()+1; i++) {
+    out << i << " " << h_mc_eff->GetBinContent(i) << " " << h_mc_eff->GetBinError(i) << endl;
+  }
   out.close();
 
   while (gSystem->AccessPathName(("html/" + version + "/" + year + ".eff/root/").c_str())) {
