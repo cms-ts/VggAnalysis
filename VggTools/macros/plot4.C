@@ -500,12 +500,12 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + year + ".matrix/").c_str(), kTRUE);
   }
-  c1->SaveAs(("html/" + version + "/" + year + ".matrix/" + title + "_map.pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + year + ".matrix/" + title + ".pdf").c_str());
 
   while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + year + ".matrix/root/" + title + "_map.root").c_str(), "update");
+  TFile* file = new TFile(("html/" + version + "/" + year + ".matrix/root/" + title + ".root").c_str(), "update");
   histo[0]->Write((title + "_data").c_str());
   histo[8001]->Write((title + "_misid").c_str());
   if (title.find("h_WGG_") != string::npos) {
