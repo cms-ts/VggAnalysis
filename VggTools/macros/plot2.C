@@ -42,37 +42,41 @@ void plot2(string plot="", string title="", string version="v00", string flags="
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
-      TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
-      if (file->IsZombie()) {
-        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
-        return;
-      }
-      double norm = 1.;
-      if (xsecMap[it->first] != 0) {
-        double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
-        norm = xsecMap[it->first] / ngen;
-      } else {
-        cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
-        return;
-      }
-      if (h1) {
-        h1->Add((TH1D*)gDirectory->Get(title.c_str()), norm);
-      } else {
-        h1 = (TH1D*)gDirectory->Get(title.c_str());
-        h1->SetDirectory(0);
-        h1->Scale(norm);
-      }
-      if (h2) {
-        h2->Add((TH1D*)gDirectory->Get((title + "_gen").c_str()), norm);
-      } else {
-        h2 = (TH1D*)gDirectory->Get((title + "_gen").c_str());
-        h2->SetDirectory(0);
-        h2->Scale(norm);
-      }
-      file->Close();
-      delete file;
+    if (title.find("nphotons") != string::npos) {
+      if (!(index >= 10 && index <= 12) && !(index >= 1010 && index <= 1012)) continue;
+    } else {
+      if (index !=   10 && title.find("h_ZGG_") != string::npos) continue;
+      if (index != 1010 && title.find("h_WGG_") != string::npos) continue;
     }
+    TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
+    if (file->IsZombie()) {
+      cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
+      return;
+    }
+    double norm = 1.;
+    if (xsecMap[it->first] != 0) {
+      double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
+      norm = xsecMap[it->first] / ngen;
+    } else {
+      cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
+      return;
+    }
+    if (h1) {
+      h1->Add((TH1D*)gDirectory->Get(title.c_str()), norm);
+    } else {
+      h1 = (TH1D*)gDirectory->Get(title.c_str());
+      h1->SetDirectory(0);
+      h1->Scale(norm);
+    }
+    if (h2) {
+      h2->Add((TH1D*)gDirectory->Get((title + "_gen").c_str()), norm);
+    } else {
+      h2 = (TH1D*)gDirectory->Get((title + "_gen").c_str());
+      h2->SetDirectory(0);
+      h2->Scale(norm);
+    }
+    file->Close();
+    delete file;
   }
 
   if (flags.find("test") != string::npos) version = version + ".test";
