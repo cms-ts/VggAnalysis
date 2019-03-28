@@ -58,7 +58,6 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   }
 
   map<int, TH1D*> histo;
-  map<int, TH1D*> histo_mc_gen;
 
   float lumi = 0.;
   float lumi2016 = 0.;
@@ -137,23 +136,6 @@ void plot0(string plot="", string title="", string version="v00", string flags="
           histo[index] = h;
           histo[index]->SetDirectory(0);
           histo[index]->Scale(norm);
-        }
-      }
-      if (flags.find("qcd") == string::npos) {
-        if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
-          if (histo_mc_gen[index]) {
-            TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
-            if (h) {
-              histo_mc_gen[index]->Add(h, norm);
-            }
-          } else {
-            TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
-            if (h) {
-              histo_mc_gen[index] = h;
-              histo_mc_gen[index]->SetDirectory(0);
-              histo_mc_gen[index]->Scale(norm);
-            }
-          }
         }
       }
       file->Close();
@@ -238,13 +220,6 @@ void plot0(string plot="", string title="", string version="v00", string flags="
     }
   }
 
-  TH1D* h_mc_gen = (TH1D*)histo[0]->Clone("h_mc_gen");
-  h_mc_gen->Reset();
-
-  for (map<int, TH1D*>::iterator it = histo_mc_gen.begin(); it != histo_mc_gen.end(); it++) {
-    if (it->second) h_mc_gen->Add(it->second);
-  }
-
   TH1D* h_qcd = (TH1D*)histo[0]->Clone("h_qcd");
   if (flags.find("nofit") != string::npos) {
     h_qcd->Add(h_mc_sum, -1);
@@ -252,17 +227,6 @@ void plot0(string plot="", string title="", string version="v00", string flags="
       if (h_qcd->GetBinContent(i) < 0) {
         h_qcd->SetBinContent(i, 0);
         h_qcd->SetBinError(i, 0);
-      }
-    }
-  }
-
-  TH1D* h_nobs = (TH1D*)histo[0]->Clone("h_nobs");
-  if (flags.find("nofit") == string::npos) {
-    h_nobs->Add(h_bkg, -1);
-    for (int i = 0; i < h_nobs->GetNbinsX()+1; i++) {
-      if (h_nobs->GetBinContent(i) < 0) {
-        h_nobs->SetBinContent(i, 0);
-        h_nobs->SetBinError(i, 0);
       }
     }
   }
@@ -739,8 +703,7 @@ void plot0(string plot="", string title="", string version="v00", string flags="
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
   if (flags.find("nofit") != string::npos) h_qcd->Write(title.c_str());
   if (flags.find("nofit") == string::npos) {
-    h_nobs->Write(title.c_str());
-    h_mc_gen->Write((title + "_mc_gen").c_str());
+    histo[0]->Write((title + "_data").c_str());
     h_bkg->Write((title + "_bkg").c_str());
   }
   file->Close();

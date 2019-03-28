@@ -43,7 +43,7 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (title.find("nphotons") != string::npos) {
-      if (!(index >= 10 && index <= 12) && !(index >= 1010 && index <= 1012)) continue;
+      if (!((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012))) continue;
     } else {
       if (index !=   10 && title.find("h_ZGG_") != string::npos) continue;
       if (index != 1010 && title.find("h_WGG_") != string::npos) continue;
@@ -141,6 +141,8 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   }
   TFile* file = new TFile(("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str());
+  h1->Write((title + "_mc_rec").c_str());
+  h2->Write((title + "_mc_gen").c_str());
   h_mc_eff->Write((title + "_mc_eff").c_str());
   file->Close();
   delete file;

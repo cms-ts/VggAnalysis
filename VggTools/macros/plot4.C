@@ -160,26 +160,38 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   TH1D* h_weight_2018 = 0;
   
   if (title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) {
-    if (!file_matrix_2016->IsZombie()) h_weight_2016 = (TH1D*) file_matrix_2016->Get((title.substr(0, 9) + "weight").c_str());
-    if (!file_matrix_2017->IsZombie()) h_weight_2017 = (TH1D*) file_matrix_2017->Get((title.substr(0, 9) + "weight").c_str());
-    if (!file_matrix_2018->IsZombie()) h_weight_2018 = (TH1D*) file_matrix_2018->Get((title.substr(0, 9) + "weight").c_str());
+    if (!file_matrix_2016->IsZombie()) h_weight_2016 = (TH1D*)file_matrix_2016->Get((title.substr(0, 9) + "weight").c_str());
+    if (!file_matrix_2017->IsZombie()) h_weight_2017 = (TH1D*)file_matrix_2017->Get((title.substr(0, 9) + "weight").c_str());
+    if (!file_matrix_2018->IsZombie()) h_weight_2018 = (TH1D*)file_matrix_2018->Get((title.substr(0, 9) + "weight").c_str());
   }
   if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
-    if (!file_matrix_2016->IsZombie()) h_weight_2016 = (TH1D*) file_matrix_2016->Get((title.substr(0, 4) + title.substr(5, 5) + "weight").c_str());
-    if (!file_matrix_2017->IsZombie()) h_weight_2017 = (TH1D*) file_matrix_2017->Get((title.substr(0, 4) + title.substr(5, 5) + "weight").c_str());
-    if (!file_matrix_2018->IsZombie()) h_weight_2018 = (TH1D*) file_matrix_2018->Get((title.substr(0, 4) + title.substr(5, 5) + "weight").c_str());
+    if (!file_matrix_2016->IsZombie()) h_weight_2016 = (TH1D*)file_matrix_2016->Get((string(title).erase(3, 1).substr(0, 9) + "weight").c_str());
+    if (!file_matrix_2017->IsZombie()) h_weight_2017 = (TH1D*)file_matrix_2017->Get((string(title).erase(3, 1).substr(0, 9) + "weight").c_str());
+    if (!file_matrix_2018->IsZombie()) h_weight_2018 = (TH1D*)file_matrix_2018->Get((string(title).erase(3, 1).substr(0, 9) + "weight").c_str());
   }
+
+  if (h_weight_2016) h_weight_2016->SetDirectory(0);
+  if (h_weight_2017) h_weight_2017->SetDirectory(0);
+  if (h_weight_2018) h_weight_2018->SetDirectory(0);
+
+  if (!file_matrix_2016->IsZombie()) file_matrix_2016->Close();
+  if (!file_matrix_2017->IsZombie()) file_matrix_2017->Close();
+  if (!file_matrix_2018->IsZombie()) file_matrix_2018->Close();
+
+  delete file_matrix_2016;
+  delete file_matrix_2017;
+  delete file_matrix_2018;
 
   TH1D* h_weight = 0;
 
-  if (!h_weight && !file_matrix_2016->IsZombie()) h_weight = (TH1D*)h_weight_2016->Clone("h_weight");
-  if (!h_weight && !file_matrix_2017->IsZombie()) h_weight = (TH1D*)h_weight_2017->Clone("h_weight");
-  if (!h_weight && !file_matrix_2018->IsZombie()) h_weight = (TH1D*)h_weight_2018->Clone("h_weight");
+  if (!h_weight && h_weight_2016) h_weight = (TH1D*)h_weight_2016->Clone("h_weight");
+  if (!h_weight && h_weight_2017) h_weight = (TH1D*)h_weight_2017->Clone("h_weight");
+  if (!h_weight && h_weight_2018) h_weight = (TH1D*)h_weight_2018->Clone("h_weight");
 
   h_weight->Reset();
-  if (!file_matrix_2016->IsZombie()) h_weight->Add(h_weight_2016, lumi2016/lumi);
-  if (!file_matrix_2017->IsZombie()) h_weight->Add(h_weight_2017, lumi2017/lumi);
-  if (!file_matrix_2018->IsZombie()) h_weight->Add(h_weight_2018, lumi2018/lumi);
+  if (h_weight_2016) h_weight->Add(h_weight_2016, lumi2016/lumi);
+  if (h_weight_2017) h_weight->Add(h_weight_2017, lumi2017/lumi);
+  if (h_weight_2018) h_weight->Add(h_weight_2018, lumi2018/lumi);
 
   histo[8001] = (TH1D*)histo[0]->Clone();
   histo[8001]->Reset();
@@ -510,11 +522,11 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   histo[0]->Write((title + "_data").c_str());
   histo[8001]->Write((title + "_misid").c_str());
   if (title.find("h_WGG_") != string::npos) {
-    histo[1010]->Write((title + "_wgg").c_str());
+    histo[1021]->Write((title + "_zg").c_str());
     histo[1022]->Write((title + "_zgg").c_str());
   }
   if (title.find("h_ZGG_") != string::npos) {
-    histo[10]->Write((title + "_zgg").c_str());
+    histo[21]->Write((title + "_wg").c_str());
     histo[22]->Write((title + "_wgg").c_str());
   }
   file->Close();
