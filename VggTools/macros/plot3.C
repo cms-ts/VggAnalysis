@@ -563,3 +563,9 @@ void plot3(string plot="", string title="", string version="", string flags="") 
   delete file;
 
 }
+
+int main(int argc, char *argv[]) {
+
+plot3(argv[1], argv[2], argv[3], argv[4]);
+
+}

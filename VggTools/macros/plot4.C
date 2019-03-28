@@ -520,3 +520,9 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   delete file;
 
 }
+
+int main(int argc, char *argv[]) {
+
+plot4(argv[1], argv[2], argv[3], argv[4]);
+
+}
