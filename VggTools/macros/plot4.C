@@ -364,6 +364,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   h_ratio->SetStats(kFALSE);
 
   string tmp_title = title;
+
   if (tmp_title == "h_WG_ele_pho0_pt" || tmp_title == "h_WG_muo_pho0_pt") {
     h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma}");
   } else if (tmp_title == "h_ZG_ele_pho0_pt" || tmp_title == "h_ZG_muo_pho0_pt") {
