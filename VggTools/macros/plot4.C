@@ -514,7 +514,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   }
   if (title.find("h_ZGG_") != string::npos) {
     histo[10]->Write((title + "_zgg").c_str());
-    histo[22]->Write((title + "_Wgg").c_str());
+    histo[22]->Write((title + "_wgg").c_str());
   }
   file->Close();
   delete file;
