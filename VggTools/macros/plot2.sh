@@ -45,16 +45,16 @@ for YEAR in $YEARS; do
   root-6.12 -l -q -b plot2.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho0_pt\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot2.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot2.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho0_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot2.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_muo_pho0_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot2.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_muo_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot2.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_muo_pho0_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot2.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho0_pt\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot2.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot2.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho0_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
 
   root-6.12 -l -q -b plot2.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_ele_pho0_pt\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot2.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_ele_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot2.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_ele_pho0_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot2.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_muo_pho0_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot2.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_muo_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot2.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_muo_pho0_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot2.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_pho0_pt\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot2.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot2.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_pho0_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
 
 done
 
