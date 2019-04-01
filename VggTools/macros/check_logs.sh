@@ -24,7 +24,7 @@ fi
 
 LISTS=""
 for V in $VERSION; do
-  LISTS=$LISTS" "`find ./data/ -type f -name '*.log' | grep /$V/ | sort`
+  LISTS=$LISTS" "`find -L ./data/ -type f -name '*.log' | grep /$V/ | sort`
 done
 
 if [ -z "${LISTS// }" ]; then
