@@ -399,8 +399,8 @@ public :
    TH3D* h_ZGG_ele_pho0_pho1_map = 0;
    TH3D* h_ZGG_muo_pho0_pho1_map = 0;
 
-   TH3D* h_WGG_ele_ele0_ele1_pho0_pho1_map = 0;
-   TH3D* h_WGG_muo_muo0_muo1_pho0_pho1_map = 0;
+   TH3D* h_WGG_ele_ele0_pho0_pho1_map = 0;
+   TH3D* h_WGG_muo_muo0_pho0_pho1_map = 0;
    TH3D* h_ZGG_ele_ele0_ele1_pho0_pho1_map = 0;
    TH3D* h_ZGG_muo_muo0_muo1_pho0_pho1_map = 0;
 
