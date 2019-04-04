@@ -11,7 +11,7 @@ echo "preparing pileup file for RunIISummer16"
 python create_mc_pileup_2016.py 
 echo "preparing pileup file for RunIIFall17"
 python create_mc_pileup_2017.py 
-echo "preparing pileup file for RunIIFall18"
+echo "preparing pileup file for RunIIAutumn18"
 python create_mc_pileup_2018.py 
 
 exit

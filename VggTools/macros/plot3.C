@@ -121,7 +121,6 @@ void plot3(string plot="", string title="", string version="", string flags="") 
           norm = xsecMap[it->first] * 1000. * lumi / ngen;
           if (it->first.find("RunIISummer16") != string::npos) norm = norm * lumi2016 / lumi;
           if (it->first.find("RunIIFall17") != string::npos) norm = norm * lumi2017 / lumi;
-          if (it->first.find("RunIIFall18") != string::npos) norm = norm * lumi2018 / lumi;
           if (it->first.find("RunIIAutumn18") != string::npos) norm = norm * lumi2018 / lumi;
         } else {
           cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
@@ -259,7 +258,6 @@ void plot3(string plot="", string title="", string version="", string flags="") 
         norm = xsecMap[it->first] * 1000. * lumi / ngen;
         if (it->first.find("RunIISummer16") != string::npos) norm = norm * lumi2016 / lumi;
         if (it->first.find("RunIIFall17") != string::npos) norm = norm * lumi2017 / lumi;
-        if (it->first.find("RunIIFall18") != string::npos) norm = norm * lumi2018 / lumi;
         if (it->first.find("RunIIAutumn18") != string::npos) norm = norm * lumi2018 / lumi;
       } else {
         cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;

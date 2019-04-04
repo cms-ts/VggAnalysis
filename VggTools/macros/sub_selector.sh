@@ -34,13 +34,13 @@ if [ ! -z "$2" ]; then
   elif [ "$2" == "MC17" ]; then
     LISTS=`ls lists/ | grep RunIIFall17NanoAOD`
   elif [ "$2" == "MC18" ]; then
-    LISTS=`ls lists/ | grep 'RunIIFall18NanoAOD\|RunIIAutumn18NanoAOD'`
+    LISTS=`ls lists/ | grep 'RunIIAutumn18NanoAOD'`
   elif [ "$2" == "2016" ]; then
     LISTS=`ls lists/ | grep 'Run2016\|RunIISummer16NanoAOD'`
   elif [ "$2" == "2017" ]; then
     LISTS=`ls lists/ | grep 'Run2017\|RunIIFall17NanoAOD'`
   elif [ "$2" == "2018" ]; then
-    LISTS=`ls lists/ | grep 'Run2018\|RunIIFall18NanoAOD\|RunIIAutumn18NanoAOD'`
+    LISTS=`ls lists/ | grep 'Run2018\|RunIIAutumn18NanoAOD'`
   else
     LISTS=$2
   fi
