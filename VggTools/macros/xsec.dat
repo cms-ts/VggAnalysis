@@ -95,7 +95,7 @@ RunIIFall17NanoAODv4_ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-
 RunIIFall17NanoAODv4_ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8			35.85
 RunIIFall17NanoAODv4_ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8				35.85
 #
-RunIIFall17NanoAOD_WW_TuneCP5_13TeV-pythia8	118.7
+RunIIFall17NanoAODv4_WW_TuneCP5_13TeV-pythia8	118.7
 #
 RunIIFall17NanoAODv4_WZ_TuneCP5_13TeV-pythia8	47.13
 RunIIFall17NanoAODv4_ZZ_TuneCP5_13TeV-pythia8	16.523
