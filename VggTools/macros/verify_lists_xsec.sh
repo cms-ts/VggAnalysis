@@ -152,7 +152,7 @@ DATASETS=`cat ./amcatnlo/*.dat* ./madgraph/*.dat* | grep RunII | grep -v \# | aw
 check=0
 for D in $DATASETS; do
 
-  X=`grep $D ./xsec.dat`
+  X=`grep -v \# ./xsec.dat | grep $D`
   if [ -z "$X" ]; then
     echo "missing in ./xsec.dat : "$D
     check=1
