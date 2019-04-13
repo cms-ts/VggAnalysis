@@ -49,6 +49,7 @@ if __name__ == "__main__":
     command=das_cmd+" --limit=100 --query=\"file status=* dataset="+dataset_used+"\" "
     if debug: print 'command',command
     filelist_used = "/store"+commands.getstatusoutput(command)[1].replace("\n",",").split("/store",1)[1] 
+    filelist_used = filelist_used.replace("/store","root://xrootd-cms.infn.it:1194//store");
     if debug: 
         print 'filelist_used',filelist_used.split(',')[0]
         filelist_used = filelist_used.split(',')[0]
