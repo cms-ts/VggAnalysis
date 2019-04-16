@@ -18,6 +18,10 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
   if (flags.find("default") != string::npos) plot = "default/" + plot;
 
+  map<string, float> lumiMap;
+  readMap("lumi.dat", lumiMap);
+  cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
+
   map<string, float> xsecMap;
   readMap("xsec.dat", xsecMap);
   cout << "Read xsec map for " << xsecMap.size() << " datasets from " << "xsec.dat" << endl;
@@ -34,6 +38,37 @@ void plot2(string plot="", string title="", string version="v00", string flags="
 
   if (plotMap.size() == 0) {
     cout << "ERROR: plot map " << plot << " is EMPTY or MISSING !!" << endl;
+    return;
+  }
+
+  float lumi = 0.;
+  float lumi2016 = 0.;
+  float lumi2017 = 0.;
+  float lumi2018 = 0.;
+
+  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+    int index = int(it->second);
+    if (index == 0) {
+      TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
+      if (file->IsZombie()) {
+        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
+        return;
+      }
+      if (lumiMap[it->first] != 0) {
+        lumi = lumi + lumiMap[it->first];
+        if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first];
+        if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first];
+        if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first];
+      } else {
+        cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
+      }
+      file->Close();
+      delete file;
+    }
+  }
+
+  if (lumi == 0) {
+    cout << "ERROR: total luminosity is ZERO !!" << endl;
     return;
   }
 
@@ -56,24 +91,39 @@ void plot2(string plot="", string title="", string version="v00", string flags="
     double norm = 1.;
     if (xsecMap[it->first] != 0) {
       double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
-      norm = xsecMap[it->first] / ngen;
+      norm = xsecMap[it->first] * 1000. * lumi / ngen;
+      if (it->first.find("RunIISummer16") != string::npos) norm = norm * lumi2016 / lumi;
+      if (it->first.find("RunIIFall17") != string::npos) norm = norm * lumi2017 / lumi;
+      if (it->first.find("RunIIAutumn18") != string::npos) norm = norm * lumi2018 / lumi;
     } else {
       cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
       return;
     }
     if (h1) {
-      h1->Add((TH1D*)gDirectory->Get(title.c_str()), norm);
+      TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+      if (h) {
+        h1->Add(h, norm);
+      }
     } else {
-      h1 = (TH1D*)gDirectory->Get(title.c_str());
-      h1->SetDirectory(0);
-      h1->Scale(norm);
+      TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+      if (h) {
+        h1 = h;
+        h1->SetDirectory(0);
+        h1->Scale(norm);
+      }
     }
     if (h2) {
-      h2->Add((TH1D*)gDirectory->Get((title + "_gen").c_str()), norm);
+      TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
+      if (h) {
+        h2->Add(h, norm);
+      }
     } else {
-      h2 = (TH1D*)gDirectory->Get((title + "_gen").c_str());
-      h2->SetDirectory(0);
-      h2->Scale(norm);
+      TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
+      if (h) {
+        h2 = h;
+        h2->SetDirectory(0);
+        h2->Scale(norm);
+      }
     }
     file->Close();
     delete file;
