@@ -106,7 +106,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index == 10 || index == 11 || index == 21|| index == 22|| index == 1010 || index == 1011 || index == 1021|| index == 1022) {
+    if (index == 10 || index == 11 || index == 21|| index == 22|| index == 1010 || index == 1011 || index == 1020 || index == 1021|| index == 1022) {
       TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
       if (!file->IsOpen()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
@@ -149,6 +149,28 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
   if (flags.find("default") != string::npos) version = version + ".default";
+
+  if (true) {
+    float fitval = 0.;
+    float fiterr = 0.;
+    int index = 9001;
+    ifstream file1;
+    if (title.find("h_WG_") != string::npos) {
+      file1.open(("html/" + version + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
+    }
+    if (file1.is_open()) {
+      file1 >> fitval >> fiterr;
+      file1.close();
+      TFile* file2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+      if (!file2->IsZombie()) {
+        histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
+        histo[index]->SetDirectory(0);
+        histo[index]->Scale(fitval);
+        file2->Close();
+        delete file2;
+      }
+    }
+  }
 
   TFile* file_matrix_2016 = new TFile(("html/" + version + "/2016.matrix/root/matrix_weight.root").c_str());
   TFile* file_matrix_2017 = new TFile(("html/" + version + "/2017.matrix/root/matrix_weight.root").c_str());
@@ -256,7 +278,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
           hstack_mc->Add(it->second);
           h_mc_sum->Add(it->second);
         }
-        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index != 11 && index != 21 && index != 1011)) {
+        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index != 11 && index != 21 && index != 1011 && index != 1020 && index != 9001)) {
           hstack_mc->Add(it->second);
           h_mc_sum->Add(it->second);
         }
@@ -265,7 +287,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
         if ((title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos)) {
           h_bkg->Add(it->second);
         }
-        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index != 11 && index != 21 && index != 1011)) {
+        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index != 11 && index != 21 && index != 1011 && index != 1020 && index != 9001)) {
           h_bkg->Add(it->second);
         }
       }
@@ -308,6 +330,14 @@ void plot4(string plot="", string title="", string version="v00", string flags="
     if (title.find("h_WG_") != string::npos && it->first == 1011) {
       it->second->SetFillColor(kOrange-5);
       leg->AddEntry(it->second, "W #gamma", "f");
+    }
+    if (title.find("h_WG_") != string::npos && it->first == 1020) {
+      it->second->SetFillColor(kYellow-4);
+      leg->AddEntry(it->second, "DYJets", "f");
+    }
+    if (title.find("h_WG_") != string::npos && it->first == 9001) {
+      it->second->SetFillColor(kMagenta+3);
+      leg->AddEntry(it->second, "QCD", "f");
     }
     if ((title.find("h_WG_") != string::npos || title.find("h_WGG_") != string::npos) && it->first == 1021) {
       it->second->SetFillColor(kViolet-5);
