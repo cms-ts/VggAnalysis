@@ -21,7 +21,7 @@ done
 
 for D1 in `ls $DATADIR/ | grep Run2018`; do
   for D2 in `ls $DATADIR/$D1`; do
-    find $DATADIR/$D1/$D2 -type f | grep 14Dec2018 | \
+    find $DATADIR/$D1/$D2 -type f | grep 14Dec2018 | grep -v 22Jan2019 | \
     awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/${D1}_${D2}_14Dec2018.list
   done
 done
@@ -37,7 +37,7 @@ for D2 in `ls $DATADIR/Run2017C/`; do
 done
 
 for D2 in `ls $DATADIR/Run2018C/`; do
-  find $DATADIR/Run2018*/$D2 -type f | grep 14Dec2018 | \
+  find $DATADIR/Run2018*/$D2 -type f | grep 14Dec2018 | grep -v 22Jan2019 | \
   awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/Run2018_${D2}_14Dec2018.list
 done
 
