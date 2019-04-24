@@ -1515,6 +1515,40 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    }
 
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if 0
+   if (isWG || isZG || isWGG || isZGG) {
+
+     bool match0 = false;
+     bool match1 = false;
+
+     for (uint i = 0; i < *nGenPart; i++) {
+       if (GenPart_status[i] != 1) continue;
+       if (fabs(GenPart_pdgId[i]) != 22) continue;
+       if ((GenPart_statusFlags[i] & 1) != 1) continue;
+       if (GenPart_pt[i] < 20) continue;
+       if (fabs(GenPart_eta[i]) > 2.400) continue;
+
+       TLorentzVector tmp_pho_gen;
+       tmp_pho_gen.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
+       if (ipho0 != -1 && tmp_pho_gen.DeltaR(pho0) < 0.2) match0 = true;
+       if (ipho1 != -1 && tmp_pho_gen.DeltaR(pho1) < 0.2) match1 = true;
+     }
+
+     if (ipho0 != -1 && !match0) {
+       ipho0 = -1;
+       ipho1 = -1;
+       n_photons = n_photons - 2;
+     }
+     if (ipho1 != -1 && !match1) {
+       ipho1 = -1;
+       n_photons = n_photons - 1;
+     }
+
+   }
+#endif
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
 // photons noiso
 
    int n_photons_noiso = 0;
