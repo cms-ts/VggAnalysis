@@ -63,6 +63,15 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   TFile* f1 = new TFile(("html/" + version + "/" + year + "/root/" + title + "_nofit.root").c_str());
   TFile* f2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
 
+  if (f1->IsZombie()) {
+    cout << "ERROR: file " << f1->GetName() << " is MISSING !!" << endl;
+    return;
+  }
+  if (f2->IsZombie()) {
+    cout << "ERROR: file " << f2->GetName() << " is MISSING !!" << endl;
+    return;
+  }
+
   TH1D* h1 = (TH1D*)f1->Get((title + "_nofit").c_str());
   TH1D* h2 = (TH1D*)f2->Get((title + "_qcd_nofit").c_str());
 
