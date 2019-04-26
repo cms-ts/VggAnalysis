@@ -150,58 +150,87 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
   if (flags.find("default") != string::npos) version = version + ".default";
 
-  if (true) {
+  if (title.find("h_WG_") != string::npos) {
+    ifstream file1;
+    file1.open(("html/" + version + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
+    if (!file1.is_open()) {
+      cout << "ERROR: file " << "html/" + version + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat" << " is MISSING !!" << endl;
+      return;
+    }
     float fitval = 0.;
     float fiterr = 0.;
+    file1 >> fitval >> fiterr;
+    file1.close();
+
+    TFile* file2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+    if (file2->IsZombie()) {
+      cout << "ERROR: file " << file2->GetName() << " is MISSING !!" << endl;
+      return;
+    }
     int index = 9001;
-    ifstream file1;
-    if (title.find("h_WG_") != string::npos) {
-      file1.open(("html/" + version + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
-    }
-    if (file1.is_open()) {
-      file1 >> fitval >> fiterr;
-      file1.close();
-      TFile* file2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
-      if (!file2->IsZombie()) {
-        histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
-        histo[index]->SetDirectory(0);
-        histo[index]->Scale(fitval);
-        file2->Close();
-        delete file2;
-      }
-    }
+    histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
+    histo[index]->SetDirectory(0);
+    histo[index]->Scale(fitval);
+    file2->Close();
+    delete file2;
   }
 
-  TFile* file_matrix_2016 = new TFile(("html/" + version + "/2016.matrix/root/matrix_weight.root").c_str());
-  TFile* file_matrix_2017 = new TFile(("html/" + version + "/2017.matrix/root/matrix_weight.root").c_str());
-  TFile* file_matrix_2018 = new TFile(("html/" + version + "/2018.matrix/root/matrix_weight.root").c_str());
+  TFile* file_matrix_2016 = 0;
+  TFile* file_matrix_2017 = 0;
+  TFile* file_matrix_2018 = 0;
+
+  if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
+    file_matrix_2016 = new TFile(("html/" + version + "/2016.matrix/root/matrix_weight.root").c_str());
+    if (file_matrix_2016->IsZombie()) {
+      cout << "ERROR: file " << file_matrix_2016->GetName() << " is MISSING !!" << endl;
+      return;
+    }
+  }
+  if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
+    file_matrix_2017 = new TFile(("html/" + version + "/2017.matrix/root/matrix_weight.root").c_str());
+    if ( file_matrix_2017->IsZombie()) {
+      cout << "ERROR: file " << file_matrix_2017->GetName() << " is MISSING !!" << endl;
+      return;
+    }
+  }
+  if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
+    file_matrix_2018 = new TFile(("html/" + version + "/2018.matrix/root/matrix_weight.root").c_str());
+    if (file_matrix_2018->IsZombie()) {
+      cout << "ERROR: file " << file_matrix_2018->GetName() << " is MISSING !!" << endl;
+      return;
+    }
+  }
 
   TH1D* h_weight_2016 = 0;
   TH1D* h_weight_2017 = 0;
   TH1D* h_weight_2018 = 0;
   
   if (title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) {
-    if (!file_matrix_2016->IsZombie()) h_weight_2016 = (TH1D*)file_matrix_2016->Get((title.substr(0, 9) + "weight").c_str());
-    if (!file_matrix_2017->IsZombie()) h_weight_2017 = (TH1D*)file_matrix_2017->Get((title.substr(0, 9) + "weight").c_str());
-    if (!file_matrix_2018->IsZombie()) h_weight_2018 = (TH1D*)file_matrix_2018->Get((title.substr(0, 9) + "weight").c_str());
+    if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get((title.substr(0, 9) + "weight").c_str());
+    if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get((title.substr(0, 9) + "weight").c_str());
+    if (file_matrix_2018) h_weight_2018 = (TH1D*)file_matrix_2018->Get((title.substr(0, 9) + "weight").c_str());
   }
   if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
-    if (!file_matrix_2016->IsZombie()) h_weight_2016 = (TH1D*)file_matrix_2016->Get((string(title).erase(3, 1).substr(0, 9) + "weight").c_str());
-    if (!file_matrix_2017->IsZombie()) h_weight_2017 = (TH1D*)file_matrix_2017->Get((string(title).erase(3, 1).substr(0, 9) + "weight").c_str());
-    if (!file_matrix_2018->IsZombie()) h_weight_2018 = (TH1D*)file_matrix_2018->Get((string(title).erase(3, 1).substr(0, 9) + "weight").c_str());
+    if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get((string(title).erase(3, 1).substr(0, 9) + "weight").c_str());
+    if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get((string(title).erase(3, 1).substr(0, 9) + "weight").c_str());
+    if (file_matrix_2018) h_weight_2018 = (TH1D*)file_matrix_2018->Get((string(title).erase(3, 1).substr(0, 9) + "weight").c_str());
   }
 
-  if (h_weight_2016) h_weight_2016->SetDirectory(0);
-  if (h_weight_2017) h_weight_2017->SetDirectory(0);
-  if (h_weight_2018) h_weight_2018->SetDirectory(0);
-
-  if (!file_matrix_2016->IsZombie()) file_matrix_2016->Close();
-  if (!file_matrix_2017->IsZombie()) file_matrix_2017->Close();
-  if (!file_matrix_2018->IsZombie()) file_matrix_2018->Close();
-
-  delete file_matrix_2016;
-  delete file_matrix_2017;
-  delete file_matrix_2018;
+  if (file_matrix_2016) {
+    h_weight_2016->SetDirectory(0);
+    file_matrix_2016->Close();
+    delete file_matrix_2016;
+  }
+  if (file_matrix_2017) {
+    h_weight_2017->SetDirectory(0);
+    file_matrix_2017->Close();
+    delete file_matrix_2017;
+  }
+  if (file_matrix_2018) {
+    h_weight_2018->SetDirectory(0);
+    file_matrix_2018->Close();
+    delete file_matrix_2018;
+  }
 
   TH1D* h_weight = 0;
 

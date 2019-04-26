@@ -83,6 +83,15 @@ void plot5(string plot="", string title="", string version="v00", string flags="
   }
   TFile* f2 = new TFile(("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str());
 
+  if (f1->IsZombie()) {
+    cout << "ERROR: file " << f1->GetName() << " is MISSING !!" << endl;
+    return;
+  }
+  if (f2->IsZombie()) {
+    cout << "ERROR: file " << f2->GetName() << " is MISSING !!" << endl;
+    return;
+  }
+
   TH1D* h_data = (TH1D*)f1->Get((title + "_data").c_str());
   TH1D* h_bkg = 0;
   if (useMC) {
