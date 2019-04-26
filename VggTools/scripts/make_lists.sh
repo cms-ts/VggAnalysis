@@ -21,9 +21,14 @@ done
 
 for D1 in `ls $DATADIR/ | grep Run2018`; do
   for D2 in `ls $DATADIR/$D1`; do
-    find $DATADIR/$D1/$D2 -type f | grep 14Dec2018 | grep -v 22Jan2019 | \
+    find $DATADIR/$D1/$D2 -type f | grep 14Dec2018 | grep $D1/$D2/NANOAOD/Nano14Dec2018 | \
     awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/${D1}_${D2}_14Dec2018.list
   done
+done
+
+for D2 in EGamma SingleMuon; do
+  find $DATADIR/Run2018D/$D2 -type f | grep 14Dec2018 | grep -v Run2018D/$D2/NANOAOD/Nano14Dec2018 | \
+  awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/Run2018D_${D2}_22Jan2019.list
 done
 
 for D2 in `ls $DATADIR/Run2016C/`; do
@@ -39,6 +44,11 @@ done
 for D2 in `ls $DATADIR/Run2018C/`; do
   find $DATADIR/Run2018*/$D2 -type f | grep 14Dec2018 | grep -v 22Jan2019 | \
   awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/Run2018_${D2}_14Dec2018.list
+done
+
+for D2 in EGamma SingleMuon; do
+  find $DATADIR/Run2018*/$D2 -type f | grep 14Dec2018 | grep -v Run2018D/$D2/NANOAOD/Nano14Dec2018 | \
+  awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/Run2018_${D2}_22Jan2019.list
 done
 
 DATADIR=/eos/infnts/cms/store/mc
