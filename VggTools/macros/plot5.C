@@ -111,6 +111,7 @@ void plot5(string plot="", string title="", string version="v00", string flags="
       h_bkg->Add(h2);
     }
   }
+
   TH1D* h_mc_gen = (TH1D*)f2->Get((title + "_mc_gen").c_str());
 
   TH1D* h_mc_eff = (TH1D*)f2->Get((title + "_mc_eff").c_str());
@@ -141,6 +142,8 @@ void plot5(string plot="", string title="", string version="v00", string flags="
   h_xsec_rec->Scale(1. / (1000. * lumi));
 
   TH1D* h_xsec_mc_gen = (TH1D*)h_mc_gen->Clone("h_xsec_mc_gen");
+
+  h_xsec_mc_gen->Scale(1. / (1000. * lumi));
 
   gROOT->GetColor(kRed)->SetAlpha(0.5);
   gROOT->GetColor(kGreen+2)->SetAlpha(0.5);
