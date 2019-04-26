@@ -379,7 +379,7 @@ void plot5(string plot="", string title="", string version="v00", string flags="
   if (h_mc_gen_2018) h_xsec_mc_gen->Add(h_mc_gen_2018);
 
   h_xsec_mc_gen->Scale(1. / (1000. * lumi));
-#endif
+#endif // defined(USE_RUN2_AVERAGES)
 
   gROOT->GetColor(kRed)->SetAlpha(0.5);
   gROOT->GetColor(kGreen+2)->SetAlpha(0.5);
