@@ -75,6 +75,9 @@ void plot5(string plot="", string title="", string version="v00", string flags="
 
   if (title.find("nphotons") != string::npos) useMC = true;
 
+// #define USE_RUN2_AVERAGES
+
+#if defined(USE_RUN2_AVERAGES)
   TFile* f1 = 0;
   if (useMC) {
     f1 = new TFile(("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
@@ -144,6 +147,239 @@ void plot5(string plot="", string title="", string version="v00", string flags="
   TH1D* h_xsec_mc_gen = (TH1D*)h_mc_gen->Clone("h_xsec_mc_gen");
 
   h_xsec_mc_gen->Scale(1. / (1000. * lumi));
+#else
+  TFile* f1_2016 = 0;
+  TFile* f2_2016 = 0;
+  TFile* f1_2017 = 0;
+  TFile* f2_2017 = 0;
+  TFile* f1_2018 = 0;
+  TFile* f2_2018 = 0;
+
+  if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
+    if (useMC) {
+      f1_2016 = new TFile(("html/" + version + "/" + "2016/root/" + title + ".root").c_str());
+    } else {
+      f1_2016 = new TFile(("html/" + version + "/" + "2016.matrix/root/" + title + ".root").c_str());
+    }
+    if (f1_2016->IsZombie()) {
+      cout << "ERROR: file " << f1_2016->GetName() << " is MISSING !!" << endl;
+      return;
+    }
+    f2_2016 = new TFile(("html/" + version + "/" + "2016.eff/root/" + title + ".root").c_str());
+    if (f2_2016->IsZombie()) {
+      cout << "ERROR: file " << f2_2016->GetName() << " is MISSING !!" << endl;
+      return;
+    }
+  }
+  if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
+    if (useMC) {
+      f1_2017 = new TFile(("html/" + version + "/" + "2017/root/" + title + ".root").c_str());
+    } else {
+      f1_2017 = new TFile(("html/" + version + "/" + "2017.matrix/root/" + title + ".root").c_str());
+    }
+    if (f1_2017->IsZombie()) {
+      cout << "ERROR: file " << f1_2017->GetName() << " is MISSING !!" << endl;
+      return;
+    }
+    f2_2017 = new TFile(("html/" + version + "/" + "2017.eff/root/" + title + ".root").c_str());
+    if (f2_2017->IsZombie()) {
+      cout << "ERROR: file " << f2_2017->GetName() << " is MISSING !!" << endl;
+      return;
+    }
+  }
+  if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
+    if (useMC) {
+      f1_2018 = new TFile(("html/" + version + "/" + "2018/root/" + title + ".root").c_str());
+    } else {
+      f1_2018 = new TFile(("html/" + version + "/" + "2018.matrix/root/" + title + ".root").c_str());
+    }
+    if (f1_2018->IsZombie()) {
+      cout << "ERROR: file " << f1_2018->GetName() << " is MISSING !!" << endl;
+      return;
+    }
+    f2_2018 = new TFile(("html/" + version + "/" + "2018.eff/root/" + title + ".root").c_str());
+    if (f2_2018->IsZombie()) {
+      cout << "ERROR: file " << f2_2018->GetName() << " is MISSING !!" << endl;
+      return;
+    }
+  }
+
+  TH1D* h_data_2016 = 0;
+  TH1D* h_data_2017 = 0;
+  TH1D* h_data_2018 = 0;
+
+  if (f1_2016) h_data_2016 = (TH1D*)f1_2016->Get((title + "_data").c_str());
+  if (f1_2017) h_data_2017 = (TH1D*)f1_2017->Get((title + "_data").c_str());
+  if (f1_2018) h_data_2018 = (TH1D*)f1_2018->Get((title + "_data").c_str());
+
+  TH1D* h_bkg_2016 = 0;
+  TH1D* h_bkg_2017 = 0;
+  TH1D* h_bkg_2018 = 0;
+
+  if (useMC) {
+    if (f1_2016) h_bkg_2016 = (TH1D*)f1_2016->Get((title + "_bkg").c_str());
+    if (f1_2017) h_bkg_2017 = (TH1D*)f1_2017->Get((title + "_bkg").c_str());
+    if (f1_2018) h_bkg_2018 = (TH1D*)f1_2018->Get((title + "_bkg").c_str());
+  } else {
+    if (f1_2016) h_bkg_2016 = (TH1D*)f1_2016->Get((title + "_misid").c_str());
+    if (f1_2017) h_bkg_2017 = (TH1D*)f1_2017->Get((title + "_misid").c_str());
+    if (f1_2018) h_bkg_2018 = (TH1D*)f1_2018->Get((title + "_misid").c_str());
+    if (title.find("h_WGG_") != string::npos) {
+      if (f1_2016) {
+        TH1D* h1 = (TH1D*)f1_2016->Get((title + "_zg").c_str());
+        h_bkg_2016->Add(h1);
+        TH1D* h2 = (TH1D*)f1_2016->Get((title + "_zgg").c_str());
+        h_bkg_2016->Add(h2);
+      }
+      if (f1_2017) {
+        TH1D* h1 = (TH1D*)f1_2017->Get((title + "_zg").c_str());
+        h_bkg_2017->Add(h1);
+        TH1D* h2 = (TH1D*)f1_2017->Get((title + "_zgg").c_str());
+        h_bkg_2017->Add(h2);
+      }
+      if (f1_2018) {
+        TH1D* h1 = (TH1D*)f1_2018->Get((title + "_zg").c_str());
+        h_bkg_2018->Add(h1);
+        TH1D* h2 = (TH1D*)f1_2018->Get((title + "_zgg").c_str());
+        h_bkg_2018->Add(h2);
+      }
+    }
+    if (title.find("h_ZGG_") != string::npos) {
+      if (f1_2016) {
+        TH1D* h1 = (TH1D*)f1_2016->Get((title + "_wg").c_str());
+        h_bkg_2016->Add(h1);
+        TH1D* h2 = (TH1D*)f1_2016->Get((title + "_wgg").c_str());
+        h_bkg_2016->Add(h2);
+      }
+      if (f1_2017) {
+        TH1D* h1 = (TH1D*)f1_2017->Get((title + "_wg").c_str());
+        h_bkg_2017->Add(h1);
+        TH1D* h2 = (TH1D*)f1_2017->Get((title + "_wgg").c_str());
+        h_bkg_2017->Add(h2);
+      }
+      if (f1_2018) {
+        TH1D* h1 = (TH1D*)f1_2018->Get((title + "_wg").c_str());
+        h_bkg_2018->Add(h1);
+        TH1D* h2 = (TH1D*)f1_2018->Get((title + "_wgg").c_str());
+        h_bkg_2018->Add(h2);
+      }
+    }
+  }
+
+  TH1D* h_mc_gen_2016 = 0;
+  TH1D* h_mc_gen_2017 = 0;
+  TH1D* h_mc_gen_2018 = 0;
+
+  if (f2_2016) h_mc_gen_2016 = (TH1D*)f2_2016->Get((title + "_mc_gen").c_str());
+  if (f2_2017) h_mc_gen_2017 = (TH1D*)f2_2017->Get((title + "_mc_gen").c_str());
+  if (f2_2018) h_mc_gen_2018 = (TH1D*)f2_2018->Get((title + "_mc_gen").c_str());
+
+  TH1D* h_mc_eff_2016 = 0;
+  TH1D* h_mc_eff_2017 = 0;
+  TH1D* h_mc_eff_2018 = 0;
+
+  if (f2_2016) h_mc_eff_2016 = (TH1D*)f2_2016->Get((title + "_mc_eff").c_str());
+  if (f2_2017) h_mc_eff_2017 = (TH1D*)f2_2017->Get((title + "_mc_eff").c_str());
+  if (f2_2018) h_mc_eff_2018 = (TH1D*)f2_2018->Get((title + "_mc_eff").c_str());
+
+  if (f1_2016) {
+    h_data_2016->SetDirectory(0);
+    h_bkg_2016->SetDirectory(0);
+    f1_2016->Close();
+    delete f1_2016;
+  }
+  if (f2_2016) {
+    h_mc_gen_2016->SetDirectory(0);
+    h_mc_eff_2016->SetDirectory(0);
+    f2_2016->Close();
+    delete f2_2016;
+  }
+
+  if (f1_2017) {
+    h_data_2017->SetDirectory(0);
+    h_bkg_2017->SetDirectory(0);
+    f1_2017->Close();
+    delete f1_2017;
+  }
+  if (f2_2017) {
+    h_mc_gen_2017->SetDirectory(0);
+    h_mc_eff_2017->SetDirectory(0);
+    f2_2017->Close();
+    delete f2_2017;
+  }
+
+  if (f1_2018) {
+    h_data_2018->SetDirectory(0);
+    h_bkg_2018->SetDirectory(0);
+    f1_2018->Close();
+    delete f1_2018;
+  }
+    if (f2_2018) {
+    h_mc_gen_2018->SetDirectory(0);
+    h_mc_eff_2018->SetDirectory(0);
+    f2_2018->Close();
+    delete f2_2018;
+  }
+
+  if (h_data_2016 && h_bkg_2016 && h_mc_eff_2016) {
+    h_data_2016->Add(h_bkg_2016, -1);
+    for (int i = 0; i < h_data_2016->GetNbinsX()+1; i++) {
+      if (h_data_2016->GetBinContent(i) < 0) {
+        h_data_2016->SetBinContent(i, 0);
+        h_data_2016->SetBinError(i, 0);
+      }
+    }
+    h_data_2016->Divide(h_mc_eff_2016);
+  }
+
+  if (h_data_2017 && h_bkg_2017 && h_mc_eff_2017) {
+    h_data_2017->Add(h_bkg_2017, -1);
+    for (int i = 0; i < h_data_2017->GetNbinsX()+1; i++) {
+      if (h_data_2017->GetBinContent(i) < 0) {
+        h_data_2017->SetBinContent(i, 0);
+        h_data_2017->SetBinError(i, 0);
+      }
+    }
+    h_data_2017->Divide(h_mc_eff_2017);
+  }
+
+  if (h_data_2018 && h_bkg_2018 && h_mc_eff_2018) {
+    h_data_2018->Add(h_bkg_2018, -1);
+    for (int i = 0; i < h_data_2018->GetNbinsX()+1; i++) {
+      if (h_data_2018->GetBinContent(i) < 0) {
+        h_data_2018->SetBinContent(i, 0);
+        h_data_2018->SetBinError(i, 0);
+      }
+    }
+    h_data_2018->Divide(h_mc_eff_2018);
+  }
+
+  TH1D* h_xsec_rec = 0;
+
+  if (!h_xsec_rec && h_data_2016) h_xsec_rec = (TH1D*)h_data_2016->Clone("h_xsec_rec");
+  if (!h_xsec_rec && h_data_2017) h_xsec_rec = (TH1D*)h_data_2017->Clone("h_xsec_rec");
+  if (!h_xsec_rec && h_data_2018) h_xsec_rec = (TH1D*)h_data_2018->Clone("h_xsec_rec");
+
+  h_xsec_rec->Reset();
+  if (h_data_2016) h_xsec_rec->Add(h_data_2016);
+  if (h_data_2017) h_xsec_rec->Add(h_data_2017);
+  if (h_data_2018) h_xsec_rec->Add(h_data_2018);
+
+  h_xsec_rec->Scale(1. / (1000. * lumi));
+
+  TH1D* h_xsec_mc_gen = 0;
+
+  if (!h_xsec_mc_gen && h_mc_gen_2016) h_xsec_mc_gen = (TH1D*)h_mc_gen_2016->Clone("h_xsec_mc_gen");
+  if (!h_xsec_mc_gen && h_mc_gen_2017) h_xsec_mc_gen = (TH1D*)h_mc_gen_2017->Clone("h_xsec_mc_gen");
+  if (!h_xsec_mc_gen && h_mc_gen_2018) h_xsec_mc_gen = (TH1D*)h_mc_gen_2018->Clone("h_xsec_mc_gen");
+
+  h_xsec_mc_gen->Reset();
+  if (h_mc_gen_2016) h_xsec_mc_gen->Add(h_mc_gen_2016);
+  if (h_mc_gen_2017) h_xsec_mc_gen->Add(h_mc_gen_2017);
+  if (h_mc_gen_2018) h_xsec_mc_gen->Add(h_mc_gen_2018);
+
+  h_xsec_mc_gen->Scale(1. / (1000. * lumi));
+#endif
 
   gROOT->GetColor(kRed)->SetAlpha(0.5);
   gROOT->GetColor(kGreen+2)->SetAlpha(0.5);
