@@ -32,4 +32,12 @@ for F in `ls json/Run2018_*.json | grep 14Dec2018`; do
                 --maxPileupBin 100 --numPileupBins 100 root/pileup_`basename $F .json`.root
 done
 
+for F in `ls json/Run2018_*.json | grep 22Jan2019`; do
+  echo "preparing pileup file for "`basename $F .json`
+  pileupCalc.py -i $F \
+                --inputLumiJSON /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions18/13TeV/PileUp/pileup_latest.txt \
+                --calcMode true --minBiasXsec 69200 \
+                --maxPileupBin 100 --numPileupBins 100 root/pileup_`basename $F .json`.root
+done
+
 exit
