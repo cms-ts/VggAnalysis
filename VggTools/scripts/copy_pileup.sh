@@ -23,4 +23,9 @@ for F in `ls root/ratio_pileup_Run2018_* | grep 14Dec2018`; do
   [ -z "${F##*SingleMuon*}"     ] && cp -p $F ../macros/root/
 done
 
+for F in `ls root/ratio_pileup_Run2018_* | grep 22Dec2019`; do
+  [ -z "${F##*EGamma*}"         ] && cp -p $F ../macros/root/
+  [ -z "${F##*SingleMuon*}"     ] && cp -p $F ../macros/root/
+done
+
 exit
