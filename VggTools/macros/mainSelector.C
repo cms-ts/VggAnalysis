@@ -1135,9 +1135,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 // electron energy corrections not needed
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
 // electron energy corrections not needed
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+     eCorr_ele = ecalSmearMC(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i], Electron_r9[i], gRandom->Gaus());
+#endif // defined(mainSelectorMC18_cxx)
      Electron_pt[i] = Electron_pt[i] * eCorr_ele;
      if (Electron_pt[i] < 15) continue;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) continue;
@@ -1359,6 +1362,17 @@ Bool_t mainSelector::Process(Long64_t entry)
    int ipho0_fake = -1;
 
    for (uint i = 0; i < *nPhoton; i++) {
+     float eCorr_pho = 1.;
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+// photon energy corrections not needed
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+// photon energy corrections not needed
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+     eCorr_pho = ecalSmearMC(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i], Photon_r9[i], gRandom->Gaus());
+#endif // defined(mainSelectorMC18_cxx)
+     Photon_pt[i] = Photon_pt[i] * eCorr_pho;
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
