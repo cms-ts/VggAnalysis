@@ -301,6 +301,8 @@ public :
    TH1D* h_WGG_ele_ele0_pho1 = 0;
    TH1D* h_WGG_ele_ele0_pho0_pho1 = 0;
 
+   TH1D* h_WG_ele_ele0_pho0_fake = 0;
+
    TH1D* h_WG_muo_muo0_pho0 = 0;
    TH1D* h_WGG_muo_pho0_pho1_pt = 0;
    TH1D* h_WGG_muo_pho0_pho1 = 0;

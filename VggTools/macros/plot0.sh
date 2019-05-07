@@ -260,6 +260,8 @@ for YEAR in $YEARS; do
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_ele0_pho1\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_ele0_pho0_pho1\",\"$VERSION\",\"$FLAGS\"\)
 
+  root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_WG_ele_ele0_pho0_fake\",\"$VERSION\",\"$FLAGS\"\)
+
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WG_muo_muo0_pho0\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho0_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
   root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_muo_pho0_pho1\",\"$VERSION\",\"$FLAGS\"\)

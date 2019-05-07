@@ -637,6 +637,8 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_WGG_ele_ele0_pho1 = new TH1D("h_WGG_ele_ele0_pho1", "h_WGG_ele_ele0_pho1", 10, 0., 200.);
    h_WGG_ele_ele0_pho0_pho1 = new TH1D("h_WGG_ele_ele0_pho0_pho1", "h_WGG_ele_ele0_pho0_pho1", 15, 0., 300.);
 
+   h_WG_ele_ele0_pho0_fake = new TH1D("h_WG_ele_ele0_pho0_fake", "h_WG_ele_ele0_pho0_fake", 40, 71., 111.);
+
    h_WG_muo_muo0_pho0 = new TH1D("h_WG_muo_muo0_pho0", "h_WG_muo_muo0_pho0", 40, 0., 200.);
    h_WGG_muo_pho0_pho1_pt = new TH1D("h_WGG_muo_pho0_pho1_pt", "h_WGG_muo_pho0_pho1_pt", 15, 0., 300.);
    h_WGG_muo_pho0_pho1 = new TH1D("h_WGG_muo_pho0_pho1", "h_WGG_muo_pho0_pho1", 15, 0., 300.);
@@ -1354,6 +1356,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int n_photons = 0;
    int ipho0 = -1;
    int ipho1 = -1;
+   int ipho0_fake = -1;
 
    for (uint i = 0; i < *nPhoton; i++) {
      if (Photon_pt[i] < 20) continue;
@@ -1494,6 +1497,13 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
    if (ipho1 != -1) {
      pho1.SetPtEtaPhiM(Photon_pt[ipho1], Photon_eta[ipho1], Photon_phi[ipho1], Photon_mass[ipho1]);
+   }
+
+   TLorentzVector pho0_fake;
+
+   if (ipho0 != -1 && ipho0_fake == -1) {
+     ipho0_fake = ipho0;
+     pho0_fake = pho0;
    }
 
    if (iele0 != -1 && iele1 == -1) {
@@ -1942,6 +1952,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int n_photons_qcd = 0;
    int ipho0_qcd = -1;
    int ipho1_qcd = -1;
+   int ipho0_fake_qcd = -1;
 
    for (uint i = 0; i < *nPhoton; i++) {
      if (Photon_pt[i] < 20) continue;
@@ -2082,6 +2093,13 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
    if (ipho1_qcd != -1) {
      pho1_qcd.SetPtEtaPhiM(Photon_pt[ipho1_qcd], Photon_eta[ipho1_qcd], Photon_phi[ipho1_qcd], Photon_mass[ipho1_qcd]);
+   }
+
+   TLorentzVector pho0_fake_qcd;
+
+   if (ipho0_qcd != -1 && ipho0_fake_qcd == -1) {
+     ipho0_fake_qcd = ipho0_qcd;
+     pho0_fake_qcd = pho0_qcd;
    }
 
    if (iele0_qcd != -1 && iele1_qcd == -1) {
@@ -2946,6 +2964,46 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_pho0 = weight_eff_pho0 * weight_reco_pho0 * weight_ele_veto_pho0;
    float weight_pho1 = weight_eff_pho1 * weight_reco_pho1 * weight_ele_veto_pho1;
 
+// photon(s) fake scale factors
+
+   float weight_eff_pho0_fake = 1.;
+   float weight_reco_pho0_fake = 1.;
+
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   if (ipho0_fake != -1) {
+     weight_eff_pho0_fake = getWeight(sf_pho_eff, Photon_eta[ipho0_fake], Photon_pt[ipho0_fake]);
+   }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
+   float weight_ele_veto_pho0_fake = 1.;
+
+#if defined(mainSelectorMC16_cxx)
+   if (ipho0_fake != -1) {
+     if (fabs(Photon_eta[ipho0_fake]) < 1.442) {
+       if (Photon_r9[ipho0_fake] < 0.94) weight_ele_veto_pho0_fake = 1.00479;
+       if (Photon_r9[ipho0_fake] > 0.94) weight_ele_veto_pho0_fake = 0.985097;
+     }
+     if (fabs(Photon_eta[ipho0_fake]) > 1.566 && fabs(Photon_eta[ipho0_fake]) < 2.400) {
+       if (Photon_r9[ipho0_fake] < 0.94) weight_ele_veto_pho0_fake = 1.00703;
+       if (Photon_r9[ipho0_fake] > 0.94) weight_ele_veto_pho0_fake = 0.972969;
+     }
+   }
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
+   if (ipho0_fake != -1) {
+     if (fabs(Photon_eta[ipho0_fake]) < 1.442) {
+       if (Photon_r9[ipho0_fake] < 0.94) weight_ele_veto_pho0_fake = 0.960239;
+       if (Photon_r9[ipho0_fake] > 0.94) weight_ele_veto_pho0_fake = 0.974239;
+     }
+     if (fabs(Photon_eta[ipho0_fake]) > 1.566 && fabs(Photon_eta[ipho0_fake]) < 2.400) {
+       if (Photon_r9[ipho0_fake] < 0.94) weight_ele_veto_pho0_fake = 0.919658;
+       if (Photon_r9[ipho0_fake] > 0.94) weight_ele_veto_pho0_fake = 0.917715;
+     }
+   }
+#endif // defined(mainSelectorMC17_cxx)
+
+   float weight_pho0_fake = weight_eff_pho0_fake * weight_reco_pho0_fake * weight_ele_veto_pho0_fake;
+
 // photon(s) noiso scale factors
 
    float weight_eff_pho0_noiso = 1.;
@@ -3149,6 +3207,46 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float weight_pho0_qcd = weight_eff_pho0_qcd * weight_reco_pho0_qcd * weight_ele_veto_pho0_qcd;
    float weight_pho1_qcd = weight_eff_pho1_qcd * weight_reco_pho1_qcd * weight_ele_veto_pho1_qcd;
+
+// photon(s) fake scale factors QCD
+
+   float weight_eff_pho0_fake_qcd = 1.;
+   float weight_reco_pho0_fake_qcd = 1.;
+
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   if (ipho0_fake_qcd != -1) {
+     weight_eff_pho0_fake_qcd = getWeight(sf_pho_eff, Photon_eta[ipho0_fake_qcd], Photon_pt[ipho0_fake_qcd]);
+   }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
+   float weight_ele_veto_pho0_fake_qcd = 1.;
+
+#if defined(mainSelectorMC16_cxx)
+   if (ipho0_fake_qcd != -1) {
+     if (fabs(Photon_eta[ipho0_fake_qcd]) < 1.442) {
+       if (Photon_r9[ipho0_fake_qcd] < 0.94) weight_ele_veto_pho0_fake_qcd = 1.00479;
+       if (Photon_r9[ipho0_fake_qcd] > 0.94) weight_ele_veto_pho0_fake_qcd = 0.985097;
+     }
+     if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.566 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.400) {
+       if (Photon_r9[ipho0_fake_qcd] < 0.94) weight_ele_veto_pho0_fake_qcd = 1.00703;
+       if (Photon_r9[ipho0_fake_qcd] > 0.94) weight_ele_veto_pho0_fake_qcd = 0.972969;
+     }
+   }
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
+   if (ipho0_fake_qcd != -1) {
+     if (fabs(Photon_eta[ipho0_fake_qcd]) < 1.442) {
+       if (Photon_r9[ipho0_fake_qcd] < 0.94) weight_ele_veto_pho0_fake_qcd = 0.960239;
+       if (Photon_r9[ipho0_fake_qcd] > 0.94) weight_ele_veto_pho0_fake_qcd = 0.974239;
+     }
+     if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.566 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.400) {
+       if (Photon_r9[ipho0_fake_qcd] < 0.94) weight_ele_veto_pho0_fake_qcd = 0.919658;
+       if (Photon_r9[ipho0_fake_qcd] > 0.94) weight_ele_veto_pho0_fake_qcd = 0.917715;
+     }
+   }
+#endif // defined(mainSelectorMC17_cxx)
+
+   float weight_pho0_fake_qcd = weight_eff_pho0_fake_qcd * weight_reco_pho0_fake_qcd * weight_ele_veto_pho0_fake_qcd;
 
 // photon(s) noiso scale factors QCD
 
@@ -3619,6 +3717,9 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho0_noiso != -1) {
        h_WG_ele_pho0_noiso_mva->Fill(Photon_mvaID[ipho0_noiso], weight_W_ele * weight_pho0_noiso);
      }
+     if (ipho0_fake != -1) {
+       h_WG_ele_ele0_pho0_fake->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
+     }
 
      if (category != -1) {
        if (category == 0 || category == 4) h_WG_ele_misid->Fill(category, Photon_pt[ipho0], weight_W_ele * weight_pho0);
@@ -4052,6 +4153,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho0_noiso_qcd != -1) {
        QCD(h_WG_ele_pho0_noiso_mva)->Fill(Photon_mvaID[ipho0_noiso_qcd], weight_W_ele_qcd * weight_pho0_noiso_qcd);
      }
+     if (ipho0_fake_qcd != -1) {
+       QCD(h_WG_ele_ele0_pho0_fake)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
+     }
+
      if (ipho1_qcd != -1) {
        QCD(h_WGG_ele_pho1_pt)->Fill(Photon_pt[ipho1_qcd], weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
        QCD(h_WGG_ele_pho1_eta)->Fill(Photon_eta[ipho1_qcd], weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
