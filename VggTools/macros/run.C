@@ -61,31 +61,17 @@ void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output=
   TSelector* selector = 0;
 
   if (option.Contains("DT")) {
-#if defined(__APPLE__)
-    if (option.Contains("DT16H"))                             selector = TSelector::GetSelector("mainSelectorDT16H.C");
-    if (option.Contains("DT16") && !option.Contains("DT16H")) selector = TSelector::GetSelector("mainSelectorDT16.C");
-    if (option.Contains("DT17B"))                             selector = TSelector::GetSelector("mainSelectorDT17B.C");
-    if (option.Contains("DT17") && !option.Contains("DT17B")) selector = TSelector::GetSelector("mainSelectorDT17.C");
-    if (option.Contains("DT18"))                              selector = TSelector::GetSelector("mainSelectorDT18.C");
-#else
     if (option.Contains("DT16H"))                             selector = TSelector::GetSelector("mainSelectorDT16H.C+");
     if (option.Contains("DT16") && !option.Contains("DT16H")) selector = TSelector::GetSelector("mainSelectorDT16.C+");
     if (option.Contains("DT17B"))                             selector = TSelector::GetSelector("mainSelectorDT17B.C+");
     if (option.Contains("DT17") && !option.Contains("DT17B")) selector = TSelector::GetSelector("mainSelectorDT17.C+");
     if (option.Contains("DT18"))                              selector = TSelector::GetSelector("mainSelectorDT18.C+");
-#endif
     selector->SetOption("DT");
   }
   if (option.Contains("MC")) {
-#if defined(__APPLE__)
-    if (option.Contains("MC16")) selector = TSelector::GetSelector("mainSelectorMC16.C");
-    if (option.Contains("MC17")) selector = TSelector::GetSelector("mainSelectorMC17.C");
-    if (option.Contains("MC18")) selector = TSelector::GetSelector("mainSelectorMC18.C");
-#else
     if (option.Contains("MC16")) selector = TSelector::GetSelector("mainSelectorMC16.C+");
     if (option.Contains("MC17")) selector = TSelector::GetSelector("mainSelectorMC17.C+");
     if (option.Contains("MC18")) selector = TSelector::GetSelector("mainSelectorMC18.C+");
-#endif
     selector->SetOption("MC");
   }
 
