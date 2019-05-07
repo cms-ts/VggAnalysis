@@ -19,7 +19,7 @@ void fcn(int& npar, double* gin, double& fun, double* par, int iflag) {
   fun = chisq;
 }
 
-void plot1(string plot="", string title="", string version="v00", string flags="") {
+void plot1(string plot="", string title="", string version="v00", string options="", string flags="reference") {
 
   string year = "";
 
@@ -29,13 +29,13 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   if (plot.find("Run2") != string::npos) year = "Run2";
 
   plot = plot + ".dat";
-  if (flags.find("test") != string::npos) plot = plot + ".test";
-  if (flags.find("new") != string::npos) plot = plot + ".new";
-  if (flags.find("jet") != string::npos) plot = plot + ".jet";
+  if (options.find("test") != string::npos) plot = plot + ".test";
+  if (options.find("new") != string::npos) plot = plot + ".new";
+  if (options.find("jet") != string::npos) plot = plot + ".jet";
 
-  if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
-  if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
-  if (flags.find("default") != string::npos) plot = "default/" + plot;
+  if (options.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
+  if (options.find("madgraph") != string::npos) plot = "madgraph/" + plot;
+  if (options.find("default") != string::npos) plot = "default/" + plot;
 
   multimap<string, float> plotMap;
   if (plot.find("Run2") == string::npos) {
@@ -52,16 +52,16 @@ void plot1(string plot="", string title="", string version="v00", string flags="
     return;
   }
 
-  if (flags.find("test") != string::npos) version = version + ".test";
-  if (flags.find("new") != string::npos) version = version + ".new";
-  if (flags.find("jet") != string::npos) version = version + ".jet";
+  if (options.find("test") != string::npos) version = version + ".test";
+  if (options.find("new") != string::npos) version = version + ".new";
+  if (options.find("jet") != string::npos) version = version + ".jet";
 
-  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
-  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
-  if (flags.find("default") != string::npos) version = version + ".default";
+  if (options.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (options.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (options.find("default") != string::npos) version = version + ".default";
 
-  TFile* f1 = new TFile(("html/" + version + "/" + year + "/root/" + title + "_nofit.root").c_str());
-  TFile* f2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+  TFile* f1 = new TFile(("html/" + version + "/" + flags + "/" + year + "/root/" + title + "_nofit.root").c_str());
+  TFile* f2 = new TFile(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
 
   if (f1->IsZombie()) {
     cout << "ERROR: file " << f1->GetName() << " is MISSING !!" << endl;
@@ -129,13 +129,13 @@ void plot1(string plot="", string title="", string version="v00", string flags="
   sprintf(buff, "c_{qcd} = %5.3f #pm %5.3f", fitter->GetParameter(0), fitter->GetParError(0));
   label->DrawLatex(0.50, 0.68, buff);
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".qcd/root/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + year + ".qcd/root/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".qcd/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".qcd/root/").c_str(), kTRUE);
   }
-  c1->SaveAs(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_fit.pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + title + "_qcd_fit.pdf").c_str());
 
   ofstream out;
-  out.open(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_fit.dat").c_str());
+  out.open(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + title + "_qcd_fit.dat").c_str());
   out << fitter->GetParameter(0) << " " << fitter->GetParError(0) << endl;
   out.close();
 

@@ -26,35 +26,41 @@ if [ ! -z "$2" ]; then
   fi
 fi
 
-FLAGS="nolog,amcatnlo"
+OPTIONS="nolog,amcatnlo"
 
 if [ ! -z "$3" ]; then
-  FLAGS=$3
+  OPTIONS=$3
+fi
+
+FLAGS="reference"
+
+if [ ! -z "$4" ]; then
+  FLAGS=$4
 fi
 
 export ROOT_HIST=0
 
 for YEAR in $YEARS; do
 
-  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_nphotons\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_nphotons\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_nphotons\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_nphotons\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
 
-  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_nphotons\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_nphotons\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_nphotons\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_nphotons\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
 
-  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho0_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho0_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho0_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho0_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho1_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho0_pho1_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho1_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho0_pho1_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
 
-  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_ele_pho0_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_ele_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_ele_pho0_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_pho0_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_pho0_pho1_pt\",\"$VERSION\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_ele_pho0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_ele_pho1_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_ele_pho0_pho1_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_pho0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_pho1_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot5.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_pho0_pho1_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
 
 done
 

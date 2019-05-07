@@ -2,7 +2,7 @@
 
 #include "CMS_lumi.C"
 
-void plot4(string plot="", string title="", string version="v00", string flags=""){
+void plot4(string plot="", string title="", string version="v00", string options="", string flags="reference"){
 
   string year = "";
 
@@ -12,13 +12,13 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   if (plot.find("Run2") != string::npos) year = "Run2";
 
   plot = plot + ".dat";
-  if (flags.find("test") != string::npos) plot = plot + ".test";
-  if (flags.find("new") != string::npos) plot = plot + ".new";
-  if (flags.find("jet") != string::npos) plot = plot + ".jet";
+  if (options.find("test") != string::npos) plot = plot + ".test";
+  if (options.find("new") != string::npos) plot = plot + ".new";
+  if (options.find("jet") != string::npos) plot = plot + ".jet";
 
-  if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
-  if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
-  if (flags.find("default") != string::npos) plot = "default/" + plot;
+  if (options.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
+  if (options.find("madgraph") != string::npos) plot = "madgraph/" + plot;
+  if (options.find("default") != string::npos) plot = "default/" + plot;
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -54,7 +54,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
-      TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
+      TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str());
       if (!file->IsOpen()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -107,7 +107,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21|| index == 22|| index == 1010 || index == 1011 || index == 1020 || index == 1021|| index == 1022) {
-      TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
+      TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str());
       if (!file->IsOpen()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -142,19 +142,19 @@ void plot4(string plot="", string title="", string version="v00", string flags="
     }
   }
 
-  if (flags.find("test") != string::npos) version = version + ".test";
-  if (flags.find("new") != string::npos) version = version + ".new";
-  if (flags.find("jet") != string::npos) version = version + ".jet";
+  if (options.find("test") != string::npos) version = version + ".test";
+  if (options.find("new") != string::npos) version = version + ".new";
+  if (options.find("jet") != string::npos) version = version + ".jet";
 
-  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
-  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
-  if (flags.find("default") != string::npos) version = version + ".default";
+  if (options.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (options.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (options.find("default") != string::npos) version = version + ".default";
 
   if (title.find("h_WG_") != string::npos) {
     ifstream file1;
-    file1.open(("html/" + version + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
+    file1.open(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
     if (!file1.is_open()) {
-      cout << "ERROR: file " << "html/" + version + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat" << " is MISSING !!" << endl;
+      cout << "ERROR: file " << "html/" + version + "/" + flags + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat" << " is MISSING !!" << endl;
       return;
     }
     float fitval = 0.;
@@ -162,7 +162,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
     file1 >> fitval >> fiterr;
     file1.close();
 
-    TFile* file2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+    TFile* file2 = new TFile(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
     if (file2->IsZombie()) {
       cout << "ERROR: file " << file2->GetName() << " is MISSING !!" << endl;
       return;
@@ -180,21 +180,21 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   TFile* file_matrix_2018 = 0;
 
   if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
-    file_matrix_2016 = new TFile(("html/" + version + "/2016.matrix/root/matrix_weight.root").c_str());
+    file_matrix_2016 = new TFile(("html/" + version + "/" + flags + "/2016.matrix/root/matrix_weight.root").c_str());
     if (file_matrix_2016->IsZombie()) {
       cout << "ERROR: file " << file_matrix_2016->GetName() << " is MISSING !!" << endl;
       return;
     }
   }
   if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
-    file_matrix_2017 = new TFile(("html/" + version + "/2017.matrix/root/matrix_weight.root").c_str());
+    file_matrix_2017 = new TFile(("html/" + version + "/" + flags + "/2017.matrix/root/matrix_weight.root").c_str());
     if ( file_matrix_2017->IsZombie()) {
       cout << "ERROR: file " << file_matrix_2017->GetName() << " is MISSING !!" << endl;
       return;
     }
   }
   if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
-    file_matrix_2018 = new TFile(("html/" + version + "/2018.matrix/root/matrix_weight.root").c_str());
+    file_matrix_2018 = new TFile(("html/" + version + "/" + flags + "/2018.matrix/root/matrix_weight.root").c_str());
     if (file_matrix_2018->IsZombie()) {
       cout << "ERROR: file " << file_matrix_2018->GetName() << " is MISSING !!" << endl;
       return;
@@ -293,7 +293,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
       histo[index]->SetBinError(histo[index]->GetNbinsX() + 1, 0.);
     }
     if (index > 0) {
-      if (flags.find("nobkg") != string::npos) {
+      if (options.find("nobkg") != string::npos) {
         if ((title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) && ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012))) {
           hstack_mc->Add(it->second);
           h_mc_sum->Add(it->second);
@@ -391,7 +391,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   pad1->cd();
 
   hstack_mc->SetMaximum(1.2*TMath::Max(hstack_mc->GetMaximum(), histo[0]->GetMaximum()));
-  if (flags.find("nolog") == string::npos) hstack_mc->SetMinimum(0.0001*hstack_mc->GetMaximum());
+  if (options.find("nolog") == string::npos) hstack_mc->SetMinimum(0.0001*hstack_mc->GetMaximum());
   hstack_mc->SetMinimum(1.);
 
   hstack_mc->Draw("HIST");
@@ -416,7 +416,7 @@ void plot4(string plot="", string title="", string version="v00", string flags="
 
   leg->Draw();
 
-  if (flags.find("nolog") == string::npos) {
+  if (options.find("nolog") == string::npos) {
     if (h_mc_sum->GetMaximum() != 0) pad1->SetLogy();
   }
 
@@ -568,15 +568,15 @@ void plot4(string plot="", string title="", string version="v00", string flags="
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + year + ".matrix/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".matrix/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".matrix/").c_str(), kTRUE);
   }
-  c1->SaveAs(("html/" + version + "/" + year + ".matrix/" + title + ".pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + flags + "/" + year + ".matrix/" + title + ".pdf").c_str());
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/root/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + year + ".matrix/root/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".matrix/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + year + ".matrix/root/" + title + ".root").c_str(), "update");
+  TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + ".matrix/root/" + title + ".root").c_str(), "update");
   histo[0]->Write((title + "_data").c_str());
   histo[8001]->Write((title + "_misid").c_str());
   if (title.find("h_WGG_") != string::npos) {

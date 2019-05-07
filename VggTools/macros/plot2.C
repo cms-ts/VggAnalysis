@@ -1,6 +1,6 @@
 #include "plot2.h"
 
-void plot2(string plot="", string title="", string version="v00", string flags="") {
+void plot2(string plot="", string title="", string version="v00", string options="", string flags="reference") {
 
   string year = "";
 
@@ -10,13 +10,13 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   if (plot.find("Run2") != string::npos) year = "Run2";
 
   plot = plot + ".dat";
-  if (flags.find("test") != string::npos) plot = plot + ".test";
-  if (flags.find("new") != string::npos) plot = plot + ".new";
-  if (flags.find("jet") != string::npos) plot = plot + ".jet";
+  if (options.find("test") != string::npos) plot = plot + ".test";
+  if (options.find("new") != string::npos) plot = plot + ".new";
+  if (options.find("jet") != string::npos) plot = plot + ".jet";
 
-  if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
-  if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
-  if (flags.find("default") != string::npos) plot = "default/" + plot;
+  if (options.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
+  if (options.find("madgraph") != string::npos) plot = "madgraph/" + plot;
+  if (options.find("default") != string::npos) plot = "default/" + plot;
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -49,7 +49,7 @@ void plot2(string plot="", string title="", string version="v00", string flags="
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
-      TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
+      TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str());
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -83,7 +83,7 @@ void plot2(string plot="", string title="", string version="v00", string flags="
       if (index !=   10 && title.find("h_ZGG_") != string::npos) continue;
       if (index != 1010 && title.find("h_WGG_") != string::npos) continue;
     }
-    TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
+    TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str());
     if (file->IsZombie()) {
       cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
       return;
@@ -129,13 +129,13 @@ void plot2(string plot="", string title="", string version="v00", string flags="
     delete file;
   }
 
-  if (flags.find("test") != string::npos) version = version + ".test";
-  if (flags.find("new") != string::npos) version = version + ".new";
-  if (flags.find("jet") != string::npos) version = version + ".jet";
+  if (options.find("test") != string::npos) version = version + ".test";
+  if (options.find("new") != string::npos) version = version + ".new";
+  if (options.find("jet") != string::npos) version = version + ".jet";
 
-  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
-  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
-  if (flags.find("default") != string::npos) version = version + ".default";
+  if (options.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (options.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (options.find("default") != string::npos) version = version + ".default";
 
   TH1D* h_mc_eff = (TH1D*)h1->Clone("h_mc_eff");
 
@@ -174,23 +174,23 @@ void plot2(string plot="", string title="", string version="v00", string flags="
     label->DrawLatex(0.50, 0.65, buff);
   }
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".eff/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + year + ".eff/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".eff/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".eff/").c_str(), kTRUE);
   }
-  c1->SaveAs(("html/" + version + "/" + year + ".eff/" + title + ".pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + flags + "/" + year + ".eff/" + title + ".pdf").c_str());
 
   ofstream out;
-  out.open(("html/" + version + "/" + year + ".eff/" + title + ".dat").c_str());
+  out.open(("html/" + version + "/" + flags + "/" + year + ".eff/" + title + ".dat").c_str());
   for (int i = 0; i < h_mc_eff->GetNbinsX()+1; i++) {
     out << i << " " << h_mc_eff->GetBinContent(i) << " " << h_mc_eff->GetBinError(i) << endl;
   }
   out.close();
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".eff/root/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + year + ".eff/root/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".eff/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".eff/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str(), "RECREATE");
-  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str());
+  TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + ".eff/root/" + title + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flags + "/" + year + ".eff/root/" + title + ".root").c_str());
   h1->Write((title + "_mc_rec").c_str());
   h2->Write((title + "_mc_gen").c_str());
   h_mc_eff->Write((title + "_mc_eff").c_str());

@@ -2,7 +2,7 @@
 
 #include "CMS_lumi.C"
 
-void plot5(string plot="", string title="", string version="v00", string flags="") {
+void plot5(string plot="", string title="", string version="v00", string options="", string flags="reference") {
 
   string year = "";
 
@@ -12,13 +12,13 @@ void plot5(string plot="", string title="", string version="v00", string flags="
   if (plot.find("Run2") != string::npos) year = "Run2";
 
   plot = plot + ".dat";
-  if (flags.find("test") != string::npos) plot = plot + ".test";
-  if (flags.find("new") != string::npos) plot = plot + ".new";
-  if (flags.find("jet") != string::npos) plot = plot + ".jet";
+  if (options.find("test") != string::npos) plot = plot + ".test";
+  if (options.find("new") != string::npos) plot = plot + ".new";
+  if (options.find("jet") != string::npos) plot = plot + ".jet";
 
-  if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
-  if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
-  if (flags.find("default") != string::npos) plot = "default/" + plot;
+  if (options.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
+  if (options.find("madgraph") != string::npos) plot = "madgraph/" + plot;
+  if (options.find("default") != string::npos) plot = "default/" + plot;
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -63,13 +63,13 @@ void plot5(string plot="", string title="", string version="v00", string flags="
     return;
   }
 
-  if (flags.find("test") != string::npos) version = version + ".test";
-  if (flags.find("new") != string::npos) version = version + ".new";
-  if (flags.find("jet") != string::npos) version = version + ".jet";
+  if (options.find("test") != string::npos) version = version + ".test";
+  if (options.find("new") != string::npos) version = version + ".new";
+  if (options.find("jet") != string::npos) version = version + ".jet";
 
-  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
-  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
-  if (flags.find("default") != string::npos) version = version + ".default";
+  if (options.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (options.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (options.find("default") != string::npos) version = version + ".default";
 
   bool useMC = false;
 
@@ -80,11 +80,11 @@ void plot5(string plot="", string title="", string version="v00", string flags="
 #if defined(USE_RUN2_AVERAGES)
   TFile* f1 = 0;
   if (useMC) {
-    f1 = new TFile(("html/" + version + "/" + year + "/root/" + title + ".root").c_str());
+    f1 = new TFile(("html/" + version + "/" + flags + "/" + year + "/root/" + title + ".root").c_str());
   } else {
-    f1 = new TFile(("html/" + version + "/" + year + ".matrix/root/" + title + ".root").c_str());
+    f1 = new TFile(("html/" + version + "/" + flags + "/" + year + ".matrix/root/" + title + ".root").c_str());
   }
-  TFile* f2 = new TFile(("html/" + version + "/" + year + ".eff/root/" + title + ".root").c_str());
+  TFile* f2 = new TFile(("html/" + version + "/" + flags + "/" + year + ".eff/root/" + title + ".root").c_str());
 
   if (f1->IsZombie()) {
     cout << "ERROR: file " << f1->GetName() << " is MISSING !!" << endl;
@@ -157,15 +157,15 @@ void plot5(string plot="", string title="", string version="v00", string flags="
 
   if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
     if (useMC) {
-      f1_2016 = new TFile(("html/" + version + "/" + "2016/root/" + title + ".root").c_str());
+      f1_2016 = new TFile(("html/" + version + "/" + flags + "/2016/root/" + title + ".root").c_str());
     } else {
-      f1_2016 = new TFile(("html/" + version + "/" + "2016.matrix/root/" + title + ".root").c_str());
+      f1_2016 = new TFile(("html/" + version + "/" + flags + "/2016.matrix/root/" + title + ".root").c_str());
     }
     if (f1_2016->IsZombie()) {
       cout << "ERROR: file " << f1_2016->GetName() << " is MISSING !!" << endl;
       return;
     }
-    f2_2016 = new TFile(("html/" + version + "/" + "2016.eff/root/" + title + ".root").c_str());
+    f2_2016 = new TFile(("html/" + version + "/" + flags + "/2016.eff/root/" + title + ".root").c_str());
     if (f2_2016->IsZombie()) {
       cout << "ERROR: file " << f2_2016->GetName() << " is MISSING !!" << endl;
       return;
@@ -173,15 +173,15 @@ void plot5(string plot="", string title="", string version="v00", string flags="
   }
   if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
     if (useMC) {
-      f1_2017 = new TFile(("html/" + version + "/" + "2017/root/" + title + ".root").c_str());
+      f1_2017 = new TFile(("html/" + version + "/" + flags + "/2017/root/" + title + ".root").c_str());
     } else {
-      f1_2017 = new TFile(("html/" + version + "/" + "2017.matrix/root/" + title + ".root").c_str());
+      f1_2017 = new TFile(("html/" + version + "/" + flags + "/2017.matrix/root/" + title + ".root").c_str());
     }
     if (f1_2017->IsZombie()) {
       cout << "ERROR: file " << f1_2017->GetName() << " is MISSING !!" << endl;
       return;
     }
-    f2_2017 = new TFile(("html/" + version + "/" + "2017.eff/root/" + title + ".root").c_str());
+    f2_2017 = new TFile(("html/" + version + "/" + flags + "/2017.eff/root/" + title + ".root").c_str());
     if (f2_2017->IsZombie()) {
       cout << "ERROR: file " << f2_2017->GetName() << " is MISSING !!" << endl;
       return;
@@ -189,15 +189,15 @@ void plot5(string plot="", string title="", string version="v00", string flags="
   }
   if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
     if (useMC) {
-      f1_2018 = new TFile(("html/" + version + "/" + "2018/root/" + title + ".root").c_str());
+      f1_2018 = new TFile(("html/" + version + "/" + flags + "/2018/root/" + title + ".root").c_str());
     } else {
-      f1_2018 = new TFile(("html/" + version + "/" + "2018.matrix/root/" + title + ".root").c_str());
+      f1_2018 = new TFile(("html/" + version + "/" + flags + "/2018.matrix/root/" + title + ".root").c_str());
     }
     if (f1_2018->IsZombie()) {
       cout << "ERROR: file " << f1_2018->GetName() << " is MISSING !!" << endl;
       return;
     }
-    f2_2018 = new TFile(("html/" + version + "/" + "2018.eff/root/" + title + ".root").c_str());
+    f2_2018 = new TFile(("html/" + version + "/" + flags + "/2018.eff/root/" + title + ".root").c_str());
     if (f2_2018->IsZombie()) {
       cout << "ERROR: file " << f2_2018->GetName() << " is MISSING !!" << endl;
       return;
@@ -646,16 +646,16 @@ void plot5(string plot="", string title="", string version="v00", string flags="
 
   label->Draw("same");
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".xsec/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + year + ".xsec/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".xsec/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".xsec/").c_str(), kTRUE);
   }
-  c1->SaveAs(("html/" + version + "/" + year + ".xsec/" + title + ".pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + flags + "/" + year + ".xsec/" + title + ".pdf").c_str());
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".xsec/root/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + year + ".xsec/root/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".xsec/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".xsec/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
-  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + year + ".xsec/root/" + title + ".root").c_str());
+  TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flags + "/" + year + ".xsec/root/" + title + ".root").c_str());
   h_xsec_rec->Write((title + "_xsec").c_str());
   h_xsec_mc_gen->Write((title + "_xsec_mc_gen").c_str());
   file->Close();

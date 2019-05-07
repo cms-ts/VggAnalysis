@@ -24,25 +24,35 @@ if [ ! -z "$2" ]; then
   fi
 fi
 
-FLAGS="nolog,default"
+OPTIONS="nolog,default"
 
 if [ ! -z "$3" ]; then
-  FLAGS=$3
+  OPTIONS=$3
+fi
+
+FLAGS="reference"
+
+if [ ! -z "$4" ]; then
+  FLAGS=$4
 fi
 
 for YEAR in $YEARS; do
 
-  for FLAG in $FLAGS; do
+  for OPTION in $OPTIONS; do
 
-    ( \
-      ./plot1.sh $VERSION $YEAR $FLAG ; \
-      ./plot0.sh $VERSION $YEAR $FLAG",qcd,nofit" ; \
-      ./plot0.sh $VERSION $YEAR $FLAG ; \
-      ./plot2.sh $VERSION $YEAR $FLAG ; \
-      ./plot3.sh $VERSION $YEAR $FLAG ; \
-      ./plot4.sh $VERSION $YEAR $FLAG ; \
-      ./plot5.sh $VERSION $YEAR $FLAG \
-    ) &
+    for FLAG in $FLAGS; do
+
+      ( \
+        ./plot1.sh $VERSION $YEAR $OPTION $FLAGS ; \
+        ./plot0.sh $VERSION $YEAR $OPTION",qcd,nofit" $FLAGS ; \
+        ./plot0.sh $VERSION $YEAR $OPTION $FLAGS ; \
+        ./plot2.sh $VERSION $YEAR $OPTION $FLAGS ; \
+        ./plot3.sh $VERSION $YEAR $OPTION $FLAGS ; \
+        ./plot4.sh $VERSION $YEAR $OPTION $FLAGS ; \
+        ./plot5.sh $VERSION $YEAR $OPTION $FLAGS \
+      ) &
+
+    done
 
   done
 

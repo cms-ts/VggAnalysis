@@ -1,10 +1,10 @@
 #include "plot3.h"
 
-void plot3(string plot="", string title="", string version="", string flags="") {
+void plot3(string plot="", string title="", string version="", string options="", string flags="reference") {
 
   if (plot.find("Zgg") != string::npos) {
-    if (flags.find("qcd") != string::npos) {
-      cout << "Skipping plot map " << plot << " for flags " << flags << endl;
+    if (options.find("qcd") != string::npos) {
+      cout << "Skipping plot map " << plot << " for options " << options << endl;
       return;
     }
   }
@@ -17,20 +17,20 @@ void plot3(string plot="", string title="", string version="", string flags="") 
   if (plot.find("Run2") != string::npos) year = "Run2";
 
   plot = plot + ".dat";
-  if (flags.find("test") != string::npos) plot = plot + ".test";
-  if (flags.find("new") != string::npos) plot = plot + ".new";
-  if (flags.find("jet") != string::npos) plot = plot + ".jet";
+  if (options.find("test") != string::npos) plot = plot + ".test";
+  if (options.find("new") != string::npos) plot = plot + ".new";
+  if (options.find("jet") != string::npos) plot = plot + ".jet";
 
-  if (flags.find("qcd") != string::npos) {
+  if (options.find("qcd") != string::npos) {
     year = year + ".qcd";
     title = title + "_qcd";
-    flags = flags + ",nofit";
-    if (flags.find("nofit") == string::npos) flags = flags + ",nofit";
+    options = options + ",nofit";
+    if (options.find("nofit") == string::npos) options = options + ",nofit";
   }
 
-  if (flags.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
-  if (flags.find("madgraph") != string::npos) plot = "madgraph/" + plot;
-  if (flags.find("default") != string::npos) plot = "default/" + plot;
+  if (options.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
+  if (options.find("madgraph") != string::npos) plot = "madgraph/" + plot;
+  if (options.find("default") != string::npos) plot = "default/" + plot;
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -66,7 +66,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
-      TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
+      TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str());
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -110,7 +110,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
     for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
       int index = int(it->second);
       if (index > 0) {
-        TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
+        TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str());
         if (file->IsZombie()) {
           cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
           return;
@@ -139,7 +139,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
             histo[index]->Scale(norm);
           }
         }
-        if (flags.find("qcd") == string::npos) {
+        if (options.find("qcd") == string::npos) {
           if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
             if (histo_mc_gen[index]) {
               TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
@@ -206,7 +206,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
-      TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
+      TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str());
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -247,7 +247,7 @@ void plot3(string plot="", string title="", string version="", string flags="") 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index > 0) {
-      TFile* file = new TFile(("data/" + version + "/" + it->first + ".root").c_str());
+      TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str());
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -306,13 +306,13 @@ void plot3(string plot="", string title="", string version="", string flags="") 
   TH1D* h_bkg = (TH1D*)histo[0]->Clone("h_bkg");
   h_bkg->Reset();
 
-  if (flags.find("test") != string::npos) version = version + ".test";
-  if (flags.find("new") != string::npos) version = version + ".new";
-  if (flags.find("jet") != string::npos) version = version + ".jet";
+  if (options.find("test") != string::npos) version = version + ".test";
+  if (options.find("new") != string::npos) version = version + ".new";
+  if (options.find("jet") != string::npos) version = version + ".jet";
 
-  if (flags.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
-  if (flags.find("madgraph") != string::npos) version = version + ".madgraph";
-  if (flags.find("default") != string::npos) version = version + ".default";
+  if (options.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (options.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (options.find("default") != string::npos) version = version + ".default";
 
   if (useMC) {
     float fitval = 0.;
@@ -320,12 +320,12 @@ void plot3(string plot="", string title="", string version="", string flags="") 
     int index = 9001;
     ifstream file1;
     if (title.find("h_WG_") != string::npos) {
-      file1.open(("html/" + version + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
+      file1.open(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
     }
     if (file1.is_open()) {
       file1 >> fitval >> fiterr;
       file1.close();
-      TFile* file2 = new TFile(("html/" + version + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+      TFile* file2 = new TFile(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
       if (!file2->IsZombie()) {
         histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
         histo[index]->SetDirectory(0);
@@ -569,15 +569,15 @@ void plot3(string plot="", string title="", string version="", string flags="") 
   line->SetLineWidth(2);
   line->Draw();
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + year + ".matrix/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".matrix/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".matrix/").c_str(), kTRUE);
   }
-  c1->SaveAs(("html/" + version + "/" + year + ".matrix/" + title +"_consistency.pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + flags + "/" + year + ".matrix/" + title +"_consistency.pdf").c_str());
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + year + ".matrix/root/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + year + ".matrix/root/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".matrix/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + year + ".matrix/root/matrix_weight.root").c_str(), "update");
+  TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + ".matrix/root/matrix_weight.root").c_str(), "update");
   h_weight->Write((title.substr(0, 8) + "_weight").c_str());
   file->Close();
   delete file;

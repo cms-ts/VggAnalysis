@@ -12,7 +12,7 @@ using namespace std;
 
 #include <ROOT/TTreeProcessorMP.hxx>
 
-void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output="selector.root") {
+void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output="selector.root", TString flags="reference") {
 
   TDatime now;
   Info("run", "%s", now.AsSQLString());
@@ -100,6 +100,12 @@ void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output=
     if (input.Contains("ZTauTau"))                                selector->SetOption("MC,ZTauTau");
   }
 
+  TList* fInput = new TList();
+
+  Info("run", "flags = %s", flags.Data());
+
+  fInput->Add(new TNamed("flags", flags.Data()));
+
   if (option.Contains("MC17")) {
     TString output_ele = "data/auto_pu/" + TString(gSystem->BaseName(input));
     TString output_muo = "data/auto_pu/" + TString(gSystem->BaseName(input));
@@ -120,13 +126,13 @@ void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output=
       file_muo_pu->Close();
       delete file_ele_pu;
       delete file_muo_pu;
-      TList* fInput = new TList();
       fInput->Add(new TNamed("auto_pu", ""));
       fInput->Add(pu_ele_weights);
       fInput->Add(pu_muo_weights);
-      selector->SetInputList(fInput);
     }
   }
+
+  selector->SetInputList(fInput);
 
   workers.Process(files, *selector, "Events", nevt);
 

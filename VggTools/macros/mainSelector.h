@@ -65,6 +65,8 @@ public :
    bool isZGG = false;
    bool isZTauTau = false;
 
+   int iflag = -1;
+
 // FIXME
    bool ele_vid_2bit = false;
    bool ele_vid_3bit = false;

@@ -20,29 +20,35 @@ if [ ! -z "$1" ]; then
   VERSION=$1
 fi
 
-LISTS=`ls lists/`
+FLAGS="reference"
 
 if [ ! -z "$2" ]; then
-  if [ "$2" == "DT16" ]; then
+  FLAGS=$2
+fi
+
+LISTS=`ls lists/`
+
+if [ ! -z "$3" ]; then
+  if [ "$3" == "DT16" ]; then
     LISTS=`ls lists/ | grep Run2016`
-  elif [ "$2" == "DT17" ]; then
+  elif [ "$3" == "DT17" ]; then
     LISTS=`ls lists/ | grep Run2017`
-  elif [ "$2" == "DT18" ]; then
+  elif [ "$3" == "DT18" ]; then
     LISTS=`ls lists/ | grep Run2018`
-  elif [ "$2" == "MC16" ]; then
+  elif [ "$3" == "MC16" ]; then
     LISTS=`ls lists/ | grep RunIISummer16NanoAOD`
-  elif [ "$2" == "MC17" ]; then
+  elif [ "$3" == "MC17" ]; then
     LISTS=`ls lists/ | grep RunIIFall17NanoAOD`
-  elif [ "$2" == "MC18" ]; then
+  elif [ "$3" == "MC18" ]; then
     LISTS=`ls lists/ | grep 'RunIIAutumn18NanoAOD'`
-  elif [ "$2" == "2016" ]; then
+  elif [ "$3" == "2016" ]; then
     LISTS=`ls lists/ | grep 'Run2016\|RunIISummer16NanoAOD'`
-  elif [ "$2" == "2017" ]; then
+  elif [ "$3" == "2017" ]; then
     LISTS=`ls lists/ | grep 'Run2017\|RunIIFall17NanoAOD'`
-  elif [ "$2" == "2018" ]; then
+  elif [ "$3" == "2018" ]; then
     LISTS=`ls lists/ | grep 'Run2018\|RunIIAutumn18NanoAOD'`
   else
-    LISTS=$2
+    LISTS=$3
   fi
 fi
 
@@ -58,7 +64,10 @@ for L in $LISTS; do
     echo "ERROR: missing file "lists/$L
     continue
   fi
-  bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_selector.sh $VERSION lists/$L
+  for FLAG in $FLAGS; do
+    mkdir -p data/$VERSION/$FLAG
+    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_selector.sh $VERSION lists/$L $FLAG
+  done
 done
 
 exit

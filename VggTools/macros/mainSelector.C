@@ -67,6 +67,11 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (option.Contains("ZGG"))                           isZGG        = true;
    if (option.Contains("ZTauTau"))                       isZTauTau    = true;
 
+   if (fInput && fInput->FindObject("flags")) {
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("reference")) iflag = 0;
+     if (iflag == -1) Error("Begin", "%s : unknown flags = %s", now.AsSQLString(), fInput->FindObject("flags")->GetTitle());
+   }
+
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorMC16_cxx)

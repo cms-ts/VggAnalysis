@@ -12,12 +12,13 @@ cd $WORKDIR
 
 VERSION=$1
 LIST=$2
+FLAG=$3
 
-FILE=data/$VERSION/`basename $LIST .list`.root
-LOG=data/$VERSION/`basename $LIST .list`.log
+FILE=data/$VERSION/$FLAG/`basename $LIST .list`.root
+LOG=data/$VERSION/$FLAG/`basename $LIST .list`.log
 
 export ROOT_HIST=0
 
-root-6.12 -l -b -q run.C\(\"$LIST\",\"$FILE\"\) > $LOG 2>&1
+root-6.12 -l -b -q run.C\(\"$LIST\",\"$FILE\",\"$FLAG\"\) > $LOG 2>&1
 
 exit
