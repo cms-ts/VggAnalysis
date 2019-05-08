@@ -35,7 +35,7 @@ if [ -z "${LISTS// }" ]; then
 fi
 
 if [ ! -z "$2" ]; then
-  LISTS=`ls ./data/$VERSION/$2.log`
+  LISTS=`find ./data/$VERSION/ | grep $2.log`
 fi
 
 total=0
@@ -89,7 +89,11 @@ for L in $LISTS; do
     fi
     errors=$((errors+1))
   fi
-  printf ": ./data/%s \n" `basename \`dirname $L\``/`basename $L`
+  if [ -z "${L##*auto_pu*}" ]; then
+    printf ": ./data/%s \n" `basename \`dirname $L\``/`basename $L`
+  else
+    printf ": ./data/%s/%s \n" $VERSION `basename \`dirname $L\``/`basename $L`
+  fi
 done
 
 echo
