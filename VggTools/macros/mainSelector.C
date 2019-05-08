@@ -69,8 +69,23 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    if (fInput && fInput->FindObject("flags")) {
      if (TString(fInput->FindObject("flags")->GetTitle()).Contains("reference")) iflag = 0;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("pileup_up")) iflag = 10;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("pileup_down")) iflag = 15;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jer_up2016")) iflag = 21;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jer_up2017")) iflag = 22;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jer_up2018")) iflag = 23;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jer_down2016")) iflag = 26;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jer_down2017")) iflag = 27;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jer_down2018")) iflag = 28;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jec_up2016")) iflag = 31;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jec_up2017")) iflag = 32;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jec_up2018")) iflag = 33;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jec_down2016")) iflag = 36;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jec_down2017")) iflag = 37;
+     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jec_down2018")) iflag = 38;
      if (iflag == -1) Error("Begin", "%s : unknown flags = %s", now.AsSQLString(), fInput->FindObject("flags")->GetTitle());
    }
+   if (iflag == -1) Error("Begin", "%s : missing flags", now.AsSQLString());
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -383,6 +398,85 @@ void mainSelector::Begin(TTree * /*tree*/)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
    roccor = new RoccoR("roccor.Run2.v3/RoccoR2018.txt");
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+   JetCorrectorParameters* jet_correction_l1 = 0;
+   JetCorrectorParameters* jet_correction_l2  = 0;
+   JetCorrectorParameters* jet_correction_l3  = 0;
+   JetCorrectorParameters* jet_correction_l2l3res = 0;
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorDT18_cxx)
+   if (fInput && fInput->FindObject("era")) {
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018A")) {
+       jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunA_V8_DATA_L1FastJet_AK4PFchs.txt");
+       jet_correction_l2  = new JetCorrectorParameters("jme/Autumn18_RunA_V8_DATA_L2Relative_AK4PFchs.txt");
+       jet_correction_l3  = new JetCorrectorParameters("jme/Autumn18_RunA_V8_DATA_L3Absolute_AK4PFchs.txt");
+       jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunA_V8_DATA_L2L3Residual_AK4PFchs.txt");
+     }
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018B")) {
+       jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunB_V8_DATA_L1FastJet_AK4PFchs.txt");
+       jet_correction_l2  = new JetCorrectorParameters("jme/Autumn18_RunB_V8_DATA_L2Relative_AK4PFchs.txt");
+       jet_correction_l3  = new JetCorrectorParameters("jme/Autumn18_RunB_V8_DATA_L3Absolute_AK4PFchs.txt");
+       jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunB_V8_DATA_L2L3Residual_AK4PFchs.txt");
+     }
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018C")) {
+       jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunC_V8_DATA_L1FastJet_AK4PFchs.txt");
+       jet_correction_l2  = new JetCorrectorParameters("jme/Autumn18_RunC_V8_DATA_L2Relative_AK4PFchs.txt");
+       jet_correction_l3  = new JetCorrectorParameters("jme/Autumn18_RunC_V8_DATA_L3Absolute_AK4PFchs.txt");
+       jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunC_V8_DATA_L2L3Residual_AK4PFchs.txt");
+     }
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018D")) {
+       jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunD_V8_DATA_L1FastJet_AK4PFchs.txt");
+       jet_correction_l2  = new JetCorrectorParameters("jme/Autumn18_RunD_V8_DATA_L2Relative_AK4PFchs.txt");
+       jet_correction_l3  = new JetCorrectorParameters("jme/Autumn18_RunD_V8_DATA_L3Absolute_AK4PFchs.txt");
+       jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunD_V8_DATA_L2L3Residual_AK4PFchs.txt");
+     }
+     if (jet_correction_l1 == 0) Error("Begin", "%s : unknown era = %s", now.AsSQLString(), fInput->FindObject("era")->GetTitle());
+   }
+   if (jet_correction_l1 == 0) Error("Begin", "%s : missing era", now.AsSQLString());
+#endif // defined(mainSelectorDT18_cxx)
+#if defined(mainSelectorMC18_cxx)
+   jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_V2_MC_L1FastJet_AK4PFchs.txt");
+   jet_correction_l2  = new JetCorrectorParameters("jme/Autumn18_V3_MC_L2Relative_AK4PFchs.txt");
+   jet_correction_l3  = new JetCorrectorParameters("jme/Summer18_V1_MC_L3Absolute_AK4PFchs.txt");
+   jet_correction_l2l3res = new JetCorrectorParameters("jme/Summer18_V1_MC_L2L3Residual_AK4PFchs.txt");
+#endif // defined(mainSelectorMC18_cxx)
+
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+   vector<JetCorrectorParameters> jet_corrections;
+   jet_corrections.push_back(*jet_correction_l1);
+   jet_corrections.push_back(*jet_correction_l2);
+   jet_corrections.push_back(*jet_correction_l3);
+   jet_corrections.push_back(*jet_correction_l2l3res);
+
+   jet_corrector = new FactorizedJetCorrector(jet_corrections);
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+   if (fInput && fInput->FindObject("era")) {
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016B")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017BCD_V11_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016C")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017BCD_V11_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016D")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017BCD_V11_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016E")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017EF_V11_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016F")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017EF_V11_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016G")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017GH_V11_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016H")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017GH_V11_DATA_Uncertainty_AK4PFchs.txt");
+
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2017B")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017B_V32_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2017C")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017C_V32_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2017D")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017DE_V32_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2017E")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017DE_V32_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2017F")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017F_V32_DATA_Uncertainty_AK4PFchs.txt");
+
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018A")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunA_V8_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018B")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunB_V8_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018C")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunC_V8_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018D")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunD_V8_DATA_Uncertainty_AK4PFchs.txt");
+
+     if (jet_correction_unc == 0) Error("Begin", "%s : unknown era = %s", now.AsSQLString(), fInput->FindObject("era")->GetTitle());
+   }
+   if (jet_correction_unc == 0) Error("Begin", "%s : missing era", now.AsSQLString());
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
 #if defined(mainSelectorMC16_cxx)
    jet_resolution = new JME::JetResolution("jme/Summer16_25nsV1_MC_PtResolution_AK4PFchs.txt");
@@ -2329,6 +2423,43 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nJet; i++) {
 
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     if (Jet_pt[i] > 10 && fabs(Jet_eta[i]) < 5.2) {
+
+       jet_corrector->setJetPt(Jet_pt[i] * (1. - Jet_rawFactor[i]));
+       jet_corrector->setJetEta(Jet_eta[i]);
+       jet_corrector->setJetA(Jet_area[i]);
+       jet_corrector->setRho(*fixedGridRhoFastjetAll);
+
+       float eCorr_jet = jet_corrector->getCorrection();
+
+       eCorr_jet = eCorr_jet >= 0. ? eCorr_jet : 1.;
+
+       Jet_pt[i] = Jet_pt[i] * (1. - Jet_rawFactor[i]) * eCorr_jet;
+     }
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+     if (Jet_pt[i] > 10 && fabs(Jet_eta[i]) < 5.2) {
+       jet_correction_unc->setJetPt(Jet_pt[i]);
+       jet_correction_unc->setJetEta(Jet_eta[i]);
+       double jet_unc = jet_correction_unc->getUncertainty(true);
+
+       int jec_var = 0;
+#if defined(mainSelectorDT16_cxx)
+       jec_var = (iflag == 31) - (iflag == 36);
+#endif // defined(mainSelectorDT16_cxx)
+#if defined(mainSelectorDT17_cxx)
+       jec_var = (iflag == 32) - (iflag == 37);
+#endif // defined(mainSelectorDT17_cxx)
+#if defined(mainSelectorDT18_cxx)
+//       jec_var = (iflag == 33) - (iflag == 38);
+#endif // defined(mainSelectorDT18_cxx)
+
+       Jet_pt[i] = Jet_pt[i] * (1. + jet_unc * jec_var);
+     }
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
 // FIXME : #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      JME::JetParameters jer_parameters;
@@ -2347,21 +2478,35 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
+     Variation jer_var = Variation::NOMINAL;
+#if defined(mainSelectorMC16_cxx)
+     if (iflag == 21) jer_var = Variation::UP;
+     if (iflag == 26) jer_var = Variation::DOWN;
+#endif // defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorMC17_cxx)
+     if (iflag == 22) jer_var = Variation::UP;
+     if (iflag == 27) jer_var = Variation::DOWN;
+#endif // defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorMC18_cxx)
+     if (iflag == 23) jer_var = Variation::UP;
+     if (iflag == 28) jer_var = Variation::DOWN;
+#endif // defined(mainSelectorMC18_cxx)
+
      float jet_smear = 1.;
      if (jet_match) {
-       jet_smear = 1. + (jet_resolution_sf->getScaleFactor(jer_parameters) - 1.) * (Jet_pt[i] - GenJet_pt[Jet_genJetIdx[i]]) / Jet_pt[i];
+       jet_smear = 1. + (jet_resolution_sf->getScaleFactor(jer_parameters, jer_var) - 1.) * (Jet_pt[i] - GenJet_pt[Jet_genJetIdx[i]]) / Jet_pt[i];
      } else {
-       jet_smear = gRandom->Gaus(1., jet_resolution->getResolution(jer_parameters) * TMath::Sqrt(TMath::Max(TMath::Power(jet_resolution_sf->getScaleFactor(jer_parameters), 2) - 1., 0.)));
+       jet_smear = gRandom->Gaus(1., jet_resolution->getResolution(jer_parameters) * TMath::Sqrt(TMath::Max(TMath::Power(jet_resolution_sf->getScaleFactor(jer_parameters, jer_var), 2) - 1., 0.)));
      }
 
-     if (jet_smear * Jet_pt[i] < 1.e-2) jet_smear = 1.e-2;
+     if (Jet_pt[i] * jet_smear < 1.e-2) jet_smear = 1.e-2;
 
-     if (jet_smear * Jet_pt[i] > 15) {
+     if (Jet_pt[i] * jet_smear > 15) {
        met_px = met_px - (jet_smear - 1.) * Jet_pt[i] * TMath::Cos(Jet_phi[i]);
        met_py = met_py - (jet_smear - 1.) * Jet_pt[i] * TMath::Sin(Jet_phi[i]);
      }
 
-     Jet_pt[i] = jet_smear * Jet_pt[i];
+     Jet_pt[i] = Jet_pt[i] * jet_smear;
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
 // FIXME : #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 

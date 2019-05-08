@@ -92,6 +92,25 @@ void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output=
 
   fInput->Add(new TNamed("flags", flags.Data()));
 
+  if (input.Contains("Run2016B")) fInput->Add(new TNamed("era", "2016B"));
+  if (input.Contains("Run2016C")) fInput->Add(new TNamed("era", "2016C"));
+  if (input.Contains("Run2016D")) fInput->Add(new TNamed("era", "2016D"));
+  if (input.Contains("Run2016E")) fInput->Add(new TNamed("era", "2016E"));
+  if (input.Contains("Run2016F")) fInput->Add(new TNamed("era", "2016F"));
+  if (input.Contains("Run2016G")) fInput->Add(new TNamed("era", "2016G"));
+  if (input.Contains("Run2016H")) fInput->Add(new TNamed("era", "2016H"));
+
+  if (input.Contains("Run2017B")) fInput->Add(new TNamed("era", "2017B"));
+  if (input.Contains("Run2017C")) fInput->Add(new TNamed("era", "2017C"));
+  if (input.Contains("Run2017D")) fInput->Add(new TNamed("era", "2017D"));
+  if (input.Contains("Run2017E")) fInput->Add(new TNamed("era", "2017E"));
+  if (input.Contains("Run2017F")) fInput->Add(new TNamed("era", "2017F"));
+
+  if (input.Contains("Run2018A")) fInput->Add(new TNamed("era", "2018A"));
+  if (input.Contains("Run2018B")) fInput->Add(new TNamed("era", "2018B"));
+  if (input.Contains("Run2018C")) fInput->Add(new TNamed("era", "2018C"));
+  if (input.Contains("Run2018D")) fInput->Add(new TNamed("era", "2018D"));
+
   if (option.Contains("MC17")) {
     TString output_ele = "data/auto_pu/" + TString(gSystem->BaseName(input));
     TString output_muo = "data/auto_pu/" + TString(gSystem->BaseName(input));

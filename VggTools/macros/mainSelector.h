@@ -41,8 +41,17 @@
 #define NANOAODv4
 #endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
+#if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
+#define __ROOTCLING__ 1
+#include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
+#include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
+#endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
+
+#if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
+#include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
+#endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
+
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
-#define STANDALONE
 #include "JetMETCorrections/Modules/interface/JetResolution.h"
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
@@ -458,6 +467,14 @@ public :
 
    RoccoR* roccor = 0;
 
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+   FactorizedJetCorrector* jet_corrector = 0;
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+
+#if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
+   JetCorrectionUncertainty* jet_correction_unc = 0;
+#endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
+
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
    JME::JetResolution* jet_resolution = 0;
    JME::JetResolutionScaleFactor* jet_resolution_sf = 0;
@@ -527,6 +544,9 @@ public :
    TTreeReaderArray<Float_t> Jet_eta = {fReader, "Jet_eta"};
    TTreeReaderArray<Float_t> Jet_phi = {fReader, "Jet_phi"};
    TTreeReaderArray<Float_t> Jet_mass = {fReader, "Jet_mass"};
+   TTreeReaderArray<Float_t> Jet_area = {fReader, "Jet_area"};
+   TTreeReaderArray<Float_t> Jet_rawFactor = {fReader, "Jet_rawFactor"};
+   TTreeReaderValue<Float_t> fixedGridRhoFastjetAll = {fReader, "fixedGridRhoFastjetAll"};
 
 #if defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
     TTreeReaderValue<Float_t> METFixEE2017_phi = {fReader, "METFixEE2017_phi"};
@@ -653,8 +673,6 @@ public :
    TTreeReaderArray<Int_t> Muon_genPartIdx = {fReader, "Muon_genPartIdx"};
    TTreeReaderArray<Int_t> Photon_genPartIdx = {fReader, "Photon_genPartIdx"};
    TTreeReaderArray<Int_t> Jet_genJetIdx = {fReader, "Jet_genJetIdx"};
-
-   TTreeReaderValue<Float_t> fixedGridRhoFastjetAll = {fReader, "fixedGridRhoFastjetAll"};
 
    TTreeReaderValue<Float_t> MET_fiducialGenPhi = {fReader, "MET_fiducialGenPhi"};
    TTreeReaderValue<Float_t> MET_fiducialGenPt = {fReader, "MET_fiducialGenPt"};
