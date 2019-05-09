@@ -3,8 +3,8 @@
 void plot3(string plot="", string title="", string version="", string options="", string flags="reference") {
 
   if (plot.find("Zgg") != string::npos) {
-    if (options.find("qcd") != string::npos) {
-      cout << "Skipping plot map " << plot << " for options " << options << endl;
+    if (flags.find("qcd") != string::npos) {
+      cout << "Skipping plot map " << plot << " for flags " << flags << endl;
       return;
     }
   }
@@ -21,11 +21,10 @@ void plot3(string plot="", string title="", string version="", string options=""
   if (options.find("new") != string::npos) plot = plot + ".new";
   if (options.find("jet") != string::npos) plot = plot + ".jet";
 
-  if (options.find("qcd") != string::npos) {
+  if (flags.find("qcd") != string::npos) {
     year = year + ".qcd";
     title = title + "_qcd";
-    options = options + ",nofit";
-    if (options.find("nofit") == string::npos) options = options + ",nofit";
+    if (flags.find("nofit") == string::npos) flags = flags + ",nofit";
   }
 
   if (options.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
@@ -139,7 +138,7 @@ void plot3(string plot="", string title="", string version="", string options=""
             histo[index]->Scale(norm);
           }
         }
-        if (options.find("qcd") == string::npos) {
+        if (flags.find("qcd") == string::npos) {
           if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
             if (histo_mc_gen[index]) {
               TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
