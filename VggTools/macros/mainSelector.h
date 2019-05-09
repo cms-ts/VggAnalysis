@@ -735,15 +735,15 @@ Bool_t mainSelector::Notify()
    return kTRUE;
 }
 
-float getWeight(TH1* h, float x, float y) {
+float getWeight(TH1* h, float x, float y, float variation = 0) {
    if (h) {
      if (h->InheritsFrom("TH2")) {
        int binx = max(1, min(h->GetNbinsX(), h->GetXaxis()->FindBin(x)));
        int biny = max(1, min(h->GetNbinsY(), h->GetYaxis()->FindBin(y)));
-       return h->GetBinContent(binx,biny);
+       return h->GetBinContent(binx,biny) + variation * h->GetBinError(binx,biny);
      } else {
        int bin = max(1, min(h->GetNbinsX(), h->GetXaxis()->FindBin(x)));
-       return h->GetBinContent(bin);
+       return h->GetBinContent(bin) + variation * h->GetBinError(bin);
      }
    } else {
      cout << "ERROR! The weights input histogram is not loaded. Returning weight 0 !" << endl;
