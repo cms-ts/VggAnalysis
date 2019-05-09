@@ -43,13 +43,13 @@ for YEAR in $YEARS; do
     for FLAG in $FLAGS; do
 
       ( \
-        ./plot1.sh $VERSION $YEAR $OPTION $FLAGS ; \
-        ./plot0.sh $VERSION $YEAR $OPTION",qcd,nofit" $FLAGS ; \
-        ./plot0.sh $VERSION $YEAR $OPTION $FLAGS ; \
-        ./plot2.sh $VERSION $YEAR $OPTION $FLAGS ; \
-        ./plot3.sh $VERSION $YEAR $OPTION $FLAGS ; \
-        ./plot4.sh $VERSION $YEAR $OPTION $FLAGS ; \
-        ./plot5.sh $VERSION $YEAR $OPTION $FLAGS \
+        ./plot1.sh $VERSION $YEAR $OPTION $FLAG ; \
+        ./plot0.sh $VERSION $YEAR $OPTION",qcd,nofit" $FLAG ; \
+        ./plot0.sh $VERSION $YEAR $OPTION $FLAG ; \
+        ./plot2.sh $VERSION $YEAR $OPTION $FLAG ; \
+        ./plot3.sh $VERSION $YEAR $OPTION $FLAG ; \
+        ./plot4.sh $VERSION $YEAR $OPTION $FLAG ; \
+        ./plot5.sh $VERSION $YEAR $OPTION $FLAG \
       ) &
 
     done
