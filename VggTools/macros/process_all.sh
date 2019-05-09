@@ -9,12 +9,12 @@ if [ ! -z "$1" ]; then
   VERSION=$1
 fi
 
-./process.sh $VERSION all "default" reference,nolog
+./process.sh $VERSION all "nolog,default" reference
 
-./process.sh $VERSION all "default,test" reference,nolog
+./process.sh $VERSION all "nolog,default,test" reference
 
-./process.sh $VERSION all "default,new" reference,nolog
+./process.sh $VERSION all "nolog,default,new" reference
 
-./process.sh $VERSION all "default,jet" reference,nolog
+./process.sh $VERSION all "nolog,default,jet" reference
 
 exit

@@ -26,13 +26,13 @@ if [ ! -z "$2" ]; then
   fi
 fi
 
-OPTIONS="amcatnlo"
+OPTIONS="nolog,amcatnlo"
 
 if [ ! -z "$3" ]; then
   OPTIONS=$3
 fi
 
-FLAGS="reference,nolog"
+FLAGS="reference"
 
 if [ ! -z "$4" ]; then
   FLAGS=$4

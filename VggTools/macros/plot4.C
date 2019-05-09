@@ -293,7 +293,7 @@ void plot4(string plot="", string title="", string version="v00", string options
       histo[index]->SetBinError(histo[index]->GetNbinsX() + 1, 0.);
     }
     if (index > 0) {
-      if (flags.find("nobkg") != string::npos) {
+      if (options.find("nobkg") != string::npos) {
         if ((title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) && ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012))) {
           hstack_mc->Add(it->second);
           h_mc_sum->Add(it->second);
@@ -391,7 +391,7 @@ void plot4(string plot="", string title="", string version="v00", string options
   pad1->cd();
 
   hstack_mc->SetMaximum(1.2*TMath::Max(hstack_mc->GetMaximum(), histo[0]->GetMaximum()));
-  if (flags.find("nolog") == string::npos) hstack_mc->SetMinimum(0.0001*hstack_mc->GetMaximum());
+  if (options.find("nolog") == string::npos) hstack_mc->SetMinimum(0.0001*hstack_mc->GetMaximum());
   hstack_mc->SetMinimum(1.);
 
   hstack_mc->Draw("HIST");
@@ -416,7 +416,7 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   leg->Draw();
 
-  if (flags.find("nolog") == string::npos) {
+  if (options.find("nolog") == string::npos) {
     if (h_mc_sum->GetMaximum() != 0) pad1->SetLogy();
   }
 

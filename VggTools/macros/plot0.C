@@ -5,8 +5,8 @@
 void plot0(string plot="", string title="", string version="v00", string options="", string flags="reference") {
 
   if (plot.find("Zgg") != string::npos) {
-    if (flags.find("qcd") != string::npos) {
-      cout << "Skipping plot map " << plot << " for flags " << flags << endl;
+    if (options.find("qcd") != string::npos) {
+      cout << "Skipping plot map " << plot << " for options " << options << endl;
       return;
     }
   }
@@ -23,10 +23,10 @@ void plot0(string plot="", string title="", string version="v00", string options
   if (options.find("new") != string::npos) plot = plot + ".new";
   if (options.find("jet") != string::npos) plot = plot + ".jet";
 
-  if (flags.find("qcd") != string::npos) {
+  if (options.find("qcd") != string::npos) {
     year = year + ".qcd";
     title = title + "_qcd";
-    if (flags.find("nofit") == string::npos) flags = flags + ",nofit";
+    if (options.find("nofit") == string::npos) options = options + ",nofit";
   }
 
   if (options.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
@@ -149,7 +149,7 @@ void plot0(string plot="", string title="", string version="v00", string options
   if (options.find("madgraph") != string::npos) version = version + ".madgraph";
   if (options.find("default") != string::npos) version = version + ".default";
 
-  if (flags.find("nofit") == string::npos) {
+  if (options.find("nofit") == string::npos) {
     float fitval = 0.;
     float fiterr = 0.;
     int index = 9001;
@@ -178,7 +178,7 @@ void plot0(string plot="", string title="", string version="v00", string options
     }
   }
 
-  if (flags.find("nofit") != string::npos) title = title + "_nofit";
+  if (options.find("nofit") != string::npos) title = title + "_nofit";
 
   THStack* hstack_mc = new THStack("hstack_mc", "hstack_mc");
 
@@ -203,7 +203,7 @@ void plot0(string plot="", string title="", string version="v00", string options
       histo[index]->SetBinError(histo[index]->GetNbinsX() + 1, 0.);
     }
     if (index > 0) {
-      if (flags.find("nobkg") != string::npos) {
+      if (options.find("nobkg") != string::npos) {
         if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
           hstack_mc->Add(it->second);
           h_mc_sum->Add(it->second);
@@ -219,7 +219,7 @@ void plot0(string plot="", string title="", string version="v00", string options
   }
 
   TH1D* h_qcd = (TH1D*)histo[0]->Clone("h_qcd");
-  if (flags.find("nofit") != string::npos) {
+  if (options.find("nofit") != string::npos) {
     h_qcd->Add(h_mc_sum, -1);
     for (int i = 0; i < h_qcd->GetNbinsX()+1; i++) {
       if (h_qcd->GetBinContent(i) < 0) {
@@ -229,7 +229,7 @@ void plot0(string plot="", string title="", string version="v00", string options
     }
   }
 
-  if (flags.find("nobkg") != string::npos) {
+  if (options.find("nobkg") != string::npos) {
     histo[0]->Add(h_bkg, -1);
   }
 
@@ -261,35 +261,35 @@ void plot0(string plot="", string title="", string version="v00", string options
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "DYJets", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 13) {
+    if (options.find("nobkg") == string::npos && it->first == 13) {
       it->second->SetFillColor(kOrange+2);
       leg->AddEntry(it->second, "Z #rightarrow #tau #tau", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 20) {
+    if (options.find("nobkg") == string::npos && it->first == 20) {
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "WJets", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 21) {
+    if (options.find("nobkg") == string::npos && it->first == 21) {
       it->second->SetFillColor(kOrange-5);
       leg->AddEntry(it->second, "W #gamma", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 22) {
+    if (options.find("nobkg") == string::npos && it->first == 22) {
       it->second->SetFillColor(kOrange-6);
       leg->AddEntry(it->second, "W #gamma #gamma", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 30) {
+    if (options.find("nobkg") == string::npos && it->first == 30) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 35) {
+    if (options.find("nobkg") == string::npos && it->first == 35) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Triboson", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 40) {
+    if (options.find("nobkg") == string::npos && it->first == 40) {
       it->second->SetFillColor(kBlue);
       leg->AddEntry(it->second, "TTJets", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 50) {
+    if (options.find("nobkg") == string::npos && it->first == 50) {
       it->second->SetFillColor(kOrange-3);
       leg->AddEntry(it->second, "SingleTop", "f");
     }
@@ -308,40 +308,40 @@ void plot0(string plot="", string title="", string version="v00", string options
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "WJets", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 1013) {
+    if (options.find("nobkg") == string::npos && it->first == 1013) {
       it->second->SetFillColor(kOrange+2);
       leg->AddEntry(it->second, "W #rightarrow #tau #nu", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 1020) {
+    if (options.find("nobkg") == string::npos && it->first == 1020) {
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "DYJets", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 1021) {
+    if (options.find("nobkg") == string::npos && it->first == 1021) {
       it->second->SetFillColor(kOrange-5);
       leg->AddEntry(it->second, "Z #gamma", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 1022) {
+    if (options.find("nobkg") == string::npos && it->first == 1022) {
       it->second->SetFillColor(kOrange-6);
       leg->AddEntry(it->second, "Z #gamma #gamma", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 1030) {
+    if (options.find("nobkg") == string::npos && it->first == 1030) {
       it->second->SetFillColor(kBlue);
       leg->AddEntry(it->second, "TTJets", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 1040) {
+    if (options.find("nobkg") == string::npos && it->first == 1040) {
       it->second->SetFillColor(kOrange-3);
       leg->AddEntry(it->second, "SingleTop", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 1050) {
+    if (options.find("nobkg") == string::npos && it->first == 1050) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
-    if (flags.find("nobkg") == string::npos && it->first == 1055) {
+    if (options.find("nobkg") == string::npos && it->first == 1055) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Triboson", "f");
     }
 
-    if (flags.find("nobkg") == string::npos && it->first == 9001) {
+    if (options.find("nobkg") == string::npos && it->first == 9001) {
       it->second->SetFillColor(kMagenta+3);
       leg->AddEntry(it->second, "QCD", "f");
     }
@@ -356,7 +356,7 @@ void plot0(string plot="", string title="", string version="v00", string options
   pad1->cd();
 
   hstack_mc->SetMaximum(1.2*TMath::Max(hstack_mc->GetMaximum(), histo[0]->GetMaximum()));
-  if (flags.find("nolog") == string::npos) hstack_mc->SetMinimum(0.0001*hstack_mc->GetMaximum());
+  if (options.find("nolog") == string::npos) hstack_mc->SetMinimum(0.0001*hstack_mc->GetMaximum());
 
   hstack_mc->Draw("HIST");
 
@@ -380,7 +380,7 @@ void plot0(string plot="", string title="", string version="v00", string options
 
   leg->Draw();
 
-  if (flags.find("nolog") == string::npos) {
+  if (options.find("nolog") == string::npos) {
     if (h_mc_sum->GetMaximum() != 0) pad1->SetLogy();
   }
 
@@ -699,8 +699,8 @@ void plot0(string plot="", string title="", string version="v00", string options
   }
   TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flags + "/" + year + "/root/" + title + ".root").c_str());
-  if (flags.find("nofit") != string::npos) h_qcd->Write(title.c_str());
-  if (flags.find("nofit") == string::npos) {
+  if (options.find("nofit") != string::npos) h_qcd->Write(title.c_str());
+  if (options.find("nofit") == string::npos) {
     histo[0]->Write((title + "_data").c_str());
     h_bkg->Write((title + "_bkg").c_str());
   }
