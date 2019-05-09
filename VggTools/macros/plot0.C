@@ -26,7 +26,6 @@ void plot0(string plot="", string title="", string version="v00", string options
   if (options.find("qcd") != string::npos) {
     year = year + ".qcd";
     title = title + "_qcd";
-    options = options + ",nofit";
     if (options.find("nofit") == string::npos) options = options + ",nofit";
   }
 
