@@ -89,10 +89,10 @@ for L in $LISTS; do
     fi
     errors=$((errors+1))
   fi
-  if [ -z "${L##*auto_pu*}" ]; then
-    printf ": ./data/%s \n" `basename \`dirname $L\``/`basename $L`
-  else
+  if [ ! -z "${L##*auto_pu*}" ]; then
     printf ": ./data/%s/%s \n" $VERSION `basename \`dirname $L\``/`basename $L`
+  else
+    printf ": ./data/%s \n" `basename \`dirname $L\``/`basename $L`
   fi
 done
 
