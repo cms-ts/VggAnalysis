@@ -84,15 +84,17 @@ for L in $LISTS; do
       printf "(bad file) "
     elif [ -z "${O##*does not have a branch*}" ]; then
       printf "(version)  "
+    elif [ -z "${O##*unknown flags*}" ]; then
+      printf "(flags)  "
     else
       printf "           "
     fi
     errors=$((errors+1))
   fi
-  if [ ! -z "${L##*auto_pu*}" ]; then
-    printf ": ./data/%s/%s \n" $VERSION `basename \`dirname $L\``/`basename $L`
-  else
+  if [ -z "${L##*auto_pu*}" ] || [ -z "${L##*/*}" ]; then
     printf ": ./data/%s \n" `basename \`dirname $L\``/`basename $L`
+  else
+    printf ": ./data/%s/%s \n" $VERSION `basename \`dirname $L\``/`basename $L`
   fi
 done
 
