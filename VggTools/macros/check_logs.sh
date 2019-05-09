@@ -85,7 +85,7 @@ for L in $LISTS; do
     elif [ -z "${O##*does not have a branch*}" ]; then
       printf "(version)  "
     elif [ -z "${O##*unknown flags*}" ]; then
-      printf "(flags)  "
+      printf "(flags)    "
     else
       printf "           "
     fi
