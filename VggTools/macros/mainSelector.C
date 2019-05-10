@@ -463,10 +463,10 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (jet_correction_l1 == 0) Error("Begin", "%s : missing era", now.AsSQLString());
 #endif // defined(mainSelectorDT18_cxx)
 #if defined(mainSelectorMC18_cxx)
-   jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_V2_MC_L1FastJet_AK4PFchs.txt");
-   jet_correction_l2  = new JetCorrectorParameters("jme/Autumn18_V3_MC_L2Relative_AK4PFchs.txt");
-   jet_correction_l3  = new JetCorrectorParameters("jme/Summer18_V1_MC_L3Absolute_AK4PFchs.txt");
-   jet_correction_l2l3res = new JetCorrectorParameters("jme/Summer18_V1_MC_L2L3Residual_AK4PFchs.txt");
+   jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_V8_MC_L1FastJet_AK4PFchs.txt");
+   jet_correction_l2  = new JetCorrectorParameters("jme/Autumn18_V8_MC_L2Relative_AK4PFchs.txt");
+   jet_correction_l3  = new JetCorrectorParameters("jme/Autumn18_V8_MC_L3Absolute_AK4PFchs.txt");
+   jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_V8_MC_L2L3Residual_AK4PFchs.txt");
 #endif // defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
