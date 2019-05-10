@@ -517,8 +517,8 @@ void mainSelector::Begin(TTree * /*tree*/)
 // FIXME
    jet_resolution = 0;
    jet_resolution_sf = 0;
-//   jet_resolution = new JME::JetResolution("jme/Autumn18_V1_MC_PtResolution_AK4PFchs.txt");
-//   jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Autumn18_V1_MC_SF_AK4PFchs.txt");
+//   jet_resolution = new JME::JetResolution("jme/Autumn18_V4_MC_PtResolution_AK4PFchs.txt");
+//   jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Autumn18_V4_MC_SF_AK4PFchs.txt");
 // FIXME
 #endif // defined(mainSelectorMC18_cxx)
 
