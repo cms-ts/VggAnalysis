@@ -661,6 +661,41 @@ void plot5(string plot="", string title="", string version="v00", string options
   file->Close();
   delete file;
 
+  double xsec_data = 0.;
+  double xsec_stat_data = 0.;
+
+  xsec_data = h_xsec_rec->IntegralAndError(0,h_xsec_rec->GetNbinsX()+1,xsec_stat_data);
+  
+  ofstream out;
+  out.open(("html/" + version + "/" + flags + "/" + year + ".xsec/root/" + title + "_xsecs.dat").c_str());
+  
+  out << title << endl;
+  out << std::fixed << std::setprecision(4);
+  out << std::setw(29) << "data";
+  out << endl;
+  out << std::setw(29) << "stat";
+  out << endl;
+
+  for (int i=0; i <= h_xsec_rec->GetNbinsX()+1; i++) {
+    out << std::fixed;
+    out << std::setw(2) << i;
+    out << " ";
+    out << std::setprecision(8);
+    out << std::setw(12) << h_xsec_rec->GetBinContent(i);
+    out << " +- ";
+    out << std::setw(10) << h_xsec_rec->GetBinError(i);
+    out << endl;
+  }
+  
+  out << "tot";
+  out << std::setprecision(8);
+  out << std::setw(12) << xsec_data;
+  out << " +- ";
+  out << std::setw(10) << xsec_stat_data;
+  out << endl;
+  
+  out.close();
+
 }
 
 int main(int argc, char *argv[]) {
