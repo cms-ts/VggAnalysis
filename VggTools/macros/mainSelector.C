@@ -518,12 +518,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Fall17_V3_MC_SF_AK4PFchs.txt");
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
-// FIXME
-   jet_resolution = 0;
-   jet_resolution_sf = 0;
-//   jet_resolution = new JME::JetResolution("jme/Autumn18_V4_MC_PtResolution_AK4PFchs.txt");
-//   jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Autumn18_V4_MC_SF_AK4PFchs.txt");
-// FIXME
+   jet_resolution = new JME::JetResolution("jme/Autumn18_V4_MC_PtResolution_AK4PFchs.txt");
+   jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Autumn18_V4_MC_SF_AK4PFchs.txt");
 #endif // defined(mainSelectorMC18_cxx)
 
 }
@@ -2491,8 +2487,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
-// FIXME : #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
      JME::JetParameters jer_parameters;
      jer_parameters.setJetPt(Jet_pt[i]);
      jer_parameters.setJetEta(Jet_eta[i]);
@@ -2538,8 +2533,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      Jet_pt[i] = Jet_pt[i] * jet_smear;
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
-// FIXME : #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
      if (Jet_pt[i] < 30) continue;
      if (fabs(Jet_eta[i]) > 2.400) continue;
