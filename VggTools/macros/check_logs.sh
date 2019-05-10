@@ -91,8 +91,10 @@ for L in $LISTS; do
     fi
     errors=$((errors+1))
   fi
-  if [ -z "${L##*auto_pu*}" ] || [ -z "${L##*/*}" ]; then
+  if [ -z "${L##*auto_pu*}" ]; then
     printf ": ./data/%s \n" `basename \`dirname $L\``/`basename $L`
+  elif [ -z "${L##*/*}" ]; then
+    printf ": ./data/%s/%s \n" ${VERSION%%/*} `basename \`dirname $L\``/`basename $L`
   else
     printf ": ./data/%s/%s \n" $VERSION `basename \`dirname $L\``/`basename $L`
   fi
