@@ -2,7 +2,7 @@
 
 #include "CMS_lumi.C"
 
-void plot6(string plot="", string title="", string version="v00", string options="", string flags="") {
+void plot6(string plot="", string title="", string version="v00", string options="") {
 
   string year = "";
 
@@ -71,7 +71,68 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (options.find("madgraph") != string::npos) version = version + ".madgraph";
   if (options.find("default") != string::npos) version = version + ".default";
 
-// TODO
+  vector<string> flags;
+
+  flags.push_back("reference");
+
+  flags.push_back("pileup_up");
+
+  flags.push_back("jec_up_2016");
+  flags.push_back("jec_up_2017");
+  flags.push_back("jec_up_2018");
+
+  flags.push_back("jer_up_2016");
+  flags.push_back("jer_up_2017");
+  flags.push_back("jer_up_2018");
+
+  flags.push_back("sf_ele_hlt_up");
+  flags.push_back("sf_ele_reco_up");
+  flags.push_back("sf_ele_eff_up");
+
+  flags.push_back("sf_muo_trig_up");
+  flags.push_back("sf_muo_id_up");
+  flags.push_back("sf_muo_iso_up");
+
+  flags.push_back("sf_pho_eff_up");
+  flags.push_back("sf_pho_veto_up_2016");
+  flags.push_back("sf_pho_veto_up_2017");
+  flags.push_back("sf_pho_veto_up_2018");
+
+  map<string, TH1D*> h_xsec;
+  map<string, TH1D*> h_xsec_mc_gen;
+
+  for (uint i = 0; i < flags.size(); i++) {
+
+    if (!gSystem->AccessPathName(("html/" + version + "/" + flags[i] + "/" + year + ".xsec/root/" + title + ".root").c_str())) {
+
+      TFile* file = new TFile(("html/" + version + "/" + flags[i] + "/" + year + ".xsec/root/" + title + ".root").c_str());
+
+      TH1D* h_xsec_tmp = (TH1D*)file->Get((title + "_xsec").c_str());
+      TH1D* h_xsec_mc_gen_tmp = (TH1D*)file->Get((title + "_xsec_mc_gen").c_str());
+
+      h_xsec[flags[i]] = h_xsec_tmp;
+      h_xsec_mc_gen[flags[i]] = h_xsec_mc_gen_tmp;
+
+      h_xsec[flags[i]]->SetDirectory(0);
+      h_xsec_mc_gen[flags[i]]->SetDirectory(0);
+
+      file->Close();
+      delete file;
+
+      double xsec_data = 0.;
+      double xsec_stat_data = 0.;
+
+      xsec_data = h_xsec[flags[i]]->IntegralAndError(0,h_xsec[flags[i]]->GetNbinsX()+1,xsec_stat_data);
+
+      cout << flags[i] << " : " << "xsec = " << xsec_data << " +- " << xsec_stat_data << endl;
+
+    } else {
+
+      cout << flags[i] << " : " << "not available" << endl;
+
+    }
+
+  }
 
 }
 
