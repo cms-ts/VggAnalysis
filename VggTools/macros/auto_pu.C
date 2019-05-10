@@ -81,13 +81,23 @@ void auto_pu(TString input="lists/RunIIFall17NanoAOD_DYJetsToLL_M-50_TuneCP5_13T
   file->Close();
   delete file;
 
-  if (output.Contains("RunIIFall17")) {
-    if (output.Contains("pileup_ele")) {
+  if (output.Contains("pileup_ele_RunIIFall17")) {
       WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleElectron_14Dec2018.root", true, false, output.Data());
-    }
-    if (output.Contains("pileup_muo")) {
+  }
+  if (output.Contains("pileup_ele_up_RunIIFall17")) {
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_up_Run2017_SingleElectron_14Dec2018.root", true, false, output.Data());
+  }
+  if (output.Contains("pileup_ele_down_RunIIFall17")) {
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_down_Run2017_SingleElectron_14Dec2018.root", true, false, output.Data());
+  }
+  if (output.Contains("pileup_muo_RunIIFall17")) {
       WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleMuon_14Dec2018.root", true, false, output.Data());
-    }
+  }
+  if (output.Contains("pileup_muo_up_RunIIFall17")) {
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_up_Run2017_SingleMuon_14Dec2018.root", true, false, output.Data());
+  }
+  if (output.Contains("pileup_muo_down_RunIIFall17")) {
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_down_Run2017_SingleMuon_14Dec2018.root", true, false, output.Data());
   }
 
   now = TDatime();

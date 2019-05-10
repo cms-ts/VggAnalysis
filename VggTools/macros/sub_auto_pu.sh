@@ -32,7 +32,27 @@ for L in $LISTS; do
     bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_ELE
     check=1
   fi
+  FILE_ELE=data/auto_pu/pileup_ele_up_`basename $L .list`.root
+  if [ lists/$L -nt $FILE_ELE ]; then
+    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_ELE
+    check=1
+  fi
+  FILE_ELE=data/auto_pu/pileup_ele_down_`basename $L .list`.root
+  if [ lists/$L -nt $FILE_ELE ]; then
+    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_ELE
+    check=1
+  fi
   FILE_MUO=data/auto_pu/pileup_muo_`basename $L .list`.root
+  if [ lists/$L -nt $FILE_MUO ]; then
+    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_MUO
+    check=1
+  fi
+  FILE_MUO=data/auto_pu/pileup_muo_up_`basename $L .list`.root
+  if [ lists/$L -nt $FILE_MUO ]; then
+    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_MUO
+    check=1
+  fi
+  FILE_MUO=data/auto_pu/pileup_muo_down_`basename $L .list`.root
   if [ lists/$L -nt $FILE_MUO ]; then
     bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_MUO
     check=1

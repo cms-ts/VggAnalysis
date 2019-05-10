@@ -114,8 +114,16 @@ void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output=
   if (option.Contains("MC17")) {
     TString output_ele = "data/auto_pu/" + TString(gSystem->BaseName(input));
     TString output_muo = "data/auto_pu/" + TString(gSystem->BaseName(input));
-    output_ele.ReplaceAll("RunIIFall17NanoAOD", "pileup_ele_RunIIFall17NanoAOD");
-    output_muo.ReplaceAll("RunIIFall17NanoAOD", "pileup_muo_RunIIFall17NanoAOD");
+    output_ele.ReplaceAll("RunIIFall17", "pileup_ele_RunIIFall17");
+    output_muo.ReplaceAll("RunIIFall17", "pileup_muo_RunIIFall17");
+    if (flags.Contains("pileup_up")) {
+      output_ele.ReplaceAll("pileup_ele", "pileup_ele_up");
+      output_muo.ReplaceAll("pileup_muo", "pileup_muo_up");
+    }
+    if (flags.Contains("pileup_down")) {
+      output_ele.ReplaceAll("pileup_ele", "pileup_ele_down");
+      output_muo.ReplaceAll("pileup_muo", "pileup_muo_down");
+    }
     output_ele.ReplaceAll(".list", ".root");
     output_muo.ReplaceAll(".list", ".root");
     if (!gSystem->AccessPathName(output_ele.Data()) && !gSystem->AccessPathName(output_muo.Data())) {
