@@ -50,9 +50,9 @@ for YEAR in $YEARS; do
                 root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
 
          $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_npvs\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
-         $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_npvs_w\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+                root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_npvs_w\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
          $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_npvs\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
-         $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_npvs_w\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+                root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_npvs_w\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
 
                 root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
          $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
@@ -79,9 +79,9 @@ for YEAR in $YEARS; do
   $SKIP1        root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
 
   $SKIP1 $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_npvs\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
-  $SKIP1 $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_npvs_w\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  $SKIP1        root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_npvs_w\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
   $SKIP1 $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_npvs\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
-  $SKIP1 $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_npvs_w\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  $SKIP1        root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_npvs_w\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
 
   $SKIP1        root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
   $SKIP1 $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
