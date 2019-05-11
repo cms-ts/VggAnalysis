@@ -10,11 +10,11 @@ if [ ! -z "$1" ]; then
     echo
     echo "Available versions:"
     echo
-    find ./data/ -mindepth 2 -maxdepth 2 -type d -printf "%P\n" | grep -v archive | grep -v auto_pu | tr '\n' ' '
+    find ./data/ -mindepth 2 -maxdepth 2 -type d -printf "%P\n" | grep -v archive | grep -v auto_pu | sort | tr '\n' ' '
     echo ; echo
     exit
   elif [ "$1" == "all" ]; then
-    VERSION=`ls ./data/ | grep -v archive | grep -v auto_pu`
+    VERSION=`ls ./data/ | grep -v archive | grep -v auto_pu | sort`
   elif [ "$1" == "last" ]; then
     VERSION=`ls -tr ./data/ | grep -v archive | grep -v auto_pu | tail -1`
   else
@@ -35,7 +35,7 @@ if [ -z "${LISTS// }" ]; then
 fi
 
 if [ ! -z "$2" ]; then
-  LISTS=`find ./data/$VERSION/ | grep $2.log`
+  LISTS=`find ./data/$VERSION/ | grep $2.log | sort`
 fi
 
 total=0
