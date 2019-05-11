@@ -76,27 +76,44 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("reference");
 
   flags.push_back("pileup_up");
+  flags.push_back("pileup_down");
 
   flags.push_back("jec_up_2016");
   flags.push_back("jec_up_2017");
   flags.push_back("jec_up_2018");
+  flags.push_back("jec_down_2016");
+  flags.push_back("jec_down_2017");
+  flags.push_back("jec_down_2018");
 
   flags.push_back("jer_up_2016");
   flags.push_back("jer_up_2017");
   flags.push_back("jer_up_2018");
+  flags.push_back("jer_down_2016");
+  flags.push_back("jer_down_2017");
+  flags.push_back("jer_down_2018");
 
-  flags.push_back("sf_ele_hlt_up");
-  flags.push_back("sf_ele_reco_up");
   flags.push_back("sf_ele_eff_up");
+  flags.push_back("sf_ele_eff_down");
+  flags.push_back("sf_ele_reco_up");
+  flags.push_back("sf_ele_reco_down");
+  flags.push_back("sf_ele_hlt_up");
+  flags.push_back("sf_ele_hlt_down");
 
-  flags.push_back("sf_muo_trig_up");
   flags.push_back("sf_muo_id_up");
+  flags.push_back("sf_muo_id_down");
   flags.push_back("sf_muo_iso_up");
+  flags.push_back("sf_muo_iso_down");
+  flags.push_back("sf_muo_trig_up");
+  flags.push_back("sf_muo_trig_down");
 
   flags.push_back("sf_pho_eff_up");
+  flags.push_back("sf_pho_eff_down");
   flags.push_back("sf_pho_veto_up_2016");
   flags.push_back("sf_pho_veto_up_2017");
   flags.push_back("sf_pho_veto_up_2018");
+  flags.push_back("sf_pho_veto_down_2016");
+  flags.push_back("sf_pho_veto_down_2017");
+  flags.push_back("sf_pho_veto_down_2018");
 
   map<string, TH1D*> h_xsec;
   map<string, TH1D*> h_xsec_mc_gen;
@@ -130,16 +147,18 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   for (uint i = 0; i < flags.size(); i++) {
 
-      double xsec_data = 0.;
-      double xsec_stat_data = 0.;
+    double xsec_data = 0.;
+    double xsec_stat_data = 0.;
+
+    cout << std::setw(21)
+         << flags[i]
+         << " : ";
 
     if (h_xsec[flags[i]]) {
 
       xsec_data = h_xsec[flags[i]]->IntegralAndError(0,h_xsec[flags[i]]->GetNbinsX()+1,xsec_stat_data);
 
-      cout << std::setw(19)
-           << flags[i]
-           << " : xsec = "
+      cout << "xsec = "
            << std::fixed << std::setprecision(5)
            << std::setw(8) << xsec_data
            << " +- "
@@ -156,7 +175,7 @@ void plot6(string plot="", string title="", string version="v00", string options
 
     } else {
 
-      cout << flags[i] << " : " << "cross section not available" << endl;
+      cout << "cross section not available" << endl;
 
     }
 
