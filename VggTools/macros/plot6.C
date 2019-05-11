@@ -119,16 +119,44 @@ void plot6(string plot="", string title="", string version="v00", string options
       file->Close();
       delete file;
 
+    }
+
+  }
+
+  double xsec_data_ref = 0.;
+  double xsec_stat_data_ref = 0.;
+
+  if (h_xsec["reference"]) xsec_data_ref = h_xsec["reference"]->IntegralAndError(0,h_xsec["reference"]->GetNbinsX()+1,xsec_stat_data_ref);
+
+  for (uint i = 0; i < flags.size(); i++) {
+
       double xsec_data = 0.;
       double xsec_stat_data = 0.;
 
+    if (h_xsec[flags[i]]) {
+
       xsec_data = h_xsec[flags[i]]->IntegralAndError(0,h_xsec[flags[i]]->GetNbinsX()+1,xsec_stat_data);
 
-      cout << flags[i] << " : " << "xsec = " << xsec_data << " +- " << xsec_stat_data << endl;
+      cout << std::setw(19)
+           << flags[i]
+           << " : xsec = "
+           << std::fixed << std::setprecision(5)
+           << std::setw(8) << xsec_data
+           << " +- "
+           << std::setw(4) << xsec_stat_data
+           << " : ";
+      if (xsec_data_ref != 0) {
+        cout << std::fixed << std::setprecision(2)
+             << std::setw(5) << 100.*(xsec_data-xsec_data_ref)/xsec_data
+             << " %"
+             << endl;
+      } else {
+        cout << "reference cross section not available" << endl;
+      }
 
     } else {
 
-      cout << flags[i] << " : " << "not available" << endl;
+      cout << flags[i] << " : " << "cross section not available" << endl;
 
     }
 
