@@ -142,11 +142,11 @@ void plot5(string plot="", string title="", string version="v00", string options
   TH1D* h_xsec_rec = (TH1D*)h_data->Clone("h_xsec_rec");
 
   h_xsec_rec->Divide(h_mc_eff);
-  h_xsec_rec->Scale(1. / (1000. * lumi));
+  h_xsec_rec->Scale(1. / (1000. * lumi), "width");
 
   TH1D* h_xsec_mc_gen = (TH1D*)h_mc_gen->Clone("h_xsec_mc_gen");
 
-  h_xsec_mc_gen->Scale(1. / (1000. * lumi));
+  h_xsec_mc_gen->Scale(1. / (1000. * lumi), "width");
 #else
   TFile* f1_2016 = 0;
   TFile* f2_2016 = 0;
@@ -365,7 +365,7 @@ void plot5(string plot="", string title="", string version="v00", string options
   if (h_data_2017) h_xsec_rec->Add(h_data_2017);
   if (h_data_2018) h_xsec_rec->Add(h_data_2018);
 
-  h_xsec_rec->Scale(1. / (1000. * lumi));
+  h_xsec_rec->Scale(1. / (1000. * lumi), "width");
 
   TH1D* h_xsec_mc_gen = 0;
 
@@ -378,7 +378,7 @@ void plot5(string plot="", string title="", string version="v00", string options
   if (h_mc_gen_2017) h_xsec_mc_gen->Add(h_mc_gen_2017);
   if (h_mc_gen_2018) h_xsec_mc_gen->Add(h_mc_gen_2018);
 
-  h_xsec_mc_gen->Scale(1. / (1000. * lumi));
+  h_xsec_mc_gen->Scale(1. / (1000. * lumi), "width");
 #endif // defined(USE_RUN2_AVERAGES)
 
   gROOT->GetColor(kRed)->SetAlpha(0.5);
@@ -666,7 +666,7 @@ void plot5(string plot="", string title="", string version="v00", string options
   double xsec_data = 0.;
   double xsec_stat_data = 0.;
 
-  xsec_data = h_xsec_rec->IntegralAndError(0,h_xsec_rec->GetNbinsX()+1,xsec_stat_data);
+  xsec_data = h_xsec_rec->IntegralAndError(0, h_xsec_rec->GetNbinsX()+1, xsec_stat_data, "width");
 
   ofstream out;
   out.open(("html/" + version + "/" + flags + "/" + year + ".xsec/root/" + title + "_xsecs.dat").c_str());
