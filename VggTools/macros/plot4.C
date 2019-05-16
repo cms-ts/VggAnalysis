@@ -259,9 +259,9 @@ void plot4(string plot="", string title="", string version="v00", string options
   histo[8001]->Reset();
 
   if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
-    for (int var = 0; var < histo3[0]->GetNbinsZ(); var++) {
-      for (int pho0 = 0; pho0 < histo3[0]->GetNbinsX(); pho0++) {
-        for (int pho1 = 0; pho1 < histo3[0]->GetNbinsY(); pho1++) {
+    for (int var = 0; var < histo3[0]->GetNbinsZ() + 1; var++) {
+      for (int pho0 = 0; pho0 < histo3[0]->GetNbinsX() + 1; pho0++) {
+        for (int pho1 = 0; pho1 < histo3[0]->GetNbinsY() + 1; pho1++) {
           histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + histo3[0]->GetBinContent(pho0, pho1, var) * (1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1)));
           histo[8001]->SetBinError(var, histo[8001]->GetBinError(var) +  histo3[0]->GetBinContent(pho0, pho1, var) * TMath::Power(1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1), 2));
         }
