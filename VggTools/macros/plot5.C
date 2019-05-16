@@ -439,7 +439,8 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   h_xsec_rec->SetMarkerColor(kBlack);
 
-  h_xsec_rec->Draw("E0P0X0SAME");
+  h_xsec_rec->Draw("E0PX0SAME");
+  h_xsec_rec->Draw("E1PX0SAME");
 
   pad1->Update();
   c1->Update();
@@ -603,7 +604,8 @@ void plot5(string plot="", string title="", string version="v00", string options
   h_ratio_rec->SetMarkerStyle(24);
   h_ratio_rec->SetMarkerSize(0.7);
 
-  h_ratio_rec->Draw("E0P0X0SAME");
+  h_ratio_rec->Draw("E0PX0SAME");
+  h_ratio_rec->Draw("E1PX0SAME");
 
   writeExtraText = true;
 
