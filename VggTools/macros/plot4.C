@@ -216,7 +216,7 @@ void plot4(string plot="", string title="", string version="v00", string options
   TH1D* h_weight_2016 = 0;
   TH1D* h_weight_2017 = 0;
   TH1D* h_weight_2018 = 0;
-  
+
   if (title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) {
     if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get((title.substr(0, 9) + "weight").c_str());
     if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get((title.substr(0, 9) + "weight").c_str());
@@ -259,9 +259,9 @@ void plot4(string plot="", string title="", string version="v00", string options
   histo[8001]->Reset();
 
   if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
-    for (int var = 0; var < histo3[0]->GetNbinsZ() + 1; var++) {
-      for (int pho0 = 0; pho0 < histo3[0]->GetNbinsX() + 1; pho0++) {
-        for (int pho1 = 0; pho1 < histo3[0]->GetNbinsY() + 1; pho1++) {
+    for (int var = 0; var < histo3[0]->GetNbinsZ()+1; var++) {
+      for (int pho0 = 0; pho0 < histo3[0]->GetNbinsX()+1; pho0++) {
+        for (int pho1 = 0; pho1 < histo3[0]->GetNbinsY()+1; pho1++) {
           histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + histo3[0]->GetBinContent(pho0, pho1, var) * (1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1)));
           histo[8001]->SetBinError(var, histo[8001]->GetBinError(var) +  histo3[0]->GetBinContent(pho0, pho1, var) * TMath::Power(1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1), 2));
         }
@@ -296,13 +296,13 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->first);
     if (flowbins) {
       histo[index]->SetBinContent(1, histo[index]->GetBinContent(1) + histo[index]->GetBinContent(0));
-      histo[index]->SetBinContent(histo[index]->GetNbinsX(), histo[index]->GetBinContent(histo[index]->GetNbinsX()) + histo[index]->GetBinContent(histo[index]->GetNbinsX() + 1));
+      histo[index]->SetBinContent(histo[index]->GetNbinsX(), histo[index]->GetBinContent(histo[index]->GetNbinsX()) + histo[index]->GetBinContent(histo[index]->GetNbinsX()+1));
       histo[index]->SetBinError(1, TMath::Sqrt(TMath::Power(histo[index]->GetBinError(1), 2) + TMath::Power(histo[index]->GetBinError(0), 2)));
-      histo[index]->SetBinError(histo[index]->GetNbinsX(), TMath::Sqrt(TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()), 2) + TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX() + 1), 2)));
+      histo[index]->SetBinError(histo[index]->GetNbinsX(), TMath::Sqrt(TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()), 2) + TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()+1), 2)));
       histo[index]->SetBinContent(0, 0.);
-      histo[index]->SetBinContent(histo[index]->GetNbinsX() + 1, 0.);
+      histo[index]->SetBinContent(histo[index]->GetNbinsX()+1, 0.);
       histo[index]->SetBinError(0, 0.);
-      histo[index]->SetBinError(histo[index]->GetNbinsX() + 1, 0.);
+      histo[index]->SetBinError(histo[index]->GetNbinsX()+1, 0.);
     }
     if (index > 0) {
       if (options.find("nobkg") != string::npos) {

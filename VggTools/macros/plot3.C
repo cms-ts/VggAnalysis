@@ -295,7 +295,7 @@ void plot3(string plot="", string title="", string version="", string options=""
       }
     }
   }
-  
+
   TH1D* h_weight = (TH1D*)histo[0]->Clone("h_weight");
   h_weight->Reset();
 
@@ -577,6 +577,7 @@ void plot3(string plot="", string title="", string version="", string options=""
     gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
   TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + ".matrix/root/" + title + "_matrix_weight.root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flags + "/" + year + ".matrix/root/" + title + "_matrix_weight.root").c_str());
   h_weight->Write((title.substr(0, 8) + "_weight").c_str());
   file->Close();
   delete file;

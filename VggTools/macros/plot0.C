@@ -183,7 +183,7 @@ void plot0(string plot="", string title="", string version="v00", string options
   THStack* hstack_mc = new THStack("hstack_mc", "hstack_mc");
 
   TH1D* h_mc_sum = (TH1D*)histo[0]->Clone("h_mc_sum");
-  h_mc_sum->Reset();  
+  h_mc_sum->Reset();
 
   TH1D* h_bkg = (TH1D*)histo[0]->Clone("h_bkg");
   h_bkg->Reset();
@@ -684,7 +684,7 @@ void plot0(string plot="", string title="", string version="v00", string options
   writeExtraText = true;
 
   lumi_13TeV  = Form("%.1f fb^{-1}", lumi);
-  int iPeriod = 4; 
+  int iPeriod = 4;
   int iPos = 0;
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
