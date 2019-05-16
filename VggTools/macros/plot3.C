@@ -576,7 +576,7 @@ void plot3(string plot="", string title="", string version="", string options=""
   while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + ".matrix/root/matrix_weight.root").c_str(), "RECREATE");
+  TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + ".matrix/root/" + title + "_matrix_weight.root").c_str(), "RECREATE");
   h_weight->Write((title.substr(0, 8) + "_weight").c_str());
   file->Close();
   delete file;
