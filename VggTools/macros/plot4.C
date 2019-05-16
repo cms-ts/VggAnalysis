@@ -576,7 +576,7 @@ void plot4(string plot="", string title="", string version="v00", string options
   while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + ".matrix/root/" + title + ".root").c_str(), "update");
+  TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + ".matrix/root/" + title + ".root").c_str(), "RECREATE");
   histo[0]->Write((title + "_data").c_str());
   histo[8001]->Write((title + "_misid").c_str());
   if (title.find("h_WGG_") != string::npos) {
