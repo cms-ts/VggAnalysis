@@ -132,7 +132,7 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   h_data->Add(h_bkg, -1);
 
-  for (int i = 0; i < h_data->GetNbinsX()+1; i++) {
+  for (int i = 0; i < h_data->GetNbinsX()+2; i++) {
     if (h_data->GetBinContent(i) < 0) {
       h_data->SetBinContent(i, 0);
       h_data->SetBinError(i, 0);
@@ -323,7 +323,7 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   if (h_data_2016 && h_bkg_2016 && h_mc_eff_2016) {
     h_data_2016->Add(h_bkg_2016, -1);
-    for (int i = 0; i < h_data_2016->GetNbinsX()+1; i++) {
+    for (int i = 0; i < h_data_2016->GetNbinsX()+2; i++) {
       if (h_data_2016->GetBinContent(i) < 0) {
         h_data_2016->SetBinContent(i, 0);
         h_data_2016->SetBinError(i, 0);
@@ -334,7 +334,7 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   if (h_data_2017 && h_bkg_2017 && h_mc_eff_2017) {
     h_data_2017->Add(h_bkg_2017, -1);
-    for (int i = 0; i < h_data_2017->GetNbinsX()+1; i++) {
+    for (int i = 0; i < h_data_2017->GetNbinsX()+2; i++) {
       if (h_data_2017->GetBinContent(i) < 0) {
         h_data_2017->SetBinContent(i, 0);
         h_data_2017->SetBinError(i, 0);
@@ -345,7 +345,7 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   if (h_data_2018 && h_bkg_2018 && h_mc_eff_2018) {
     h_data_2018->Add(h_bkg_2018, -1);
-    for (int i = 0; i < h_data_2018->GetNbinsX()+1; i++) {
+    for (int i = 0; i < h_data_2018->GetNbinsX()+2; i++) {
       if (h_data_2018->GetBinContent(i) < 0) {
         h_data_2018->SetBinContent(i, 0);
         h_data_2018->SetBinError(i, 0);
@@ -449,7 +449,7 @@ void plot5(string plot="", string title="", string version="v00", string options
   TH1D* h_ratio_rec = (TH1D*)h_xsec_rec->Clone("h_ratio_rec");
 
   TH1D* h_xsec_mc_gen2 = (TH1D*)h_xsec_mc_gen->Clone("h_xsec_mc_gen2");
-  for (int i = 0; i < h_xsec_mc_gen2->GetNbinsX()+1; i++) {
+  for (int i = 0; i < h_xsec_mc_gen2->GetNbinsX()+2; i++) {
     h_xsec_mc_gen2->SetBinError(i, 0.);
   }
   h_ratio_rec->Divide(h_xsec_mc_gen2);
@@ -678,7 +678,7 @@ void plot5(string plot="", string title="", string version="v00", string options
   out << std::setw(29) << "stat";
   out << endl;
 
-  for (int i=0; i <= h_xsec_rec->GetNbinsX()+1; i++) {
+  for (int i = 0; i < h_xsec_rec->GetNbinsX()+2; i++) {
     out << std::fixed;
     out << std::setw(2) << i;
     out << " ";
