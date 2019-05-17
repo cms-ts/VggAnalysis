@@ -230,7 +230,7 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   map<string, vector<double>> errors;
 
-  for (int i = 0; i < h_xsec["reference"]->GetNbinsX()+1; i++) {
+  for (int i = 0; i < h_xsec["reference"]->GetNbinsX()+2; i++) {
 
     if (h_xsec["bkg_stat"]) {
       double xval = TMath::Sqrt((TMath::Power(h_xsec["bkg_stat"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))/(1.1 * 1.1 - 1.));
@@ -482,7 +482,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     if (labels[j] == "lumi") {
       sumv2[j] = (xsec_data_ref * lumierror / 100.) * (xsec_data_ref * lumierror / 100.);
     } else {
-      for (int i = 0; i < h_xsec["reference"]->GetNbinsX(); i++) {
+      for (int i = 0; i < h_xsec["reference"]->GetNbinsX()+2; i++) {
         sumv2[j] = sumv2[j] + errors[labels[j]][i] * errors[labels[j]][i];
       }
     }
@@ -574,7 +574,7 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   TH1D* h_xsec_err = (TH1D*)h_xsec["reference"]->Clone("h_xsec_err");
 
-  for (int i = 0; i < h_xsec_err->GetNbinsX(); i++) {
+  for (int i = 0; i < h_xsec_err->GetNbinsX()+2; i++) {
     h_xsec_err->SetBinError(i, err_data[i]);
   }
 
@@ -621,7 +621,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   TH1D* h_ratio_rec = (TH1D*)h_xsec["reference"]->Clone("h_ratio_rec");
 
   TH1D* h_xsec_mc_gen2 = (TH1D*)h_xsec_mc_gen["reference"]->Clone("h_xsec_mc_gen2");
-  for (int i = 0; i < h_xsec_mc_gen2->GetNbinsX()+1; i++) {
+  for (int i = 0; i < h_xsec_mc_gen2->GetNbinsX()+2; i++) {
     h_xsec_mc_gen2->SetBinError(i, 0.);
   }
   h_ratio_rec->Divide(h_xsec_mc_gen2);
