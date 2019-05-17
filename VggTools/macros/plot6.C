@@ -228,12 +228,26 @@ void plot6(string plot="", string title="", string version="v00", string options
   labels.push_back("qcd_fit");
   labels.push_back("lumi");
 
+  map<string, vector<double>> values;
   map<string, vector<double>> errors;
 
   for (int i = 0; i < h_xsec["reference"]->GetNbinsX()+2; i++) {
 
+    if (h_xsec["reference"]) {
+      double val = h_xsec["reference"]->GetBinContent(i);
+      val = val * h_xsec["reference"]->GetBinWidth(i);
+      values["reference"].push_back(val);
+      double xval = h_xsec["reference"]->GetBinError(i);
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["reference"].push_back(xval);
+    } else {
+      values["reference"].push_back(0.);
+      errors["reference"].push_back(0.);
+    }
+
     if (h_xsec["bkg_stat"]) {
       double xval = TMath::Sqrt((TMath::Power(h_xsec["bkg_stat"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))/(1.1 * 1.1 - 1.));
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["bkg_stat"].push_back(xval);
     } else {
       errors["bkg_stat"].push_back(0.);
@@ -244,7 +258,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["pileup_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       double xval_down = fabs(h_xsec["pileup_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["pileup_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      errors["pileup"].push_back(0.5 * (xval_up + xval_down));
+      double xval = 0.5 * (xval_up + xval_down);
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["pileup"].push_back(xval);
     } else {
       errors["pileup"].push_back(0.);
     }
@@ -262,7 +278,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(h_xsec["jec_up_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       double xval_2018_down = fabs(h_xsec["jec_down_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(h_xsec["jec_down_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      errors["jec"].push_back(TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2)));
+      double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["jec"].push_back(xval);
     } else {
       errors["jec"].push_back(0.);
     }
@@ -280,7 +298,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(h_xsec["jer_up_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       double xval_2018_down = fabs(h_xsec["jer_down_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(h_xsec["jer_down_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      errors["jer"].push_back(TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2)));
+      double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["jer"].push_back(xval);
     } else {
       errors["jer"].push_back(0.);
     }
@@ -290,7 +310,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_eff_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       double xval_down = fabs(h_xsec["sf_ele_eff_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_eff_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      errors["ele_eff"].push_back(0.5 * (xval_up + xval_down));
+      double xval = 0.5 * (xval_up + xval_down);
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["ele_eff"].push_back(xval);
     } else {
       errors["ele_eff"].push_back(0.);
     }
@@ -299,7 +321,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_reco_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       double xval_down = fabs(h_xsec["sf_ele_reco_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_reco_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      errors["ele_reco"].push_back(0.5 * (xval_up + xval_down));
+      double xval = 0.5 * (xval_up + xval_down);
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["ele_reco"].push_back(xval);
     } else {
       errors["ele_reco"].push_back(0.);
     }
@@ -308,7 +332,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_hlt_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       double xval_down = fabs(h_xsec["sf_ele_hlt_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_hlt_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      errors["ele_hlt"].push_back(0.5 * (xval_up + xval_down));
+      double xval = 0.5 * (xval_up + xval_down);
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["ele_hlt"].push_back(xval);
     } else {
       errors["ele_hlt"].push_back(0.);
     }
@@ -318,7 +344,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_id_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       double xval_down = fabs(h_xsec["sf_muo_id_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_id_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      errors["muo_id"].push_back(0.5 * (xval_up + xval_down));
+      double xval = 0.5 * (xval_up + xval_down);
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["muo_id"].push_back(xval);
     } else {
       errors["muo_id"].push_back(0.);
     }
@@ -327,7 +355,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_iso_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       double xval_down = fabs(h_xsec["sf_muo_iso_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_iso_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      errors["muo_iso"].push_back(0.5 * (xval_up + xval_down));
+      double xval = 0.5 * (xval_up + xval_down);
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["muo_iso"].push_back(xval);
     } else {
       errors["muo_iso"].push_back(0.);
     }
@@ -336,7 +366,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_trig_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       double xval_down = fabs(h_xsec["sf_muo_trig_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_trig_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      errors["muo_trig"].push_back(0.5 * (xval_up + xval_down));
+      double xval = 0.5 * (xval_up + xval_down);
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["muo_trig"].push_back(xval);
     } else {
       errors["muo_trig"].push_back(0.);
     }
@@ -346,7 +378,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_eff_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       double xval_down = fabs(h_xsec["sf_pho_eff_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_eff_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      errors["pho_eff"].push_back(0.5 * (xval_up + xval_down));
+      double xval = 0.5 * (xval_up + xval_down);
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["pho_eff"].push_back(xval);
     } else {
       errors["pho_eff"].push_back(0.);
     }
@@ -364,7 +398,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_up_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       double xval_2018_down = fabs(h_xsec["sf_pho_veto_down_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_down_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      errors["pho_veto"].push_back(TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2)));
+      double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["pho_veto"].push_back(xval);
     } else {
       errors["pho_veto"].push_back(0.);
     }
@@ -372,6 +408,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     if (h_xsec["mc_matrix"]) {
       double xval = fabs(h_xsec["mc_matrix"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["mc_matrix"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["mc_matrix"].push_back(xval);
     } else {
       errors["mc_matrix"].push_back(0.);
@@ -380,6 +417,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     if (h_xsec["mc_bkg"]) {
       double xval = fabs(h_xsec["mc_bkg"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["mc_bkg"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["mc_bkg"].push_back(xval);
     } else {
       errors["mc_bkg"].push_back(0.);
@@ -388,12 +426,15 @@ void plot6(string plot="", string title="", string version="v00", string options
     if (h_xsec["qcd_fit"]) {
       double xval = fabs(h_xsec["qcd_fit"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["qcd_fit"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["qcd_fit"].push_back(xval);
     } else {
       errors["qcd_fit"].push_back(0.);
     }
 
-    errors["lumi"].push_back(h_xsec["reference"]->GetBinContent(i) * lumierror / 100.);
+    double xval = h_xsec["reference"]->GetBinContent(i) * lumierror / 100.;
+    xval = xval * h_xsec["reference"]->GetBinWidth(i);
+    errors["lumi"].push_back(xval);
   }
 
   while (gSystem->AccessPathName(("html/" + version + "/reference/" + year + ".xsec/root/").c_str())) {
@@ -440,9 +481,9 @@ void plot6(string plot="", string title="", string version="v00", string options
 
     out << std::setw(2) << i
         << std::fixed << std::setprecision(5)
-        << std::setw(12) << h_xsec["reference"]->GetBinContent(i)
+        << std::setw(12) << values["reference"][i]
         << std::setw(3) << " +-"
-        << std::setw(8) << TMath::Sqrt(TMath::Power(h_xsec["reference"]->GetBinError(i), 2) - TMath::Power(errors["bkg_stat"][i], 2));
+        << std::setw(8) << TMath::Sqrt(TMath::Power(errors["reference"][i], 2) - TMath::Power(errors["bkg_stat"][i], 2));
 
     for (uint j = 0; j < labels.size(); j++) {
       out << std::setw(3) << " +-"
@@ -450,25 +491,25 @@ void plot6(string plot="", string title="", string version="v00", string options
     }
 
     out << std::setw(3) << " =>"
-        << std::setw(8) <<  h_xsec["reference"]->GetBinError(i)
+        << std::setw(8) <<  errors["reference"][i]
         << std::setw(3) << " +-";
 
     double sumw2 = 0.;
 
     for (uint j = 0; j < labels.size(); j++) {
       if (labels[j] != "bkg_stat") {
-        sumw2 = sumw2 + errors[labels[j]][i] * errors[labels[j]][i];
+        sumw2 = sumw2 + TMath::Power(errors[labels[j]][i], 2);
       }
     }
     out << std::setw(8) << TMath::Sqrt(sumw2)
         << std::setw(3) << " =>"
-        << std::setw(8) <<  TMath::Sqrt(TMath::Power(h_xsec["reference"]->GetBinError(i), 2) + sumw2);
+        << std::setw(8) <<  TMath::Sqrt(TMath::Power(errors["reference"][i], 2) + sumw2);
 
-    err_data[i] = TMath::Sqrt(TMath::Power(h_xsec["reference"]->GetBinError(i), 2) + sumw2);
+    err_data[i] = TMath::Sqrt(TMath::Power(errors["reference"][i], 2) + sumw2);
 
     out << std::setw(3) << " =>"
         << std::fixed << std::setprecision(1)
-        << std::setw(6) << (h_xsec["reference"]->GetBinContent(i) != 0. ? 100 * TMath::Sqrt(TMath::Power(h_xsec["reference"]->GetBinError(i), 2) + sumw2)/h_xsec["reference"]->GetBinContent(i) : 0.)
+        << std::setw(6) << (values["reference"][i] != 0. ? 100 * TMath::Sqrt(TMath::Power(errors["reference"][i], 2) + sumw2)/values["reference"][i] : 0.)
         << endl;
 
   }
@@ -483,7 +524,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       sumv2[j] = (xsec_data_ref * lumierror / 100.) * (xsec_data_ref * lumierror / 100.);
     } else {
       for (int i = 0; i < h_xsec["reference"]->GetNbinsX()+2; i++) {
-        sumv2[j] = sumv2[j] + errors[labels[j]][i] * errors[labels[j]][i];
+        sumv2[j] = sumv2[j] + TMath::Power(errors[labels[j]][i], 2);
       }
     }
 
@@ -575,7 +616,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   TH1D* h_xsec_err = (TH1D*)h_xsec["reference"]->Clone("h_xsec_err");
 
   for (int i = 0; i < h_xsec_err->GetNbinsX()+2; i++) {
-    h_xsec_err->SetBinError(i, err_data[i]);
+    h_xsec_err->SetBinError(i, err_data[i] / h_xsec["reference"]->GetBinWidth(i));
   }
 
   h_xsec_err->SetTitle("");
