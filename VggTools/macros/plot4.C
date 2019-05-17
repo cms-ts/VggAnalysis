@@ -2,7 +2,7 @@
 
 #include "CMS_lumi.C"
 
-void plot4(string plot="", string title="", string version="v00", string options="", string flags="reference"){
+void plot4(string plot="", string title="", string version="v00", string options="", string flag="reference"){
 
   string year = "";
 
@@ -54,7 +54,7 @@ void plot4(string plot="", string title="", string version="v00", string options
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
-      TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str());
+      TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
       if (!file->IsOpen()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -107,7 +107,7 @@ void plot4(string plot="", string title="", string version="v00", string options
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21|| index == 22|| index == 1010 || index == 1011 || index == 1020 || index == 1021|| index == 1022) {
-      TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str());
+      TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
       if (!file->IsOpen()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -152,9 +152,9 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   if (title.find("h_WG_") != string::npos) {
     ifstream file1;
-    file1.open(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
+    file1.open(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
     if (!file1.is_open()) {
-      cout << "ERROR: file " << "html/" + version + "/" + flags + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat" << " is MISSING !!" << endl;
+      cout << "ERROR: file " << "html/" + version + "/" + flag + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat" << " is MISSING !!" << endl;
       return;
     }
     float fitval = 0.;
@@ -162,7 +162,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     file1 >> fitval >> fiterr;
     file1.close();
 
-    TFile* file2 = new TFile(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+    TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
     if (file2->IsZombie()) {
       cout << "ERROR: file " << file2->GetName() << " is MISSING !!" << endl;
       return;
@@ -181,10 +181,10 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
     file_matrix_2016 = 0;
-    if (title.find("h_WG_ele") != string::npos || title.find("h_WGG_ele") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flags + "/2016.matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_WG_muo") != string::npos || title.find("h_WGG_muo") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flags + "/2016.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_ZG_ele") != string::npos || title.find("h_ZGG_ele") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flags + "/2016.matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_ZG_muo") != string::npos || title.find("h_ZGG_muo") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flags + "/2016.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_WG_ele") != string::npos || title.find("h_WGG_ele") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_WG_muo") != string::npos || title.find("h_WGG_muo") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_ZG_ele") != string::npos || title.find("h_ZGG_ele") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_ZG_muo") != string::npos || title.find("h_ZGG_muo") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
     if (file_matrix_2016->IsZombie()) {
       cout << "ERROR: file " << file_matrix_2016->GetName() << " is MISSING !!" << endl;
       return;
@@ -192,10 +192,10 @@ void plot4(string plot="", string title="", string version="v00", string options
   }
   if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
     file_matrix_2017 = 0;
-    if (title.find("h_WG_ele") != string::npos || title.find("h_WGG_ele") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flags + "/2017.matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_WG_muo") != string::npos || title.find("h_WGG_muo") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flags + "/2017.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_ZG_ele") != string::npos || title.find("h_ZGG_ele") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flags + "/2017.matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_ZG_muo") != string::npos || title.find("h_ZGG_muo") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flags + "/2017.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_WG_ele") != string::npos || title.find("h_WGG_ele") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_WG_muo") != string::npos || title.find("h_WGG_muo") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_ZG_ele") != string::npos || title.find("h_ZGG_ele") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_ZG_muo") != string::npos || title.find("h_ZGG_muo") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
     if ( file_matrix_2017->IsZombie()) {
       cout << "ERROR: file " << file_matrix_2017->GetName() << " is MISSING !!" << endl;
       return;
@@ -203,10 +203,10 @@ void plot4(string plot="", string title="", string version="v00", string options
   }
   if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
     file_matrix_2018 = 0;
-    if (title.find("h_WG_ele") != string::npos || title.find("h_WGG_ele") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flags + "/2018.matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_WG_muo") != string::npos || title.find("h_WGG_muo") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flags + "/2018.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_ZG_ele") != string::npos || title.find("h_ZGG_ele") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flags + "/2018.matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_ZG_muo") != string::npos || title.find("h_ZGG_muo") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flags + "/2018.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_WG_ele") != string::npos || title.find("h_WGG_ele") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_WG_muo") != string::npos || title.find("h_WGG_muo") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_ZG_ele") != string::npos || title.find("h_ZGG_ele") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_ZG_muo") != string::npos || title.find("h_ZGG_muo") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
     if (file_matrix_2018->IsZombie()) {
       cout << "ERROR: file " << file_matrix_2018->GetName() << " is MISSING !!" << endl;
       return;
@@ -580,15 +580,15 @@ void plot4(string plot="", string title="", string version="v00", string options
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".matrix/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".matrix/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/").c_str(), kTRUE);
   }
-  c1->SaveAs(("html/" + version + "/" + flags + "/" + year + ".matrix/" + title + ".pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".matrix/" + title + ".pdf").c_str());
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".matrix/root/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".matrix/root/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + ".matrix/root/" + title + ".root").c_str(), "RECREATE");
+  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str(), "RECREATE");
   histo[0]->Write((title + "_data").c_str());
   histo[8001]->Write((title + "_misid").c_str());
   if (title.find("h_WGG_") != string::npos) {

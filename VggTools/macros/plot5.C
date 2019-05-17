@@ -2,7 +2,7 @@
 
 #include "CMS_lumi.C"
 
-void plot5(string plot="", string title="", string version="v00", string options="", string flags="reference") {
+void plot5(string plot="", string title="", string version="v00", string options="", string flag="reference") {
 
   string year = "";
 
@@ -80,11 +80,11 @@ void plot5(string plot="", string title="", string version="v00", string options
 #if defined(USE_RUN2_AVERAGES)
   TFile* f1 = 0;
   if (useMC) {
-    f1 = new TFile(("html/" + version + "/" + flags + "/" + year + "/root/" + title + ".root").c_str());
+    f1 = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + ".root").c_str());
   } else {
-    f1 = new TFile(("html/" + version + "/" + flags + "/" + year + ".matrix/root/" + title + ".root").c_str());
+    f1 = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str());
   }
-  TFile* f2 = new TFile(("html/" + version + "/" + flags + "/" + year + ".eff/root/" + title + ".root").c_str());
+  TFile* f2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".eff/root/" + title + ".root").c_str());
 
   if (f1->IsZombie()) {
     cout << "ERROR: file " << f1->GetName() << " is MISSING !!" << endl;
@@ -157,15 +157,15 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
     if (useMC) {
-      f1_2016 = new TFile(("html/" + version + "/" + flags + "/2016/root/" + title + ".root").c_str());
+      f1_2016 = new TFile(("html/" + version + "/" + flag + "/2016/root/" + title + ".root").c_str());
     } else {
-      f1_2016 = new TFile(("html/" + version + "/" + flags + "/2016.matrix/root/" + title + ".root").c_str());
+      f1_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/" + title + ".root").c_str());
     }
     if (f1_2016->IsZombie()) {
       cout << "ERROR: file " << f1_2016->GetName() << " is MISSING !!" << endl;
       return;
     }
-    f2_2016 = new TFile(("html/" + version + "/" + flags + "/2016.eff/root/" + title + ".root").c_str());
+    f2_2016 = new TFile(("html/" + version + "/" + flag + "/2016.eff/root/" + title + ".root").c_str());
     if (f2_2016->IsZombie()) {
       cout << "ERROR: file " << f2_2016->GetName() << " is MISSING !!" << endl;
       return;
@@ -173,15 +173,15 @@ void plot5(string plot="", string title="", string version="v00", string options
   }
   if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
     if (useMC) {
-      f1_2017 = new TFile(("html/" + version + "/" + flags + "/2017/root/" + title + ".root").c_str());
+      f1_2017 = new TFile(("html/" + version + "/" + flag + "/2017/root/" + title + ".root").c_str());
     } else {
-      f1_2017 = new TFile(("html/" + version + "/" + flags + "/2017.matrix/root/" + title + ".root").c_str());
+      f1_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/" + title + ".root").c_str());
     }
     if (f1_2017->IsZombie()) {
       cout << "ERROR: file " << f1_2017->GetName() << " is MISSING !!" << endl;
       return;
     }
-    f2_2017 = new TFile(("html/" + version + "/" + flags + "/2017.eff/root/" + title + ".root").c_str());
+    f2_2017 = new TFile(("html/" + version + "/" + flag + "/2017.eff/root/" + title + ".root").c_str());
     if (f2_2017->IsZombie()) {
       cout << "ERROR: file " << f2_2017->GetName() << " is MISSING !!" << endl;
       return;
@@ -189,15 +189,15 @@ void plot5(string plot="", string title="", string version="v00", string options
   }
   if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
     if (useMC) {
-      f1_2018 = new TFile(("html/" + version + "/" + flags + "/2018/root/" + title + ".root").c_str());
+      f1_2018 = new TFile(("html/" + version + "/" + flag + "/2018/root/" + title + ".root").c_str());
     } else {
-      f1_2018 = new TFile(("html/" + version + "/" + flags + "/2018.matrix/root/" + title + ".root").c_str());
+      f1_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/" + title + ".root").c_str());
     }
     if (f1_2018->IsZombie()) {
       cout << "ERROR: file " << f1_2018->GetName() << " is MISSING !!" << endl;
       return;
     }
-    f2_2018 = new TFile(("html/" + version + "/" + flags + "/2018.eff/root/" + title + ".root").c_str());
+    f2_2018 = new TFile(("html/" + version + "/" + flag + "/2018.eff/root/" + title + ".root").c_str());
     if (f2_2018->IsZombie()) {
       cout << "ERROR: file " << f2_2018->GetName() << " is MISSING !!" << endl;
       return;
@@ -648,16 +648,16 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   label->Draw("same");
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".xsec/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".xsec/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".xsec/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".xsec/").c_str(), kTRUE);
   }
-  c1->SaveAs(("html/" + version + "/" + flags + "/" + year + ".xsec/" + title + ".pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".xsec/" + title + ".pdf").c_str());
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".xsec/root/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".xsec/root/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".xsec/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".xsec/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
-  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flags + "/" + year + ".xsec/root/" + title + ".root").c_str());
+  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".xsec/root/" + title + ".root").c_str());
   h_xsec_rec->Write((title + "_xsec").c_str());
   h_xsec_mc_gen->Write((title + "_xsec_mc_gen").c_str());
   file->Close();
@@ -669,8 +669,8 @@ void plot5(string plot="", string title="", string version="v00", string options
   xsec_data = h_xsec_rec->IntegralAndError(0, h_xsec_rec->GetNbinsX()+1, xsec_stat_data, "width");
 
   ofstream out;
-  out.open(("html/" + version + "/" + flags + "/" + year + ".xsec/root/" + title + "_xsecs.dat").c_str());
-  Info("File::Open", "dat file %s has been created", ("html/" + version + "/" + flags + "/" + year + ".xsec/root/" + title + "_xsecs.dat").c_str());
+  out.open(("html/" + version + "/" + flag + "/" + year + ".xsec/root/" + title + "_xsecs.dat").c_str());
+  Info("File::Open", "dat file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".xsec/root/" + title + "_xsecs.dat").c_str());
 
   out << title << endl;
   out << std::fixed << std::setprecision(4);

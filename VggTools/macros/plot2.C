@@ -1,6 +1,6 @@
 #include "plot2.h"
 
-void plot2(string plot="", string title="", string version="v00", string options="", string flags="reference") {
+void plot2(string plot="", string title="", string version="v00", string options="", string flag="reference") {
 
   string year = "";
 
@@ -49,7 +49,7 @@ void plot2(string plot="", string title="", string version="v00", string options
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
-      TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str());
+      TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -83,7 +83,7 @@ void plot2(string plot="", string title="", string version="v00", string options
       if (index !=   10 && title.find("h_ZGG_") != string::npos) continue;
       if (index != 1010 && title.find("h_WGG_") != string::npos) continue;
     }
-    TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str());
+    TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
     if (file->IsZombie()) {
       cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
       return;
@@ -174,23 +174,23 @@ void plot2(string plot="", string title="", string version="v00", string options
     label->DrawLatex(0.50, 0.65, buff);
   }
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".eff/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".eff/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".eff/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".eff/").c_str(), kTRUE);
   }
-  c1->SaveAs(("html/" + version + "/" + flags + "/" + year + ".eff/" + title + ".pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".eff/" + title + ".pdf").c_str());
 
   ofstream out;
-  out.open(("html/" + version + "/" + flags + "/" + year + ".eff/" + title + ".dat").c_str());
+  out.open(("html/" + version + "/" + flag + "/" + year + ".eff/" + title + ".dat").c_str());
   for (int i = 0; i < h_mc_eff->GetNbinsX()+1; i++) {
     out << i << " " << h_mc_eff->GetBinContent(i) << " " << h_mc_eff->GetBinError(i) << endl;
   }
   out.close();
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".eff/root/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".eff/root/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".eff/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".eff/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + ".eff/root/" + title + ".root").c_str(), "RECREATE");
-  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flags + "/" + year + ".eff/root/" + title + ".root").c_str());
+  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".eff/root/" + title + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".eff/root/" + title + ".root").c_str());
   h1->Write((title + "_mc_rec").c_str());
   h2->Write((title + "_mc_gen").c_str());
   h_mc_eff->Write((title + "_mc_eff").c_str());

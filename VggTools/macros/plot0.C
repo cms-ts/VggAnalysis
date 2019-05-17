@@ -2,7 +2,7 @@
  
 #include "CMS_lumi.C"
 
-void plot0(string plot="", string title="", string version="v00", string options="", string flags="reference") {
+void plot0(string plot="", string title="", string version="v00", string options="", string flag="reference") {
 
   if (plot.find("Zgg") != string::npos) {
     if (options.find("qcd") != string::npos) {
@@ -66,7 +66,7 @@ void plot0(string plot="", string title="", string version="v00", string options
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
-      TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str()); 
+      TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str()); 
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -107,7 +107,7 @@ void plot0(string plot="", string title="", string version="v00", string options
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index > 0) {
-      TFile* file = new TFile(("data/" + version + "/" + flags + "/" + it->first + ".root").c_str()); 
+      TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str()); 
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -155,19 +155,19 @@ void plot0(string plot="", string title="", string version="v00", string options
     int index = 9001;
     ifstream file1;
     if (title.find("h_W_") != string::npos) {
-      file1.open(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + "h_W_" + title.substr(4, 3) + "_qcd_fit.dat").c_str());
+      file1.open(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + "h_W_" + title.substr(4, 3) + "_qcd_fit.dat").c_str());
     }
     if (title.find("h_WG_") != string::npos) {
-      file1.open(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
+      file1.open(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
     }
     if (title.find("h_WGG_") != string::npos) {
-      file1.open(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(6, 3) + "_qcd_fit.dat").c_str());
+      file1.open(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(6, 3) + "_qcd_fit.dat").c_str());
     }
 
     if (file1.is_open()) {
       file1 >> fitval >> fiterr;
       file1.close();
-      TFile* file2 = new TFile(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+      TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
       if (!file2->IsZombie()) {
         histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
         histo[index]->SetDirectory(0);
@@ -689,16 +689,16 @@ void plot0(string plot="", string title="", string version="v00", string options
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + "/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + "/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + "/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + "/").c_str(), kTRUE);
   }
-  c1->SaveAs(("html/" + version + "/" + flags + "/" + year + "/" + title + ".pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + flag + "/" + year + "/" + title + ".pdf").c_str());
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + "/root/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + "/root/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + "/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + "/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + flags + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
-  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flags + "/" + year + "/root/" + title + ".root").c_str());
+  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + "/root/" + title + ".root").c_str());
   if (options.find("nofit") != string::npos) h_qcd->Write(title.c_str());
   if (options.find("nofit") == string::npos) {
     histo[0]->Write((title + "_data").c_str());

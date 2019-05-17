@@ -19,7 +19,7 @@ void fcn(int& npar, double* gin, double& fun, double* par, int iflag) {
   fun = chisq;
 }
 
-void plot1(string plot="", string title="", string version="v00", string options="", string flags="reference") {
+void plot1(string plot="", string title="", string version="v00", string options="", string flag="reference") {
 
   string year = "";
 
@@ -60,8 +60,8 @@ void plot1(string plot="", string title="", string version="v00", string options
   if (options.find("madgraph") != string::npos) version = version + ".madgraph";
   if (options.find("default") != string::npos) version = version + ".default";
 
-  TFile* f1 = new TFile(("html/" + version + "/" + flags + "/" + year + "/root/" + title + "_nofit.root").c_str());
-  TFile* f2 = new TFile(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+  TFile* f1 = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + "_nofit.root").c_str());
+  TFile* f2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
 
   if (f1->IsZombie()) {
     cout << "ERROR: file " << f1->GetName() << " is MISSING !!" << endl;
@@ -129,13 +129,13 @@ void plot1(string plot="", string title="", string version="v00", string options
   sprintf(buff, "c_{qcd} = %5.3f #pm %5.3f", fitter->GetParameter(0), fitter->GetParError(0));
   label->DrawLatex(0.50, 0.68, buff);
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + flags + "/" + year + ".qcd/root/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + flags + "/" + year + ".qcd/root/").c_str(), kTRUE);
+  while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".qcd/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".qcd/root/").c_str(), kTRUE);
   }
-  c1->SaveAs(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + title + "_qcd_fit.pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_fit.pdf").c_str());
 
   ofstream out;
-  out.open(("html/" + version + "/" + flags + "/" + year + ".qcd/root/" + title + "_qcd_fit.dat").c_str());
+  out.open(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_fit.dat").c_str());
   out << fitter->GetParameter(0) << " " << fitter->GetParError(0) << endl;
   out.close();
 
