@@ -1,5 +1,5 @@
 #include "plot0.h"
- 
+
 #include "CMS_lumi.C"
 
 void plot0(string plot="", string title="", string version="v00", string options="", string flag="reference") {
@@ -66,7 +66,12 @@ void plot0(string plot="", string title="", string version="v00", string options
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
-      TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str()); 
+      TFile* file = 0;
+      if (flag == "bkg_stat" || flag == "mc_matrix" || flag == "mc_bkg" || flag == "qcd_fit") {
+        file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
+      } else {
+        file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+      }
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -107,7 +112,12 @@ void plot0(string plot="", string title="", string version="v00", string options
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index > 0) {
-      TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str()); 
+      TFile* file = 0;
+      if (flag == "bkg_stat" || flag == "mc_matrix" || flag == "mc_bkg" || flag == "qcd_fit") {
+        file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
+      } else {
+        file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+      }
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -141,6 +151,17 @@ void plot0(string plot="", string title="", string version="v00", string options
     }
   }
 
+  if (flag == "bkg_stat") {
+    for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
+      int index = int(it->first);
+      if (index > 0) {
+        for (int i = 0; i < histo[index]->GetNbinsX()+2; i++) {
+          histo[index]->SetBinError(i, histo[index]->GetBinError(i) * 1.1);
+        }
+      }
+    }
+  }
+
   if (options.find("test") != string::npos) version = version + ".test";
   if (options.find("new") != string::npos) version = version + ".new";
   if (options.find("jet") != string::npos) version = version + ".jet";
@@ -171,7 +192,11 @@ void plot0(string plot="", string title="", string version="v00", string options
       if (!file2->IsZombie()) {
         histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
         histo[index]->SetDirectory(0);
-        histo[index]->Scale(fitval);
+        if (flag == "qcd_fit") {
+          histo[index]->Scale(fitval + fiterr);
+        } else {
+          histo[index]->Scale(fitval);
+        }
         file2->Close();
         delete file2;
       }

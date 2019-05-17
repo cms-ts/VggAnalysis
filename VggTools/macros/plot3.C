@@ -65,7 +65,12 @@ void plot3(string plot="", string title="", string version="", string options=""
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
-      TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+      TFile* file = 0;
+      if (flag == "bkg_stat" || flag == "mc_matrix" || flag == "mc_bkg" || flag == "qcd_fit") {
+        file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
+      } else {
+        file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+      }
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -103,13 +108,11 @@ void plot3(string plot="", string title="", string version="", string options=""
     return;
   }
 
-  bool useMC = false;
-
-  if (useMC){
+  if (flag == "mc_matrix") {
     for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
       int index = int(it->second);
       if (index > 0) {
-        TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+        TFile* file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
         if (file->IsZombie()) {
           cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
           return;
@@ -205,7 +208,12 @@ void plot3(string plot="", string title="", string version="", string options=""
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
-      TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+      TFile* file = 0;
+      if (flag == "bkg_stat" || flag == "mc_matrix" || flag == "mc_bkg" || flag == "qcd_fit") {
+        file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
+      } else {
+        file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+      }
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -246,7 +254,12 @@ void plot3(string plot="", string title="", string version="", string options=""
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index > 0) {
-      TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+      TFile* file = 0;
+      if (flag == "bkg_stat" || flag == "mc_matrix" || flag == "mc_bkg" || flag == "qcd_fit") {
+        file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
+      } else {
+        file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+      }
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -313,7 +326,7 @@ void plot3(string plot="", string title="", string version="", string options=""
   if (options.find("madgraph") != string::npos) version = version + ".madgraph";
   if (options.find("default") != string::npos) version = version + ".default";
 
-  if (useMC) {
+  if (flag == "mc_matrix") {
     float fitval = 0.;
     float fiterr = 0.;
     int index = 9001;
@@ -458,7 +471,7 @@ void plot3(string plot="", string title="", string version="", string options=""
       alpha_jet = 0;
     }
 
-    if (useMC) {
+    if (flag == "mc_matrix") {
       alpha_gamma = h_mc_sgn->GetBinContent(i);
       alpha_gamma_err = h_mc_sgn->GetBinError(i);
       alpha_jet = h_mc_bkg->GetBinContent(i);

@@ -49,7 +49,12 @@ void plot2(string plot="", string title="", string version="v00", string options
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
-      TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+      TFile* file = 0;
+      if (flag == "bkg_stat" || flag == "mc_matrix" || flag == "mc_bkg" || flag == "qcd_fit") {
+        file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
+      } else {
+        file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+      }
       if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
@@ -83,7 +88,12 @@ void plot2(string plot="", string title="", string version="v00", string options
       if (index !=   10 && title.find("h_ZGG_") != string::npos) continue;
       if (index != 1010 && title.find("h_WGG_") != string::npos) continue;
     }
-    TFile* file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+    TFile* file = 0;
+    if (flag == "bkg_stat" || flag == "mc_matrix" || flag == "mc_bkg" || flag == "qcd_fit") {
+      file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
+    } else {
+      file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+    }
     if (file->IsZombie()) {
       cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
       return;

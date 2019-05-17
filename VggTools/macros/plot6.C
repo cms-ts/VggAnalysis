@@ -49,9 +49,9 @@ void plot6(string plot="", string title="", string version="v00", string options
     if (index == 0) {
       if (lumiMap[it->first] != 0) {
         lumi = lumi + lumiMap[it->first];
-        lumi2016 = lumi2016 + lumiMap[it->first];
-        lumi2017 = lumi2017 + lumiMap[it->first];
-        lumi2018 = lumi2018 + lumiMap[it->first];
+        if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first];
+        if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first];
+        if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first];
       } else {
         cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
       }
@@ -62,6 +62,8 @@ void plot6(string plot="", string title="", string version="v00", string options
     cout << "ERROR: total luminosity is ZERO !!" << endl;
     return;
   }
+
+  double lumierror = (lumi2016 * 2.5 + lumi2017 * 2.3 + lumi2018 * 2.5) / lumi;
 
   if (options.find("test") != string::npos) version = version + ".test";
   if (options.find("new") != string::npos) version = version + ".new";
@@ -74,6 +76,8 @@ void plot6(string plot="", string title="", string version="v00", string options
   vector<string> flags;
 
   flags.push_back("reference");
+
+  flags.push_back("bkg_stat");
 
   flags.push_back("pileup_up");
   flags.push_back("pileup_down");
@@ -115,6 +119,11 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("sf_pho_veto_down_2017");
   flags.push_back("sf_pho_veto_down_2018");
 
+  flags.push_back("mc_matrix");
+  flags.push_back("mc_bkg");
+
+  flags.push_back("qcd_fit");
+
   map<string, TH1D*> h_xsec;
   map<string, TH1D*> h_xsec_mc_gen;
 
@@ -123,7 +132,6 @@ void plot6(string plot="", string title="", string version="v00", string options
     if (!gSystem->AccessPathName(("html/" + version + "/" + flags[i] + "/" + year + ".xsec/root/" + title + ".root").c_str())) {
 
       TFile* file = new TFile(("html/" + version + "/" + flags[i] + "/" + year + ".xsec/root/" + title + ".root").c_str());
-
       TH1D* h_xsec_tmp = (TH1D*)file->Get((title + "_xsec").c_str());
       TH1D* h_xsec_mc_gen_tmp = (TH1D*)file->Get((title + "_xsec_mc_gen").c_str());
 
@@ -143,7 +151,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   double xsec_data_ref = 0.;
   double xsec_stat_data_ref = 0.;
 
-  if (h_xsec["reference"]) xsec_data_ref = h_xsec["reference"]->IntegralAndError(0,h_xsec["reference"]->GetNbinsX()+1,xsec_stat_data_ref);
+  if (h_xsec["reference"]) xsec_data_ref = h_xsec["reference"]->IntegralAndError(0, h_xsec["reference"]->GetNbinsX()+1, xsec_stat_data_ref, "width");
 
   for (uint i = 0; i < flags.size(); i++) {
 
@@ -156,7 +164,7 @@ void plot6(string plot="", string title="", string version="v00", string options
 
     if (h_xsec[flags[i]]) {
 
-      xsec_data = h_xsec[flags[i]]->IntegralAndError(0,h_xsec[flags[i]]->GetNbinsX()+1,xsec_stat_data);
+      xsec_data = h_xsec[flags[i]]->IntegralAndError(0, h_xsec[flags[i]]->GetNbinsX()+1, xsec_stat_data, "width");
 
       cout << "xsec = "
            << std::fixed << std::setprecision(5)
@@ -180,6 +188,660 @@ void plot6(string plot="", string title="", string version="v00", string options
     }
 
   }
+
+  if (xsec_data_ref != 0) {
+    cout << std::setw(21)
+         << "lumi"
+         << " : "
+         << "xsec = "
+         << std::fixed << std::setprecision(5)
+         << std::setw(8) << xsec_data_ref * (1 + lumierror / 100.)
+         << " +- "
+         << std::setw(4) << xsec_stat_data_ref
+         << " : "
+         << std::fixed << std::setprecision(2)
+         << std::setw(5) << lumierror
+         << " %"
+         << endl;
+  } else {
+    cout << "reference cross section not available" << endl;
+  }
+
+  if (!h_xsec["reference"]) return;
+
+  vector<string> labels;
+
+  labels.push_back("bkg_stat");
+  labels.push_back("pileup");
+  labels.push_back("jec");
+  labels.push_back("jer");
+  labels.push_back("ele_eff");
+  labels.push_back("ele_reco");
+  labels.push_back("ele_hlt");
+  labels.push_back("muo_id");
+  labels.push_back("muo_iso");
+  labels.push_back("muo_trig");
+  labels.push_back("pho_eff");
+  labels.push_back("pho_veto");
+  labels.push_back("mc_matrix");
+  labels.push_back("mc_bkg");
+  labels.push_back("qcd_fit");
+  labels.push_back("lumi");
+
+  map<string, vector<double>> errors;
+
+  for (int i = 0; i < h_xsec["reference"]->GetNbinsX()+1; i++) {
+
+    if (h_xsec["bkg_stat"]) {
+      double xval = TMath::Sqrt((TMath::Power(h_xsec["bkg_stat"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))/(1.1 * 1.1 - 1.));
+      errors["bkg_stat"].push_back(xval);
+    } else {
+      errors["bkg_stat"].push_back(0.);
+    }
+
+    if (h_xsec["pileup_up"] && h_xsec["pileup_down"]) {
+      double xval_up = fabs(h_xsec["pileup_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["pileup_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec["pileup_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["pileup_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["pileup"].push_back(0.5 * (xval_up + xval_down));
+    } else {
+      errors["pileup"].push_back(0.);
+    }
+
+    if (h_xsec["jec_up_2016"] && h_xsec["jec_down_2016"] && h_xsec["jec_up_2017"] && h_xsec["jec_down_2017"] && h_xsec["jec_up_2018"] && h_xsec["jec_down_2018"]) {
+      double xval_2016_up = fabs(h_xsec["jec_up_2016"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(h_xsec["jec_up_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2016_down = fabs(h_xsec["jec_down_2016"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2016_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_down, 2) - TMath::Abs(TMath::Power(h_xsec["jec_down_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2017_up = fabs(h_xsec["jec_up_2017"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2017_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_up, 2) - TMath::Abs(TMath::Power(h_xsec["jec_up_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2017_down = fabs(h_xsec["jec_down_2017"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2017_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_down, 2) - TMath::Abs(TMath::Power(h_xsec["jec_down_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2018_up = fabs(h_xsec["jec_up_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(h_xsec["jec_up_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2018_down = fabs(h_xsec["jec_down_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(h_xsec["jec_down_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["jec"].push_back(TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2)));
+    } else {
+      errors["jec"].push_back(0.);
+    }
+
+    if (h_xsec["jer_up_2016"] && h_xsec["jer_down_2016"] && h_xsec["jer_up_2017"] && h_xsec["jer_down_2017"] && h_xsec["jer_up_2018"] && h_xsec["jer_down_2018"]) {
+      double xval_2016_up = fabs(h_xsec["jer_up_2016"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(h_xsec["jer_up_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2016_down = fabs(h_xsec["jer_down_2016"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2016_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_down, 2) - TMath::Abs(TMath::Power(h_xsec["jer_down_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2017_up = fabs(h_xsec["jer_up_2017"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2017_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_up, 2) - TMath::Abs(TMath::Power(h_xsec["jer_up_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2017_down = fabs(h_xsec["jer_down_2017"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2017_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_down, 2) - TMath::Abs(TMath::Power(h_xsec["jer_down_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2018_up = fabs(h_xsec["jer_up_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(h_xsec["jer_up_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2018_down = fabs(h_xsec["jer_down_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(h_xsec["jer_down_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["jer"].push_back(TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2)));
+    } else {
+      errors["jer"].push_back(0.);
+    }
+
+    if (h_xsec["sf_ele_eff_up"] && h_xsec["sf_ele_eff_down"]) {
+      double xval_up = fabs(h_xsec["sf_ele_eff_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_eff_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec["sf_ele_eff_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_eff_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["ele_eff"].push_back(0.5 * (xval_up + xval_down));
+    } else {
+      errors["ele_eff"].push_back(0.);
+    }
+    if (h_xsec["sf_ele_reco_up"] && h_xsec["sf_ele_reco_down"]) {
+      double xval_up = fabs(h_xsec["sf_ele_reco_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_reco_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec["sf_ele_reco_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_reco_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["ele_reco"].push_back(0.5 * (xval_up + xval_down));
+    } else {
+      errors["ele_reco"].push_back(0.);
+    }
+    if (h_xsec["sf_ele_hlt_up"] && h_xsec["sf_ele_hlt_down"]) {
+      double xval_up = fabs(h_xsec["sf_ele_hlt_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_hlt_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec["sf_ele_hlt_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_hlt_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["ele_hlt"].push_back(0.5 * (xval_up + xval_down));
+    } else {
+      errors["ele_hlt"].push_back(0.);
+    }
+
+    if (h_xsec["sf_muo_id_up"] && h_xsec["sf_muo_id_down"]) {
+      double xval_up = fabs(h_xsec["sf_muo_id_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_id_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec["sf_muo_id_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_id_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["muo_id"].push_back(0.5 * (xval_up + xval_down));
+    } else {
+      errors["muo_id"].push_back(0.);
+    }
+    if (h_xsec["sf_muo_iso_up"] && h_xsec["sf_muo_iso_down"]) {
+      double xval_up = fabs(h_xsec["sf_muo_iso_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_iso_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec["sf_muo_iso_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_iso_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["muo_iso"].push_back(0.5 * (xval_up + xval_down));
+    } else {
+      errors["muo_iso"].push_back(0.);
+    }
+    if (h_xsec["sf_muo_trig_up"] && h_xsec["sf_muo_trig_down"]) {
+      double xval_up = fabs(h_xsec["sf_muo_trig_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_trig_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec["sf_muo_trig_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_trig_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["muo_trig"].push_back(0.5 * (xval_up + xval_down));
+    } else {
+      errors["muo_trig"].push_back(0.);
+    }
+
+    if (h_xsec["sf_pho_eff_up"] && h_xsec["sf_pho_eff_down"]) {
+      double xval_up = fabs(h_xsec["sf_pho_eff_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_eff_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec["sf_pho_eff_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_eff_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["pho_eff"].push_back(0.5 * (xval_up + xval_down));
+    } else {
+      errors["pho_eff"].push_back(0.);
+    }
+
+    if (h_xsec["sf_pho_veto_up_2016"] && h_xsec["sf_pho_veto_down_2016"] && h_xsec["sf_pho_veto_up_2017"] && h_xsec["sf_pho_veto_down_2017"] && h_xsec["sf_pho_veto_up_2018"] && h_xsec["sf_pho_veto_down_2018"]) {
+      double xval_2016_up = fabs(h_xsec["sf_pho_veto_up_2016"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_up_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2016_down = fabs(h_xsec["sf_pho_veto_down_2016"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2016_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_down_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2017_up = fabs(h_xsec["sf_pho_veto_up_2017"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2017_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_up_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2017_down = fabs(h_xsec["sf_pho_veto_down_2017"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2017_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_down_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2018_up = fabs(h_xsec["sf_pho_veto_up_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_up_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_2018_down = fabs(h_xsec["sf_pho_veto_down_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_down_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["pho_veto"].push_back(TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2)));
+    } else {
+      errors["pho_veto"].push_back(0.);
+    }
+
+    if (h_xsec["mc_matrix"]) {
+      double xval = fabs(h_xsec["mc_matrix"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["mc_matrix"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["mc_matrix"].push_back(xval);
+    } else {
+      errors["mc_matrix"].push_back(0.);
+    }
+
+    if (h_xsec["mc_bkg"]) {
+      double xval = fabs(h_xsec["mc_bkg"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["mc_bkg"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["mc_bkg"].push_back(xval);
+    } else {
+      errors["mc_bkg"].push_back(0.);
+    }
+
+    if (h_xsec["qcd_fit"]) {
+      double xval = fabs(h_xsec["qcd_fit"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["qcd_fit"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      errors["qcd_fit"].push_back(xval);
+    } else {
+      errors["qcd_fit"].push_back(0.);
+    }
+
+    errors["lumi"].push_back(h_xsec["reference"]->GetBinContent(i) * lumierror / 100.);
+  }
+
+  while (gSystem->AccessPathName(("html/" + version + "/reference/" + year + ".xsec/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/reference/" + year + ".xsec/root/").c_str(), kTRUE);
+  }
+
+  ofstream out;
+  out.open(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".dat").c_str());
+  Info("File::Open", "dat file %s has been created", ("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".dat").c_str());
+
+  out << title << endl;
+
+  out << std::setw(25) << "data";
+
+  for (uint i = 0; i < labels.size(); i++) {
+    out << std::setw(11) << labels[i];
+  }
+
+  out << std::setw(11) << "total"
+      << std::setw(11) << "total"
+      << std::setw(11) << "total"
+      << std::setw(11) << ""
+      << endl;
+
+  out << std::setw(25) << "stat";
+
+  for (uint i = 0; i < labels.size(); i++) {
+    if (labels[i] == "bkg_stat") {
+      if (errors[labels[i]].size()) out << std::setw(11) << "stat";
+    } else {
+      if (errors[labels[i]].size()) out << std::setw(11) << "syst";
+    }
+  }
+
+  out << std::setw(11) << "stat"
+      << std::setw(11) << "syst"
+      << std::setw(11) << "error"
+      << std::setw(9) << "%"
+      << endl;
+
+  double err_data[h_xsec["reference"]->GetNbinsX()];
+
+  for (int i = 0; i < h_xsec["reference"]->GetNbinsX()+2; i++) {
+
+    out << std::setw(2) << i
+        << std::fixed << std::setprecision(5)
+        << std::setw(12) << h_xsec["reference"]->GetBinContent(i)
+        << std::setw(3) << " +-"
+        << std::setw(8) << TMath::Sqrt(TMath::Power(h_xsec["reference"]->GetBinError(i), 2) - TMath::Power(errors["bkg_stat"][i], 2));
+
+    for (uint j = 0; j < labels.size(); j++) {
+      out << std::setw(3) << " +-"
+          << std::setw(8) << errors[labels[j]][i];
+    }
+
+    out << std::setw(3) << " =>"
+        << std::setw(8) <<  h_xsec["reference"]->GetBinError(i)
+        << std::setw(3) << " +-";
+
+    double sumw2 = 0.;
+
+    for (uint j = 0; j < labels.size(); j++) {
+      if (labels[j] != "bkg_stat") {
+        sumw2 = sumw2 + errors[labels[j]][i] * errors[labels[j]][i];
+      }
+    }
+    out << std::setw(8) << TMath::Sqrt(sumw2)
+        << std::setw(3) << " =>"
+        << std::setw(8) <<  TMath::Sqrt(TMath::Power(h_xsec["reference"]->GetBinError(i), 2) + sumw2);
+
+    err_data[i] = TMath::Sqrt(TMath::Power(h_xsec["reference"]->GetBinError(i), 2) + sumw2);
+
+    out << std::setw(3) << " =>"
+        << std::fixed << std::setprecision(1)
+        << std::setw(6) << (h_xsec["reference"]->GetBinContent(i) != 0. ? 100 * TMath::Sqrt(TMath::Power(h_xsec["reference"]->GetBinError(i), 2) + sumw2)/h_xsec["reference"]->GetBinContent(i) : 0.)
+        << endl;
+
+  }
+
+  double sumv2[labels.size()-1];
+
+  for (uint j = 0; j < labels.size(); j++) {
+
+    sumv2[j] = 0.;
+
+    if (labels[j] == "lumi") {
+      sumv2[j] = (xsec_data_ref * lumierror / 100.) * (xsec_data_ref * lumierror / 100.);
+    } else {
+      for (int i = 0; i < h_xsec["reference"]->GetNbinsX(); i++) {
+        sumv2[j] = sumv2[j] + errors[labels[j]][i] * errors[labels[j]][i];
+      }
+    }
+
+  }
+
+  out << std::setw(3) << "tot"
+      << std::fixed << std::setprecision(5)
+      << std::setw(11) << xsec_data_ref
+      << " +-"
+      << std::setw(8) << TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - sumv2[find(labels.begin(), labels.end(), "bkg_stat") - labels.begin()]);
+
+  for (uint j = 0; j < labels.size(); j++) {
+    out << std::setw(3) << " +-";
+    if (labels[j] == "lumi") {
+      out << std::setw(8) << xsec_data_ref * lumierror / 100.;
+    } else {
+      out << std::setw(8) << TMath::Sqrt(sumv2[j]);
+    }
+  }
+
+  out << std::setw(3) << " =>"
+      << std::setw(8) << xsec_stat_data_ref
+      << std::setw(3) << " +-";
+
+  double sumw2 = 0.;
+
+  for (uint j = 0; j < labels.size(); j++) {
+    if (labels[j] != "bkg_stat") {
+      sumw2 = sumw2 + sumv2[j];
+    }
+  }
+
+  out << std::setw(8) << TMath::Sqrt(sumw2)
+      << std::setw(3) << " =>"
+      << std::setw(8) <<  TMath::Sqrt(xsec_stat_data_ref * xsec_stat_data_ref + sumw2)
+      << std::setw(3) << " =>"
+      << std::fixed << std::setprecision(1)
+      << std::setw(6) << (xsec_data_ref != 0. ? 100 * TMath::Sqrt(xsec_stat_data_ref * xsec_stat_data_ref + sumw2)/xsec_data_ref : 0.)
+      << endl;
+
+  out.close();
+
+  gROOT->GetColor(kRed)->SetAlpha(0.5);
+  gROOT->GetColor(kGreen+2)->SetAlpha(0.5);
+  gROOT->GetColor(kMagenta-6)->SetAlpha(0.5);
+  gROOT->GetColor(kBlue-4)->SetAlpha(0.5);
+  gROOT->GetColor(kOrange+7)->SetAlpha(0.5);
+
+  TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
+  c1->cd();
+
+  TPad* pad1 = new TPad("pad1", "pad1", 0.0, 0.3, 1.0, 1.0);
+  pad1->SetBottomMargin(0.001);
+  pad1->Draw();
+  pad1->cd();
+
+  h_xsec_mc_gen["reference"]->SetMaximum(1.2*TMath::Max(h_xsec_mc_gen["reference"]->GetMaximum(), h_xsec["reference"]->GetMaximum()));
+  h_xsec_mc_gen["reference"]->SetMinimum(TMath::Max(0.000005, 0.8*TMath::Min(h_xsec_mc_gen["reference"]->GetMinimum(), h_xsec["reference"]->GetMinimum())));
+
+  if (title.find("nphotons") != string::npos) h_xsec_mc_gen["reference"]->SetMinimum(TMath::Max(0.005, 0.8*TMath::Min(h_xsec_mc_gen["reference"]->GetMinimum(), h_xsec["reference"]->GetMinimum())));
+
+  pad1->SetLogy();
+
+  h_xsec_mc_gen["reference"]->SetTitle("");
+  h_xsec_mc_gen["reference"]->SetStats(kFALSE);
+
+  h_xsec_mc_gen["reference"]->SetLineColor(kBlue-4);
+  h_xsec_mc_gen["reference"]->SetLineWidth(2);
+  h_xsec_mc_gen["reference"]->SetFillColor(kBlue-4);
+  h_xsec_mc_gen["reference"]->SetMarkerColor(kBlue-4);
+
+  h_xsec_mc_gen["reference"]->GetXaxis()->SetTitleOffset(0.7);
+  h_xsec_mc_gen["reference"]->GetXaxis()->SetLabelFont(42);
+  h_xsec_mc_gen["reference"]->GetXaxis()->SetLabelSize(0.08);
+
+  h_xsec_mc_gen["reference"]->GetYaxis()->SetTitle("d#sigma / dN_{#gamma} [pb]");
+  h_xsec_mc_gen["reference"]->GetYaxis()->SetTitleSize(0.05);
+  h_xsec_mc_gen["reference"]->GetYaxis()->SetTitleOffset(0.8);
+  h_xsec_mc_gen["reference"]->GetYaxis()->SetLabelSize(0.045);
+
+  if (title.find("nphotons") != string::npos) h_xsec_mc_gen["reference"]->GetXaxis()->SetRangeUser(-0.5, 2.5);
+
+  h_xsec_mc_gen["reference"]->Draw("E5");
+
+  TH1D* h_xsec_mc_gen1 = (TH1D*)h_xsec_mc_gen["reference"]->Clone("h_xsec_mc_gen1");
+  h_xsec_mc_gen1->SetFillColor(0);
+  h_xsec_mc_gen1->Draw("HISTLSAME");
+
+  TH1D* h_xsec_err = (TH1D*)h_xsec["reference"]->Clone("h_xsec_err");
+
+  for (int i = 0; i < h_xsec_err->GetNbinsX(); i++) {
+    h_xsec_err->SetBinError(i, err_data[i]);
+  }
+
+  h_xsec_err->SetTitle("");
+  h_xsec_err->SetStats(kFALSE);
+
+  h_xsec_err->SetTitle("");
+  h_xsec_err->SetStats(kFALSE);
+
+  h_xsec_err->SetLineColor(kRed+1);
+  h_xsec_err->SetLineWidth(1);
+  h_xsec_err->SetFillColor(kRed+1);
+  h_xsec_err->SetMarkerColor(kRed+1);
+  h_xsec_err->SetMarkerStyle(24);
+  h_xsec_err->SetMarkerSize(0.7);
+
+  h_xsec_err->SetMarkerColor(kRed+1);
+
+  h_xsec_err->Draw("E0PX0SAME");
+  h_xsec_err->Draw("E1PX0SAME");
+
+  h_xsec["reference"]->SetTitle("");
+  h_xsec["reference"]->SetStats(kFALSE);
+
+  h_xsec["reference"]->SetTitle("");
+  h_xsec["reference"]->SetStats(kFALSE);
+
+  h_xsec["reference"]->SetLineColor(kBlack);
+  h_xsec["reference"]->SetLineWidth(1);
+  h_xsec["reference"]->SetFillColor(kBlack);
+  h_xsec["reference"]->SetMarkerColor(kBlack);
+  h_xsec["reference"]->SetMarkerStyle(24);
+  h_xsec["reference"]->SetMarkerSize(0.7);
+
+  h_xsec["reference"]->SetMarkerColor(kBlack);
+
+  h_xsec["reference"]->Draw("E0PX0SAME");
+  h_xsec["reference"]->Draw("E1PX0SAME");
+
+  pad1->Update();
+  c1->Update();
+  c1->cd();
+
+  TH1D* h_ratio_rec = (TH1D*)h_xsec["reference"]->Clone("h_ratio_rec");
+
+  TH1D* h_xsec_mc_gen2 = (TH1D*)h_xsec_mc_gen["reference"]->Clone("h_xsec_mc_gen2");
+  for (int i = 0; i < h_xsec_mc_gen2->GetNbinsX()+1; i++) {
+    h_xsec_mc_gen2->SetBinError(i, 0.);
+  }
+  h_ratio_rec->Divide(h_xsec_mc_gen2);
+
+  TH1D* h_ratio_err = (TH1D*)h_xsec_err->Clone("h_ratio_err");
+  h_ratio_err->Divide(h_xsec_mc_gen2);
+
+  TPad* pad2 = new TPad("pad2", "pad2", 0.0, 0.0, 1.0, 0.3);
+  pad2->SetTopMargin(0);
+  pad2->SetBottomMargin(0.3);
+  pad2->Draw();
+  pad2->cd();
+
+  TH1D* h_ratio_gen = (TH1D*)h_xsec_mc_gen["reference"]->Clone("h_ratio_gen");
+  h_ratio_gen->Divide(h_xsec_mc_gen2);
+
+  h_ratio_gen->SetTitle("");
+  h_ratio_gen->SetStats(kFALSE);
+
+  h_ratio_gen->GetXaxis()->SetTitleFont(42);
+  h_ratio_gen->GetXaxis()->SetTitleSize(0.11);
+  h_ratio_gen->GetXaxis()->SetTitleOffset(1.0);
+  h_ratio_gen->GetXaxis()->SetLabelFont(42);
+  h_ratio_gen->GetXaxis()->SetLabelSize(0.10);
+
+  h_ratio_gen->GetYaxis()->SetTitle("Data/Theory");
+  h_ratio_gen->GetYaxis()->SetTitleSize(0.11);
+  h_ratio_gen->GetYaxis()->SetTitleOffset(0.35);
+  h_ratio_gen->GetYaxis()->SetLabelSize(0.10);
+  h_ratio_gen->GetYaxis()->SetNdivisions(505);
+  h_ratio_gen->GetYaxis()->SetRangeUser(0.5, 1.5);
+
+  if (title.find("nphotons") != string::npos) h_ratio_gen->GetXaxis()->SetRangeUser(-0.5, 2.5);
+
+  h_ratio_gen->GetXaxis()->SetNdivisions(1003);
+  h_ratio_gen->GetXaxis()->SetTickLength(0.1);
+
+  string tmp_title = title;
+
+  if (tmp_title == "h_W_ele_nphotons" || tmp_title == "h_W_muo_nphotons") {
+    h_ratio_gen->GetXaxis()->SetTitle("Number of photons");
+  } else if (tmp_title == "h_Z_ele_nphotons" || tmp_title == "h_Z_muo_nphotons") {
+    h_ratio_gen->GetXaxis()->SetTitle("Number of photons");
+  } else if (tmp_title == "h_WG_ele_pho0_pt" || tmp_title == "h_WG_muo_pho0_pt") {
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_ZG_ele_pho0_pt" || tmp_title == "h_ZG_muo_pho0_pt") {
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_eta" || tmp_title == "h_WGG_muo_pho1_eta") {
+    h_ratio_gen->GetXaxis()->SetTitle("#eta^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_phi" || tmp_title == "h_WGG_muo_pho1_phi") {
+    h_ratio_gen->GetXaxis()->SetTitle("#phi^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_r9" || tmp_title == "h_WGG_muo_pho1_r9") {
+    h_ratio_gen->GetXaxis()->SetTitle("R_{9}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho0_sieie" || tmp_title == "h_WGG_muo_pho0_sieie") {
+    h_ratio_gen->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_sieie" || tmp_title == "h_WGG_muo_pho1_sieie") {
+    h_ratio_gen->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_jet0_dR" || tmp_title == "h_WGG_muo_pho1_jet0_dR") {
+    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{j#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho0_mva" || tmp_title == "h_WGG_muo_pho0_mva") {
+    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_mva" || tmp_title == "h_WGG_muo_pho1_mva") {
+    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_pf_iso_all" || tmp_title == "h_WGG_muo_pf_iso_all") {
+    h_ratio_gen->GetXaxis()->SetTitle("Iso_{all}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_pf_iso_chg" || tmp_title == "h_WGG_muo_pf_iso_chg") {
+    h_ratio_gen->GetXaxis()->SetTitle("Iso_{chg}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_dR" || tmp_title == "h_WGG_muo_pho1_dR") {
+    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{l#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho0_pt" || tmp_title == "h_WGG_muo_pho0_pt") {
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_pt" || tmp_title == "h_WGG_muo_pho1_pt") {
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_ele0_pt" || tmp_title == "h_WGG_muo_muo0_pt") {
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{l}");
+  } else if (tmp_title == "h_WGG_ele_pho0_pho1_dR" || tmp_title == "h_WGG_muo_pho0_pho1_dR") {
+    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_eta" || tmp_title == "h_ZGG_muo_pho1_eta") {
+    h_ratio_gen->GetXaxis()->SetTitle("#eta^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_phi" || tmp_title == "h_ZGG_muo_pho1_phi") {
+    h_ratio_gen->GetXaxis()->SetTitle("#phi^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_r9" || tmp_title == "h_ZGG_muo_pho1_r9") {
+    h_ratio_gen->GetXaxis()->SetTitle("R_{9}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_sieie" || tmp_title == "h_ZGG_muo_pho0_sieie") {
+    h_ratio_gen->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_sieie" || tmp_title == "h_ZGG_muo_pho1_sieie") {
+    h_ratio_gen->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_jet0_dR" || tmp_title == "h_ZGG_muo_pho1_jet0_dR") {
+    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{j#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_mva" || tmp_title == "h_ZGG_muo_pho0_mva") {
+    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_mva" || tmp_title == "h_ZGG_muo_pho1_mva") {
+    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_pf_iso_all" || tmp_title == "h_ZGG_muo_pf_iso_all") {
+    h_ratio_gen->GetXaxis()->SetTitle("Iso_{all}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_pf_iso_chg" || tmp_title == "h_ZGG_muo_pf_iso_chg") {
+    h_ratio_gen->GetXaxis()->SetTitle("Iso_{chg}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_dR" || tmp_title == "h_ZGG_muo_pho1_dR") {
+    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{l#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_pt" || tmp_title == "h_ZGG_muo_pho0_pt") {
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_pt" || tmp_title == "h_ZGG_muo_pho1_pt") {
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_pho1_dR" || tmp_title == "h_ZGG_muo_pho0_pho1_dR") {
+    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{#gamma#gamma}");
+  } else if (tmp_title == "h_WGG_ele" || tmp_title == "h_WGG_muo") {
+    h_ratio_gen->GetXaxis()->SetTitle("M_{T} [GeV]");
+  } else if (tmp_title == "h_ZGG_ele" || tmp_title == "h_ZGG_muo") {
+    h_ratio_gen->GetXaxis()->SetTitle("M_{ll} [GeV]");
+  } else if (tmp_title == "h_WGG_ele_pho0_pho1_pt" || tmp_title == "h_WGG_muo_pho0_pho1_pt") {
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho0_pho1" || tmp_title == "h_WGG_muo_pho0_pho1") {
+    h_ratio_gen->GetXaxis()->SetTitle("M^{#gamma#gamma}");
+  } else if (tmp_title == "h_WGG_ele_ele0_pho0" || tmp_title == "h_WGG_muo_muo0_pho0") {
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma}");
+  } else if (tmp_title == "h_WGG_ele_ele0_pho1" || tmp_title == "h_WGG_muo_muo0_pho1") {
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma}");
+  } else if (tmp_title == "h_WGG_ele_ele0_pho0_pho1" || tmp_title == "h_WGG_muo_muo0_pho0_pho1") {
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_pho1_pt" || tmp_title == "h_ZGG_muo_pho0_pho1_pt") {
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_pho1" || tmp_title == "h_ZGG_muo_pho0_pho1") {
+    h_ratio_gen->GetXaxis()->SetTitle("M^{#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_ele0_pho1" || tmp_title == "h_ZGG_muo_muo0_pho1") {
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_ele1_pho1" || tmp_title == "h_ZGG_muo_muo1_pho1") {
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_ele0_pho0_pho1" || tmp_title == "h_ZGG_muo_muo0_pho0_pho1") {
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_ele1_pho0_pho1" || tmp_title == "h_ZGG_muo_muo1_pho0_pho1") {
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_ele0_ele1_pho0_pho1" || tmp_title == "h_ZGG_muo_muo0_muo1_pho0_pho1") {
+    h_ratio_gen->GetXaxis()->SetTitle("M^{ll#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_noiso_mva" || tmp_title == "h_ZGG_muo_pho0_noiso_mva") {
+    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_noiso_mva" || tmp_title == "h_ZGG_muo_pho1_noiso_mva") {
+    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
+  } else {
+    tmp_title.erase(0, 2);
+    h_ratio_gen->GetXaxis()->SetTitle(tmp_title.c_str());
+  }
+
+  h_ratio_gen->Draw("E5");
+
+  pad2->Update();
+  TLine* line = new TLine(pad2->GetUxmax(), 1.0, pad2->GetUxmin(), 1.0);
+  line->SetLineColor(kBlue-4);
+  line->SetLineWidth(2);
+  line->Draw();
+
+  h_ratio_err->SetLineColor(kRed+1);
+  h_ratio_err->SetLineWidth(1);
+  h_ratio_err->SetFillColor(kRed+1);
+  h_ratio_err->SetMarkerColor(kRed+1);
+  h_ratio_err->SetMarkerStyle(24);
+  h_ratio_err->SetMarkerSize(0.7);
+
+  h_ratio_err->Draw("E0PX0SAME");
+  h_ratio_err->Draw("E1PX0SAME");
+
+  h_ratio_rec->SetLineColor(kBlack);
+  h_ratio_rec->SetLineWidth(1);
+  h_ratio_rec->SetFillColor(kBlack);
+  h_ratio_rec->SetMarkerColor(kBlack);
+  h_ratio_rec->SetMarkerStyle(24);
+  h_ratio_rec->SetMarkerSize(0.7);
+
+  h_ratio_rec->Draw("E0PX0SAME");
+  h_ratio_rec->Draw("E1PX0SAME");
+
+  writeExtraText = true;
+
+  lumi_13TeV  = Form("%.1f fb^{-1}", lumi);
+  int iPeriod = 4;
+  int iPos = 0;
+  CMS_lumi(pad1, iPeriod, iPos);
+  c1->cd();
+
+  TLatex* label = new TLatex();
+  label->SetTextFont(43);
+  label->SetTextSize(16);
+  label->SetLineWidth(2);
+  label->SetNDC();
+
+  if (plot.find("W") != string::npos) {
+    label->DrawLatex(0.55, 0.85, "W, W#gamma, W#gamma#gamma selection");
+    if (plot.find("ele") != string::npos) {
+      label->DrawLatex(0.55, 0.80, "W #rightarrow e#nu");
+      label->DrawLatex(0.55, 0.75, "p_{T}^{e} > 40 GeV, #||{#eta^{e}} < 2.4, #slash{E}_{T} > 40 GeV");
+    }
+    if (plot.find("muo") != string::npos) {
+      label->DrawLatex(0.55, 0.80, "W #rightarrow #mu#nu");
+      label->DrawLatex(0.55, 0.75, "p_{T}^{#mu} > 30 GeV, #||{#eta^{#mu}} < 2.4, #slash{E}_{T} > 40 GeV");
+    }
+    label->DrawLatex(0.55, 0.69, "p_{T}^{#gamma} > 20 GeV, #||{#eta^{#gamma}} < 2.4");
+  }
+  if (plot.find("Z") != string::npos) {
+    label->DrawLatex(0.55, 0.85, "Z, Z#gamma, Z#gamma#gamma selection");
+    if (plot.find("ele") != string::npos) {
+      label->DrawLatex(0.55, 0.80, "Z #rightarrow ee");
+      label->DrawLatex(0.55, 0.75, "p_{T}^{e#scale[0.8]{1}} > 28 GeV, p_{T}^{e#scale[0.8]{2}} > 20 GeV, #||{#eta^{e}} < 2.4");
+    }
+    if (plot.find("muo") != string::npos) {
+      label->DrawLatex(0.55, 0.80, "Z #rightarrow #mu#mu");
+      label->DrawLatex(0.55, 0.75, "p_{T}^{#mu#scale[0.8]{1}} > 20 GeV, p_{T}^{#mu#scale[0.8]{2}} > 15 GeV, #||{#eta^{#mu}} < 2.4");
+    }
+    label->DrawLatex(0.55, 0.69, "p_{T}^{#gamma} > 20 GeV, #||{#eta^{#gamma}} < 2.4");
+  }
+
+  label->Draw("same");
+
+  c1->SaveAs(("html/" + version + "/reference/" + year + ".xsec/" + title + ".pdf").c_str());
+
+  TFile* file = new TFile(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str());
+  h_xsec["reference"]->Write((title + "_xsec").c_str());
+  h_xsec_mc_gen["reference"]->Write((title + "_xsec_mc_gen").c_str());
+  h_xsec_err->Write((title + "_xsec_err").c_str());
+  file->Close();
+  delete file;
 
 }
 
