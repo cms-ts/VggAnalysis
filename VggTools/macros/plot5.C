@@ -665,8 +665,8 @@ void plot5(string plot="", string title="", string version="v00", string options
   xsec_data = h_xsec_rec->IntegralAndError(0, h_xsec_rec->GetNbinsX()+1, xsec_stat_data, "width");
 
   ofstream out;
-  out.open(("html/" + version + "/" + flag + "/" + year + ".xsec/root/" + title + "_xsecs.dat").c_str());
-  Info("File::Open", "dat file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".xsec/root/" + title + "_xsecs.dat").c_str());
+  out.open(("html/" + version + "/" + flag + "/" + year + ".xsec/root/" + title + ".dat").c_str());
+  Info("File::Open", "dat file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".xsec/root/" + title + ".dat").c_str());
 
   out << title << endl;
   out << std::fixed << std::setprecision(4);
