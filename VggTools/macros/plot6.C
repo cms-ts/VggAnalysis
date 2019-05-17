@@ -442,7 +442,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       << std::setw(9) << "%"
       << endl;
 
-  double err_data[h_xsec["reference"]->GetNbinsX()];
+  double err_data[h_xsec["reference"]->GetNbinsX()+2];
 
   for (int i = 0; i < h_xsec["reference"]->GetNbinsX()+2; i++) {
 
@@ -481,7 +481,7 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   }
 
-  double sumv2[labels.size()-1];
+  double sumv2[labels.size()];
 
   for (uint j = 0; j < labels.size(); j++) {
 
@@ -501,7 +501,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       << std::fixed << std::setprecision(5)
       << std::setw(11) << xsec_data_ref
       << " +-"
-      << std::setw(8) << TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - sumv2[find(labels.begin(), labels.end(), "bkg_stat") - labels.begin()]);
+      << std::setw(8) << (errors["bkg_stat"].size() ? TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - sumv2[find(labels.begin(), labels.end(), "bkg_stat") - labels.begin()]) : xsec_stat_data_ref);
 
   for (uint j = 0; j < labels.size(); j++) {
     out << std::setw(3) << " +-";
