@@ -209,25 +209,6 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   if (!h_xsec["reference"]) return;
 
-  vector<string> labels;
-
-  labels.push_back("bkg_stat");
-  labels.push_back("pileup");
-  labels.push_back("jec");
-  labels.push_back("jer");
-  labels.push_back("ele_eff");
-  labels.push_back("ele_reco");
-  labels.push_back("ele_hlt");
-  labels.push_back("muo_id");
-  labels.push_back("muo_iso");
-  labels.push_back("muo_trig");
-  labels.push_back("pho_eff");
-  labels.push_back("pho_veto");
-  labels.push_back("mc_matrix");
-  labels.push_back("mc_bkg");
-  labels.push_back("qcd_fit");
-  labels.push_back("lumi");
-
   map<string, vector<double>> values;
   map<string, vector<double>> errors;
 
@@ -240,17 +221,12 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = h_xsec["reference"]->GetBinError(i);
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["reference"].push_back(xval);
-    } else {
-      values["reference"].push_back(0.);
-      errors["reference"].push_back(0.);
     }
 
     if (h_xsec["bkg_stat"]) {
       double xval = TMath::Sqrt((TMath::Power(h_xsec["bkg_stat"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))/(1.1 * 1.1 - 1.));
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["bkg_stat"].push_back(xval);
-    } else {
-      errors["bkg_stat"].push_back(0.);
     }
 
     if (h_xsec["pileup_up"] && h_xsec["pileup_down"]) {
@@ -261,8 +237,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = 0.5 * (xval_up + xval_down);
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["pileup"].push_back(xval);
-    } else {
-      errors["pileup"].push_back(0.);
     }
 
     if (h_xsec["jec_up_2016"] && h_xsec["jec_down_2016"] && h_xsec["jec_up_2017"] && h_xsec["jec_down_2017"] && h_xsec["jec_up_2018"] && h_xsec["jec_down_2018"]) {
@@ -281,8 +255,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["jec"].push_back(xval);
-    } else {
-      errors["jec"].push_back(0.);
     }
 
     if (h_xsec["jer_up_2016"] && h_xsec["jer_down_2016"] && h_xsec["jer_up_2017"] && h_xsec["jer_down_2017"] && h_xsec["jer_up_2018"] && h_xsec["jer_down_2018"]) {
@@ -301,8 +273,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["jer"].push_back(xval);
-    } else {
-      errors["jer"].push_back(0.);
     }
 
     if (h_xsec["sf_ele_eff_up"] && h_xsec["sf_ele_eff_down"]) {
@@ -313,8 +283,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = 0.5 * (xval_up + xval_down);
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["ele_eff"].push_back(xval);
-    } else {
-      errors["ele_eff"].push_back(0.);
     }
     if (h_xsec["sf_ele_reco_up"] && h_xsec["sf_ele_reco_down"]) {
       double xval_up = fabs(h_xsec["sf_ele_reco_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
@@ -324,8 +292,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = 0.5 * (xval_up + xval_down);
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["ele_reco"].push_back(xval);
-    } else {
-      errors["ele_reco"].push_back(0.);
     }
     if (h_xsec["sf_ele_hlt_up"] && h_xsec["sf_ele_hlt_down"]) {
       double xval_up = fabs(h_xsec["sf_ele_hlt_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
@@ -335,8 +301,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = 0.5 * (xval_up + xval_down);
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["ele_hlt"].push_back(xval);
-    } else {
-      errors["ele_hlt"].push_back(0.);
     }
 
     if (h_xsec["sf_muo_id_up"] && h_xsec["sf_muo_id_down"]) {
@@ -347,8 +311,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = 0.5 * (xval_up + xval_down);
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["muo_id"].push_back(xval);
-    } else {
-      errors["muo_id"].push_back(0.);
     }
     if (h_xsec["sf_muo_iso_up"] && h_xsec["sf_muo_iso_down"]) {
       double xval_up = fabs(h_xsec["sf_muo_iso_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
@@ -358,8 +320,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = 0.5 * (xval_up + xval_down);
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["muo_iso"].push_back(xval);
-    } else {
-      errors["muo_iso"].push_back(0.);
     }
     if (h_xsec["sf_muo_trig_up"] && h_xsec["sf_muo_trig_down"]) {
       double xval_up = fabs(h_xsec["sf_muo_trig_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
@@ -369,8 +329,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = 0.5 * (xval_up + xval_down);
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["muo_trig"].push_back(xval);
-    } else {
-      errors["muo_trig"].push_back(0.);
     }
 
     if (h_xsec["sf_pho_eff_up"] && h_xsec["sf_pho_eff_down"]) {
@@ -381,8 +339,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = 0.5 * (xval_up + xval_down);
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["pho_eff"].push_back(xval);
-    } else {
-      errors["pho_eff"].push_back(0.);
     }
 
     if (h_xsec["sf_pho_veto_up_2016"] && h_xsec["sf_pho_veto_down_2016"] && h_xsec["sf_pho_veto_up_2017"] && h_xsec["sf_pho_veto_down_2017"] && h_xsec["sf_pho_veto_up_2018"] && h_xsec["sf_pho_veto_down_2018"]) {
@@ -401,8 +357,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["pho_veto"].push_back(xval);
-    } else {
-      errors["pho_veto"].push_back(0.);
     }
 
     if (h_xsec["mc_matrix"]) {
@@ -410,8 +364,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["mc_matrix"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["mc_matrix"].push_back(xval);
-    } else {
-      errors["mc_matrix"].push_back(0.);
     }
 
     if (h_xsec["mc_bkg"]) {
@@ -419,8 +371,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["mc_bkg"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["mc_bkg"].push_back(xval);
-    } else {
-      errors["mc_bkg"].push_back(0.);
     }
 
     if (h_xsec["qcd_fit"]) {
@@ -428,8 +378,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["qcd_fit"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["qcd_fit"].push_back(xval);
-    } else {
-      errors["qcd_fit"].push_back(0.);
     }
 
     double xval = h_xsec["reference"]->GetBinContent(i) * lumierror / 100.;
@@ -440,6 +388,25 @@ void plot6(string plot="", string title="", string version="v00", string options
   while (gSystem->AccessPathName(("html/" + version + "/reference/" + year + ".xsec/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/reference/" + year + ".xsec/root/").c_str(), kTRUE);
   }
+
+  vector<string> labels;
+
+  if (errors["bkg_stat"].size()) labels.push_back("bkg_stat");
+  if (errors["pileup"].size()) labels.push_back("pileup");
+  if (errors["jec"].size()) labels.push_back("jec");
+  if (errors["jer"].size()) labels.push_back("jer");
+  if (errors["ele_eff"].size()) labels.push_back("ele_eff");
+  if (errors["ele_reco"].size()) labels.push_back("ele_reco");
+  if (errors["ele_hlt"].size()) labels.push_back("ele_hlt");
+  if (errors["muo_id"].size()) labels.push_back("muo_id");
+  if (errors["muo_iso"].size()) labels.push_back("muo_iso");
+  if (errors["muo_trig"].size()) labels.push_back("muo_trig");
+  if (errors["pho_eff"].size()) labels.push_back("pho_eff");
+  if (errors["pho_veto"].size()) labels.push_back("pho_veto");
+  if (errors["mc_matrix"].size()) labels.push_back("mc_matrix");
+  if (errors["mc_bkg"].size()) labels.push_back("mc_bkg");
+  if (errors["qcd_fit"].size()) labels.push_back("qcd_fit");
+  if (errors["lumi"].size()) labels.push_back("lumi");
 
   ofstream out;
   out.open(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".dat").c_str());
@@ -483,7 +450,7 @@ void plot6(string plot="", string title="", string version="v00", string options
         << std::fixed << std::setprecision(5)
         << std::setw(12) << values["reference"][i]
         << std::setw(3) << " +-"
-        << std::setw(8) << TMath::Sqrt(TMath::Power(errors["reference"][i], 2) - TMath::Power(errors["bkg_stat"][i], 2));
+        << std::setw(8) << (errors["bkg_stat"].size() ? TMath::Sqrt(TMath::Power(errors["reference"][i], 2) - TMath::Power(errors["bkg_stat"][i], 2)) : errors["reference"][i]);
 
     for (uint j = 0; j < labels.size(); j++) {
       out << std::setw(3) << " +-"
