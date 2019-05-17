@@ -1,4 +1,5 @@
 #include "plot2.h"
+#include "rebin.h"
 
 void plot2(string plot="", string title="", string version="v00", string options="", string flag="reference") {
 
@@ -138,6 +139,9 @@ void plot2(string plot="", string title="", string version="v00", string options
     file->Close();
     delete file;
   }
+
+  if (h1) h1 = rebin(h1);
+  if (h2) h2 = rebin(h2);
 
   if (options.find("test") != string::npos) version = version + ".test";
   if (options.find("new") != string::npos) version = version + ".new";

@@ -1,4 +1,5 @@
 #include "plot3.h"
+#include "rebin.h"
 
 void plot3(string plot="", string title="", string version="", string options="", string flag="reference") {
 
@@ -164,6 +165,12 @@ void plot3(string plot="", string title="", string version="", string options=""
     }
   }
 
+  for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
+    int index = int(it->first);
+    if (histo[index]) histo[index] = rebin(histo[index]);
+    if (histo_mc_gen[index]) histo_mc_gen[index] = rebin(histo_mc_gen[index]);
+  }
+
   TH1D* h_mc_bkg = (TH1D*)histo[0]->Clone("h_mc_bkg");
   h_mc_bkg->Reset();
 
@@ -291,6 +298,11 @@ void plot3(string plot="", string title="", string version="", string options=""
       file->Close();
       delete file;
     }
+  }
+
+  for (map<int, TH2D*>::iterator it = histo2.begin(); it != histo2.end(); it++) {
+    int index = int(it->first);
+    if (histo2[index]) histo2[index] = rebin(histo2[index]);
   }
 
   for (map<int, TH2D*>::reverse_iterator it = histo2.rbegin(); it != histo2.rend(); it++) {

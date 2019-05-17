@@ -1,4 +1,5 @@
 #include "plot0.h"
+#include "rebin.h"
 
 #include "CMS_lumi.C"
 
@@ -160,6 +161,11 @@ void plot0(string plot="", string title="", string version="v00", string options
         }
       }
     }
+  }
+
+  for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
+    int index = int(it->first);
+    if (histo[index]) histo[index] = rebin(histo[index]);
   }
 
   if (options.find("test") != string::npos) version = version + ".test";

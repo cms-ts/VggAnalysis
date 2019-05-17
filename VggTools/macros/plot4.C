@@ -1,4 +1,5 @@
 #include "plot4.h"
+#include "rebin.h"
 
 #include "CMS_lumi.C"
 
@@ -150,6 +151,16 @@ void plot4(string plot="", string title="", string version="v00", string options
       file->Close();
       delete file;
     }
+  }
+
+  for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
+    int index = int(it->first);
+    if (histo[index]) histo[index] = rebin(histo[index]);
+  }
+
+  for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
+    int index = int(it->first);
+    if (histo3[index]) histo3[index] = rebin(histo3[index]);
   }
 
   if (options.find("test") != string::npos) version = version + ".test";
