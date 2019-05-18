@@ -432,8 +432,8 @@ void mainSelector::Begin(TTree * /*tree*/)
 
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
    JetCorrectorParameters* jet_correction_l1 = 0;
-   JetCorrectorParameters* jet_correction_l2  = 0;
-   JetCorrectorParameters* jet_correction_l3  = 0;
+   JetCorrectorParameters* jet_correction_l2 = 0;
+   JetCorrectorParameters* jet_correction_l3 = 0;
    JetCorrectorParameters* jet_correction_l2l3res = 0;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 #if defined(mainSelectorDT18_cxx)
