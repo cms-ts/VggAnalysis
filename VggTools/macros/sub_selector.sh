@@ -23,7 +23,45 @@ fi
 FLAGS="reference"
 
 if [ ! -z "$2" ]; then
-  FLAGS=$2
+  if [ "$2" == "all" ]; then
+    FLAGS="reference"
+    FLAGS=$FLAGS" pileup_up"
+    FLAGS=$FLAGS" pileup_down"
+    FLAGS=$FLAGS" jec_up_2016"
+    FLAGS=$FLAGS" jec_up_2017"
+    FLAGS=$FLAGS" jec_up_2018"
+    FLAGS=$FLAGS" jec_down_2016"
+    FLAGS=$FLAGS" jer_down_2017"
+    FLAGS=$FLAGS" jec_down_2018"
+    FLAGS=$FLAGS" jer_up_2016"
+    FLAGS=$FLAGS" jer_up_2017"
+    FLAGS=$FLAGS" jer_up_2018"
+    FLAGS=$FLAGS" jer_down_2016"
+    FLAGS=$FLAGS" jec_down_2017"
+    FLAGS=$FLAGS" jer_down_2018"
+    FLAGS=$FLAGS" sf_ele_eff_up"
+    FLAGS=$FLAGS" sf_ele_eff_down"
+    FLAGS=$FLAGS" sf_ele_reco_up"
+    FLAGS=$FLAGS" sf_ele_reco_down"
+    FLAGS=$FLAGS" sf_ele_hlt_up"
+    FLAGS=$FLAGS" sf_ele_hlt_down"
+    FLAGS=$FLAGS" sf_muo_id_up"
+    FLAGS=$FLAGS" sf_muo_id_down"
+    FLAGS=$FLAGS" sf_muo_iso_up"
+    FLAGS=$FLAGS" sf_muo_iso_down"
+    FLAGS=$FLAGS" sf_muo_trig_up"
+    FLAGS=$FLAGS" sf_muo_trig_down"
+    FLAGS=$FLAGS" sf_pho_eff_up"
+    FLAGS=$FLAGS" sf_pho_eff_down"
+    FLAGS=$FLAGS" sf_pho_veto_up_2016"
+    FLAGS=$FLAGS" sf_pho_veto_up_2017"
+    FLAGS=$FLAGS" sf_pho_veto_up_2018"
+    FLAGS=$FLAGS" sf_pho_veto_down_2016"
+    FLAGS=$FLAGS" sf_pho_veto_down_2017"
+    FLAGS=$FLAGS" sf_pho_veto_down_2018"
+  else
+    FLAGS=$2
+  fi
 fi
 
 LISTS=`ls lists/`
