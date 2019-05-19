@@ -172,9 +172,9 @@ void plot6(string plot="", string title="", string version="v00", string options
            << " +- "
            << std::setw(4) << xsec_stat_data
            << " : ";
-      if (xsec_data_ref != 0) {
+      if (h_xsec["reference"]) {
         cout << std::fixed << std::setprecision(2)
-             << std::setw(5) << 100.*(xsec_data-xsec_data_ref)/xsec_data
+             << std::setw(5) << 100. * (xsec_data - xsec_data_ref) / xsec_data
              << " %"
              << endl;
       } else {
@@ -189,7 +189,7 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   }
 
-  if (xsec_data_ref != 0) {
+  if (h_xsec["reference"]) {
     cout << std::setw(21)
          << "lumi"
          << " : "
@@ -205,9 +205,8 @@ void plot6(string plot="", string title="", string version="v00", string options
          << endl;
   } else {
     cout << "reference cross section not available" << endl;
+    return;
   }
-
-  if (!h_xsec["reference"]) return;
 
   map<string, vector<double>> values;
   map<string, vector<double>> errors;
