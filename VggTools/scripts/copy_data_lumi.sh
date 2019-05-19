@@ -1,6 +1,6 @@
 #!/bin/sh
 
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
+WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
 
 rm -f ../macros/lumi.dat

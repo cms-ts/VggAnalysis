@@ -11,7 +11,7 @@ EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=farm025 && hname!=farm026 && "
 EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=farm073 && hname!=farm074 && hname!=farm075 && hname!=farm076 && "
 EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=farm061 && hname!=farm062 && hname!=farm063 && hname!=farm064"
 
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
+WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/macros
 cd $WORKDIR
 
 LISTS=`ls lists/ | grep RunIIFall17NanoAOD`

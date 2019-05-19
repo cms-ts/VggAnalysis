@@ -1,10 +1,10 @@
 #!/bin/sh
 
-cd /home/$USER/work/cms/CMSSW_10_2_9/
+cd $HOME/work/cms/CMSSW_10_2_9/
 eval `scramv1 runtime -sh`
 cd $OLDPWD
 
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
+WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
 
 echo "preparing pileup file for RunIISummer16"

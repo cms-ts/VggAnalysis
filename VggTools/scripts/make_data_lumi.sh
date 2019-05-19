@@ -3,7 +3,7 @@
 export PATH=$HOME/.local/bin:/cvmfs/cms-bril.cern.ch/brilconda/bin:$PATH
 # pip install --install-option="--prefix=$HOME/.local" brilws
 
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
+WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
 
 for F in `ls json/Run2016*.json | grep 14Dec2018`; do

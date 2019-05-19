@@ -1,6 +1,6 @@
 #!/bin/sh
 
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
+WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
 
 for F in `ls root/ratio_pileup_*.root | grep Run2016 | grep 14Dec2018`; do

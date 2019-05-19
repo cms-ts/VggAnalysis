@@ -1,11 +1,11 @@
 #!/bin/sh
 
-#cd /home/$USER/work/cms/CMSSW_10_2_9/
-cd /home/$USER/work/cms/CMSSW_9_4_9/
+#cd $HOME/work/cms/CMSSW_10_2_9/
+cd $HOME/work/cms/CMSSW_9_4_9/
 eval `scramv1 runtime -sh`
 cd $OLDPWD
 
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
+WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
 
 for F in `ls json/Run2016_*.json | grep 14Dec2018`; do

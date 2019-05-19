@@ -2,7 +2,7 @@
 
 DATADIR=/eos/infnts/cms/store/user/dellaric/data
 
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/scripts
+WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
 
 for D1 in `ls $DATADIR/ | grep Run2016`; do

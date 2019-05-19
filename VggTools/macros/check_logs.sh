@@ -1,6 +1,6 @@
 #!/bin/sh
 
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
+WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/macros
 cd $WORKDIR
 
 VERSION="v11"

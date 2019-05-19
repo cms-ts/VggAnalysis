@@ -1,6 +1,6 @@
 #!/bin/sh
 
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/skim
+WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/skim
 
 cd $WORKDIR
 

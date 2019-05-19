@@ -7,7 +7,7 @@ if [ -r $CMS_PATH/slc6_amd64_gcc700/cms/cmssw/CMSSW_10_3_2 ]; then
   alias root-6.12=root
 fi
 
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/macros
+WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/macros
 cd $WORKDIR
 
 LIST=$1

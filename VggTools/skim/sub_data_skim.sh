@@ -11,7 +11,7 @@ EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=farm045 && hname!=farm046 && "
 EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=farm073 && hname!=farm074 && hname!=farm075 && hname!=farm076 && "
 EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=farm061 && hname!=farm062 && hname!=farm063 && hname!=farm064"
 
-WORKDIR=/home/$USER/work/cms/VggAnalysis/VggTools/skim
+WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/skim
 cd $WORKDIR
 
 if [ `bjobs -w 2>&1 | grep PEND | grep job_data_skim.sh | wc -l` -ne 0 ]; then
