@@ -32,21 +32,21 @@ if [ ! -z "$3" ]; then
   OPTIONS=$3
 fi
 
-FLAGS="reference"
+FLAG="reference"
 
 if [ ! -z "$4" ]; then
-  FLAGS=$4
+  FLAG=$4
 fi
 
 export ROOT_HIST=0
 
 for YEAR in $YEARS; do
 
-  root-6.12 -l -q -b plot3.C+\(\"Wgg"$YEAR"_ele\",\"h_WG_ele_pho0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot3.C+\(\"Wgg"$YEAR"_muo\",\"h_WG_muo_pho0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot3.C+\(\"Wgg"$YEAR"_ele\",\"h_WG_ele_pho0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
+  root-6.12 -l -q -b plot3.C+\(\"Wgg"$YEAR"_muo\",\"h_WG_muo_pho0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
 
-  root-6.12 -l -q -b plot3.C+\(\"Zgg"$YEAR"_ele\",\"h_ZG_ele_pho0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
-  root-6.12 -l -q -b plot3.C+\(\"Zgg"$YEAR"_muo\",\"h_ZG_muo_pho0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAGS\"\)
+  root-6.12 -l -q -b plot3.C+\(\"Zgg"$YEAR"_ele\",\"h_ZG_ele_pho0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
+  root-6.12 -l -q -b plot3.C+\(\"Zgg"$YEAR"_muo\",\"h_ZG_muo_pho0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
 
 done
 
