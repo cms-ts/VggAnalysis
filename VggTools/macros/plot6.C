@@ -129,9 +129,10 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   for (uint i = 0; i < flags.size(); i++) {
 
-    if (!gSystem->AccessPathName(("html/" + version + "/" + flags[i] + "/" + year + ".xsec/root/" + title + ".root").c_str())) {
+    TFile* file = new TFile(("html/" + version + "/" + flags[i] + "/" + year + ".xsec/root/" + title + ".root").c_str());
 
-      TFile* file = new TFile(("html/" + version + "/" + flags[i] + "/" + year + ".xsec/root/" + title + ".root").c_str());
+    if (!file->IsZombie()) {
+
       TH1D* h_xsec_tmp = (TH1D*)file->Get((title + "_xsec").c_str());
       TH1D* h_xsec_mc_gen_tmp = (TH1D*)file->Get((title + "_xsec_mc_gen").c_str());
 
@@ -158,8 +159,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     double xsec_data = 0.;
     double xsec_stat_data = 0.;
 
-    cout << std::setw(21)
-         << flags[i]
+    cout << std::setw(21) << flags[i]
          << " : ";
 
     if (h_xsec[flags[i]]) {
