@@ -44,6 +44,8 @@ export ROOT_HIST=0
 
 [ "$FLAG" != "reference" ] && SKIP2=":"
 
+[ "$YEAR" == "Run2" ] && SKIP2=":"
+
 for YEAR in $YEARS; do
 
                 root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
