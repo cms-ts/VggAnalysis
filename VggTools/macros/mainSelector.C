@@ -822,53 +822,53 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_Z_muo0_trig = new TH1D("h_Z_muo0_trig", "h_Z_muo0_trig", 32, 0., 32.);
    h_Z_muo1_trig = new TH1D("h_Z_muo1_trig", "h_Z_muo1_trig", 32, 0., 32.);
 
-   h_WG_ele_misid = new TH2D("h_WG_ele_misid","h_WG_ele_misid", 8, -0.5, 7.5, 60, 0., 300.);
-   h_WG_muo_misid = new TH2D("h_WG_muo_misid","h_WG_muo_misid", 8, -0.5, 7.5, 60, 0., 300.);
-   h_ZG_ele_misid = new TH2D("h_ZG_ele_misid","h_ZG_ele_misid", 8, -0.5, 7.5, 60, 0., 300.);
-   h_ZG_muo_misid = new TH2D("h_ZG_muo_misid","h_ZG_muo_misid", 8, -0.5, 7.5, 60, 0., 300.);
+   h_WG_ele_misid = new TH2D("h_WG_ele_misid", "h_WG_ele_misid", 8, -0.5, 7.5, 60, 0., 300.);
+   h_WG_muo_misid = new TH2D("h_WG_muo_misid", "h_WG_muo_misid", 8, -0.5, 7.5, 60, 0., 300.);
+   h_ZG_ele_misid = new TH2D("h_ZG_ele_misid", "h_ZG_ele_misid", 8, -0.5, 7.5, 60, 0., 300.);
+   h_ZG_muo_misid = new TH2D("h_ZG_muo_misid", "h_ZG_muo_misid", 8, -0.5, 7.5, 60, 0., 300.);
 
-   h_WG_ele_pho0_pt_cat1 = new TH1D("h_WG_ele_pho0_pt_cat1","h_WG_ele_pho0_pt_cat1", 60, 0., 300.);
-   h_WG_muo_pho0_pt_cat1 = new TH1D("h_WG_muo_pho0_pt_cat1","h_WG_muo_pho0_pt_cat1", 60, 0., 300.);
-   h_ZG_ele_pho0_pt_cat1 = new TH1D("h_ZG_ele_pho0_pt_cat1","h_ZG_ele_pho0_pt_cat1", 60, 0., 300.);
-   h_ZG_muo_pho0_pt_cat1 = new TH1D("h_ZG_muo_pho0_pt_cat1","h_ZG_muo_pho0_pt_cat1", 60, 0., 300.);
+   h_WG_ele_pho0_pt_cat1 = new TH1D("h_WG_ele_pho0_pt_cat1", "h_WG_ele_pho0_pt_cat1", 60, 0., 300.);
+   h_WG_muo_pho0_pt_cat1 = new TH1D("h_WG_muo_pho0_pt_cat1", "h_WG_muo_pho0_pt_cat1", 60, 0., 300.);
+   h_ZG_ele_pho0_pt_cat1 = new TH1D("h_ZG_ele_pho0_pt_cat1", "h_ZG_ele_pho0_pt_cat1", 60, 0., 300.);
+   h_ZG_muo_pho0_pt_cat1 = new TH1D("h_ZG_muo_pho0_pt_cat1", "h_ZG_muo_pho0_pt_cat1", 60, 0., 300.);
    h_ZG_muo_muo0_muo1_pho0_cat1 = new TH1D("h_ZG_muo_muo0_muo1_pho0_cat1", "h_ZG_muo_muo0_muo1_pho0_cat1", 35, 60., 200.);
 
-   h_WG_ele_pho0_pt_cat2 = new TH1D("h_WG_ele_pho0_pt_cat2","h_WG_ele_pho0_pt_cat2", 60, 0., 300.);
-   h_WG_muo_pho0_pt_cat2 = new TH1D("h_WG_muo_pho0_pt_cat2","h_WG_muo_pho0_pt_cat2", 60, 0., 300.);
-   h_ZG_ele_pho0_pt_cat2 = new TH1D("h_ZG_ele_pho0_pt_cat2","h_ZG_ele_pho0_pt_cat2", 60, 0., 300.);
-   h_ZG_muo_pho0_pt_cat2 = new TH1D("h_ZG_muo_pho0_pt_cat2","h_ZG_muo_pho0_pt_cat2", 60, 0., 300.);
+   h_WG_ele_pho0_pt_cat2 = new TH1D("h_WG_ele_pho0_pt_cat2", "h_WG_ele_pho0_pt_cat2", 60, 0., 300.);
+   h_WG_muo_pho0_pt_cat2 = new TH1D("h_WG_muo_pho0_pt_cat2", "h_WG_muo_pho0_pt_cat2", 60, 0., 300.);
+   h_ZG_ele_pho0_pt_cat2 = new TH1D("h_ZG_ele_pho0_pt_cat2", "h_ZG_ele_pho0_pt_cat2", 60, 0., 300.);
+   h_ZG_muo_pho0_pt_cat2 = new TH1D("h_ZG_muo_pho0_pt_cat2", "h_ZG_muo_pho0_pt_cat2", 60, 0., 300.);
    h_ZG_muo_muo0_muo1_pho0_cat2 = new TH1D("h_ZG_muo_muo0_muo1_pho0_cat2", "h_ZG_muo_muo0_muo1_pho0_cat2", 35, 60., 200.);
 
-   h_WG_ele_pho0_pt_cat3 = new TH1D("h_WG_ele_pho0_pt_cat3","h_WG_ele_pho0_pt_cat3", 60, 0., 300.);
-   h_WG_muo_pho0_pt_cat3 = new TH1D("h_WG_muo_pho0_pt_cat3","h_WG_muo_pho0_pt_cat3", 60, 0., 300.);
-   h_ZG_ele_pho0_pt_cat3 = new TH1D("h_ZG_ele_pho0_pt_cat3","h_ZG_ele_pho0_pt_cat3", 60, 0., 300.);
-   h_ZG_muo_pho0_pt_cat3 = new TH1D("h_ZG_muo_pho0_pt_cat3","h_ZG_muo_pho0_pt_cat3", 60, 0., 300.);
+   h_WG_ele_pho0_pt_cat3 = new TH1D("h_WG_ele_pho0_pt_cat3", "h_WG_ele_pho0_pt_cat3", 60, 0., 300.);
+   h_WG_muo_pho0_pt_cat3 = new TH1D("h_WG_muo_pho0_pt_cat3", "h_WG_muo_pho0_pt_cat3", 60, 0., 300.);
+   h_ZG_ele_pho0_pt_cat3 = new TH1D("h_ZG_ele_pho0_pt_cat3", "h_ZG_ele_pho0_pt_cat3", 60, 0., 300.);
+   h_ZG_muo_pho0_pt_cat3 = new TH1D("h_ZG_muo_pho0_pt_cat3", "h_ZG_muo_pho0_pt_cat3", 60, 0., 300.);
    h_ZG_muo_muo0_muo1_pho0_cat3 = new TH1D("h_ZG_muo_muo0_muo1_pho0_cat3", "h_ZG_muo_muo0_muo1_pho0_cat3", 35, 60., 200.);
 
-   h_WGG_ele_pho0_pho1_pt_map = new TH3D("h_WGG_ele_pho0_pho1_pt_map","h_WGG_ele_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_WGG_muo_pho0_pho1_pt_map = new TH3D("h_WGG_muo_pho0_pho1_pt_map","h_WGG_muo_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_ZGG_ele_pho0_pho1_pt_map = new TH3D("h_ZGG_ele_pho0_pho1_pt_map","h_ZGG_ele_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_ZGG_muo_pho0_pho1_pt_map = new TH3D("h_ZGG_muo_pho0_pho1_pt_map","h_ZGG_muo_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_WGG_ele_pho0_pho1_pt_map = new TH3D("h_WGG_ele_pho0_pho1_pt_map", "h_WGG_ele_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_WGG_muo_pho0_pho1_pt_map = new TH3D("h_WGG_muo_pho0_pho1_pt_map", "h_WGG_muo_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_ZGG_ele_pho0_pho1_pt_map = new TH3D("h_ZGG_ele_pho0_pho1_pt_map", "h_ZGG_ele_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_ZGG_muo_pho0_pho1_pt_map = new TH3D("h_ZGG_muo_pho0_pho1_pt_map", "h_ZGG_muo_pho0_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
 
-   h_WGG_ele_pho0_pt_map = new TH3D("h_WGG_ele_pho0_pt_map","h_WGG_ele_pho0_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_WGG_muo_pho0_pt_map = new TH3D("h_WGG_muo_pho0_pt_map","h_WGG_muo_pho0_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_ZGG_ele_pho0_pt_map = new TH3D("h_ZGG_ele_pho0_pt_map","h_ZGG_ele_pho0_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_ZGG_muo_pho0_pt_map = new TH3D("h_ZGG_muo_pho0_pt_map","h_ZGG_muo_pho0_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_WGG_ele_pho0_pt_map = new TH3D("h_WGG_ele_pho0_pt_map", "h_WGG_ele_pho0_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_WGG_muo_pho0_pt_map = new TH3D("h_WGG_muo_pho0_pt_map", "h_WGG_muo_pho0_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_ZGG_ele_pho0_pt_map = new TH3D("h_ZGG_ele_pho0_pt_map", "h_ZGG_ele_pho0_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_ZGG_muo_pho0_pt_map = new TH3D("h_ZGG_muo_pho0_pt_map", "h_ZGG_muo_pho0_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
 
-   h_WGG_ele_pho1_pt_map = new TH3D("h_WGG_ele_pho1_pt_map","h_WGG_ele_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_WGG_muo_pho1_pt_map = new TH3D("h_WGG_muo_pho1_pt_map","h_WGG_muo_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_ZGG_ele_pho1_pt_map = new TH3D("h_ZGG_ele_pho1_pt_map","h_ZGG_ele_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_ZGG_muo_pho1_pt_map = new TH3D("h_ZGG_muo_pho1_pt_map","h_ZGG_muo_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_WGG_ele_pho1_pt_map = new TH3D("h_WGG_ele_pho1_pt_map", "h_WGG_ele_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_WGG_muo_pho1_pt_map = new TH3D("h_WGG_muo_pho1_pt_map", "h_WGG_muo_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_ZGG_ele_pho1_pt_map = new TH3D("h_ZGG_ele_pho1_pt_map", "h_ZGG_ele_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_ZGG_muo_pho1_pt_map = new TH3D("h_ZGG_muo_pho1_pt_map", "h_ZGG_muo_pho1_pt_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
 
-   h_WGG_ele_pho0_pho1_map = new TH3D("h_WGG_ele_pho0_pho1_map","h_WGG_ele_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_WGG_muo_pho0_pho1_map = new TH3D("h_WGG_muo_pho0_pho1_map","h_WGG_muo_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_ZGG_ele_pho0_pho1_map = new TH3D("h_ZGG_ele_pho0_pho1_map","h_ZGG_ele_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_ZGG_muo_pho0_pho1_map = new TH3D("h_ZGG_muo_pho0_pho1_map","h_ZGG_muo_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_WGG_ele_pho0_pho1_map = new TH3D("h_WGG_ele_pho0_pho1_map", "h_WGG_ele_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_WGG_muo_pho0_pho1_map = new TH3D("h_WGG_muo_pho0_pho1_map", "h_WGG_muo_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_ZGG_ele_pho0_pho1_map = new TH3D("h_ZGG_ele_pho0_pho1_map", "h_ZGG_ele_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_ZGG_muo_pho0_pho1_map = new TH3D("h_ZGG_muo_pho0_pho1_map", "h_ZGG_muo_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
 
-   h_WGG_ele_ele0_pho0_pho1_map = new TH3D("h_WGG_ele_ele0_pho0_pho1_map","h_WGG_ele_ele0_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_WGG_muo_muo0_pho0_pho1_map = new TH3D("h_WGG_muo_muo0_pho0_pho1_map","h_WGG_muo_muo0_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_ZGG_ele_ele0_ele1_pho0_pho1_map = new TH3D("h_ZGG_ele_ele0_ele1_pho0_pho1_map","h_ZGG_ele_ele0_ele1_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
-   h_ZGG_muo_muo0_muo1_pho0_pho1_map = new TH3D("h_ZGG_muo_muo0_muo1_pho0_pho1_map","h_ZGG_muo_muo0_muo1_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_WGG_ele_ele0_pho0_pho1_map = new TH3D("h_WGG_ele_ele0_pho0_pho1_map", "h_WGG_ele_ele0_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_WGG_muo_muo0_pho0_pho1_map = new TH3D("h_WGG_muo_muo0_pho0_pho1_map", "h_WGG_muo_muo0_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_ZGG_ele_ele0_ele1_pho0_pho1_map = new TH3D("h_ZGG_ele_ele0_ele1_pho0_pho1_map", "h_ZGG_ele_ele0_ele1_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
+   h_ZGG_muo_muo0_muo1_pho0_pho1_map = new TH3D("h_ZGG_muo_muo0_muo1_pho0_pho1_map", "h_ZGG_muo_muo0_muo1_pho0_pho1_map", 60, 0., 300., 60, 0., 300., 15, 0., 300.);
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    h_W_ele_gen = new TH1D("h_W_ele_gen", "h_W_ele_gen", 100, 0., 200.);
