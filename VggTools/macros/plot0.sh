@@ -281,6 +281,8 @@ for YEAR in $YEARS; do
          $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_muo0_pho1\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
                 root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_muo0_pho0_pho1\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
 
+         $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WG_muo_muo0_pho0_fake\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
+
   $SKIP1 $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_ZG_ele_ele0_pho0\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   $SKIP1 $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_ZG_ele_ele1_pho0\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   $SKIP1 $SKIP2 root-6.12 -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_ZG_ele_ele0_ele1_pho0\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
