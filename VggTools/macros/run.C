@@ -12,7 +12,7 @@ using namespace std;
 
 #include <ROOT/TTreeProcessorMP.hxx>
 
-void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output="selector.root", TString flags="reference") {
+void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output="selector.root", TString flag="reference") {
 
   TDatime now;
   Info("run", "%s", now.AsSQLString());
@@ -88,9 +88,9 @@ void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output=
 
   TList* fInput = new TList();
 
-  Info("run", "flags = %s", flags.Data());
+  Info("run", "flag = %s", flag.Data());
 
-  fInput->Add(new TNamed("flags", flags.Data()));
+  fInput->Add(new TNamed("flag", flag.Data()));
 
   if (input.Contains("Run2016B")) fInput->Add(new TNamed("era", "2016B"));
   if (input.Contains("Run2016C")) fInput->Add(new TNamed("era", "2016C"));
@@ -116,11 +116,11 @@ void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output=
     TString output_muo = "data/auto_pu/" + TString(gSystem->BaseName(input));
     output_ele.ReplaceAll("RunIIFall17", "pileup_ele_RunIIFall17");
     output_muo.ReplaceAll("RunIIFall17", "pileup_muo_RunIIFall17");
-    if (flags.Contains("pileup_up")) {
+    if (flag.Contains("pileup_up")) {
       output_ele.ReplaceAll("pileup_ele", "pileup_ele_up");
       output_muo.ReplaceAll("pileup_muo", "pileup_muo_up");
     }
-    if (flags.Contains("pileup_down")) {
+    if (flag.Contains("pileup_down")) {
       output_ele.ReplaceAll("pileup_ele", "pileup_ele_down");
       output_muo.ReplaceAll("pileup_muo", "pileup_muo_down");
     }

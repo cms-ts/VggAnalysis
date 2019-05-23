@@ -67,55 +67,55 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (option.Contains("ZGG"))                           isZGG        = true;
    if (option.Contains("ZTauTau"))                       isZTauTau    = true;
 
-   if (fInput && fInput->FindObject("flags")) {
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("reference")) iflag = 0;
+   if (fInput && fInput->FindObject("flag")) {
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("reference")) iflag = 0;
 
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("pileup_up")) iflag = 10;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("pileup_down")) iflag = 15;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("pileup_up")) iflag = 10;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("pileup_down")) iflag = 15;
 
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jer_up_2016")) iflag = 21;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jer_up_2017")) iflag = 22;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jer_up_2018")) iflag = 23;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jer_down_2016")) iflag = 26;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jer_down_2017")) iflag = 27;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jer_down_2018")) iflag = 28;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jec_up_2016")) iflag = 31;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jec_up_2017")) iflag = 32;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jec_up_2018")) iflag = 33;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jec_down_2016")) iflag = 36;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jec_down_2017")) iflag = 37;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("jec_down_2018")) iflag = 38;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jer_up_2016")) iflag = 21;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jer_up_2017")) iflag = 22;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jer_up_2018")) iflag = 23;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jer_down_2016")) iflag = 26;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jer_down_2017")) iflag = 27;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jer_down_2018")) iflag = 28;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jec_up_2016")) iflag = 31;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jec_up_2017")) iflag = 32;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jec_up_2018")) iflag = 33;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jec_down_2016")) iflag = 36;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jec_down_2017")) iflag = 37;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jec_down_2018")) iflag = 38;
 
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_ele_eff_up")) iflag = 40;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_ele_eff_down")) iflag = 45;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_ele_reco_up")) iflag = 50;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_ele_reco_down")) iflag = 55;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_ele_hlt_up")) iflag = 60;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_ele_hlt_down")) iflag = 65;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_ele_eff_up")) iflag = 40;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_ele_eff_down")) iflag = 45;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_ele_reco_up")) iflag = 50;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_ele_reco_down")) iflag = 55;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_ele_hlt_up")) iflag = 60;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_ele_hlt_down")) iflag = 65;
 
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_muo_id_up")) iflag = 70;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_muo_id_down")) iflag = 75;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_muo_iso_up")) iflag = 80;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_muo_iso_down")) iflag = 85;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_muo_trig_up")) iflag = 90;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_muo_trig_down")) iflag = 95;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_muo_id_up")) iflag = 70;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_muo_id_down")) iflag = 75;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_muo_iso_up")) iflag = 80;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_muo_iso_down")) iflag = 85;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_muo_trig_up")) iflag = 90;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_muo_trig_down")) iflag = 95;
 
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_pho_eff_up")) iflag = 100;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_pho_eff_down")) iflag = 105;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_pho_veto_up_2016")) iflag = 111;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_pho_veto_up_2017")) iflag = 112;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_pho_veto_up_2018")) iflag = 113;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_pho_veto_down_2016")) iflag = 116;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_pho_veto_down_2017")) iflag = 117;
-     if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_pho_veto_down_2018")) iflag = 118;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_pho_eff_up")) iflag = 100;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_pho_eff_down")) iflag = 105;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_pho_veto_up_2016")) iflag = 111;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_pho_veto_up_2017")) iflag = 112;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_pho_veto_up_2018")) iflag = 113;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_pho_veto_down_2016")) iflag = 116;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_pho_veto_down_2017")) iflag = 117;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_pho_veto_down_2018")) iflag = 118;
 
      if (iflag == -1) {
-       Error("Begin", "%s : unknown flags = %s", now.AsSQLString(), fInput->FindObject("flags")->GetTitle());
+       Error("Begin", "%s : unknown flag = %s", now.AsSQLString(), fInput->FindObject("flag")->GetTitle());
        gSystem->Exit(1);
      }
    }
    if (iflag == -1) {
-     Error("Begin", "%s : missing flags", now.AsSQLString());
+     Error("Begin", "%s : missing flag", now.AsSQLString());
      gSystem->Exit(1);
    }
 
