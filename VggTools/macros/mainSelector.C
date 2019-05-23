@@ -109,9 +109,15 @@ void mainSelector::Begin(TTree * /*tree*/)
      if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_pho_veto_down_2017")) iflag = 117;
      if (TString(fInput->FindObject("flags")->GetTitle()).Contains("sf_pho_veto_down_2018")) iflag = 118;
 
-     if (iflag == -1) Error("Begin", "%s : unknown flags = %s", now.AsSQLString(), fInput->FindObject("flags")->GetTitle());
+     if (iflag == -1) {
+       Error("Begin", "%s : unknown flags = %s", now.AsSQLString(), fInput->FindObject("flags")->GetTitle());
+       gSystem->Exit(1);
+     }
    }
-   if (iflag == -1) Error("Begin", "%s : missing flags", now.AsSQLString());
+   if (iflag == -1) {
+     Error("Begin", "%s : missing flags", now.AsSQLString());
+     gSystem->Exit(1);
+   }
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -462,9 +468,15 @@ void mainSelector::Begin(TTree * /*tree*/)
        jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_RunD_V8_DATA_L3Absolute_AK4PFchs.txt");
        jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunD_V8_DATA_L2L3Residual_AK4PFchs.txt");
      }
-     if (jet_correction_l1 == 0) Error("Begin", "%s : unknown era = %s", now.AsSQLString(), fInput->FindObject("era")->GetTitle());
+     if (jet_correction_l1 == 0) {
+       Error("Begin", "%s : unknown era = %s", now.AsSQLString(), fInput->FindObject("era")->GetTitle());
+       gSystem->Exit(1);
+     }
    }
-   if (jet_correction_l1 == 0) Error("Begin", "%s : missing era", now.AsSQLString());
+   if (jet_correction_l1 == 0) {
+     Error("Begin", "%s : missing era", now.AsSQLString());
+     gSystem->Exit(1);
+   }
 #endif // defined(mainSelectorDT18_cxx)
 #if defined(mainSelectorMC18_cxx)
    jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_V8_MC_L1FastJet_AK4PFchs.txt");
@@ -504,9 +516,15 @@ void mainSelector::Begin(TTree * /*tree*/)
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018C")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunC_V8_DATA_Uncertainty_AK4PFchs.txt");
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018D")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunD_V8_DATA_Uncertainty_AK4PFchs.txt");
 
-     if (jet_correction_unc == 0) Error("Begin", "%s : unknown era = %s", now.AsSQLString(), fInput->FindObject("era")->GetTitle());
+     if (jet_correction_unc == 0) {
+       Error("Begin", "%s : unknown era = %s", now.AsSQLString(), fInput->FindObject("era")->GetTitle());
+       gSystem->Exit(1);
+     }
    }
-   if (jet_correction_unc == 0) Error("Begin", "%s : missing era", now.AsSQLString());
+   if (jet_correction_unc == 0) {
+     Error("Begin", "%s : missing era", now.AsSQLString());
+     gSystem->Exit(1);
+   }
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
 
 #if defined(mainSelectorMC16_cxx)
