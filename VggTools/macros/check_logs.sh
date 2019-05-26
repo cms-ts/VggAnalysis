@@ -13,6 +13,22 @@ if [ ! -z "$1" ]; then
     find ./data/ -mindepth 2 -maxdepth 2 -type d -printf "%P\n" | grep -v archive | grep -v auto_pu | sort | column
     echo
     exit
+  elif [ "$1" == "short" ]; then
+    echo
+    printf "%-30s\t%4s\t%4s\n" "versions" " log" "root"
+    printf "%s\n" "--------------------------------------------"
+    VERSION=`ls -tr ./data/ | grep -v archive | grep -v auto_pu`
+    for V in $VERSION; do
+      LISTS=`find ./data/$V -mindepth 1 -maxdepth 1 -type d -printf "%P\n" | grep -v archive | grep -v auto_pu | sort`
+      for L in $LISTS; do
+        printf "%-30s\t%4d\t%4d\n" $V/$L `find ./data/$V/$L -type f -name '*.log' | wc -l` `find ./data/$V/$L -type f -name '*.root' | wc -l`
+      done
+      printf "%s\n" "--------------------------------------------"
+      printf "%-30s\t%4d\t%4d\n" $V `find ./data/$V -type f -name '*.log' | wc -l` `find ./data/$V -type f -name '*.root' | wc -l`
+      printf "%s\n" "--------------------------------------------"
+    done
+    echo
+    exit
   elif [ "$1" == "all" ]; then
     VERSION=`ls ./data/ | grep -v archive | grep -v auto_pu | sort`
   elif [ "$1" == "last" ]; then
