@@ -18,7 +18,7 @@ baseOutDir = 'results/2018'
 #############################################################
 ### samples are defined in etc/inputs/tnpSampleDef.py
 ### not: you can setup another sampleDef File in inputs
-import etc.inputs.tnpSampleDef as tnpSamples
+import tnpSampleDef as tnpSamples
 tnpTreeDir = 'tnpEleIDs'
 
 samplesDef = {
