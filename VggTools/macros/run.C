@@ -191,6 +191,6 @@ void run(TString input="lists/Run2017B_DoubleEG_14Dec2018.list", TString output=
 
 int main(int argc, char *argv[]) {
 
-run(argv[1], argv[2]);
+run(argv[1], argv[2], argv[3]);
 
 }

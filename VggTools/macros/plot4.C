@@ -642,6 +642,6 @@ void plot4(string plot="", string title="", string version="v00", string options
 
 int main(int argc, char *argv[]) {
 
-plot4(argv[1], argv[2], argv[3], argv[4]);
+plot4(argv[1], argv[2], argv[3], argv[4], argv[5]);
 
 }

@@ -1,7 +1,7 @@
 #include "plot3.h"
 #include "rebin.h"
 
-void plot3(string plot="", string title="", string version="", string options="", string flag="reference") {
+void plot3(string plot="", string title="", string version="v00", string options="", string flag="reference") {
 
   if (plot.find("Zgg") != string::npos) {
     if (options.find("qcd") != string::npos) {
@@ -611,6 +611,6 @@ void plot3(string plot="", string title="", string version="", string options=""
 
 int main(int argc, char *argv[]) {
 
-plot3(argv[1], argv[2], argv[3], argv[4]);
+plot3(argv[1], argv[2], argv[3], argv[4], argv[5]);
 
 }
