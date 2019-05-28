@@ -14,13 +14,13 @@ FLAGS="passingMedium94X HLTpath"
 
 for F in $FLAGS; do
     echo $F
-    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flags $F --createBins
-    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flags $F --createHists
-    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flags $F --doFit
-    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flags $F --doFit --mcSig --altSig
-    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flags $F --doFit --altSig
-    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flags $F --doFit --altBkg
-    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flags $F --sumUp
+    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flag $F --createBins
+    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flag $F --createHists
+    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flag $F --doFit
+    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flag $F --doFit --mcSig --altSig
+    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flag $F --doFit --altSig
+    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flag $F --doFit --altBkg
+    python /home/darold/work/CMSSW_9_4_0/src/egm_tnp_analysis/tnpEGM_fitter.py  settings_ele_2016.py --flag $F --sumUp
 done
 
 exit
