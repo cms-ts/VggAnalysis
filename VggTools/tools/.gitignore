@@ -3,3 +3,4 @@
 *.pcm
 .*.swp
 *.exe
+*.pyc
