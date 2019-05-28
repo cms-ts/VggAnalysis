@@ -22,9 +22,7 @@ if [ -z "$YEAR" ]; then
   exit
 fi
 
-#./compile.sh treeMaker
-
-mkdir -p data/
+./compile.sh treeMaker
 
 LISTS=""
 
