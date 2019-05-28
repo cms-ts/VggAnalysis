@@ -185,7 +185,15 @@ Bool_t treeMaker::Process(Long64_t entry)
    int iele0 = -1;
    int iele1 = -1;
 
+#if defined(treeMakerDT16_cxx) || defined(treeMakerMC16_cxx)
    if (!*HLT_Ele27_WPTight_Gsf) return kTRUE;
+#endif // defined(treeMakerDT16_cxx) || defined(treeMakerMC16_cxx)
+#if defined(treeMakerDT17_cxx) || defined(treeMakerMC17_cxx)
+   if (!*HLT_Ele35_WPTight_Gsf) return kTRUE;
+#endif // defined(treeMakerDT17_cxx) || defined(treeMakerMC17_cxx)
+#if defined(treeMakerDT18_cxx) || defined(treeMakerMC18_cxx)
+   if (!*HLT_Ele32_WPTight_Gsf) return kTRUE;
+#endif // defined(treeMakerDT18_cxx) || defined(treeMakerMC18_cxx)
 
    for (uint i = 0; i < *nElectron; i++) {
      float eCorr_ele = 1.;
@@ -277,26 +285,17 @@ Bool_t treeMaker::Process(Long64_t entry)
        if (Electron_cutBased[iele1] >= 3) passingMedium94X = 1;
        if (Electron_cutBased[iele1] == 4) passingTight94X = 1;
 
-#if defined(treeMakerDT16_cxx) || defined(treeMakerMC16_cxx)
-       if (*HLT_Ele27_WPTight_Gsf) {
-#endif // defined(treeMakerDT16_cxx) || defined(treeMakerMC16_cxx)
-#if defined(treeMakerDT17_cxx) || defined(treeMakerMC17_cxx)
-       if (*HLT_Ele35_WPTight_Gsf) {
-#endif // defined(treeMakerDT17_cxx) || defined(treeMakerMC17_cxx)
-#if defined(treeMakerDT18_cxx) || defined(treeMakerMC18_cxx)
-       if (*HLT_Ele32_WPTight_Gsf) {
-#endif // defined(treeMakerDT18_cxx) || defined(treeMakerMC18_cxx)
-         for (uint i = 0; i < *nTrigObj; i++) {
-           if (HLTpath == 1) continue;
-           if (TrigObj_id[i] != 11) continue;
+       for (uint i = 0; i < *nTrigObj; i++) {
+         if (HLTpath == 1) continue;
+         if (TrigObj_id[i] != 11) continue;
 
-           TLorentzVector tmp_trg;
-           tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele1.M());
-           if (ele1.DeltaR(tmp_trg) < 0.3) {
-             if ((TrigObj_filterBits[i] &  2) ==  2) HLTpath = 1; //  2 = WPTight or 1e
-           }
+         TLorentzVector tmp_trg;
+         tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele1.M());
+         if (ele1.DeltaR(tmp_trg) < 0.3) {
+           if ((TrigObj_filterBits[i] &  2) ==  2) HLTpath = 1; //  2 = WPTight or 1e
          }
        }
+ 
        totWeight = weight_gen * weight_pu_ele;
        pair_mass = Z_ele0_ele1_m;
 
