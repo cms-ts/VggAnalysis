@@ -185,6 +185,9 @@ Bool_t treeMaker::Process(Long64_t entry)
    int iele0 = -1;
    int iele1 = -1;
 
+// #define tnp_HLT
+
+#if tnp_HLT
 #if defined(treeMakerDT16_cxx) || defined(treeMakerMC16_cxx)
    if (!*HLT_Ele27_WPTight_Gsf) return kTRUE;
 #endif // defined(treeMakerDT16_cxx) || defined(treeMakerMC16_cxx)
@@ -194,6 +197,7 @@ Bool_t treeMaker::Process(Long64_t entry)
 #if defined(treeMakerDT18_cxx) || defined(treeMakerMC18_cxx)
    if (!*HLT_Ele32_WPTight_Gsf) return kTRUE;
 #endif // defined(treeMakerDT18_cxx) || defined(treeMakerMC18_cxx)
+#endif
 
    for (uint i = 0; i < *nElectron; i++) {
      float eCorr_ele = 1.;
@@ -228,8 +232,32 @@ Bool_t treeMaker::Process(Long64_t entry)
      if (iele0 == -1) iele0 = i;
    }
 
+#if tnp_HLT
+   int tag_match = 0;
+
+   if (iele0 != -1) {
+     for (uint i = 0; i < *nTrigObj; i++) {
+       if (tag_match == 1) continue;
+       if (TrigObj_id[i] != 11) continue;
+
+       TLorentzVector tmp_ele0;
+       tmp_ele0.SetPtEtaPhiM(Electron_pt[iele0], Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
+       TLorentzVector tmp_trg;
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], tmp_ele0.M());
+       if (tmp_ele0.DeltaR(tmp_trg) < 0.3) {
+         if ((TrigObj_filterBits[i] &  2) ==  2) tag_match = 1; //  2 = WPTight or 1e
+       }
+     }
+   }
+#endif
+
    if (iele0 != -1 && iele1 != -1) {
-     if (Electron_pt[iele0] < 30 || (fabs(Electron_eta[iele0]) > 1.4442 && fabs(Electron_eta[iele0]) < 1.566) || fabs(Electron_eta[iele0]) > 2.100 || Electron_cutBased[iele0] != 4) iele0 = -1;
+     if (Electron_pt[iele0] < 40 || (fabs(Electron_eta[iele0]) > 1.4442 && fabs(Electron_eta[iele0]) < 1.566) || Electron_cutBased[iele0] != 4) iele0 = -1;
+
+#if tnp_HLT
+     if (tag_match == 0) iele0 = -1;
+#endif
+
      if (iele0 == -1) iele1 = -1;
    }
 
