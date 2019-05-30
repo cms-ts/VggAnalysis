@@ -187,7 +187,7 @@ Bool_t treeMaker::Process(Long64_t entry)
 
 // #define tnp_HLT
 
-#if tnp_HLT
+#if defined(tnp_HLT)
 #if defined(treeMakerDT16_cxx) || defined(treeMakerMC16_cxx)
    if (!*HLT_Ele27_WPTight_Gsf) return kTRUE;
 #endif // defined(treeMakerDT16_cxx) || defined(treeMakerMC16_cxx)
@@ -232,7 +232,7 @@ Bool_t treeMaker::Process(Long64_t entry)
      if (iele0 == -1) iele0 = i;
    }
 
-#if tnp_HLT
+#if defined(tnp_HLT)
    int tag_match = 0;
 
    if (iele0 != -1) {
@@ -254,7 +254,7 @@ Bool_t treeMaker::Process(Long64_t entry)
    if (iele0 != -1 && iele1 != -1) {
      if (Electron_pt[iele0] < 40 || (fabs(Electron_eta[iele0]) > 1.4442 && fabs(Electron_eta[iele0]) < 1.566) || Electron_cutBased[iele0] != 4) iele0 = -1;
 
-#if tnp_HLT
+#if defined(tnp_HLT)
      if (tag_match == 0) iele0 = -1;
 #endif
 
