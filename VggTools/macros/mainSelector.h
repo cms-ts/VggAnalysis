@@ -21,7 +21,7 @@
 #include "TH2D.h"
 #include "TH3D.h"
 
-// #define NANOAODv4
+#define NANOAODv4
 
 // #define DOUBLE_TRIGGER
 
