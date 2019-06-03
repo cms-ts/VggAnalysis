@@ -8,6 +8,7 @@ cd $OLDPWD
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/tools
 cd $WORKDIR
 
+PYTHONPATH=$PYTHONPATH:$HOME/work/cms/CMSSW_9_4_0/src/egm_tnp_analysis
 PYTHONPATH=$PYTHONPATH:$WORKDIR
 
 YEAR="2016"
