@@ -3,12 +3,12 @@
 cd $HOME/work/cms/CMSSW_9_4_0/
 eval `scramv1 runtime -sh`
 source src/egm_tnp_analysis/etc/scripts/setup94.sh
+PYTHONPATH=$PYTHONPATH:$PWD/src/egm_tnp_analysis
 cd $OLDPWD
 
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/tools
 cd $WORKDIR
 
-PYTHONPATH=$PYTHONPATH:$HOME/work/cms/CMSSW_9_4_0/src/egm_tnp_analysis
 PYTHONPATH=$PYTHONPATH:$WORKDIR
 
 YEAR="2016"
