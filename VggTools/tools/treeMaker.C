@@ -185,7 +185,7 @@ Bool_t treeMaker::Process(Long64_t entry)
    int iele0 = -1;
    int iele1 = -1;
 
-// #define tnp_HLT
+#define tnp_HLT
 
 #if defined(tnp_HLT)
 #if defined(treeMakerDT16_cxx) || defined(treeMakerMC16_cxx)
@@ -233,48 +233,76 @@ Bool_t treeMaker::Process(Long64_t entry)
    }
 
 #if defined(tnp_HLT)
-   int tag_match = 0;
+   int ele0_tag_match = 0;
+   int ele1_tag_match = 0;
 
    if (iele0 != -1) {
      for (uint i = 0; i < *nTrigObj; i++) {
-       if (tag_match == 1) continue;
+       if (ele0_tag_match == 1 && ele1_tag_match == 1) continue;
        if (TrigObj_id[i] != 11) continue;
 
        TLorentzVector tmp_ele0;
        tmp_ele0.SetPtEtaPhiM(Electron_pt[iele0], Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
+       TLorentzVector tmp_ele1;
+       tmp_ele1.SetPtEtaPhiM(Electron_pt[iele1], Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
        TLorentzVector tmp_trg;
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], tmp_ele0.M());
        if (tmp_ele0.DeltaR(tmp_trg) < 0.3) {
-         if ((TrigObj_filterBits[i] &  2) ==  2) tag_match = 1; //  2 = WPTight or 1e
+         if ((TrigObj_filterBits[i] &  2) ==  2) ele0_tag_match = 1; //  2 = WPTight or 1e
+       }
+       if (tmp_ele1.DeltaR(tmp_trg) < 0.3) {
+         if ((TrigObj_filterBits[i] &  2) ==  2) ele1_tag_match = 1; //  2 = WPTight or 1e
        }
      }
    }
 #endif
 
-   if (iele0 != -1 && iele1 != -1) {
-     if (Electron_pt[iele0] < 40 || (fabs(Electron_eta[iele0]) > 1.4442 && fabs(Electron_eta[iele0]) < 1.566) || Electron_cutBased[iele0] != 4) iele0 = -1;
+   int iele0_tag = iele0;
+   int iele1_probe = iele1;
+
+   if (iele0_tag != -1 && iele1_probe != -1) {
+     if (Electron_pt[iele0_tag] < 30 || (fabs(Electron_eta[iele0_tag]) > 1.4442 && fabs(Electron_eta[iele0_tag]) < 1.566) || Electron_cutBased[iele0_tag] < 3) iele0_tag = -1;
 
 #if defined(tnp_HLT)
-     if (tag_match == 0) iele0 = -1;
+     if (ele0_tag_match == 0) iele0_tag = -1;
 #endif
 
-     if (iele0 == -1) iele1 = -1;
+     if (iele0_tag == -1) iele1_probe = -1;
    }
 
-   TLorentzVector ele0;
-   TLorentzVector ele1;
+   int iele1_tag = iele1;
+   int iele0_probe = iele0;
 
-   if (iele0 != -1) {
-     ele0.SetPtEtaPhiM(Electron_pt[iele0], Electron_eta[iele0], Electron_phi[iele0], Electron_mass[iele0]);
+   if (iele1_tag != -1 && iele0_probe != -1) {
+     if (Electron_pt[iele1_tag] < 30 || (fabs(Electron_eta[iele1_tag]) > 1.4442 && fabs(Electron_eta[iele1_tag]) < 1.566) || Electron_cutBased[iele1_tag] < 3) iele1_tag = -1;
+
+#if defined(tnp_HLT)
+     if (ele1_tag_match == 0) iele1_tag = -1;
+#endif
+
+     if (iele1_tag == -1) iele0_probe = -1;
    }
-   if (iele1 != -1) {
-     ele1.SetPtEtaPhiM(Electron_pt[iele1], Electron_eta[iele1], Electron_phi[iele1], Electron_mass[iele1]);
+
+   TLorentzVector ele0_tag;
+   TLorentzVector ele1_probe;
+
+   if (iele0_tag != -1 && iele1_probe != -1) {
+     ele0_tag.SetPtEtaPhiM(Electron_pt[iele0_tag], Electron_eta[iele0_tag], Electron_phi[iele0_tag], Electron_mass[iele0_tag]);
+     ele1_probe.SetPtEtaPhiM(Electron_pt[iele1_probe], Electron_eta[iele1_probe], Electron_phi[iele1_probe], Electron_mass[iele1_probe]);
+   }
+
+   TLorentzVector ele1_tag;
+   TLorentzVector ele0_probe;
+
+   if (iele1_tag != -1 && iele0_probe != -1) {
+     ele1_tag.SetPtEtaPhiM(Electron_pt[iele1_tag], Electron_eta[iele1_tag], Electron_phi[iele1_tag], Electron_mass[iele1_tag]);
+     ele0_probe.SetPtEtaPhiM(Electron_pt[iele0_probe], Electron_eta[iele0_probe], Electron_phi[iele0_probe], Electron_mass[iele0_probe]);
    }
 
    float Z_ele0_ele1_m = 0.;
 
-   if (iele0 != -1 && iele1 != -1) {
-     Z_ele0_ele1_m = (ele0 + ele1).M();
+   if (iele0_tag != -1 && iele1_probe != -1) {
+     Z_ele0_ele1_m = (ele0_tag + ele1_probe).M();
      if (Z_ele0_ele1_m >= 60. && Z_ele0_ele1_m <= 120.) {
        tag_Ele_pt = 0.;
        tag_sc_eta = 0.;
@@ -295,31 +323,31 @@ Bool_t treeMaker::Process(Long64_t entry)
        pair_mass = 0.;
        mcTrue = 1.;
 
-       tag_Ele_pt = ele0.Pt();
-       tag_sc_eta = ele0.Eta();
-       tag_Ele_phi = ele0.Phi();
-       tag_Ele_q = Electron_charge[iele0];
-       tag_Ele_trigMVA = Electron_mvaID[iele0];
+       tag_Ele_pt = ele0_tag.Pt();
+       tag_sc_eta = ele0_tag.Eta();
+       tag_Ele_phi = ele0_tag.Phi();
+       tag_Ele_q = Electron_charge[iele0_tag];
+       tag_Ele_trigMVA = Electron_mvaID[iele0_tag];
 
-       el_pt = ele1.Pt();
-       el_sc_eta = ele1.Eta();
-       el_q = Electron_charge[iele1];
+       el_pt = ele1_probe.Pt();
+       el_sc_eta = ele1_probe.Eta();
+       el_q = Electron_charge[iele1_probe];
 
        event_met_pfmet = *MET_pt;
        event_met_pfphi = *MET_phi;
 
-       if (Electron_cutBased[iele1] >= 1) passingVeto94X = 1;
-       if (Electron_cutBased[iele1] >= 2) passingLoose94X = 1;
-       if (Electron_cutBased[iele1] >= 3) passingMedium94X = 1;
-       if (Electron_cutBased[iele1] == 4) passingTight94X = 1;
+       if (Electron_cutBased[iele1_probe] >= 1) passingVeto94X = 1;
+       if (Electron_cutBased[iele1_probe] >= 2) passingLoose94X = 1;
+       if (Electron_cutBased[iele1_probe] >= 3) passingMedium94X = 1;
+       if (Electron_cutBased[iele1_probe] == 4) passingTight94X = 1;
 
        for (uint i = 0; i < *nTrigObj; i++) {
          if (HLTpath == 1) continue;
          if (TrigObj_id[i] != 11) continue;
 
          TLorentzVector tmp_trg;
-         tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele1.M());
-         if (ele1.DeltaR(tmp_trg) < 0.3) {
+         tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele1_probe.M());
+         if (ele1_probe.DeltaR(tmp_trg) < 0.3) {
            if ((TrigObj_filterBits[i] &  2) ==  2) HLTpath = 1; //  2 = WPTight or 1e
          }
        }
@@ -343,8 +371,89 @@ Bool_t treeMaker::Process(Long64_t entry)
 
          TLorentzVector tmp_ele_gen;
          tmp_ele_gen.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
-         if (tmp_ele_gen.DeltaR(ele0) < 0.2) match0 = true;
-         if (tmp_ele_gen.DeltaR(ele1) < 0.2) match1 = true;
+         if (tmp_ele_gen.DeltaR(ele0_tag) < 0.2) match0 = true;
+         if (tmp_ele_gen.DeltaR(ele1_probe) < 0.2) match1 = true;
+       }
+
+       if (match0 && match1) mcTrue = 1;
+#endif // defined(treeMakerMC16_cxx) || defined(treeMakerMC17_cxx) || defined(treeMakerMC18_cxx)
+
+     }
+     fitter_tree->Fill();
+   }
+
+   if (iele1_tag != -1 && iele0_probe != -1) {
+     Z_ele0_ele1_m = (ele1_tag + ele0_probe).M();
+     if (Z_ele0_ele1_m >= 60. && Z_ele0_ele1_m <= 120.) {
+       tag_Ele_pt = 0.;
+       tag_sc_eta = 0.;
+       tag_Ele_phi = 0.;
+       tag_Ele_q = 0.;
+       tag_Ele_trigMVA = 0.;
+       el_pt = 0.;
+       el_sc_eta = 0.;
+       el_q = 0;
+       event_met_pfmet = 0.;
+       event_met_pfphi = 0.;
+       passingVeto94X = 0;
+       passingLoose94X = 0;
+       passingMedium94X = 0;
+       passingTight94X = 0;
+       HLTpath = 0;
+       totWeight = 1.;
+       pair_mass = 0.;
+       mcTrue = 1.;
+
+       tag_Ele_pt = ele1_tag.Pt();
+       tag_sc_eta = ele1_tag.Eta();
+       tag_Ele_phi = ele1_tag.Phi();
+       tag_Ele_q = Electron_charge[iele1_tag];
+       tag_Ele_trigMVA = Electron_mvaID[iele1_tag];
+
+       el_pt = ele0_probe.Pt();
+       el_sc_eta = ele0_probe.Eta();
+       el_q = Electron_charge[iele0_probe];
+
+       event_met_pfmet = *MET_pt;
+       event_met_pfphi = *MET_phi;
+
+       if (Electron_cutBased[iele0_probe] >= 1) passingVeto94X = 1;
+       if (Electron_cutBased[iele0_probe] >= 2) passingLoose94X = 1;
+       if (Electron_cutBased[iele0_probe] >= 3) passingMedium94X = 1;
+       if (Electron_cutBased[iele0_probe] == 4) passingTight94X = 1;
+
+       for (uint i = 0; i < *nTrigObj; i++) {
+         if (HLTpath == 1) continue;
+         if (TrigObj_id[i] != 11) continue;
+
+         TLorentzVector tmp_trg;
+         tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0_probe.M());
+         if (ele0_probe.DeltaR(tmp_trg) < 0.3) {
+           if ((TrigObj_filterBits[i] &  2) ==  2) HLTpath = 1; //  2 = WPTight or 1e
+         }
+       }
+ 
+       totWeight = weight_gen * weight_pu_ele;
+       pair_mass = Z_ele0_ele1_m;
+
+       mcTrue = 0;
+
+#if defined(treeMakerMC16_cxx) || defined(treeMakerMC17_cxx) || defined(treeMakerMC18_cxx)
+       bool match0 = false;
+       bool match1 = false;
+
+       for (uint i = 0; i < *nGenPart; i++) {
+         if (match0 && match1) continue;
+         if (GenPart_status[i] != 1) continue;
+         if (fabs(GenPart_pdgId[i]) != 11) continue;
+         if ((GenPart_statusFlags[i] & 1) != 1) continue;
+         if (GenPart_pt[i] < 10) continue;
+         if (fabs(GenPart_eta[i]) > 2.500) continue;
+
+         TLorentzVector tmp_ele_gen;
+         tmp_ele_gen.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
+         if (tmp_ele_gen.DeltaR(ele1_tag) < 0.2) match0 = true;
+         if (tmp_ele_gen.DeltaR(ele0_probe) < 0.2) match1 = true;
        }
 
        if (match0 && match1) mcTrue = 1;
