@@ -22,7 +22,7 @@ if [ -z "$YEAR" ]; then
   exit
 fi
 
-./compile.sh treeMaker
+$SKIP ./compile.sh treeMaker
 
 LISTS=""
 

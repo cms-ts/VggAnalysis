@@ -16,7 +16,7 @@ cd $WORKDIR
 
 LISTS=`ls lists/ | grep RunIIFall17NanoAOD`
 
-./compile.sh auto_pu
+$SKIP ./compile.sh auto_pu
 
 mkdir -p data/auto_pu
 
