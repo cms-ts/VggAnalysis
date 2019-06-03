@@ -103,10 +103,14 @@ public :
    TTreeReaderValue<UChar_t> Flag_ecalBadCalibFilterV2 = {fReader, "Flag_ecalBadCalibFilterV2"};
 #endif // defined(NANOAODv4) && (defined(treeMakerDT17_h) || defined(treeMakerMC17_h))
 
+#if defined(treeMakerDT16_h) || defined(treeMakerMC16_h)
    TTreeReaderValue<Bool_t> HLT_Ele27_WPTight_Gsf = {fReader, "HLT_Ele27_WPTight_Gsf"};
+#endif // defined(treeMakerDT16_h) || defined(treeMakerMC16_h)
+
 #if defined(treeMakerDT17_h) || defined(treeMakerMC17_h)
    TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
 #endif // defined(treeMakerDT17_h) || defined(treeMakerMC17_h)
+
 #if defined(treeMakerDT18_h) || defined(treeMakerMC18_h)
    TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf = {fReader, "HLT_Ele32_WPTight_Gsf"};
 #endif // defined(treeMakerDT18_h) || defined(treeMakerMC18_h)
