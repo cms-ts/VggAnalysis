@@ -23,14 +23,6 @@
 
 #define TAG_AND_PROBE_HLT
 
-#if defined(treeMakerDT16H_h)
-#define treeMakerDT16_h
-#endif // defined(treeMakerDT16H_h)
-
-#if defined(treeMakerDT17B_h)
-#define treeMakerDT17_h
-#endif // defined(treeMakerDT17B_h)
-
 class treeMaker : public TSelector {
 public :
    TTreeReader     fReader;  //!the tree reader

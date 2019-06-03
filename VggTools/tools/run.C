@@ -40,11 +40,9 @@ void run(TString input="../macros/lists/Run2017B_DoubleEG_14Dec2018.list", TStri
 
   TSelector* selector = 0;
 
-  if (input.Contains("Run2016H"))                               selector = TSelector::GetSelector("treeMakerDT16H.C+");
-  if (input.Contains("Run2016") && !input.Contains("Run2016H")) selector = TSelector::GetSelector("treeMakerDT16.C+");
-  if (input.Contains("Run2017B"))                               selector = TSelector::GetSelector("treeMakerDT17B.C+");
-  if (input.Contains("Run2017") && !input.Contains("Run2017B")) selector = TSelector::GetSelector("treeMakerDT17.C+");
-  if (input.Contains("Run2018"))                                selector = TSelector::GetSelector("treeMakerDT18.C+");
+  if (input.Contains("Run2016")) selector = TSelector::GetSelector("treeMakerDT16.C+");
+  if (input.Contains("Run2017")) selector = TSelector::GetSelector("treeMakerDT17.C+");
+  if (input.Contains("Run2018")) selector = TSelector::GetSelector("treeMakerDT18.C+");
 
   if (input.Contains("RunIISummer16NanoAOD")) selector = TSelector::GetSelector("treeMakerMC16.C+");
   if (input.Contains("RunIIFall17NanoAOD"))   selector = TSelector::GetSelector("treeMakerMC17.C+");

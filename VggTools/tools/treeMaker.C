@@ -32,14 +32,6 @@
 #include <TRandom.h>
 #include <TLorentzVector.h>
 
-#if defined(treeMakerDT16H_cxx)
-#define treeMakerDT16_cxx
-#endif // defined(treeMakerDT16H_cxx)
-
-#if defined(treeMakerDT17B_cxx)
-#define treeMakerDT17_cxx
-#endif // defined(treeMakerDT17B_cxx)
-
 void treeMaker::Begin(TTree * /*tree*/)
 {
    // The Begin() function is called at the start of the query.

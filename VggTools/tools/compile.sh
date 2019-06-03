@@ -31,8 +31,8 @@ make_lib() {
 }
 
 if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "treeMaker" ]; then
-  make_lib "treeMakerDT16.C treeMakerDT16H.C treeMakerMC16.C"
-  make_lib "treeMakerDT17.C treeMakerDT17B.C treeMakerMC17.C"
+  make_lib "treeMakerDT16.C treeMakerMC16.C"
+  make_lib "treeMakerDT17.C treeMakerMC17.C"
   make_lib "treeMakerDT18.C treeMakerMC18.C"
 fi
 
