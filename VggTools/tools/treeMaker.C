@@ -90,7 +90,6 @@ void treeMaker::SlaveBegin(TTree * /*tree*/)
 
    // create the histograms
    h_nevt = new TH1D("h_nevt", "h_nevt", 10, 0., 10.);
-//   h_Electron_cutBased = new TH1D()
 
    GetOutputList()->Add(h_nevt);
 
@@ -126,11 +125,6 @@ void treeMaker::SlaveBegin(TTree * /*tree*/)
    fitter_tree->Branch("totWeight",&totWeight,"totWeight/F");
    fitter_tree->Branch("pair_mass",&pair_mass,"pair_mass/F");
    fitter_tree->Branch("mcTrue",&mcTrue,"mcTrue/F");
-
-//   fOutput->Add(fitter_tree);
-
-//   fitter_tree->SetDirectory(dir);
-//   fitter_tree->AutoSave();
 }
 
 Bool_t treeMaker::Process(Long64_t entry)
@@ -185,9 +179,7 @@ Bool_t treeMaker::Process(Long64_t entry)
    int iele0 = -1;
    int iele1 = -1;
 
-#define tnp_HLT
-
-#if defined(tnp_HLT)
+#if defined(TAG_AND_PROBE_HLT)
 #if defined(treeMakerDT16_cxx) || defined(treeMakerMC16_cxx)
    if (!*HLT_Ele27_WPTight_Gsf) return kTRUE;
 #endif // defined(treeMakerDT16_cxx) || defined(treeMakerMC16_cxx)
@@ -232,7 +224,7 @@ Bool_t treeMaker::Process(Long64_t entry)
      if (iele0 == -1) iele0 = i;
    }
 
-#if defined(tnp_HLT)
+#if defined(TAG_AND_PROBE_HLT)
    int ele0_tag_match = 0;
    int ele1_tag_match = 0;
 
@@ -263,7 +255,7 @@ Bool_t treeMaker::Process(Long64_t entry)
    if (iele0_tag != -1 && iele1_probe != -1) {
      if (Electron_pt[iele0_tag] < 30 || (fabs(Electron_eta[iele0_tag]) > 1.4442 && fabs(Electron_eta[iele0_tag]) < 1.566) || Electron_cutBased[iele0_tag] < 3) iele0_tag = -1;
 
-#if defined(tnp_HLT)
+#if defined(TAG_AND_PROBE_HLT)
      if (ele0_tag_match == 0) iele0_tag = -1;
 #endif
 
@@ -276,7 +268,7 @@ Bool_t treeMaker::Process(Long64_t entry)
    if (iele1_tag != -1 && iele0_probe != -1) {
      if (Electron_pt[iele1_tag] < 30 || (fabs(Electron_eta[iele1_tag]) > 1.4442 && fabs(Electron_eta[iele1_tag]) < 1.566) || Electron_cutBased[iele1_tag] < 3) iele1_tag = -1;
 
-#if defined(tnp_HLT)
+#if defined(TAG_AND_PROBE_HLT)
      if (ele1_tag_match == 0) iele1_tag = -1;
 #endif
 
@@ -351,7 +343,7 @@ Bool_t treeMaker::Process(Long64_t entry)
            if ((TrigObj_filterBits[i] &  2) ==  2) HLTpath = 1; //  2 = WPTight or 1e
          }
        }
- 
+
        totWeight = weight_gen * weight_pu_ele;
        pair_mass = Z_ele0_ele1_m;
 
@@ -432,7 +424,7 @@ Bool_t treeMaker::Process(Long64_t entry)
            if ((TrigObj_filterBits[i] &  2) ==  2) HLTpath = 1; //  2 = WPTight or 1e
          }
        }
- 
+
        totWeight = weight_gen * weight_pu_ele;
        pair_mass = Z_ele0_ele1_m;
 

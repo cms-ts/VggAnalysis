@@ -21,7 +21,7 @@
 #include "TH2D.h"
 #include "TH3D.h"
 
-// #define treeMaker2016
+#define TAG_AND_PROBE_HLT
 
 #if defined(treeMakerDT16H_h)
 #define treeMakerDT16_h
@@ -35,11 +35,6 @@ class treeMaker : public TSelector {
 public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
-
-// FIXME
-   bool ele_vid_2bit = false;
-   bool ele_vid_3bit = false;
-// FIXME
 
    float tag_Ele_pt = 0.;
    float tag_sc_eta = 0.;
@@ -72,7 +67,7 @@ public :
 #endif // defined(treeMakerMC16_h) || defined(treeMakerMC17_h) || defined(treeMakerMC18_h)
 
    TTree* fitter_tree = 0;
-   TFile *file = 0;
+   TFile* file = 0;
 
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
@@ -82,25 +77,15 @@ public :
    TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
-   TTreeReaderArray<Float_t> Electron_dxy = {fReader, "Electron_dxy"};
-   TTreeReaderArray<Float_t> Electron_dz = {fReader, "Electron_dz"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Float_t> Electron_r9 = {fReader, "Electron_r9"};
-   TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
 
    TTreeReaderArray<Int_t> Electron_cutBased = {fReader, "Electron_cutBased"};
-
-   TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
-
-   TTreeReaderArray<Float_t> Electron_pfRelIso03_all = {fReader, "Electron_pfRelIso03_all"};
-   TTreeReaderArray<Float_t> Electron_pfRelIso03_chg = {fReader, "Electron_pfRelIso03_chg"};
 
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2noIso_WP80 = {fReader, "Electron_mvaFall17V2noIso_WP80"};
    TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso = {fReader, "Electron_mvaFall17V2noIso"};
 #define Electron_mvaID_WP80 Electron_mvaFall17V2noIso_WP80
 #define Electron_mvaID Electron_mvaFall17V2noIso
-
-   TTreeReaderArray<Int_t> Electron_vidNestedWPBitmap = {fReader, "Electron_vidNestedWPBitmap"};
 
 #if defined(NANOAODv4) && (defined(treeMakerDT17_h) || defined(treeMakerMC17_h))
     TTreeReaderValue<Float_t> METFixEE2017_phi = {fReader, "METFixEE2017_phi"};
@@ -145,22 +130,9 @@ public :
    TTreeReaderArray<Float_t> GenPart_eta = {fReader, "GenPart_eta"};
    TTreeReaderArray<Float_t> GenPart_phi = {fReader, "GenPart_phi"};
    TTreeReaderArray<Float_t> GenPart_mass = {fReader, "GenPart_mass"};
-   TTreeReaderArray<Int_t> GenPart_genPartIdxMother = {fReader, "GenPart_genPartIdxMother"};
    TTreeReaderArray<Int_t> GenPart_pdgId = {fReader, "GenPart_pdgId"};
    TTreeReaderArray<Int_t> GenPart_status = {fReader, "GenPart_status"};
    TTreeReaderArray<Int_t> GenPart_statusFlags = {fReader, "GenPart_statusFlags"};
-
-   TTreeReaderValue<UInt_t> nGenDressedLepton = {fReader, "nGenDressedLepton"};
-   TTreeReaderArray<Float_t> GenDressedLepton_pt = {fReader, "GenDressedLepton_pt"};
-   TTreeReaderArray<Float_t> GenDressedLepton_eta = {fReader, "GenDressedLepton_eta"};
-   TTreeReaderArray<Float_t> GenDressedLepton_phi = {fReader, "GenDressedLepton_phi"};
-   TTreeReaderArray<Float_t> GenDressedLepton_mass = {fReader, "GenDressedLepton_mass"};
-   TTreeReaderArray<Int_t> GenDressedLepton_pdgId = {fReader, "GenDressedLepton_pdgId"};
-
-   TTreeReaderArray<Int_t> Electron_genPartIdx = {fReader, "Electron_genPartIdx"};
-
-   TTreeReaderValue<Float_t> MET_fiducialGenPhi = {fReader, "MET_fiducialGenPhi"};
-   TTreeReaderValue<Float_t> MET_fiducialGenPt = {fReader, "MET_fiducialGenPt"};
 
 #endif // defined(treeMakerMC16_h) || defined(treeMakerMC17_h) || defined(treeMakerMC18_h)
 
@@ -195,11 +167,6 @@ void treeMaker::Init(TTree *tree)
    // code, but the routine can be extended by the user if needed.
    // Init() will be called many times when running on PROOF
    // (once per file to be processed).
-
-// FIXME
-   if (strstr(tree->GetBranch("Electron_vidNestedWPBitmap")->GetTitle(), "2 bits per cut")) ele_vid_2bit = true;
-   if (strstr(tree->GetBranch("Electron_vidNestedWPBitmap")->GetTitle(), "3 bits per cut")) ele_vid_3bit = true;
-// FIXME
 
    fReader.SetTree(tree);
 }
