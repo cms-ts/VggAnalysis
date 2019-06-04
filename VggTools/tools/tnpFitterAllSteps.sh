@@ -21,13 +21,13 @@ FLAGS="passingMedium94X HLTpath"
 
 for F in $FLAGS; do
 
-  python tnpEGM_fitter.py  settings_ele_$YEAR.py --flag $F --createBins
-  python tnpEGM_fitter.py  settings_ele_$YEAR.py --flag $F --createHists
-  python tnpEGM_fitter.py  settings_ele_$YEAR.py --flag $F --doFit
-  python tnpEGM_fitter.py  settings_ele_$YEAR.py --flag $F --doFit --mcSig --altSig
-  python tnpEGM_fitter.py  settings_ele_$YEAR.py --flag $F --doFit --altSig
-  python tnpEGM_fitter.py  settings_ele_$YEAR.py --flag $F --doFit --altBkg
-  python tnpEGM_fitter.py  settings_ele_$YEAR.py --flag $F --sumUp
+  python tnpEGM_fitter.py settings_ele_$YEAR.py --flag $F --createBins
+  python tnpEGM_fitter.py settings_ele_$YEAR.py --flag $F --createHists
+  python tnpEGM_fitter.py settings_ele_$YEAR.py --flag $F --doFit
+  python tnpEGM_fitter.py settings_ele_$YEAR.py --flag $F --doFit --mcSig --altSig
+  python tnpEGM_fitter.py settings_ele_$YEAR.py --flag $F --doFit --altSig
+  python tnpEGM_fitter.py settings_ele_$YEAR.py --flag $F --doFit --altBkg
+  python tnpEGM_fitter.py settings_ele_$YEAR.py --flag $F --sumUp
 
 done
 
