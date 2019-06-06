@@ -46,7 +46,7 @@ public :
    int passingMedium94X = 0;
    int passingTight94X = 0;
 
-   int HLTpath = 0;
+   int passingHLT = 0;
 
    float totWeight = 0;
    float pair_mass = 0;

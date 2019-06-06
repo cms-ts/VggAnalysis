@@ -112,7 +112,7 @@ void treeMaker::SlaveBegin(TTree * /*tree*/)
    fitter_tree->Branch("passingMedium94X",&passingMedium94X,"passingMedium94X/I");
    fitter_tree->Branch("passingTight94X",&passingTight94X,"passingTight94X/I");
 
-   fitter_tree->Branch("HLTpath",&HLTpath,"HLTpath/I");
+   fitter_tree->Branch("passingHLT",&passingHLT,"passingHLT/I");
 
    fitter_tree->Branch("totWeight",&totWeight,"totWeight/F");
    fitter_tree->Branch("pair_mass",&pair_mass,"pair_mass/F");
@@ -302,7 +302,7 @@ Bool_t treeMaker::Process(Long64_t entry)
        passingLoose94X = 0;
        passingMedium94X = 0;
        passingTight94X = 0;
-       HLTpath = 0;
+       passingHLT = 0;
        totWeight = 1.;
        pair_mass = 0.;
        mcTrue = 1.;
@@ -326,13 +326,13 @@ Bool_t treeMaker::Process(Long64_t entry)
        if (Electron_cutBased[iele1_probe] == 4) passingTight94X = 1;
 
        for (uint i = 0; i < *nTrigObj; i++) {
-         if (HLTpath == 1) continue;
+         if (passingHLT == 1) continue;
          if (TrigObj_id[i] != 11) continue;
 
          TLorentzVector tmp_trg;
          tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele1_probe.M());
          if (ele1_probe.DeltaR(tmp_trg) < 0.3) {
-           if ((TrigObj_filterBits[i] &  2) ==  2) HLTpath = 1; //  2 = WPTight or 1e
+           if ((TrigObj_filterBits[i] &  2) ==  2) passingHLT = 1; //  2 = WPTight or 1e
          }
        }
 
@@ -383,7 +383,7 @@ Bool_t treeMaker::Process(Long64_t entry)
        passingLoose94X = 0;
        passingMedium94X = 0;
        passingTight94X = 0;
-       HLTpath = 0;
+       passingHLT = 0;
        totWeight = 1.;
        pair_mass = 0.;
        mcTrue = 1.;
@@ -407,13 +407,13 @@ Bool_t treeMaker::Process(Long64_t entry)
        if (Electron_cutBased[iele0_probe] == 4) passingTight94X = 1;
 
        for (uint i = 0; i < *nTrigObj; i++) {
-         if (HLTpath == 1) continue;
+         if (passingHLT == 1) continue;
          if (TrigObj_id[i] != 11) continue;
 
          TLorentzVector tmp_trg;
          tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0_probe.M());
          if (ele0_probe.DeltaR(tmp_trg) < 0.3) {
-           if ((TrigObj_filterBits[i] &  2) ==  2) HLTpath = 1; //  2 = WPTight or 1e
+           if ((TrigObj_filterBits[i] &  2) ==  2) passingHLT = 1; //  2 = WPTight or 1e
          }
        }
 

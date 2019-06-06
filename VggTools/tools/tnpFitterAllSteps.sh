@@ -17,7 +17,7 @@ if [ ! -z "$1" ]; then
   YEAR=$1
 fi
 
-FLAGS="passingMedium94X HLTpath"
+FLAGS="passingMedium94X passingHLT"
 
 for F in $FLAGS; do
 

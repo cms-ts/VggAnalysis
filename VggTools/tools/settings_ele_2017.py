@@ -8,7 +8,7 @@
 # flag to be Tested
 flags = {
     'passingMedium94X'  : '(passingMedium94X == 1)',
-    'HLTpath'           : '(HLTpath  == 1)',
+    'passingHLT'        : '(passingHLT  == 1)',
     }
 
 baseOutDir = 'results/2017'
@@ -19,7 +19,8 @@ baseOutDir = 'results/2017'
 ### samples are defined in etc/inputs/tnpSampleDef.py
 ### not: you can setup another sampleDef File in inputs
 import tnpSampleDef as tnpSamples
-tnpTreeDir = 'tnpEleIDs'
+#tnpTreeDir = 'tnpEleIDs'
+tnpTreeDir = 'tnpEleTrig'
 
 samplesDef = {
     'data'   : tnpSamples.TnP2017['data_Run2017B'].clone(),
