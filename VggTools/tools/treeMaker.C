@@ -89,7 +89,11 @@ void treeMaker::SlaveBegin(TTree * /*tree*/)
      TNamed* name = dynamic_cast<TNamed*>(fInput->FindObject("output"));
      file = dynamic_cast<TFile*>(fInput->FindObject(name->GetTitle()));
      file->cd();
+#if defined(TAG_AND_PROBE_HLT)
+     TDirectoryFile* dir = new TDirectoryFile("tnpEleTrig","tnpEleTrig");
+#else
      TDirectoryFile* dir = new TDirectoryFile("tnpEleIDs","tnpEleIDs");
+#endif
      dir->cd();
    }
 
