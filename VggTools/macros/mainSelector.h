@@ -465,8 +465,10 @@ public :
 
    TH2D* sf_pho_eff = 0;
 
+#if !defined(NANOAODv5)
    TH2F* l1prefiring_pho = 0;
    TH2F* l1prefiring_jet = 0;
+#endif // !defined(NANOAODv5)
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
    RoccoR* roccor = 0;
@@ -575,6 +577,12 @@ public :
 #if (defined(NANOAODv4) || defined(NANOAODv5)) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
    TTreeReaderValue<UChar_t> Flag_ecalBadCalibFilterV2 = {fReader, "Flag_ecalBadCalibFilterV2"};
 #endif // (defined(NANOAODv4) || defined(NANOAODv5)) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+
+#if defined(NANOAODv5) && (defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h))
+   TTreeReaderValue<Float_t> L1PreFiringWeight_Dn = {fReader, "L1PreFiringWeight_Dn"};
+   TTreeReaderValue<Float_t> L1PreFiringWeight_Nom = {fReader, "L1PreFiringWeight_Nom"};
+   TTreeReaderValue<Float_t> L1PreFiringWeight_Up = {fReader, "L1PreFiringWeight_Up"};
+#endif // defined(NANOAODv5) && (defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h))
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 

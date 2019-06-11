@@ -390,7 +390,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_pho_sf_eff;
 #endif // defined(mainSelectorMC18_cxx)
 
-#if defined(mainSelectorMC16_h)
+#if !defined(NANOAODv5) && defined(mainSelectorMC16_h)
    TFile* file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2016BtoH.root");
    TFile* file_l1prefile_jet = new TFile("root/L1prefiring_jetpt_2016BtoH.root");
 
@@ -403,9 +403,9 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_l1prefile_jet->Close();
    delete file_l1prefile_pho;
    delete file_l1prefile_jet;
-#endif // defined(mainSelectorMC16_h)
+#endif // !defined(NANOAODv5) && defined(mainSelectorMC16_h)
 
-#if defined(mainSelectorMC17_h)
+#if !defined(NANOAODv5) && defined(mainSelectorMC17_h)
    TFile* file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2017BtoF.root");
    TFile* file_l1prefile_jet = new TFile("root/L1prefiring_jetpt_2017BtoF.root");
 
@@ -418,7 +418,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_l1prefile_jet->Close();
    delete file_l1prefile_pho;
    delete file_l1prefile_jet;
-#endif // defined(mainSelectorMC17_h)
+#endif // !defined(NANOAODv5) && defined(mainSelectorMC17_h)
 
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -3553,6 +3553,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
 
+#if defined(NANOAODv5)
+   weight_l1prefiring = *L1PreFiringWeight_Nom;
+#else
    for (uint i = 0; i < *nPhoton; i++) {
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) < 2) continue;
@@ -3594,6 +3597,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
    }
+#endif // defined(NANOAODv5)
 
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
 
