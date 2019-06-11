@@ -168,13 +168,13 @@ void mainSelector::Begin(TTree * /*tree*/)
    }
 
 #if defined(mainSelectorMC16_cxx)
-#if defined(NANOAODv4)
+#if defined(NANOAODv4) || defined(NANOAODv5)
    //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVA80noiso_Fall17V2.root");
    TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronTight_Fall17V2.root");
 #else
    //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVAwp80.root");
    TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronTight.root");
-#endif // defined(NANOAODv4)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_eff->SetDirectory(0);
@@ -247,7 +247,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete sf_muo_iso_1;
    delete sf_muo_iso_2;
 
-#if defined(NANOAODv4)
+#if defined(NANOAODv4) || defined(NANOAODv5)
    //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonsMVAwp90_Fall17V2.root");
    //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_Medium_photons_Fall17V2.root");
 // FIXME
@@ -257,7 +257,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 #else
    //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonMVAWP90.root");
    TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonCutBasedMedium.root");
-#endif // defined(NANOAODv4)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
    sf_pho_eff->SetDirectory(0);
@@ -267,13 +267,13 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorMC16_cxx)
 
 #if defined(mainSelectorMC17_cxx)
-#if defined(NANOAODv4)
+#if defined(NANOAODv4) || defined(NANOAODv5)
    //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronMVA80noiso_Fall17V2.root");
    TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronTight_Fall17V2.root");
 #else
    //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingMVA94Xwp80iso.root");
    TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingTight94X.root");
-#endif // defined(NANOAODv4)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_eff->SetDirectory(0);
@@ -313,13 +313,13 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_muo_sf_iso->Close();
    delete file_muo_sf_iso;
 
-#if defined(NANOAODv4)
+#if defined(NANOAODv4) || defined(NANOAODv5)
    //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2017_PhotonsMVAwp90_Fall17V2.root");
    TFile* file_pho_sf_eff = new TFile("root/sf_pho_2017_PhotonsMedium_Fall17V2.root");
 #else
    //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMVA94Xwp90.root");
    TFile* file_pho_sf_eff = new TFile("root/sf_pho_2017_EGM2D_runBCDEF_passingMedium94X.root");
-#endif // defined(NANOAODv4)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
    sf_pho_eff->SetDirectory(0);
@@ -432,13 +432,13 @@ void mainSelector::Begin(TTree * /*tree*/)
    roccor = new RoccoR("roccor.Run2.v3/RoccoR2018.txt");
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#if !defined(NANOAODv5) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
    JetCorrectorParameters* jet_correction_l1 = 0;
    JetCorrectorParameters* jet_correction_l2 = 0;
    JetCorrectorParameters* jet_correction_l3 = 0;
    JetCorrectorParameters* jet_correction_l2l3res = 0;
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-#if defined(mainSelectorDT18_cxx)
+#endif // !defined(NANOAODv5) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
+#if !defined(NANOAODv5) && defined(mainSelectorDT18_cxx)
    if (fInput && fInput->FindObject("era")) {
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018A")) {
        jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunA_V8_DATA_L1FastJet_AK4PFchs.txt");
@@ -473,15 +473,15 @@ void mainSelector::Begin(TTree * /*tree*/)
      Error("Begin", "%s : missing era", now.AsSQLString());
      gSystem->Exit(1);
    }
-#endif // defined(mainSelectorDT18_cxx)
-#if defined(mainSelectorMC18_cxx)
+#endif // !defined(NANOAODv5) && defined(mainSelectorDT18_cxx)
+#if !defined(NANOAODv5) && defined(mainSelectorMC18_cxx)
    jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_V8_MC_L1FastJet_AK4PFchs.txt");
    jet_correction_l2 = new JetCorrectorParameters("jme/Autumn18_V8_MC_L2Relative_AK4PFchs.txt");
    jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_V8_MC_L3Absolute_AK4PFchs.txt");
    jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_V8_MC_L2L3Residual_AK4PFchs.txt");
-#endif // defined(mainSelectorMC18_cxx)
+#endif // !defined(NANOAODv5) && defined(mainSelectorMC18_cxx)
 
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#if !defined(NANOAODv5) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
    vector<JetCorrectorParameters> jet_corrections;
    jet_corrections.push_back(*jet_correction_l1);
    jet_corrections.push_back(*jet_correction_l2);
@@ -489,7 +489,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    jet_corrections.push_back(*jet_correction_l2l3res);
 
    jet_corrector = new FactorizedJetCorrector(jet_corrections);
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#endif // !defined(NANOAODv5) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
    if (fInput && fInput->FindObject("era")) {
@@ -1261,9 +1261,9 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (*Flag_goodVertices == 0) return kTRUE;
    if (*Flag_METFilters == 0) return kTRUE;
 
-#if defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+#if (defined(NANOAODv4) || defined(NANOAODv5)) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
    if (*Flag_ecalBadCalibFilterV2 == 0) return kTRUE;
-#endif // defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+#endif // (defined(NANOAODv4) || defined(NANOAODv5)) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
 
    h_nevt->Fill(3.5, weight_gen);
 
@@ -1281,7 +1281,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 // electron energy corrections not needed
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
+#if defined(NANOAODv5)
+// electron energy corrections not needed
+#else
      eCorr_ele = ecalSmearMC(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i], Electron_r9[i], gRandom->Gaus());
+#endif // defined(NANOAODv5)
 #endif // defined(mainSelectorMC18_cxx)
      Electron_pt[i] = Electron_pt[i] * eCorr_ele;
      if (Electron_pt[i] < 15) continue;
@@ -1512,14 +1516,18 @@ Bool_t mainSelector::Process(Long64_t entry)
 // photon energy corrections not needed
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
+#if defined(NANOAODv5)
+// photon energy corrections not needed
+#else
      eCorr_pho = ecalSmearMC(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i], Photon_r9[i], gRandom->Gaus());
+#endif // defined(NANOAODv5)
 #endif // defined(mainSelectorMC18_cxx)
      Photon_pt[i] = Photon_pt[i] * eCorr_pho;
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
-#if defined(NANOAODv4)
+#if defined(NANOAODv4) || defined(NANOAODv5)
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
@@ -1543,7 +1551,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //  if (Photon_mvaID[i] < 0.14) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      //}
-#endif // defined(NANOAODv4)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 // FIXME
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000000001111) != 0b0000000000001111) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
@@ -1726,7 +1734,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
-#if defined(NANOAODv4)
+#if defined(NANOAODv4) || defined(NANOAODv5)
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
@@ -1750,7 +1758,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //  if (Photon_mvaID[i] < 0.14) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      //}
-#endif // defined(NANOAODv4)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 // FIXME
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000000001111) != 0b0000000000001111) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
@@ -1892,7 +1900,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
-#if defined(NANOAODv4)
+#if defined(NANOAODv4) || defined(NANOAODv5)
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
@@ -1916,7 +1924,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //  if (Photon_mvaID[i] < 0.14) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      //}
-#endif // defined(NANOAODv4)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 // FIXME
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000001100111) != 0b0000000001100111) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0010100000101010) != 0b0010100000101010) continue;
@@ -2115,7 +2123,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
-#if defined(NANOAODv4)
+#if defined(NANOAODv4) || defined(NANOAODv5)
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
@@ -2139,7 +2147,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //  if (Photon_mvaID[i] < 0.14) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      //}
-#endif // defined(NANOAODv4)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 // FIXME
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000000001111) != 0b0000000000001111) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
@@ -2288,7 +2296,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
      if (fabs(Photon_eta[i]) > 2.400) continue;
 
-#if defined(NANOAODv4)
+#if defined(NANOAODv4) || defined(NANOAODv5)
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
@@ -2312,7 +2320,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //  if (Photon_mvaID[i] < 0.14) continue;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      //}
-#endif // defined(NANOAODv4)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 // FIXME
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000000001111) != 0b0000000000001111) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
@@ -2466,7 +2474,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nJet; i++) {
 
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#if !defined(NANOAODv5) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
      if (Jet_pt[i] > 10 && fabs(Jet_eta[i]) < 5.2) {
 
        jet_corrector->setJetPt(Jet_pt[i] * (1. - Jet_rawFactor[i]));
@@ -2480,7 +2488,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        Jet_pt[i] = Jet_pt[i] * (1. - Jet_rawFactor[i]) * eCorr_jet;
      }
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#endif // !defined(NANOAODv5) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
      if (Jet_pt[i] > 10 && fabs(Jet_eta[i]) < 5.2) {

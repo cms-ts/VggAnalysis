@@ -23,6 +23,8 @@
 
 #define NANOAODv4
 
+// #define NANOAODv5
+
 // #define DOUBLE_TRIGGER
 
 #if !defined(DOUBLE_TRIGGER)
@@ -41,11 +43,11 @@
 #define NANOAODv4
 #endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
-#if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
+#if !defined(NANOAODv5) && (defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h))
 #define __ROOTCLING__ 1
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
 #include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
-#endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
+#endif // !defined(NANOAODv5) && (defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h))
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
@@ -469,9 +471,9 @@ public :
 
    RoccoR* roccor = 0;
 
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#if !defined(NANOAODv5) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
    FactorizedJetCorrector* jet_corrector = 0;
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#endif // !defined(NANOAODv5) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
    JetCorrectionUncertainty* jet_correction_unc = 0;
@@ -501,12 +503,12 @@ public :
    TTreeReaderArray<Float_t> Electron_pfRelIso03_all = {fReader, "Electron_pfRelIso03_all"};
    TTreeReaderArray<Float_t> Electron_pfRelIso03_chg = {fReader, "Electron_pfRelIso03_chg"};
 
-#if defined(NANOAODv4)
+#if defined(NANOAODv4) || defined(NANOAODv5)
    TTreeReaderArray<Bool_t> Electron_mvaFall17V2noIso_WP80 = {fReader, "Electron_mvaFall17V2noIso_WP80"};
    TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso = {fReader, "Electron_mvaFall17V2noIso"};
 #define Electron_mvaID_WP80 Electron_mvaFall17V2noIso_WP80
 #define Electron_mvaID Electron_mvaFall17V2noIso
-#endif // defined(NANOAODv4)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 
    TTreeReaderArray<Int_t> Electron_vidNestedWPBitmap = {fReader, "Electron_vidNestedWPBitmap"};
 
@@ -550,7 +552,7 @@ public :
    TTreeReaderArray<Float_t> Jet_rawFactor = {fReader, "Jet_rawFactor"};
    TTreeReaderValue<Float_t> fixedGridRhoFastjetAll = {fReader, "fixedGridRhoFastjetAll"};
 
-#if defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+#if (defined(NANOAODv4) || defined(NANOAODv5)) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
     TTreeReaderValue<Float_t> METFixEE2017_phi = {fReader, "METFixEE2017_phi"};
     TTreeReaderValue<Float_t> METFixEE2017_pt = {fReader, "METFixEE2017_pt"};
 #define MET_phi METFixEE2017_phi
@@ -558,7 +560,7 @@ public :
 #else
    TTreeReaderValue<Float_t> MET_phi = {fReader, "MET_phi"};
    TTreeReaderValue<Float_t> MET_pt = {fReader, "MET_pt"};
-#endif // defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+#endif // (defined(NANOAODv4) || defined(NANOAODv5)) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
 
    TTreeReaderValue<UInt_t> nTrigObj = {fReader, "nTrigObj"};
    TTreeReaderArray<Float_t> TrigObj_pt = {fReader, "TrigObj_pt"};
@@ -570,18 +572,18 @@ public :
    TTreeReaderValue<Bool_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
 
-#if defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+#if (defined(NANOAODv4) || defined(NANOAODv5)) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
    TTreeReaderValue<UChar_t> Flag_ecalBadCalibFilterV2 = {fReader, "Flag_ecalBadCalibFilterV2"};
-#endif // defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+#endif // (defined(NANOAODv4) || defined(NANOAODv5)) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 
-#if !defined(NANOAODv4)
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
    TTreeReaderArray<Bool_t> Electron_mvaSpring16GP_WP80 = {fReader, "Electron_mvaSpring16GP_WP80"};
    TTreeReaderArray<Float_t> Electron_mvaSpring16GP = {fReader, "Electron_mvaSpring16GP"};
 #define Electron_mvaID_WP80 Electron_mvaSpring16GP_WP80
 #define Electron_mvaID Electron_mvaSpring16GP
-#endif // !defined(NANOAODv4)
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
    TTreeReaderValue<Bool_t> HLT_Ele27_WPTight_Gsf = {fReader, "HLT_Ele27_WPTight_Gsf"};
 #if defined(DOUBLE_TRIGGER)
@@ -605,12 +607,12 @@ public :
 
 #if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
-#if !defined(NANOAODv4)
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
    TTreeReaderArray<Bool_t> Electron_mvaFall17noIso_WP80 = {fReader, "Electron_mvaFall17noIso_WP80"};
    TTreeReaderArray<Float_t> Electron_mvaFall17noIso = {fReader, "Electron_mvaFall17noIso"};
 #define Electron_mvaID_WP80 Electron_mvaFall17noIso_WP80
 #define Electron_mvaID Electron_mvaFall17noIso
-#endif // !defined(NANOAODv4)
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
    TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
 #if defined(DOUBLE_TRIGGER)
