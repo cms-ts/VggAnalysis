@@ -25,6 +25,10 @@
 
 // #define NANOAODv5
 
+#if defined(NANOAODv5)
+#undef NANOAODv4
+#endif // defined(NANOAODv5)
+
 // #define DOUBLE_TRIGGER
 
 #if !defined(DOUBLE_TRIGGER)
