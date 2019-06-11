@@ -40,10 +40,6 @@
 #define mainSelectorDT17_cxx
 #endif // defined(mainSelectorDT17B_cxx)
 
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-#define NANOAODv4
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-
 #include "roccor.Run2.v3/RoccoR.cc"
 
 void mainSelector::Begin(TTree * /*tree*/)

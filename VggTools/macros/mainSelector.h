@@ -581,7 +581,7 @@ public :
    TTreeReaderArray<Float_t> Electron_mvaSpring16GP = {fReader, "Electron_mvaSpring16GP"};
 #define Electron_mvaID_WP80 Electron_mvaSpring16GP_WP80
 #define Electron_mvaID Electron_mvaSpring16GP
-#endif
+#endif // !defined(NANOAODv4)
 
    TTreeReaderValue<Bool_t> HLT_Ele27_WPTight_Gsf = {fReader, "HLT_Ele27_WPTight_Gsf"};
 #if defined(DOUBLE_TRIGGER)
@@ -610,7 +610,7 @@ public :
    TTreeReaderArray<Float_t> Electron_mvaFall17noIso = {fReader, "Electron_mvaFall17noIso"};
 #define Electron_mvaID_WP80 Electron_mvaFall17noIso_WP80
 #define Electron_mvaID Electron_mvaFall17noIso
-#endif
+#endif // !defined(NANOAODv4)
 
    TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
 #if defined(DOUBLE_TRIGGER)
