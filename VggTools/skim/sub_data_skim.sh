@@ -14,13 +14,6 @@ EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=farm061 && hname!=farm062 && hname!=farm06
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/skim
 cd $WORKDIR
 
-if [ `bjobs -w 2>&1 | grep PEND | grep job_data_skim.sh | wc -l` -ne 0 ]; then
-  echo
-  echo 'skimming jobs pending ... exit'
-  echo
-  exit
-fi
-
 DATADIR=/eos/infnts/cms/store/data
 
 for F in `eos find -f $DATADIR/ | grep Run2016 | grep NANOAOD | grep 1June2019`; do
