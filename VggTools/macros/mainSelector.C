@@ -3673,11 +3673,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-// FIXME
+#if !defined(NANOAODv5) && (defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx))
      match0 = true;
-// FIXME
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#endif // !defined(NANOAODv5) && (defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx))
 
 #if defined(TRIGGER_OBJECTS)
      if (!match0) {
@@ -3802,12 +3800,10 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(DOUBLE_TRIGGER)
      }
 
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-// FIXME
+#if !defined(NANOAODv5) && (defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx))
      match0 = true;
      match1 = true;
-// FIXME
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#endif // !defined(NANOAODv5) && (defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx))
 
 #if defined(TRIGGER_OBJECTS)
      if (!match0 || !match1) {
