@@ -82,15 +82,13 @@ public :
 
    int iflag = -1;
 
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
    bool ele_vid_2bit = false;
    bool ele_vid_3bit = false;
-// FIXME
 
-// FIXME
    bool pho_vid_1bit = false;
    bool pho_vid_2bit = false;
-// FIXME
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
    TH1D* h_nevt = 0;
 
@@ -727,15 +725,13 @@ void mainSelector::Init(TTree *tree)
    // Init() will be called many times when running on PROOF
    // (once per file to be processed).
 
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
    if (strstr(tree->GetBranch("Electron_vidNestedWPBitmap")->GetTitle(), "2 bits per cut")) ele_vid_2bit = true;
    if (strstr(tree->GetBranch("Electron_vidNestedWPBitmap")->GetTitle(), "3 bits per cut")) ele_vid_3bit = true;
-// FIXME
 
-// FIXME
    if (strstr(tree->GetBranch("Photon_vidNestedWPBitmap")->GetTitle(), "1 bits per cut")) pho_vid_1bit = true;
    if (strstr(tree->GetBranch("Photon_vidNestedWPBitmap")->GetTitle(), "2 bits per cut")) pho_vid_2bit = true;
-// FIXME
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
    fReader.SetTree(tree);
 }

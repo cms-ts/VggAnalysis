@@ -1302,16 +1302,20 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      //if (Electron_mvaID_WP80[i] == 0) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000011110011111111111111) != 0b00000000000011110011111111111111) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
      //if (Electron_pfRelIso03_all[i] > 0.15) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000000001100000000000000) != 0b00000000000000001100000000000000) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
      if (iele0 != -1) {
        if (Electron_charge[i] == Electron_charge[iele0]) {
@@ -1361,17 +1365,22 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      //if (Electron_mvaID_WP80[i] == 0) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000011110011111111111111) != 0b00000000000011110011111111111111) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
      //if (Electron_pfRelIso03_all[i] < 0.15) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000000001100000000000000) == 0b00000000000000001100000000000000) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) == 0b00000000100000000000000000000000) continue;
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) == 0b00000000100000000000000000000000) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
+
      if (Electron_pfRelIso03_all[i] > 0.15) continue;
-// FIXME
 
      if (iele0_qcd != -1) {
        if (Electron_charge[i] == Electron_charge[iele0_qcd]) {
@@ -1552,19 +1561,23 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      //}
 #endif // defined(NANOAODv4) || defined(NANOAODv5)
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000000001111) != 0b0000000000001111) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
-// FIXME
+#else
+     if ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
      //if (Photon_pfRelIso03_all[i] > 0.15) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000001110000) != 0b0000000001110000) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0010101000000000) != 0b0010101000000000) continue;
-// FIXME
+#else
+     if ((Photon_vidNestedWPBitmap[i] & 0b0010101000000000) != 0b0010101000000000) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
      bool skip = false;
 
@@ -1593,15 +1606,19 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000011110011111111111111) != 0b00000000000011110011111111111111) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000000001100000000000000) != 0b00000000000000001100000000000000) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
        TLorentzVector tmp_ele;
        tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -1759,19 +1776,23 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      //}
 #endif // defined(NANOAODv4) || defined(NANOAODv5)
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000000001111) != 0b0000000000001111) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
-// FIXME
+#else
+     if ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
      //if (Photon_pfRelIso03_all[i] > 0.15) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000001110000) == 0b0000000001110000) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0010101000000000) == 0b0010101000000000) continue;
-// FIXME
+#else
+     if ((Photon_vidNestedWPBitmap[i] & 0b0010101000000000) == 0b0010101000000000) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
      bool skip = false;
 
@@ -1800,15 +1821,19 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000011110011111111111111) != 0b00000000000011110011111111111111) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000000001100000000000000) != 0b00000000000000001100000000000000) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
        TLorentzVector tmp_ele_noiso;
        tmp_ele_noiso.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -1925,12 +1950,16 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      //}
 #endif // defined(NANOAODv4) || defined(NANOAODv5)
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000001100111) != 0b0000000001100111) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0010100000101010) != 0b0010100000101010) continue;
 
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0000001100000000) == 0b0000000000000000) continue;
-// FIXME
+#else
+     if ((Photon_vidNestedWPBitmap[i] & 0b0010100000101010) != 0b0010100000101010) continue;
+
+     if ((Photon_vidNestedWPBitmap[i] & 0b0000001100000000) == 0b0000000000000000) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
@@ -1962,15 +1991,19 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000011110011111111111111) != 0b00000000000011110011111111111111) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000000001100000000000000) != 0b00000000000000001100000000000000) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
        TLorentzVector tmp_ele_sieie;
        tmp_ele_sieie.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -2097,10 +2130,15 @@ Bool_t mainSelector::Process(Long64_t entry)
        bool is_iso = false;
        bool is_sieie = false;
 
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
        if (pho_vid_1bit && (Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000000000010000) == 0b0000000000010000) is_iso = true;
-       if (pho_vid_2bit && (Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000001000000000) == 0b0000001000000000) is_iso = true;
        if (pho_vid_1bit && (Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000000000001000) == 0b0000000000001000) is_sieie = true;
+       if (pho_vid_2bit && (Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000001000000000) == 0b0000001000000000) is_iso = true;
        if (pho_vid_2bit && (Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000000010000000) == 0b0000000010000000) is_sieie = true;
+#else
+       if ((Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000001000000000) == 0b0000001000000000) is_iso = true;
+       if ((Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000000010000000) == 0b0000000010000000) is_sieie = true;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
        if (is_iso && !is_sieie) category = 1.;
        if (!is_iso && is_sieie) category = 2.;
@@ -2148,19 +2186,23 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      //}
 #endif // defined(NANOAODv4) || defined(NANOAODv5)
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000000001111) != 0b0000000000001111) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
-// FIXME
+#else
+     if ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
      //if (Photon_pfRelIso03_all[i] > 0.15) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000001110000) != 0b0000000001110000) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0010101000000000) != 0b0010101000000000) continue;
-// FIXME
+#else
+     if ((Photon_vidNestedWPBitmap[i] & 0b0010101000000000) != 0b0010101000000000) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
      bool skip = false;
 
@@ -2189,15 +2231,19 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000011110011111111111111) != 0b00000000000011110011111111111111) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000000001100000000000000) != 0b00000000000000001100000000000000) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
        TLorentzVector tmp_ele_qcd;
        tmp_ele_qcd.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -2321,19 +2367,23 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      //}
 #endif // defined(NANOAODv4) || defined(NANOAODv5)
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000000001111) != 0b0000000000001111) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
-// FIXME
+#else
+     if ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
      //if (Photon_pfRelIso03_all[i] > 0.15) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (pho_vid_1bit && (Photon_vidNestedWPBitmap[i] & 0b0000000001110000) == 0b0000000001110000) continue;
      if (pho_vid_2bit && (Photon_vidNestedWPBitmap[i] & 0b0010101000000000) == 0b0010101000000000) continue;
-// FIXME
+#else
+     if ((Photon_vidNestedWPBitmap[i] & 0b0010101000000000) == 0b0010101000000000) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
      bool skip = false;
 
@@ -2362,15 +2412,19 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000011110011111111111111) != 0b00000000000011110011111111111111) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
-// FIXME
+#if !defined(NANOAODv4) && !defined(NANOAODv5)
      if (ele_vid_2bit && (Electron_vidNestedWPBitmap[i] & 0b00000000000000001100000000000000) != 0b00000000000000001100000000000000) continue;
      if (ele_vid_3bit && (Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
-// FIXME
+#else
+     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
+#endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
        TLorentzVector tmp_ele_noiso_qcd;
        tmp_ele_noiso_qcd.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
