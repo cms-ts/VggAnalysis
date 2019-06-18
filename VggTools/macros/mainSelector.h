@@ -460,6 +460,7 @@ public :
 
    TH2D* sf_ele_eff = 0;
    TH2D* sf_ele_reco = 0;
+   TH2D* sf_ele_trig = 0;
 
    TH2D* sf_muo_trig = 0;
    TH2D* sf_muo_id = 0;

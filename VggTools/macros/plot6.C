@@ -100,8 +100,8 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("sf_ele_eff_down");
   flags.push_back("sf_ele_reco_up");
   flags.push_back("sf_ele_reco_down");
-  flags.push_back("sf_ele_hlt_up");
-  flags.push_back("sf_ele_hlt_down");
+  flags.push_back("sf_ele_trig_up");
+  flags.push_back("sf_ele_trig_down");
 
   flags.push_back("sf_muo_id_up");
   flags.push_back("sf_muo_id_down");
@@ -292,14 +292,14 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
       errors["ele_reco"].push_back(xval);
     }
-    if (h_xsec["sf_ele_hlt_up"] && h_xsec["sf_ele_hlt_down"]) {
-      double xval_up = fabs(h_xsec["sf_ele_hlt_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_hlt_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec["sf_ele_hlt_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_hlt_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec["sf_ele_trig_up"] && h_xsec["sf_ele_trig_down"]) {
+      double xval_up = fabs(h_xsec["sf_ele_trig_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_trig_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec["sf_ele_trig_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_trig_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
-      errors["ele_hlt"].push_back(xval);
+      errors["ele_trig"].push_back(xval);
     }
 
     if (h_xsec["sf_muo_id_up"] && h_xsec["sf_muo_id_down"]) {
@@ -396,7 +396,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (errors["jer"].size()) labels.push_back("jer");
   if (errors["ele_eff"].size()) labels.push_back("ele_eff");
   if (errors["ele_reco"].size()) labels.push_back("ele_reco");
-  if (errors["ele_hlt"].size()) labels.push_back("ele_hlt");
+  if (errors["ele_trig"].size()) labels.push_back("ele_trig");
   if (errors["muo_id"].size()) labels.push_back("muo_id");
   if (errors["muo_iso"].size()) labels.push_back("muo_iso");
   if (errors["muo_trig"].size()) labels.push_back("muo_trig");
