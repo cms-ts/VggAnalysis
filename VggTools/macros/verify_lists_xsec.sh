@@ -9,7 +9,7 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
   echo './xsec.dat => ../scripts/lists/'
   echo
 
-  DATASETS=`grep -v \# ./xsec.dat | awk '{print $1}' | sort`
+  DATASETS=`grep -v \# ./xsec.dat | awk '{print $1}' | sort | uniq`
 
   check=0
   for D in $DATASETS; do
@@ -41,7 +41,7 @@ echo
 echo './xsec.dat => ./lists/'
 echo
 
-DATASETS=`grep -v \# ./xsec.dat | awk '{print $1}' | sort`
+DATASETS=`grep -v \# ./xsec.dat | awk '{print $1}' | sort | uniq`
 
 check=0
 for D in $DATASETS; do
@@ -119,7 +119,7 @@ echo
 echo './xsec.dat => ./amcatnlo/ ./madgraph/'
 echo
 
-DATASETS=`grep -v \# ./xsec.dat | awk '{print $1}' | sort`
+DATASETS=`grep -v \# ./xsec.dat | awk '{print $1}' | sort | uniq`
 
 check=0
 for D in $DATASETS; do
@@ -168,7 +168,7 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
   echo './lists/ <=> ../scripts/lists/'
   echo
 
-  DATASETS=`ls ./lists/ | sed -e 's/.list//' | sort`
+  DATASETS=`ls ./lists/ | sort | uniq | sed -e 's/.list//'`
 
   check=0
   for D in $DATASETS; do
@@ -263,9 +263,9 @@ for D in $DATASETS; do
   [ -z "${D##*ZG_DYJetsToLL*}" ] && continue
   [ -z "${D##*ZGG_DYJetsToLL*}" ] && continue
   [ -z "${D##*ZTauTau_DYJetsToLL*}" ] && continue
-    [ -z "${D##*ZG_DYToLL*}" ] && continue
-    [ -z "${D##*ZGG_DYToLL*}" ] && continue
-    [ -z "${D##*ZTauTau_DYToLL*}" ] && continue
+  [ -z "${D##*ZG_DYToLL*}" ] && continue
+  [ -z "${D##*ZGG_DYToLL*}" ] && continue
+  [ -z "${D##*ZTauTau_DYToLL*}" ] && continue
 
   if [ -e ./lists/$D.list ]; then
     if [ ! -s ./lists/$D.list ]; then
