@@ -14,7 +14,7 @@ using namespace std;
 
 #include "../scripts/WeightCalculatorFromHistogram.C"
 
-void auto_pu(TString input="lists/RunIIFall17NanoAOD_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8.list", TString output="pileup.root") {
+void auto_pu(TString input="lists/RunIIFall17NanoAODv4_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8.list", TString output="pileup.root") {
 
   TDatime now;
   Info("auto_pu", "%s", now.AsSQLString());
