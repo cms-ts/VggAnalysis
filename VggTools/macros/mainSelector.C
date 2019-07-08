@@ -105,6 +105,9 @@ void mainSelector::Begin(TTree * /*tree*/)
      if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_pho_veto_down_2017")) iflag = 117;
      if (TString(fInput->FindObject("flag")->GetTitle()).Contains("sf_pho_veto_down_2018")) iflag = 118;
 
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("l1prefiring_up")) iflag = 120;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("l1prefiring_down")) iflag = 125;
+
      if (iflag == -1) {
        Error("Begin", "%s : unknown flag = %s", now.AsSQLString(), fInput->FindObject("flag")->GetTitle());
        gSystem->Exit(1);
@@ -3067,6 +3070,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float weight_eff_ele1 = 1.;
    float weight_reco_ele1 = 1.;
+   float weight_trig_ele1 = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (iele0 != -1) {
@@ -3094,6 +3098,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float weight_eff_ele1_qcd = 1.;
    float weight_reco_ele1_qcd = 1.;
+   float weight_trig_ele1_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (iele0_qcd != -1) {
@@ -3623,12 +3628,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // Z scale factors
 
-   float weight_Z_ele = weight_gen * weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_trig_ele0 * weight_hlt_ele;
+   float weight_Z_ele = weight_gen * weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_trig_ele0 * weight_trig_ele1 * weight_hlt_ele;
    float weight_Z_muo = weight_gen * weight_pu_muo * weight_trig_muo0 * weight_trig_muo1 * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
 
 // Z scale factors QCD
 
-   float weight_Z_ele_qcd = weight_gen * weight_pu_ele * weight_eff_ele0_qcd * weight_eff_ele1_qcd * weight_reco_ele0_qcd * weight_reco_ele1_qcd * weight_trig_ele0_qcd * weight_hlt_ele_qcd;
+   float weight_Z_ele_qcd = weight_gen * weight_pu_ele * weight_eff_ele0_qcd * weight_eff_ele1_qcd * weight_reco_ele0_qcd * weight_reco_ele1_qcd * weight_trig_ele0_qcd * weight_trig_ele1_qcd * weight_hlt_ele_qcd;
    float weight_Z_muo_qcd = weight_gen * weight_pu_muo * weight_trig_muo0_qcd * weight_trig_muo1_qcd * weight_id_muo0_qcd * weight_id_muo1_qcd * weight_iso_muo0_qcd * weight_iso_muo1_qcd;
 
    float weight_l1prefiring = 1.;
@@ -3637,12 +3642,14 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 #if defined(NANOAODv5)
    weight_l1prefiring = *L1PreFiringWeight_Nom;
+   if (iflag == 120) weight_l1prefiring = *L1PreFiringWeight_Up;
+   if (iflag == 125) weight_l1prefiring = *L1PreFiringWeight_Dn;
 #else
    for (uint i = 0; i < *nPhoton; i++) {
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) < 2) continue;
      if (fabs(Photon_eta[i]) > 3) continue;
-     weight_l1prefiring = weight_l1prefiring * (1. - getWeight(l1prefiring_pho, Photon_eta[i], Photon_pt[i]));
+     weight_l1prefiring = weight_l1prefiring * (1. - getWeight(l1prefiring_pho, Photon_eta[i], Photon_pt[i], (iflag == 120) - (iflag == 125)));
    }
 
    for (uint i = 0; i < *nJet; i++) {
@@ -3662,10 +3669,10 @@ Bool_t mainSelector::Process(Long64_t entry)
        TLorentzVector tmp_pho;
        tmp_pho.SetPtEtaPhiM(Photon_pt[j], Photon_eta[j], Photon_phi[j], Photon_mass[j]);
        if (tmp_jet.DeltaR(tmp_pho) > 0.4) continue;
-       weight_l1prefiring_pho = weight_l1prefiring_pho * (1. - getWeight(l1prefiring_pho, Photon_eta[j], Photon_pt[j]));
+       weight_l1prefiring_pho = weight_l1prefiring_pho * (1. - getWeight(l1prefiring_pho, Photon_eta[j], Photon_pt[j], (iflag == 120) - (iflag == 125)));
      }
 
-     float weight_l1prefiring_jet = (1. - getWeight(l1prefiring_jet, Jet_eta[i], Jet_pt[i]));
+     float weight_l1prefiring_jet = (1. - getWeight(l1prefiring_jet, Jet_eta[i], Jet_pt[i], (iflag == 120) - (iflag == 125)));
 
      if (weight_l1prefiring_pho == 1) {
        weight_l1prefiring = weight_l1prefiring * weight_l1prefiring_jet;

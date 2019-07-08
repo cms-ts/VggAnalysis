@@ -59,6 +59,8 @@ if [ ! -z "$2" ]; then
     FLAGS=$FLAGS" sf_pho_veto_down_2016"
     FLAGS=$FLAGS" sf_pho_veto_down_2017"
     FLAGS=$FLAGS" sf_pho_veto_down_2018"
+    FLAGS=$FLAGS" l1prefiring_up"
+    FLAGS=$FLAGS" l1prefiring_down"
   else
     FLAGS=$2
   fi

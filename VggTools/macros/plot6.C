@@ -119,6 +119,9 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("sf_pho_veto_down_2017");
   flags.push_back("sf_pho_veto_down_2018");
 
+  flags.push_back("l1prefiring_up");
+  flags.push_back("l1prefiring_down");
+
   flags.push_back("mc_matrix");
   flags.push_back("mc_bkg");
 
@@ -358,6 +361,16 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["pho_veto"].push_back(xval);
     }
 
+    if (h_xsec["l1prefiring_up"] && h_xsec["l1prefiring_down"]) {
+      double xval_up = fabs(h_xsec["l1prefiring_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["l1prefiring_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec["l1prefiring_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["l1prefiring_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval = 0.5 * (xval_up + xval_down);
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["l1prefiring"].push_back(xval);
+    }
+
     if (h_xsec["mc_matrix"]) {
       double xval = fabs(h_xsec["mc_matrix"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["mc_matrix"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
@@ -402,6 +415,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (errors["muo_trig"].size()) labels.push_back("muo_trig");
   if (errors["pho_eff"].size()) labels.push_back("pho_eff");
   if (errors["pho_veto"].size()) labels.push_back("pho_veto");
+  if (errors["l1prefiring"].size()) labels.push_back("l1prefiring");
   if (errors["mc_matrix"].size()) labels.push_back("mc_matrix");
   if (errors["mc_bkg"].size()) labels.push_back("mc_bkg");
   if (errors["qcd_fit"].size()) labels.push_back("qcd_fit");
