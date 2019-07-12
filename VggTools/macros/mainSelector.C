@@ -2585,7 +2585,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        jec_var = (iflag == 32) - (iflag == 37);
 #endif // defined(mainSelectorDT17_cxx)
 #if defined(mainSelectorDT18_cxx)
-//       jec_var = (iflag == 33) - (iflag == 38);
+       jec_var = (iflag == 33) - (iflag == 38);
 #endif // defined(mainSelectorDT18_cxx)
 
        Jet_pt[i] = Jet_pt[i] * (1. + jet_unc * jec_var);
@@ -3639,7 +3639,6 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_l1prefiring = 1.;
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
-
 #if defined(NANOAODv5)
    weight_l1prefiring = *L1PreFiringWeight_Nom;
    if (iflag == 120) weight_l1prefiring = *L1PreFiringWeight_Up;
@@ -3687,7 +3686,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 #endif // defined(NANOAODv5)
-
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
 
    weight_W_ele = weight_W_ele * weight_l1prefiring;
