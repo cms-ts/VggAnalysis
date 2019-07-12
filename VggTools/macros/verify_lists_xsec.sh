@@ -162,6 +162,24 @@ done
 
 [ $check -eq 0 ] && echo "ok"
 
+echo
+echo './amcatnlo/ ./madgraph/ => ./lists/'
+echo
+
+DATASETS=`cat ./amcatnlo/*.dat* ./madgraph/*.dat* | grep RunII | grep -v \# | awk '{print $1}' | sort | uniq`
+
+check=0
+for D in $DATASETS; do
+
+  if [ ! -e lists/$D.list ]; then
+    echo "missing in ./lists/ : "$D
+    check=1
+  fi
+
+done
+
+[ $check -eq 0 ] && echo "ok"
+
 if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
 
   echo
@@ -200,28 +218,6 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
   done
 
   [ $check -eq 0 ] && echo "ok"
-
-fi
-
-echo
-echo './amcatnlo/ ./madgraph/ => ./lists/'
-echo
-
-DATASETS=`cat ./amcatnlo/*.dat* ./madgraph/*.dat* | grep RunII | grep -v \# | awk '{print $1}' | sort | uniq`
-
-check=0
-for D in $DATASETS; do
-
-  if [ ! -e lists/$D.list ]; then
-    echo "missing in ./lists/ : "$D
-    check=1
-  fi
-
-done
-
-[ $check -eq 0 ] && echo "ok"
-
-if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
 
   echo
   echo '../scripts/lists/ => empty'
