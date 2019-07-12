@@ -468,10 +468,10 @@ public :
 
    TH2D* sf_pho_eff = 0;
 
-#if !defined(NANOAODv5)
+#if !defined(NANOAODv5) && (defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h))
    TH2F* l1prefiring_pho = 0;
    TH2F* l1prefiring_jet = 0;
-#endif // !defined(NANOAODv5)
+#endif // !defined(NANOAODv5) && (defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h))
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
    RoccoR* roccor = 0;
