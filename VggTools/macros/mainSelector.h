@@ -764,6 +764,8 @@ float getWeight(TH1* h, float x, float y, float variation = 0) {
   }
 }
 
+#if !defined(NANOAODv5)
+
 #include "TMath.h"
 #include "TLorentzVector.h"
 
@@ -871,5 +873,7 @@ float ecalSmearMC(float cluster_pt, float cluster_eta, float cluster_phi, float 
   return (1.0 + sigma * gauss);
 
 }
+
+#endif // !defined(NANOAODv5)
 
 #endif // mainSelector_cxx
