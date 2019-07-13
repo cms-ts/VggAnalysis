@@ -126,29 +126,59 @@ void mainSelector::Begin(TTree * /*tree*/)
 
 #if defined(mainSelectorMC16_cxx)
 #if defined(DOUBLE_TRIGGER)
+#if defined(NANOAODv5)
+   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_DoubleEG_1June2019.root").c_str());
+   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_DoubleMuon_1June2019.root").c_str());
+#else
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_DoubleEG_14Dec2018.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_DoubleMuon_14Dec2018.root").c_str());
+#endif // defined(NANOAODv5)
+#else
+#if defined(NANOAODv5)
+   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleElectron_1June2019.root").c_str());
+   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleMuon_1June2019.root").c_str());
 #else
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleElectron_14Dec2018.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleMuon_14Dec2018.root").c_str());
+#endif // defined(NANOAODv5)
 #endif // defined(DOUBLE_TRIGGER)
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
 #if defined(DOUBLE_TRIGGER)
+#if defined(NANOAODv5)
+   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_DoubleEG_1June2019.root").c_str());
+   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_DoubleMuon_1June2019.root").c_str());
+#else
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_DoubleEG_14Dec2018.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_DoubleMuon_14Dec2018.root").c_str());
+#endif // defined(NANOAODv5)
+#else
+#if defined(NANOAODv5)
+   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleElectron_1June2019.root").c_str());
+   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleMuon_1June2019.root").c_str());
 #else
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleElectron_14Dec2018.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleMuon_14Dec2018.root").c_str());
+#endif // defined(NANOAODv5)
 #endif // defined(DOUBLE_TRIGGER)
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 #if defined(DOUBLE_TRIGGER)
+#if defined(NANOAODv5)
+   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_EGamma_1June2019.root").c_str());
+   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_DoubleMuon_1June2019.root").c_str());
+#else
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_EGamma_14Dec2018.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_DoubleMuon_14Dec2018.root").c_str());
+#endif // defined(NANOAODv5)
+#else
+#if defined(NANOAODv5)
+   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_EGamma_1June2019.root").c_str());
+   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_SingleMuon_1June2019.root").c_str());
 #else
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_EGamma_14Dec2018.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_SingleMuon_14Dec2018.root").c_str());
+#endif // defined(NANOAODv5)
 #endif // defined(DOUBLE_TRIGGER)
 #endif // defined(mainSelectorMC18_cxx)
 
