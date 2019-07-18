@@ -1,4 +1,4 @@
-void evtcount(TString list="lists/Run2017B_DoubleEG.txt") {
+void evtcount(TString list="lists/Run2017B_SingleElectron.txt") {
 
   cout << "list: " << list << endl;
 
