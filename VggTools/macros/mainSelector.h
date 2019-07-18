@@ -29,8 +29,6 @@
 #undef NANOAODv4
 #endif // defined(NANOAODv5)
 
-#define TRIGGER_OBJECTS
-
 #if defined(mainSelectorDT16H_h)
 #define mainSelectorDT16_h
 #endif // defined(mainSelectorDT16H_h)

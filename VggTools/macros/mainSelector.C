@@ -3591,12 +3591,10 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-#if defined(TRIGGER_OBJECTS)
      if (!match0) {
        W_ele_sel = false;
        W_ele_sel_wide = false;
      }
-#endif // defined(TRIGGER_OBJECTS)
 
    }
 
@@ -3630,12 +3628,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      match0 = true;
 #endif // !defined(NANOAODv5) && (defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx))
 
-#if defined(TRIGGER_OBJECTS)
      if (!match0) {
        W_muo_sel = false;
        W_muo_sel_wide = false;
      }
-#endif // defined(TRIGGER_OBJECTS)
 
    }
 
@@ -3664,12 +3660,10 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-#if defined(TRIGGER_OBJECTS)
      if (!match0) {
        Z_ele_sel = false;
        Z_ele_sel_wide = false;
      }
-#endif // defined(TRIGGER_OBJECTS)
 
    }
 
@@ -3703,12 +3697,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      match0 = true;
 #endif // !defined(NANOAODv5) && (defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx))
 
-#if defined(TRIGGER_OBJECTS)
      if (!match0) {
        Z_muo_sel = false;
        Z_muo_sel_wide = false;
      }
-#endif // defined(TRIGGER_OBJECTS)
 
    }
 
