@@ -2135,17 +2135,13 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   double category = -1.;
+   int category = -1;
 
    if (ipho0 != -1) {
-
-     category = 0.;
-     if (fabs(pho0.Eta()) > 1.566) category = category + 4.;
-
+     category = 0;
+     if (fabs(pho0.Eta()) > 1.566) category = category + 4;
    } else {
-
      if (ipho0_sieie != -1) {
-
        bool is_iso = false;
        bool is_sieie = false;
 
@@ -2159,13 +2155,11 @@ Bool_t mainSelector::Process(Long64_t entry)
        if ((Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000000010000000) == 0b0000000010000000) is_sieie = true;
 #endif // !defined(NANOAODv4) && !defined(NANOAODv5)
 
-       if (is_iso && !is_sieie) category = 1.;
-       if (!is_iso && is_sieie) category = 2.;
-       if (!is_iso && !is_sieie) category = 3.;
-       if (fabs(pho0_sieie.Eta()) > 1.566) category = category + 4.;
-
+       if (is_iso && !is_sieie) category = 1;
+       if (!is_iso && is_sieie) category = 2;
+       if (!is_iso && !is_sieie) category = 3;
+       if (fabs(pho0_sieie.Eta()) > 1.566) category = category + 4;
      }
-
    }
 
 // photons QCD
