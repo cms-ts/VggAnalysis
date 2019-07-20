@@ -32,14 +32,6 @@
 #include <TRandom.h>
 #include <TLorentzVector.h>
 
-#if defined(mainSelectorDT16H_cxx)
-#define mainSelectorDT16_cxx
-#endif // defined(mainSelectorDT16H_cxx)
-
-#if defined(mainSelectorDT17B_cxx)
-#define mainSelectorDT17_cxx
-#endif // defined(mainSelectorDT17B_cxx)
-
 #include "roccor.Run2.v3/RoccoR.cc"
 
 void mainSelector::Begin(TTree * /*tree*/)

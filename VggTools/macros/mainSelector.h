@@ -29,14 +29,6 @@
 #undef NANOAODv4
 #endif // defined(NANOAODv5)
 
-#if defined(mainSelectorDT16H_h)
-#define mainSelectorDT16_h
-#endif // defined(mainSelectorDT16H_h)
-
-#if defined(mainSelectorDT17B_h)
-#define mainSelectorDT17_h
-#endif // defined(mainSelectorDT17B_h)
-
 #if !defined(NANOAODv5) && (defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h))
 #define __ROOTCLING__ 1
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
