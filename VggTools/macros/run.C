@@ -24,7 +24,7 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
   if (input.Contains("RunIISummer16NanoAOD")) option="MC16";
   if (input.Contains("RunIIFall17NanoAOD")) option="MC17";
   if (input.Contains("RunIIAutumn18NanoAOD")) option="MC18";
-  if (option.Length()==0) {
+  if (option.Length() == 0) {
     cout << "unknown input list: " << input << endl;
     return;
   }
