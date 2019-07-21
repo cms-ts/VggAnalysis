@@ -98,7 +98,9 @@ if [ ! -z "$3" ]; then
   fi
 fi
 
-$SKIP ./compile.sh mainSelector
+alias SKIP=$SKIP
+
+SKIP ./compile.sh mainSelector
 
 mkdir -p data/$VERSION
 
