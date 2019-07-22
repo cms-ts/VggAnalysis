@@ -454,11 +454,11 @@ public :
 
    RoccoR* roccor = 0;
 
-#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 #if defined(NANOAODv4)
    FactorizedJetCorrector* jet_corrector = 0;
 #endif // defined(NANOAODv4)
-#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
    JetCorrectionUncertainty* jet_correction_unc = 0;

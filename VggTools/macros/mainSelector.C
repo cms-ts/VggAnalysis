@@ -395,7 +395,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_pho_sf_eff;
 #endif // defined(mainSelectorMC18_cxx)
 
-#if defined(mainSelectorMC16_h)
+#if defined(mainSelectorMC16_cxx)
 #if defined(NANOAODv4)
    TFile* file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2016BtoH.root");
    TFile* file_l1prefile_jet = new TFile("root/L1prefiring_jetpt_2016BtoH.root");
@@ -410,9 +410,9 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_l1prefile_pho;
    delete file_l1prefile_jet;
 #endif // defined(NANOAODv4)
-#endif // defined(mainSelectorMC16_h)
+#endif // defined(mainSelectorMC16_cxx)
 
-#if defined(mainSelectorMC17_h)
+#if defined(mainSelectorMC17_cxx)
 #if defined(NANOAODv4)
    TFile* file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2017BtoF.root");
    TFile* file_l1prefile_jet = new TFile("root/L1prefiring_jetpt_2017BtoF.root");
@@ -427,7 +427,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_l1prefile_pho;
    delete file_l1prefile_jet;
 #endif // defined(NANOAODv4)
-#endif // defined(mainSelectorMC17_h)
+#endif // defined(mainSelectorMC17_cxx)
 
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -1272,9 +1272,9 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (*Flag_goodVertices == 0) return kTRUE;
    if (*Flag_METFilters == 0) return kTRUE;
 
-#if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
    if (*Flag_ecalBadCalibFilterV2 == 0) return kTRUE;
-#endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 
    h_nevt->Fill(3.5, weight_gen);
 
@@ -3275,7 +3275,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float weight_l1prefiring = 1.;
 
-#if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(NANOAODv4)
    for (uint i = 0; i < *nPhoton; i++) {
      if (Photon_pt[i] < 20) continue;
@@ -3324,7 +3324,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (iflag == 120) weight_l1prefiring = *L1PreFiringWeight_Up;
    if (iflag == 125) weight_l1prefiring = *L1PreFiringWeight_Dn;
 #endif // defined(NANOAODv5)
-#endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
 
    weight_W_ele = weight_W_ele * weight_l1prefiring;
    weight_W_muo = weight_W_muo * weight_l1prefiring;
