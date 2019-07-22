@@ -29,11 +29,13 @@
 #undef NANOAODv4
 #endif // defined(NANOAODv5)
 
-#if defined(NANOAODv4) && (defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h))
+#if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
+#if defined(NANOAODv4)
 #define __ROOTCLING__ 1
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
 #include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
-#endif // defined(NANOAODv4) && (defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h))
+#endif // defined(NANOAODv4)
+#endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
@@ -442,17 +444,21 @@ public :
 
    TH2D* sf_pho_eff = 0;
 
-#if defined(NANOAODv4) && (defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h))
+#if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
+#if defined(NANOAODv4)
    TH2F* l1prefiring_pho = 0;
    TH2F* l1prefiring_jet = 0;
-#endif // defined(NANOAODv4) && (defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h))
+#endif // defined(NANOAODv4)
+#endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
    RoccoR* roccor = 0;
 
-#if defined(NANOAODv4) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(NANOAODv4)
    FactorizedJetCorrector* jet_corrector = 0;
-#endif // defined(NANOAODv4) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
+#endif // defined(NANOAODv4)
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
    JetCorrectionUncertainty* jet_correction_unc = 0;
@@ -549,18 +555,22 @@ public :
    TTreeReaderValue<Bool_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
 
-#if defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+#if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
+#if defined(NANOAODv4)
    TTreeReaderValue<UChar_t> Flag_ecalBadCalibFilterV2 = {fReader, "Flag_ecalBadCalibFilterV2"};
-#endif // defined(NANOAODv4) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
-#if defined(NANOAODv5) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
    TTreeReaderValue<Bool_t> Flag_ecalBadCalibFilterV2 = {fReader, "Flag_ecalBadCalibFilterV2"};
-#endif // defined(NANOAODv5) && (defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h))
+#endif // defined(NANOAODv5)
+#endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
-#if defined(NANOAODv5) && (defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h))
+#if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
+#if defined(NANOAODv5)
    TTreeReaderValue<Float_t> L1PreFiringWeight_Dn = {fReader, "L1PreFiringWeight_Dn"};
    TTreeReaderValue<Float_t> L1PreFiringWeight_Nom = {fReader, "L1PreFiringWeight_Nom"};
    TTreeReaderValue<Float_t> L1PreFiringWeight_Up = {fReader, "L1PreFiringWeight_Up"};
-#endif // defined(NANOAODv5) && (defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h))
+#endif // defined(NANOAODv5)
+#endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
 

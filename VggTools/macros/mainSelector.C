@@ -117,30 +117,33 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (iflag == 15) pileup_var = "down_";
 
 #if defined(mainSelectorMC16_cxx)
+#if defined(NANOAODv4)
+   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleElectron_14Dec2018.root").c_str());
+   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleMuon_14Dec2018.root").c_str());
+#endif // defined(NANOAODv4)
 #if defined(NANOAODv5)
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleElectron_1June2019.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleMuon_1June2019.root").c_str());
-#else
-   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleElectron_14Dec2018.root").c_str());
-   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleMuon_14Dec2018.root").c_str());
 #endif // defined(NANOAODv5)
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
+#if defined(NANOAODv4)
+   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleElectron_14Dec2018.root").c_str());
+   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleMuon_14Dec2018.root").c_str());
+#endif // defined(NANOAODv4)
 #if defined(NANOAODv5)
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleElectron_1June2019.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleMuon_1June2019.root").c_str());
-#else
-   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleElectron_14Dec2018.root").c_str());
-   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleMuon_14Dec2018.root").c_str());
 #endif // defined(NANOAODv5)
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
+#if defined(NANOAODv4)
+   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_EGamma_14Dec2018.root").c_str());
+   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_SingleMuon_14Dec2018.root").c_str());
+#endif // defined(NANOAODv4)
 #if defined(NANOAODv5)
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_EGamma_1June2019.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_SingleMuon_1June2019.root").c_str());
-#else
-   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_EGamma_14Dec2018.root").c_str());
-   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_SingleMuon_14Dec2018.root").c_str());
 #endif // defined(NANOAODv5)
 #endif // defined(mainSelectorMC18_cxx)
 
@@ -392,7 +395,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete file_pho_sf_eff;
 #endif // defined(mainSelectorMC18_cxx)
 
-#if defined(NANOAODv4) && defined(mainSelectorMC16_h)
+#if defined(mainSelectorMC16_h)
+#if defined(NANOAODv4)
    TFile* file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2016BtoH.root");
    TFile* file_l1prefile_jet = new TFile("root/L1prefiring_jetpt_2016BtoH.root");
 
@@ -405,9 +409,11 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_l1prefile_jet->Close();
    delete file_l1prefile_pho;
    delete file_l1prefile_jet;
-#endif // defined(NANOAODv4) && defined(mainSelectorMC16_h)
+#endif // defined(NANOAODv4)
+#endif // defined(mainSelectorMC16_h)
 
-#if defined(NANOAODv4) && defined(mainSelectorMC17_h)
+#if defined(mainSelectorMC17_h)
+#if defined(NANOAODv4)
    TFile* file_l1prefile_pho = new TFile("root/L1prefiring_photonpt_2017BtoF.root");
    TFile* file_l1prefile_jet = new TFile("root/L1prefiring_jetpt_2017BtoF.root");
 
@@ -420,7 +426,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_l1prefile_jet->Close();
    delete file_l1prefile_pho;
    delete file_l1prefile_jet;
-#endif // defined(NANOAODv4) && defined(mainSelectorMC17_h)
+#endif // defined(NANOAODv4)
+#endif // defined(mainSelectorMC17_h)
 
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -434,13 +441,17 @@ void mainSelector::Begin(TTree * /*tree*/)
    roccor = new RoccoR("roccor.Run2.v3/RoccoR2018.txt");
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
-#if defined(NANOAODv4) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(NANOAODv4)
    JetCorrectorParameters* jet_correction_l1 = 0;
    JetCorrectorParameters* jet_correction_l2 = 0;
    JetCorrectorParameters* jet_correction_l3 = 0;
    JetCorrectorParameters* jet_correction_l2l3res = 0;
-#endif // defined(NANOAODv4) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
-#if defined(NANOAODv4) && defined(mainSelectorDT18_cxx)
+#endif // defined(NANOAODv4)
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+
+#if defined(mainSelectorDT18_cxx)
+#if defined(NANOAODv4)
    if (fInput && fInput->FindObject("era")) {
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018A")) {
        jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunA_V8_DATA_L1FastJet_AK4PFchs.txt");
@@ -475,15 +486,20 @@ void mainSelector::Begin(TTree * /*tree*/)
      Error("Begin", "%s : missing era", now.AsSQLString());
      gSystem->Exit(1);
    }
-#endif // defined(NANOAODv4) && defined(mainSelectorDT18_cxx)
-#if defined(NANOAODv4) && defined(mainSelectorMC18_cxx)
+#endif // defined(NANOAODv4)
+#endif // defined(mainSelectorDT18_cxx)
+
+#if defined(mainSelectorMC18_cxx)
+#if defined(NANOAODv4)
    jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_V8_MC_L1FastJet_AK4PFchs.txt");
    jet_correction_l2 = new JetCorrectorParameters("jme/Autumn18_V8_MC_L2Relative_AK4PFchs.txt");
    jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_V8_MC_L3Absolute_AK4PFchs.txt");
    jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_V8_MC_L2L3Residual_AK4PFchs.txt");
-#endif // defined(NANOAODv4) && defined(mainSelectorMC18_cxx)
+#endif // defined(NANOAODv4)
+#endif // defined(mainSelectorMC18_cxx)
 
-#if defined(NANOAODv4) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(NANOAODv4)
    vector<JetCorrectorParameters> jet_corrections;
    jet_corrections.push_back(*jet_correction_l1);
    jet_corrections.push_back(*jet_correction_l2);
@@ -491,7 +507,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    jet_corrections.push_back(*jet_correction_l2l3res);
 
    jet_corrector = new FactorizedJetCorrector(jet_corrections);
-#endif // defined(NANOAODv4) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
+#endif // defined(NANOAODv4)
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
    if (fInput && fInput->FindObject("era")) {
@@ -1275,10 +1292,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 // electron energy corrections not needed
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
+#if defined(NANOAODv4)
+     eCorr_ele = ecalSmearMC(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i], Electron_r9[i], gRandom->Gaus());
+#endif // defined(NANOAODv4)
 #if defined(NANOAODv5)
 // electron energy corrections not needed
-#else
-     eCorr_ele = ecalSmearMC(Electron_pt[i], Electron_eta[i], Electron_phi[i], Electron_mass[i], Electron_r9[i], gRandom->Gaus());
 #endif // defined(NANOAODv5)
 #endif // defined(mainSelectorMC18_cxx)
      Electron_pt[i] = Electron_pt[i] * eCorr_ele;
@@ -1499,10 +1517,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 // photon energy corrections not needed
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
+#if defined(NANOAODv4)
+     eCorr_pho = ecalSmearMC(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i], Photon_r9[i], gRandom->Gaus());
+#endif // defined(NANOAODv4)
 #if defined(NANOAODv5)
 // photon energy corrections not needed
-#else
-     eCorr_pho = ecalSmearMC(Photon_pt[i], Photon_eta[i], Photon_phi[i], Photon_mass[i], Photon_r9[i], gRandom->Gaus());
 #endif // defined(NANOAODv5)
 #endif // defined(mainSelectorMC18_cxx)
      Photon_pt[i] = Photon_pt[i] * eCorr_pho;
@@ -2297,7 +2316,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nJet; i++) {
 
-#if defined(NANOAODv4) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#if defined(NANOAODv4)
      if (Jet_pt[i] > 10 && fabs(Jet_eta[i]) < 5.2) {
 
        jet_corrector->setJetPt(Jet_pt[i] * (1. - Jet_rawFactor[i]));
@@ -2311,7 +2331,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        Jet_pt[i] = Jet_pt[i] * (1. - Jet_rawFactor[i]) * eCorr_jet;
      }
-#endif // defined(NANOAODv4) && (defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx))
+#endif // defined(NANOAODv4)
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
      if (Jet_pt[i] > 10 && fabs(Jet_eta[i]) < 5.2) {
@@ -3255,11 +3276,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    float weight_l1prefiring = 1.;
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
-#if defined(NANOAODv5)
-   weight_l1prefiring = *L1PreFiringWeight_Nom;
-   if (iflag == 120) weight_l1prefiring = *L1PreFiringWeight_Up;
-   if (iflag == 125) weight_l1prefiring = *L1PreFiringWeight_Dn;
-#else
+#if defined(NANOAODv4)
    for (uint i = 0; i < *nPhoton; i++) {
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) < 2) continue;
@@ -3301,6 +3318,11 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
    }
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+   weight_l1prefiring = *L1PreFiringWeight_Nom;
+   if (iflag == 120) weight_l1prefiring = *L1PreFiringWeight_Up;
+   if (iflag == 125) weight_l1prefiring = *L1PreFiringWeight_Dn;
 #endif // defined(NANOAODv5)
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
 
@@ -3374,9 +3396,11 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-#if defined(NANOAODv4) && (defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx))
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(NANOAODv4)
      match0 = true;
-#endif // defined(NANOAODv4) && (defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx))
+#endif // defined(NANOAODv4)
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 
      if (!match0) {
        W_muo_sel = false;
@@ -3443,9 +3467,11 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-#if defined(NANOAODv4) && (defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx))
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(NANOAODv4)
      match0 = true;
-#endif // defined(NANOAODv4) && (defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx))
+#endif // defined(NANOAODv4)
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 
      if (!match0) {
        Z_muo_sel = false;
