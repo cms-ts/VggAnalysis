@@ -2392,7 +2392,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
        TLorentzVector tmp_jet_gen;
        tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[Jet_genJetIdx[i]], GenJet_eta[Jet_genJetIdx[i]], GenJet_phi[Jet_genJetIdx[i]], GenJet_mass[Jet_genJetIdx[i]]);
-       if (tmp_jet.DeltaR(tmp_jet_gen) < 0.4 && fabs(tmp_jet.Pt() - tmp_jet_gen.Pt()) < 3 * jet_resolution->getResolution(jer_parameters) * tmp_jet.Pt())  {
+       if (tmp_jet.DeltaR(tmp_jet_gen) < 0.2 && fabs(tmp_jet.Pt() - tmp_jet_gen.Pt()) < 3 * jet_resolution->getResolution(jer_parameters) * tmp_jet.Pt())  {
          jet_match = true;
        }
      }
@@ -2415,10 +2415,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (jet_match) {
        jet_smear = 1. + (jet_resolution_sf->getScaleFactor(jer_parameters, jer_var) - 1.) * (Jet_pt[i] - GenJet_pt[Jet_genJetIdx[i]]) / Jet_pt[i];
      } else {
-       jet_smear = gRandom->Gaus(1., jet_resolution->getResolution(jer_parameters) * TMath::Sqrt(TMath::Max(TMath::Power(jet_resolution_sf->getScaleFactor(jer_parameters, jer_var), 2) - 1., 0.)));
+       jet_smear = 1. + gRandom->Gaus(0., jet_resolution->getResolution(jer_parameters)) * TMath::Sqrt(TMath::Max(TMath::Power(jet_resolution_sf->getScaleFactor(jer_parameters, jer_var), 2) - 1., 0.));
      }
 
-     if (Jet_pt[i] * jet_smear < 1.e-2) jet_smear = 1.e-2;
+     if (Jet_pt[i] * jet_smear < 0.01) jet_smear = 0.01 / Jet_pt[i];
 
      if (Jet_pt[i] * jet_smear > 15) {
        met_px = met_px - (jet_smear - 1.) * Jet_pt[i] * TMath::Cos(Jet_phi[i]);
