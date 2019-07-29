@@ -72,6 +72,8 @@ if [ ! -z "$4" ]; then
     FLAGS=$FLAGS" sf_pho_veto_down_2018"
     FLAGS=$FLAGS" l1prefiring_up"
     FLAGS=$FLAGS" l1prefiring_down"
+    FLAGS=$FLAGS" eg_misid_up"
+    FLAGS=$FLAGS" eg_misid_down"
     FLAGS=$FLAGS" mc_matrix"
 #    FLAGS=$FLAGS" mc_bkg"
 #    FLAGS=$FLAGS" qcd_fit"

@@ -25,6 +25,8 @@
 
 // #define NANOAODv5
 
+// #define COMPUTE_EG_MISID
+
 #if defined(NANOAODv5)
 #undef NANOAODv4
 #endif // defined(NANOAODv5)
@@ -399,6 +401,50 @@ public :
    TH3D* h_ZGG_ele_ele0_ele1_pho0_pho1_map = 0;
    TH3D* h_ZGG_muo_muo0_muo1_pho0_pho1_map = 0;
 
+#if defined(COMPUTE_EG_MISID)
+   TH1D* h_WG_ele_fake_1 = 0;
+   TH1D* h_WG_ele_fake_2 = 0;
+   TH1D* h_WG_ele_fake_3 = 0;
+   TH1D* h_WG_ele_fake_4 = 0;
+   TH1D* h_WG_ele_fake_5 = 0;
+   TH1D* h_WG_ele_fake_6 = 0;
+   TH1D* h_WG_ele_fake_7 = 0;
+   TH1D* h_WG_ele_fake_8 = 0;
+   TH1D* h_WG_ele_fake_9 = 0;
+   TH1D* h_WG_ele_fake_10 = 0;
+   TH1D* h_WG_ele_fake_11 = 0;
+   TH1D* h_WG_ele_fake_12 = 0;
+   TH1D* h_WG_ele_fake_13 = 0;
+   TH1D* h_WG_ele_fake_14 = 0;
+   TH1D* h_WG_ele_fake_15 = 0;
+   TH1D* h_WG_ele_fake_16 = 0;
+   TH1D* h_WG_ele_fake_17 = 0;
+   TH1D* h_WG_ele_fake_18 = 0;
+   TH1D* h_WG_ele_fake_19 = 0;
+   TH1D* h_WG_ele_fake_20 = 0;
+
+   TH1D* h_WG_ele_fake_truthmatch_1 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_2 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_3 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_4 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_5 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_6 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_7 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_8 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_9 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_10 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_11 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_12 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_13 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_14 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_15 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_16 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_17 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_18 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_19 = 0;
+   TH1D* h_WG_ele_fake_truthmatch_20 = 0;
+#endif // defined(COMPUTE_EG_MISID)
+
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 
@@ -450,6 +496,10 @@ public :
    TH2F* l1prefiring_jet = 0;
 #endif // defined(NANOAODv4)
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
+
+   TH2D* sf_eg_misid = 0;
+   TH2D* sf_eg_misid_qcd = 0;
+
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
    RoccoR* roccor = 0;
