@@ -4007,7 +4007,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          }
        }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-#endif // defined(COMPUTE_EG_MISID)       
+#endif // defined(COMPUTE_EG_MISID)
      }
 
      if (category != -1) {
