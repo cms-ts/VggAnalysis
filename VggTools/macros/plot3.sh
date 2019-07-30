@@ -10,7 +10,7 @@ fi
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/macros
 cd $WORKDIR
 
-VERSION="v11"
+VERSION="v12"
 
 if [ ! -z "$1" ]; then
   VERSION=$1
