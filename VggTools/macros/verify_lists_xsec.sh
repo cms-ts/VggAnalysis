@@ -81,8 +81,11 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
 
     [ -z "${D##*RunIISummer16NanoAOD_*}" ] && continue
     [ -z "${D##*RunIISummer16NanoAODv3_*}" ] && continue
+    [ -z "${D##*RunIISummer16NanoAODv4_*}" ] && continue
     [ -z "${D##*RunIIFall17NanoAOD_*}" ] && continue
+    [ -z "${D##*RunIIFall17NanoAODv4_*}" ] && continue
     [ -z "${D##*RunIIAutumn18NanoAOD_*}" ] && continue
+    [ -z "${D##*RunIIAutumn18NanoAODv4_*}" ] && continue
 
     X=`grep $D ./xsec.dat*`
     if [ -z "$X" ]; then
@@ -104,6 +107,10 @@ DATASETS=`ls ./lists/ | sort | uniq | sed -e 's/.list//' | grep RunII`
 
 check=0
 for D in $DATASETS; do
+
+  [ -z "${D##*RunIISummer16NanoAODv4_*}" ] && continue
+  [ -z "${D##*RunIIFall17NanoAODv4_*}" ] && continue
+  [ -z "${D##*RunIIAutumn18NanoAODv4_*}" ] && continue
 
   X=`grep $D ./xsec.dat*`
   if [ -z "$X" ]; then
