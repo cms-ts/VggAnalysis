@@ -10,7 +10,7 @@ if [ ! -z "$1" ]; then
     echo
     echo "Available versions:"
     echo
-    find ./data/ -mindepth 2 -maxdepth 2 -type d -printf "%P\n" | grep -v archive | grep -v auto_pu | sort | column
+    find -L ./data/ -mindepth 2 -maxdepth 2 -type d -printf "%P\n" | grep -v archive | grep -v auto_pu | sort | column
     echo
     exit
   elif [ "$1" == "short" ]; then
@@ -19,12 +19,12 @@ if [ ! -z "$1" ]; then
     printf "%s\n" "--------------------------------------------"
     VERSION=`ls -tr ./data/ | grep -v archive | grep -v auto_pu`
     for V in $VERSION; do
-      LISTS=`find ./data/$V -mindepth 1 -maxdepth 1 -type d -printf "%P\n" | grep -v archive | grep -v auto_pu | sort`
+      LISTS=`find -L ./data/$V -mindepth 1 -maxdepth 1 -type d -printf "%P\n" | grep -v archive | grep -v auto_pu | sort`
       for L in $LISTS; do
-        printf "%-30s\t%4d\t%4d\n" $V/$L `find ./data/$V/$L -type f -name '*.log' | wc -l` `find ./data/$V/$L -type f -name '*.root' | wc -l`
+        printf "%-30s\t%4d\t%4d\n" $V/$L `find -L ./data/$V/$L -type f -name '*.log' | wc -l` `find -L ./data/$V/$L -type f -name '*.root' | wc -l`
       done
       printf "%s\n" "--------------------------------------------"
-      printf "%-30s\t%4d\t%4d\n" $V `find ./data/$V -type f -name '*.log' | wc -l` `find ./data/$V -type f -name '*.root' | wc -l`
+      printf "%-30s\t%4d\t%4d\n" $V `find -L ./data/$V -type f -name '*.log' | wc -l` `find -L ./data/$V -type f -name '*.root' | wc -l`
       printf "%s\n" "--------------------------------------------"
     done
     echo
@@ -51,7 +51,7 @@ if [ -z "${LISTS// }" ]; then
 fi
 
 if [ ! -z "$2" ]; then
-  LISTS=`find ./data/$VERSION/ | grep $2.log | sort`
+  LISTS=`find -L ./data/$VERSION | grep $2.log | sort`
 fi
 
 total=0
