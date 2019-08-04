@@ -172,11 +172,11 @@ void plot2(string plot="", string title="", string version="v00", string options
   label->SetNDC();
   char buff[100];
   if (title.find("nphotons") != string::npos) {
-    sprintf(buff, "< #epsilon 0 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(1), h_mc_eff->GetBinError(1));
+    sprintf(buff, "< #epsilon 0 > = %6.4f #pm %6.4f", h_mc_eff->GetBinContent(1), h_mc_eff->GetBinError(1));
     label->DrawLatex(0.50, 0.65, buff);
-    sprintf(buff, "< #epsilon 1 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(2), h_mc_eff->GetBinError(2));
+    sprintf(buff, "< #epsilon 1 > = %6.4f #pm %6.4f", h_mc_eff->GetBinContent(2), h_mc_eff->GetBinError(2));
     label->DrawLatex(0.50, 0.60, buff);
-    sprintf(buff, "< #epsilon 2 > = %5.3f #pm %5.3f", h_mc_eff->GetBinContent(3), h_mc_eff->GetBinError(3));
+    sprintf(buff, "< #epsilon 2 > = %6.4f #pm %6.4f", h_mc_eff->GetBinContent(3), h_mc_eff->GetBinError(3));
     label->DrawLatex(0.50, 0.55, buff);
   } else {
     double xval = 0.;
@@ -184,7 +184,7 @@ void plot2(string plot="", string title="", string version="v00", string options
     xval = h1->IntegralAndError(0, h1->GetNbinsX()+1, xerr);
     xval = xval / h2->Integral(0, h2->GetNbinsX()+1);
     xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1);
-    sprintf(buff, "< #epsilon > = %5.3f #pm %5.3f", xval, xerr);
+    sprintf(buff, "< #epsilon > = %6.4f #pm %6.4f", xval, xerr);
     label->DrawLatex(0.50, 0.65, buff);
   }
 
