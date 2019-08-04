@@ -1028,6 +1028,21 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_ZGG_muo_pho1_pt_gen = new TH1D("h_ZGG_muo_pho1_pt_gen", "h_ZGG_muo_pho1_pt_gen", 15, 0., 300.);
    h_ZGG_muo_pho0_pho1_pt_gen = new TH1D("h_ZGG_muo_pho0_pho1_pt_gen", "h_ZGG_muo_pho0_pho1_pt_gen", 15, 0., 300.);
 
+   h_WGG_ele_pho0_pt_genmatch = new TH1D("h_WGG_ele_pho0_pt_genmatch", "h_WGG_ele_pho0_pt_genmatch", 15, 0., 300.);
+   h_WGG_ele_pho1_pt_genmatch = new TH1D("h_WGG_ele_pho1_pt_genmatch", "h_WGG_ele_pho1_pt_genmatch", 15, 0., 300.);
+   h_WGG_ele_pho0_pho1_pt_genmatch = new TH1D("h_WGG_ele_pho0_pho1_pt_genmatch", "h_WGG_ele_pho0_pho1_pt_genmatch", 15, 0., 300.);
+
+   h_WGG_muo_pho0_pt_genmatch = new TH1D("h_WGG_muo_pho0_pt_genmatch", "h_WGG_muo_pho0_pt_genmatch", 15, 0., 300.);
+   h_WGG_muo_pho1_pt_genmatch = new TH1D("h_WGG_muo_pho1_pt_genmatch", "h_WGG_muo_pho1_pt_genmatch", 15, 0., 300.);
+   h_WGG_muo_pho0_pho1_pt_genmatch = new TH1D("h_WGG_muo_pho0_pho1_pt_genmatch", "h_WGG_muo_pho0_pho1_pt_genmatch", 15, 0., 300.);
+
+   h_ZGG_ele_pho0_pt_genmatch = new TH1D("h_ZGG_ele_pho0_pt_genmatch", "h_ZGG_ele_pho0_pt_genmatch", 15, 0., 300.);
+   h_ZGG_ele_pho1_pt_genmatch = new TH1D("h_ZGG_ele_pho1_pt_genmatch", "h_ZGG_ele_pho1_pt_genmatch", 15, 0., 300.);
+   h_ZGG_ele_pho0_pho1_pt_genmatch = new TH1D("h_ZGG_ele_pho0_pho1_pt_genmatch", "h_ZGG_ele_pho0_pho1_pt_genmatch", 15, 0., 300.);
+
+   h_ZGG_muo_pho0_pt_genmatch = new TH1D("h_ZGG_muo_pho0_pt_genmatch", "h_ZGG_muo_pho0_pt_genmatch", 15, 0., 300.);
+   h_ZGG_muo_pho1_pt_genmatch = new TH1D("h_ZGG_muo_pho1_pt_genmatch", "h_ZGG_muo_pho1_pt_genmatch", 15, 0., 300.);
+   h_ZGG_muo_pho0_pho1_pt_genmatch = new TH1D("h_ZGG_muo_pho0_pho1_pt_genmatch", "h_ZGG_muo_pho0_pho1_pt_genmatch", 15, 0., 300.);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(COMPUTE_EG_MISID)
@@ -4819,6 +4834,70 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_ZGG_muo_pho0_pt_gen->Fill(pho0_gen.Pt(), weight_gen * weight_pu_muo);
        h_ZGG_muo_pho1_pt_gen->Fill(pho1_gen.Pt(), weight_gen * weight_pu_muo);
        h_ZGG_muo_pho0_pho1_pt_gen->Fill((pho0_gen + pho1_gen).Pt(), weight_gen * weight_pu_muo);
+     }
+   }
+
+   if (W_ele_sel) {
+     if (ipho1 != -1) {
+       if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
+         h_WGG_ele_pho0_pt_genmatch->Fill(pho0.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
+       }
+       if (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 22) {
+         h_WGG_ele_pho1_pt_genmatch->Fill(pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
+       }
+       if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
+         if (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 22) {
+           h_WGG_ele_pho0_pho1_pt_genmatch->Fill((pho0+pho1).Pt(), weight_W_ele * weight_pho0 * weight_pho1);
+         }
+       }
+     }
+   }
+
+   if (W_muo_sel) {
+     if (ipho1 != -1) {
+       if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
+         h_WGG_muo_pho0_pt_genmatch->Fill(pho0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
+       }
+       if (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 22) {
+         h_WGG_muo_pho1_pt_genmatch->Fill(pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
+       }
+       if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
+         if (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 22) {
+           h_WGG_muo_pho0_pho1_pt_genmatch->Fill((pho0+pho1).Pt(), weight_W_muo * weight_pho0 * weight_pho1);
+         }
+       }
+     }
+   }
+
+   if (Z_ele_sel) {
+     if (ipho1 != -1) {
+       if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
+         h_ZGG_ele_pho0_pt_genmatch->Fill(pho0.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
+       }
+       if (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 22) {
+         h_ZGG_ele_pho1_pt_genmatch->Fill(pho1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
+       }
+       if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
+         if (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 22) {
+           h_ZGG_ele_pho0_pho1_pt_genmatch->Fill((pho0+pho1).Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
+         }
+       }
+     }
+   }
+
+   if (Z_muo_sel) {
+     if (ipho1 != -1) {
+       if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
+         h_ZGG_muo_pho0_pt_genmatch->Fill(pho0.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
+       }
+       if (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 22) {
+         h_ZGG_muo_pho1_pt_genmatch->Fill(pho1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
+       }
+       if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
+         if (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 22) {
+           h_ZGG_muo_pho0_pho1_pt_genmatch->Fill((pho0+pho1).Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
+         }
+       }
      }
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)

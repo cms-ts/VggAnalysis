@@ -80,6 +80,7 @@ void plot2(string plot="", string title="", string version="v00", string options
 
   TH1D* h1 = 0;
   TH1D* h2 = 0;
+  TH1D* h3 = 0;
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
@@ -136,12 +137,26 @@ void plot2(string plot="", string title="", string version="v00", string options
         h2->Scale(norm);
       }
     }
+    if (h3) {
+      TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+      if (h) {
+        h3->Add(h, norm);
+      }
+    } else {
+      TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+      if (h) {
+        h3 = h;
+        h3->SetDirectory(0);
+        h3->Scale(norm);
+      }
+    }
     file->Close();
     delete file;
   }
 
-  if (h1) h1 = rebin(h1);
-  if (h2) h2 = rebin(h2);
+  h1 = rebin(h1);
+  h2 = rebin(h2);
+  if (h3) h3 = rebin(h3);
 
   if (options.find("test") != string::npos) version = version + ".test";
   if (options.find("new") != string::npos) version = version + ".new";
@@ -165,6 +180,22 @@ void plot2(string plot="", string title="", string version="v00", string options
 
   h_mc_eff->Draw("0");
 
+  if (h3) {
+    TH1D* h_mc_eff_genmatch = (TH1D*)h3->Clone("h_mc_eff_genmatch");
+    h_mc_eff_genmatch->Divide(h2);
+
+    h_mc_eff_genmatch->SetStats(kFALSE);
+
+    h_mc_eff_genmatch->SetMinimum(0.);
+    h_mc_eff_genmatch->SetMaximum(1.);
+
+    h_mc_eff_genmatch->SetLineColor(kRed);
+    h_mc_eff_genmatch->SetMarkerStyle(24);
+    h_mc_eff_genmatch->SetMarkerColor(kRed);
+
+    h_mc_eff_genmatch->Draw("0SAME");
+  }
+
   TLatex* label = new TLatex();
   label->SetTextSize(0.0275);
   label->SetTextFont(42);
@@ -186,6 +217,14 @@ void plot2(string plot="", string title="", string version="v00", string options
     xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1);
     sprintf(buff, "< #epsilon > = %6.4f #pm %6.4f", xval, xerr);
     label->DrawLatex(0.50, 0.65, buff);
+    if (h3) {
+      xval = h3->IntegralAndError(0, h3->GetNbinsX()+1, xerr);
+      xval = xval / h2->Integral(0, h2->GetNbinsX()+1);
+      xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1);
+      sprintf(buff, "< #epsilon_{match} > = %6.4f #pm %6.4f", xval, xerr);
+      label->SetTextColor(kRed);
+      label->DrawLatex(0.50, 0.55, buff);
+    }
   }
 
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".eff/").c_str())) {

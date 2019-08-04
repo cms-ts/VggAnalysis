@@ -477,6 +477,22 @@ public :
    TH1D* h_ZGG_muo_pho1_pt_gen = 0;
    TH1D* h_ZGG_muo_pho0_pho1_pt_gen = 0;
 
+   TH1D* h_WGG_ele_pho0_pt_genmatch = 0;
+   TH1D* h_WGG_ele_pho1_pt_genmatch = 0;
+   TH1D* h_WGG_ele_pho0_pho1_pt_genmatch = 0;
+
+   TH1D* h_WGG_muo_pho0_pt_genmatch = 0;
+   TH1D* h_WGG_muo_pho1_pt_genmatch = 0;
+   TH1D* h_WGG_muo_pho0_pho1_pt_genmatch = 0;
+
+   TH1D* h_ZGG_ele_pho0_pt_genmatch = 0;
+   TH1D* h_ZGG_ele_pho1_pt_genmatch = 0;
+   TH1D* h_ZGG_ele_pho0_pho1_pt_genmatch = 0;
+
+   TH1D* h_ZGG_muo_pho0_pt_genmatch = 0;
+   TH1D* h_ZGG_muo_pho1_pt_genmatch = 0;
+   TH1D* h_ZGG_muo_pho0_pho1_pt_genmatch = 0;
+
    TH1D* pu_ele_weights = 0;
    TH1D* pu_muo_weights = 0;
 
