@@ -10,7 +10,11 @@ TH1D* rebin(TH1D* old) {
   int nb = 0;
   float nbins[100];
 
-  if (name.find("pho0_pho1_pt") != string::npos) {
+  if (name.find("pho0_pho1_pt") != string::npos ||
+      name.find("WGG_ele_pho0_pt") != string::npos || name.find("WGG_ele_pho1_pt") != string::npos ||
+      name.find("WGG_muo_pho0_pt") != string::npos || name.find("WGG_muo_pho1_pt") != string::npos ||
+      name.find("ZGG_ele_pho0_pt") != string::npos || name.find("ZGG_ele_pho1_pt") != string::npos ||
+      name.find("ZGG_muo_pho0_pt") != string::npos || name.find("ZGG_muo_pho1_pt") != string::npos) {
     nb = 6;
     nbins[0] = 1;
     nbins[1] = 1;
@@ -18,6 +22,18 @@ TH1D* rebin(TH1D* old) {
     nbins[3] = 1;
     nbins[4] = 5;
     nbins[5] = 6;
+  } else if (name.find("WG_ele_pho0_pt") != string::npos ||
+             name.find("WG_muo_pho0_pt") != string::npos ||
+             name.find("ZG_ele_pho0_pt") != string::npos ||
+             name.find("ZG_muo_pho0_pt") != string::npos) {
+    nb = 19;
+    for (int i = 0; i < 15; i++) {
+      nbins[i] = 2;
+    }
+    nbins[15] = 6;
+    nbins[16] = 6;
+    nbins[17] = 6;
+    nbins[18] = 12;
   } else {
     return old;
   }
@@ -70,13 +86,15 @@ TH2D* rebin(TH2D* old) {
     for (int i = 0; i < 8; i++) {
       nxbins[i] = 1;
     }
-    nyb = 60;
-    for (int i = 0; i < 60; i++) {
-      nybins[i] = 1;
+
+    nyb = 19;
+    for (int i = 0; i < 15; i++) {
+      nybins[i] = 2;
     }
-//FIXME
-    return old;
-//FIXME
+    nybins[15] = 6;
+    nybins[16] = 6;
+    nybins[17] = 6;
+    nybins[18] = 12;
   } else {
     return old;
   }
@@ -144,14 +162,24 @@ TH3D* rebin(TH3D* old) {
   float nzbins[100];
 
   if (name.find("map") != string::npos) {
-    nxb = 60;
-    for (int i = 0; i < 60; i++) {
-      nxbins[i] = 1;
+    nxb = 19;
+    for (int i = 0; i < 15; i++) {
+      nxbins[i] = 2;
     }
-    nyb = 60;
-    for (int i = 0; i < 60; i++) {
-      nybins[i] = 1;
+    nxbins[15] = 6;
+    nxbins[16] = 6;
+    nxbins[17] = 6;
+    nxbins[18] = 12;
+
+    nyb = 19;
+    for (int i = 0; i < 15; i++) {
+      nybins[i] = 2;
     }
+    nybins[15] = 6;
+    nybins[16] = 6;
+    nybins[17] = 6;
+    nybins[18] = 12;
+
     nzb = 6;
     nzbins[0] = 1;
     nzbins[1] = 1;
