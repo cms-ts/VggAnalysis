@@ -38,12 +38,17 @@ TH1D* rebin(TH1D* old) {
     return old;
   }
 
+  if (old->GetNbinsX() == nb) {
+    cout << "ERROR: " << name << " already binned" << endl;
+    return old;
+  }
+
   int n = 0;
   for (int i = 0; i < nb; i++) {
     n = n + nbins[i];
   }
   if (n != old->GetNbinsX()) {
-    cout << "error: " << name << " - " << n << " " << old->GetNbinsX() << endl;
+    cout << "ERROR: " << name << " - " << n << " " << old->GetNbinsX() << endl;
     return old;
   }
 
@@ -99,12 +104,17 @@ TH2D* rebin(TH2D* old) {
     return old;
   }
 
+  if (old->GetNbinsX() == nxb || old->GetNbinsY() == nyb) {
+    cout << "ERROR: " << name << " already binned" << endl;
+    return old;
+  }
+
   int nx = 0;
   for (int i = 0; i < nxb; i++) {
     nx = nx + nxbins[i];
   }
   if (nx != old->GetNbinsX()) {
-    cout << "error: " << nx << " " << old->GetNbinsX() << endl;
+    cout << "ERROR: " << name << " - " << nx << " " << old->GetNbinsX() << endl;
     return old;
   }
   int ny = 0;
@@ -112,7 +122,7 @@ TH2D* rebin(TH2D* old) {
     ny = ny + nybins[i];
   }
   if (ny != old->GetNbinsY()) {
-    cout << "error: " << ny << " " << old->GetNbinsY() << endl;
+    cout << "ERROR: " << name << " - " << ny << " " << old->GetNbinsY() << endl;
     return old;
   }
 
@@ -191,12 +201,17 @@ TH3D* rebin(TH3D* old) {
     return old;
   }
 
+  if (old->GetNbinsX() == nxb || old->GetNbinsY() == nyb || old->GetNbinsZ() == nzb) {
+    cout << "ERROR: " << name << " already binned" << endl;
+    return old;
+  }
+
   int nx = 0;
   for (int i = 0; i < nxb; i++) {
     nx = nx + nxbins[i];
   }
   if (nx != old->GetNbinsX()) {
-    cout << "error: " << nx << " " << old->GetNbinsX() << endl;
+    cout << "ERROR: " << name << " - " << nx << " " << old->GetNbinsX() << endl;
     return old;
   }
   int ny = 0;
@@ -204,7 +219,7 @@ TH3D* rebin(TH3D* old) {
     ny = ny + nybins[i];
   }
   if (ny != old->GetNbinsY()) {
-    cout << "error: " << ny << " " << old->GetNbinsY() << endl;
+    cout << "ERROR: " << name << " - "  << ny << " " << old->GetNbinsY() << endl;
     return old;
   }
   int nz = 0;
@@ -212,7 +227,7 @@ TH3D* rebin(TH3D* old) {
     nz = nz + nzbins[i];
   }
   if (nz != old->GetNbinsZ()) {
-    cout << "error: " << nz << " " << old->GetNbinsZ() << endl;
+    cout << "ERROR: " << name << " - " << nz << " " << old->GetNbinsZ() << endl;
     return old;
   }
 
