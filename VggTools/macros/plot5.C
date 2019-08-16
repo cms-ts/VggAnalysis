@@ -410,7 +410,6 @@ void plot5(string plot="", string title="", string version="v00", string options
   h_xsec_mc_gen->GetXaxis()->SetLabelFont(42);
   h_xsec_mc_gen->GetXaxis()->SetLabelSize(0.08);
 
-  h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dN_{#gamma} [pb]");
   h_xsec_mc_gen->GetYaxis()->SetTitleSize(0.05);
   h_xsec_mc_gen->GetYaxis()->SetTitleOffset(0.8);
   h_xsec_mc_gen->GetYaxis()->SetLabelSize(0.045);
@@ -483,106 +482,156 @@ void plot5(string plot="", string title="", string version="v00", string options
   string tmp_title = title;
 
   if (tmp_title == "h_W_ele_nphotons" || tmp_title == "h_W_muo_nphotons") {
-    h_ratio_gen->GetXaxis()->SetTitle("Number of photons");
+    h_ratio_gen->GetXaxis()->SetTitle("N_{#gamma}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dN_{#gamma} [pb/GeV]");
   } else if (tmp_title == "h_Z_ele_nphotons" || tmp_title == "h_Z_muo_nphotons") {
-    h_ratio_gen->GetXaxis()->SetTitle("Number of photons");
+    h_ratio_gen->GetXaxis()->SetTitle("N_{#gamma}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dN_{#gamma} [pb]");
   } else if (tmp_title == "h_WG_ele_pho0_pt" || tmp_title == "h_WG_muo_pho0_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma_{1}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dp_{T}^{#gamma_{1} [pb/GeV]");
   } else if (tmp_title == "h_ZG_ele_pho0_pt" || tmp_title == "h_ZG_muo_pho0_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma_{1}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dp_{T}^{#gamma_{1}} [pb/GeV]");
   } else if (tmp_title == "h_WGG_ele_pho1_eta" || tmp_title == "h_WGG_muo_pho1_eta") {
-    h_ratio_gen->GetXaxis()->SetTitle("#eta^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#eta^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#eta^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_WGG_ele_pho1_phi" || tmp_title == "h_WGG_muo_pho1_phi") {
-    h_ratio_gen->GetXaxis()->SetTitle("#phi^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#phi^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#phi^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_WGG_ele_pho1_r9" || tmp_title == "h_WGG_muo_pho1_r9") {
-    h_ratio_gen->GetXaxis()->SetTitle("R_{9}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("R_{9}^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dR_{9}^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_WGG_ele_pho0_sieie" || tmp_title == "h_WGG_muo_pho0_sieie") {
-    h_ratio_gen->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma_{1}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#sigma_{i#etai#eta}^{#gamma_{1}} [pb]");
   } else if (tmp_title == "h_WGG_ele_pho1_sieie" || tmp_title == "h_WGG_muo_pho1_sieie") {
-    h_ratio_gen->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#sigma_{i#etai#eta}^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_WGG_ele_pho1_jet0_dR" || tmp_title == "h_WGG_muo_pho1_jet0_dR") {
-    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{j#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{j#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#DeltaR^{j#gamma_{2}} [pb]");
   } else if (tmp_title == "h_WGG_ele_pho0_mva" || tmp_title == "h_WGG_muo_pho0_mva") {
-    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma_{1}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dmva^{#gamma_{1}} [pb]");
   } else if (tmp_title == "h_WGG_ele_pho1_mva" || tmp_title == "h_WGG_muo_pho1_mva") {
-    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dmva^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_WGG_ele_pho1_pf_iso_all" || tmp_title == "h_WGG_muo_pf_iso_all") {
-    h_ratio_gen->GetXaxis()->SetTitle("Iso_{all}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("Iso_{all}^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dIso_{all}^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_WGG_ele_pho1_pf_iso_chg" || tmp_title == "h_WGG_muo_pf_iso_chg") {
-    h_ratio_gen->GetXaxis()->SetTitle("Iso_{chg}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("Iso_{chg}^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dIso_{chg}^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_WGG_ele_pho1_dR" || tmp_title == "h_WGG_muo_pho1_dR") {
-    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{l#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{l#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#DeltaR^{l#gamma_{2}} [pb]");
   } else if (tmp_title == "h_WGG_ele_pho0_pt" || tmp_title == "h_WGG_muo_pho0_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma_{1}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dp_{T}^{#gamma_{1}} [pb/GeV]");
   } else if (tmp_title == "h_WGG_ele_pho1_pt" || tmp_title == "h_WGG_muo_pho1_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dp_{T}^{#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_WGG_ele_ele0_pt" || tmp_title == "h_WGG_muo_muo0_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{l}");
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{l_{1}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dp_{T}^{l_{1}} [pb/GeV]");
   } else if (tmp_title == "h_WGG_ele_pho0_pho1_dR" || tmp_title == "h_WGG_muo_pho0_pho1_dR") {
-    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{#gamma#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{#gamma_{1}#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#DeltaR^{#gamma_{1}#gamma_{2}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho1_eta" || tmp_title == "h_ZGG_muo_pho1_eta") {
-    h_ratio_gen->GetXaxis()->SetTitle("#eta^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#eta^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#eta^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho1_phi" || tmp_title == "h_ZGG_muo_pho1_phi") {
-    h_ratio_gen->GetXaxis()->SetTitle("#phi^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#phi^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#phi^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho1_r9" || tmp_title == "h_ZGG_muo_pho1_r9") {
-    h_ratio_gen->GetXaxis()->SetTitle("R_{9}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("R_{9}^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dR_{9}^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho0_sieie" || tmp_title == "h_ZGG_muo_pho0_sieie") {
-    h_ratio_gen->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma_{1}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#sigma_{i#etai#eta}^{#gamma_{1}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho1_sieie" || tmp_title == "h_ZGG_muo_pho1_sieie") {
-    h_ratio_gen->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#sigma_{i#etai#eta}^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho1_jet0_dR" || tmp_title == "h_ZGG_muo_pho1_jet0_dR") {
-    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{j#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{j#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#DeltaR^{j#gamma_{2}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho0_mva" || tmp_title == "h_ZGG_muo_pho0_mva") {
-    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma_{1}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dmva^{#gamma_{1}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho1_mva" || tmp_title == "h_ZGG_muo_pho1_mva") {
-    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dmva^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho1_pf_iso_all" || tmp_title == "h_ZGG_muo_pf_iso_all") {
-    h_ratio_gen->GetXaxis()->SetTitle("Iso_{all}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("Iso_{all}^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dIso_{all}^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho1_pf_iso_chg" || tmp_title == "h_ZGG_muo_pf_iso_chg") {
-    h_ratio_gen->GetXaxis()->SetTitle("Iso_{chg}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("Iso_{chg}^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dIso_{chg}^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho1_dR" || tmp_title == "h_ZGG_muo_pho1_dR") {
-    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{l#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{l#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#DeltaR^{l#gamma_{2}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho0_pt" || tmp_title == "h_ZGG_muo_pho0_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma_{1}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dp_{T}^{#gamma_{1}} [pb/GeV]");
   } else if (tmp_title == "h_ZGG_ele_pho1_pt" || tmp_title == "h_ZGG_muo_pho1_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dp_{T}^{#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_ZGG_ele_pho0_pho1_dR" || tmp_title == "h_ZGG_muo_pho0_pho1_dR") {
-    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{#gamma#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("#DeltaR^{#gamma_{1}#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#DeltaR^{#gamma_{1}#gamma_{2}} [pb]");
   } else if (tmp_title == "h_WGG_ele" || tmp_title == "h_WGG_muo") {
     h_ratio_gen->GetXaxis()->SetTitle("M_{T} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM_{T} [pb/GeV]");
   } else if (tmp_title == "h_ZGG_ele" || tmp_title == "h_ZGG_muo") {
     h_ratio_gen->GetXaxis()->SetTitle("M_{ll} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM_{ll} [pb/GeV]");
   } else if (tmp_title == "h_WGG_ele_pho0_pho1_pt" || tmp_title == "h_WGG_muo_pho0_pho1_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma_{1}#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dp_{T}^{#gamma_{1}#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_WGG_ele_pho0_pho1" || tmp_title == "h_WGG_muo_pho0_pho1") {
-    h_ratio_gen->GetXaxis()->SetTitle("M^{#gamma#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("M^{#gamma_{1}#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM^{#gamma_{1}#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_WGG_ele_ele0_pho0" || tmp_title == "h_WGG_muo_muo0_pho0") {
-    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l_{1}#gamma_{1}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM^{l_{1}#gamma_{1}} [pb/GeV]");
   } else if (tmp_title == "h_WGG_ele_ele0_pho1" || tmp_title == "h_WGG_muo_muo0_pho1") {
-    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l_{1}#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM^{l_{1}#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_WGG_ele_ele0_pho0_pho1" || tmp_title == "h_WGG_muo_muo0_pho0_pho1") {
-    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l_{1}#gamma_{1}#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM^{l_{1}#gamma_{1}#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_ZGG_ele_pho0_pho1_pt" || tmp_title == "h_ZGG_muo_pho0_pho1_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma_{1}#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dp_{T}^{#gamma_{1}#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_ZGG_ele_pho0_pho1" || tmp_title == "h_ZGG_muo_pho0_pho1") {
-    h_ratio_gen->GetXaxis()->SetTitle("M^{#gamma#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("M^{#gamma_{1}#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM^{#gamma_{1}#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_ZGG_ele_ele0_pho1" || tmp_title == "h_ZGG_muo_muo0_pho1") {
-    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l_{1}#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM^{l_{1}#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_ZGG_ele_ele1_pho1" || tmp_title == "h_ZGG_muo_muo1_pho1") {
-    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l_{2}#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM^{l#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_ZGG_ele_ele0_pho0_pho1" || tmp_title == "h_ZGG_muo_muo0_pho0_pho1") {
-    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("M^{_{1}l#gamma_{1}#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM^{l_{1}#gamma_{1}#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_ZGG_ele_ele1_pho0_pho1" || tmp_title == "h_ZGG_muo_muo1_pho0_pho1") {
-    h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l_{2}#gamma_{1}#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM^{l#gamma_{1}#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_ZGG_ele_ele0_ele1_pho0_pho1" || tmp_title == "h_ZGG_muo_muo0_muo1_pho0_pho1") {
-    h_ratio_gen->GetXaxis()->SetTitle("M^{ll#gamma#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("M^{l_{1}l_{2}#gamma_{1}#gamma_{2}} [GeV]");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM^{l_{1}l_{2}#gamma_{1}#gamma_{2}} [pb/GeV]");
   } else if (tmp_title == "h_ZGG_ele_pho0_noiso_mva" || tmp_title == "h_ZGG_muo_pho0_noiso_mva") {
-    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma_{1}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dmva^{#gamma_{1}} [pb]");
   } else if (tmp_title == "h_ZGG_ele_pho1_noiso_mva" || tmp_title == "h_ZGG_muo_pho1_noiso_mva") {
-    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
+    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma_{2}}");
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dmva^{#gamma_{2}} [pb]");
   } else {
     tmp_title.erase(0, 2);
     h_ratio_gen->GetXaxis()->SetTitle(tmp_title.c_str());
+    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d?");
   }
 
   h_ratio_gen->Draw("E5");
