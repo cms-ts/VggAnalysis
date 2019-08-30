@@ -39,7 +39,7 @@ TH1D* rebin(TH1D* old) {
   }
 
   if (old->GetNbinsX() == nb) {
-    cout << "ERROR: " << name << " already binned" << endl;
+    cout << "ERROR: " << name << " already rebinned" << endl;
     return old;
   }
 
@@ -105,7 +105,7 @@ TH2D* rebin(TH2D* old) {
   }
 
   if (old->GetNbinsX() == nxb && old->GetNbinsY() == nyb) {
-    cout << "ERROR: " << name << " already binned" << endl;
+    cout << "ERROR: " << name << " already rebinned" << endl;
     return old;
   }
 
@@ -202,7 +202,7 @@ TH3D* rebin(TH3D* old) {
   }
 
   if (old->GetNbinsX() == nxb && old->GetNbinsY() == nyb && old->GetNbinsZ() == nzb) {
-    cout << "ERROR: " << name << " already binned" << endl;
+    cout << "ERROR: " << name << " already rebinned" << endl;
     return old;
   }
 
