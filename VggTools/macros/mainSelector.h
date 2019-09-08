@@ -461,6 +461,12 @@ public :
    TH1D* h_Z_ele_nphotons_gen = 0;
    TH1D* h_Z_muo_nphotons_gen = 0;
 
+   TH1D* h_WGG_ele_gen = 0;
+   TH1D* h_WGG_muo_gen = 0;
+
+   TH1D* h_ZGG_ele_gen = 0;
+   TH1D* h_ZGG_muo_gen = 0;
+
    TH1D* h_WGG_ele_pho0_pt_gen = 0;
    TH1D* h_WGG_ele_pho1_pt_gen = 0;
    TH1D* h_WGG_ele_pho0_pho1_pt_gen = 0;
