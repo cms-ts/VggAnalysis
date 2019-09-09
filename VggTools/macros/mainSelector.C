@@ -1161,6 +1161,11 @@ Bool_t mainSelector::Process(Long64_t entry)
    weight_pu_muo = getWeight(pu_muo_weights, *Pileup_nTrueInt, 0);
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
+#if defined(RIVET)
+   weight_pu_ele = 1.;
+   weight_pu_muo = 1.;
+#endif // defined(RIVET)
+
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (isWJetsToLNu || isWG || isWGG || isWTauNu || isDYJetsToLL || isZG || isZGG || isZTauTau) {
 

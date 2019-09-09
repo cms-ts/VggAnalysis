@@ -27,6 +27,8 @@
 
 // #define COMPUTE_EG_MISID
 
+// #define RIVET
+
 #if defined(NANOAODv5)
 #undef NANOAODv4
 #endif // defined(NANOAODv5)
