@@ -2609,8 +2609,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Jet_pt[i] * jet_smear < 0.01) jet_smear = 0.01 / Jet_pt[i];
 
      if (Jet_pt[i] * jet_smear > 15) {
-       met_px = met_px - (jet_smear - 1.) * Jet_pt[i] * TMath::Cos(Jet_phi[i]);
-       met_py = met_py - (jet_smear - 1.) * Jet_pt[i] * TMath::Sin(Jet_phi[i]);
+       met_px = met_px - Jet_pt[i] * (jet_smear - 1.) * TMath::Cos(Jet_phi[i]);
+       met_py = met_py - Jet_pt[i] * (jet_smear - 1.) * TMath::Sin(Jet_phi[i]);
      }
 
      Jet_pt[i] = Jet_pt[i] * jet_smear;
