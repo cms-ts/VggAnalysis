@@ -15,18 +15,18 @@ if [ ! -z "$1" ]; then
     exit
   elif [ "$1" == "short" ]; then
     echo
-    printf "%s\n" "============================================"
-    printf "%-30s\t%4s\t%4s\n" "versions" " log" "root"
-    printf "%s\n" "============================================"
+    printf "%s\n" "============================================================================"
+    printf "%-60s\t%4s\t%4s\n" "versions" " log" "root"
+    printf "%s\n" "============================================================================"
     VERSION=`ls -tr ./data/ | grep -v archive | grep -v auto_pu`
     for V in $VERSION; do
       LISTS=`find -L ./data/$V -mindepth 1 -maxdepth 1 -type d -printf "%P\n" | grep -v archive | grep -v auto_pu | sort`
       for L in $LISTS; do
-        printf "%-30s\t%4d\t%4d\n" $V/$L `find -L ./data/$V/$L -type f -name '*.log' | wc -l` `find -L ./data/$V/$L -type f -name '*.root' | wc -l`
+        printf "%-60s\t%4d\t%4d\n" $V/$L `find -L ./data/$V/$L -type f -name '*.log' | wc -l` `find -L ./data/$V/$L -type f -name '*.root' | wc -l`
       done
-      printf "%s\n" "--------------------------------------------"
-      printf "%-30s\t%4d\t%4d\n" $V `find -L ./data/$V -type f -name '*.log' | wc -l` `find -L ./data/$V -type f -name '*.root' | wc -l`
-      printf "%s\n" "============================================"
+      printf "%s\n" "----------------------------------------------------------------------------"
+      printf "%-60s\t%4d\t%4d\n" $V `find -L ./data/$V -type f -name '*.log' | wc -l` `find -L ./data/$V -type f -name '*.root' | wc -l`
+      printf "%s\n" "============================================================================"
     done
     echo
     exit
