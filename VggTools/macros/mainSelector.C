@@ -2522,12 +2522,12 @@ Bool_t mainSelector::Process(Long64_t entry)
    int n_jets = 0;
    int ijet0 = -1;
 
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    float met_px = *MET_pt * TMath::Cos(*MET_phi);
    float met_py = *MET_pt * TMath::Sin(*MET_phi);
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    for (uint i = 0; i < *nJet; i++) {
+
+     float jet_pt_ref = Jet_pt[i];
 
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 #if defined(NANOAODv4)
@@ -2608,12 +2608,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Jet_pt[i] * jet_smear < 0.01) jet_smear = 0.01 / Jet_pt[i];
 
-     if (Jet_pt[i] * jet_smear > 15) {
-       met_px = met_px - Jet_pt[i] * (jet_smear - 1.) * TMath::Cos(Jet_phi[i]);
-       met_py = met_py - Jet_pt[i] * (jet_smear - 1.) * TMath::Sin(Jet_phi[i]);
-     }
-
      Jet_pt[i] = Jet_pt[i] * jet_smear;
+
+     if (Jet_pt[i] > 15) {
+       met_px = met_px - (Jet_pt[i] - jet_pt_ref) * TMath::Cos(Jet_phi[i]);
+       met_py = met_py - (Jet_pt[i] - jet_pt_ref) * TMath::Sin(Jet_phi[i]);
+     }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
      if (Jet_pt[i] < 30) continue;
@@ -2650,10 +2650,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      n_jets++;
    }
 
-#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    *MET_pt = TMath::Sqrt(TMath::Power(met_px, 2) + TMath::Power(met_py, 2));
    *MET_phi = TMath::ATan2(met_py, met_px);
-#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    TLorentzVector jet0;
 
