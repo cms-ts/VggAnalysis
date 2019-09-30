@@ -2551,7 +2551,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Jet_pt[i] > 10 && fabs(Jet_eta[i]) < 5.2) {
        jet_correction_unc->setJetPt(Jet_pt[i]);
        jet_correction_unc->setJetEta(Jet_eta[i]);
-       double jet_unc = jet_correction_unc->getUncertainty(true);
+       float jet_unc = jet_correction_unc->getUncertainty(true);
 
        int jec_var = 0;
 #if defined(mainSelectorDT16_cxx)
