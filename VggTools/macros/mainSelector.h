@@ -34,11 +34,9 @@
 #endif // defined(NANOAODv5)
 
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
-#if defined(NANOAODv4)
 #define __ROOTCLING__ 1
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
 #include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
-#endif // defined(NANOAODv4)
 #endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
@@ -535,9 +533,7 @@ public :
    RoccoR* roccor = 0;
 
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
-#if defined(NANOAODv4)
    FactorizedJetCorrector* jet_corrector = 0;
-#endif // defined(NANOAODv4)
 #endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)

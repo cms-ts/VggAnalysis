@@ -538,40 +538,69 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-#if defined(NANOAODv4)
    JetCorrectorParameters* jet_correction_l1 = 0;
    JetCorrectorParameters* jet_correction_l2 = 0;
    JetCorrectorParameters* jet_correction_l3 = 0;
    JetCorrectorParameters* jet_correction_l2l3res = 0;
-#endif // defined(NANOAODv4)
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT18_cxx)
-#if defined(NANOAODv4)
    if (fInput && fInput->FindObject("era")) {
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018A")) {
+#if defined(NANOAODv4)
        jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunA_V8_DATA_L1FastJet_AK4PFchs.txt");
        jet_correction_l2 = new JetCorrectorParameters("jme/Autumn18_RunA_V8_DATA_L2Relative_AK4PFchs.txt");
        jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_RunA_V8_DATA_L3Absolute_AK4PFchs.txt");
        jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunA_V8_DATA_L2L3Residual_AK4PFchs.txt");
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+       jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunA_V19_DATA_L1FastJet_AK4PFchs.txt");
+       jet_correction_l2 = new JetCorrectorParameters("jme/Autumn18_RunA_V19_DATA_L2Relative_AK4PFchs.txt");
+       jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_RunA_V19_DATA_L3Absolute_AK4PFchs.txt");
+       jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunA_V19_DATA_L2L3Residual_AK4PFchs.txt");
+#endif // defined(NANOAODv5)
      }
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018B")) {
+#if defined(NANOAODv4)
        jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunB_V8_DATA_L1FastJet_AK4PFchs.txt");
        jet_correction_l2 = new JetCorrectorParameters("jme/Autumn18_RunB_V8_DATA_L2Relative_AK4PFchs.txt");
        jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_RunB_V8_DATA_L3Absolute_AK4PFchs.txt");
        jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunB_V8_DATA_L2L3Residual_AK4PFchs.txt");
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+       jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunB_V19_DATA_L1FastJet_AK4PFchs.txt");
+       jet_correction_l2 = new JetCorrectorParameters("jme/Autumn18_RunB_V19_DATA_L2Relative_AK4PFchs.txt");
+       jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_RunB_V19_DATA_L3Absolute_AK4PFchs.txt");
+       jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunB_V19_DATA_L2L3Residual_AK4PFchs.txt");
+#endif // defined(NANOAODv5)
      }
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018C")) {
+#if defined(NANOAODv4)
        jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunC_V8_DATA_L1FastJet_AK4PFchs.txt");
        jet_correction_l2 = new JetCorrectorParameters("jme/Autumn18_RunC_V8_DATA_L2Relative_AK4PFchs.txt");
        jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_RunC_V8_DATA_L3Absolute_AK4PFchs.txt");
        jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunC_V8_DATA_L2L3Residual_AK4PFchs.txt");
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+       jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunC_V19_DATA_L1FastJet_AK4PFchs.txt");
+       jet_correction_l2 = new JetCorrectorParameters("jme/Autumn18_RunC_V19_DATA_L2Relative_AK4PFchs.txt");
+       jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_RunC_V19_DATA_L3Absolute_AK4PFchs.txt");
+       jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunC_V19_DATA_L2L3Residual_AK4PFchs.txt");
+#endif // defined(NANOAODv5)
      }
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018D")) {
+#if defined(NANOAODv4)
        jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunD_V8_DATA_L1FastJet_AK4PFchs.txt");
        jet_correction_l2 = new JetCorrectorParameters("jme/Autumn18_RunD_V8_DATA_L2Relative_AK4PFchs.txt");
        jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_RunD_V8_DATA_L3Absolute_AK4PFchs.txt");
        jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunD_V8_DATA_L2L3Residual_AK4PFchs.txt");
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+       jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_RunD_V19_DATA_L1FastJet_AK4PFchs.txt");
+       jet_correction_l2 = new JetCorrectorParameters("jme/Autumn18_RunD_V19_DATA_L2Relative_AK4PFchs.txt");
+       jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_RunD_V19_DATA_L3Absolute_AK4PFchs.txt");
+       jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_RunD_V19_DATA_L2L3Residual_AK4PFchs.txt");
+#endif // defined(NANOAODv5)
      }
      if (jet_correction_l1 == 0) {
        Error("Begin", "%s : unknown era = %s", now.AsSQLString(), fInput->FindObject("era")->GetTitle());
@@ -582,7 +611,6 @@ void mainSelector::Begin(TTree * /*tree*/)
      Error("Begin", "%s : missing era", now.AsSQLString());
      gSystem->Exit(1);
    }
-#endif // defined(NANOAODv4)
 #endif // defined(mainSelectorDT18_cxx)
 
 #if defined(mainSelectorMC18_cxx)
@@ -592,10 +620,15 @@ void mainSelector::Begin(TTree * /*tree*/)
    jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_V8_MC_L3Absolute_AK4PFchs.txt");
    jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_V8_MC_L2L3Residual_AK4PFchs.txt");
 #endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+   jet_correction_l1 = new JetCorrectorParameters("jme/Autumn18_V19_MC_L1FastJet_AK4PFchs.txt");
+   jet_correction_l2 = new JetCorrectorParameters("jme/Autumn18_V19_MC_L2Relative_AK4PFchs.txt");
+   jet_correction_l3 = new JetCorrectorParameters("jme/Autumn18_V19_MC_L3Absolute_AK4PFchs.txt");
+   jet_correction_l2l3res = new JetCorrectorParameters("jme/Autumn18_V19_MC_L2L3Residual_AK4PFchs.txt");
+#endif // defined(NANOAODv5)
 #endif // defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-#if defined(NANOAODv4)
    vector<JetCorrectorParameters> jet_corrections;
    jet_corrections.push_back(*jet_correction_l1);
    jet_corrections.push_back(*jet_correction_l2);
@@ -603,7 +636,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    jet_corrections.push_back(*jet_correction_l2l3res);
 
    jet_corrector = new FactorizedJetCorrector(jet_corrections);
-#endif // defined(NANOAODv4)
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -622,11 +654,18 @@ void mainSelector::Begin(TTree * /*tree*/)
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2017E")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017DE_V32_DATA_Uncertainty_AK4PFchs.txt");
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2017F")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017F_V32_DATA_Uncertainty_AK4PFchs.txt");
 
+#if defined(NANOAODv4)
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018A")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunA_V8_DATA_Uncertainty_AK4PFchs.txt");
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018B")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunB_V8_DATA_Uncertainty_AK4PFchs.txt");
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018C")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunC_V8_DATA_Uncertainty_AK4PFchs.txt");
      if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018D")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunD_V8_DATA_Uncertainty_AK4PFchs.txt");
-
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018A")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunA_V19_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018B")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunB_V19_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018C")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunC_V19_DATA_Uncertainty_AK4PFchs.txt");
+     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018D")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunD_V19_DATA_Uncertainty_AK4PFchs.txt");
+#endif // defined(NANOAODv5)
      if (jet_correction_unc == 0) {
        Error("Begin", "%s : unknown era = %s", now.AsSQLString(), fInput->FindObject("era")->GetTitle());
        gSystem->Exit(1);
@@ -647,8 +686,14 @@ void mainSelector::Begin(TTree * /*tree*/)
    jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Fall17_V3_MC_SF_AK4PFchs.txt");
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
+#if defined(NANOAODv4)
    jet_resolution = new JME::JetResolution("jme/Autumn18_V4_MC_PtResolution_AK4PFchs.txt");
    jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Autumn18_V4_MC_SF_AK4PFchs.txt");
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+   jet_resolution = new JME::JetResolution("jme/Autumn18_V6_MC_PtResolution_AK4PFchs.txt");
+   jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Autumn18_V6_MC_SF_AK4PFchs.txt");
+#endif // defined(NANOAODv5)
 #endif // defined(mainSelectorMC18_cxx)
 
 }
@@ -2530,7 +2575,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      float jet_pt_ref = Jet_pt[i];
 
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-#if defined(NANOAODv4)
      if (Jet_pt[i] > 10 && fabs(Jet_eta[i]) < 5.2) {
 
        jet_corrector->setJetPt(Jet_pt[i] * (1. - Jet_rawFactor[i]));
@@ -2544,7 +2588,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        Jet_pt[i] = Jet_pt[i] * (1. - Jet_rawFactor[i]) * eCorr_jet;
      }
-#endif // defined(NANOAODv4)
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
