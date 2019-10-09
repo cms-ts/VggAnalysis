@@ -492,8 +492,10 @@ void plot3(string plot="", string title="", string version="v00", string options
 
     if (alpha_gamma > -1e20 && alpha_gamma < 1e20 && alpha_jet > -1e20 && alpha_jet < 1e20 && (alpha_gamma + alpha_jet) != 0) {
       h_weight->SetBinContent(i, alpha_gamma/(alpha_gamma+alpha_jet));
+      h_weight->SetBinError(i, TMath::Sqrt(TMath::Power(alpha_jet/TMath::Power(alpha_jet+alpha_gamma,2)*alpha_gamma_err,2) + TMath::Power(alpha_gamma/TMath::Power(alpha_jet+alpha_gamma,2)*alpha_jet_err,2)));
     } else {
       h_weight->SetBinContent(i, 0.);
+      h_weight->SetBinError(i, 0.);
     }
 
     if (alpha_gamma > -1e20 && alpha_gamma < 1e20) {

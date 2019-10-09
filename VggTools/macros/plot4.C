@@ -299,7 +299,7 @@ void plot4(string plot="", string title="", string version="v00", string options
       for (int pho0 = 0; pho0 < histo3[0]->GetNbinsX()+1; pho0++) {
         for (int pho1 = 0; pho1 < histo3[0]->GetNbinsY()+1; pho1++) {
           histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + histo3[0]->GetBinContent(pho0, pho1, var) * (1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1)));
-          histo[8001]->SetBinError(var, histo[8001]->GetBinError(var) +  histo3[0]->GetBinContent(pho0, pho1, var) * TMath::Power(1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1), 2));
+          histo[8001]->SetBinError(var, histo[8001]->GetBinError(var) + TMath::Power(histo3[0]->GetBinContent(pho0, pho1, var) * (1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1)), 2) + TMath::Power(histo3[0]->GetBinContent(pho0, pho1, var) * (h_weight->GetBinContent(pho0)*h_weight->GetBinError(pho1) + h_weight->GetBinContent(pho1)*h_weight->GetBinError(pho0)) , 2));
         }
       }
     }
