@@ -295,26 +295,20 @@ void plot4(string plot="", string title="", string version="v00", string options
   histo[8001]->Reset();
 
   if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
-    for (int var = 0; var < histo3[0]->GetNbinsZ()+1; var++) {
-      for (int pho0 = 0; pho0 < histo3[0]->GetNbinsX()+1; pho0++) {
-        for (int pho1 = 0; pho1 < histo3[0]->GetNbinsY()+1; pho1++) {
+    for (int var = 0; var < histo3[0]->GetNbinsZ()+2; var++) {
+      for (int pho0 = 0; pho0 < histo3[0]->GetNbinsX()+2; pho0++) {
+        for (int pho1 = 0; pho1 < histo3[0]->GetNbinsY()+2; pho1++) {
           histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + histo3[0]->GetBinContent(pho0, pho1, var) * (1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1)));
-          histo[8001]->SetBinError(var, histo[8001]->GetBinError(var) + TMath::Power(histo3[0]->GetBinContent(pho0, pho1, var) * (1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1)), 2) + TMath::Power(histo3[0]->GetBinContent(pho0, pho1, var) * (h_weight->GetBinContent(pho0)*h_weight->GetBinError(pho1) + h_weight->GetBinContent(pho1)*h_weight->GetBinError(pho0)) , 2));
+          histo[8001]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001]->GetBinError(var), 2) + TMath::Power(histo3[0]->GetBinContent(pho0, pho1, var) * (1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1)), 2) + TMath::Power(histo3[0]->GetBinContent(pho0, pho1, var) * (h_weight->GetBinContent(pho0)*h_weight->GetBinError(pho1) + h_weight->GetBinContent(pho1)*h_weight->GetBinError(pho0)), 2)));
         }
       }
-    }
-    for (int var = 0; var < histo3[0]->GetNbinsZ(); var++) {
-      histo[8001]->SetBinError(var, TMath::Sqrt(histo[8001]->GetBinError(var)));
     }
   }
 
   if (title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) {
-    for (int i = 0; i < histo[0]->GetNbinsX(); i++) {
+    for (int i = 0; i < histo[0]->GetNbinsX()+2; i++) {
       histo[8001]->SetBinContent(i, histo[8001]->GetBinContent(i) + histo[0]->GetBinContent(i) * (1. - h_weight->GetBinContent(i)));
-      histo[8001]->SetBinError(i, histo[8001]->GetBinError(i) +  histo[0]->GetBinContent(i) * TMath::Power(1. - h_weight->GetBinContent(i), 2));
-    }
-    for (int i = 0; i < histo[0]->GetNbinsX(); i++) {
-      histo[8001]->SetBinError(i, TMath::Sqrt(histo[8001]->GetBinError(i)));
+      histo[8001]->SetBinError(i, TMath::Sqrt( TMath::Power(histo[8001]->GetBinError(i), 2) + TMath::Power(histo[0]->GetBinContent(i) * (1. - h_weight->GetBinContent(i)), 2)));
     }
   }
 

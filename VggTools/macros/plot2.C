@@ -234,7 +234,7 @@ void plot2(string plot="", string title="", string version="v00", string options
 
   ofstream out;
   out.open(("html/" + version + "/" + flag + "/" + year + ".eff/" + title + ".dat").c_str());
-  for (int i = 0; i < h_mc_eff->GetNbinsX()+1; i++) {
+  for (int i = 0; i < h_mc_eff->GetNbinsX()+2; i++) {
     out << i << " " << h_mc_eff->GetBinContent(i) << " " << h_mc_eff->GetBinError(i) << endl;
   }
   out.close();

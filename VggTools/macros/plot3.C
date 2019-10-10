@@ -372,7 +372,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  for (int i = 0; i < histo2[0]->GetNbinsY() + 1; i++) {
+  for (int i = 0; i < histo2[0]->GetNbinsY() + 2; i++) {
     double s0 = -1;
     double s1 = -1;
     double s2 = -1;

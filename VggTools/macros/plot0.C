@@ -252,7 +252,7 @@ void plot0(string plot="", string title="", string version="v00", string options
   TH1D* h_qcd = (TH1D*)histo[0]->Clone("h_qcd");
   if (options.find("nofit") != string::npos) {
     h_qcd->Add(h_mc_sum, -1);
-    for (int i = 0; i < h_qcd->GetNbinsX()+1; i++) {
+    for (int i = 0; i < h_qcd->GetNbinsX()+2; i++) {
       if (h_qcd->GetBinContent(i) < 0) {
         h_qcd->SetBinContent(i, 0);
         h_qcd->SetBinError(i, 0);
