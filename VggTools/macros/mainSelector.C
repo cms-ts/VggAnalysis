@@ -1492,7 +1492,13 @@ Bool_t mainSelector::Process(Long64_t entry)
    h_nevt->Fill(2.5, weight_gen);
 
    if (*Flag_goodVertices == 0) return kTRUE;
-   if (*Flag_METFilters == 0) return kTRUE;
+   if (*Flag_globalSuperTightHalo2016Filter == 0) return kTRUE;
+   if (*Flag_HBHENoiseFilter == 0) return kTRUE;
+   if (*Flag_HBHENoiseIsoFilter == 0) return kTRUE;
+   if (*Flag_EcalDeadCellTriggerPrimitiveFilter == 0) return kTRUE;
+   if (*Flag_BadPFMuonFilter == 0) return kTRUE;
+   if (*Flag_eeBadScFilter == 0) return kTRUE;
+   if (*Flag_ecalBadCalibFilter == 0) return kTRUE;
 
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
    if (*Flag_ecalBadCalibFilterV2 == 0) return kTRUE;
