@@ -9,11 +9,6 @@ if [ ! -z "$1" ]; then
   VERSION=$1
 fi
 
-if [ -z "$1" ]; then
-  echo "ERROR: missing version !!"
-  exit
-fi
-
 YEARS="2016"
 
 if [ ! -z "$2" ]; then
@@ -42,13 +37,13 @@ if [ ! -z "$4" ]; then
     FLAGS=$FLAGS" jec_up_2017"
     FLAGS=$FLAGS" jec_up_2018"
     FLAGS=$FLAGS" jec_down_2016"
-    FLAGS=$FLAGS" jer_down_2017"
+    FLAGS=$FLAGS" jec_down_2017"
     FLAGS=$FLAGS" jec_down_2018"
     FLAGS=$FLAGS" jer_up_2016"
     FLAGS=$FLAGS" jer_up_2017"
     FLAGS=$FLAGS" jer_up_2018"
     FLAGS=$FLAGS" jer_down_2016"
-    FLAGS=$FLAGS" jec_down_2017"
+    FLAGS=$FLAGS" jer_down_2017"
     FLAGS=$FLAGS" jer_down_2018"
     FLAGS=$FLAGS" sf_ele_eff_up"
     FLAGS=$FLAGS" sf_ele_eff_down"
@@ -85,11 +80,8 @@ if [ ! -z "$4" ]; then
 fi
 
 for YEAR in $YEARS; do
-
   for OPTION in $OPTIONS; do
-
     for FLAG in $FLAGS; do
-
       ( \
         ./plot1.sh $VERSION $YEAR $OPTION $FLAG ; \
         ./plot0.sh $VERSION $YEAR $OPTION",qcd,nofit" $FLAG ; \
@@ -99,11 +91,8 @@ for YEAR in $YEARS; do
         ./plot4.sh $VERSION $YEAR $OPTION $FLAG ; \
         ./plot5.sh $VERSION $YEAR $OPTION $FLAG \
       ) &
-
     done
-
   done
-
 done
 
 exit
