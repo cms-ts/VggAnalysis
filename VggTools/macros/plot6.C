@@ -126,6 +126,9 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("eg_misid_up");
   flags.push_back("eg_misid_down");
 
+  flags.push_back("jet_misid_iso1");
+  flags.push_back("jet_misid_iso2");
+
   flags.push_back("mc_matrix");
   flags.push_back("mc_bkg");
 
@@ -440,6 +443,19 @@ void plot6(string plot="", string title="", string version="v00", string options
     errors_tot["eg_misid"] = xval;
   }
 
+  if (h_xsec["jet_misid_iso1"] && h_xsec["jet_misid_iso2"]) {
+    double xval_stat_up = 0.;
+    double xval_up = h_xsec["jet_misid_iso1"]->IntegralAndError(0, h_xsec["jet_misid_iso1"]->GetNbinsX()+1, xval_stat_up, "width");
+    xval_up = xval_up - xsec_data_ref;
+    xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    double xval_stat_down = 0.;
+    double xval_down = h_xsec["jet_misid_iso2"]->IntegralAndError(0, h_xsec["jet_misid_iso2"]->GetNbinsX()+1, xval_stat_down, "width");
+    xval_down = xval_down - xsec_data_ref;
+    xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    double xval = 0.5 * (xval_up + xval_down);
+    errors_tot["jet_misid"] = xval;
+  }
+
   if (h_xsec["mc_matrix"]) {
     double xval_stat = 0.;
     double xval = h_xsec["mc_matrix"]->IntegralAndError(0, h_xsec["mc_matrix"]->GetNbinsX()+1, xval_stat, "width");
@@ -637,6 +653,16 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["eg_misid"].push_back(xval);
     }
 
+    if (h_xsec["jet_misid_iso1"] && h_xsec["jet_misid_iso2"]) {
+      double xval_up = fabs(h_xsec["jet_misid_iso1"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["jet_misid_iso1"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec["jet_misid_iso2"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["jet_misid_iso2"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+      double xval = 0.5 * (xval_up + xval_down);
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["jet_misid"].push_back(xval);
+    }
+
     if (h_xsec["mc_matrix"]) {
       double xval = fabs(h_xsec["mc_matrix"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["mc_matrix"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
@@ -683,6 +709,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (errors["pho_veto"].size()) labels.push_back("pho_veto");
   if (errors["l1prefiring"].size()) labels.push_back("l1prefiring");
   if (errors["eg_misid"].size()) labels.push_back("eg_misid");
+  if (errors["jet_misid"].size()) labels.push_back("jet_misid");
   if (errors["mc_matrix"].size()) labels.push_back("mc_matrix");
   if (errors["mc_bkg"].size()) labels.push_back("mc_bkg");
   if (errors["qcd_fit"].size()) labels.push_back("qcd_fit");

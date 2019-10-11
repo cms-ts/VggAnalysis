@@ -103,6 +103,9 @@ void mainSelector::Begin(TTree * /*tree*/)
      if (TString(fInput->FindObject("flag")->GetTitle()).Contains("eg_misid_up")) iflag = 130;
      if (TString(fInput->FindObject("flag")->GetTitle()).Contains("eg_misid_down")) iflag = 135;
 
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jet_misid_iso1")) iflag = 140;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jet_misid_iso2")) iflag = 145;
+
      if (iflag == -1) {
        Error("Begin", "%s : unknown flag = %s", now.AsSQLString(), fInput->FindObject("flag")->GetTitle());
        gSystem->Exit(1);
@@ -2219,8 +2222,52 @@ Bool_t mainSelector::Process(Long64_t entry)
        if ((Photon_vidNestedWPBitmap[ipho0_sieie] & 0b0000000010000000) == 0b0000000010000000) is_sieie = true;
 
        if (is_iso && !is_sieie) category = 1;
-       if (!is_iso && is_sieie) category = 2;
-       if (!is_iso && !is_sieie) category = 3;
+
+       if (!is_iso) {
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorDT16_cxx)
+         if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 0.7 && is_sieie) category = 2;
+         if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 0.7 && !is_sieie) category = 3;
+         if (iflag == 140) {
+           category = -1;
+           if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 0.8 && is_sieie) category = 2;
+           if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 0.8 && !is_sieie) category = 3;
+         }
+         if (iflag == 145) {
+           category = -1;
+           if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 0.9 && is_sieie) category = 2;
+           if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 0.9 && !is_sieie) category = 3;
+         }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorDT16_cxx)
+#if defined(mainSelectorMC17_cxx) || defined(mainSelectorDT17_cxx)
+         if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 1.25 && is_sieie) category = 2;
+         if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 1.25 && !is_sieie) category = 3;
+         if (iflag == 140) {
+           category = -1;
+           if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 1.35 && is_sieie) category = 2;
+           if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 1.35 && !is_sieie) category = 3;
+         }
+         if (iflag == 145) {
+           category = -1;
+           if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 1.45 && is_sieie) category = 2;
+           if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 1.45 && !is_sieie) category = 3;
+         }
+#endif // defined(mainSelectorMC17_cxx) || defined(mainSelectorDT17_cxx)
+#if defined(mainSelectorMC18_cxx) || defined(mainSelectorDT18_cxx)
+         if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 1.25 && is_sieie) category = 2;
+         if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 1.25 && !is_sieie) category = 3;
+         if (iflag == 140) {
+           category = -1;
+           if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 1.35 && is_sieie) category = 2;
+           if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 1.35 && !is_sieie) category = 3;
+         }
+         if (iflag == 145) {
+           category = -1;
+           if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 1.45 && is_sieie) category = 2;
+           if (Photon_pfRelIso03_chg[ipho0_sieie] * Photon_pt[ipho0_sieie] > 1.45 && !is_sieie) category = 3;
+         }
+#endif // defined(mainSelectorMC18_cxx) || defined(mainSelectorDT18_cxx)
+       }
+
        if (fabs(pho0_sieie.Eta()) > 1.566) category = category + 4;
      }
    }
