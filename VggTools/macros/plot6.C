@@ -187,7 +187,7 @@ void plot6(string plot="", string title="", string version="v00", string options
              << std::setw(6) << 100. * (xsec_data - xsec_data_ref) / xsec_data
              << " %"
              << " : "
-             << std::setw(6) << TMath::Sign(1, xsec_data - xsec_data_ref) * 100. * (TMath::Sqrt(TMath::Max(0.,TMath::Power(xsec_data - xsec_data_ref,2) - TMath::Abs(TMath::Power(xsec_stat_data,2) - TMath::Power(xsec_stat_data_ref,2)))))  / xsec_data
+             << std::setw(6) << TMath::Sign(1, xsec_data - xsec_data_ref) * 100. * (TMath::Sqrt(TMath::Max(0.,TMath::Power(xsec_data - xsec_data_ref,2) - TMath::Abs(TMath::Power(xsec_stat_data,2) - TMath::Power(xsec_stat_data_ref,2))))) / xsec_data
              << " %"
              << endl;
       } else {
