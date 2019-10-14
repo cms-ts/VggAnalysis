@@ -3223,13 +3223,13 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0 != -1) {
      if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) {
-       weight_eg_misid_pho0 = getWeight(sf_eg_misid, fabs(Photon_eta[ipho0]), Photon_pt[ipho0]);
+       weight_eg_misid_pho0 = getWeight(sf_eg_misid, fabs(Photon_eta[ipho0]), Photon_pt[ipho0], (iflag == 130) - (iflag == 135));
      }
    }
 
    if (ipho1 != -1) {
      if (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11) {
-       weight_eg_misid_pho1 = getWeight(sf_eg_misid, fabs(Photon_eta[ipho1]), Photon_pt[ipho1]);
+       weight_eg_misid_pho1 = getWeight(sf_eg_misid, fabs(Photon_eta[ipho1]), Photon_pt[ipho1], (iflag == 130) - (iflag == 135));
      }
    }
 #if defined(COMPUTE_EG_MISID)
