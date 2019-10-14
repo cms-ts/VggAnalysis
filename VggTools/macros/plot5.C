@@ -729,9 +729,9 @@ void plot5(string plot="", string title="", string version="v00", string options
     out << std::setw(2) << i;
     out << " ";
     out << std::setprecision(8);
-    out << std::setw(12) << h_xsec_rec->GetBinContent(i);
+    out << std::setw(12) << h_xsec_rec->GetBinContent(i) * h_xsec_rec->GetBinWidth(i);
     out << " +- ";
-    out << std::setw(10) << h_xsec_rec->GetBinError(i);
+    out << std::setw(10) << h_xsec_rec->GetBinError(i) * h_xsec_rec->GetBinWidth(i);
     out << endl;
   }
 
