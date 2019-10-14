@@ -90,6 +90,10 @@ if [ ! -z "$4" ]; then
   fi
 fi
 
+alias SKIP=$SKIP
+
+SKIP ./compile.sh plot
+
 for YEAR in $YEARS; do
   for OPTION in $OPTIONS; do
     for FLAG in $FLAGS; do
