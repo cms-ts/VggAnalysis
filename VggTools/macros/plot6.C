@@ -719,7 +719,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   out.open(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".dat").c_str());
   Info("File::Open", "dat file %s has been created", ("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".dat").c_str());
 
-  out << title << endl;
+  out << title << " (" << h_xsec_mc_gen["reference"]->Integral(0, h_xsec_mc_gen["reference"]->GetNbinsX()+1, "width") << ")" << endl;
 
   out << std::setw(25) << "data";
 
