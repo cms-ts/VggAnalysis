@@ -656,9 +656,6 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    TDatime now;
    Info("SlaveBegin", "%s", now.AsSQLString());
 
-   // set random seed
-   gRandom->SetSeed(gSystem->GetPid());
-
    // create the histograms
    h_nevt = new TH1D("h_nevt", "h_nevt", 10, 0., 10.);
 
@@ -1136,6 +1133,10 @@ Bool_t mainSelector::Process(Long64_t entry)
    // The return value is currently not used.
 
    fReader.SetLocalEntry(entry);
+
+   // set random seed
+   uint seed = (*run << 20) + (*luminosityBlock << 10) + (*event << 5) + (*nElectron) + (*nMuon) + (*nPhoton) + (*nJet);
+   gRandom->SetSeed(seed);
 
    h_nevt->Fill(0.5);
 

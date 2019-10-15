@@ -545,6 +545,10 @@ public :
    JME::JetResolutionScaleFactor* jet_resolution_sf = 0;
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
+   TTreeReaderValue<UInt_t> run = {fReader, "run"};
+   TTreeReaderValue<UInt_t> luminosityBlock = {fReader, "luminosityBlock"};
+   TTreeReaderValue<ULong64_t> event = {fReader, "event"};
+
    TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
