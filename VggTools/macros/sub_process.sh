@@ -30,7 +30,7 @@ if [ ! -z "$2" ]; then
   fi
 fi
 
-OPTIONS="nolog,default"
+OPTIONS="default,nolog"
 
 if [ ! -z "$3" ]; then
   OPTIONS=$3
