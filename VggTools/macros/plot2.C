@@ -166,34 +166,56 @@ void plot2(string plot="", string title="", string version="v00", string options
   if (options.find("madgraph") != string::npos) version = version + ".madgraph";
   if (options.find("default") != string::npos) version = version + ".default";
 
-  TH1D* h_mc_eff = (TH1D*)h1->Clone("h_mc_eff");
-
-  h_mc_eff->Divide(h2);
-
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
   c1->cd();
 
+  TH1D* h_mc_eff = (TH1D*)h1->Clone("h_mc_eff");
+  for (int i = 0; i < h_mc_eff->GetNbinsX()+2; i++) {
+    h_mc_eff->SetBinContent(i, h2->GetBinContent(i) != 0. ? h_mc_eff->GetBinContent(i) / h2->GetBinContent(i) : 1.);
+    h_mc_eff->SetBinError(i, h2->GetBinContent(i) != 0. ? h_mc_eff->GetBinError(i) / h2->GetBinContent(i) * TMath::Sqrt(1. - h_mc_eff->GetBinContent(i)) : 1.);
+  }
+
   h_mc_eff->SetStats(kFALSE);
 
-  h_mc_eff->SetMinimum(0.);
-  h_mc_eff->SetMaximum(1.);
+  h_mc_eff->SetMinimum(0.0);
+  h_mc_eff->SetMaximum(1.1);
 
   h_mc_eff->Draw("0");
 
   if (h3) {
     TH1D* h_mc_eff_genmatch = (TH1D*)h3->Clone("h_mc_eff_genmatch");
-    h_mc_eff_genmatch->Divide(h2);
+    for (int i = 0; i < h_mc_eff_genmatch->GetNbinsX()+2; i++) {
+      h_mc_eff_genmatch->SetBinContent(i, h2->GetBinContent(i) != 0. ? h_mc_eff_genmatch->GetBinContent(i) / h2->GetBinContent(i) : 1.);
+      h_mc_eff_genmatch->SetBinError(i, h2->GetBinContent(i) != 0. ? h_mc_eff_genmatch->GetBinError(i) / h2->GetBinContent(i) * TMath::Sqrt(1. - h_mc_eff_genmatch->GetBinContent(i)) : 1.);
+    }
 
     h_mc_eff_genmatch->SetStats(kFALSE);
 
-    h_mc_eff_genmatch->SetMinimum(0.);
-    h_mc_eff_genmatch->SetMaximum(1.);
+    h_mc_eff_genmatch->SetMinimum(0.0);
+    h_mc_eff_genmatch->SetMaximum(1.1);
 
     h_mc_eff_genmatch->SetLineColor(kRed);
     h_mc_eff_genmatch->SetMarkerStyle(24);
     h_mc_eff_genmatch->SetMarkerColor(kRed);
 
     h_mc_eff_genmatch->Draw("0SAME");
+
+    TH1D* h_mc_pur = (TH1D*)h3->Clone("h_mc_pur");
+    for (int i = 0; i < h_mc_pur->GetNbinsX()+2; i++) {
+      h_mc_pur->SetBinContent(i, h1->GetBinContent(i) != 0. ? h_mc_pur->GetBinContent(i) / h1->GetBinContent(i) : 1.);
+      h_mc_pur->SetBinError(i, h1->GetBinContent(i) != 0. ? h_mc_pur->GetBinError(i) / h1->GetBinContent(i) * TMath::Sqrt(1. - h_mc_pur->GetBinContent(i)) : 1.);
+    }
+
+    h_mc_pur->SetStats(kFALSE);
+
+    h_mc_pur->SetMinimum(0.0);
+    h_mc_pur->SetMaximum(1.1);
+
+    h_mc_pur->SetLineColor(kGreen+2);
+    h_mc_pur->SetMarkerStyle(26);
+    h_mc_pur->SetMarkerColor(kGreen+2);
+
+    h_mc_pur->Draw("0SAME");
   }
 
   TLatex* label = new TLatex();
@@ -203,27 +225,33 @@ void plot2(string plot="", string title="", string version="v00", string options
   label->SetNDC();
   char buff[100];
   if (title.find("nphotons") != string::npos) {
-    sprintf(buff, "< #epsilon 0 > = %6.4f #pm %6.4f", h_mc_eff->GetBinContent(1), h_mc_eff->GetBinError(1));
+    sprintf(buff, "< efficiency N=0 > = %6.4f #pm %6.4f", h_mc_eff->GetBinContent(1), h_mc_eff->GetBinError(1));
     label->DrawLatex(0.50, 0.65, buff);
-    sprintf(buff, "< #epsilon 1 > = %6.4f #pm %6.4f", h_mc_eff->GetBinContent(2), h_mc_eff->GetBinError(2));
+    sprintf(buff, "< efficiency N=1 > = %6.4f #pm %6.4f", h_mc_eff->GetBinContent(2), h_mc_eff->GetBinError(2));
     label->DrawLatex(0.50, 0.60, buff);
-    sprintf(buff, "< #epsilon 2 > = %6.4f #pm %6.4f", h_mc_eff->GetBinContent(3), h_mc_eff->GetBinError(3));
+    sprintf(buff, "< efficiency N=2 > = %6.4f #pm %6.4f", h_mc_eff->GetBinContent(3), h_mc_eff->GetBinError(3));
     label->DrawLatex(0.50, 0.55, buff);
   } else {
     double xval = 0.;
     double xerr = 0.;
     xval = h1->IntegralAndError(0, h1->GetNbinsX()+1, xerr, "width");
     xval = xval / h2->Integral(0, h2->GetNbinsX()+1, "width");
-    xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1, "width");
-    sprintf(buff, "< #epsilon > = %6.4f #pm %6.4f", xval, xerr);
+    xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1, "width") * TMath::Sqrt(1. - xval);
+    sprintf(buff, "< efficiency > = %6.4f #pm %6.4f", xval, xerr);
     label->DrawLatex(0.50, 0.65, buff);
     if (h3) {
       xval = h3->IntegralAndError(0, h3->GetNbinsX()+1, xerr, "width");
       xval = xval / h2->Integral(0, h2->GetNbinsX()+1, "width");
-      xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1, "width");
-      sprintf(buff, "< #epsilon_{match} > = %6.4f #pm %6.4f", xval, xerr);
+      xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1, "width") * TMath::Sqrt(1. - xval);
+      sprintf(buff, "< matching > = %6.4f #pm %6.4f", xval, xerr);
       label->SetTextColor(kRed);
       label->DrawLatex(0.50, 0.55, buff);
+      xval = h3->IntegralAndError(0, h3->GetNbinsX()+1, xerr, "width");
+      xval = xval / h1->Integral(1, h1->GetNbinsX()+1, "width");
+      xerr = xerr / h1->Integral(1, h1->GetNbinsX()+1, "width") * TMath::Sqrt(1. - xval);
+      sprintf(buff, "< purity > = %6.4f #pm %6.4f", xval, xerr);
+      label->SetTextColor(kGreen+2);
+      label->DrawLatex(0.50, 0.45, buff);
     }
   }
 
