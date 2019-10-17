@@ -1330,7 +1330,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (GenPart_status[i] != 1) continue;
        if (fabs(GenPart_pdgId[i]) != 22) continue;
        if ((GenPart_statusFlags[i] & 1) != 1) continue;
-       if (GenPart_pt[i] < 20) continue;
+       if (GenPart_pt[i] < 15) continue;
        if (fabs(GenPart_eta[i]) > 2.400) continue;
 
        bool skip = false;
@@ -1440,6 +1440,17 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
      if (ipho1_gen != -1) {
        pho1_gen.SetPtEtaPhiM(GenPart_pt[ipho1_gen], GenPart_eta[ipho1_gen], GenPart_phi[ipho1_gen], GenPart_mass[ipho1_gen]);
+     }
+
+     if (ipho0_gen != -1) {
+       if (pho0_gen.Pt() < 20) {
+         ipho0_gen = -1;
+       }
+     }
+     if (ipho1_gen != -1) {
+       if (pho1_gen.Pt() < 20) {
+         ipho1_gen = -1;
+       }
      }
 
      if (W_ele_sel_gen) {
