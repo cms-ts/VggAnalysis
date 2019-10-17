@@ -739,7 +739,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   out << std::setw(25) << "data";
 
   for (uint i = 0; i < labels.size(); i++) {
-    out << std::setw(11) << labels[i];
+    out << std::setw(11) << TString(labels[i]).ReplaceAll("_stat", "").Data();
   }
 
   out << std::setw(11) << "total"
