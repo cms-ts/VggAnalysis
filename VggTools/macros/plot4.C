@@ -56,7 +56,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "mc_matrix" || flag == "mc_bkg" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "mc_matrix" || flag == "mc_bkg" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -114,7 +114,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "mc_matrix" || flag == "mc_bkg" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "mc_matrix" || flag == "mc_bkg" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -302,6 +302,7 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo[8001]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001]->GetBinError(var), 2) + TMath::Power(histo3[0]->GetBinContent(pho0, pho1, var) * (1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1)), 2) + TMath::Power(histo3[0]->GetBinContent(pho0, pho1, var) * (h_weight->GetBinContent(pho0)*h_weight->GetBinError(pho1) + h_weight->GetBinContent(pho1)*h_weight->GetBinError(pho0)), 2)));
         }
       }
+      if (flag == "jet_misid_stat") histo[8001]->SetBinError(var, histo[8001]->GetBinError(var) * 1.1);
     }
   }
 
@@ -309,6 +310,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     for (int i = 0; i < histo[0]->GetNbinsX()+2; i++) {
       histo[8001]->SetBinContent(i, histo[8001]->GetBinContent(i) + histo[0]->GetBinContent(i) * (1. - h_weight->GetBinContent(i)));
       histo[8001]->SetBinError(i, TMath::Sqrt( TMath::Power(histo[8001]->GetBinError(i), 2) + TMath::Power(histo[0]->GetBinContent(i) * (1. - h_weight->GetBinContent(i)), 2)));
+      if (flag == "jet_misid_stat") histo[8001]->SetBinError(i, histo[8001]->GetBinError(i) * 1.1);
     }
   }
 

@@ -79,6 +79,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("reference");
 
   flags.push_back("bkg_stat");
+  flags.push_back("jet_misid_stat");
 
   flags.push_back("pileup_up");
   flags.push_back("pileup_down");
@@ -228,6 +229,13 @@ void plot6(string plot="", string title="", string version="v00", string options
     double xval = h_xsec["bkg_stat"]->IntegralAndError(0, h_xsec["bkg_stat"]->GetNbinsX()+1, xval_stat, "width");
     xval = TMath::Sqrt((TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.));
     errors_tot["bkg_stat"] = xval;
+  }
+
+  if (h_xsec["jet_misid_stat"]) {
+    double xval_stat = 0.;
+    double xval = h_xsec["jet_misid_stat"]->IntegralAndError(0, h_xsec["jet_misid_stat"]->GetNbinsX()+1, xval_stat, "width");
+    xval = TMath::Sqrt((TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.));
+    errors_tot["jet_misid_stat"] = xval;
   }
 
   if (h_xsec["pileup_up"] && h_xsec["pileup_down"]) {
@@ -503,6 +511,12 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["bkg_stat"].push_back(xval);
     }
 
+    if (h_xsec["jet_misid_stat"]) {
+      double xval = TMath::Sqrt((TMath::Power(h_xsec["jet_misid_stat"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))/(1.1 * 1.1 - 1.));
+      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      errors["jet_misid_stat"].push_back(xval);
+    }
+
     if (h_xsec["pileup_up"] && h_xsec["pileup_down"]) {
       double xval_up = fabs(h_xsec["pileup_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
       xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["pileup_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
@@ -696,6 +710,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   vector<string> labels;
 
   if (errors["bkg_stat"].size()) labels.push_back("bkg_stat");
+  if (errors["jet_misid_stat"].size()) labels.push_back("jet_misid_stat");
   if (errors["pileup"].size()) labels.push_back("pileup");
   if (errors["jec"].size()) labels.push_back("jec");
   if (errors["jer"].size()) labels.push_back("jer");
@@ -736,7 +751,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   out << std::setw(25) << "stat";
 
   for (uint i = 0; i < labels.size(); i++) {
-    if (labels[i] == "bkg_stat") {
+    if (labels[i] == "bkg_stat" || labels[i] == "jet_misid_stat") {
       if (errors[labels[i]].size()) out << std::setw(11) << "stat";
     } else {
       if (errors[labels[i]].size()) out << std::setw(11) << "syst";
@@ -757,7 +772,7 @@ void plot6(string plot="", string title="", string version="v00", string options
         << std::fixed << std::setprecision(5)
         << std::setw(12) << values["reference"][i]
         << std::setw(3) << " +-"
-        << std::setw(8) << (errors["bkg_stat"].size() ? TMath::Sqrt(TMath::Power(errors["reference"][i], 2) - TMath::Power(errors["bkg_stat"][i], 2)) : errors["reference"][i]);
+        << std::setw(8) << (errors["bkg_stat"].size() ? (errors["jet_misid_stat"].size() ? TMath::Sqrt(TMath::Power(errors["reference"][i], 2) - TMath::Power(errors["bkg_stat"][i], 2) - TMath::Power(errors["jet_misid_stat"][i], 2)) : TMath::Sqrt(TMath::Power(errors["reference"][i], 2) - TMath::Power(errors["bkg_stat"][i], 2)) ) : (errors["jet_misid_stat"].size() ? TMath::Sqrt(TMath::Power(errors["reference"][i], 2) - TMath::Power(errors["jet_misid_stat"][i], 2)) : errors["reference"][i]));
 
     for (uint j = 0; j < labels.size(); j++) {
       out << std::setw(3) << " +-"
@@ -771,7 +786,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     double sumw2 = 0.;
 
     for (uint j = 0; j < labels.size(); j++) {
-      if (labels[j] != "bkg_stat") {
+      if (labels[j] != "bkg_stat" && labels[j] != "jet_misid_stat") {
         sumw2 = sumw2 + TMath::Power(errors[labels[j]][i], 2);
       }
     }
@@ -792,7 +807,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       << std::fixed << std::setprecision(5)
       << std::setw(11) << xsec_data_ref
       << " +-"
-      << std::setw(8) << (errors_tot["bkg_stat"] ? TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - TMath::Power(errors_tot["bkg_stat"], 2)) : xsec_stat_data_ref);
+      << std::setw(8) << (errors_tot["bkg_stat"] ? (errors_tot["jet_misid_stat"] ? TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - TMath::Power(errors_tot["bkg_stat"], 2) - TMath::Power(errors_tot["jet_misid_stat"], 2))  : TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - TMath::Power(errors_tot["bkg_stat"], 2)) ) : (errors_tot["jet_misid_stat"] ? TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - TMath::Power(errors_tot["jet_misid_stat"], 2)) : xsec_stat_data_ref));
 
   for (uint j = 0; j < labels.size(); j++) {
     out << std::setw(3) << " +-";
@@ -810,7 +825,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   double sumw2 = 0.;
 
   for (uint j = 0; j < labels.size(); j++) {
-    if (labels[j] != "bkg_stat") {
+    if (labels[j] != "bkg_stat" && labels[j] != "jet_misid_stat") {
       sumw2 = sumw2 + TMath::Power(errors_tot[labels[j]], 2);
     }
   }
