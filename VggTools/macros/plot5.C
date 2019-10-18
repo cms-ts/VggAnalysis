@@ -75,7 +75,7 @@ void plot5(string plot="", string title="", string version="v00", string options
 
 #if defined(USE_RUN2_AVERAGES)
   TFile* f1 = 0;
-  if (flag == "mc_bkg" || title.find("nphotons") != string::npos) {
+  if (flag == "jet_bkg_mc" || title.find("nphotons") != string::npos) {
     f1 = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + ".root").c_str());
   } else {
     f1 = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str());
@@ -93,7 +93,7 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   TH1D* h_data = (TH1D*)f1->Get((title + "_data").c_str());
   TH1D* h_bkg = 0;
-  if (flag == "mc_bkg" || title.find("nphotons") != string::npos) {
+  if (flag == "jet_bkg_mc" || title.find("nphotons") != string::npos) {
     h_bkg = (TH1D*)f1->Get((title + "_bkg").c_str());
   } else {
     h_bkg = (TH1D*)f1->Get((title + "_misid").c_str());
@@ -152,7 +152,7 @@ void plot5(string plot="", string title="", string version="v00", string options
   TFile* f2_2018 = 0;
 
   if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
-    if (flag == "mc_bkg" || title.find("nphotons") != string::npos) {
+    if (flag == "jet_bkg_mc" || title.find("nphotons") != string::npos) {
       f1_2016 = new TFile(("html/" + version + "/" + flag + "/2016/root/" + title + ".root").c_str());
     } else {
       f1_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/" + title + ".root").c_str());
@@ -168,7 +168,7 @@ void plot5(string plot="", string title="", string version="v00", string options
     }
   }
   if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
-    if (flag == "mc_bkg" || title.find("nphotons") != string::npos) {
+    if (flag == "jet_bkg_mc" || title.find("nphotons") != string::npos) {
       f1_2017 = new TFile(("html/" + version + "/" + flag + "/2017/root/" + title + ".root").c_str());
     } else {
       f1_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/" + title + ".root").c_str());
@@ -184,7 +184,7 @@ void plot5(string plot="", string title="", string version="v00", string options
     }
   }
   if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
-    if (flag == "mc_bkg" || title.find("nphotons") != string::npos) {
+    if (flag == "jet_bkg_mc" || title.find("nphotons") != string::npos) {
       f1_2018 = new TFile(("html/" + version + "/" + flag + "/2018/root/" + title + ".root").c_str());
     } else {
       f1_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/" + title + ".root").c_str());
@@ -212,7 +212,7 @@ void plot5(string plot="", string title="", string version="v00", string options
   TH1D* h_bkg_2017 = 0;
   TH1D* h_bkg_2018 = 0;
 
-  if (flag == "mc_bkg" || title.find("nphotons") != string::npos) {
+  if (flag == "jet_bkg_mc" || title.find("nphotons") != string::npos) {
     if (f1_2016) h_bkg_2016 = (TH1D*)f1_2016->Get((title + "_bkg").c_str());
     if (f1_2017) h_bkg_2017 = (TH1D*)f1_2017->Get((title + "_bkg").c_str());
     if (f1_2018) h_bkg_2018 = (TH1D*)f1_2018->Get((title + "_bkg").c_str());

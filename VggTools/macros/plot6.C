@@ -130,8 +130,8 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("jet_misid_iso1");
   flags.push_back("jet_misid_iso2");
 
-  flags.push_back("mc_matrix");
-  flags.push_back("mc_bkg");
+  flags.push_back("jet_misid_mc");
+  flags.push_back("jet_bkg_mc");
 
   flags.push_back("qcd_fit");
 
@@ -464,20 +464,20 @@ void plot6(string plot="", string title="", string version="v00", string options
     errors_tot["jet_misid"] = xval;
   }
 
-  if (h_xsec["mc_matrix"]) {
+  if (h_xsec["jet_misid_mc"]) {
     double xval_stat = 0.;
-    double xval = h_xsec["mc_matrix"]->IntegralAndError(0, h_xsec["mc_matrix"]->GetNbinsX()+1, xval_stat, "width");
+    double xval = h_xsec["jet_misid_mc"]->IntegralAndError(0, h_xsec["jet_misid_mc"]->GetNbinsX()+1, xval_stat, "width");
     xval = xval - xsec_data_ref;
     xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
-    errors_tot["mc_matrix"] = xval;
+    errors_tot["jet_misid_mc"] = xval;
   }
 
-  if (h_xsec["mc_bkg"]) {
+  if (h_xsec["jet_bkg_mc"]) {
     double xval_stat = 0.;
-    double xval = h_xsec["mc_bkg"]->IntegralAndError(0, h_xsec["mc_bkg"]->GetNbinsX()+1, xval_stat, "width");
+    double xval = h_xsec["jet_bkg_mc"]->IntegralAndError(0, h_xsec["jet_bkg_mc"]->GetNbinsX()+1, xval_stat, "width");
     xval = xval - xsec_data_ref;
     xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
-    errors_tot["mc_bkg"] = xval;
+    errors_tot["jet_bkg_mc"] = xval;
   }
 
   if (h_xsec["qcd_fit"]) {
@@ -677,18 +677,18 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["jet_misid"].push_back(xval);
     }
 
-    if (h_xsec["mc_matrix"]) {
-      double xval = fabs(h_xsec["mc_matrix"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["mc_matrix"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec["jet_misid_mc"]) {
+      double xval = fabs(h_xsec["jet_misid_mc"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["jet_misid_mc"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
-      errors["mc_matrix"].push_back(xval);
+      errors["jet_misid_mc"].push_back(xval);
     }
 
-    if (h_xsec["mc_bkg"]) {
-      double xval = fabs(h_xsec["mc_bkg"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["mc_bkg"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec["jet_bkg_mc"]) {
+      double xval = fabs(h_xsec["jet_bkg_mc"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["jet_bkg_mc"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
       xval = xval * h_xsec["reference"]->GetBinWidth(i);
-      errors["mc_bkg"].push_back(xval);
+      errors["jet_bkg_mc"].push_back(xval);
     }
 
     if (h_xsec["qcd_fit"]) {
@@ -725,8 +725,8 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (errors["l1prefiring"].size()) labels.push_back("l1prefiring");
   if (errors["eg_misid"].size()) labels.push_back("eg_misid");
   if (errors["jet_misid"].size()) labels.push_back("jet_misid");
-  if (errors["mc_matrix"].size()) labels.push_back("mc_matrix");
-  if (errors["mc_bkg"].size()) labels.push_back("mc_bkg");
+  if (errors["jet_misid_mc"].size()) labels.push_back("jet_misid_mc");
+  if (errors["jet_bkg_mc"].size()) labels.push_back("jet_bkg_mc");
   if (errors["qcd_fit"].size()) labels.push_back("qcd_fit");
   if (errors["lumi"].size()) labels.push_back("lumi");
 
