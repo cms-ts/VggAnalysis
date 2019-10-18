@@ -250,8 +250,8 @@ void plot2(string plot="", string title="", string version="v00", string options
       label->SetTextColor(kRed);
       label->DrawLatex(0.50, 0.55, buff);
       xval = h3->IntegralAndError(0, h3->GetNbinsX()+1, xerr, "width");
-      xval = xval / h1->Integral(1, h1->GetNbinsX()+1, "width");
-      xerr = xerr / h1->Integral(1, h1->GetNbinsX()+1, "width") * TMath::Sqrt(1. - xval);
+      xval = xval / h1->Integral(0, h1->GetNbinsX()+1, "width");
+      xerr = xerr / h1->Integral(0, h1->GetNbinsX()+1, "width") * TMath::Sqrt(1. - xval);
       sprintf(buff, "< purity > = %6.4f #pm %6.4f", xval, xerr);
       label->SetTextColor(kGreen+2);
       label->DrawLatex(0.50, 0.45, buff);
