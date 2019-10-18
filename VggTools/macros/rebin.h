@@ -10,7 +10,8 @@ TH1D* rebin(TH1D* old) {
   int nb = 0;
   float nbins[100];
 
-  if (name.find("pho0_pho1_pt") != string::npos ||
+  if (name.find("WGG_ele_pho0_pho1_pt") != string::npos || name.find("WGG_muo_pho0_pho1_pt") != string::npos ||
+      name.find("ZGG_ele_pho0_pho1_pt") != string::npos || name.find("ZGG_muo_pho0_pho1_pt") != string::npos ||
       name.find("WGG_ele_pho0_pt") != string::npos || name.find("WGG_ele_pho1_pt") != string::npos ||
       name.find("WGG_muo_pho0_pt") != string::npos || name.find("WGG_muo_pho1_pt") != string::npos ||
       name.find("ZGG_ele_pho0_pt") != string::npos || name.find("ZGG_ele_pho1_pt") != string::npos ||
