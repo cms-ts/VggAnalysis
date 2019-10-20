@@ -391,10 +391,10 @@ void plot5(string plot="", string title="", string version="v00", string options
   pad1->Draw();
   pad1->cd();
 
-  h_xsec_mc_gen->SetMaximum(1.2*TMath::Max(h_xsec_mc_gen->GetMaximum(), h_xsec_rec->GetMaximum()));
-  h_xsec_mc_gen->SetMinimum(TMath::Max(0.000005, 0.8*TMath::Min(h_xsec_mc_gen->GetMinimum(), h_xsec_rec->GetMinimum())));
+  h_xsec_mc_gen->SetMaximum(10.*TMath::Max(h_xsec_mc_gen->GetMaximum(), h_xsec_rec->GetMaximum()));
+  h_xsec_mc_gen->SetMinimum(TMath::Max(5.e-9, 0.1*TMath::Min(h_xsec_mc_gen->GetMinimum(), h_xsec_rec->GetMinimum())));
 
-  if (title.find("nphotons") != string::npos) h_xsec_mc_gen->SetMinimum(TMath::Max(0.005, 0.8*TMath::Min(h_xsec_mc_gen->GetMinimum(), h_xsec_rec->GetMinimum())));
+  if (title.find("nphotons") != string::npos) h_xsec_mc_gen->SetMinimum(5.e-3);
 
   pad1->SetLogy();
 
@@ -416,11 +416,14 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   if (title.find("nphotons") != string::npos) h_xsec_mc_gen->GetXaxis()->SetRangeUser(-0.5, 2.5);
 
-  h_xsec_mc_gen->Draw("E5");
+  h_xsec_mc_gen->Draw("E2");
 
   TH1D* h_xsec_mc_gen1 = (TH1D*)h_xsec_mc_gen->Clone("h_xsec_mc_gen1");
-  h_xsec_mc_gen1->SetFillColor(0);
-  h_xsec_mc_gen1->Draw("HISTLSAME");
+  for (int i = 0; i < h_xsec_mc_gen1->GetNbinsX()+2; i++) {
+    h_xsec_mc_gen1->SetBinError(i, 1e-12);
+  }
+  h_xsec_mc_gen1->SetLineWidth(4);
+  h_xsec_mc_gen1->Draw("SAME");
 
   h_xsec_rec->SetTitle("");
   h_xsec_rec->SetStats(kFALSE);
@@ -634,7 +637,7 @@ void plot5(string plot="", string title="", string version="v00", string options
     h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d?");
   }
 
-  h_ratio_gen->Draw("E5");
+  h_ratio_gen->Draw("E2");
 
   pad2->Update();
   TLine* line = new TLine(pad2->GetUxmax(), 1.0, pad2->GetUxmin(), 1.0);
@@ -703,7 +706,7 @@ void plot5(string plot="", string title="", string version="v00", string options
   }
   TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".xsec/root/" + title + ".root").c_str());
-  h_xsec_rec->Write((title + "_xsec").c_str());
+  h_xsec_rec->Write((title + "_xsec_rec").c_str());
   h_xsec_mc_gen->Write((title + "_xsec_mc_gen").c_str());
   file->Close();
   delete file;

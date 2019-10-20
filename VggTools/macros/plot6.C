@@ -135,7 +135,7 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   flags.push_back("qcd_fit");
 
-  map<string, TH1D*> h_xsec;
+  map<string, TH1D*> h_xsec_rec;
   map<string, TH1D*> h_xsec_mc_gen;
 
   for (uint i = 0; i < flags.size(); i++) {
@@ -144,13 +144,13 @@ void plot6(string plot="", string title="", string version="v00", string options
 
     if (!file->IsZombie()) {
 
-      TH1D* h_xsec_tmp = (TH1D*)file->Get((title + "_xsec").c_str());
+      TH1D* h_xsec_tmp = (TH1D*)file->Get((title + "_xsec_rec").c_str());
       TH1D* h_xsec_mc_gen_tmp = (TH1D*)file->Get((title + "_xsec_mc_gen").c_str());
 
-      h_xsec[flags[i]] = h_xsec_tmp;
+      h_xsec_rec[flags[i]] = h_xsec_tmp;
       h_xsec_mc_gen[flags[i]] = h_xsec_mc_gen_tmp;
 
-      h_xsec[flags[i]]->SetDirectory(0);
+      h_xsec_rec[flags[i]]->SetDirectory(0);
       h_xsec_mc_gen[flags[i]]->SetDirectory(0);
 
       file->Close();
@@ -163,7 +163,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   double xsec_data_ref = 0.;
   double xsec_stat_data_ref = 0.;
 
-  if (h_xsec["reference"]) xsec_data_ref = h_xsec["reference"]->IntegralAndError(0, h_xsec["reference"]->GetNbinsX()+1, xsec_stat_data_ref, "width");
+  if (h_xsec_rec["reference"]) xsec_data_ref = h_xsec_rec["reference"]->IntegralAndError(0, h_xsec_rec["reference"]->GetNbinsX()+1, xsec_stat_data_ref, "width");
 
   for (uint i = 0; i < flags.size(); i++) {
 
@@ -173,9 +173,9 @@ void plot6(string plot="", string title="", string version="v00", string options
     cout << std::setw(21) << flags[i]
          << " : ";
 
-    if (h_xsec[flags[i]]) {
+    if (h_xsec_rec[flags[i]]) {
 
-      xsec_data = h_xsec[flags[i]]->IntegralAndError(0, h_xsec[flags[i]]->GetNbinsX()+1, xsec_stat_data, "width");
+      xsec_data = h_xsec_rec[flags[i]]->IntegralAndError(0, h_xsec_rec[flags[i]]->GetNbinsX()+1, xsec_stat_data, "width");
 
       cout << "xsec = "
            << std::fixed << std::setprecision(5)
@@ -183,7 +183,7 @@ void plot6(string plot="", string title="", string version="v00", string options
            << " +- "
            << std::setw(4) << xsec_stat_data
            << " : ";
-      if (h_xsec["reference"]) {
+      if (h_xsec_rec["reference"]) {
         cout << std::fixed << std::setprecision(2)
              << std::setw(6) << 100. * (xsec_data - xsec_data_ref) / xsec_data
              << " %"
@@ -203,7 +203,7 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   }
 
-  if (h_xsec["reference"]) {
+  if (h_xsec_rec["reference"]) {
     cout << std::setw(21)
          << "lumi"
          << " : "
@@ -224,265 +224,265 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   map<string, double> errors_tot;
 
-  if (h_xsec["bkg_stat"]) {
+  if (h_xsec_rec["bkg_stat"]) {
     double xval_stat = 0.;
-    double xval = h_xsec["bkg_stat"]->IntegralAndError(0, h_xsec["bkg_stat"]->GetNbinsX()+1, xval_stat, "width");
+    double xval = h_xsec_rec["bkg_stat"]->IntegralAndError(0, h_xsec_rec["bkg_stat"]->GetNbinsX()+1, xval_stat, "width");
     xval = TMath::Sqrt((TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.));
     errors_tot["bkg_stat"] = xval;
   }
 
-  if (h_xsec["jet_misid_stat"]) {
+  if (h_xsec_rec["jet_misid_stat"]) {
     double xval_stat = 0.;
-    double xval = h_xsec["jet_misid_stat"]->IntegralAndError(0, h_xsec["jet_misid_stat"]->GetNbinsX()+1, xval_stat, "width");
+    double xval = h_xsec_rec["jet_misid_stat"]->IntegralAndError(0, h_xsec_rec["jet_misid_stat"]->GetNbinsX()+1, xval_stat, "width");
     xval = TMath::Sqrt((TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.));
     errors_tot["jet_misid_stat"] = xval;
   }
 
-  if (h_xsec["pileup_up"] && h_xsec["pileup_down"]) {
+  if (h_xsec_rec["pileup_up"] && h_xsec_rec["pileup_down"]) {
     double xval_stat_up = 0.;
-    double xval_up = h_xsec["pileup_up"]->IntegralAndError(0, h_xsec["pileup_up"]->GetNbinsX()+1, xval_stat_up, "width");
+    double xval_up = h_xsec_rec["pileup_up"]->IntegralAndError(0, h_xsec_rec["pileup_up"]->GetNbinsX()+1, xval_stat_up, "width");
     xval_up = xval_up - xsec_data_ref;
     xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_stat_down = 0.;
-    double xval_down = h_xsec["pileup_down"]->IntegralAndError(0, h_xsec["pileup_down"]->GetNbinsX()+1, xval_stat_down, "width");
+    double xval_down = h_xsec_rec["pileup_down"]->IntegralAndError(0, h_xsec_rec["pileup_down"]->GetNbinsX()+1, xval_stat_down, "width");
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["pileup"] = xval;
   }
 
-  if (h_xsec["jec_up_2016"] && h_xsec["jec_down_2016"] && h_xsec["jec_up_2017"] && h_xsec["jec_down_2017"] && h_xsec["jec_up_2018"] && h_xsec["jec_down_2018"]) {
+  if (h_xsec_rec["jec_up_2016"] && h_xsec_rec["jec_down_2016"] && h_xsec_rec["jec_up_2017"] && h_xsec_rec["jec_down_2017"] && h_xsec_rec["jec_up_2018"] && h_xsec_rec["jec_down_2018"]) {
     double xval_2016_stat_up = 0.;
-    double xval_2016_up = h_xsec["jec_up_2016"]->IntegralAndError(0, h_xsec["jec_up_2016"]->GetNbinsX()+1, xval_2016_stat_up, "width");
+    double xval_2016_up = h_xsec_rec["jec_up_2016"]->IntegralAndError(0, h_xsec_rec["jec_up_2016"]->GetNbinsX()+1, xval_2016_stat_up, "width");
     xval_2016_up = xval_2016_up - xsec_data_ref;
     xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(xval_2016_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2016_stat_down = 0.;
-    double xval_2016_down = h_xsec["jec_down_2016"]->IntegralAndError(0, h_xsec["jec_down_2016"]->GetNbinsX()+1, xval_2016_stat_down, "width");
+    double xval_2016_down = h_xsec_rec["jec_down_2016"]->IntegralAndError(0, h_xsec_rec["jec_down_2016"]->GetNbinsX()+1, xval_2016_stat_down, "width");
     xval_2016_down = xval_2016_down - xsec_data_ref;
     xval_2016_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_down, 2) - TMath::Abs(TMath::Power(xval_2016_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2017_stat_up = 0.;
-    double xval_2017_up = h_xsec["jec_up_2017"]->IntegralAndError(0, h_xsec["jec_up_2017"]->GetNbinsX()+1, xval_2017_stat_up, "width");
+    double xval_2017_up = h_xsec_rec["jec_up_2017"]->IntegralAndError(0, h_xsec_rec["jec_up_2017"]->GetNbinsX()+1, xval_2017_stat_up, "width");
     xval_2017_up = xval_2017_up - xsec_data_ref;
     xval_2017_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_up, 2) - TMath::Abs(TMath::Power(xval_2017_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2017_stat_down = 0.;
-    double xval_2017_down = h_xsec["jec_down_2017"]->IntegralAndError(0, h_xsec["jec_down_2017"]->GetNbinsX()+1, xval_2017_stat_down, "width");
+    double xval_2017_down = h_xsec_rec["jec_down_2017"]->IntegralAndError(0, h_xsec_rec["jec_down_2017"]->GetNbinsX()+1, xval_2017_stat_down, "width");
     xval_2017_down = xval_2017_down - xsec_data_ref;
     xval_2017_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_down, 2) - TMath::Abs(TMath::Power(xval_2017_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2018_stat_up = 0.;
-    double xval_2018_up = h_xsec["jec_up_2018"]->IntegralAndError(0, h_xsec["jec_up_2018"]->GetNbinsX()+1, xval_2018_stat_up, "width");
+    double xval_2018_up = h_xsec_rec["jec_up_2018"]->IntegralAndError(0, h_xsec_rec["jec_up_2018"]->GetNbinsX()+1, xval_2018_stat_up, "width");
     xval_2018_up = xval_2018_up - xsec_data_ref;
     xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(xval_2018_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2018_stat_down = 0.;
-    double xval_2018_down = h_xsec["jec_down_2018"]->IntegralAndError(0, h_xsec["jec_down_2018"]->GetNbinsX()+1, xval_2018_stat_down, "width");
+    double xval_2018_down = h_xsec_rec["jec_down_2018"]->IntegralAndError(0, h_xsec_rec["jec_down_2018"]->GetNbinsX()+1, xval_2018_stat_down, "width");
     xval_2018_down = xval_2018_down - xsec_data_ref;
     xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(xval_2018_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
     errors_tot["jec"] = xval;
   }
 
-  if (h_xsec["jer_up_2016"] && h_xsec["jer_down_2016"] && h_xsec["jer_up_2017"] && h_xsec["jer_down_2017"] && h_xsec["jer_up_2018"] && h_xsec["jer_down_2018"]) {
+  if (h_xsec_rec["jer_up_2016"] && h_xsec_rec["jer_down_2016"] && h_xsec_rec["jer_up_2017"] && h_xsec_rec["jer_down_2017"] && h_xsec_rec["jer_up_2018"] && h_xsec_rec["jer_down_2018"]) {
     double xval_2016_stat_up = 0.;
-    double xval_2016_up = h_xsec["jer_up_2016"]->IntegralAndError(0, h_xsec["jer_up_2016"]->GetNbinsX()+1, xval_2016_stat_up, "width");
+    double xval_2016_up = h_xsec_rec["jer_up_2016"]->IntegralAndError(0, h_xsec_rec["jer_up_2016"]->GetNbinsX()+1, xval_2016_stat_up, "width");
     xval_2016_up = xval_2016_up - xsec_data_ref;
     xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(xval_2016_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2016_stat_down = 0.;
-    double xval_2016_down = h_xsec["jer_down_2016"]->IntegralAndError(0, h_xsec["jer_down_2016"]->GetNbinsX()+1, xval_2016_stat_down, "width");
+    double xval_2016_down = h_xsec_rec["jer_down_2016"]->IntegralAndError(0, h_xsec_rec["jer_down_2016"]->GetNbinsX()+1, xval_2016_stat_down, "width");
     xval_2016_down = xval_2016_down - xsec_data_ref;
     xval_2016_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_down, 2) - TMath::Abs(TMath::Power(xval_2016_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2017_stat_up = 0.;
-    double xval_2017_up = h_xsec["jer_up_2017"]->IntegralAndError(0, h_xsec["jer_up_2017"]->GetNbinsX()+1, xval_2017_stat_up, "width");
+    double xval_2017_up = h_xsec_rec["jer_up_2017"]->IntegralAndError(0, h_xsec_rec["jer_up_2017"]->GetNbinsX()+1, xval_2017_stat_up, "width");
     xval_2017_up = xval_2017_up - xsec_data_ref;
     xval_2017_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_up, 2) - TMath::Abs(TMath::Power(xval_2017_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2017_stat_down = 0.;
-    double xval_2017_down = h_xsec["jer_down_2017"]->IntegralAndError(0, h_xsec["jer_down_2017"]->GetNbinsX()+1, xval_2017_stat_down, "width");
+    double xval_2017_down = h_xsec_rec["jer_down_2017"]->IntegralAndError(0, h_xsec_rec["jer_down_2017"]->GetNbinsX()+1, xval_2017_stat_down, "width");
     xval_2017_down = xval_2017_down - xsec_data_ref;
     xval_2017_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_down, 2) - TMath::Abs(TMath::Power(xval_2017_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2018_stat_up = 0.;
-    double xval_2018_up = h_xsec["jer_up_2018"]->IntegralAndError(0, h_xsec["jer_up_2018"]->GetNbinsX()+1, xval_2018_stat_up, "width");
+    double xval_2018_up = h_xsec_rec["jer_up_2018"]->IntegralAndError(0, h_xsec_rec["jer_up_2018"]->GetNbinsX()+1, xval_2018_stat_up, "width");
     xval_2018_up = xval_2018_up - xsec_data_ref;
     xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(xval_2018_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2018_stat_down = 0.;
-    double xval_2018_down = h_xsec["jer_down_2018"]->IntegralAndError(0, h_xsec["jer_down_2018"]->GetNbinsX()+1, xval_2018_stat_down, "width");
+    double xval_2018_down = h_xsec_rec["jer_down_2018"]->IntegralAndError(0, h_xsec_rec["jer_down_2018"]->GetNbinsX()+1, xval_2018_stat_down, "width");
     xval_2018_down = xval_2018_down - xsec_data_ref;
     xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(xval_2018_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
     errors_tot["jer"] = xval;
   }
 
-  if (h_xsec["sf_ele_eff_up"] && h_xsec["sf_ele_eff_down"]) {
+  if (h_xsec_rec["sf_ele_eff_up"] && h_xsec_rec["sf_ele_eff_down"]) {
     double xval_stat_up = 0.;
-    double xval_up = h_xsec["sf_ele_eff_up"]->IntegralAndError(0, h_xsec["sf_ele_eff_up"]->GetNbinsX()+1, xval_stat_up, "width");
+    double xval_up = h_xsec_rec["sf_ele_eff_up"]->IntegralAndError(0, h_xsec_rec["sf_ele_eff_up"]->GetNbinsX()+1, xval_stat_up, "width");
     xval_up = xval_up - xsec_data_ref;
     xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_stat_down = 0.;
-    double xval_down = h_xsec["sf_ele_eff_down"]->IntegralAndError(0, h_xsec["sf_ele_eff_down"]->GetNbinsX()+1, xval_stat_down, "width");
+    double xval_down = h_xsec_rec["sf_ele_eff_down"]->IntegralAndError(0, h_xsec_rec["sf_ele_eff_down"]->GetNbinsX()+1, xval_stat_down, "width");
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["ele_eff"] = xval;
   }
-  if (h_xsec["sf_ele_reco_up"] && h_xsec["sf_ele_reco_down"]) {
+  if (h_xsec_rec["sf_ele_reco_up"] && h_xsec_rec["sf_ele_reco_down"]) {
     double xval_stat_up = 0.;
-    double xval_up = h_xsec["sf_ele_reco_up"]->IntegralAndError(0, h_xsec["sf_ele_reco_up"]->GetNbinsX()+1, xval_stat_up, "width");
+    double xval_up = h_xsec_rec["sf_ele_reco_up"]->IntegralAndError(0, h_xsec_rec["sf_ele_reco_up"]->GetNbinsX()+1, xval_stat_up, "width");
     xval_up = xval_up - xsec_data_ref;
     xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_stat_down = 0.;
-    double xval_down = h_xsec["sf_ele_reco_down"]->IntegralAndError(0, h_xsec["sf_ele_reco_down"]->GetNbinsX()+1, xval_stat_down, "width");
+    double xval_down = h_xsec_rec["sf_ele_reco_down"]->IntegralAndError(0, h_xsec_rec["sf_ele_reco_down"]->GetNbinsX()+1, xval_stat_down, "width");
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["ele_reco"] = xval;
   }
-  if (h_xsec["sf_ele_trig_up"] && h_xsec["sf_ele_trig_down"]) {
+  if (h_xsec_rec["sf_ele_trig_up"] && h_xsec_rec["sf_ele_trig_down"]) {
     double xval_stat_up = 0.;
-    double xval_up = h_xsec["sf_ele_trig_up"]->IntegralAndError(0, h_xsec["sf_ele_trig_up"]->GetNbinsX()+1, xval_stat_up, "width");
+    double xval_up = h_xsec_rec["sf_ele_trig_up"]->IntegralAndError(0, h_xsec_rec["sf_ele_trig_up"]->GetNbinsX()+1, xval_stat_up, "width");
     xval_up = xval_up - xsec_data_ref;
     xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_stat_down = 0.;
-    double xval_down = h_xsec["sf_ele_trig_down"]->IntegralAndError(0, h_xsec["sf_ele_trig_down"]->GetNbinsX()+1, xval_stat_down, "width");
+    double xval_down = h_xsec_rec["sf_ele_trig_down"]->IntegralAndError(0, h_xsec_rec["sf_ele_trig_down"]->GetNbinsX()+1, xval_stat_down, "width");
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["ele_trig"] = xval;
   }
 
-  if (h_xsec["sf_muo_id_up"] && h_xsec["sf_muo_id_down"]) {
+  if (h_xsec_rec["sf_muo_id_up"] && h_xsec_rec["sf_muo_id_down"]) {
     double xval_stat_up = 0.;
-    double xval_up = h_xsec["sf_muo_id_up"]->IntegralAndError(0, h_xsec["sf_muo_id_up"]->GetNbinsX()+1, xval_stat_up, "width");
+    double xval_up = h_xsec_rec["sf_muo_id_up"]->IntegralAndError(0, h_xsec_rec["sf_muo_id_up"]->GetNbinsX()+1, xval_stat_up, "width");
     xval_up = xval_up - xsec_data_ref;
     xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_stat_down = 0.;
-    double xval_down = h_xsec["sf_muo_id_down"]->IntegralAndError(0, h_xsec["sf_muo_id_down"]->GetNbinsX()+1, xval_stat_down, "width");
+    double xval_down = h_xsec_rec["sf_muo_id_down"]->IntegralAndError(0, h_xsec_rec["sf_muo_id_down"]->GetNbinsX()+1, xval_stat_down, "width");
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["muo_id"] = xval;
   }
-  if (h_xsec["sf_muo_iso_up"] && h_xsec["sf_muo_iso_down"]) {
+  if (h_xsec_rec["sf_muo_iso_up"] && h_xsec_rec["sf_muo_iso_down"]) {
     double xval_stat_up = 0.;
-    double xval_up = h_xsec["sf_muo_iso_up"]->IntegralAndError(0, h_xsec["sf_muo_iso_up"]->GetNbinsX()+1, xval_stat_up, "width");
+    double xval_up = h_xsec_rec["sf_muo_iso_up"]->IntegralAndError(0, h_xsec_rec["sf_muo_iso_up"]->GetNbinsX()+1, xval_stat_up, "width");
     xval_up = xval_up - xsec_data_ref;
     xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_stat_down = 0.;
-    double xval_down = h_xsec["sf_muo_iso_down"]->IntegralAndError(0, h_xsec["sf_muo_iso_down"]->GetNbinsX()+1, xval_stat_down, "width");
+    double xval_down = h_xsec_rec["sf_muo_iso_down"]->IntegralAndError(0, h_xsec_rec["sf_muo_iso_down"]->GetNbinsX()+1, xval_stat_down, "width");
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["muo_iso"] = xval;
   }
-  if (h_xsec["sf_muo_trig_up"] && h_xsec["sf_muo_trig_down"]) {
+  if (h_xsec_rec["sf_muo_trig_up"] && h_xsec_rec["sf_muo_trig_down"]) {
     double xval_stat_up = 0.;
-    double xval_up = h_xsec["sf_muo_trig_up"]->IntegralAndError(0, h_xsec["sf_muo_trig_up"]->GetNbinsX()+1, xval_stat_up, "width");
+    double xval_up = h_xsec_rec["sf_muo_trig_up"]->IntegralAndError(0, h_xsec_rec["sf_muo_trig_up"]->GetNbinsX()+1, xval_stat_up, "width");
     xval_up = xval_up - xsec_data_ref;
     xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_stat_down = 0.;
-    double xval_down = h_xsec["sf_muo_trig_down"]->IntegralAndError(0, h_xsec["sf_muo_trig_down"]->GetNbinsX()+1, xval_stat_down, "width");
+    double xval_down = h_xsec_rec["sf_muo_trig_down"]->IntegralAndError(0, h_xsec_rec["sf_muo_trig_down"]->GetNbinsX()+1, xval_stat_down, "width");
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["muo_trig"] = xval;
   }
 
-  if (h_xsec["sf_pho_eff_up"] && h_xsec["sf_pho_eff_down"]) {
+  if (h_xsec_rec["sf_pho_eff_up"] && h_xsec_rec["sf_pho_eff_down"]) {
     double xval_stat_up = 0.;
-    double xval_up = h_xsec["sf_pho_eff_up"]->IntegralAndError(0, h_xsec["sf_pho_eff_up"]->GetNbinsX()+1, xval_stat_up, "width");
+    double xval_up = h_xsec_rec["sf_pho_eff_up"]->IntegralAndError(0, h_xsec_rec["sf_pho_eff_up"]->GetNbinsX()+1, xval_stat_up, "width");
     xval_up = xval_up - xsec_data_ref;
     xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_stat_down = 0.;
-    double xval_down = h_xsec["sf_pho_eff_down"]->IntegralAndError(0, h_xsec["sf_pho_eff_down"]->GetNbinsX()+1, xval_stat_down, "width");
+    double xval_down = h_xsec_rec["sf_pho_eff_down"]->IntegralAndError(0, h_xsec_rec["sf_pho_eff_down"]->GetNbinsX()+1, xval_stat_down, "width");
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["pho_eff"] = xval;
   }
 
-  if (h_xsec["sf_pho_veto_up_2016"] && h_xsec["sf_pho_veto_down_2016"] && h_xsec["sf_pho_veto_up_2017"] && h_xsec["sf_pho_veto_down_2017"] && h_xsec["sf_pho_veto_up_2018"] && h_xsec["sf_pho_veto_down_2018"]) {
+  if (h_xsec_rec["sf_pho_veto_up_2016"] && h_xsec_rec["sf_pho_veto_down_2016"] && h_xsec_rec["sf_pho_veto_up_2017"] && h_xsec_rec["sf_pho_veto_down_2017"] && h_xsec_rec["sf_pho_veto_up_2018"] && h_xsec_rec["sf_pho_veto_down_2018"]) {
     double xval_2016_stat_up = 0.;
-    double xval_2016_up = h_xsec["sf_pho_veto_up_2016"]->IntegralAndError(0, h_xsec["sf_pho_veto_up_2016"]->GetNbinsX()+1, xval_2016_stat_up, "width");
+    double xval_2016_up = h_xsec_rec["sf_pho_veto_up_2016"]->IntegralAndError(0, h_xsec_rec["sf_pho_veto_up_2016"]->GetNbinsX()+1, xval_2016_stat_up, "width");
     xval_2016_up = xval_2016_up - xsec_data_ref;
     xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(xval_2016_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2016_stat_down = 0.;
-    double xval_2016_down = h_xsec["sf_pho_veto_down_2016"]->IntegralAndError(0, h_xsec["sf_pho_veto_down_2016"]->GetNbinsX()+1, xval_2016_stat_down, "width");
+    double xval_2016_down = h_xsec_rec["sf_pho_veto_down_2016"]->IntegralAndError(0, h_xsec_rec["sf_pho_veto_down_2016"]->GetNbinsX()+1, xval_2016_stat_down, "width");
     xval_2016_down = xval_2016_down - xsec_data_ref;
     xval_2016_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_down, 2) - TMath::Abs(TMath::Power(xval_2016_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2017_stat_up = 0.;
-    double xval_2017_up = h_xsec["sf_pho_veto_up_2017"]->IntegralAndError(0, h_xsec["sf_pho_veto_up_2017"]->GetNbinsX()+1, xval_2017_stat_up, "width");
+    double xval_2017_up = h_xsec_rec["sf_pho_veto_up_2017"]->IntegralAndError(0, h_xsec_rec["sf_pho_veto_up_2017"]->GetNbinsX()+1, xval_2017_stat_up, "width");
     xval_2017_up = xval_2017_up - xsec_data_ref;
     xval_2017_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_up, 2) - TMath::Abs(TMath::Power(xval_2017_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2017_stat_down = 0.;
-    double xval_2017_down = h_xsec["sf_pho_veto_down_2017"]->IntegralAndError(0, h_xsec["sf_pho_veto_down_2017"]->GetNbinsX()+1, xval_2017_stat_down, "width");
+    double xval_2017_down = h_xsec_rec["sf_pho_veto_down_2017"]->IntegralAndError(0, h_xsec_rec["sf_pho_veto_down_2017"]->GetNbinsX()+1, xval_2017_stat_down, "width");
     xval_2017_down = xval_2017_down - xsec_data_ref;
     xval_2017_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_down, 2) - TMath::Abs(TMath::Power(xval_2017_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2018_stat_up = 0.;
-    double xval_2018_up = h_xsec["sf_pho_veto_up_2018"]->IntegralAndError(0, h_xsec["sf_pho_veto_up_2018"]->GetNbinsX()+1, xval_2018_stat_up, "width");
+    double xval_2018_up = h_xsec_rec["sf_pho_veto_up_2018"]->IntegralAndError(0, h_xsec_rec["sf_pho_veto_up_2018"]->GetNbinsX()+1, xval_2018_stat_up, "width");
     xval_2018_up = xval_2018_up - xsec_data_ref;
     xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(xval_2018_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_2018_stat_down = 0.;
-    double xval_2018_down = h_xsec["sf_pho_veto_down_2018"]->IntegralAndError(0, h_xsec["sf_pho_veto_down_2018"]->GetNbinsX()+1, xval_2018_stat_down, "width");
+    double xval_2018_down = h_xsec_rec["sf_pho_veto_down_2018"]->IntegralAndError(0, h_xsec_rec["sf_pho_veto_down_2018"]->GetNbinsX()+1, xval_2018_stat_down, "width");
     xval_2018_down = xval_2018_down - xsec_data_ref;
     xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(xval_2018_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
     errors_tot["pho_veto"] = xval;
   }
 
-  if (h_xsec["l1prefiring_up"] && h_xsec["l1prefiring_down"]) {
+  if (h_xsec_rec["l1prefiring_up"] && h_xsec_rec["l1prefiring_down"]) {
     double xval_stat_up = 0.;
-    double xval_up = h_xsec["l1prefiring_up"]->IntegralAndError(0, h_xsec["l1prefiring_up"]->GetNbinsX()+1, xval_stat_up, "width");
+    double xval_up = h_xsec_rec["l1prefiring_up"]->IntegralAndError(0, h_xsec_rec["l1prefiring_up"]->GetNbinsX()+1, xval_stat_up, "width");
     xval_up = xval_up - xsec_data_ref;
     xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_stat_down = 0.;
-    double xval_down = h_xsec["l1prefiring_down"]->IntegralAndError(0, h_xsec["l1prefiring_down"]->GetNbinsX()+1, xval_stat_down, "width");
+    double xval_down = h_xsec_rec["l1prefiring_down"]->IntegralAndError(0, h_xsec_rec["l1prefiring_down"]->GetNbinsX()+1, xval_stat_down, "width");
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["l1prefiring"] = xval;
   }
 
-  if (h_xsec["eg_misid_up"] && h_xsec["eg_misid_down"]) {
+  if (h_xsec_rec["eg_misid_up"] && h_xsec_rec["eg_misid_down"]) {
     double xval_stat_up = 0.;
-    double xval_up = h_xsec["eg_misid_up"]->IntegralAndError(0, h_xsec["eg_misid_up"]->GetNbinsX()+1, xval_stat_up, "width");
+    double xval_up = h_xsec_rec["eg_misid_up"]->IntegralAndError(0, h_xsec_rec["eg_misid_up"]->GetNbinsX()+1, xval_stat_up, "width");
     xval_up = xval_up - xsec_data_ref;
     xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_stat_down = 0.;
-    double xval_down = h_xsec["eg_misid_down"]->IntegralAndError(0, h_xsec["eg_misid_down"]->GetNbinsX()+1, xval_stat_down, "width");
+    double xval_down = h_xsec_rec["eg_misid_down"]->IntegralAndError(0, h_xsec_rec["eg_misid_down"]->GetNbinsX()+1, xval_stat_down, "width");
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["eg_misid"] = xval;
   }
 
-  if (h_xsec["jet_misid_iso1"] && h_xsec["jet_misid_iso2"]) {
+  if (h_xsec_rec["jet_misid_iso1"] && h_xsec_rec["jet_misid_iso2"]) {
     double xval_stat_up = 0.;
-    double xval_up = h_xsec["jet_misid_iso1"]->IntegralAndError(0, h_xsec["jet_misid_iso1"]->GetNbinsX()+1, xval_stat_up, "width");
+    double xval_up = h_xsec_rec["jet_misid_iso1"]->IntegralAndError(0, h_xsec_rec["jet_misid_iso1"]->GetNbinsX()+1, xval_stat_up, "width");
     xval_up = xval_up - xsec_data_ref;
     xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_stat_down = 0.;
-    double xval_down = h_xsec["jet_misid_iso2"]->IntegralAndError(0, h_xsec["jet_misid_iso2"]->GetNbinsX()+1, xval_stat_down, "width");
+    double xval_down = h_xsec_rec["jet_misid_iso2"]->IntegralAndError(0, h_xsec_rec["jet_misid_iso2"]->GetNbinsX()+1, xval_stat_down, "width");
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["jet_misid"] = xval;
   }
 
-  if (h_xsec["jet_misid_mc"]) {
+  if (h_xsec_rec["jet_misid_mc"]) {
     double xval_stat = 0.;
-    double xval = h_xsec["jet_misid_mc"]->IntegralAndError(0, h_xsec["jet_misid_mc"]->GetNbinsX()+1, xval_stat, "width");
+    double xval = h_xsec_rec["jet_misid_mc"]->IntegralAndError(0, h_xsec_rec["jet_misid_mc"]->GetNbinsX()+1, xval_stat, "width");
     xval = xval - xsec_data_ref;
     xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     errors_tot["jet_misid_mc"] = xval;
   }
 
-  if (h_xsec["jet_bkg_mc"]) {
+  if (h_xsec_rec["jet_bkg_mc"]) {
     double xval_stat = 0.;
-    double xval = h_xsec["jet_bkg_mc"]->IntegralAndError(0, h_xsec["jet_bkg_mc"]->GetNbinsX()+1, xval_stat, "width");
+    double xval = h_xsec_rec["jet_bkg_mc"]->IntegralAndError(0, h_xsec_rec["jet_bkg_mc"]->GetNbinsX()+1, xval_stat, "width");
     xval = xval - xsec_data_ref;
     xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     errors_tot["jet_bkg_mc"] = xval;
   }
 
-  if (h_xsec["qcd_fit"]) {
+  if (h_xsec_rec["qcd_fit"]) {
     double xval_stat = 0.;
-    double xval = h_xsec["qcd_fit"]->IntegralAndError(0, h_xsec["qcd_fit"]->GetNbinsX()+1, xval_stat, "width");
+    double xval = h_xsec_rec["qcd_fit"]->IntegralAndError(0, h_xsec_rec["qcd_fit"]->GetNbinsX()+1, xval_stat, "width");
     xval = xval - xsec_data_ref;
     xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     errors_tot["qcd_fit"] = xval;
@@ -494,212 +494,212 @@ void plot6(string plot="", string title="", string version="v00", string options
   map<string, vector<double>> values;
   map<string, vector<double>> errors;
 
-  for (int i = 0; i < h_xsec["reference"]->GetNbinsX()+2; i++) {
+  for (int i = 0; i < h_xsec_rec["reference"]->GetNbinsX()+2; i++) {
 
-    if (h_xsec["reference"]) {
-      double val = h_xsec["reference"]->GetBinContent(i);
-      val = val * h_xsec["reference"]->GetBinWidth(i);
+    if (h_xsec_rec["reference"]) {
+      double val = h_xsec_rec["reference"]->GetBinContent(i);
+      val = val * h_xsec_rec["reference"]->GetBinWidth(i);
       values["reference"].push_back(val);
-      double xval = h_xsec["reference"]->GetBinError(i);
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      double xval = h_xsec_rec["reference"]->GetBinError(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["reference"].push_back(xval);
     }
 
-    if (h_xsec["bkg_stat"]) {
-      double xval = TMath::Sqrt((TMath::Power(h_xsec["bkg_stat"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))/(1.1 * 1.1 - 1.));
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+    if (h_xsec_rec["bkg_stat"]) {
+      double xval = TMath::Sqrt((TMath::Power(h_xsec_rec["bkg_stat"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))/(1.1 * 1.1 - 1.));
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["bkg_stat"].push_back(xval);
     }
 
-    if (h_xsec["jet_misid_stat"]) {
-      double xval = TMath::Sqrt((TMath::Power(h_xsec["jet_misid_stat"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))/(1.1 * 1.1 - 1.));
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+    if (h_xsec_rec["jet_misid_stat"]) {
+      double xval = TMath::Sqrt((TMath::Power(h_xsec_rec["jet_misid_stat"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))/(1.1 * 1.1 - 1.));
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["jet_misid_stat"].push_back(xval);
     }
 
-    if (h_xsec["pileup_up"] && h_xsec["pileup_down"]) {
-      double xval_up = fabs(h_xsec["pileup_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["pileup_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec["pileup_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["pileup_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["pileup_up"] && h_xsec_rec["pileup_down"]) {
+      double xval_up = fabs(h_xsec_rec["pileup_up"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["pileup_up"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["pileup_down"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["pileup_down"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["pileup"].push_back(xval);
     }
 
-    if (h_xsec["jec_up_2016"] && h_xsec["jec_down_2016"] && h_xsec["jec_up_2017"] && h_xsec["jec_down_2017"] && h_xsec["jec_up_2018"] && h_xsec["jec_down_2018"]) {
-      double xval_2016_up = fabs(h_xsec["jec_up_2016"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(h_xsec["jec_up_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2016_down = fabs(h_xsec["jec_down_2016"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2016_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_down, 2) - TMath::Abs(TMath::Power(h_xsec["jec_down_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2017_up = fabs(h_xsec["jec_up_2017"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2017_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_up, 2) - TMath::Abs(TMath::Power(h_xsec["jec_up_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2017_down = fabs(h_xsec["jec_down_2017"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2017_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_down, 2) - TMath::Abs(TMath::Power(h_xsec["jec_down_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2018_up = fabs(h_xsec["jec_up_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(h_xsec["jec_up_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2018_down = fabs(h_xsec["jec_down_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(h_xsec["jec_down_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["jec_up_2016"] && h_xsec_rec["jec_down_2016"] && h_xsec_rec["jec_up_2017"] && h_xsec_rec["jec_down_2017"] && h_xsec_rec["jec_up_2018"] && h_xsec_rec["jec_down_2018"]) {
+      double xval_2016_up = fabs(h_xsec_rec["jec_up_2016"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jec_up_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2016_down = fabs(h_xsec_rec["jec_down_2016"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2016_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jec_down_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2017_up = fabs(h_xsec_rec["jec_up_2017"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2017_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jec_up_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2017_down = fabs(h_xsec_rec["jec_down_2017"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2017_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jec_down_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2018_up = fabs(h_xsec_rec["jec_up_2018"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jec_up_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2018_down = fabs(h_xsec_rec["jec_down_2018"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jec_down_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["jec"].push_back(xval);
     }
 
-    if (h_xsec["jer_up_2016"] && h_xsec["jer_down_2016"] && h_xsec["jer_up_2017"] && h_xsec["jer_down_2017"] && h_xsec["jer_up_2018"] && h_xsec["jer_down_2018"]) {
-      double xval_2016_up = fabs(h_xsec["jer_up_2016"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(h_xsec["jer_up_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2016_down = fabs(h_xsec["jer_down_2016"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2016_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_down, 2) - TMath::Abs(TMath::Power(h_xsec["jer_down_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2017_up = fabs(h_xsec["jer_up_2017"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2017_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_up, 2) - TMath::Abs(TMath::Power(h_xsec["jer_up_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2017_down = fabs(h_xsec["jer_down_2017"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2017_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_down, 2) - TMath::Abs(TMath::Power(h_xsec["jer_down_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2018_up = fabs(h_xsec["jer_up_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(h_xsec["jer_up_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2018_down = fabs(h_xsec["jer_down_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(h_xsec["jer_down_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["jer_up_2016"] && h_xsec_rec["jer_down_2016"] && h_xsec_rec["jer_up_2017"] && h_xsec_rec["jer_down_2017"] && h_xsec_rec["jer_up_2018"] && h_xsec_rec["jer_down_2018"]) {
+      double xval_2016_up = fabs(h_xsec_rec["jer_up_2016"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jer_up_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2016_down = fabs(h_xsec_rec["jer_down_2016"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2016_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jer_down_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2017_up = fabs(h_xsec_rec["jer_up_2017"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2017_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jer_up_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2017_down = fabs(h_xsec_rec["jer_down_2017"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2017_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jer_down_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2018_up = fabs(h_xsec_rec["jer_up_2018"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jer_up_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2018_down = fabs(h_xsec_rec["jer_down_2018"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jer_down_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["jer"].push_back(xval);
     }
 
-    if (h_xsec["sf_ele_eff_up"] && h_xsec["sf_ele_eff_down"]) {
-      double xval_up = fabs(h_xsec["sf_ele_eff_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_eff_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec["sf_ele_eff_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_eff_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["sf_ele_eff_up"] && h_xsec_rec["sf_ele_eff_down"]) {
+      double xval_up = fabs(h_xsec_rec["sf_ele_eff_up"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_ele_eff_up"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["sf_ele_eff_down"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_ele_eff_down"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["ele_eff"].push_back(xval);
     }
-    if (h_xsec["sf_ele_reco_up"] && h_xsec["sf_ele_reco_down"]) {
-      double xval_up = fabs(h_xsec["sf_ele_reco_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_reco_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec["sf_ele_reco_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_reco_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["sf_ele_reco_up"] && h_xsec_rec["sf_ele_reco_down"]) {
+      double xval_up = fabs(h_xsec_rec["sf_ele_reco_up"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_ele_reco_up"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["sf_ele_reco_down"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_ele_reco_down"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["ele_reco"].push_back(xval);
     }
-    if (h_xsec["sf_ele_trig_up"] && h_xsec["sf_ele_trig_down"]) {
-      double xval_up = fabs(h_xsec["sf_ele_trig_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_trig_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec["sf_ele_trig_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_ele_trig_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["sf_ele_trig_up"] && h_xsec_rec["sf_ele_trig_down"]) {
+      double xval_up = fabs(h_xsec_rec["sf_ele_trig_up"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_ele_trig_up"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["sf_ele_trig_down"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_ele_trig_down"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["ele_trig"].push_back(xval);
     }
 
-    if (h_xsec["sf_muo_id_up"] && h_xsec["sf_muo_id_down"]) {
-      double xval_up = fabs(h_xsec["sf_muo_id_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_id_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec["sf_muo_id_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_id_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["sf_muo_id_up"] && h_xsec_rec["sf_muo_id_down"]) {
+      double xval_up = fabs(h_xsec_rec["sf_muo_id_up"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_muo_id_up"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["sf_muo_id_down"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_muo_id_down"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["muo_id"].push_back(xval);
     }
-    if (h_xsec["sf_muo_iso_up"] && h_xsec["sf_muo_iso_down"]) {
-      double xval_up = fabs(h_xsec["sf_muo_iso_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_iso_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec["sf_muo_iso_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_iso_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["sf_muo_iso_up"] && h_xsec_rec["sf_muo_iso_down"]) {
+      double xval_up = fabs(h_xsec_rec["sf_muo_iso_up"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_muo_iso_up"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["sf_muo_iso_down"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_muo_iso_down"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["muo_iso"].push_back(xval);
     }
-    if (h_xsec["sf_muo_trig_up"] && h_xsec["sf_muo_trig_down"]) {
-      double xval_up = fabs(h_xsec["sf_muo_trig_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_trig_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec["sf_muo_trig_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_muo_trig_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["sf_muo_trig_up"] && h_xsec_rec["sf_muo_trig_down"]) {
+      double xval_up = fabs(h_xsec_rec["sf_muo_trig_up"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_muo_trig_up"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["sf_muo_trig_down"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_muo_trig_down"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["muo_trig"].push_back(xval);
     }
 
-    if (h_xsec["sf_pho_eff_up"] && h_xsec["sf_pho_eff_down"]) {
-      double xval_up = fabs(h_xsec["sf_pho_eff_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_eff_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec["sf_pho_eff_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_eff_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["sf_pho_eff_up"] && h_xsec_rec["sf_pho_eff_down"]) {
+      double xval_up = fabs(h_xsec_rec["sf_pho_eff_up"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_pho_eff_up"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["sf_pho_eff_down"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_pho_eff_down"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["pho_eff"].push_back(xval);
     }
 
-    if (h_xsec["sf_pho_veto_up_2016"] && h_xsec["sf_pho_veto_down_2016"] && h_xsec["sf_pho_veto_up_2017"] && h_xsec["sf_pho_veto_down_2017"] && h_xsec["sf_pho_veto_up_2018"] && h_xsec["sf_pho_veto_down_2018"]) {
-      double xval_2016_up = fabs(h_xsec["sf_pho_veto_up_2016"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_up_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2016_down = fabs(h_xsec["sf_pho_veto_down_2016"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2016_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_down_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2017_up = fabs(h_xsec["sf_pho_veto_up_2017"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2017_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_up_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2017_down = fabs(h_xsec["sf_pho_veto_down_2017"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2017_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_down_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2018_up = fabs(h_xsec["sf_pho_veto_up_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_up_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_2018_down = fabs(h_xsec["sf_pho_veto_down_2018"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(h_xsec["sf_pho_veto_down_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["sf_pho_veto_up_2016"] && h_xsec_rec["sf_pho_veto_down_2016"] && h_xsec_rec["sf_pho_veto_up_2017"] && h_xsec_rec["sf_pho_veto_down_2017"] && h_xsec_rec["sf_pho_veto_up_2018"] && h_xsec_rec["sf_pho_veto_down_2018"]) {
+      double xval_2016_up = fabs(h_xsec_rec["sf_pho_veto_up_2016"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_pho_veto_up_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2016_down = fabs(h_xsec_rec["sf_pho_veto_down_2016"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2016_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_pho_veto_down_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2017_up = fabs(h_xsec_rec["sf_pho_veto_up_2017"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2017_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_pho_veto_up_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2017_down = fabs(h_xsec_rec["sf_pho_veto_down_2017"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2017_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2017_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_pho_veto_down_2017"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2018_up = fabs(h_xsec_rec["sf_pho_veto_up_2018"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2018_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_pho_veto_up_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_2018_down = fabs(h_xsec_rec["sf_pho_veto_down_2018"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_2018_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2018_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["sf_pho_veto_down_2018"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["pho_veto"].push_back(xval);
     }
 
-    if (h_xsec["l1prefiring_up"] && h_xsec["l1prefiring_down"]) {
-      double xval_up = fabs(h_xsec["l1prefiring_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["l1prefiring_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec["l1prefiring_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["l1prefiring_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["l1prefiring_up"] && h_xsec_rec["l1prefiring_down"]) {
+      double xval_up = fabs(h_xsec_rec["l1prefiring_up"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["l1prefiring_up"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["l1prefiring_down"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["l1prefiring_down"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["l1prefiring"].push_back(xval);
     }
 
-    if (h_xsec["eg_misid_up"] && h_xsec["eg_misid_down"]) {
-      double xval_up = fabs(h_xsec["eg_misid_up"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["eg_misid_up"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec["eg_misid_down"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["eg_misid_down"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["eg_misid_up"] && h_xsec_rec["eg_misid_down"]) {
+      double xval_up = fabs(h_xsec_rec["eg_misid_up"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["eg_misid_up"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["eg_misid_down"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["eg_misid_down"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["eg_misid"].push_back(xval);
     }
 
-    if (h_xsec["jet_misid_iso1"] && h_xsec["jet_misid_iso2"]) {
-      double xval_up = fabs(h_xsec["jet_misid_iso1"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec["jet_misid_iso1"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec["jet_misid_iso2"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec["jet_misid_iso2"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["jet_misid_iso1"] && h_xsec_rec["jet_misid_iso2"]) {
+      double xval_up = fabs(h_xsec_rec["jet_misid_iso1"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_iso1"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["jet_misid_iso2"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_iso2"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["jet_misid"].push_back(xval);
     }
 
-    if (h_xsec["jet_misid_mc"]) {
-      double xval = fabs(h_xsec["jet_misid_mc"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["jet_misid_mc"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+    if (h_xsec_rec["jet_misid_mc"]) {
+      double xval = fabs(h_xsec_rec["jet_misid_mc"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_mc"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["jet_misid_mc"].push_back(xval);
     }
 
-    if (h_xsec["jet_bkg_mc"]) {
-      double xval = fabs(h_xsec["jet_bkg_mc"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["jet_bkg_mc"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+    if (h_xsec_rec["jet_bkg_mc"]) {
+      double xval = fabs(h_xsec_rec["jet_bkg_mc"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_bkg_mc"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["jet_bkg_mc"].push_back(xval);
     }
 
-    if (h_xsec["qcd_fit"]) {
-      double xval = fabs(h_xsec["qcd_fit"]->GetBinContent(i) - h_xsec["reference"]->GetBinContent(i));
-      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec["qcd_fit"]->GetBinError(i), 2) - TMath::Power(h_xsec["reference"]->GetBinError(i), 2))));
-      xval = xval * h_xsec["reference"]->GetBinWidth(i);
+    if (h_xsec_rec["qcd_fit"]) {
+      double xval = fabs(h_xsec_rec["qcd_fit"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["qcd_fit"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["qcd_fit"].push_back(xval);
     }
 
-    double xval = h_xsec["reference"]->GetBinContent(i) * lumierror / 100.;
-    xval = xval * h_xsec["reference"]->GetBinWidth(i);
+    double xval = h_xsec_rec["reference"]->GetBinContent(i) * lumierror / 100.;
+    xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
     errors["lumi"].push_back(xval);
   }
 
@@ -764,9 +764,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       << std::setw(9) << "%"
       << endl;
 
-  double err_data[h_xsec["reference"]->GetNbinsX()+2];
+  double err_data[h_xsec_rec["reference"]->GetNbinsX()+2];
 
-  for (int i = 0; i < h_xsec["reference"]->GetNbinsX()+2; i++) {
+  for (int i = 0; i < h_xsec_rec["reference"]->GetNbinsX()+2; i++) {
 
     out << std::setw(2) << i
         << std::fixed << std::setprecision(5)
@@ -854,10 +854,10 @@ void plot6(string plot="", string title="", string version="v00", string options
   pad1->Draw();
   pad1->cd();
 
-  h_xsec_mc_gen["reference"]->SetMaximum(1.2*TMath::Max(h_xsec_mc_gen["reference"]->GetMaximum(), h_xsec["reference"]->GetMaximum()));
-  h_xsec_mc_gen["reference"]->SetMinimum(TMath::Max(0.000005, 0.8*TMath::Min(h_xsec_mc_gen["reference"]->GetMinimum(), h_xsec["reference"]->GetMinimum())));
-
-  if (title.find("nphotons") != string::npos) h_xsec_mc_gen["reference"]->SetMinimum(TMath::Max(0.005, 0.8*TMath::Min(h_xsec_mc_gen["reference"]->GetMinimum(), h_xsec["reference"]->GetMinimum())));
+  h_xsec_mc_gen["reference"]->SetMaximum(10.*TMath::Max(h_xsec_mc_gen["reference"]->GetMaximum(), h_xsec_rec["reference"]->GetMaximum()));
+  h_xsec_mc_gen["reference"]->SetMinimum(TMath::Max(5.e-9, 0.1*TMath::Min(h_xsec_mc_gen["reference"]->GetMinimum(), h_xsec_rec["reference"]->GetMinimum())));
+ 
+  if (title.find("nphotons") != string::npos) h_xsec_mc_gen["reference"]->SetMinimum(5.e-3);
 
   pad1->SetLogy();
 
@@ -880,59 +880,62 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   if (title.find("nphotons") != string::npos) h_xsec_mc_gen["reference"]->GetXaxis()->SetRangeUser(-0.5, 2.5);
 
-  h_xsec_mc_gen["reference"]->Draw("E5");
+  h_xsec_mc_gen["reference"]->Draw("E2");
 
   TH1D* h_xsec_mc_gen1 = (TH1D*)h_xsec_mc_gen["reference"]->Clone("h_xsec_mc_gen1");
-  h_xsec_mc_gen1->SetFillColor(0);
-  h_xsec_mc_gen1->Draw("HISTLSAME");
+  for (int i = 0; i < h_xsec_mc_gen1->GetNbinsX()+2; i++) {
+    h_xsec_mc_gen1->SetBinError(i, 1e-12);
+  }
+  h_xsec_mc_gen1->SetLineWidth(4);
+  h_xsec_mc_gen1->Draw("SAME");
 
-  TH1D* h_xsec_err = (TH1D*)h_xsec["reference"]->Clone("h_xsec_err");
+  TH1D* h_xsec_rec_err = (TH1D*)h_xsec_rec["reference"]->Clone("h_xsec_rec_err");
 
-  for (int i = 0; i < h_xsec_err->GetNbinsX()+2; i++) {
-    h_xsec_err->SetBinError(i, err_data[i] / h_xsec["reference"]->GetBinWidth(i));
+  for (int i = 0; i < h_xsec_rec_err->GetNbinsX()+2; i++) {
+    h_xsec_rec_err->SetBinError(i, err_data[i] / h_xsec_rec["reference"]->GetBinWidth(i));
   }
 
-  h_xsec_err->SetTitle("");
-  h_xsec_err->SetStats(kFALSE);
+  h_xsec_rec_err->SetTitle("");
+  h_xsec_rec_err->SetStats(kFALSE);
 
-  h_xsec_err->SetTitle("");
-  h_xsec_err->SetStats(kFALSE);
+  h_xsec_rec_err->SetTitle("");
+  h_xsec_rec_err->SetStats(kFALSE);
 
-  h_xsec_err->SetLineColor(kRed+1);
-  h_xsec_err->SetLineWidth(1);
-  h_xsec_err->SetFillColor(kRed+1);
-  h_xsec_err->SetMarkerColor(kRed+1);
-  h_xsec_err->SetMarkerStyle(24);
-  h_xsec_err->SetMarkerSize(0.7);
+  h_xsec_rec_err->SetLineColor(kRed+1);
+  h_xsec_rec_err->SetLineWidth(1);
+  h_xsec_rec_err->SetFillColor(kRed+1);
+  h_xsec_rec_err->SetMarkerColor(kRed+1);
+  h_xsec_rec_err->SetMarkerStyle(24);
+  h_xsec_rec_err->SetMarkerSize(0.7);
 
-  h_xsec_err->SetMarkerColor(kRed+1);
+  h_xsec_rec_err->SetMarkerColor(kRed+1);
 
-  h_xsec_err->Draw("E0PX0SAME");
-  h_xsec_err->Draw("E1PX0SAME");
+  h_xsec_rec_err->Draw("E0PX0SAME");
+  h_xsec_rec_err->Draw("E1PX0SAME");
 
-  h_xsec["reference"]->SetTitle("");
-  h_xsec["reference"]->SetStats(kFALSE);
+  h_xsec_rec["reference"]->SetTitle("");
+  h_xsec_rec["reference"]->SetStats(kFALSE);
 
-  h_xsec["reference"]->SetTitle("");
-  h_xsec["reference"]->SetStats(kFALSE);
+  h_xsec_rec["reference"]->SetTitle("");
+  h_xsec_rec["reference"]->SetStats(kFALSE);
 
-  h_xsec["reference"]->SetLineColor(kBlack);
-  h_xsec["reference"]->SetLineWidth(1);
-  h_xsec["reference"]->SetFillColor(kBlack);
-  h_xsec["reference"]->SetMarkerColor(kBlack);
-  h_xsec["reference"]->SetMarkerStyle(24);
-  h_xsec["reference"]->SetMarkerSize(0.7);
+  h_xsec_rec["reference"]->SetLineColor(kBlack);
+  h_xsec_rec["reference"]->SetLineWidth(1);
+  h_xsec_rec["reference"]->SetFillColor(kBlack);
+  h_xsec_rec["reference"]->SetMarkerColor(kBlack);
+  h_xsec_rec["reference"]->SetMarkerStyle(24);
+  h_xsec_rec["reference"]->SetMarkerSize(0.7);
 
-  h_xsec["reference"]->SetMarkerColor(kBlack);
+  h_xsec_rec["reference"]->SetMarkerColor(kBlack);
 
-  h_xsec["reference"]->Draw("E0PX0SAME");
-  h_xsec["reference"]->Draw("E1PX0SAME");
+  h_xsec_rec["reference"]->Draw("E0PX0SAME");
+  h_xsec_rec["reference"]->Draw("E1PX0SAME");
 
   pad1->Update();
   c1->Update();
   c1->cd();
 
-  TH1D* h_ratio_rec = (TH1D*)h_xsec["reference"]->Clone("h_ratio_rec");
+  TH1D* h_ratio_rec = (TH1D*)h_xsec_rec["reference"]->Clone("h_ratio_rec");
 
   TH1D* h_xsec_mc_gen2 = (TH1D*)h_xsec_mc_gen["reference"]->Clone("h_xsec_mc_gen2");
   for (int i = 0; i < h_xsec_mc_gen2->GetNbinsX()+2; i++) {
@@ -940,7 +943,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   }
   h_ratio_rec->Divide(h_xsec_mc_gen2);
 
-  TH1D* h_ratio_err = (TH1D*)h_xsec_err->Clone("h_ratio_err");
+  TH1D* h_ratio_err = (TH1D*)h_xsec_rec_err->Clone("h_ratio_err");
   h_ratio_err->Divide(h_xsec_mc_gen2);
 
   TPad* pad2 = new TPad("pad2", "pad2", 0.0, 0.0, 1.0, 0.3);
@@ -1078,7 +1081,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     h_ratio_gen->GetXaxis()->SetTitle(tmp_title.c_str());
   }
 
-  h_ratio_gen->Draw("E5");
+  h_ratio_gen->Draw("E2");
 
   pad2->Update();
   TLine* line = new TLine(pad2->GetUxmax(), 1.0, pad2->GetUxmin(), 1.0);
@@ -1151,9 +1154,9 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   TFile* file = new TFile(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str());
-  h_xsec["reference"]->Write((title + "_xsec").c_str());
+  h_xsec_rec["reference"]->Write((title + "_xsec_rec").c_str());
   h_xsec_mc_gen["reference"]->Write((title + "_xsec_mc_gen").c_str());
-  h_xsec_err->Write((title + "_xsec_err").c_str());
+  h_xsec_rec_err->Write((title + "_xsec_rec_err").c_str());
   file->Close();
   delete file;
 
