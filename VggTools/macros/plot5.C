@@ -391,8 +391,8 @@ void plot5(string plot="", string title="", string version="v00", string options
   pad1->Draw();
   pad1->cd();
 
-  h_xsec_mc_gen->SetMaximum(10.*TMath::Max(h_xsec_mc_gen->GetMaximum(), h_xsec_rec->GetMaximum()));
-  h_xsec_mc_gen->SetMinimum(TMath::Max(5.e-9, 0.1*TMath::Min(h_xsec_mc_gen->GetMinimum(), h_xsec_rec->GetMinimum())));
+  h_xsec_mc_gen->SetMaximum(10.*TMath::Max(h_xsec_mc_gen->GetBinContent(h_xsec_mc_gen->GetMaximumBin()), h_xsec_rec->GetBinContent(h_xsec_rec->GetMaximumBin())));
+  h_xsec_mc_gen->SetMinimum(TMath::Max(5.e-9, 0.1*TMath::Min(h_xsec_mc_gen->GetBinContent(h_xsec_mc_gen->GetMinimumBin()), h_xsec_rec->GetBinContent(h_xsec_rec->GetMinimumBin()))));
 
   if (title.find("nphotons") != string::npos) h_xsec_mc_gen->SetMinimum(5.e-3);
 
