@@ -803,7 +803,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     double sumw2 = 0.;
 
     for (uint j = 0; j < labels.size(); j++) {
-      if (labels[j] != "bkg_stat" && labels[j] != "jet_misid_stat") {
+      if (labels[j].find("stat") != string::npos) {
         sumw2 = sumw2 + TMath::Power(errors[labels[j]][i], 2);
       }
     }
@@ -842,7 +842,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   double sumw2 = 0.;
 
   for (uint j = 0; j < labels.size(); j++) {
-    if (labels[j] != "bkg_stat" && labels[j] != "jet_misid_stat") {
+    if (labels[j].find("stat") != string::npos) {
       sumw2 = sumw2 + TMath::Power(errors_tot[labels[j]], 2);
     }
   }
