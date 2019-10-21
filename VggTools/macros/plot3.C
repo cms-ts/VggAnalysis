@@ -56,7 +56,6 @@ void plot3(string plot="", string title="", string version="v00", string options
   }
 
   map<int, TH1D*> histo;
-  map<int, TH1D*> histo_mc_gen;
 
   float lumi = 0.;
   float lumi2016 = 0.;
@@ -140,23 +139,6 @@ void plot3(string plot="", string title="", string version="v00", string options
             histo[index] = h;
             histo[index]->SetDirectory(0);
             histo[index]->Scale(norm);
-          }
-        }
-        if (options.find("qcd") == string::npos) {
-          if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
-            if (histo_mc_gen[index]) {
-              TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
-              if (h) {
-                histo_mc_gen[index]->Add(h, norm);
-              }
-            } else {
-              TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
-              if (h) {
-                histo_mc_gen[index] = h;
-                histo_mc_gen[index]->SetDirectory(0);
-                histo_mc_gen[index]->Scale(norm);
-              }
-            }
           }
         }
         file->Close();
@@ -373,23 +355,6 @@ void plot3(string plot="", string title="", string version="v00", string options
             histo[index]->Scale(norm);
           }
         }
-        if (options.find("qcd") == string::npos) {
-          if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
-            if (histo_mc_gen[index]) {
-              TH1D* h = (TH1D*)gDirectory->Get((title2 + "_gen").c_str());
-              if (h) {
-                histo_mc_gen[index]->Add(h, norm);
-              }
-            } else {
-              TH1D* h = (TH1D*)gDirectory->Get((title2 + "_gen").c_str());
-              if (h) {
-                histo_mc_gen[index] = h;
-                histo_mc_gen[index]->SetDirectory(0);
-                histo_mc_gen[index]->Scale(norm);
-              }
-            }
-          }
-        }
         file->Close();
         delete file;
       }
@@ -472,10 +437,66 @@ void plot3(string plot="", string title="", string version="v00", string options
   }
 #endif // defined(USE_BOTH_LEPTONS)
 
+  if (options.find("test") != string::npos) version = version + ".test";
+  if (options.find("new") != string::npos) version = version + ".new";
+  if (options.find("jet") != string::npos) version = version + ".jet";
+
+  if (options.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (options.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (options.find("default") != string::npos) version = version + ".default";
+
+  if (flag == "jet_misid_mc") {
+    float fitval = 0.;
+    float fiterr = 0.;
+    int index = 9001;
+    ifstream file1;
+    if (title.find("h_WG_") != string::npos) {
+      file1.open(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
+    }
+    if (file1.is_open()) {
+      file1 >> fitval >> fiterr;
+      file1.close();
+      TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+      if (!file2->IsZombie()) {
+        TH1D* h = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
+        h->SetDirectory(0);
+        h->Scale(fitval);
+        histo[index] = h;
+        file2->Close();
+        delete file2;
+      }
+    }
+  }
+
+#if defined(USE_BOTH_LEPTONS)
+  if (flag == "jet_misid_mc") {
+    float fitval = 0.;
+    float fiterr = 0.;
+    int index = 9001;
+    ifstream file1;
+    if (title.find("h_WG_") != string::npos) {
+      file1.open(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + "h_WG_" + title2.substr(5, 3) + "_qcd_fit.dat").c_str());
+    }
+    if (file1.is_open()) {
+      file1 >> fitval >> fiterr;
+      file1.close();
+      TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title2 + "_qcd_nofit.root").c_str());
+      if (!file2->IsZombie()) {
+        TH1D* h = (TH1D*)gDirectory->Get((title2 + "_qcd_nofit").c_str());
+        h->SetDirectory(0);
+        h->Scale(fitval);
+        histo[index]->Add(h);
+        file2->Close();
+        delete file2;
+      }
+    }
+  }
+#endif // defined(USE_BOTH_LEPTONS)
+
+
   for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
     if (histo[index]) histo[index] = rebin(histo[index]);
-    if (histo_mc_gen[index]) histo_mc_gen[index] = rebin(histo_mc_gen[index]);
   }
 
   TH1D* h_mc_bkg = (TH1D*)histo[0]->Clone("h_mc_bkg");
@@ -503,10 +524,10 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
     if (index > 0){
       h_mc_sum->Add(it->second);
-      if (index == 10 || index == 11 || index == 21 || index == 22 || index == 1010 || index == 1011 || index == 1021 || index == 1022) {
+      if (index == 10 || index == 11 || index == 21 || index == 22 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 9001) {
         h_mc_sgn->Add(it->second);
       }
-      if (index != 10 && index != 11 && index != 21 && index != 22 && index != 1010 && index != 1011 && index != 1021 && index != 1022) {
+      if (index != 10 && index != 11 && index != 21 && index != 22 && index != 1010 && index != 1011 && index != 1020 && index != 1021 && index != 1022 && index == 9001) {
         h_mc_bkg->Add(it->second);
       }
     }
@@ -520,36 +541,6 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   TH1D* h_bkg = (TH1D*)histo[0]->Clone("h_bkg");
   h_bkg->Reset();
-
-  if (options.find("test") != string::npos) version = version + ".test";
-  if (options.find("new") != string::npos) version = version + ".new";
-  if (options.find("jet") != string::npos) version = version + ".jet";
-
-  if (options.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
-  if (options.find("madgraph") != string::npos) version = version + ".madgraph";
-  if (options.find("default") != string::npos) version = version + ".default";
-
-  if (flag == "jet_misid_mc") {
-    float fitval = 0.;
-    float fiterr = 0.;
-    int index = 9001;
-    ifstream file1;
-    if (title.find("h_WG_") != string::npos) {
-      file1.open(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
-    }
-    if (file1.is_open()) {
-      file1 >> fitval >> fiterr;
-      file1.close();
-      TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
-      if (!file2->IsZombie()) {
-        histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
-        histo[index]->SetDirectory(0);
-        histo[index]->Scale(fitval);
-        file2->Close();
-        delete file2;
-      }
-    }
-  }
 
   for (map<int, TH2D*>::iterator it = histo2.begin(); it != histo2.end(); it++) {
     int index = int(it->first);
