@@ -184,13 +184,23 @@ void plot6(string plot="", string title="", string version="v00", string options
            << std::setw(4) << xsec_stat_data
            << " : ";
       if (h_xsec_rec["reference"]) {
-        cout << std::fixed << std::setprecision(2)
-             << std::setw(6) << 100. * (xsec_data - xsec_data_ref) / xsec_data
-             << " %"
-             << " : "
-             << std::setw(6) << TMath::Sign(1, xsec_data - xsec_data_ref) * 100. * (TMath::Sqrt(TMath::Max(0.,TMath::Power(xsec_data - xsec_data_ref,2) - TMath::Abs(TMath::Power(xsec_stat_data,2) - TMath::Power(xsec_stat_data_ref,2))))) / xsec_data
-             << " %"
-             << endl;
+        if (flags[i].find("stat") != string::npos) {
+          cout << std::fixed << std::setprecision(2)
+               << std::setw(6) << 100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data
+               << " %"
+               << " : "
+               << std::setw(6) << 0.
+               << " %"
+               << endl;
+        } else {
+          cout << std::fixed << std::setprecision(2)
+               << std::setw(6) << 100. * (xsec_data - xsec_data_ref) / xsec_data
+               << " %"
+               << " : "
+               << std::setw(6) << TMath::Sign(1, xsec_data - xsec_data_ref) * 100. * (TMath::Sqrt(TMath::Max(0.,TMath::Power(xsec_data - xsec_data_ref,2) - TMath::Abs(TMath::Power(xsec_stat_data,2) - TMath::Power(xsec_stat_data_ref,2))))) / xsec_data
+               << " %"
+               << endl;
+        }
       } else {
         cout << "reference cross section not available" << endl;
       }
@@ -209,12 +219,15 @@ void plot6(string plot="", string title="", string version="v00", string options
          << " : "
          << "xsec = "
          << std::fixed << std::setprecision(5)
-         << std::setw(8) << xsec_data_ref * (1 + lumierror / 100.)
+         << std::setw(8) << xsec_data_ref * (1. + lumierror / 100.)
          << " +- "
          << std::setw(4) << xsec_stat_data_ref
          << " : "
          << std::fixed << std::setprecision(2)
-         << std::setw(5) << lumierror
+         << std::setw(6) << lumierror
+         << " %"
+         << " : "
+         << std::setw(6) << 0.
          << " %"
          << endl;
   } else {
@@ -464,6 +477,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     errors_tot["jet_misid"] = xval;
   }
 
+#if 0
   if (h_xsec_rec["jet_misid_mc"]) {
     double xval_stat = 0.;
     double xval = h_xsec_rec["jet_misid_mc"]->IntegralAndError(0, h_xsec_rec["jet_misid_mc"]->GetNbinsX()+1, xval_stat, "width");
@@ -479,6 +493,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     errors_tot["jet_bkg_mc"] = xval;
   }
+#endif
 
   if (h_xsec_rec["qcd_fit"]) {
     double xval_stat = 0.;
@@ -677,6 +692,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["jet_misid"].push_back(xval);
     }
 
+#if 0
     if (h_xsec_rec["jet_misid_mc"]) {
       double xval = fabs(h_xsec_rec["jet_misid_mc"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_mc"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
@@ -690,6 +706,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["jet_bkg_mc"].push_back(xval);
     }
+#endif
 
     if (h_xsec_rec["qcd_fit"]) {
       double xval = fabs(h_xsec_rec["qcd_fit"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
@@ -751,7 +768,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   out << std::setw(25) << "stat";
 
   for (uint i = 0; i < labels.size(); i++) {
-    if (labels[i] == "bkg_stat" || labels[i] == "jet_misid_stat") {
+    if (labels[i].find("stat") != string::npos) {
       if (errors[labels[i]].size()) out << std::setw(11) << "stat";
     } else {
       if (errors[labels[i]].size()) out << std::setw(11) << "syst";
