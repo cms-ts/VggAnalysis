@@ -163,12 +163,18 @@ void plot6(string plot="", string title="", string version="v00", string options
   double xsec_data_ref = 0.;
   double xsec_stat_data_ref = 0.;
 
+  TH1D* h_xsec_rec_errors_p = new TH1D("h_xsec_rec_errors_p", "h_xsec_rec_errors_p", flags.size(), 0., flags.size());
+  TH1D* h_xsec_rec_errors_m = new TH1D("h_xsec_rec_errors_m", "h_xsec_rec_errors_m", flags.size(), 0., flags.size());
+
   if (h_xsec_rec["reference"]) xsec_data_ref = h_xsec_rec["reference"]->IntegralAndError(0, h_xsec_rec["reference"]->GetNbinsX()+1, xsec_stat_data_ref, "width");
 
   for (uint i = 0; i < flags.size(); i++) {
 
     double xsec_data = 0.;
     double xsec_stat_data = 0.;
+
+    h_xsec_rec_errors_p->GetXaxis()->SetBinLabel(i+1, flags[i].c_str());
+    h_xsec_rec_errors_m->GetXaxis()->SetBinLabel(i+1, flags[i].c_str());
 
     cout << std::setw(21) << flags[i]
          << " : ";
@@ -184,7 +190,17 @@ void plot6(string plot="", string title="", string version="v00", string options
            << std::setw(4) << xsec_stat_data
            << " : ";
       if (h_xsec_rec["reference"]) {
-        if (flags[i].find("stat") != string::npos) {
+        if (flags[i].find("reference") != string::npos) {
+          cout << std::fixed << std::setprecision(2)
+               << std::setw(6) << 0.
+               << " %"
+               << " : "
+               << std::setw(6) << 0.
+               << " %"
+               << endl;
+          h_xsec_rec_errors_p->SetBinContent(i+1, +100. * xsec_stat_data / xsec_data);
+          h_xsec_rec_errors_m->SetBinContent(i+1, -100. * xsec_stat_data / xsec_data);
+        } else if (flags[i].find("stat") != string::npos) {
           cout << std::fixed << std::setprecision(2)
                << std::setw(6) << 100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data
                << " %"
@@ -192,6 +208,8 @@ void plot6(string plot="", string title="", string version="v00", string options
                << std::setw(6) << 0.
                << " %"
                << endl;
+          h_xsec_rec_errors_p->SetBinContent(i+1, +100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data);
+          h_xsec_rec_errors_m->SetBinContent(i+1, -100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data);
         } else {
           cout << std::fixed << std::setprecision(2)
                << std::setw(6) << 100. * (xsec_data - xsec_data_ref) / xsec_data
@@ -200,6 +218,8 @@ void plot6(string plot="", string title="", string version="v00", string options
                << std::setw(6) << TMath::Sign(1, xsec_data - xsec_data_ref) * 100. * (TMath::Sqrt(TMath::Max(0.,TMath::Power(xsec_data - xsec_data_ref,2) - TMath::Abs(TMath::Power(xsec_stat_data,2) - TMath::Power(xsec_stat_data_ref,2))))) / xsec_data
                << " %"
                << endl;
+          h_xsec_rec_errors_p->SetBinContent(i+1, +100. * (xsec_data - xsec_data_ref) / xsec_data);
+          h_xsec_rec_errors_m->SetBinContent(i+1, -100. * (xsec_data - xsec_data_ref) / xsec_data);
         }
       } else {
         cout << "reference cross section not available" << endl;
@@ -1168,6 +1188,53 @@ void plot6(string plot="", string title="", string version="v00", string options
   label->Draw("same");
 
   c1->SaveAs(("html/" + version + "/reference/" + year + ".xsec/" + title + ".pdf").c_str());
+
+  if (plot.find("Run2") != string::npos) {
+
+    TCanvas* c2 = new TCanvas("c2", "c2", 10, 10, 800, 600);
+    c2->SetBottomMargin(0.3);
+    c2->cd();
+
+    h_xsec_rec_errors_p->SetTitle("");
+    h_xsec_rec_errors_p->SetStats(kFALSE);
+    h_xsec_rec_errors_m->SetTitle("");
+    h_xsec_rec_errors_m->SetStats(kFALSE);
+
+    h_xsec_rec_errors_p->SetMinimum(-50.);
+    h_xsec_rec_errors_p->SetMaximum(+50.);
+    h_xsec_rec_errors_m->SetMinimum(-50.);
+    h_xsec_rec_errors_m->SetMaximum(+50.);
+
+    if (title.find("nphotons") != string::npos)  {
+      h_xsec_rec_errors_p->SetMinimum(-5.);
+      h_xsec_rec_errors_p->SetMaximum(+5.);
+      h_xsec_rec_errors_m->SetMinimum(-5.);
+      h_xsec_rec_errors_m->SetMaximum(+5.);
+    }
+
+    h_xsec_rec_errors_p->SetFillColor(4);
+    h_xsec_rec_errors_m->SetFillColor(38);
+
+    h_xsec_rec_errors_p->SetBarWidth(0.5);
+    h_xsec_rec_errors_m->SetBarWidth(0.5);
+
+    h_xsec_rec_errors_p->SetBarOffset(0.25);
+    h_xsec_rec_errors_m->SetBarOffset(0.25);
+
+    h_xsec_rec_errors_p->GetYaxis()->SetTitleOffset(0.9);
+    h_xsec_rec_errors_p->GetYaxis()->SetTitle("%");
+
+    h_xsec_rec_errors_p->GetXaxis()->SetLabelSize(0.04);
+    h_xsec_rec_errors_p->GetYaxis()->SetLabelSize(0.03);
+
+    h_xsec_rec_errors_p->GetXaxis()->LabelsOption("v");
+
+    h_xsec_rec_errors_p->Draw("B");
+    h_xsec_rec_errors_m->Draw("BSAME");
+
+    c2->SaveAs(("html/" + version + "/reference/" + year + ".xsec/" + title + "_impact.pdf").c_str());
+
+  }
 
   TFile* file = new TFile(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str());
