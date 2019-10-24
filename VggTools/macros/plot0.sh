@@ -42,7 +42,7 @@ fi
 
 [ "$FLAG" != "reference" ] && SKIP2=":"
 
-[ "$YEAR" == "Run2" ] && SKIP2=":"
+[ "$YEARS" == "Run2" ] && SKIP2=":"
 
 alias SKIP1=$SKIP1
 alias SKIP2=$SKIP2
