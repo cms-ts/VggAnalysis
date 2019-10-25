@@ -308,7 +308,7 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) {
     for (int i = 0; i < histo[0]->GetNbinsX()+2; i++) {
       histo[8001]->SetBinContent(i, histo[8001]->GetBinContent(i) + histo[0]->GetBinContent(i) * (1. - h_weight->GetBinContent(i)));
-      histo[8001]->SetBinError(i, TMath::Sqrt( TMath::Power(histo[8001]->GetBinError(i), 2) + TMath::Power(histo[0]->GetBinContent(i) * (1. - h_weight->GetBinContent(i)), 2)));
+      histo[8001]->SetBinError(i, TMath::Sqrt(TMath::Power(histo[8001]->GetBinError(i), 2) + TMath::Power(1. - h_weight->GetBinContent(i), 2) * histo[0]->GetBinError(i) + TMath::Power(histo[0]->GetBinContent(i), 2) * TMath::Power(h_weight->GetBinError(i), 2)));
     }
   }
 
