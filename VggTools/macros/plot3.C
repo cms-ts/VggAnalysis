@@ -242,7 +242,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-#define USE_BOTH_LEPTONS
+// #define USE_BOTH_LEPTONS
 
 #if defined(USE_BOTH_LEPTONS)
   string plot2 = plot;
