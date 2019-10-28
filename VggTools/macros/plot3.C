@@ -527,7 +527,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       if (index == 10 || index == 11 || index == 21 || index == 22 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 9001) {
         h_mc_sgn->Add(it->second);
       }
-      if (index != 10 && index != 11 && index != 21 && index != 22 && index != 1010 && index != 1011 && index != 1020 && index != 1021 && index != 1022 && index == 9001) {
+      if (index != 10 && index != 11 && index != 21 && index != 22 && index != 1010 && index != 1011 && index != 1020 && index != 1021 && index != 1022 && index != 9001) {
         h_mc_bkg->Add(it->second);
       }
     }
