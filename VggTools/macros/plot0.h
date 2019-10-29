@@ -9,6 +9,7 @@ using namespace std;
 #include "TLine.h"
 #include "TMarker.h"
 #include "TStyle.h"
+#include "TGaxis.h"
 #include "TH1F.h"
 #include "TH2F.h"
 #include "TH1D.h"
