@@ -66,7 +66,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_iso0" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -108,7 +108,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     return;
   }
 
-  if (flag == "jet_misid_mc") {
+  if (flag != "jet_misid_iso0" && flag != "jet_misid_iso1" && flag != "jet_misid_iso2") {
     for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
       int index = int(it->second);
       if (index > 0) {
@@ -158,7 +158,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_iso0" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -204,7 +204,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index > 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_iso0" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -280,7 +280,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_iso0" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -322,7 +322,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     return;
   }
 
-  if (flag == "jet_misid_mc") {
+  if (flag != "jet_misid_iso0" && flag != "jet_misid_iso1" && flag != "jet_misid_iso2") {
     for (multimap<string, float>::iterator it = plotMap2.begin(); it != plotMap2.end(); it++) {
       int index = int(it->second);
       if (index > 0) {
@@ -365,7 +365,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_iso0" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -398,7 +398,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index > 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_iso0" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -445,7 +445,7 @@ void plot3(string plot="", string title="", string version="v00", string options
   if (options.find("madgraph") != string::npos) version = version + ".madgraph";
   if (options.find("default") != string::npos) version = version + ".default";
 
-  if (flag == "jet_misid_mc") {
+  if (flag != "jet_misid_iso0" && flag != "jet_misid_iso1" && flag != "jet_misid_iso2") {
     float fitval = 0.;
     float fiterr = 0.;
     int index = 9001;
@@ -469,7 +469,7 @@ void plot3(string plot="", string title="", string version="v00", string options
   }
 
 #if defined(USE_BOTH_LEPTONS)
-  if (flag == "jet_misid_mc") {
+  if (flag != "jet_misid_iso0" && flag != "jet_misid_iso1" && flag != "jet_misid_iso2") {
     float fitval = 0.;
     float fiterr = 0.;
     int index = 9001;
@@ -686,7 +686,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       alpha_jet = 0;
     }
 
-    if (flag == "jet_misid_mc") {
+    if (flag != "jet_misid_iso0" && flag != "jet_misid_iso1" && flag != "jet_misid_iso2") {
       alpha_gamma = h_mc_sgn->GetBinContent(i);
       alpha_gamma_err = h_mc_sgn->GetBinError(i);
       alpha_jet = h_mc_bkg->GetBinContent(i);
