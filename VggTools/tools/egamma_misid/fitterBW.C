@@ -78,14 +78,24 @@ void fitterBW(int number, int year, bool isQCD, string syst) {
 
    // FAKE_MC
 
+   float CMSalpha_mean = 75.;
+   float CMSalpha_min = 65.;
+   float CMSalpha_max = 80.;
+
+   if ((number == 7 && year == 2016 && !isQCD) || (number == 6 && year == 2017 && isQCD)){
+     CMSalpha_mean = 70.;
+     CMSalpha_min = 65.;
+     CMSalpha_max = 80.;
+   }
+
    RooRealVar BWmean_fake_MC ("BWmean_fake_MC", "BWmean_fake_MC", 90.,85., 95.);
-   RooRealVar BWsigma_fake_MC("BWsigma_fake_MC","BWsigma_fake_MC", 2., 0., 4.);
+   RooRealVar BWsigma_fake_MC("BWsigma_fake_MC","BWsigma_fake_MC", 4., 1, 6.);
    RooBreitWigner BW_fake_MC("BW_fake_MC","BW_fake_MC", m_fake_MC, BWmean_fake_MC, BWsigma_fake_MC);
 
-   RooRealVar CMSalpha_fake_MC ("CMSalpha_fake_MC", "CMSalpha_fake_MC", 60.,50.,80.);
+   RooRealVar CMSalpha_fake_MC ("CMSalpha_fake_MC", "CMSalpha_fake_MC", CMSalpha_mean, CMSalpha_min, CMSalpha_max);
    RooRealVar CMSbeta_fake_MC ("CMSbeta_fake_MC", "CMSbeta_fake_MC", 0.4,0.,5.);
    RooRealVar CMSpeak_fake_MC ("CMSpeak_fake_MC", "CMSpeak_fake_MC", 70.,50.,90.);
-   RooRealVar CMSgamma_fake_MC ("CMSgamma_fake_MC", "CMSgamma_fake_MC", 0.2,0.,1.);
+   RooRealVar CMSgamma_fake_MC ("CMSgamma_fake_MC", "CMSgamma_fake_MC", 0.2,0.,1.5);
    RooCMSShape CMS_fake_MC("CMS_fake_MC","CMS_fake_MC", m_fake_MC, CMSalpha_fake_MC, CMSbeta_fake_MC, CMSgamma_fake_MC, CMSpeak_fake_MC);
 
    RooRealVar bkgfrac_fake_MC("bkgfrac_fake_MC","bkgfrac_fake_MC", 0.3, 0., 1.) ;
@@ -119,10 +129,10 @@ void fitterBW(int number, int year, bool isQCD, string syst) {
 
    //FAKE DT
    RooRealVar BWmean_fake_DT ("BWmean_fake_DT", "BWmean_fake_DT", 90.,85., 95.);
-   RooRealVar BWsigma_fake_DT("BWsigma_fake_DT","BWsigma_fake_DT", 2., 0., 4.);
+   RooRealVar BWsigma_fake_DT("BWsigma_fake_DT","BWsigma_fake_DT", 6., 2., 7.);
    RooBreitWigner BW_fake_DT("BW_fake_DT","BW_fake_DT", m_fake_DT, BWmean_fake_DT, BWsigma_fake_DT);
 
-   RooRealVar CMSalpha_fake_DT ("CMSalpha_fake_DT", "CMSalpha_fake_DT", 75.,65.,85.);
+   RooRealVar CMSalpha_fake_DT ("CMSalpha_fake_DT", "CMSalpha_fake_DT", 75., 50.,90.);
    RooRealVar CMSbeta_fake_DT ("CMSbeta_fake_DT", "CMSbeta_fake_DT", 0.07,0.,1.);
    RooRealVar CMSpeak_fake_DT ("CMSpeak_fake_DT", "CMSpeak_fake_DT", 50.,40.,60.);
    RooRealVar CMSgamma_fake_DT ("CMSgamma_fake_DT", "CMSgamma_fake_DT",0.08 ,0.,0.1);
@@ -161,33 +171,33 @@ void fitterBW(int number, int year, bool isQCD, string syst) {
    c->cd(1);
    RooPlot* plot_fake_MC = m_fake_MC.frame();
    data_fake_MC.plotOn(plot_fake_MC);
-   model_fake_MC.plotOn(plot_fake_MC, RooFit::LineColor(kRed));
-   model_fake_MC.plotOn(plot_fake_MC, RooFit::Components(CMS_fake_MC), RooFit::LineColor(kBlue)) ;
-   model_fake_MC.plotOn(plot_fake_MC, RooFit::Components(BW_fake_MC), RooFit::LineColor(kGreen)) ;
+   model_fake_MC.plotOn(plot_fake_MC, RooFit::LineColor(kRed), RooFit::LineStyle(7));
+   model_fake_MC.plotOn(plot_fake_MC, RooFit::Components(CMS_fake_MC), RooFit::LineColor(kBlue), RooFit::LineStyle(7)) ;
+   model_fake_MC.plotOn(plot_fake_MC, RooFit::Components(BW_fake_MC), RooFit::LineColor(kGreen), RooFit::LineStyle(7)) ;
    plot_fake_MC->Draw();
 
    c->cd(2);
    RooPlot* plot_Z_MC = m_Z_MC.frame();
    data_Z_MC.plotOn(plot_Z_MC);
-   model_Z_MC.plotOn(plot_Z_MC, RooFit::LineColor(kRed));
-   model_Z_MC.plotOn(plot_Z_MC, RooFit::Components(CMS_Z_MC), RooFit::LineColor(kBlue)) ;
-   model_Z_MC.plotOn(plot_Z_MC, RooFit::Components(CB_Z_MC), RooFit::LineColor(kGreen)) ;
+   model_Z_MC.plotOn(plot_Z_MC, RooFit::LineColor(kRed), RooFit::LineStyle(7));
+   model_Z_MC.plotOn(plot_Z_MC, RooFit::Components(CMS_Z_MC), RooFit::LineColor(kBlue), RooFit::LineStyle(7)) ;
+   model_Z_MC.plotOn(plot_Z_MC, RooFit::Components(CB_Z_MC), RooFit::LineColor(kGreen), RooFit::LineStyle(7)) ;
    plot_Z_MC->Draw();
 
    c->cd(3);
    RooPlot* plot_fake_DT = m_fake_DT.frame();
    data_fake_DT.plotOn(plot_fake_DT);
-   model_fake_DT.plotOn(plot_fake_DT, RooFit::LineColor(kRed));
-   model_fake_DT.plotOn(plot_fake_DT, RooFit::Components(CMS_fake_DT), RooFit::LineColor(kBlue)) ;
-   model_fake_DT.plotOn(plot_fake_DT, RooFit::Components(BW_fake_DT), RooFit::LineColor(kGreen)) ;
+   model_fake_DT.plotOn(plot_fake_DT, RooFit::LineColor(kRed), RooFit::LineStyle(7));
+   model_fake_DT.plotOn(plot_fake_DT, RooFit::Components(CMS_fake_DT), RooFit::LineColor(kBlue), RooFit::LineStyle(7)) ;
+   model_fake_DT.plotOn(plot_fake_DT, RooFit::Components(BW_fake_DT), RooFit::LineColor(kGreen), RooFit::LineStyle(7)) ;
    plot_fake_DT->Draw();
 
    c->cd(4);
    RooPlot* plot_Z_DT = m_Z_DT.frame();
    data_Z_DT.plotOn(plot_Z_DT);
-   model_Z_DT.plotOn(plot_Z_DT, RooFit::LineColor(kRed));
-   model_Z_DT.plotOn(plot_Z_DT, RooFit::Components(CMS_Z_DT), RooFit::LineColor(kBlue)) ;
-   model_Z_DT.plotOn(plot_Z_DT, RooFit::Components(CB_Z_DT), RooFit::LineColor(kGreen)) ;
+   model_Z_DT.plotOn(plot_Z_DT, RooFit::LineColor(kRed), RooFit::LineStyle(7));
+   model_Z_DT.plotOn(plot_Z_DT, RooFit::Components(CMS_Z_DT), RooFit::LineColor(kBlue), RooFit::LineStyle(7)) ;
+   model_Z_DT.plotOn(plot_Z_DT, RooFit::Components(CB_Z_DT), RooFit::LineColor(kGreen), RooFit::LineStyle(7)) ;
    plot_Z_DT->Draw();
 
    string plot_title = "../../macros/html/egamma_v5/" + syst + "/plot/BW_bin_";

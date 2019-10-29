@@ -18,7 +18,7 @@ wait
 
 for YEAR in $YEARS; do
 
-  root-6.12 -b -q compare.C\($YEAR,true,\"data\",\"reference\"\)
-  root-6.12 -b -q compare.C\($YEAR,false,\"data\",\"reference\"\)
+  root-6.12 -l -b -q compare.C\($YEAR,true,\"data\",\"reference\",\"CB\",\"BW\"\)
+  root-6.12 -l -b -q compare.C\($YEAR,false,\"data\",\"reference\",\"CB\",\"BW\"\)
 
 done
