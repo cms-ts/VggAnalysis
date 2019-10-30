@@ -340,7 +340,7 @@ void plot4(string plot="", string title="", string version="v00", string options
           hstack_mc->Add(it->second);
           h_mc_sum->Add(it->second);
         }
-        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index == 10 && index == 1010)) {
+        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index == 10 || index == 1010)) {
           hstack_mc->Add(it->second);
           h_mc_sum->Add(it->second);
         }
