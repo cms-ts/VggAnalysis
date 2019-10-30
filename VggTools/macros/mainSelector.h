@@ -34,6 +34,8 @@
 #endif // defined(NANOAODv5)
 
 #if defined(__linux__)
+#include "roccor.Run2.v3/RoccoR.h"
+
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 #define __ROOTCLING__ 1
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
@@ -47,8 +49,6 @@
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 #include "JetMETCorrections/Modules/interface/JetResolution.h"
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
-
-#include "roccor.Run2.v3/RoccoR.h"
 #endif // defined(__linux__)
 
 #define QCD(H) ((TH1*)GetOutputList()->FindObject((TString(H->GetName()) + "_qcd").Data()))
