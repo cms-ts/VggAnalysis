@@ -4,7 +4,7 @@ if [ -r $CMS_PATH/slc6_amd64_gcc700/cms/cmssw/CMSSW_10_5_0 ]; then
   cd $CMS_PATH/slc6_amd64_gcc700/cms/cmssw/CMSSW_10_5_0
   eval `scramv1 runtime -sh`
   cd $OLDPWD
-  alias root-6.12=root
+  alias root-6.12=root.exe
 fi
 
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/tools
