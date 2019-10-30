@@ -770,35 +770,35 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (errors["qcd_fit"].size()) labels.push_back("qcd_fit");
   if (errors["lumi"].size()) labels.push_back("lumi");
 
-  ofstream out;
-  out.open(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".dat").c_str());
+  ofstream out1;
+  out1.open(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".dat").c_str());
   Info("File::Open", "dat file %s has been created", ("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".dat").c_str());
 
-  out << title << " (" << h_xsec_mc_gen["reference"]->Integral(0, h_xsec_mc_gen["reference"]->GetNbinsX()+1, "width") << ")" << endl;
+  out1 << title << " (" << h_xsec_mc_gen["reference"]->Integral(0, h_xsec_mc_gen["reference"]->GetNbinsX()+1, "width") << ")" << endl;
 
-  out << std::setw(25) << "data";
+  out1 << std::setw(25) << "data";
 
   for (uint i = 0; i < labels.size(); i++) {
-    out << std::setw(11) << TString(labels[i]).ReplaceAll("_stat", "").Data();
+    out1 << std::setw(11) << TString(labels[i]).ReplaceAll("_stat", "").Data();
   }
 
-  out << std::setw(11) << "total"
+  out1 << std::setw(11) << "total"
       << std::setw(11) << "total"
       << std::setw(11) << "total"
       << std::setw(11) << ""
       << endl;
 
-  out << std::setw(25) << "stat";
+  out1 << std::setw(25) << "stat";
 
   for (uint i = 0; i < labels.size(); i++) {
     if (labels[i].find("stat") != string::npos) {
-      if (errors[labels[i]].size()) out << std::setw(11) << "stat";
+      if (errors[labels[i]].size()) out1 << std::setw(11) << "stat";
     } else {
-      if (errors[labels[i]].size()) out << std::setw(11) << "syst";
+      if (errors[labels[i]].size()) out1 << std::setw(11) << "syst";
     }
   }
 
-  out << std::setw(11) << "stat"
+  out1 << std::setw(11) << "stat"
       << std::setw(11) << "syst"
       << std::setw(11) << "error"
       << std::setw(9) << "%"
@@ -808,18 +808,18 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   for (int i = 0; i < h_xsec_rec["reference"]->GetNbinsX()+2; i++) {
 
-    out << std::setw(2) << i
+    out1 << std::setw(2) << i
         << std::fixed << std::setprecision(5)
         << std::setw(12) << values["reference"][i]
         << std::setw(3) << " +-"
         << std::setw(8) << (errors["bkg_stat"].size() ? (errors["jet_misid_stat"].size() ? TMath::Sqrt(TMath::Power(errors["reference"][i], 2) - TMath::Power(errors["bkg_stat"][i], 2) - TMath::Power(errors["jet_misid_stat"][i], 2)) : TMath::Sqrt(TMath::Power(errors["reference"][i], 2) - TMath::Power(errors["bkg_stat"][i], 2)) ) : (errors["jet_misid_stat"].size() ? TMath::Sqrt(TMath::Power(errors["reference"][i], 2) - TMath::Power(errors["jet_misid_stat"][i], 2)) : errors["reference"][i]));
 
     for (uint j = 0; j < labels.size(); j++) {
-      out << std::setw(3) << " +-"
+      out1 << std::setw(3) << " +-"
           << std::setw(8) << errors[labels[j]][i];
     }
 
-    out << std::setw(3) << " =>"
+    out1 << std::setw(3) << " =>"
         << std::setw(8) <<  errors["reference"][i]
         << std::setw(3) << " +-";
 
@@ -830,35 +830,35 @@ void plot6(string plot="", string title="", string version="v00", string options
         sumw2 = sumw2 + TMath::Power(errors[labels[j]][i], 2);
       }
     }
-    out << std::setw(8) << TMath::Sqrt(sumw2)
+    out1 << std::setw(8) << TMath::Sqrt(sumw2)
         << std::setw(3) << " =>"
         << std::setw(8) <<  TMath::Sqrt(TMath::Power(errors["reference"][i], 2) + sumw2);
 
     err_data[i] = TMath::Sqrt(TMath::Power(errors["reference"][i], 2) + sumw2);
 
-    out << std::setw(3) << " =>"
+    out1 << std::setw(3) << " =>"
         << std::fixed << std::setprecision(1)
         << std::setw(6) << (values["reference"][i] != 0. ? 100 * TMath::Sqrt(TMath::Power(errors["reference"][i], 2) + sumw2)/values["reference"][i] : 0.)
         << endl;
 
   }
 
-  out << std::setw(3) << "tot"
+  out1 << std::setw(3) << "tot"
       << std::fixed << std::setprecision(5)
       << std::setw(11) << xsec_data_ref
       << " +-"
       << std::setw(8) << (errors_tot["bkg_stat"] ? (errors_tot["jet_misid_stat"] ? TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - TMath::Power(errors_tot["bkg_stat"], 2) - TMath::Power(errors_tot["jet_misid_stat"], 2))  : TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - TMath::Power(errors_tot["bkg_stat"], 2)) ) : (errors_tot["jet_misid_stat"] ? TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - TMath::Power(errors_tot["jet_misid_stat"], 2)) : xsec_stat_data_ref));
 
   for (uint j = 0; j < labels.size(); j++) {
-    out << std::setw(3) << " +-";
+    out1 << std::setw(3) << " +-";
     if (labels[j] == "lumi") {
-      out << std::setw(8) << xsec_data_ref * lumierror / 100.;
+      out1 << std::setw(8) << xsec_data_ref * lumierror / 100.;
     } else {
-      out << std::setw(8) << errors_tot[labels[j]];
+      out1 << std::setw(8) << errors_tot[labels[j]];
     }
   }
 
-  out << std::setw(3) << " =>"
+  out1 << std::setw(3) << " =>"
       << std::setw(8) << xsec_stat_data_ref
       << std::setw(3) << " +-";
 
@@ -870,7 +870,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     }
   }
 
-  out << std::setw(8) << TMath::Sqrt(sumw2)
+  out1 << std::setw(8) << TMath::Sqrt(sumw2)
       << std::setw(3) << " =>"
       << std::setw(8) <<  TMath::Sqrt(xsec_stat_data_ref * xsec_stat_data_ref + sumw2)
       << std::setw(3) << " =>"
@@ -878,7 +878,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       << std::setw(6) << (xsec_data_ref != 0. ? 100 * TMath::Sqrt(xsec_stat_data_ref * xsec_stat_data_ref + sumw2)/xsec_data_ref : 0.)
       << endl;
 
-  out.close();
+  out1.close();
 
   gROOT->GetColor(kRed)->SetAlpha(0.5);
   gROOT->GetColor(kGreen+2)->SetAlpha(0.5);
@@ -1247,13 +1247,148 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   }
 
-  TFile* file = new TFile(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
+  TFile* file1 = new TFile(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str());
   h_xsec_rec["reference"]->Write((title + "_xsec_rec").c_str());
   h_xsec_mc_gen["reference"]->Write((title + "_xsec_mc_gen").c_str());
   h_xsec_rec_err->Write((title + "_xsec_rec_err").c_str());
-  file->Close();
-  delete file;
+  file1->Close();
+  delete file1;
+
+  if (title.find("nphotons") != string::npos) return;
+
+  TFile* file2 = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/" + title + ".root").c_str());
+
+  TH1D* h_data = 0;
+  TH1D* h_sig = 0;
+  TH1D* h_misid = 0;
+
+  TH1D* h_zg = 0;
+  TH1D* h_zgg = 0;
+
+  if (!file2->IsZombie()) {
+
+    h_data = (TH1D*)file2->Get((title + "_data").c_str());
+    h_sig = (TH1D*)file2->Get((title + "_sig").c_str());
+    h_misid = (TH1D*)file2->Get((title + "_misid").c_str());
+
+    h_data->SetDirectory(0);
+    h_sig->SetDirectory(0);
+    h_misid->SetDirectory(0);
+
+    if (title.find("WGG") != string::npos) {
+      h_zg = (TH1D*)file2->Get((title + "_zg").c_str());
+      h_zgg = (TH1D*)file2->Get((title + "_zgg").c_str());
+
+      h_zg->SetDirectory(0);
+      h_zgg->SetDirectory(0);
+    }
+
+    file2->Close();
+    delete file2;
+
+  }
+
+  ofstream out2;
+  out2.open(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".txt").c_str());
+  Info("File::Open", "txt file %s has been created", ("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".txt").c_str());
+
+  int kmax = 0;
+
+  for (uint i = 0; i < labels.size(); i++) {
+    if (labels[i].find("stat") != string::npos) continue;
+    kmax++;
+  }
+
+  out2 << "imax 1  number of channels" << endl;
+  if (title.find("WGG") != string::npos) out2 << "jmax 3  number of channels" << endl;
+  if (title.find("ZGG") != string::npos) out2 << "jmax 1  number of channels" << endl;
+  out2 << "kmax "
+       << kmax
+       << "  number of nuisance parameters (sources of systematical uncertainties)" << endl;
+
+  out2 << "------------" << endl;
+
+  if (title.find("ele") != string::npos) out2 << "bin ele" << endl;
+  if (title.find("muo") != string::npos) out2 << "bin muo" << endl;
+  out2 << "observation "
+       << std::fixed << std::setprecision(2)
+       << h_data->Integral() << endl;
+
+  out2 << "------------" << endl;
+
+  out2 << std::setw(15) << left << "bin";
+  if (title.find("ele") != string::npos) {
+    out2 << std::setw(8) << "ele"
+         << std::setw(8) << "ele";
+    if (title.find("WGG") != string::npos) {
+      out2 << std::setw(8) << "ele"
+           << std::setw(8) << "ele";
+    }
+  }
+  if (title.find("muo") != string::npos) {
+    out2 << std::setw(8) << "muo"
+         << std::setw(8) << "muo";
+    if (title.find("WGG") != string::npos) {
+      out2 << std::setw(8) << "muo"
+           << std::setw(8) << "muo";
+    }
+  }
+  out2 << endl;
+
+  out2 << std::setw(15) << left << "process";
+  if (title.find("WGG") != string::npos) out2 << std::setw(8) << "wgg";
+  if (title.find("ZGG") != string::npos) out2 << std::setw(8) << "zgg";
+  out2 << std::setw(8) << "jet_mis";
+  if (title.find("WGG") != string::npos) {
+    out2 << std::setw(8) << "zg"
+         << std::setw(8) << "zgg";
+  }
+  out2 << endl;
+
+  out2 << std::setw(15) << left << "process"
+       << std::setw(8) << " 0"
+       << std::setw(8) << " 1";
+  if (title.find("WGG") != string::npos) {
+    out2 << std::setw(8) << " 2"
+         << std::setw(8) << " 3";
+  }
+  out2 << endl;
+
+  out2 << std::setw(15) << left << "rate"
+       << std::setw(8) << h_sig->Integral()
+       << std::setw(8) << h_misid->Integral();
+  if (title.find("WGG") != string::npos) {
+    out2 << std::setw(8) << h_zg->Integral()
+         << std::setw(8) << h_zgg->Integral();
+  }
+  out2 << endl;
+
+  out2 << "------------" << endl;
+
+  for (uint i = 0; i < labels.size(); i++) {
+    if (labels[i].find("stat") != string::npos) continue;
+    if (labels[i].find("jet_misid") != string::npos) continue;
+    out2 << std::setw(15) << left << (labels[i] + " lnN").c_str()
+         << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref 
+         << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref; 
+    if (title.find("WGG") != string::npos) {
+      out2 << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
+           << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref; 
+    }
+    out2 << endl;
+  }
+
+  out2 << std::setw(15) << left << "jet_misid lnN"
+       << std::setw(8) << "-" 
+       << std::setw(8) << 1. + errors_tot["jet_misid"]/xsec_data_ref; 
+  if (title.find("WGG") != string::npos) {
+    out2 << std::setw(8) << "-"
+         << std::setw(8) << "-"; 
+  }
+  out2 << endl;
+
+  out2.close();
 
 }
 

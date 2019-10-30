@@ -622,10 +622,12 @@ void plot4(string plot="", string title="", string version="v00", string options
   histo[0]->Write((title + "_data").c_str());
   histo[8001]->Write((title + "_misid").c_str());
   if (title.find("h_WGG_") != string::npos) {
+    histo[1010]->Write((title + "_sig").c_str());
     histo[1021]->Write((title + "_zg").c_str());
     histo[1022]->Write((title + "_zgg").c_str());
   }
   if (title.find("h_ZGG_") != string::npos) {
+    histo[10]->Write((title + "_sig").c_str());
     histo[21]->Write((title + "_wg").c_str());
     histo[22]->Write((title + "_wgg").c_str());
   }
