@@ -1,5 +1,14 @@
 #!/bin/sh
 
+if [ -r $CMS_PATH/slc6_amd64_gcc700/cms/cmssw/CMSSW_10_5_0 ]; then
+  cd $CMS_PATH/slc6_amd64_gcc700/cms/cmssw/CMSSW_10_5_0
+  eval `scramv1 runtime -sh`
+  cd $OLDPWD
+fi
+
+WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/tools/egamma_misid
+cd $WORKDIR
+
 NUMBERS="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20"
 
 YEAR=$1
@@ -47,11 +56,11 @@ fi
 
 for NUMBER in $NUMBERS; do
 
-   root-6.12 -l -q -b fitter${FITFUNC}.C+\($NUMBER,$YEAR,$ISQCD,\"$SYST\"\)
+   root.exe -l -q -b fitter${FITFUNC}.C+\($NUMBER,$YEAR,$ISQCD,\"$SYST\"\)
 
 done
 
-root-6.12 -l -q -b draw.C\($YEAR,$ISQCD,\"data\",\"$FITFUNC\",\"$SYST\"\)
-root-6.12 -l -q -b draw.C\($YEAR,$ISQCD,\"xsec\",\"$FITFUNC\",\"$SYST\"\)
+root.exe -l -q -b draw.C\($YEAR,$ISQCD,\"data\",\"$FITFUNC\",\"$SYST\"\)
+root.exe -l -q -b draw.C\($YEAR,$ISQCD,\"xsec\",\"$FITFUNC\",\"$SYST\"\)
 
 exit

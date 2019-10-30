@@ -4,7 +4,6 @@ if [ -r $CMS_PATH/slc6_amd64_gcc700/cms/cmssw/CMSSW_10_5_0 ]; then
   cd $CMS_PATH/slc6_amd64_gcc700/cms/cmssw/CMSSW_10_5_0
   eval `scramv1 runtime -sh`
   cd $OLDPWD
-  alias root-6.12=root.exe
 fi
 
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/macros
@@ -26,7 +25,7 @@ export ROOT_HIST=0
 make_lib() {
   FILES=$1
   for F in $FILES; do
-    root-6.12 -l -b -q -e 'cout << "Checking '$F' ..." << endl ; gSystem->Exit(gSystem->CompileMacro("'$F'","'$FLAGS'"))'
+    root.exe -l -b -q -e 'cout << "Checking '$F' ..." << endl ; gSystem->Exit(gSystem->CompileMacro("'$F'","'$FLAGS'"))'
   done
 }
 
