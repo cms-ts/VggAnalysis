@@ -33,6 +33,7 @@
 #undef NANOAODv4
 #endif // defined(NANOAODv5)
 
+#if defined(__linux__)
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 #define __ROOTCLING__ 1
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
@@ -48,6 +49,7 @@
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
 #include "roccor.Run2.v3/RoccoR.h"
+#endif // defined(__linux__)
 
 #define QCD(H) ((TH1*)GetOutputList()->FindObject((TString(H->GetName()) + "_qcd").Data()))
 
@@ -530,6 +532,7 @@ public :
 
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
+#if defined(__linux__)
    RoccoR* roccor = 0;
 
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
@@ -544,6 +547,7 @@ public :
    JME::JetResolution* jet_resolution = 0;
    JME::JetResolutionScaleFactor* jet_resolution_sf = 0;
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
+#endif // defined(__linux__)
 
    TTreeReaderValue<UInt_t> run = {fReader, "run"};
    TTreeReaderValue<UInt_t> luminosityBlock = {fReader, "luminosityBlock"};

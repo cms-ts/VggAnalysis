@@ -32,7 +32,9 @@
 #include <TRandom.h>
 #include <TLorentzVector.h>
 
+#if defined(__linux__)
 #include "roccor.Run2.v3/RoccoR.cc"
+#endif // defined(__linux__)
 
 void mainSelector::Begin(TTree * /*tree*/)
 {
@@ -528,6 +530,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
+#if defined(__linux__)
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
    roccor = new RoccoR("roccor.Run2.v3/RoccoR2016.txt");
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -642,6 +645,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    jet_resolution = new JME::JetResolution("jme/Autumn18_V6_MC_PtResolution_AK4PFchs.txt");
    jet_resolution_sf = new JME::JetResolutionScaleFactor("jme/Autumn18_V6_MC_SF_AK4PFchs.txt");
 #endif // defined(mainSelectorMC18_cxx)
+#endif // defined(__linux__)
 
 }
 
@@ -1641,6 +1645,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    for (uint i = 0; i < *nMuon; i++) {
      float eCorr_muo = 1.;
+#if defined(__linux__)
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
      eCorr_muo = roccor->kScaleDT(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], 0, 0);
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
@@ -1652,6 +1657,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (TMath::IsNaN(eCorr_muo)) eCorr_muo = 1.;
      }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(__linux__)
      Muon_pt[i] = Muon_pt[i] * eCorr_muo;
      if (Muon_pt[i] < 15) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
@@ -2583,6 +2589,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      float jet_pt_ref = Jet_pt[i];
 
+#if defined(__linux__)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (Jet_pt[i] > 10 && fabs(Jet_eta[i]) < 5.2) {
 
@@ -2662,6 +2669,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      Jet_pt[i] = Jet_pt[i] * jet_smear;
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(__linux__)
 
      if (Jet_pt[i] > 15) {
        met_px = met_px - (Jet_pt[i] - jet_pt_ref) * TMath::Cos(Jet_phi[i]);
