@@ -115,6 +115,8 @@ void run(TString input="../macros/lists/Run2017B_DoubleEG_14Dec2018.list", TStri
 
 int main(int argc, char *argv[]) {
 
+#pragma unused (argc)
+
 run(argv[1], argv[2]);
 
 }

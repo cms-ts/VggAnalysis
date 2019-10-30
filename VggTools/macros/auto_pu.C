@@ -107,6 +107,8 @@ void auto_pu(TString input="lists/RunIIFall17NanoAODv4_DYJetsToLL_M-50_TuneCP5_1
 
 int main(int argc, char *argv[]) {
 
+#pragma unused (argc)
+
 auto_pu(argv[1], argv[2]);
 
 }

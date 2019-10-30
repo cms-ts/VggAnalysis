@@ -187,6 +187,8 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
 
 int main(int argc, char *argv[]) {
 
+#pragma unused (argc)
+
 run(argv[1], argv[2], argv[3]);
 
 }
