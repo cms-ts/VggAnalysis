@@ -50,10 +50,7 @@ make_exe() {
   for F in $FILES; do
     echo ""
     echo "Compiling $F ..."
-    g++ -O2 -pthread -std=c++1z -m64 -I$ROOTSYS/include -L$ROOTSYS/lib \
-        -lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad \
-        -lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore \
-        -lThread -lMultiProc -pthread -lm -ldl -rdynamic -lASImage $F -o `basename $F .C`.exe
+    g++ -O2 `root-config --cflags --ldflags --libs` -lASImage $F -o `basename $F .C`.exe
   done
 }
 
