@@ -450,7 +450,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    TFile* file_muo_sf_id = new TFile("root/sf_muo_2018_RunABCD_SF_ID.root");
 
-   sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
+   sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_TrackerMuons_pt_abseta");
    sf_muo_id->SetDirectory(0);
 
    file_muo_sf_id->Close();
