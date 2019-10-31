@@ -239,6 +239,9 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_id = (TH2D*)sf_muo_id_1->Clone();
    sf_muo_id->Reset();
    sf_muo_id->Add(sf_muo_id_1, sf_muo_id_2, 19.69/35.917, 16.227/35.917);
+#if ROOT_VERSION_CODE >= ROOT_VERSION(6,18,0)
+   cout << "Warning in <TH2D::Add>: Some bins have width=0 (ROOT-7752)" << endl;
+#endif
    delete sf_muo_id_1;
    delete sf_muo_id_2;
 
@@ -258,6 +261,9 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_iso = (TH2D*)sf_muo_iso_1->Clone();
    sf_muo_iso->Reset();
    sf_muo_iso->Add(sf_muo_iso_1, sf_muo_iso_2, 19.69/35.917, 16.227/35.917);
+#if ROOT_VERSION_CODE >= ROOT_VERSION(6,18,0)
+   cout << "Warning in <TH2D::Add>: Some bins have width=0 (ROOT-7752)" << endl;
+#endif
    delete sf_muo_iso_1;
    delete sf_muo_iso_2;
 
