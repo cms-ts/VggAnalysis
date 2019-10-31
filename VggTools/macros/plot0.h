@@ -1,4 +1,11 @@
 
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <iostream>
+
+#include <map>
+
 using namespace std;
 
 #include "TROOT.h"
@@ -27,13 +34,6 @@ using namespace std;
 #include "TLegend.h"
 #include "TLatex.h"
 #include "TVirtualFitter.h"
-
-#include <fstream>
-#include <sstream>
-#include <iomanip>
-#include <iostream>
-
-#include <map>
 
 void readMap(string myFile, map<string, float> &myMap) {
   ifstream input(myFile.data());

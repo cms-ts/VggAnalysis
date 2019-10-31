@@ -1,8 +1,8 @@
 #pragma cling load("libTreePlayer.so")
 
-using namespace std;
-
 #include <fstream>
+
+using namespace std;
 
 #include <TROOT.h>
 #include <TChain.h>
