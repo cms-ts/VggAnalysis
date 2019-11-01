@@ -29,7 +29,8 @@ FLAGS="reference"
 
 if [ ! -z "$4" ]; then
   if [ "$4" == "all" ]; then
-    FLAGS="reference"
+    FLAGS=""
+    FLAGS=$FLAGS" reference"
     FLAGS=$FLAGS" bkg_stat"
     FLAGS=$FLAGS" jet_misid_stat"
     FLAGS=$FLAGS" pileup_up"

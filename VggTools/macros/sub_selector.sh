@@ -30,7 +30,8 @@ FLAGS="reference"
 
 if [ ! -z "$2" ]; then
   if [ "$2" == "all" ]; then
-    FLAGS="reference"
+    FLAGS=""
+    FLAGS=$FLAGS" reference"
     FLAGS=$FLAGS" pileup_up"
     FLAGS=$FLAGS" pileup_down"
     FLAGS=$FLAGS" jec_up_2016"
