@@ -50,7 +50,9 @@ make_exe() {
   for F in $FILES; do
     echo ""
     echo "Compiling $F ..."
-    g++ -O2 `root-config --cflags --ldflags --libs` -lASImage $F -o `basename $F .C`.exe
+    RPATH="-Wl,-rpath,`root-config --libdir`"
+    [ -n "$LD_LIBRARY_PATH" ] && RPATH="-Wl,-rpath,`echo $LD_LIBRARY_PATH | sed 's/:/,-rpath,/g'`"
+    `root-config --cxx` -O2 `root-config --cflags --ldflags --libs` -lASImage $RPATH $F -o `basename $F .C`.exe
   done
 }
 
