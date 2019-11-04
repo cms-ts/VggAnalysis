@@ -640,6 +640,12 @@ int main(int argc, char *argv[]) {
 
 #pragma unused (argc)
 
+cout << "Processing plot4.C(\"" << argv[1] << "\",\""
+                                << argv[2] << "\",\""
+                                << argv[3] << "\",\""
+                                << argv[4] << "\",\""
+                                << argv[5] << "\")..." << endl;
+
 plot4(argv[1], argv[2], argv[3], argv[4], argv[5]);
 
 }

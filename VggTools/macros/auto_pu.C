@@ -109,6 +109,9 @@ int main(int argc, char *argv[]) {
 
 #pragma unused (argc)
 
+cout << "Processing auto_pu.C(\"" << argv[1] << "\",\""
+                                  << argv[2] << "\")..." << endl;
+
 auto_pu(argv[1], argv[2]);
 
 }
