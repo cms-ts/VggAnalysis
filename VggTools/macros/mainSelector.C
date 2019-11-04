@@ -571,6 +571,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    roccor = new RoccoR("roccor.Run2.v3/RoccoR2018.txt");
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
+#if defined(NANOAODv4) || defined(NANOAODv5)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
    JetCorrectorParameters* jet_correction_l1 = 0;
    JetCorrectorParameters* jet_correction_l2 = 0;
@@ -631,6 +632,7 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    jet_corrector = new FactorizedJetCorrector(jet_corrections);
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
    if (fInput && fInput->FindObject("era")) {
@@ -2620,6 +2622,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      float jet_pt_ref = Jet_pt[i];
 
 #if defined(__linux__)
+#if defined(NANOAODv4) || defined(NANOAODv5)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (Jet_pt[i] > 10 && fabs(Jet_eta[i]) < 5.2) {
 
@@ -2635,6 +2638,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        Jet_pt[i] = Jet_pt[i] * (1. - Jet_rawFactor[i]) * eCorr_jet;
      }
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
      if (Jet_pt[i] > 10 && fabs(Jet_eta[i]) < 5.2) {

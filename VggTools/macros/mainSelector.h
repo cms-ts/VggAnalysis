@@ -43,11 +43,13 @@
 #if defined(__linux__)
 #include "roccor.Run2.v3/RoccoR.h"
 
+#if defined(NANOAODv4) || defined(NANOAODv5)
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 #define __ROOTCLING__ 1
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
 #include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
 #endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
@@ -542,9 +544,11 @@ public :
 #if defined(__linux__)
    RoccoR* roccor = 0;
 
+#if defined(NANOAODv4) || defined(NANOAODv5)
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
    FactorizedJetCorrector* jet_corrector = 0;
 #endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
+#endif // defined(NANOAODv4) || defined(NANOAODv5)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
    JetCorrectionUncertainty* jet_correction_unc = 0;
