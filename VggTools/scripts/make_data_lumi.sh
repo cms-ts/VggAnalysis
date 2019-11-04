@@ -6,7 +6,7 @@ export PATH=$HOME/.local/bin:/cvmfs/cms-bril.cern.ch/brilconda/bin:$PATH
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
 
-for F in `ls json/Run2016*.json | grep 1June2019`; do
+for F in `ls json/Run2016*.json | grep 25Oct2019`; do
   echo "checking $F"
   G=`basename $F .json`
   echo $G > logs/$G.log
@@ -18,7 +18,7 @@ for F in `ls json/Run2016*.json | grep 1June2019`; do
   grep -A 5 Summary logs/$G.log | grep [0-9] | awk '{print "lumi = "$12" /fb"}'
 done
 
-for F in `ls json/Run2017*.json | grep 1June2019`; do
+for F in `ls json/Run2017*.json | grep 25Oct2019`; do
   echo "checking $F"
   G=`basename $F .json`
   echo $G > logs/$G.log
@@ -30,7 +30,7 @@ for F in `ls json/Run2017*.json | grep 1June2019`; do
   grep -A 5 Summary logs/$G.log | grep [0-9] | awk '{print "lumi = "$12" /fb"}'
 done
 
-for F in `ls json/Run2018*.json | grep 1June2019`; do
+for F in `ls json/Run2018*.json | grep 25Oct2019`; do
   echo "checking $F"
   G=`basename $F .json`
   echo $G > logs/$G.log

@@ -133,6 +133,10 @@ void mainSelector::Begin(TTree * /*tree*/)
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleElectron_1June2019.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleMuon_1June2019.root").c_str());
 #endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleElectron_25Oct2019.root").c_str());
+   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleMuon_25Oct2019.root").c_str());
+#endif // defined(NANOAODv6)
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
 #if defined(NANOAODv4)
@@ -143,6 +147,10 @@ void mainSelector::Begin(TTree * /*tree*/)
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleElectron_1June2019.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleMuon_1June2019.root").c_str());
 #endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleElectron_25Oct2019.root").c_str());
+   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleMuon_25Oct2019.root").c_str());
+#endif // defined(NANOAODv6)
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
 #if defined(NANOAODv4)
@@ -153,6 +161,10 @@ void mainSelector::Begin(TTree * /*tree*/)
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_EGamma_1June2019.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_SingleMuon_1June2019.root").c_str());
 #endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_EGamma_25Oct2019.root").c_str());
+   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_SingleMuon_25Oct2019.root").c_str());
+#endif // defined(NANOAODv6)
 #endif // defined(mainSelectorMC18_cxx)
 
    pu_ele_weights = (TH1D*)file_ele_pu->Get("pu_weights");
@@ -194,9 +206,9 @@ void mainSelector::Begin(TTree * /*tree*/)
 #if defined(NANOAODv4)
    TFile* file_ele_sf_trig = new TFile("root/sf_ele_2016_trig.root");
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
    TFile* file_ele_sf_trig = new TFile("root/sf_ele_2016_trig_v5.root");
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 
    sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
    sf_ele_trig->SetDirectory(0);
@@ -281,6 +293,9 @@ void mainSelector::Begin(TTree * /*tree*/)
 #if defined(NANOAODv5)
    TFile* file_eg_misid = new TFile("root/sf_eg_misid_2016_v5.root");
 #endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+   TFile* file_eg_misid = new TFile("root/sf_eg_misid_2016_v6.root");
+#endif // defined(NANOAODv6)
 
    sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D");
    sf_eg_misid->SetDirectory(0);
@@ -294,6 +309,9 @@ void mainSelector::Begin(TTree * /*tree*/)
 #if defined(NANOAODv5)
    TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2016_v5.root");
 #endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+   TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2016_v6.root");
+#endif // defined(NANOAODv6)
 
    sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D");
    sf_eg_misid_qcd->SetDirectory(0);
@@ -323,9 +341,9 @@ void mainSelector::Begin(TTree * /*tree*/)
 #if defined(NANOAODv4)
    TFile* file_ele_sf_trig = new TFile("root/sf_ele_2017_trig.root");
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
    TFile* file_ele_sf_trig = new TFile("root/sf_ele_2017_trig_v5.root");
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 
    sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
    sf_ele_trig->SetDirectory(0);
@@ -372,6 +390,9 @@ void mainSelector::Begin(TTree * /*tree*/)
 #if defined(NANOAODv5)
    TFile* file_eg_misid = new TFile("root/sf_eg_misid_2017_v5.root");
 #endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+   TFile* file_eg_misid = new TFile("root/sf_eg_misid_2017_v6.root");
+#endif // defined(NANOAODv6)
 
    sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D");
    sf_eg_misid->SetDirectory(0);
@@ -385,6 +406,9 @@ void mainSelector::Begin(TTree * /*tree*/)
 #if defined(NANOAODv5)
    TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2017_v5.root");
 #endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+   TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2017_v6.root");
+#endif // defined(NANOAODv6)
 
    sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D");
    sf_eg_misid_qcd->SetDirectory(0);
@@ -413,9 +437,9 @@ void mainSelector::Begin(TTree * /*tree*/)
 #if defined(NANOAODv4)
    TFile* file_ele_sf_trig = new TFile("root/sf_ele_2018_trig.root");
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
    TFile* file_ele_sf_trig = new TFile("root/sf_ele_2018_trig_v5.root");
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 
    sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
    sf_ele_trig->SetDirectory(0);
@@ -473,6 +497,9 @@ void mainSelector::Begin(TTree * /*tree*/)
 #if defined(NANOAODv5)
    TFile* file_eg_misid = new TFile("root/sf_eg_misid_2018_v5.root");
 #endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+   TFile* file_eg_misid = new TFile("root/sf_eg_misid_2018_v6.root");
+#endif // defined(NANOAODv6)
 
    sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D");
    sf_eg_misid->SetDirectory(0);
@@ -486,6 +513,9 @@ void mainSelector::Begin(TTree * /*tree*/)
 #if defined(NANOAODv5)
    TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2018_v5.root");
 #endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+   TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2018_v6.root");
+#endif // defined(NANOAODv6)
 
    sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D");
    sf_eg_misid_qcd->SetDirectory(0);
@@ -1289,9 +1319,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(NANOAODv4)
        if (*MET_fiducialGenPt > 0 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 40) {
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
        if (*MET_fiducialGenPt > 0 && W_ele0_gen_mt > 40 && ele0_gen.Pt() > 35) {
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
          W_ele_sel_gen = true;
        }
      }
@@ -1312,9 +1342,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(NANOAODv4)
        if (Z_ele0_ele1_gen_m >= 51. && Z_ele0_ele1_gen_m <= 131. && (ele0_gen.Pt() > 40 || ele1_gen.Pt() > 40)) {
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
        if (Z_ele0_ele1_gen_m >= 51. && Z_ele0_ele1_gen_m <= 131. && (ele0_gen.Pt() > 35 || ele1_gen.Pt() > 35)) {
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
          Z_ele_sel_gen = true;
        }
      }
@@ -2781,9 +2811,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(NANOAODv4)
      if (*HLT_Ele35_WPTight_Gsf) {
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
      if (*HLT_Ele32_WPTight_Gsf_L1DoubleEG) {
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_Ele32_WPTight_Gsf) {
@@ -2792,9 +2822,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(NANOAODv4)
        if (*MET_pt > 0 && W_ele0_mt > 0 && ele0.Pt() > 40) {
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
        if (*MET_pt > 0 && W_ele0_mt > 0 && ele0.Pt() > 35) {
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
          W_ele_sel_wide = true;
          if (W_ele0_mt > 40) {
            W_ele_sel = true;
@@ -2818,9 +2848,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(NANOAODv4)
      if (*HLT_Ele35_WPTight_Gsf) {
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
      if (*HLT_Ele32_WPTight_Gsf_L1DoubleEG) {
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_Ele32_WPTight_Gsf) {
@@ -2829,9 +2859,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(NANOAODv4)
        if (*MET_pt > 0 && W_ele0_mt_qcd > 0 && ele0_qcd.Pt() > 40) {
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
        if (*MET_pt > 0 && W_ele0_mt_qcd > 0 && ele0_qcd.Pt() > 35) {
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
          W_ele_sel_wide_qcd = true;
          if (W_ele0_mt_qcd > 40) {
            W_ele_sel_qcd = true;
@@ -2909,9 +2939,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(NANOAODv4)
      if (*HLT_Ele35_WPTight_Gsf) {
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
      if (*HLT_Ele32_WPTight_Gsf_L1DoubleEG) {
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_Ele32_WPTight_Gsf) {
@@ -2920,9 +2950,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(NANOAODv4)
        if (Z_ele0_ele1_m >= 51. && Z_ele0_ele1_m <= 131. && (ele0.Pt() > 40 || ele1.Pt() > 40)) {
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
        if (Z_ele0_ele1_m >= 51. && Z_ele0_ele1_m <= 131. && (ele0.Pt() > 35 || ele1.Pt() > 35)) {
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
          Z_ele_sel_wide = true;
          if (Z_ele0_ele1_m >= 71. && Z_ele0_ele1_m <= 111.) {
            Z_ele_sel = true;
@@ -2946,9 +2976,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(NANOAODv4)
      if (*HLT_Ele35_WPTight_Gsf) {
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
      if (*HLT_Ele32_WPTight_Gsf_L1DoubleEG) {
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      if (*HLT_Ele32_WPTight_Gsf) {
@@ -2957,9 +2987,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(NANOAODv4)
        if (Z_ele0_ele1_m_qcd >= 51. && Z_ele0_ele1_m_qcd <= 131. && (ele0_qcd.Pt() > 40 || ele1_qcd.Pt() > 40)) {
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
        if (Z_ele0_ele1_m_qcd >= 51. && Z_ele0_ele1_m_qcd <= 131. && (ele0_qcd.Pt() > 35 || ele1_qcd.Pt() > 35)) {
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
          Z_ele_sel_wide_qcd = true;
          if (Z_ele0_ele1_m_qcd >= 71. && Z_ele0_ele1_m_qcd <= 111.) {
            Z_ele_sel_qcd = true;
@@ -3882,11 +3912,11 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
    weight_l1prefiring = *L1PreFiringWeight_Nom;
    if (iflag == 120) weight_l1prefiring = *L1PreFiringWeight_Up;
    if (iflag == 125) weight_l1prefiring = *L1PreFiringWeight_Dn;
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
 
    weight_W_ele = weight_W_ele * weight_l1prefiring;
@@ -3924,9 +3954,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(NANOAODv4)
          if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = 1e
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
          if ((TrigObj_filterBits[i] & 1024) == 1024) match0 = true; // 1024 = 32_L1DoubleEG_AND_L1SingleEGOr
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
          if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = 1e
@@ -4008,9 +4038,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(NANOAODv4)
          if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = 1e
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
          if ((TrigObj_filterBits[i] & 1024) == 1024) match0 = true; // 1024 = 32_L1DoubleEG_AND_L1SingleEGOr
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
          if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = 1e

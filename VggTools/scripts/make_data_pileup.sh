@@ -8,7 +8,7 @@ cd $OLDPWD
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
 
-for F in `ls json/Run2016_*.json | grep 1June2019`; do
+for F in `ls json/Run2016_*.json | grep 25Oct2019`; do
   echo "preparing pileup file for "`basename $F .json`
   pileupCalc.py -i $F \
                 --inputLumiJSON /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/PileUp/pileup_latest.txt \
@@ -24,7 +24,7 @@ for F in `ls json/Run2016_*.json | grep 1June2019`; do
                 --maxPileupBin 100 --numPileupBins 100 root/pileup_down_`basename $F .json`.root
 done
 
-for F in `ls json/Run2017_*.json | grep 1June2019`; do
+for F in `ls json/Run2017_*.json | grep 25Oct2019`; do
   echo "preparing pileup file for "`basename $F .json`
   pileupCalc.py -i $F \
                 --inputLumiJSON /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions17/13TeV/PileUp/pileup_latest.txt \
@@ -40,7 +40,7 @@ for F in `ls json/Run2017_*.json | grep 1June2019`; do
                 --maxPileupBin 100 --numPileupBins 100 root/pileup_down_`basename $F .json`.root
 done
 
-for F in `ls json/Run2018_*.json | grep 1June2019`; do
+for F in `ls json/Run2018_*.json | grep 25Oct2019`; do
   echo "preparing pileup file for "`basename $F .json`
   pileupCalc.py -i $F \
                 --inputLumiJSON /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions18/13TeV/PileUp/pileup_latest.txt \

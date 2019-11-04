@@ -2,9 +2,11 @@
 
 NANOAODv4=`grep "#define NANOAODv4" mainSelector.h | head -1 | grep "^#define NANOAODv4"`
 NANOAODv5=`grep "#define NANOAODv5" mainSelector.h | head -1 | grep "^#define NANOAODv5"`
+NANOAODv6=`grep "#define NANOAODv6" mainSelector.h | head -1 | grep "^#define NANOAODv6"`
 
-[ ! -z "$NANOAODv4" ] && [ -z "$NANOAODv5" ] && echo && echo "Preparing to submit NANOAODv4" && echo
-[ ! -z "$NANOAODv5" ] && echo && echo "Preparing to submit NANOAODv5" && echo
+[ ! -z "$NANOAODv4" ] && [ -z "$NANOAODv5" ] && [ -z "$NANOAODv6" ] && echo && echo "Preparing to submit NANOAODv4" && echo
+[ ! -z "$NANOAODv5" ] && [ -z "$NANOAODv4" ] && [ -z "$NANOAODv6" ] && echo && echo "Preparing to submit NANOAODv5" && echo
+[ ! -z "$NANOAODv6" ] && [ -z "$NANOAODv4" ] && [ -z "$NANOAODv5" ] && echo && echo "Preparing to submit NANOAODv6" && echo
 
 QUEUE=normal
 export USE_LSF_STARTER=no
@@ -113,8 +115,9 @@ cp -pv mainSelector.[hC] data/$VERSION/
 
 for L in $LISTS; do
   L=`basename $L .list`.list
-  ( [ ! -z "$NANOAODv4" ] && [ -z "$NANOAODv5" ] && [ ! -z "${L##*14Dec2018*}" ] && [ ! -z "${L##*22Jan2019*}" ] && [ ! -z "${L##*AODv4*}" ] ) && continue
-  ( [ ! -z "$NANOAODv5" ] && [ ! -z "${L##*1June2019*}" ] && [ ! -z "${L##*AODv5*}" ] ) && continue
+  ( [ ! -z "$NANOAODv4" ] && [ -z "$NANOAODv5" ] && [ -z "$NANOAODv6" ] && [ ! -z "${L##*14Dec2018*}" ] && [ ! -z "${L##*22Jan2019*}" ] && [ ! -z "${L##*AODv4*}" ] ) && continue
+  ( [ ! -z "$NANOAODv5" ] && [ -z "$NANOAODv4" ] && [ -z "$NANOAODv6" ] && [ ! -z "${L##*1June2019*}" ] && [ ! -z "${L##*AODv5*}" ] ) && continue
+  ( [ ! -z "$NANOAODv6" ] && [ -z "$NANOAODv4" ] && [ -z "$NANOAODv5" ] && [ ! -z "${L##*25Oct2019*}" ] && [ ! -z "${L##*AODv6*}" ] ) && continue
   if [ ! -e lists/$L ]; then
     echo "ERROR: missing file "lists/$L
     continue

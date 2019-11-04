@@ -25,12 +25,19 @@
 
 #define NANOAODv5
 
+// #define NANOAODv6
+
 // #define COMPUTE_EG_MISID
 
 // #define RIVET
 
+#if defined(NANOAODv4)
+#undef NANOAODv5
+#undef NANOAODv6
+#endif // defined(NANOAODv5)
+
 #if defined(NANOAODv5)
-#undef NANOAODv4
+#undef NANOAODv6
 #endif // defined(NANOAODv5)
 
 #if defined(__linux__)
@@ -649,17 +656,17 @@ public :
 #if defined(NANOAODv4)
    TTreeReaderValue<UChar_t> Flag_ecalBadCalibFilterV2 = {fReader, "Flag_ecalBadCalibFilterV2"};
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
    TTreeReaderValue<Bool_t> Flag_ecalBadCalibFilterV2 = {fReader, "Flag_ecalBadCalibFilterV2"};
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 #endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
    TTreeReaderValue<Float_t> L1PreFiringWeight_Dn = {fReader, "L1PreFiringWeight_Dn"};
    TTreeReaderValue<Float_t> L1PreFiringWeight_Nom = {fReader, "L1PreFiringWeight_Nom"};
    TTreeReaderValue<Float_t> L1PreFiringWeight_Up = {fReader, "L1PreFiringWeight_Up"};
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
@@ -676,9 +683,9 @@ public :
 #if defined(NANOAODv4)
    TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
 #endif // defined(NANOAODv4)
-#if defined(NANOAODv5)
+#if defined(NANOAODv5) || defined(NANOAODv6)
    TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf_L1DoubleEG = {fReader, "HLT_Ele32_WPTight_Gsf_L1DoubleEG"};
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv5) || defined(NANOAODv6)
 
    TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "HLT_IsoMu24"};
    TTreeReaderValue<Bool_t> HLT_IsoMu27 = {fReader, "HLT_IsoMu27"};
