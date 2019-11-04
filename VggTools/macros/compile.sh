@@ -56,7 +56,8 @@ make_exe() {
   done
 }
 
-make_exe "auto_pu.C"
-make_exe "plot0.C plot1.C plot2.C plot3.C plot4.C plot5.C plot6.C"
+if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "plot" ]; then
+  make_exe "plot0.C plot1.C plot2.C plot3.C plot4.C plot5.C plot6.C"
+fi
 
 exit
