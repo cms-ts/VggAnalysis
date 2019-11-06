@@ -14,6 +14,21 @@ using namespace std;
 
 #include "../scripts/WeightCalculatorFromHistogram.C"
 
+// #define NANOAODv4
+
+#define NANOAODv5
+
+// #define NANOAODv6
+
+#if defined(NANOAODv4)
+#undef NANOAODv5
+#undef NANOAODv6
+#endif // defined(NANOAODv5)
+
+#if defined(NANOAODv5)
+#undef NANOAODv6
+#endif // defined(NANOAODv5)
+
 void auto_pu(TString input="lists/RunIIFall17NanoAODv4_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8.list", TString output="pileup.root") {
 
   TDatime now;
@@ -82,22 +97,70 @@ void auto_pu(TString input="lists/RunIIFall17NanoAODv4_DYJetsToLL_M-50_TuneCP5_1
   delete file;
 
   if (output.Contains("pileup_ele_RunIIFall17")) {
+#if defined(NANOAODv4)
       WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleElectron_14Dec2018.root", true, false, output.Data());
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleElectron_1June2019.root", true, false, output.Data());
+#endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleElectron_25Oct2019.root", true, false, output.Data());
+#endif // defined(NANOAODv6)
   }
   if (output.Contains("pileup_ele_up_RunIIFall17")) {
+#if defined(NANOAODv4)
       WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_up_Run2017_SingleElectron_14Dec2018.root", true, false, output.Data());
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_up_Run2017_SingleElectron_1June2019.root", true, false, output.Data());
+#endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_up_Run2017_SingleElectron_25Oct2019.root", true, false, output.Data());
+#endif // defined(NANOAODv6)
   }
   if (output.Contains("pileup_ele_down_RunIIFall17")) {
+#if defined(NANOAODv4)
       WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_down_Run2017_SingleElectron_14Dec2018.root", true, false, output.Data());
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_down_Run2017_SingleElectron_1June2019.root", true, false, output.Data());
+#endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_down_Run2017_SingleElectron_25Oct2019.root", true, false, output.Data());
+#endif // defined(NANOAODv6)
   }
   if (output.Contains("pileup_muo_RunIIFall17")) {
+#if defined(NANOAODv4)
       WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleMuon_14Dec2018.root", true, false, output.Data());
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleMuon_1June2019.root", true, false, output.Data());
+#endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_Run2017_SingleMuon_25Oct2019.root", true, false, output.Data());
+#endif // defined(NANOAODv6)
   }
   if (output.Contains("pileup_muo_up_RunIIFall17")) {
+#if defined(NANOAODv4)
       WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_up_Run2017_SingleMuon_14Dec2018.root", true, false, output.Data());
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_up_Run2017_SingleMuon_1June2019.root", true, false, output.Data());
+#endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_up_Run2017_SingleMuon_25Oct2019.root", true, false, output.Data());
+#endif // defined(NANOAODv6)
   }
   if (output.Contains("pileup_muo_down_RunIIFall17")) {
+#if defined(NANOAODv4)
       WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_down_Run2017_SingleMuon_14Dec2018.root", true, false, output.Data());
+#endif // defined(NANOAODv4)
+#if defined(NANOAODv5)
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_down_Run2017_SingleMuon_1June2019.root", true, false, output.Data());
+#endif // defined(NANOAODv5)
+#if defined(NANOAODv6)
+      WeightCalculatorFromHistogram(output.Data(), "root/ratio_pileup_down_Run2017_SingleMuon_25Oct2019.root", true, false, output.Data());
+#endif // defined(NANOAODv6)
   }
 
   now = TDatime();
