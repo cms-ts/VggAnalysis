@@ -21,8 +21,6 @@
 #include "TH2D.h"
 #include "TH3D.h"
 
-// #define NANOAODv4
-
 #define NANOAODv5
 
 // #define NANOAODv6
@@ -31,11 +29,6 @@
 
 // #define RIVET
 
-#if defined(NANOAODv4)
-#undef NANOAODv5
-#undef NANOAODv6
-#endif // defined(NANOAODv5)
-
 #if defined(NANOAODv5)
 #undef NANOAODv6
 #endif // defined(NANOAODv5)
@@ -43,13 +36,13 @@
 #if defined(__linux__)
 #include "roccor.Run2.v3/RoccoR.h"
 
-#if defined(NANOAODv4) || defined(NANOAODv5)
+#if defined(NANOAODv5)
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 #define __ROOTCLING__ 1
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
 #include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
 #endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
-#endif // defined(NANOAODv4) || defined(NANOAODv5)
+#endif // defined(NANOAODv5)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
@@ -529,13 +522,6 @@ public :
 
    TH2D* sf_pho_eff = 0;
 
-#if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
-#if defined(NANOAODv4)
-   TH2F* l1prefiring_pho = 0;
-   TH2F* l1prefiring_jet = 0;
-#endif // defined(NANOAODv4)
-#endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
-
    TH2D* sf_eg_misid = 0;
    TH2D* sf_eg_misid_qcd = 0;
 
@@ -544,11 +530,11 @@ public :
 #if defined(__linux__)
    RoccoR* roccor = 0;
 
-#if defined(NANOAODv4) || defined(NANOAODv5)
+#if defined(NANOAODv5)
 #if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
    FactorizedJetCorrector* jet_corrector = 0;
 #endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
-#endif // defined(NANOAODv4) || defined(NANOAODv5)
+#endif // defined(NANOAODv5)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
    JetCorrectionUncertainty* jet_correction_unc = 0;
@@ -657,20 +643,13 @@ public :
    TTreeReaderValue<Bool_t> Flag_ecalBadCalibFilter = {fReader, "Flag_ecalBadCalibFilter"};
 
 #if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
-#if defined(NANOAODv4)
-   TTreeReaderValue<UChar_t> Flag_ecalBadCalibFilterV2 = {fReader, "Flag_ecalBadCalibFilterV2"};
-#endif // defined(NANOAODv4)
-#if defined(NANOAODv5) || defined(NANOAODv6)
    TTreeReaderValue<Bool_t> Flag_ecalBadCalibFilterV2 = {fReader, "Flag_ecalBadCalibFilterV2"};
-#endif // defined(NANOAODv5) || defined(NANOAODv6)
 #endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
-#if defined(NANOAODv5) || defined(NANOAODv6)
    TTreeReaderValue<Float_t> L1PreFiringWeight_Dn = {fReader, "L1PreFiringWeight_Dn"};
    TTreeReaderValue<Float_t> L1PreFiringWeight_Nom = {fReader, "L1PreFiringWeight_Nom"};
    TTreeReaderValue<Float_t> L1PreFiringWeight_Up = {fReader, "L1PreFiringWeight_Up"};
-#endif // defined(NANOAODv5) || defined(NANOAODv6)
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorMC16_h)
@@ -684,12 +663,7 @@ public :
 
 #if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
 
-#if defined(NANOAODv4)
-   TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf = {fReader, "HLT_Ele35_WPTight_Gsf"};
-#endif // defined(NANOAODv4)
-#if defined(NANOAODv5) || defined(NANOAODv6)
    TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf_L1DoubleEG = {fReader, "HLT_Ele32_WPTight_Gsf_L1DoubleEG"};
-#endif // defined(NANOAODv5) || defined(NANOAODv6)
 
    TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "HLT_IsoMu24"};
    TTreeReaderValue<Bool_t> HLT_IsoMu27 = {fReader, "HLT_IsoMu27"};
@@ -850,97 +824,5 @@ float getWeight(float photon_eta, float photon_pt, float var = 0) {
    return 1.;
 }
 #endif // defined(mainSelectorMC18_cxx)
-
-#if defined(NANOAODv4)
-#include "TMath.h"
-#include "TLorentzVector.h"
-float ecalSmearMC(float cluster_pt, float cluster_eta, float cluster_phi, float cluster_mass, float cluster_r9, float gauss) {
-   float eMean = 0.;
-   float err_Emean = 0.;
-   float rho = 0.;
-   float phi = 0.;
-   float rhoErr = 0.;
-   float phiErr = 0.;
-   if (fabs(cluster_eta) > 0. && fabs(cluster_eta) < 1) {
-     if (cluster_r9 > 0.94 && cluster_r9 < 1.) {
-       eMean = 6.60;
-       err_Emean = 0.;
-       rho = 0.0106;
-       rhoErr = 0.;
-       phi = TMath::PiOver2();
-       phiErr = TMath::PiOver2();
-     } else if (cluster_r9 > 0. && cluster_r9 < 0.94) {
-       eMean = 6.73;
-       err_Emean = 0.;
-       rho = 0.0129;
-       rhoErr = 0.;
-       phi = TMath::PiOver2();
-       phiErr = TMath::PiOver2();
-     }
-   }
-   if (fabs(cluster_eta) > 1. && fabs(cluster_eta) < 1.4442) {
-     if (cluster_r9 > 0.94 && cluster_r9 < 1.){
-       eMean = 6.52;
-       err_Emean = 0.;
-       rho = 0.0168;
-       rhoErr = 0.0014;
-       phi = TMath::PiOver2();
-       phiErr = TMath::PiOver2();
-     } else if (cluster_r9 > 0. && cluster_r9 < 0.94){
-       eMean = 6.72;
-       err_Emean = 0.;
-       rho = 0.0233;
-       rhoErr = 0.0005;
-       phi = TMath::PiOver2();
-       phiErr = TMath::PiOver2();
-     }
-   }
-   if (fabs(cluster_eta) > 1.566 && fabs(cluster_eta) < 2) {
-     if (cluster_r9 > 0.94 && cluster_r9 < 1.) {
-       eMean = 6.76;
-       err_Emean = 0.;
-       rho = 0.0206;
-       rhoErr = 0.0002;
-       phi = TMath::PiOver2();
-       phiErr = TMath::PiOver2();
-     } else if (cluster_r9 > 0. && cluster_r9 < 0.94){
-       eMean = 6.77;
-       err_Emean = 0.;
-       rho = 0.0262;
-       rhoErr = 0.0001;
-       phi = TMath::PiOver2();
-       phiErr = TMath::PiOver2();
-     }
-   }
-   if (fabs(cluster_eta) > 2. && fabs(cluster_eta) < 2.5) {
-     if (cluster_r9 > 0.94 && cluster_r9 < 1.){
-       eMean = 6.54;
-       err_Emean = 0.;
-       rho = 0.0393;
-       rhoErr = 0.0001;
-       phi = TMath::PiOver2();
-       phiErr = TMath::PiOver2();
-     } else if (cluster_r9 > 0. && cluster_r9 < 0.94){
-       eMean = 6.73;
-       err_Emean = 0.;
-       rho = 0.0315;
-       rhoErr = 0.0002;
-       phi = TMath::PiOver2();
-       phiErr = TMath::PiOver2();
-     }
-   }
-   TLorentzVector cluster;
-   cluster.SetPtEtaPhiM(cluster_pt, cluster_eta, cluster_phi, cluster_mass);
-   float et = cluster.Et();
-   float nrSigmaRho = 0.;
-   float nrSigmaPhi = 0.;
-   float rhoVal = rho + rhoErr * nrSigmaRho;
-   float phiVal = phi + phiErr * nrSigmaRho;
-   float constTerm = rhoVal * TMath::Sin(phiVal);
-   float alpha = rhoVal * eMean * TMath::Cos(phiVal);
-   float sigma = TMath::Sqrt(constTerm * constTerm + alpha * alpha / et);
-   return (1.0 + sigma * gauss);
-}
-#endif // defined(NANOAODv4)
 
 #endif // mainSelector_cxx
