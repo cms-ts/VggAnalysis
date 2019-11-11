@@ -70,6 +70,9 @@ public :
    bool isZGG = false;
    bool isZTauTau = false;
 
+   bool isTTJets = false;
+   bool isTTGJets = false;
+
    int iflag = -1;
 
    TH1D* h_nevt = 0;

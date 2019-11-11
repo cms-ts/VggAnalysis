@@ -318,7 +318,11 @@ void plot0(string plot="", string title="", string version="v00", string options
     }
     if (options.find("nobkg") == string::npos && it->first == 40) {
       it->second->SetFillColor(kBlue);
-      leg->AddEntry(it->second, "TTJets", "f");
+      leg->AddEntry(it->second, "TT", "f");
+    }
+    if (options.find("nobkg") == string::npos && it->first == 41) {
+      it->second->SetFillColor(kBlue+2);
+      leg->AddEntry(it->second, "TT #gamma", "f");
     }
     if (options.find("nobkg") == string::npos && it->first == 50) {
       it->second->SetFillColor(kOrange-3);
@@ -357,7 +361,11 @@ void plot0(string plot="", string title="", string version="v00", string options
     }
     if (options.find("nobkg") == string::npos && it->first == 1030) {
       it->second->SetFillColor(kBlue);
-      leg->AddEntry(it->second, "TTJets", "f");
+      leg->AddEntry(it->second, "TT", "f");
+    }
+    if (options.find("nobkg") == string::npos && it->first == 1031) {
+      it->second->SetFillColor(kBlue+2);
+      leg->AddEntry(it->second, "TT #gamma", "f");
     }
     if (options.find("nobkg") == string::npos && it->first == 1040) {
       it->second->SetFillColor(kOrange-3);

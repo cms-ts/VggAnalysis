@@ -57,6 +57,9 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (option.Contains("ZGG"))                           isZGG        = true;
    if (option.Contains("ZTauTau"))                       isZTauTau    = true;
 
+   if (option.Contains("TTJets"))                        isTTJets     = true;
+   if (option.Contains("TTGJets"))                       isTTGJets    = true;
+
    if (fInput && fInput->FindObject("flag")) {
      if (TString(fInput->FindObject("flag")->GetTitle()).Contains("reference")) iflag = 0;
 
@@ -1172,7 +1175,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    TLorentzVector pho0_gen;
    TLorentzVector pho1_gen;
 
-   if (isWJetsToLNu || isWG || isWGG || isDYJetsToLL || isZG || isZGG) {
+   if (isWJetsToLNu || isWG || isWGG || isDYJetsToLL || isZG || isZGG || isTTJets || isTTGJets) {
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 11) continue;
@@ -1377,6 +1380,13 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
      if (isZGG) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
+     }
+
+     if (isTTJets) {
+       if (n_photons_gen != 0) return kTRUE;
+     }
+     if (isTTGJets) {
+       if (n_photons_gen == 0) return kTRUE;
      }
 
      if (ipho0_gen != -1) {

@@ -112,7 +112,7 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022) {
+    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 41 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031) {
       TFile* file = 0;
       if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_iso0" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -317,9 +317,6 @@ void plot4(string plot="", string title="", string version="v00", string options
   TH1D* h_mc_sum = (TH1D*)histo[0]->Clone("h_mc_sum");
   h_mc_sum->Reset();
 
-  TH1D* h_bkg = (TH1D*)histo[0]->Clone("h_bkg");
-  h_bkg->Reset();
-
   bool flowbins = true;
 
   for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
@@ -354,14 +351,6 @@ void plot4(string plot="", string title="", string version="v00", string options
           h_mc_sum->Add(it->second);
         }
       }
-      if (index == 13 || (index >= 20 && index <= 1000) || index == 1013 || (index >= 1020 && index <= 2000) || index == 8001 || index == 9001) {
-        if ((title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos)) {
-          h_bkg->Add(it->second);
-        }
-        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index != 11 && index != 21 && index != 1011 && index != 1020 && index != 9001)) {
-          h_bkg->Add(it->second);
-        }
-      }
     }
   }
 
@@ -394,6 +383,10 @@ void plot4(string plot="", string title="", string version="v00", string options
       it->second->SetFillColor(kViolet);
       leg->AddEntry(it->second, "W #gamma #gamma", "f");
     }
+    if (it->first == 41) {
+      it->second->SetFillColor(kViolet-4);
+      leg->AddEntry(it->second, "TT #gamma", "f");
+    }
     if (it->first == 1010) {
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "W #gamma #gamma", "f");
@@ -405,6 +398,10 @@ void plot4(string plot="", string title="", string version="v00", string options
     if (title.find("h_WG_") != string::npos && it->first == 1020) {
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "DYJets", "f");
+    }
+    if ((title.find("h_WG_") != string::npos || title.find("h_WGG_") != string::npos) && it->first == 1031) {
+      it->second->SetFillColor(kViolet-4);
+      leg->AddEntry(it->second, "TT #gamma", "f");
     }
     if (title.find("h_WG_") != string::npos && it->first == 9001) {
       it->second->SetFillColor(kMagenta+3);
@@ -625,11 +622,13 @@ void plot4(string plot="", string title="", string version="v00", string options
     histo[1010]->Write((title + "_sig").c_str());
     histo[1021]->Write((title + "_zg").c_str());
     histo[1022]->Write((title + "_zgg").c_str());
+    histo[1031]->Write((title + "_ttg").c_str());
   }
   if (title.find("h_ZGG_") != string::npos) {
     histo[10]->Write((title + "_sig").c_str());
     histo[21]->Write((title + "_wg").c_str());
     histo[22]->Write((title + "_wgg").c_str());
+    histo[41]->Write((title + "_ttg").c_str());
   }
   file->Close();
   delete file;

@@ -80,6 +80,8 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
     if (input.Contains("ZG") && !input.Contains("ZGG"))           selector->SetOption("MC,ZG");
     if (input.Contains("ZGG"))                                    selector->SetOption("MC,ZGG");
     if (input.Contains("ZTauTau"))                                selector->SetOption("MC,ZTauTau");
+    if (input.Contains("TTJets"))                                 selector->SetOption("MC,TTJets");
+    if (input.Contains("TTGJets"))                                selector->SetOption("MC,TTGJets");
   }
 
   TList* fInput = new TList();
