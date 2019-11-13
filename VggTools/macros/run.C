@@ -72,16 +72,21 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
   }
 
   if (option.Contains("MC")) {
-    if (input.Contains("WJetsToLNu") || input.Contains("WToLNu")) selector->SetOption("MC,WJetsToLNu");
-    if (input.Contains("WG") && !input.Contains("WGG"))           selector->SetOption("MC,WG");
-    if (input.Contains("WGG"))                                    selector->SetOption("MC,WGG");
-    if (input.Contains("WTauNu"))                                 selector->SetOption("MC,WTauNu");
-    if (input.Contains("DYJetsToLL") || input.Contains("DYToLL")) selector->SetOption("MC,DYJetsToLL");
-    if (input.Contains("ZG") && !input.Contains("ZGG"))           selector->SetOption("MC,ZG");
-    if (input.Contains("ZGG"))                                    selector->SetOption("MC,ZGG");
-    if (input.Contains("ZTauTau"))                                selector->SetOption("MC,ZTauTau");
-    if (input.Contains("TTJets"))                                 selector->SetOption("MC,TTJets");
-    if (input.Contains("TTGJets"))                                selector->SetOption("MC,TTGJets");
+    if (input.Contains("WJetsToLNu") || input.Contains("WToLNu"))                 selector->SetOption("MC,WJetsToLNu");
+    if (input.Contains("WG") && !input.Contains("WGG") && !input.Contains("WWG")) selector->SetOption("MC,WG");
+    if (input.Contains("WGG"))                                                    selector->SetOption("MC,WGG");
+    if (input.Contains("WTauNu"))                                                 selector->SetOption("MC,WTauNu");
+    if (input.Contains("DYJetsToLL") || input.Contains("DYToLL"))                 selector->SetOption("MC,DYJetsToLL");
+    if (input.Contains("ZG") && !input.Contains("ZGG") && !input.Contains("WZG")) selector->SetOption("MC,ZG");
+    if (input.Contains("ZGG"))                                                    selector->SetOption("MC,ZGG");
+    if (input.Contains("ZTauTau"))                                                selector->SetOption("MC,ZTauTau");
+    if (input.Contains("TTJets"))                                                 selector->SetOption("MC,TTJets");
+    if (input.Contains("TTGJets"))                                                selector->SetOption("MC,TTGJets");
+    if (input.Contains("TTGG"))                                                   selector->SetOption("MC,TTGG");
+    if (input.Contains("WW") && !input.Contains("WWG"))                           selector->SetOption("MC,WW");
+    if (input.Contains("WWG"))                                                    selector->SetOption("MC,WWG");
+    if (input.Contains("WZ") && !input.Contains("WZG"))                           selector->SetOption("MC,WZ");
+    if (input.Contains("WZG"))                                                    selector->SetOption("MC,WZG");
   }
 
   TList* fInput = new TList();

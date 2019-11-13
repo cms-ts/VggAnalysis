@@ -72,6 +72,13 @@ public :
 
    bool isTTJets = false;
    bool isTTGJets = false;
+   bool isTTGG = false;
+
+   bool isWW = false;
+   bool isWWG = false;
+
+   bool isWZ = false;
+   bool isWZG = false;
 
    int iflag = -1;
 

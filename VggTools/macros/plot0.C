@@ -312,6 +312,10 @@ void plot0(string plot="", string title="", string version="v00", string options
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
+    if (options.find("nobkg") == string::npos && it->first == 31) {
+      it->second->SetFillColor(kGreen+3);
+      leg->AddEntry(it->second, "Diboson #gamma", "f");
+    }
     if (options.find("nobkg") == string::npos && it->first == 35) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Triboson", "f");
@@ -323,6 +327,10 @@ void plot0(string plot="", string title="", string version="v00", string options
     if (options.find("nobkg") == string::npos && it->first == 41) {
       it->second->SetFillColor(kBlue+2);
       leg->AddEntry(it->second, "TT #gamma", "f");
+    }
+    if (options.find("nobkg") == string::npos && it->first == 42) {
+      it->second->SetFillColor(kBlue+3);
+      leg->AddEntry(it->second, "TT #gamma #gamma", "f");
     }
     if (options.find("nobkg") == string::npos && it->first == 50) {
       it->second->SetFillColor(kOrange-3);
@@ -367,6 +375,10 @@ void plot0(string plot="", string title="", string version="v00", string options
       it->second->SetFillColor(kBlue+2);
       leg->AddEntry(it->second, "TT #gamma", "f");
     }
+    if (options.find("nobkg") == string::npos && it->first == 1032) {
+      it->second->SetFillColor(kBlue+3);
+      leg->AddEntry(it->second, "TT #gamma #gamma", "f");
+    }
     if (options.find("nobkg") == string::npos && it->first == 1040) {
       it->second->SetFillColor(kOrange-3);
       leg->AddEntry(it->second, "SingleTop", "f");
@@ -374,6 +386,10 @@ void plot0(string plot="", string title="", string version="v00", string options
     if (options.find("nobkg") == string::npos && it->first == 1050) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
+    }
+    if (options.find("nobkg") == string::npos && it->first == 1051) {
+      it->second->SetFillColor(kGreen+3);
+      leg->AddEntry(it->second, "Diboson #gamma", "f");
     }
     if (options.find("nobkg") == string::npos && it->first == 1055) {
       it->second->SetFillColor(kGreen+2);

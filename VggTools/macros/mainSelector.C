@@ -47,18 +47,25 @@ void mainSelector::Begin(TTree * /*tree*/)
    TDatime now;
    Info("Begin", "%s : options = %s", now.AsSQLString(), option.Data());
 
-   if (option.Contains("WJetsToLNu"))                    isWJetsToLNu = true;
-   if (option.Contains("WG") && !option.Contains("WGG")) isWG         = true;
-   if (option.Contains("WGG"))                           isWGG        = true;
-   if (option.Contains("WTauNu"))                        isWTauNu     = true;
+   if (option.Contains("WJetsToLNu"))                                               isWJetsToLNu = true;
+   if (option.Contains("WG") && !option.Contains("WGG") && !option.Contains("WWG")) isWG         = true;
+   if (option.Contains("WGG"))                                                      isWGG        = true;
+   if (option.Contains("WTauNu"))                                                   isWTauNu     = true;
 
-   if (option.Contains("DYJetsToLL"))                    isDYJetsToLL = true;
-   if (option.Contains("ZG") && !option.Contains("ZGG")) isZG         = true;
-   if (option.Contains("ZGG"))                           isZGG        = true;
-   if (option.Contains("ZTauTau"))                       isZTauTau    = true;
+   if (option.Contains("DYJetsToLL"))                                               isDYJetsToLL = true;
+   if (option.Contains("ZG") && !option.Contains("ZGG") && !option.Contains("WZG")) isZG         = true;
+   if (option.Contains("ZGG"))                                                      isZGG        = true;
+   if (option.Contains("ZTauTau"))                                                  isZTauTau    = true;
 
-   if (option.Contains("TTJets"))                        isTTJets     = true;
-   if (option.Contains("TTGJets"))                       isTTGJets    = true;
+   if (option.Contains("TTJets"))                                                   isTTJets     = true;
+   if (option.Contains("TTGJets"))                                                  isTTGJets    = true;
+   if (option.Contains("TTGG"))                                                     isTTGG       = true;
+
+   if (option.Contains("WW") && !option.Contains("WWG"))                            isWW         = true;
+   if (option.Contains("WWG"))                                                      isWWG        = true;
+
+   if (option.Contains("WZ")&& !option.Contains("WZG"))                             isWZ         = true;
+   if (option.Contains("WZG"))                                                      isWZG        = true;
 
    if (fInput && fInput->FindObject("flag")) {
      if (TString(fInput->FindObject("flag")->GetTitle()).Contains("reference")) iflag = 0;
@@ -1175,7 +1182,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    TLorentzVector pho0_gen;
    TLorentzVector pho1_gen;
 
-   if (isWJetsToLNu || isWG || isWGG || isDYJetsToLL || isZG || isZGG || isTTJets || isTTGJets) {
+   if (isWJetsToLNu || isWG || isWGG || isDYJetsToLL || isZG || isZGG || isTTJets || isTTGJets || isTTGG || isWW || isWWG || isWZ || isWZG) {
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 11) continue;
@@ -1386,6 +1393,23 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (n_photons_gen != 0) return kTRUE;
      }
      if (isTTGJets) {
+       if (n_photons_gen != 1) return kTRUE;
+     }
+     if (isTTGG) {
+       if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
+     }
+
+     if (isWW) {
+       if (n_photons_gen != 0) return kTRUE;
+     }
+     if (isWWG) {
+       if (n_photons_gen == 0) return kTRUE;
+     }
+
+     if (isWZ) {
+       if (n_photons_gen != 0) return kTRUE;
+     }
+     if (isWZG) {
        if (n_photons_gen == 0) return kTRUE;
      }
 

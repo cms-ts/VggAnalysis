@@ -130,12 +130,6 @@ for D in $DATASETS; do
   [ -z "${D##*DY[1234]JetsToLL*}" ] && continue
   [ -z "${D##*W[1234]JetsToLNu*}" ] && continue
 
-  [ -z "${D##*WWG*}" ] && continue
-  [ -z "${D##*WZG*}" ] && continue
-  [ -z "${D##*ZZG*}" ] && continue
-
-  [ -z "${D##*TTG*}" ] && continue
-
   X=`grep $D ./amcatnlo*/*.dat* ./madgraph*/*.dat*`
   if [ -z "$X" ]; then
     echo "not used in ./amcatnlo*/ or ./madgraph*/ : "$D

@@ -112,7 +112,7 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 41 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031) {
+    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
       TFile* file = 0;
       if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_iso0" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -383,9 +383,17 @@ void plot4(string plot="", string title="", string version="v00", string options
       it->second->SetFillColor(kViolet);
       leg->AddEntry(it->second, "W #gamma #gamma", "f");
     }
+    if (it->first == 31) {
+      it->second->SetFillColor(kViolet+1);
+      leg->AddEntry(it->second, "Diboson #gamma", "f");
+    }
     if (it->first == 41) {
       it->second->SetFillColor(kViolet-4);
       leg->AddEntry(it->second, "TT #gamma", "f");
+    }
+    if (it->first == 42) {
+      it->second->SetFillColor(kViolet-9);
+      leg->AddEntry(it->second, "TT #gamma #gamma", "f");
     }
     if (it->first == 1010) {
       it->second->SetFillColor(kOrange);
@@ -402,6 +410,14 @@ void plot4(string plot="", string title="", string version="v00", string options
     if ((title.find("h_WG_") != string::npos || title.find("h_WGG_") != string::npos) && it->first == 1031) {
       it->second->SetFillColor(kViolet-4);
       leg->AddEntry(it->second, "TT #gamma", "f");
+    }
+    if ((title.find("h_WG_") != string::npos || title.find("h_WGG_") != string::npos) && it->first == 1032) {
+      it->second->SetFillColor(kViolet-9);
+      leg->AddEntry(it->second, "TT #gamma #gamma", "f");
+    }
+    if ((title.find("h_WG_") != string::npos || title.find("h_WGG_") != string::npos) && it->first == 1051) {
+      it->second->SetFillColor(kViolet+1);
+      leg->AddEntry(it->second, "Diboson #gamma", "f");
     }
     if (title.find("h_WG_") != string::npos && it->first == 9001) {
       it->second->SetFillColor(kMagenta+3);
@@ -623,12 +639,16 @@ void plot4(string plot="", string title="", string version="v00", string options
     histo[1021]->Write((title + "_zg").c_str());
     histo[1022]->Write((title + "_zgg").c_str());
     histo[1031]->Write((title + "_ttg").c_str());
+    histo[1032]->Write((title + "_ttgg").c_str());
+    histo[1051]->Write((title + "_vvg").c_str());
   }
   if (title.find("h_ZGG_") != string::npos) {
     histo[10]->Write((title + "_sig").c_str());
     histo[21]->Write((title + "_wg").c_str());
     histo[22]->Write((title + "_wgg").c_str());
+    histo[31]->Write((title + "_vvg").c_str());
     histo[41]->Write((title + "_ttg").c_str());
+    histo[42]->Write((title + "_ttgg").c_str());
   }
   file->Close();
   delete file;
