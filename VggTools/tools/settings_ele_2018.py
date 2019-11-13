@@ -68,8 +68,8 @@ if not samplesDef['tagSel'] is None: samplesDef['tagSel'].set_weight(weightName)
 ########## bining definition  [can be nD bining]
 #############################################################
 biningDef = [
-   { 'var' : 'el_sc_eta' , 'type': 'float', 'bins': [-2.5,-2.0,-1.566,-1.4442, -0.8, 0.0, 0.8, 1.4442, 1.566, 2.0, 2.5] },
-   { 'var' : 'el_pt' , 'type': 'float', 'bins': [10,20,35,50,100,200,500] },
+   { 'var' : 'el_sc_eta' , 'type': 'float', 'bins': [-2.4,-2.0,-1.566,-1.4442, -0.8, 0.0, 0.8, 1.4442, 1.566, 2.0, 2.4] },
+   { 'var' : 'el_pt' , 'type': 'float', 'bins': [35,50,70,100,150,200,500] },
 
 
 ]
@@ -78,7 +78,7 @@ biningDef = [
 ########## Cuts definition for all samples
 #############################################################
 ### cut
-cutBase   = 'tag_Ele_pt > 30 && abs(tag_sc_eta) < 2.17 && el_q*tag_Ele_q < 0'
+cutBase   = 'tag_Ele_pt > 32 && abs(tag_sc_eta) < 2.17 && el_q*tag_Ele_q < 0 && passingTight94XV2 == 1 && ((fabs(el_eta)<1.442) ? (el_dxy < 0.05) : (el_dxy < 0.10)) && ((fabs(el_eta)>1.566) ? (el_dz < 0.10) : (el_dxy < 0.20))'
 
 # can add addtionnal cuts for some bins (first check bin number using tnpEGM --checkBins)
 additionalCuts = { 
