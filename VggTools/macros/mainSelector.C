@@ -2607,7 +2607,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        tmp_jet.SetPtEtaPhiM(Jet_pt[i], Jet_eta[i], Jet_phi[i], Jet_mass[i]);
        TLorentzVector tmp_jet_gen;
        tmp_jet_gen.SetPtEtaPhiM(GenJet_pt[Jet_genJetIdx[i]], GenJet_eta[Jet_genJetIdx[i]], GenJet_phi[Jet_genJetIdx[i]], GenJet_mass[Jet_genJetIdx[i]]);
-       if (tmp_jet.DeltaR(tmp_jet_gen) < 0.2 && fabs(tmp_jet.Pt() - tmp_jet_gen.Pt()) < 3 * jet_resolution->getResolution(jer_parameters) * tmp_jet.Pt())  {
+       if (tmp_jet.DeltaR(tmp_jet_gen) < 0.2 && fabs(tmp_jet.Pt() - tmp_jet_gen.Pt()) < 3. * jet_resolution->getResolution(jer_parameters) * tmp_jet.Pt())  {
          jet_match = true;
        }
      }
