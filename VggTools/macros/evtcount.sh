@@ -24,6 +24,9 @@ for L in `ls lists/`; do
   [ -z "${L##*ZG_DYToLL*}" ] && continue
   [ -z "${L##*ZGG_DYToLL*}" ] && continue
   [ -z "${L##*ZTauTau_DYToLL*}" ] && continue
+  [ -z "${L##*RunIISummer16NanoAODv4_*}" ] && continue
+  [ -z "${L##*RunIIFall17NanoAODv4_*}" ] && continue
+  [ -z "${L##*RunIIAutumn18NanoAODv4_*}" ] && continue
   root.exe -l -b -q evtcount.C\(\"lists/$L\"\) | \
   grep -v 'Processing'
 done
