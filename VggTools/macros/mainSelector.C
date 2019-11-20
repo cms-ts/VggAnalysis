@@ -2635,11 +2635,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Jet_pt[i] * jet_smear < 0.01) jet_smear = 0.01 / Jet_pt[i];
 
-     Jet_pt[i] = Jet_pt[i] * jet_smear;
+     Jet_pt[i] = Jet_pt[i] * (1. - Jet_muonSubtrFactor[i]) * jet_smear + Jet_pt[i] * Jet_muonSubtrFactor[i];
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 #endif // defined(__linux__)
 
-     if (Jet_pt[i] > 15) {
+     if (Jet_pt[i] > 15 && (Jet_chEmEF[i] + Jet_neEmEF[i]) < 0.9) {
        met_px = met_px - (Jet_pt[i] - jet_pt_ref) * TMath::Cos(Jet_phi[i]);
        met_py = met_py - (Jet_pt[i] - jet_pt_ref) * TMath::Sin(Jet_phi[i]);
      }

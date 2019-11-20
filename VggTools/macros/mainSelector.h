@@ -626,6 +626,10 @@ public :
    TTreeReaderArray<Float_t> Jet_rawFactor = {fReader, "Jet_rawFactor"};
    TTreeReaderValue<Float_t> fixedGridRhoFastjetAll = {fReader, "fixedGridRhoFastjetAll"};
 
+   TTreeReaderArray<Float_t> Jet_chEmEF = {fReader, "Jet_chEmEF"};
+   TTreeReaderArray<Float_t> Jet_neEmEF = {fReader, "Jet_neEmEF"};
+   TTreeReaderArray<Float_t> Jet_muonSubtrFactor = {fReader, "Jet_muonSubtrFactor"};
+
 #if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
     TTreeReaderValue<Float_t> METFixEE2017_phi = {fReader, "METFixEE2017_phi"};
     TTreeReaderValue<Float_t> METFixEE2017_pt = {fReader, "METFixEE2017_pt"};
