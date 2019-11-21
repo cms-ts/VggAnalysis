@@ -81,9 +81,11 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
    plot_final += std::to_string(year);
    plot_final = plot_final + ".pdf";
 
+   gStyle->SetOptStat(0);
+
    TCanvas * c3 = new TCanvas("c3","c3",0,0,1000,1000);
    c3->cd();
-   h_final->SetTitle("Final SF");
+   h_final->SetTitle("Scale factors");
    h_final->Draw("COLZ TEXT ERROR");
 
    c3->SaveAs((plot_final).c_str());

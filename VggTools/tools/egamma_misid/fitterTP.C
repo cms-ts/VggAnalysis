@@ -6,6 +6,7 @@
 #include "TMath.h"
 #include "TStyle.h"
 #include "TROOT.h"
+#include "TLatex.h"
 
 #include "RooRealVar.h"
 #include "RooBinning.h"
@@ -170,39 +171,78 @@ void fitterTP(int number, int year, bool isQCD, string syst) {
    RooFitResult* fit_Z_DT = model_Z_DT.fitTo(data_Z_DT, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 200.), RooFit::Save(kTRUE));
    fit_Z_DT->SetName("fit_Z_DT");
 
-   TCanvas * c = new TCanvas("c","c",0,0,1000,1000);
-   c->Divide(2,2);
+   string pt_range = "";
+   string eta_range = "";
+
+   if (number >= 1 && number <= 5) {
+     pt_range = "20 < p_{T} < 30";
+   }
+   if (number >= 6 && number <= 10) {
+     pt_range = "30 < p_{T} < 40";
+   }
+   if (number >= 11 && number <= 15) {
+     pt_range = "40 < p_{T} < 50";
+   }
+   if (number >= 16 && number <= 20) {
+     pt_range = "50 < p_{T} < 200";
+   }
+
+   if (number == 1 || number == 6 || number == 11 || number == 16) {
+     eta_range = "0 < |eta| < 0.5";
+   }
+   if (number == 2 || number == 7 || number == 12 || number == 17) {
+     eta_range = "0.5 < |eta| < 1";
+   }
+   if (number == 3 || number == 8 || number == 13 || number == 18) {
+     eta_range = "1 < |eta| < 1.442";
+   }
+   if (number == 4 || number == 9 || number == 14 || number == 19) {
+     eta_range = "1.566 < |eta| < 2";
+   }
+   if (number == 5 || number == 10 || number == 15 || number == 20) {
+     eta_range = "2 < |eta| < 2.4";
+   }
+
+   TCanvas * c = new TCanvas("c","c",0,0,1000,500);
+   c->Divide(2,1);
    c->cd(1);
    RooPlot* plot_fake_MC = m_fake_MC.frame();
    data_fake_MC.plotOn(plot_fake_MC);
-   model_fake_MC.plotOn(plot_fake_MC, RooFit::LineColor(kRed));
-   model_fake_MC.plotOn(plot_fake_MC, RooFit::Components(CMS_fake_MC), RooFit::LineColor(kBlue)) ;
-   model_fake_MC.plotOn(plot_fake_MC, RooFit::Components(TP_fake_MC), RooFit::LineColor(kGreen)) ;
+   model_fake_MC.plotOn(plot_fake_MC, RooFit::LineColor(kRed), RooFit::LineStyle(7));
+   model_fake_MC.plotOn(plot_fake_MC, RooFit::Components(CMS_fake_MC), RooFit::LineColor(kBlue), RooFit::LineStyle(7)) ;
+   model_fake_MC.plotOn(plot_fake_MC, RooFit::Components(TP_fake_MC), RooFit::LineColor(kGreen), RooFit::LineStyle(7)) ;
+   plot_fake_MC->GetYaxis()->SetTitle("");
+   string draw_title_MC = "Monte Carlo ";
+   draw_title_MC += std::to_string(year);
+   plot_fake_MC->SetTitle((draw_title_MC).c_str());
    plot_fake_MC->Draw();
 
-   c->cd(2);
-   RooPlot* plot_Z_MC = m_Z_MC.frame();
-   data_Z_MC.plotOn(plot_Z_MC);
-   model_Z_MC.plotOn(plot_Z_MC, RooFit::LineColor(kRed));
-   model_Z_MC.plotOn(plot_Z_MC, RooFit::Components(CMS_Z_MC), RooFit::LineColor(kBlue)) ;
-   model_Z_MC.plotOn(plot_Z_MC, RooFit::Components(CB_Z_MC), RooFit::LineColor(kGreen)) ;
-   plot_Z_MC->Draw();
+   TLatex* label = new TLatex();
+   label->SetTextFont(43);
+   label->SetTextSize(16);
+   label->SetLineWidth(2);
+   label->SetNDC();
+   label->DrawLatex(0.5, 0.85, "Template + CMS shape");
+   label->DrawLatex(0.5, 0.80, (pt_range).c_str());
+   label->DrawLatex(0.5, 0.75, (eta_range).c_str());
+   label->Draw("same");
 
-   c->cd(3);
+   c->cd(2);
    RooPlot* plot_fake_DT = m_fake_DT.frame();
    data_fake_DT.plotOn(plot_fake_DT);
-   model_fake_DT.plotOn(plot_fake_DT, RooFit::LineColor(kRed));
-   model_fake_DT.plotOn(plot_fake_DT, RooFit::Components(CMS_fake_DT), RooFit::LineColor(kBlue)) ;
-   model_fake_DT.plotOn(plot_fake_DT, RooFit::Components(TP_fake_DT), RooFit::LineColor(kGreen)) ;
+   model_fake_DT.plotOn(plot_fake_DT, RooFit::LineColor(kRed), RooFit::LineStyle(7));
+   model_fake_DT.plotOn(plot_fake_DT, RooFit::Components(CMS_fake_DT), RooFit::LineColor(kBlue), RooFit::LineStyle(7)) ;
+   model_fake_DT.plotOn(plot_fake_DT, RooFit::Components(TP_fake_DT), RooFit::LineColor(kGreen), RooFit::LineStyle(7)) ;
+   plot_fake_DT->GetYaxis()->SetTitle("");
+   string draw_title_DT = "Data ";
+   draw_title_DT += std::to_string(year);
+   plot_fake_DT->SetTitle((draw_title_DT).c_str());
    plot_fake_DT->Draw();
 
-   c->cd(4);
-   RooPlot* plot_Z_DT = m_Z_DT.frame();
-   data_Z_DT.plotOn(plot_Z_DT);
-   model_Z_DT.plotOn(plot_Z_DT, RooFit::LineColor(kRed));
-   model_Z_DT.plotOn(plot_Z_DT, RooFit::Components(CMS_Z_DT), RooFit::LineColor(kBlue)) ;
-   model_Z_DT.plotOn(plot_Z_DT, RooFit::Components(CB_Z_DT), RooFit::LineColor(kGreen)) ;
-   plot_Z_DT->Draw();
+   label->DrawLatex(0.5, 0.85, "Template + CMS shape");
+   label->DrawLatex(0.5, 0.80, (pt_range).c_str());
+   label->DrawLatex(0.5, 0.75, (eta_range).c_str());
+   label->Draw("same");
 
    string plot_title = "../../macros/html/egamma_v5/" + syst + "/plot/TP_bin_";
    plot_title += std::to_string(year);
