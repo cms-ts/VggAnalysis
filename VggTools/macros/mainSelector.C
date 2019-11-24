@@ -2635,6 +2635,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (Jet_pt[i] * jet_smear < 0.01) jet_smear = 0.01 / Jet_pt[i];
 
+     if (!TMath::Finite(Jet_muonSubtrFactor[i])) Jet_muonSubtrFactor[i] = 0.;
+
      Jet_pt[i] = Jet_pt[i] * (1. - Jet_muonSubtrFactor[i]) * jet_smear + Jet_pt[i] * Jet_muonSubtrFactor[i];
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 #endif // defined(__linux__)
