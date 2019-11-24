@@ -1625,7 +1625,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        eCorr_muo = roccor->kSpreadMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], GenPart_pt[Muon_genPartIdx[i]], 0, 0);
      } else {
        eCorr_muo = roccor->kSmearMC(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], Muon_nTrackerLayers[i], gRandom->Rndm(), 0, 0);
-       if (TMath::IsNaN(eCorr_muo)) eCorr_muo = 1.;
+       if (!TMath::Finite(eCorr_muo)) eCorr_muo = 1.;
      }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 #endif // defined(__linux__)
