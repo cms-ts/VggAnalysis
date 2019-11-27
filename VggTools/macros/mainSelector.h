@@ -656,9 +656,9 @@ public :
    TTreeReaderValue<Bool_t> Flag_eeBadScFilter = {fReader, "Flag_eeBadScFilter"};
    TTreeReaderValue<Bool_t> Flag_ecalBadCalibFilter = {fReader, "Flag_ecalBadCalibFilter"};
 
-#if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
+#if defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h) || defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
    TTreeReaderValue<Bool_t> Flag_ecalBadCalibFilterV2 = {fReader, "Flag_ecalBadCalibFilterV2"};
-#endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h)
+#endif // defined(mainSelectorDT17_h) || defined(mainSelectorMC17_h) || defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h)
    TTreeReaderValue<Float_t> L1PreFiringWeight_Dn = {fReader, "L1PreFiringWeight_Dn"};

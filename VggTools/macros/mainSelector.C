@@ -1493,9 +1493,9 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (*Flag_eeBadScFilter == 0) return kTRUE;
    if (*Flag_ecalBadCalibFilter == 0) return kTRUE;
 
-#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
    if (*Flag_ecalBadCalibFilterV2 == 0) return kTRUE;
-#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
    h_nevt->Fill(3.5, weight_gen);
 
