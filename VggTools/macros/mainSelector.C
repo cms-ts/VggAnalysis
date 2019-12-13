@@ -1765,9 +1765,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+       if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
 
-     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
+       if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
 
        TLorentzVector tmp_ele;
        tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -1941,9 +1941,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+       if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
 
-     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
+       if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
 
        TLorentzVector tmp_ele_noiso;
        tmp_ele_noiso.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -2075,9 +2075,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+       if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
 
-     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
+       if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
 
        TLorentzVector tmp_ele_sieie;
        tmp_ele_sieie.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -2449,9 +2449,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+       if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
 
-     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
+       if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
 
        TLorentzVector tmp_ele_noiso_qcd;
        tmp_ele_noiso_qcd.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
