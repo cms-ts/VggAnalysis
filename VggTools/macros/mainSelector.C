@@ -2153,7 +2153,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   if (isWG || isZG) {
+   if (isWG || isWGG || isZG || isZGG || isTTGJets || isTTGG || isWWG || isWZG) {
 
      bool match0 = false;
      bool match1 = false;
