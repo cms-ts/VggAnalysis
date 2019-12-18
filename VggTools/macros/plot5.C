@@ -226,18 +226,36 @@ void plot5(string plot="", string title="", string version="v00", string options
         h_bkg_2016->Add(h1);
         TH1D* h2 = (TH1D*)f1_2016->Get((title + "_zgg").c_str());
         h_bkg_2016->Add(h2);
+        TH1D* h3 = (TH1D*)f1_2016->Get((title + "_ttg").c_str());
+        h_bkg_2016->Add(h3);
+        TH1D* h4 = (TH1D*)f1_2016->Get((title + "_ttgg").c_str());
+        h_bkg_2016->Add(h4);
+        TH1D* h5 = (TH1D*)f1_2016->Get((title + "_vvg").c_str());
+        h_bkg_2016->Add(h5);
       }
       if (f1_2017) {
         TH1D* h1 = (TH1D*)f1_2017->Get((title + "_zg").c_str());
         h_bkg_2017->Add(h1);
         TH1D* h2 = (TH1D*)f1_2017->Get((title + "_zgg").c_str());
         h_bkg_2017->Add(h2);
+        TH1D* h3 = (TH1D*)f1_2017->Get((title + "_ttg").c_str());
+        h_bkg_2017->Add(h3);
+        TH1D* h4 = (TH1D*)f1_2017->Get((title + "_ttgg").c_str());
+        h_bkg_2017->Add(h4);
+        TH1D* h5 = (TH1D*)f1_2017->Get((title + "_vvg").c_str());
+        h_bkg_2017->Add(h5);
       }
       if (f1_2018) {
         TH1D* h1 = (TH1D*)f1_2018->Get((title + "_zg").c_str());
         h_bkg_2018->Add(h1);
         TH1D* h2 = (TH1D*)f1_2018->Get((title + "_zgg").c_str());
         h_bkg_2018->Add(h2);
+        TH1D* h3 = (TH1D*)f1_2018->Get((title + "_ttg").c_str());
+        h_bkg_2018->Add(h3);
+        TH1D* h4 = (TH1D*)f1_2018->Get((title + "_ttgg").c_str());
+        h_bkg_2018->Add(h4);
+        TH1D* h5 = (TH1D*)f1_2018->Get((title + "_vvg").c_str());
+        h_bkg_2018->Add(h5);
       }
     }
     if (title.find("h_ZGG_") != string::npos) {
@@ -246,18 +264,36 @@ void plot5(string plot="", string title="", string version="v00", string options
         h_bkg_2016->Add(h1);
         TH1D* h2 = (TH1D*)f1_2016->Get((title + "_wgg").c_str());
         h_bkg_2016->Add(h2);
+        TH1D* h3 = (TH1D*)f1_2016->Get((title + "_ttg").c_str());
+        h_bkg_2016->Add(h3);
+        TH1D* h4 = (TH1D*)f1_2016->Get((title + "_ttgg").c_str());
+        h_bkg_2016->Add(h4);
+        TH1D* h5 = (TH1D*)f1_2016->Get((title + "_vvg").c_str());
+        h_bkg_2016->Add(h5);
       }
       if (f1_2017) {
         TH1D* h1 = (TH1D*)f1_2017->Get((title + "_wg").c_str());
         h_bkg_2017->Add(h1);
         TH1D* h2 = (TH1D*)f1_2017->Get((title + "_wgg").c_str());
         h_bkg_2017->Add(h2);
+        TH1D* h3 = (TH1D*)f1_2017->Get((title + "_ttg").c_str());
+        h_bkg_2017->Add(h3);
+        TH1D* h4 = (TH1D*)f1_2017->Get((title + "_ttgg").c_str());
+        h_bkg_2017->Add(h4);
+        TH1D* h5 = (TH1D*)f1_2017->Get((title + "_vvg").c_str());
+        h_bkg_2017->Add(h5);
       }
       if (f1_2018) {
         TH1D* h1 = (TH1D*)f1_2018->Get((title + "_wg").c_str());
         h_bkg_2018->Add(h1);
         TH1D* h2 = (TH1D*)f1_2018->Get((title + "_wgg").c_str());
         h_bkg_2018->Add(h2);
+        TH1D* h3 = (TH1D*)f1_2018->Get((title + "_ttg").c_str());
+        h_bkg_2018->Add(h3);
+        TH1D* h4 = (TH1D*)f1_2018->Get((title + "_ttgg").c_str());
+        h_bkg_2018->Add(h4);
+        TH1D* h5 = (TH1D*)f1_2018->Get((title + "_vvg").c_str());
+        h_bkg_2018->Add(h5);
       }
     }
   }
