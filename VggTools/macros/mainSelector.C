@@ -2688,7 +2688,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    int category_qcd = -1;
 
-   if (ipho0 != -1) {
+   if (ipho0_qcd != -1) {
      category_qcd = 0;
      if (fabs(pho0.Eta()) > 1.566) category_qcd = category_qcd + 4;
    } else {
