@@ -1855,7 +1855,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 #if 0
-   if (isWG || isZG || isWGG || isZGG) {
+   if (isWG || isWGG || isZG || isZGG || isTTGJets || isTTGG || isWWG || isWZG) {
 
      bool match0 = false;
      bool match1 = false;
@@ -2153,6 +2153,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#if 0
    if (isWG || isWGG || isZG || isZGG || isTTGJets || isTTGG || isWWG || isWZG) {
 
      bool match0 = false;
@@ -2182,6 +2183,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
    }
+#endif
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    int category = -1;
@@ -2655,7 +2657,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   if (isWG || isZG) {
+#if 0
+   if (isWG || isWGG || isZG || isZGG || isTTGJets || isTTGG || isWWG || isWZG) {
 
      bool match0 = false;
      bool match1 = false;
@@ -2684,6 +2687,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
    }
+#endif
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
    int category_qcd = -1;
