@@ -148,6 +148,7 @@ void plot3(string plot="", string title="", string version="v00", string options
   }
 
   map<int, TH2D*> histo2;
+  map<int, TH2D*> histo2_qcd;
 
   lumi = 0.;
   lumi2016 = 0.;
@@ -190,6 +191,21 @@ void plot3(string plot="", string title="", string version="v00", string options
           return;
         }
       }
+      if (histo2_qcd[index]) {
+        TH2D* h2_qcd = (TH2D*)gDirectory->Get((title.substr(0, 8) + "_misid_qcd").c_str());
+        if (h2_qcd) {
+          histo2_qcd[index]->Add(h2_qcd);
+        }
+      } else {
+        TH2D* h2_qcd = (TH2D*)gDirectory->Get((title.substr(0, 8) + "_misid_qcd").c_str());
+        if (h2_qcd) {
+          histo2_qcd[index] = h2_qcd;
+          histo2_qcd[index]->SetDirectory(0);
+        } else {
+          Error("plot0", "skip missing histogram: %s", (title.substr(0, 8) + "_misid_qcd").c_str());
+          return;
+        }
+      }
       file->Close();
       delete file;
     }
@@ -225,16 +241,29 @@ void plot3(string plot="", string title="", string version="v00", string options
         return;
       }
       if (histo2[index]) {
-        TH2D* h = (TH2D*)gDirectory->Get((title.substr(0, 8) + "_misid").c_str());
-        if (h) {
-          histo2[index]->Add(h, norm);
+        TH2D* h2 = (TH2D*)gDirectory->Get((title.substr(0, 8) + "_misid").c_str());
+        if (h2) {
+          histo2[index]->Add(h2, norm);
         }
       } else {
-        TH2D* h = (TH2D*)gDirectory->Get((title.substr(0, 8) + "_misid").c_str());
-        if (h) {
-          histo2[index] = h;
+        TH2D* h2 = (TH2D*)gDirectory->Get((title.substr(0, 8) + "_misid").c_str());
+        if (h2) {
+          histo2[index] = h2;
           histo2[index]->SetDirectory(0);
           histo2[index]->Scale(norm);
+        }
+      }
+      if (histo2_qcd[index]) {
+        TH2D* h2_qcd = (TH2D*)gDirectory->Get((title.substr(0, 8) + "_misid_qcd").c_str());
+        if (h2_qcd) {
+          histo2_qcd[index]->Add(h2_qcd, norm);
+        }
+      } else {
+        TH2D* h2_qcd = (TH2D*)gDirectory->Get((title.substr(0, 8) + "_misid_qcd").c_str());
+        if (h2_qcd) {
+          histo2_qcd[index] = h2_qcd;
+          histo2_qcd[index]->SetDirectory(0);
+          histo2_qcd[index]->Scale(norm);
         }
       }
       file->Close();
@@ -389,6 +418,21 @@ void plot3(string plot="", string title="", string version="v00", string options
           return;
         }
       }
+      if (histo2_qcd[index]) {
+        TH2D* h2_qcd = (TH2D*)gDirectory->Get((title2.substr(0, 8) + "_misid_qcd").c_str());
+        if (h2_qcd) {
+          histo2_qcd[index]->Add(h2_qcd);
+        }
+      } else {
+        TH2D* h2_qcd = (TH2D*)gDirectory->Get((title2.substr(0, 8) + "_misid_qcd").c_str());
+        if (h2_qcd) {
+          histo2_qcd[index] = h2_qcd;
+          histo2_qcd[index]->SetDirectory(0);
+        } else {
+          Error("plot0", "skip missing histogram: %s", (title2.substr(0, 8) + "_misid_qcd").c_str());
+          return;
+        }
+      }
       file->Close();
       delete file;
     }
@@ -419,16 +463,29 @@ void plot3(string plot="", string title="", string version="v00", string options
         return;
       }
       if (histo2[index]) {
-        TH2D* h = (TH2D*)gDirectory->Get((title2.substr(0, 8) + "_misid").c_str());
-        if (h) {
-          histo2[index]->Add(h, norm);
+        TH2D* h2 = (TH2D*)gDirectory->Get((title2.substr(0, 8) + "_misid").c_str());
+        if (h2) {
+          histo2[index]->Add(h2, norm);
         }
       } else {
-        TH2D* h = (TH2D*)gDirectory->Get((title2.substr(0, 8) + "_misid").c_str());
-        if (h) {
-          histo2[index] = h;
+        TH2D* h2 = (TH2D*)gDirectory->Get((title2.substr(0, 8) + "_misid").c_str());
+        if (h2) {
+          histo2[index] = h2;
           histo2[index]->SetDirectory(0);
           histo2[index]->Scale(norm);
+        }
+      }
+      if (histo2_qcd[index]) {
+        TH2D* h2_qcd = (TH2D*)gDirectory->Get((title2.substr(0, 8) + "_misid_qcd").c_str());
+        if (h2_qcd) {
+          histo2_qcd[index]->Add(h2_qcd, norm);
+        }
+      } else {
+        TH2D* h2_qcd = (TH2D*)gDirectory->Get((title2.substr(0, 8) + "_misid_qcd").c_str());
+        if (h2_qcd) {
+          histo2_qcd[index] = h2_qcd;
+          histo2_qcd[index]->SetDirectory(0);
+          histo2_qcd[index]->Scale(norm);
         }
       }
       file->Close();
@@ -445,26 +502,42 @@ void plot3(string plot="", string title="", string version="v00", string options
   if (options.find("madgraph") != string::npos) version = version + ".madgraph";
   if (options.find("default") != string::npos) version = version + ".default";
 
-  if (flag != "jet_misid_iso0" && flag != "jet_misid_iso1" && flag != "jet_misid_iso2") {
-    float fitval = 0.;
-    float fiterr = 0.;
-    int index = 9001;
-    ifstream file1;
-    if (title.find("h_WG_") != string::npos) {
-      file1.open(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
-    }
-    if (file1.is_open()) {
-      file1 >> fitval >> fiterr;
-      file1.close();
-      TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
-      if (!file2->IsZombie()) {
-        TH1D* h = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
-        h->SetDirectory(0);
+  float fitval = 0.;
+  float fiterr = 0.;
+  int index = 9001;
+  ifstream file1;
+  if (title.find("h_WG_") != string::npos) {
+    file1.open(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
+  }
+  if (file1.is_open()) {
+    file1 >> fitval >> fiterr;
+    file1.close();
+    TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+    if (!file2->IsZombie()) {
+      TH1D* h = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
+      h->SetDirectory(0);
+      if (flag == "qcd_fit") {
+        h->Scale(fitval + fiterr);
+      } else {
         h->Scale(fitval);
-        histo[index] = h;
-        file2->Close();
-        delete file2;
       }
+      histo[index] = h;
+      file2->Close();
+      delete file2;
+    }
+  }
+
+  TH2D* h2_mc_sum = (TH2D*)histo2[0]->Clone("h2_mc_sum");
+  h2_mc_sum->Reset();
+
+  histo2[9001] = (TH2D*)histo2_qcd[0]->Clone("");
+  histo2[9001]->Add(h2_mc_sum, -1);
+  histo2[9001]->Scale(fitval);
+
+  for (map<int, TH2D*>::iterator it = histo2_qcd.begin(); it != histo2_qcd.end(); it++) {
+    int index = int(it->first);
+    if (index > 0) {
+      if (histo2_qcd[index]) h2_mc_sum->Add(histo2_qcd[index]);
     }
   }
 
@@ -492,7 +565,6 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 #endif // defined(USE_BOTH_LEPTONS)
-
 
   for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
@@ -570,9 +642,13 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   for (map<int, TH2D*>::reverse_iterator it = histo2.rbegin(); it != histo2.rend(); it++) {
     int index = int(it->first);
-    if (index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051 || index == 9001) {
+    if (index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
       histo2[index1]->Add(histo2[index]);
     }
+  }
+
+  if (flag == "jet_misid_iso0" || flag == "jet_misid_iso1" || flag == "jet_misid_iso2") {
+    histo2[0]->Add(histo2[9001], -1);
   }
 
   for (int i = 0; i < histo2[0]->GetNbinsY() + 2; i++) {
@@ -676,6 +752,11 @@ void plot3(string plot="", string title="", string version="v00", string options
 
     double alpha_gamma = vector_alpha[0]*s0;
     double alpha_jet = vector_alpha[1]*b2;
+
+    if (flag == "jet_misid_iso0" || flag == "jet_misid_iso1" || flag == "jet_misid_iso2") {
+      alpha_jet = alpha_jet + histo2[9001]->GetBinContent(1, i) + histo2[9001]->GetBinContent(1+4, i);
+      alpha_jet_err = TMath::Sqrt(TMath::Power(alpha_jet_err,2) + TMath::Power(histo2[9001]->GetBinError(1,i),2));
+    }
 
     if (alpha_gamma < 0 && alpha_jet > 0) {
       alpha_jet = alpha_jet+alpha_gamma;
