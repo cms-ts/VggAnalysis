@@ -94,12 +94,12 @@ void plot4(string plot="", string title="", string version="v00", string options
         }
       }
       if (histo3[index]) {
-        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat).c_str());
+        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat + "_map").c_str());
         if (h3) {
           histo3[index]->Add(h3);
         }
       } else {
-        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat).c_str());
+        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat + "_map").c_str());
         if (h3) {
           histo3[index] = h3;
           histo3[index]->SetDirectory(0);
@@ -153,12 +153,12 @@ void plot4(string plot="", string title="", string version="v00", string options
         }
       }
       if (histo3[index]) {
-        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat).c_str());
+        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat + "_map").c_str());
         if (h3) {
           histo3[index]->Add(h3, norm);
         }
       } else {
-        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat).c_str());
+        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat + "_map").c_str());
         if (h3) {
           histo3[index] = h3;
           histo3[index]->SetDirectory(0);
