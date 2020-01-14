@@ -21,6 +21,11 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (options.find("madgraph") != string::npos) plot = "madgraph/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
+  string cat = "cat3";
+  if (flag == "jet_misid_cat1") cat = "cat1";
+  if (flag == "jet_misid_cat2") cat = "cat2";
+  bool useMC = false;
+
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
@@ -56,7 +61,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_iso0" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -89,12 +94,12 @@ void plot4(string plot="", string title="", string version="v00", string options
         }
       }
       if (histo3[index]) {
-        TH3D* h3 = (TH3D*)gDirectory->Get((title+"_map").c_str());
+        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat).c_str());
         if (h3) {
           histo3[index]->Add(h3);
         }
       } else {
-        TH3D* h3 = (TH3D*)gDirectory->Get((title+"_map").c_str());
+        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat).c_str());
         if (h3) {
           histo3[index] = h3;
           histo3[index]->SetDirectory(0);
@@ -114,7 +119,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_iso0" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -147,7 +152,19 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo[index]->Scale(norm);
         }
       }
-
+      if (histo3[index]) {
+        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat).c_str());
+        if (h3) {
+          histo3[index]->Add(h3, norm);
+        }
+      } else {
+        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat).c_str());
+        if (h3) {
+          histo3[index] = h3;
+          histo3[index]->SetDirectory(0);
+          histo3[index]->Scale(norm);
+        }
+      }
       file->Close();
       delete file;
     }
@@ -171,35 +188,6 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (options.find("madgraph") != string::npos) version = version + ".madgraph";
   if (options.find("default") != string::npos) version = version + ".default";
 
-  if (title.find("h_WG_") != string::npos) {
-    ifstream file1;
-    file1.open(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat").c_str());
-    if (!file1.is_open()) {
-      cout << "ERROR: file " << "html/" + version + "/" + flag + "/" + year + ".qcd/root/" + "h_WG_" + title.substr(5, 3) + "_qcd_fit.dat" << " is MISSING !!" << endl;
-      return;
-    }
-    float fitval = 0.;
-    float fiterr = 0.;
-    file1 >> fitval >> fiterr;
-    file1.close();
-
-    TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
-    if (file2->IsZombie()) {
-      cout << "ERROR: file " << file2->GetName() << " is MISSING !!" << endl;
-      return;
-    }
-    int index = 9001;
-    histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
-    histo[index]->SetDirectory(0);
-    if (flag == "qcd_fit") {
-      histo[index]->Scale(fitval + fiterr);
-    } else {
-      histo[index]->Scale(fitval);
-    }
-    file2->Close();
-    delete file2;
-  }
-
   if (flag == "bkg_stat") {
     for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
       int index = int(it->first);
@@ -217,10 +205,10 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
     file_matrix_2016 = 0;
-    if (title.find("h_WG_ele") != string::npos || title.find("h_WGG_ele") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_WG_muo") != string::npos || title.find("h_WGG_muo") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_ZG_ele") != string::npos || title.find("h_ZGG_ele") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_ZG_muo") != string::npos || title.find("h_ZGG_muo") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_WGG_ele") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_WGG_muo") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_ZGG_ele") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_ZGG_muo") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
     if (file_matrix_2016->IsZombie()) {
       cout << "ERROR: file " << file_matrix_2016->GetName() << " is MISSING !!" << endl;
       return;
@@ -228,10 +216,10 @@ void plot4(string plot="", string title="", string version="v00", string options
   }
   if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
     file_matrix_2017 = 0;
-    if (title.find("h_WG_ele") != string::npos || title.find("h_WGG_ele") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_WG_muo") != string::npos || title.find("h_WGG_muo") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_ZG_ele") != string::npos || title.find("h_ZGG_ele") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_ZG_muo") != string::npos || title.find("h_ZGG_muo") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_WGG_ele") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_WGG_muo") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_ZGG_ele") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_ZGG_muo") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
     if ( file_matrix_2017->IsZombie()) {
       cout << "ERROR: file " << file_matrix_2017->GetName() << " is MISSING !!" << endl;
       return;
@@ -239,10 +227,10 @@ void plot4(string plot="", string title="", string version="v00", string options
   }
   if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
     file_matrix_2018 = 0;
-    if (title.find("h_WG_ele") != string::npos || title.find("h_WGG_ele") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_WG_muo") != string::npos || title.find("h_WGG_muo") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_ZG_ele") != string::npos || title.find("h_ZGG_ele") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
-    if (title.find("h_ZG_muo") != string::npos || title.find("h_ZGG_muo") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_WGG_ele") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_WGG_muo") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_ZGG_ele") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
+    if (title.find("h_ZGG_muo") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
     if (file_matrix_2018->IsZombie()) {
       cout << "ERROR: file " << file_matrix_2018->GetName() << " is MISSING !!" << endl;
       return;
@@ -253,15 +241,13 @@ void plot4(string plot="", string title="", string version="v00", string options
   TH1D* h_weight_2017 = 0;
   TH1D* h_weight_2018 = 0;
 
-  if (title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) {
-    if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get((title.substr(0, 9) + "weight").c_str());
-    if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get((title.substr(0, 9) + "weight").c_str());
-    if (file_matrix_2018) h_weight_2018 = (TH1D*)file_matrix_2018->Get((title.substr(0, 9) + "weight").c_str());
-  }
+  string appendix = "weight";
+  if (useMC) appendix = "weight_mc";
+
   if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
-    if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get((string(title).erase(3, 1).substr(0, 9) + "weight").c_str());
-    if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get((string(title).erase(3, 1).substr(0, 9) + "weight").c_str());
-    if (file_matrix_2018) h_weight_2018 = (TH1D*)file_matrix_2018->Get((string(title).erase(3, 1).substr(0, 9) + "weight").c_str());
+    if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get((string(title).erase(3, 1).substr(0, 9) + appendix).c_str());
+    if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get((string(title).erase(3, 1).substr(0, 9) + appendix).c_str());
+    if (file_matrix_2018) h_weight_2018 = (TH1D*)file_matrix_2018->Get((string(title).erase(3, 1).substr(0, 9) + appendix).c_str());
   }
 
   if (file_matrix_2016) {
@@ -291,6 +277,41 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (h_weight_2017) h_weight->Add(h_weight_2017, lumi2017/lumi);
   if (h_weight_2018) h_weight->Add(h_weight_2018, lumi2018/lumi);
 
+  for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
+    int index = int(it->first);
+    if (!histo3[index]) continue;
+    if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
+      for (int var = 0; var < histo3[index]->GetNbinsZ()+2; var++) {
+        for (int pho0 = 0; pho0 < histo3[index]->GetNbinsX()+2; pho0++) {
+          for (int pho1 = 0; pho1 < histo3[index]->GetNbinsY()+2; pho1++) {
+            if (cat == "cat1") {
+              histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0));
+              histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho0), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho0), 2)));
+            }
+            if (cat == "cat2") {
+              histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho1));
+              histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho1), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho1), 2)));
+            }
+            if (cat == "cat3") {
+              histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1));
+              histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho0) * h_weight->GetBinContent(pho1), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinError(pho1), 2)));
+            }
+            histo3[index]->SetBinError(pho0, pho1, var, histo3[index]->GetBinError(pho0, pho1, var) * (1 + 0.1 * (flag == "jet_misid_stat")));
+          }
+        }
+      }
+    }
+  }
+
+  TH3D* histo3_cr = (TH3D*)histo3[0]->Clone("histo3_cr");
+
+  for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
+    int index = int(it->first);
+    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) { 
+      histo3_cr->Add(histo3[index], -1);
+    }
+  }
+
   histo[8001] = (TH1D*)histo[0]->Clone();
   histo[8001]->Reset();
 
@@ -298,17 +319,10 @@ void plot4(string plot="", string title="", string version="v00", string options
     for (int var = 0; var < histo3[0]->GetNbinsZ()+2; var++) {
       for (int pho0 = 0; pho0 < histo3[0]->GetNbinsX()+2; pho0++) {
         for (int pho1 = 0; pho1 < histo3[0]->GetNbinsY()+2; pho1++) {
-          histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + histo3[0]->GetBinContent(pho0, pho1, var) * (1. - h_weight->GetBinContent(pho0) *  h_weight->GetBinContent(pho1)));
-          histo[8001]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001]->GetBinError(var), 2) + histo3[0]->GetBinError(pho0, pho1, var) * TMath::Power(1. - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1), 2) + TMath::Power(histo3[0]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho1), 2) * TMath::Power(h_weight->GetBinError(pho0) * (1 + 0.1 * (flag == "jet_misid_stat")), 2) + TMath::Power(histo3[0]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0), 2) * TMath::Power(h_weight->GetBinError(pho1) * (1 + 0.1 * (flag == "jet_misid_stat")), 2)));
+          histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + histo3_cr->GetBinContent(pho0, pho1, var));
+          histo[8001]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001]->GetBinError(var), 2) + TMath::Power(histo3_cr->GetBinError(pho0, pho1, var), 2)));
         }
       }
-    }
-  }
-
-  if (title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) {
-    for (int i = 0; i < histo[0]->GetNbinsX()+2; i++) {
-      histo[8001]->SetBinContent(i, histo[8001]->GetBinContent(i) + histo[0]->GetBinContent(i) * (1. - h_weight->GetBinContent(i)));
-      histo[8001]->SetBinError(i, TMath::Sqrt(TMath::Power(histo[8001]->GetBinError(i), 2) + TMath::Power(1. - h_weight->GetBinContent(i), 2) * histo[0]->GetBinError(i) + TMath::Power(histo[0]->GetBinContent(i), 2) * TMath::Power(h_weight->GetBinError(i), 2)));
     }
   }
 
@@ -333,20 +347,12 @@ void plot4(string plot="", string title="", string version="v00", string options
     }
     if (index > 0) {
       if (options.find("nobkg") != string::npos) {
-        if ((title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) && ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012))) {
-          hstack_mc->Add(it->second);
-          h_mc_sum->Add(it->second);
-        }
         if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index == 10 || index == 1010)) {
           hstack_mc->Add(it->second);
           h_mc_sum->Add(it->second);
         }
       } else {
-        if ((title.find("h_WG_") != string::npos || title.find("h_ZG_") != string::npos) && (index != 9001)){
-          hstack_mc->Add(it->second);
-          h_mc_sum->Add(it->second);
-        }
-        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index != 11 && index != 21 && index != 1011 && index != 1020 && index != 9001)) {
+        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051 || index == 8001)) {
           hstack_mc->Add(it->second);
           h_mc_sum->Add(it->second);
         }
@@ -371,11 +377,11 @@ void plot4(string plot="", string title="", string version="v00", string options
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "Z #gamma #gamma", "f");
     }
-    if (title.find("h_ZG_") != string::npos && it->first == 11) {
+    if (it->first == 11) {
       it->second->SetFillColor(kOrange-5);
       leg->AddEntry(it->second, "Z #gamma", "f");
     }
-    if (title.find("h_ZG_") != string::npos && it->first == 21) {
+    if (it->first == 21) {
       it->second->SetFillColor(kViolet-5);
       leg->AddEntry(it->second, "W #gamma", "f");
     }
@@ -399,31 +405,27 @@ void plot4(string plot="", string title="", string version="v00", string options
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "W #gamma #gamma", "f");
     }
-    if (title.find("h_WG_") != string::npos && it->first == 1011) {
+    if (it->first == 1011) {
       it->second->SetFillColor(kOrange-5);
       leg->AddEntry(it->second, "W #gamma", "f");
     }
-    if (title.find("h_WG_") != string::npos && it->first == 1020) {
+    if (it->first == 1020) {
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "DYJets", "f");
     }
-    if ((title.find("h_WG_") != string::npos || title.find("h_WGG_") != string::npos) && it->first == 1031) {
+    if (title.find("h_WGG_") != string::npos && it->first == 1031) {
       it->second->SetFillColor(kViolet-4);
       leg->AddEntry(it->second, "TT #gamma", "f");
     }
-    if ((title.find("h_WG_") != string::npos || title.find("h_WGG_") != string::npos) && it->first == 1032) {
+    if (title.find("h_WGG_") != string::npos && it->first == 1032) {
       it->second->SetFillColor(kViolet-9);
       leg->AddEntry(it->second, "TT #gamma #gamma", "f");
     }
-    if ((title.find("h_WG_") != string::npos || title.find("h_WGG_") != string::npos) && it->first == 1051) {
+    if (title.find("h_WGG_") != string::npos && it->first == 1051) {
       it->second->SetFillColor(kViolet+1);
       leg->AddEntry(it->second, "Diboson #gamma", "f");
     }
-    if (title.find("h_WG_") != string::npos && it->first == 9001) {
-      it->second->SetFillColor(kMagenta+3);
-      leg->AddEntry(it->second, "QCD", "f");
-    }
-    if ((title.find("h_WG_") != string::npos || title.find("h_WGG_") != string::npos) && it->first == 1021) {
+    if (title.find("h_WGG_") != string::npos && it->first == 1021) {
       it->second->SetFillColor(kViolet-5);
       leg->AddEntry(it->second, "Z #gamma", "f");
     }

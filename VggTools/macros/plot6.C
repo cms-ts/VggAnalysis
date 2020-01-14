@@ -127,9 +127,8 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("eg_misid_up");
   flags.push_back("eg_misid_down");
 
-  flags.push_back("jet_misid_iso0");
-  flags.push_back("jet_misid_iso1");
-  flags.push_back("jet_misid_iso2");
+  flags.push_back("jet_misid_cat1");
+  flags.push_back("jet_misid_cat2");
 
   flags.push_back("jet_bkg_mc");
 
@@ -484,28 +483,18 @@ void plot6(string plot="", string title="", string version="v00", string options
     errors_tot["eg_misid"] = xval;
   }
 
-  if (h_xsec_rec["jet_misid_iso0"]) {
-    double xval_stat = 0.;
-    double xval = h_xsec_rec["jet_misid_iso0"]->IntegralAndError(0, h_xsec_rec["jet_misid_iso0"]->GetNbinsX()+1, xval_stat, "width");
-    xval = xval - xsec_data_ref;
-    xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
-    errors_tot["jet_misid"] = xval;
-  }
-
-#if 0
-  if (h_xsec_rec["jet_misid_iso1"] && h_xsec_rec["jet_misid_iso2"]) {
+  if (h_xsec_rec["jet_misid_cat1"] && h_xsec_rec["jet_misid_cat2"]) {
     double xval_stat_up = 0.;
-    double xval_up = h_xsec_rec["jet_misid_iso1"]->IntegralAndError(0, h_xsec_rec["jet_misid_iso1"]->GetNbinsX()+1, xval_stat_up, "width");
+    double xval_up = h_xsec_rec["jet_misid_cat1"]->IntegralAndError(0, h_xsec_rec["jet_misid_cat1"]->GetNbinsX()+1, xval_stat_up, "width");
     xval_up = xval_up - xsec_data_ref;
     xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval_stat_down = 0.;
-    double xval_down = h_xsec_rec["jet_misid_iso2"]->IntegralAndError(0, h_xsec_rec["jet_misid_iso2"]->GetNbinsX()+1, xval_stat_down, "width");
+    double xval_down = h_xsec_rec["jet_misid_cat2"]->IntegralAndError(0, h_xsec_rec["jet_misid_cat2"]->GetNbinsX()+1, xval_stat_down, "width");
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["jet_misid"] = xval;
   }
-#endif
 
 #if 0
   if (h_xsec_rec["jet_bkg_mc"]) {
@@ -704,24 +693,15 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["eg_misid"].push_back(xval);
     }
 
-    if (h_xsec_rec["jet_misid_iso0"]) {
-      double xval = fabs(h_xsec_rec["jet_misid_iso0"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
-      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_iso0"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
-      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
-      errors["jet_misid"].push_back(xval);
-    }
-
-#if 0
-    if (h_xsec_rec["jet_misid_iso1"] && h_xsec_rec["jet_misid_iso2"]) {
-      double xval_up = fabs(h_xsec_rec["jet_misid_iso1"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
-      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_iso1"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
-      double xval_down = fabs(h_xsec_rec["jet_misid_iso2"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
-      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_iso2"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+    if (h_xsec_rec["jet_misid_cat1"] && h_xsec_rec["jet_misid_cat2"]) {
+      double xval_up = fabs(h_xsec_rec["jet_misid_cat1"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_cat1"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["jet_misid_cat2"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_cat2"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
       xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["jet_misid"].push_back(xval);
     }
-#endif
 
 #if 0
     if (h_xsec_rec["jet_bkg_mc"]) {

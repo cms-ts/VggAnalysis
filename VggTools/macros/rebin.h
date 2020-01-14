@@ -28,15 +28,16 @@ TH1D* rebin(TH1D* old) {
   } else if (name.find("WG_ele_pho0_pt") != string::npos ||
              name.find("WG_muo_pho0_pt") != string::npos ||
              name.find("ZG_ele_pho0_pt") != string::npos ||
-             name.find("ZG_muo_pho0_pt") != string::npos) {
-    nb = 19;
-    for (int i = 0; i < 15; i++) {
-      nbins[i] = 2;
-    }
-    nbins[15] = 6;
-    nbins[16] = 6;
-    nbins[17] = 6;
-    nbins[18] = 12;
+             name.find("ZG_muo_pho0_pt") != string::npos ) {
+
+    nb = 6;
+    nbins[0] = 4;
+    nbins[1] = 4;
+    nbins[2] = 4;
+    nbins[3] = 4;
+    nbins[4] = 20;
+    nbins[5] = 24;
+
   } else {
     return old;
   }
@@ -182,23 +183,22 @@ TH3D* rebin(TH3D* old) {
       name.find("WGG_muo_pho0_pt") != string::npos || name.find("WGG_muo_pho1_pt") != string::npos ||
       name.find("ZGG_ele_pho0_pt") != string::npos || name.find("ZGG_ele_pho1_pt") != string::npos ||
       name.find("ZGG_muo_pho0_pt") != string::npos || name.find("ZGG_muo_pho1_pt") != string::npos) {
-    nxb = 19;
-    for (int i = 0; i < 15; i++) {
-      nxbins[i] = 2;
-    }
-    nxbins[15] = 6;
-    nxbins[16] = 6;
-    nxbins[17] = 6;
-    nxbins[18] = 12;
 
-    nyb = 19;
-    for (int i = 0; i < 15; i++) {
-      nybins[i] = 2;
-    }
-    nybins[15] = 6;
-    nybins[16] = 6;
-    nybins[17] = 6;
-    nybins[18] = 12;
+    nxb = 6;
+    nxbins[0] = 4;
+    nxbins[1] = 4;
+    nxbins[2] = 4;
+    nxbins[3] = 4;
+    nxbins[4] = 20;
+    nxbins[5] = 24;
+
+    nyb = 6;
+    nybins[0] = 4;
+    nybins[1] = 4;
+    nybins[2] = 4;
+    nybins[3] = 4;
+    nybins[4] = 20;
+    nybins[5] = 24;
 
     nzb = 6;
     nzbins[0] = 1;
