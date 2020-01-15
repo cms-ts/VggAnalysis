@@ -243,7 +243,7 @@ void plot0(string plot="", string title="", string version="v00", string options
         hstack_mc->Add(it->second);
         h_mc_sum->Add(it->second);
       }
-      if (index == 13 || (index >= 20 && index <= 1000) || index == 1013 || (index >= 1020 && index <= 2000) || index == 9001) {
+      if (index != 10 && index != 1010) {
         h_bkg->Add(it->second);
       }
     }
