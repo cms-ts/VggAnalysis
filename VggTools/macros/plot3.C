@@ -33,11 +33,11 @@ void plot3(string plot="", string title="", string version="v00", string options
   ratio_mc->Divide(h_noiso_mc);
 
   for (int i = 0; i < ratio_data->GetNbinsX()+2; i++) {
-    if(ratio_data->GetBinContent(i) < 0) {
+    if (ratio_data->GetBinContent(i) < 0) {
       ratio_data->SetBinContent(i, 0);
       ratio_data->SetBinError(i, 0);
     }
-    if(ratio_mc->GetBinContent(i) < 0) {
+    if (ratio_mc->GetBinContent(i) < 0) {
       ratio_mc->SetBinContent(i, 0);
       ratio_mc->SetBinError(i, 0);
     }
