@@ -24,7 +24,9 @@ void plot4(string plot="", string title="", string version="v00", string options
   string cat = "cat3";
   if (flag == "jet_misid_cat1") cat = "cat1";
   if (flag == "jet_misid_cat2") cat = "cat2";
+
   bool useMC = false;
+  if (flag == "jet_misid_mc") useMC = true;
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -61,7 +63,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -119,7 +121,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -285,16 +287,17 @@ void plot4(string plot="", string title="", string version="v00", string options
         for (int pho0 = 0; pho0 < histo3[index]->GetNbinsX()+2; pho0++) {
           for (int pho1 = 0; pho1 < histo3[index]->GetNbinsY()+2; pho1++) {
             if (cat == "cat1") {
-              histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0));
-              histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho0), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho0), 2)));
+              histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) / (1 - h_weight->GetBinContent(pho0)));
+              histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho0) / (1 - h_weight->GetBinContent(pho0)), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho0) / TMath::Power(1 - h_weight->GetBinContent(pho0), 2), 2)));
             }
             if (cat == "cat2") {
-              histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho1));
-              histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho1), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho1), 2)));
+              histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho1)));
+              histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho1)), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho1) / TMath::Power(1 - h_weight->GetBinContent(pho1), 2), 2)));
             }
             if (cat == "cat3") {
-              histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1));
-              histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho0) * h_weight->GetBinContent(pho1), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinError(pho1), 2)));
+              histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1)));
+              histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1)), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho0) * h_weight->GetBinContent(pho1) / TMath::Power(1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1), 2), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinError(pho1) / TMath::Power(1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1), 2), 2)));
+
             }
             histo3[index]->SetBinError(pho0, pho1, var, histo3[index]->GetBinError(pho0, pho1, var) * (1 + 0.1 * (flag == "jet_misid_stat")));
           }
