@@ -1937,25 +1937,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    }
 
-   if (imuo0 != -1 && imuo1 == -1) {
-
-     if (ipho0 != -1 && fabs((muo0+pho0).M()-89.2) < 5) {
-       ipho0 = -1;
-       ipho1 = -1;
-       n_photons = n_photons - 2;
-     }
-     if (ipho1 != -1 && fabs((muo0+pho1).M()-89.2) < 5) {
-       ipho1 = -1;
-       n_photons = n_photons - 1;
-     }
-     if (ipho1 != -1 && fabs((muo0+pho0+pho1).M()-89.2) < 5) {
-       ipho0 = -1;
-       ipho1 = -1;
-       n_photons = n_photons - 2;
-     }
-
-   }
-
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 #if 0
    if (isWG || isWGG || isZG || isZGG || isTTGJets || isTTGG || isWWG || isWZG) {
@@ -2123,25 +2104,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    }
 
-   if (imuo0 != -1 && imuo1 == -1) {
-
-     if (ipho0_noiso != -1 && fabs((muo0+pho0_noiso).M()-89.2) < 5) {
-       ipho0_noiso = -1;
-       ipho1_noiso = -1;
-       n_photons_noiso = n_photons_noiso - 2;
-     }
-     if (ipho1_noiso != -1 && fabs((muo0+pho1_noiso).M()-89.2) < 5) {
-       ipho1_noiso = -1;
-       n_photons_noiso = n_photons_noiso - 1;
-     }
-     if (ipho1_noiso != -1 && fabs((muo0+pho0_noiso+pho1_noiso).M()-89.2) < 5) {
-       ipho0_noiso = -1;
-       ipho1_noiso = -1;
-       n_photons_noiso = n_photons_noiso - 2;
-     }
-
-   }
-
 // photons sieie
 
    int n_photons_sieie = 0;
@@ -2267,25 +2229,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        n_photons_sieie = n_photons_sieie - 1;
      }
      if (ipho1_sieie != -1 && fabs((ele0+pho0_sieie+pho1_sieie).M()-91.2) < 5) {
-       ipho0_sieie = -1;
-       ipho1_sieie = -1;
-       n_photons_sieie = n_photons_sieie - 2;
-     }
-
-   }
-
-   if (imuo0 != -1 && imuo1 == -1) {
-
-     if (ipho0_sieie != -1 && fabs((muo0+pho0_sieie).M()-89.2) < 5) {
-       ipho0_sieie = -1;
-       ipho1_sieie = -1;
-       n_photons_sieie = n_photons_sieie - 2;
-     }
-     if (ipho1_sieie != -1 && fabs((muo0+pho1_sieie).M()-89.2) < 5) {
-       ipho1_sieie = -1;
-       n_photons_sieie = n_photons_sieie - 1;
-     }
-     if (ipho1_sieie != -1 && fabs((muo0+pho0_sieie+pho1_sieie).M()-89.2) < 5) {
        ipho0_sieie = -1;
        ipho1_sieie = -1;
        n_photons_sieie = n_photons_sieie - 2;
@@ -2493,22 +2436,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    }
 
-   if (imuo0 != -1 && imuo1 == -1) {
-
-     if (ipho0_cat != -1 && fabs((muo0+pho0_cat).M()-89.2) < 5) {
-       ipho0_cat = -1;
-       ipho1_cat = -1;
-     }
-     if (ipho1_cat != -1 && fabs((muo0+pho1_cat).M()-89.2) < 5) {
-       ipho1_cat = -1;
-     }
-     if (ipho1_cat != -1 && fabs((muo0+pho0_cat+pho1_cat).M()-89.2) < 5) {
-       ipho0_cat = -1;
-       ipho1_cat = -1;
-     }
-
-   }
-
    bool is_iso_pho0 = false;
    bool is_iso_pho1 = false;
 
@@ -2673,25 +2600,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    }
 
-   if (imuo0_qcd != -1 && imuo1_qcd == -1) {
-
-     if (ipho0_qcd != -1 && fabs((muo0_qcd+pho0_qcd).M()-89.2) < 5) {
-       ipho0_qcd = -1;
-       ipho1_qcd = -1;
-       n_photons_qcd = n_photons_qcd - 2;
-     }
-     if (ipho1_qcd != -1 && fabs((muo0_qcd+pho1_qcd).M()-89.2) < 5) {
-       ipho1_qcd = -1;
-       n_photons_qcd = n_photons_qcd - 1;
-     }
-     if (ipho1_qcd != -1 && fabs((muo0_qcd+pho0_qcd+pho1_qcd).M()-89.2) < 5) {
-       ipho0_qcd = -1;
-       ipho1_qcd = -1;
-       n_photons_qcd = n_photons_qcd - 2;
-     }
-
-   }
-
 // photons noiso QCD
 
    int n_photons_noiso_qcd = 0;
@@ -2825,25 +2733,6 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    }
 
-   if (imuo0_qcd != -1 && imuo1_qcd == -1) {
-
-     if (ipho0_noiso_qcd != -1 && fabs((muo0_qcd+pho0_noiso_qcd).M()-89.2) < 5) {
-       ipho0_noiso_qcd = -1;
-       ipho1_noiso_qcd = -1;
-       n_photons_noiso_qcd = n_photons_noiso_qcd - 2;
-     }
-     if (ipho1_noiso_qcd != -1 && fabs((muo0_qcd+pho1_noiso_qcd).M()-89.2) < 5) {
-       ipho1_noiso_qcd = -1;
-       n_photons_noiso_qcd = n_photons_noiso_qcd - 1;
-     }
-     if (ipho1_noiso_qcd != -1 && fabs((muo0_qcd+pho0_noiso_qcd+pho1_noiso_qcd).M()-89.2) < 5) {
-       ipho0_noiso_qcd = -1;
-       ipho1_noiso_qcd = -1;
-       n_photons_noiso_qcd = n_photons_noiso_qcd - 2;
-     }
-
-   }
-
 // photons sieie QCD
 
    int n_photons_sieie_qcd = 0;
@@ -2969,25 +2858,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        n_photons_sieie_qcd = n_photons_sieie_qcd - 1;
      }
      if (ipho1_sieie_qcd != -1 && fabs((ele0+pho0_sieie_qcd+pho1_sieie_qcd).M()-91.2) < 5) {
-       ipho0_sieie_qcd = -1;
-       ipho1_sieie_qcd = -1;
-       n_photons_sieie_qcd = n_photons_sieie_qcd - 2;
-     }
-
-   }
-
-   if (imuo0 != -1 && imuo1 == -1) {
-
-     if (ipho0_sieie_qcd != -1 && fabs((muo0+pho0_sieie_qcd).M()-89.2) < 5) {
-       ipho0_sieie_qcd = -1;
-       ipho1_sieie_qcd = -1;
-       n_photons_sieie_qcd = n_photons_sieie_qcd - 2;
-     }
-     if (ipho1_sieie_qcd != -1 && fabs((muo0+pho1_sieie_qcd).M()-89.2) < 5) {
-       ipho1_sieie_qcd = -1;
-       n_photons_sieie_qcd = n_photons_sieie_qcd - 1;
-     }
-     if (ipho1_sieie_qcd != -1 && fabs((muo0+pho0_sieie_qcd+pho1_sieie_qcd).M()-89.2) < 5) {
        ipho0_sieie_qcd = -1;
        ipho1_sieie_qcd = -1;
        n_photons_sieie_qcd = n_photons_sieie_qcd - 2;
@@ -3200,22 +3070,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        ipho1_cat_qcd = -1;
      }
      if (ipho1_cat_qcd != -1 && fabs((ele0_qcd+pho0_cat_qcd+pho1_cat_qcd).M()-91.2) < 5) {
-       ipho0_cat_qcd = -1;
-       ipho1_cat_qcd = -1;
-     }
-
-   }
-
-   if (imuo0_qcd != -1 && imuo1_qcd == -1) {
-
-     if (ipho0_cat_qcd != -1 && fabs((muo0_qcd+pho0_cat_qcd).M()-89.2) < 5) {
-       ipho0_cat_qcd = -1;
-       ipho1_cat_qcd = -1;
-     }
-     if (ipho1_cat_qcd != -1 && fabs((muo0_qcd+pho1_cat_qcd).M()-89.2) < 5) {
-       ipho1_cat_qcd = -1;
-     }
-     if (ipho1_cat_qcd != -1 && fabs((muo0_qcd+pho0_cat_qcd+pho1_cat_qcd).M()-89.2) < 5) {
        ipho0_cat_qcd = -1;
        ipho1_cat_qcd = -1;
      }
