@@ -2025,9 +2025,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        //if (Electron_mvaID_WP80[j] == 0) continue;
        if ((Electron_vidNestedWPBitmap[j] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
 
-       TLorentzVector tmp_ele_noiso;
-       tmp_ele_noiso.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
-       if (tmp_ele_noiso.DeltaR(tmp_pho_noiso) < 0.4) skip = true;
+       TLorentzVector tmp_ele;
+       tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
+       if (tmp_ele.DeltaR(tmp_pho_noiso) < 0.4) skip = true;
      }
 
      for (uint j = 0; j < *nMuon; j++) {
@@ -2037,9 +2037,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (Muon_tightId[j] == 0) continue;
 
-       TLorentzVector tmp_muo_noiso;
-       tmp_muo_noiso.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
-       if (tmp_muo_noiso.DeltaR(tmp_pho_noiso) < 0.4) skip = true;
+       TLorentzVector tmp_muo;
+       tmp_muo.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
+       if (tmp_muo.DeltaR(tmp_pho_noiso) < 0.4) skip = true;
      }
 
      if (skip) continue;
@@ -2157,9 +2157,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        //if (Electron_mvaID_WP80[j] == 0) continue;
        if ((Electron_vidNestedWPBitmap[j] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
 
-       TLorentzVector tmp_ele_sieie;
-       tmp_ele_sieie.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
-       if (tmp_ele_sieie.DeltaR(tmp_pho_sieie) < 0.4) skip = true;
+       TLorentzVector tmp_ele;
+       tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
+       if (tmp_ele.DeltaR(tmp_pho_sieie) < 0.4) skip = true;
      }
 
      for (uint j = 0; j < *nMuon; j++) {
@@ -2169,9 +2169,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (Muon_tightId[j] == 0) continue;
 
-       TLorentzVector tmp_muo_sieie;
-       tmp_muo_sieie.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
-       if (tmp_muo_sieie.DeltaR(tmp_pho_sieie) < 0.4) skip = true;
+       TLorentzVector tmp_muo;
+       tmp_muo.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
+       if (tmp_muo.DeltaR(tmp_pho_sieie) < 0.4) skip = true;
      }
 
      if (skip) continue;
@@ -2514,9 +2514,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        //if (Electron_mvaID_WP80[j] == 0) continue;
        if ((Electron_vidNestedWPBitmap[j] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
 
-       TLorentzVector tmp_ele_qcd;
-       tmp_ele_qcd.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
-       if (tmp_ele_qcd.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
+       TLorentzVector tmp_ele;
+       tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
+       if (tmp_ele.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
      }
 
      for (uint j = 0; j < *nMuon; j++) {
@@ -2526,9 +2526,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (Muon_tightId[j] == 0) continue;
 
-       TLorentzVector tmp_muo_qcd;
-       tmp_muo_qcd.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
-       if (tmp_muo_qcd.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
+       TLorentzVector tmp_muo;
+       tmp_muo.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
+       if (tmp_muo.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
      }
 
      if (skip) continue;
@@ -2654,9 +2654,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        //if (Electron_mvaID_WP80[j] == 0) continue;
        if ((Electron_vidNestedWPBitmap[j] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
 
-       TLorentzVector tmp_ele_noiso_qcd;
-       tmp_ele_noiso_qcd.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
-       if (tmp_ele_noiso_qcd.DeltaR(tmp_pho_noiso_qcd) < 0.4) skip = true;
+       TLorentzVector tmp_ele;
+       tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
+       if (tmp_ele.DeltaR(tmp_pho_noiso_qcd) < 0.4) skip = true;
      }
 
      for (uint j = 0; j < *nMuon; j++) {
@@ -2666,9 +2666,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (Muon_tightId[j] == 0) continue;
 
-       TLorentzVector tmp_muo_noiso_qcd;
-       tmp_muo_noiso_qcd.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
-       if (tmp_muo_noiso_qcd.DeltaR(tmp_pho_noiso_qcd) < 0.4) skip = true;
+       TLorentzVector tmp_muo;
+       tmp_muo.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
+       if (tmp_muo.DeltaR(tmp_pho_noiso_qcd) < 0.4) skip = true;
      }
 
      if (skip) continue;
@@ -2786,9 +2786,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        //if (Electron_mvaID_WP80[j] == 0) continue;
        if ((Electron_vidNestedWPBitmap[j] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
 
-       TLorentzVector tmp_ele_sieie_qcd;
-       tmp_ele_sieie_qcd.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
-       if (tmp_ele_sieie_qcd.DeltaR(tmp_pho_sieie_qcd) < 0.4) skip = true;
+       TLorentzVector tmp_ele;
+       tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
+       if (tmp_ele.DeltaR(tmp_pho_sieie_qcd) < 0.4) skip = true;
      }
 
      for (uint j = 0; j < *nMuon; j++) {
@@ -2798,9 +2798,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (Muon_tightId[j] == 0) continue;
 
-       TLorentzVector tmp_muo_sieie_qcd;
-       tmp_muo_sieie_qcd.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
-       if (tmp_muo_sieie_qcd.DeltaR(tmp_pho_sieie_qcd) < 0.4) skip = true;
+       TLorentzVector tmp_muo;
+       tmp_muo.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
+       if (tmp_muo.DeltaR(tmp_pho_sieie_qcd) < 0.4) skip = true;
      }
 
      if (skip) continue;
@@ -3004,9 +3004,9 @@ Bool_t mainSelector::Process(Long64_t entry)
        //if (Electron_mvaID_WP80[j] == 0) continue;
        if ((Electron_vidNestedWPBitmap[j] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
 
-       TLorentzVector tmp_ele_qcd;
-       tmp_ele_qcd.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
-       if (tmp_ele_qcd.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
+       TLorentzVector tmp_ele;
+       tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
+       if (tmp_ele.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
      }
 
      for (uint j = 0; j < *nMuon; j++) {
@@ -3016,9 +3016,9 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        if (Muon_tightId[j] == 0) continue;
 
-       TLorentzVector tmp_muo_qcd;
-       tmp_muo_qcd.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
-       if (tmp_muo_qcd.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
+       TLorentzVector tmp_muo;
+       tmp_muo.SetPtEtaPhiM(Muon_pt[j], Muon_eta[j], Muon_phi[j], Muon_mass[j]);
+       if (tmp_muo.DeltaR(tmp_pho_qcd) < 0.4) skip = true;
      }
 
      if (skip) continue;
