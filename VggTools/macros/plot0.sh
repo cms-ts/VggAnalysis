@@ -278,7 +278,7 @@ for YEAR in $YEARS; do
 
         SKIP2 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WG_muo_muo0_pho0\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
               root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho0_pho1_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-              root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_muo_pho0_pho1\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
+              root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho0_pho1\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
         SKIP2 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_muo0_pho0\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
         SKIP2 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_muo0_pho1\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
               root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_muo0_pho0_pho1\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
