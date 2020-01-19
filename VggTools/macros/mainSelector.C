@@ -5127,7 +5127,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_WGG_muo_muo0_pt->Fill(muo0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
        h_WGG_muo_pho0_pho1_dR->Fill(pho0.DeltaR(pho1), weight_W_muo * weight_pho0 * weight_pho1);
 
-       h_WGG_muo_pho0_pho1_pt_map->Fill(pho0.Pt(), pho1.Pt(), (pho0+pho1).Pt(), weight_W_muo * weight_pho0 * weight_pho1);
+       h_WGG_muo_pho0_pho1_pt_map->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_W_muo * weight_pho0 * weight_pho1);
        h_WGG_muo_pho0_pt_map->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
        h_WGG_muo_pho1_pt_map->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
        h_WGG_muo_pho0_pho1_map->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).M(), weight_W_muo * weight_pho0 * weight_pho1);
