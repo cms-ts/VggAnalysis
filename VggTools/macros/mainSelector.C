@@ -5035,7 +5035,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        h_WGG_ele_pho1_noiso_mva->Fill(Photon_mvaID[ipho1_noiso], weight_W_ele * weight_pho0_noiso * weight_pho1_noiso);
      }
      if (ipho0_cat != -1 && ipho0 == -1) {
-//       if (is_iso_pho0 == true) h_WG_ele_cat_iso->Fill(pho0_cat.Pt(), weight_W_ele * weight_pho0_cat);
        if (is_iso_pho0 == false) h_WG_ele_pho0_pt_noiso->Fill(pho0_cat.Pt(), weight_W_ele * weight_pho0_cat);
      }
      if (ipho1_cat != -1) {
@@ -5650,7 +5649,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_WGG_ele_pho1_noiso_mva)->Fill(Photon_mvaID[ipho1_noiso_qcd], weight_W_ele_qcd * weight_pho0_noiso_qcd * weight_pho1_noiso_qcd);
      }
      if (ipho0_cat_qcd != -1 && ipho0_qcd == -1) {
-//       if (is_iso_pho0_qcd == true) QCD(h_WG_ele_cat_iso)->Fill(pho0_cat_qcd.Pt(), weight_W_ele_qcd * weight_pho0_cat_qcd);
        if (is_iso_pho0_qcd == false) QCD(h_WG_ele_pho0_pt_noiso)->Fill(pho0_cat_qcd.Pt(), weight_W_ele_qcd * weight_pho0_cat_qcd);
      }
      if (ipho1_cat_qcd != -1) {
@@ -5747,7 +5745,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_WGG_muo_pho1_noiso_mva)->Fill(Photon_mvaID[ipho1_noiso_qcd], weight_W_muo_qcd * weight_pho0_noiso_qcd * weight_pho1_noiso_qcd);
      }
      if (ipho0_cat_qcd != -1 && ipho0_qcd == -1) {
-//       if (is_iso_pho0_qcd == true) QCD(h_WG_muo_cat_iso)->Fill(pho0_cat_qcd.Pt(), weight_W_muo_qcd * weight_pho0_cat_qcd);
        if (is_iso_pho0_qcd == false) QCD(h_WG_muo_pho0_pt_noiso)->Fill(pho0_cat_qcd.Pt(), weight_W_muo_qcd * weight_pho0_cat_qcd);
      }
      if (ipho1_cat_qcd != -1) {
@@ -5851,7 +5848,6 @@ Bool_t mainSelector::Process(Long64_t entry)
        QCD(h_ZGG_ele_pho1_noiso_mva)->Fill(Photon_mvaID[ipho1_noiso_qcd], weight_Z_ele_qcd * weight_pho0_noiso_qcd * weight_pho1_noiso_qcd);
      }
      if (ipho0_cat_qcd != -1 && ipho0_qcd == -1) {
-//       if (is_iso_pho0_qcd == true) QCD(h_ZG_ele_cat_iso)->Fill(pho0_cat_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_cat_qcd);
        if (is_iso_pho0_qcd == false) QCD(h_ZG_ele_pho0_pt_noiso)->Fill(pho0_cat_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_cat_qcd);
      }
      if (ipho1_cat_qcd != -1) {
