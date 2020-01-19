@@ -2447,12 +2447,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if ((Photon_vidNestedWPBitmap[ipho1_cat] & 0b0010101000000000) == 0b0010101000000000) is_iso_pho1 = true;
 
-     if (is_iso_pho0  && is_iso_pho1) category2d = 0;
+     if (is_iso_pho0 && is_iso_pho1) category2d = 0;
 
      if (ipho1 == -1) {
 
        if (!is_iso_pho0 && is_iso_pho1) category2d = 1;
-       if (is_iso_pho0  && !is_iso_pho1) category2d = 2;
+       if (is_iso_pho0 && !is_iso_pho1) category2d = 2;
        if (!is_iso_pho0 && !is_iso_pho1) category2d = 3;
 
      }
@@ -3087,12 +3087,12 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if ((Photon_vidNestedWPBitmap[ipho1_cat_qcd] & 0b0010101000000000) == 0b0010101000000000) is_iso_pho1_qcd = true;
 
-     if (is_iso_pho0_qcd  && is_iso_pho1_qcd) category2d_qcd = 0;
+     if (is_iso_pho0_qcd && is_iso_pho1_qcd) category2d_qcd = 0;
 
      if (ipho1 == -1) {
 
        if (!is_iso_pho0_qcd && is_iso_pho1_qcd) category2d_qcd = 1;
-       if (is_iso_pho0_qcd  && !is_iso_pho1_qcd) category2d_qcd = 2;
+       if (is_iso_pho0_qcd && !is_iso_pho1_qcd) category2d_qcd = 2;
        if (!is_iso_pho0_qcd && !is_iso_pho1_qcd) category2d_qcd = 3;
 
      }
