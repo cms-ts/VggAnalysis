@@ -3474,7 +3474,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        Z_muo0_muo1_m = (muo0 + muo1).M();
        if (Z_muo0_muo1_m >= 51. && Z_muo0_muo1_m <= 131. && (muo0.Pt() > 30 || muo1.Pt() > 30)) {
          Z_muo_sel_wide = true;
-         if (Z_muo0_muo1_m >= 51. && Z_muo0_muo1_m <= 131.) {
+         if (Z_muo0_muo1_m >= 71. && Z_muo0_muo1_m <= 111.) {
            Z_muo_sel = true;
          }
        }
@@ -3501,7 +3501,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        Z_muo0_muo1_m_qcd = (muo0_qcd + muo1_qcd).M();
        if (Z_muo0_muo1_m_qcd >= 51. && Z_muo0_muo1_m_qcd <= 131. && (muo0_qcd.Pt() > 30 || muo1_qcd.Pt() > 30)) {
          Z_muo_sel_wide_qcd = true;
-         if (Z_muo0_muo1_m_qcd >= 51. && Z_muo0_muo1_m_qcd <= 131.) {
+         if (Z_muo0_muo1_m_qcd >= 71. && Z_muo0_muo1_m_qcd <= 111.) {
            Z_muo_sel_qcd = true;
          }
        }
