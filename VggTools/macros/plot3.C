@@ -22,9 +22,19 @@ void plot3(string plot="", string title="", string version="v00", string options
   TH1D* h_iso_data = (TH1D*)file_iso->Get("h_data_cat");
   TH1D* h_iso_mc = (TH1D*)file_iso->Get("h_mc_cat");
 
+  h_iso_data->SetDirectory(0);
+  h_iso_mc->SetDirectory(0);
+  file_iso->Close();
+  delete file_iso;
+
   TFile* file_noiso = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + "_noiso.root").c_str());
   TH1D* h_noiso_data = (TH1D*)file_noiso->Get("h_data_cat");
   TH1D* h_noiso_mc = (TH1D*)file_noiso->Get("h_mc_cat");
+
+  h_noiso_data->SetDirectory(0);
+  h_noiso_mc->SetDirectory(0);
+  file_noiso->Close();
+  delete file_noiso;
 
   for (int i = 0; i < h_iso_data->GetNbinsX()+2; i++) {
     if (h_iso_data->GetBinContent(i) <= 0) {
