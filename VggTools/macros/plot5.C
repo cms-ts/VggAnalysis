@@ -75,7 +75,7 @@ void plot5(string plot="", string title="", string version="v00", string options
 
 #if defined(USE_RUN2_AVERAGES)
   TFile* f1 = 0;
-  if (flag == "jet_bkg_mc" || title.find("nphotons") != string::npos) {
+  if (flag == "jet_bkg_mc") {
     f1 = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + ".root").c_str());
   } else {
     f1 = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str());
@@ -93,7 +93,7 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   TH1D* h_data = (TH1D*)f1->Get((title + "_data").c_str());
   TH1D* h_bkg = 0;
-  if (flag == "jet_bkg_mc" || title.find("nphotons") != string::npos) {
+  if (flag == "jet_bkg_mc") {
     h_bkg = (TH1D*)f1->Get((title + "_bkg").c_str());
   } else {
     h_bkg = (TH1D*)f1->Get((title + "_misid").c_str());
@@ -168,7 +168,7 @@ void plot5(string plot="", string title="", string version="v00", string options
   TFile* f2_2018 = 0;
 
   if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
-    if (flag == "jet_bkg_mc" || title.find("nphotons") != string::npos) {
+    if (flag == "jet_bkg_mc") {
       f1_2016 = new TFile(("html/" + version + "/" + flag + "/2016/root/" + title + ".root").c_str());
     } else {
       f1_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/" + title + ".root").c_str());
@@ -184,7 +184,7 @@ void plot5(string plot="", string title="", string version="v00", string options
     }
   }
   if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
-    if (flag == "jet_bkg_mc" || title.find("nphotons") != string::npos) {
+    if (flag == "jet_bkg_mc") {
       f1_2017 = new TFile(("html/" + version + "/" + flag + "/2017/root/" + title + ".root").c_str());
     } else {
       f1_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/" + title + ".root").c_str());
@@ -200,7 +200,7 @@ void plot5(string plot="", string title="", string version="v00", string options
     }
   }
   if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
-    if (flag == "jet_bkg_mc" || title.find("nphotons") != string::npos) {
+    if (flag == "jet_bkg_mc") {
       f1_2018 = new TFile(("html/" + version + "/" + flag + "/2018/root/" + title + ".root").c_str());
     } else {
       f1_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/" + title + ".root").c_str());
@@ -228,7 +228,7 @@ void plot5(string plot="", string title="", string version="v00", string options
   TH1D* h_bkg_2017 = 0;
   TH1D* h_bkg_2018 = 0;
 
-  if (flag == "jet_bkg_mc" || title.find("nphotons") != string::npos) {
+  if (flag == "jet_bkg_mc") {
     if (f1_2016) h_bkg_2016 = (TH1D*)f1_2016->Get((title + "_bkg").c_str());
     if (f1_2017) h_bkg_2017 = (TH1D*)f1_2017->Get((title + "_bkg").c_str());
     if (f1_2018) h_bkg_2018 = (TH1D*)f1_2018->Get((title + "_bkg").c_str());
@@ -458,8 +458,6 @@ void plot5(string plot="", string title="", string version="v00", string options
   h_xsec_mc_gen->SetMaximum(10.*TMath::Max(h_xsec_mc_gen->GetBinContent(h_xsec_mc_gen->GetMaximumBin()), h_xsec_rec->GetBinContent(h_xsec_rec->GetMaximumBin())));
   h_xsec_mc_gen->SetMinimum(TMath::Max(5.e-9, 0.1*TMath::Min(h_xsec_mc_gen->GetBinContent(h_xsec_mc_gen->GetMinimumBin()), h_xsec_rec->GetBinContent(h_xsec_rec->GetMinimumBin()))));
 
-  if (title.find("nphotons") != string::npos) h_xsec_mc_gen->SetMinimum(5.e-3);
-
   pad1->SetLogy();
 
   h_xsec_mc_gen->SetTitle("");
@@ -477,8 +475,6 @@ void plot5(string plot="", string title="", string version="v00", string options
   h_xsec_mc_gen->GetYaxis()->SetTitleSize(0.05);
   h_xsec_mc_gen->GetYaxis()->SetTitleOffset(0.8);
   h_xsec_mc_gen->GetYaxis()->SetLabelSize(0.045);
-
-  if (title.find("nphotons") != string::npos) h_xsec_mc_gen->GetXaxis()->SetRangeUser(-0.5, 2.5);
 
   h_xsec_mc_gen->Draw("E2");
 
@@ -541,26 +537,12 @@ void plot5(string plot="", string title="", string version="v00", string options
   h_ratio_gen->GetYaxis()->SetNdivisions(505);
   h_ratio_gen->GetYaxis()->SetRangeUser(0.5, 1.5);
 
-  if (title.find("nphotons") != string::npos) h_ratio_gen->GetXaxis()->SetRangeUser(-0.5, 2.5);
-
   h_ratio_gen->GetXaxis()->SetNdivisions(1003);
   h_ratio_gen->GetXaxis()->SetTickLength(0.1);
 
   string tmp_title = title;
 
-  if (tmp_title == "h_W_ele_nphotons" || tmp_title == "h_W_muo_nphotons") {
-    h_ratio_gen->GetXaxis()->SetTitle("N_{#gamma}");
-    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dN_{#gamma} [pb/GeV]");
-  } else if (tmp_title == "h_Z_ele_nphotons" || tmp_title == "h_Z_muo_nphotons") {
-    h_ratio_gen->GetXaxis()->SetTitle("N_{#gamma}");
-    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dN_{#gamma} [pb]");
-  } else if (tmp_title == "h_WG_ele_pho0_pt" || tmp_title == "h_WG_muo_pho0_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma_{1}} [GeV]");
-    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dp_{T}^{#gamma_{1} [pb/GeV]");
-  } else if (tmp_title == "h_ZG_ele_pho0_pt" || tmp_title == "h_ZG_muo_pho0_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma_{1}} [GeV]");
-    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dp_{T}^{#gamma_{1}} [pb/GeV]");
-  } else if (tmp_title == "h_WGG_ele_pho1_eta" || tmp_title == "h_WGG_muo_pho1_eta") {
+  if (tmp_title == "h_WGG_ele_pho1_eta" || tmp_title == "h_WGG_muo_pho1_eta") {
     h_ratio_gen->GetXaxis()->SetTitle("#eta^{#gamma_{2}}");
     h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / d#eta^{#gamma_{2}} [pb]");
   } else if (tmp_title == "h_WGG_ele_pho1_phi" || tmp_title == "h_WGG_muo_pho1_phi") {

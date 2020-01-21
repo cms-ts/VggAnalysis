@@ -35,12 +35,6 @@ export ROOT_HIST=0
 
 for YEAR in $YEARS; do
 
-  root.exe -l -q -b plot6.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_nphotons\",\"$VERSION\",\"$OPTIONS\"\)
-  root.exe -l -q -b plot6.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_nphotons\",\"$VERSION\",\"$OPTIONS\"\)
-
-  root.exe -l -q -b plot6.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_nphotons\",\"$VERSION\",\"$OPTIONS\"\)
-  root.exe -l -q -b plot6.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_nphotons\",\"$VERSION\",\"$OPTIONS\"\)
-
   root.exe -l -q -b plot6.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho0_pt\",\"$VERSION\",\"$OPTIONS\"\)
   root.exe -l -q -b plot6.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho1_pt\",\"$VERSION\",\"$OPTIONS\"\)
   root.exe -l -q -b plot6.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho0_pho1_pt\",\"$VERSION\",\"$OPTIONS\"\)

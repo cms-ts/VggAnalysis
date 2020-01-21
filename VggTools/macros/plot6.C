@@ -903,8 +903,6 @@ void plot6(string plot="", string title="", string version="v00", string options
     h_xsec_mc_gen["reference"]->SetMaximum(1.2*TMath::Max(h_xsec_mc_gen["reference"]->GetBinContent(h_xsec_mc_gen["reference"]->GetMaximumBin()), h_xsec_rec["reference"]->GetBinContent(h_xsec_rec["reference"]->GetMaximumBin())));
   }
  
-  if (title.find("nphotons") != string::npos) h_xsec_mc_gen["reference"]->SetMinimum(5.e-3);
-
   h_xsec_mc_gen["reference"]->SetTitle("");
   h_xsec_mc_gen["reference"]->SetStats(kFALSE);
 
@@ -921,8 +919,6 @@ void plot6(string plot="", string title="", string version="v00", string options
   h_xsec_mc_gen["reference"]->GetYaxis()->SetTitleSize(0.05);
   h_xsec_mc_gen["reference"]->GetYaxis()->SetTitleOffset(0.8);
   h_xsec_mc_gen["reference"]->GetYaxis()->SetLabelSize(0.045);
-
-  if (title.find("nphotons") != string::npos) h_xsec_mc_gen["reference"]->GetXaxis()->SetRangeUser(-0.5, 2.5);
 
   h_xsec_mc_gen["reference"]->Draw("E2");
 
@@ -1021,22 +1017,12 @@ void plot6(string plot="", string title="", string version="v00", string options
   h_ratio_gen->GetYaxis()->SetNdivisions(505);
   h_ratio_gen->GetYaxis()->SetRangeUser(0.5, 1.5);
 
-  if (title.find("nphotons") != string::npos) h_ratio_gen->GetXaxis()->SetRangeUser(-0.5, 2.5);
-
   h_ratio_gen->GetXaxis()->SetNdivisions(1003);
   h_ratio_gen->GetXaxis()->SetTickLength(0.1);
 
   string tmp_title = title;
 
-  if (tmp_title == "h_W_ele_nphotons" || tmp_title == "h_W_muo_nphotons") {
-    h_ratio_gen->GetXaxis()->SetTitle("Number of photons");
-  } else if (tmp_title == "h_Z_ele_nphotons" || tmp_title == "h_Z_muo_nphotons") {
-    h_ratio_gen->GetXaxis()->SetTitle("Number of photons");
-  } else if (tmp_title == "h_WG_ele_pho0_pt" || tmp_title == "h_WG_muo_pho0_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
-  } else if (tmp_title == "h_ZG_ele_pho0_pt" || tmp_title == "h_ZG_muo_pho0_pt") {
-    h_ratio_gen->GetXaxis()->SetTitle("p_{T}^{#gamma}");
-  } else if (tmp_title == "h_WGG_ele_pho1_eta" || tmp_title == "h_WGG_muo_pho1_eta") {
+  if (tmp_title == "h_WGG_ele_pho1_eta" || tmp_title == "h_WGG_muo_pho1_eta") {
     h_ratio_gen->GetXaxis()->SetTitle("#eta^{#gamma}");
   } else if (tmp_title == "h_WGG_ele_pho1_phi" || tmp_title == "h_WGG_muo_pho1_phi") {
     h_ratio_gen->GetXaxis()->SetTitle("#phi^{#gamma}");
@@ -1218,13 +1204,6 @@ void plot6(string plot="", string title="", string version="v00", string options
     h_xsec_rec_errors_m->SetMinimum(-50.);
     h_xsec_rec_errors_m->SetMaximum(+50.);
 
-    if (title.find("nphotons") != string::npos)  {
-      h_xsec_rec_errors_p->SetMinimum(-5.);
-      h_xsec_rec_errors_p->SetMaximum(+5.);
-      h_xsec_rec_errors_m->SetMinimum(-5.);
-      h_xsec_rec_errors_m->SetMaximum(+5.);
-    }
-
     h_xsec_rec_errors_p->SetFillColor(4);
     h_xsec_rec_errors_m->SetFillColor(38);
 
@@ -1256,8 +1235,6 @@ void plot6(string plot="", string title="", string version="v00", string options
   h_xsec_rec_err->Write((title + "_xsec_rec_err").c_str());
   file1->Close();
   delete file1;
-
-  if (title.find("nphotons") != string::npos) return;
 
   TFile* file2 = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/" + title + ".root").c_str());
 

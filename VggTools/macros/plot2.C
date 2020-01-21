@@ -84,12 +84,8 @@ void plot2(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (title.find("nphotons") != string::npos) {
-      if (!((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012))) continue;
-    } else {
-      if (index !=   10 && title.find("h_ZGG_") != string::npos) continue;
-      if (index != 1010 && title.find("h_WGG_") != string::npos) continue;
-    }
+    if (title.find("h_ZGG_") != string::npos && index != 10) continue;
+    if (title.find("h_WGG_") != string::npos && index != 1010) continue;
     TFile* file = 0;
     if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
       file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -226,36 +222,32 @@ void plot2(string plot="", string title="", string version="v00", string options
   label->SetTextFont(42);
   label->SetLineWidth(2);
   label->SetNDC();
+
+  double xval = 0.;
+  double xerr = 0.;
+
+  xval = h1->IntegralAndError(0, h1->GetNbinsX()+1, xerr);
+  xval = xval / h2->Integral(0, h2->GetNbinsX()+1);
+  xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1) * TMath::Sqrt(1. - xval);
+
   char buff[100];
-  if (title.find("nphotons") != string::npos) {
-    sprintf(buff, "< efficiency N=0 > = %6.4f #pm %6.4f", h_mc_eff->GetBinContent(1), h_mc_eff->GetBinError(1));
-    label->DrawLatex(0.50, 0.65, buff);
-    sprintf(buff, "< efficiency N=1 > = %6.4f #pm %6.4f", h_mc_eff->GetBinContent(2), h_mc_eff->GetBinError(2));
-    label->DrawLatex(0.50, 0.60, buff);
-    sprintf(buff, "< efficiency N=2 > = %6.4f #pm %6.4f", h_mc_eff->GetBinContent(3), h_mc_eff->GetBinError(3));
-    label->DrawLatex(0.50, 0.55, buff);
-  } else {
-    double xval = 0.;
-    double xerr = 0.;
-    xval = h1->IntegralAndError(0, h1->GetNbinsX()+1, xerr);
+
+  sprintf(buff, "< efficiency > = %6.4f #pm %6.4f", xval, xerr);
+  label->DrawLatex(0.50, 0.65, buff);
+
+  if (h3) {
+    xval = h3->IntegralAndError(0, h3->GetNbinsX()+1, xerr);
     xval = xval / h2->Integral(0, h2->GetNbinsX()+1);
     xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1) * TMath::Sqrt(1. - xval);
-    sprintf(buff, "< efficiency > = %6.4f #pm %6.4f", xval, xerr);
-    label->DrawLatex(0.50, 0.65, buff);
-    if (h3) {
-      xval = h3->IntegralAndError(0, h3->GetNbinsX()+1, xerr);
-      xval = xval / h2->Integral(0, h2->GetNbinsX()+1);
-      xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1) * TMath::Sqrt(1. - xval);
-      sprintf(buff, "< matching > = %6.4f #pm %6.4f", xval, xerr);
-      label->SetTextColor(kRed);
-      label->DrawLatex(0.50, 0.55, buff);
-      xval = h3->IntegralAndError(0, h3->GetNbinsX()+1, xerr);
-      xval = xval / h1->Integral(0, h1->GetNbinsX()+1);
-      xerr = xerr / h1->Integral(0, h1->GetNbinsX()+1) * TMath::Sqrt(1. - xval);
-      sprintf(buff, "< purity > = %6.4f #pm %6.4f", xval, xerr);
-      label->SetTextColor(kGreen+2);
-      label->DrawLatex(0.50, 0.45, buff);
-    }
+    sprintf(buff, "< matching > = %6.4f #pm %6.4f", xval, xerr);
+    label->SetTextColor(kRed);
+    label->DrawLatex(0.50, 0.55, buff);
+    xval = h3->IntegralAndError(0, h3->GetNbinsX()+1, xerr);
+    xval = xval / h1->Integral(0, h1->GetNbinsX()+1);
+    xerr = xerr / h1->Integral(0, h1->GetNbinsX()+1) * TMath::Sqrt(1. - xval);
+    sprintf(buff, "< purity > = %6.4f #pm %6.4f", xval, xerr);
+    label->SetTextColor(kGreen+2);
+    label->DrawLatex(0.50, 0.45, buff);
   }
 
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".eff/").c_str())) {
