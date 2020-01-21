@@ -48,24 +48,24 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  TH1D* h_sum_data = (TH1D*) h_iso_data->Clone("h_sum_data");
+  TH1D* h_sum_data = (TH1D*)h_iso_data->Clone("h_sum_data");
   h_sum_data->Add(h_noiso_data);
 
   for (int i = 0; i < h_sum_data->GetNbinsX()+2; i++) {
     h_sum_data->SetBinError(i, 0);
   }
 
-  TH1D* h_sum_mc = (TH1D*) h_iso_mc->Clone("h_sum_mc");
+  TH1D* h_sum_mc = (TH1D*)h_iso_mc->Clone("h_sum_mc");
   h_sum_mc->Add(h_noiso_mc);
 
   for (int i = 0; i < h_sum_mc->GetNbinsX()+2; i++) {
     h_sum_mc->SetBinError(i, 0);
   }
 
-  TH1D* ratio_data = (TH1D*) h_iso_data->Clone("ratio_data");
+  TH1D* ratio_data = (TH1D*)h_iso_data->Clone("ratio_data");
   ratio_data->Divide(h_sum_data);
 
-  TH1D* ratio_mc = (TH1D*) h_iso_mc->Clone("ratio_mc");
+  TH1D* ratio_mc = (TH1D*)h_iso_mc->Clone("ratio_mc");
   ratio_mc->Divide(h_sum_mc);
 
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
