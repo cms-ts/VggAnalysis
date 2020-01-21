@@ -72,19 +72,19 @@ void plot3(string plot="", string title="", string version="v00", string options
     h_sum_mc->SetBinError(i, 0);
   }
 
-  TH1D* ratio_data = (TH1D*)h_iso_data->Clone("ratio_data");
-  ratio_data->Divide(h_sum_data);
+  TH1D* h_weight_data = (TH1D*)h_iso_data->Clone("h_weight_data");
+  h_weight_data->Divide(h_sum_data);
 
-  TH1D* ratio_mc = (TH1D*)h_iso_mc->Clone("ratio_mc");
-  ratio_mc->Divide(h_sum_mc);
+  TH1D* h_weight_mc = (TH1D*)h_iso_mc->Clone("h_weight_mc");
+  h_weight_mc->Divide(h_sum_mc);
 
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
   TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + "_matrix_weight.root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + "_matrix_weight.root").c_str());
-  ratio_data->Write((title + "_weight").c_str());
-  ratio_mc->Write((title + "_weight_mc").c_str());
+  h_weight_data->Write("h_weight_data");
+  h_weight_mc->Write("h_weight_mc");
   file->Close();
   delete file;
 

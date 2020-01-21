@@ -215,12 +215,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     return;
   }
 
-  TH1D* h_weight = 0;
-
-  if (title.find("h_WGG_ele") != string::npos) h_weight = (TH1D*)file_matrix->Get(useMC ? "h_WG_ele_pho0_pt_weight_mc" : "h_WG_ele_pho0_pt_weight");
-  if (title.find("h_WGG_muo") != string::npos) h_weight = (TH1D*)file_matrix->Get(useMC ? "h_WG_muo_pho0_pt_weight_mc" : "h_WG_muo_pho0_pt_weight");
-  if (title.find("h_ZGG_ele") != string::npos) h_weight = (TH1D*)file_matrix->Get(useMC ? "h_ZG_ele_pho0_pt_weight_mc" : "h_ZG_ele_pho0_pt_weight");
-  if (title.find("h_ZGG_muo") != string::npos) h_weight = (TH1D*)file_matrix->Get(useMC ? "h_ZG_muo_pho0_pt_weight_mc" : "h_ZG_muo_pho0_pt_weight");
+  TH1D* h_weight = (TH1D*)file_matrix->Get(useMC ? "h_weight_mc" : "h_weight_data");
 
   h_weight->SetDirectory(0);
   file_matrix->Close();
@@ -265,26 +260,9 @@ void plot4(string plot="", string title="", string version="v00", string options
   TH1D* h_weight_2017 = 0;
   TH1D* h_weight_2018 = 0;
 
-  if (title.find("h_WGG_ele") != string::npos) {
-    if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get(useMC ? "h_WG_ele_pho0_pt_weight_mc" : "h_WG_ele_pho0_pt_weight");
-    if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get(useMC ? "h_WG_ele_pho0_pt_weight_mc" : "h_WG_ele_pho0_pt_weight");
-    if (file_matrix_2018) h_weight_2018 = (TH1D*)file_matrix_2018->Get(useMC ? "h_WG_ele_pho0_pt_weight_mc" : "h_WG_ele_pho0_pt_weight");
-  }
-  if (title.find("h_WGG_muo") != string::npos) {
-    if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get(useMC ? "h_WG_muo_pho0_pt_weight_mc" : "h_WG_muo_pho0_pt_weight");
-    if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get(useMC ? "h_WG_muo_pho0_pt_weight_mc" : "h_WG_muo_pho0_pt_weight");
-    if (file_matrix_2018) h_weight_2018 = (TH1D*)file_matrix_2018->Get(useMC ? "h_WG_muo_pho0_pt_weight_mc" : "h_WG_muo_pho0_pt_weight");
-  }
-  if (title.find("h_ZGG_ele") != string::npos) {
-    if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get(useMC ? "h_ZG_ele_pho0_pt_weight_mc" : "h_ZG_ele_pho0_pt_weight");
-    if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get(useMC ? "h_ZG_ele_pho0_pt_weight_mc" : "h_ZG_ele_pho0_pt_weight");
-    if (file_matrix_2018) h_weight_2018 = (TH1D*)file_matrix_2018->Get(useMC ? "h_ZG_ele_pho0_pt_weight_mc" : "h_ZG_ele_pho0_pt_weight");
-  }
-  if (title.find("h_ZGG_muo") != string::npos) {
-    if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get(useMC ? "h_ZG_muo_pho0_pt_weight_mc" : "h_ZG_muo_pho0_pt_weight");
-    if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get(useMC ? "h_ZG_muo_pho0_pt_weight_mc" : "h_ZG_muo_pho0_pt_weight");
-    if (file_matrix_2018) h_weight_2018 = (TH1D*)file_matrix_2018->Get(useMC ? "h_ZG_muo_pho0_pt_weight_mc" : "h_ZG_muo_pho0_pt_weight");
-  }
+  if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get(useMC ? "h_weight_mc" : "h_weight_data");
+  if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get(useMC ? "h_weight_mc" : "h_weight_data");
+  if (file_matrix_2018) h_weight_2018 = (TH1D*)file_matrix_2018->Get(useMC ? "h_weight_mc" : "h_weight_data");
 
   if (file_matrix_2016) {
     h_weight_2016->SetDirectory(0);
