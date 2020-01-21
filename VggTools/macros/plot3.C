@@ -83,8 +83,8 @@ void plot3(string plot="", string title="", string version="v00", string options
   }
   TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + "_matrix_weight.root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + "_matrix_weight.root").c_str());
-  ratio_data->Write((title.substr(0, 8) + "_weight").c_str());
-  ratio_mc->Write((title.substr(0, 8) + "_weight_mc").c_str());
+  ratio_data->Write((title + "_weight").c_str());
+  ratio_mc->Write((title + "_weight_mc").c_str());
   file->Close();
   delete file;
 
