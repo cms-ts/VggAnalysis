@@ -61,22 +61,14 @@ void plot3(string plot="", string title="", string version="v00", string options
   TH1D* h_sum_data = (TH1D*)h_iso_data->Clone("h_sum_data");
   h_sum_data->Add(h_noiso_data);
 
-  for (int i = 0; i < h_sum_data->GetNbinsX()+2; i++) {
-    h_sum_data->SetBinError(i, 0);
-  }
-
   TH1D* h_sum_mc = (TH1D*)h_iso_mc->Clone("h_sum_mc");
   h_sum_mc->Add(h_noiso_mc);
 
-  for (int i = 0; i < h_sum_mc->GetNbinsX()+2; i++) {
-    h_sum_mc->SetBinError(i, 0);
-  }
-
   TH1D* h_weight_data = (TH1D*)h_iso_data->Clone("h_weight_data");
-  h_weight_data->Divide(h_sum_data);
+  h_weight_data->Divide(h_weight_data, h_sum_data, 1., 1., "B");
 
   TH1D* h_weight_mc = (TH1D*)h_iso_mc->Clone("h_weight_mc");
-  h_weight_mc->Divide(h_sum_mc);
+  h_weight_mc->Divide(h_weight_mc, h_sum_mc, 1., 1., "B");
 
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);

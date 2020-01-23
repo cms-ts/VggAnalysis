@@ -166,11 +166,8 @@ void plot2(string plot="", string title="", string version="v00", string options
   c1->cd();
 
   TH1D* h_mc_eff = (TH1D*)h1->Clone("h_mc_eff");
-  for (int i = 0; i < h_mc_eff->GetNbinsX()+2; i++) {
-    h_mc_eff->SetBinContent(i, h2->GetBinContent(i) != 0. ? h_mc_eff->GetBinContent(i) / h2->GetBinContent(i) : -1.e-12);
-    h_mc_eff->SetBinError(i, h2->GetBinContent(i) != 0. ? h_mc_eff->GetBinError(i) / h2->GetBinContent(i) : 1.e-12);
-    h_mc_eff->SetBinError(i, h_mc_eff->GetBinError(i) * TMath::Sqrt(TMath::Abs(1. - h_mc_eff->GetBinContent(i))));
-  }
+
+  h_mc_eff->Divide(h_mc_eff, h2, 1., 1., "B");
 
   h_mc_eff->SetStats(kFALSE);
 
@@ -181,11 +178,8 @@ void plot2(string plot="", string title="", string version="v00", string options
 
   if (h3) {
     TH1D* h_mc_eff_genmatch = (TH1D*)h3->Clone("h_mc_eff_genmatch");
-    for (int i = 0; i < h_mc_eff_genmatch->GetNbinsX()+2; i++) {
-      h_mc_eff_genmatch->SetBinContent(i, h2->GetBinContent(i) != 0. ? h_mc_eff_genmatch->GetBinContent(i) / h2->GetBinContent(i) : -1.e-12);
-      h_mc_eff_genmatch->SetBinError(i, h2->GetBinContent(i) != 0. ? h_mc_eff_genmatch->GetBinError(i) / h2->GetBinContent(i) : 1.e-12);
-      h_mc_eff_genmatch->SetBinError(i, h_mc_eff_genmatch->GetBinError(i) * TMath::Sqrt(TMath::Abs(1. - h_mc_eff_genmatch->GetBinContent(i))));
-    }
+
+    h_mc_eff_genmatch->Divide(h_mc_eff_genmatch, h2, 1., 1., "B");
 
     h_mc_eff_genmatch->SetStats(kFALSE);
 
@@ -199,11 +193,8 @@ void plot2(string plot="", string title="", string version="v00", string options
     h_mc_eff_genmatch->Draw("0SAME");
 
     TH1D* h_mc_pur = (TH1D*)h3->Clone("h_mc_pur");
-    for (int i = 0; i < h_mc_pur->GetNbinsX()+2; i++) {
-      h_mc_pur->SetBinContent(i, h1->GetBinContent(i) != 0. ? h_mc_pur->GetBinContent(i) / h1->GetBinContent(i) : -1.e-12);
-      h_mc_pur->SetBinError(i, h1->GetBinContent(i) != 0. ? h_mc_pur->GetBinError(i) / h1->GetBinContent(i) : 1.e-12);
-      h_mc_pur->SetBinError(i, h_mc_pur->GetBinError(i) * TMath::Sqrt(TMath::Abs(1. - h_mc_pur->GetBinContent(i))));
-    }
+
+    h_mc_pur->Divide(h_mc_pur, h1, 1., 1., "B");
 
     h_mc_pur->SetStats(kFALSE);
 
