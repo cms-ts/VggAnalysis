@@ -143,6 +143,7 @@ void plot4(string plot="", string title="", string version="v00", string options
         }
       }
 #endif // defined(USE_MATRIX)
+
       file->Close();
       delete file;
     }
@@ -202,6 +203,7 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo[index]->Scale(norm);
         }
       }
+
 #if defined(USE_CATEGORIES)
       if (histo3[index]) {
         TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat + "_map").c_str());
@@ -217,6 +219,7 @@ void plot4(string plot="", string title="", string version="v00", string options
         }
       }
 #endif // defined(USE_CATEGORIES)
+
       file->Close();
       delete file;
     }
@@ -347,25 +350,23 @@ void plot4(string plot="", string title="", string version="v00", string options
   for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
     int index = int(it->first);
     if (!histo3[index]) continue;
-    if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
-      for (int var = 0; var < histo3[index]->GetNbinsZ()+2; var++) {
-        for (int pho0 = 0; pho0 < histo3[index]->GetNbinsX()+2; pho0++) {
-          for (int pho1 = 0; pho1 < histo3[index]->GetNbinsY()+2; pho1++) {
-            if (cat == "cat1") {
-              histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) / (1 - h_weight->GetBinContent(pho0)));
-              histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho0) / (1 - h_weight->GetBinContent(pho0)), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho0) / TMath::Power(1 - h_weight->GetBinContent(pho0), 2), 2)));
-            }
-            if (cat == "cat2") {
-              histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho1)));
-              histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho1)), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho1) / TMath::Power(1 - h_weight->GetBinContent(pho1), 2), 2)));
-            }
-            if (cat == "cat3") {
-              histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1)));
-              histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1)), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho0) * h_weight->GetBinContent(pho1) / TMath::Power(1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1), 2), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinError(pho1) / TMath::Power(1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1), 2), 2)));
-
-            }
-            histo3[index]->SetBinError(pho0, pho1, var, histo3[index]->GetBinError(pho0, pho1, var) * (1 + 0.1 * (flag == "jet_misid_stat")));
+    for (int var = 0; var < histo3[index]->GetNbinsZ()+2; var++) {
+      for (int pho0 = 0; pho0 < histo3[index]->GetNbinsX()+2; pho0++) {
+        for (int pho1 = 0; pho1 < histo3[index]->GetNbinsY()+2; pho1++) {
+          if (cat == "cat1") {
+            histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) / (1 - h_weight->GetBinContent(pho0)));
+            histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho0) / (1 - h_weight->GetBinContent(pho0)), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho0) / TMath::Power(1 - h_weight->GetBinContent(pho0), 2), 2)));
           }
+          if (cat == "cat2") {
+            histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho1)));
+            histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho1)), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho1) / TMath::Power(1 - h_weight->GetBinContent(pho1), 2), 2)));
+          }
+          if (cat == "cat3") {
+            histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1)));
+            histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1)), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho0) * h_weight->GetBinContent(pho1) / TMath::Power(1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1), 2), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinError(pho1) / TMath::Power(1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1), 2), 2)));
+
+          }
+          histo3[index]->SetBinError(pho0, pho1, var, histo3[index]->GetBinError(pho0, pho1, var) * (1 + 0.1 * (flag == "jet_misid_stat")));
         }
       }
     }
@@ -931,6 +932,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     histo[41]->Write((title + "_ttg").c_str());
   }
 #endif // defined(USE_CATEGORIES)
+
   file->Close();
   delete file;
 
