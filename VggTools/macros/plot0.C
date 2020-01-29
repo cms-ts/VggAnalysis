@@ -691,18 +691,6 @@ void plot0(string plot="", string title="", string version="v00", string options
     h_ratio->GetXaxis()->SetTitle("M^{l#gamma#gamma}");
   } else if (tmp_title == "h_ZGG_ele_ele0_ele1_pho0_pho1" || tmp_title == "h_ZGG_muo_muo0_muo1_pho0_pho1") {
     h_ratio->GetXaxis()->SetTitle("M^{ll#gamma#gamma}");
-  } else if (tmp_title == "h_WG_ele_pho0_noiso_mva" || tmp_title == "h_WG_muo_pho0_noiso_mva") {
-    h_ratio->GetXaxis()->SetTitle("mva^{#gamma}");
-  } else if (tmp_title == "h_WGG_ele_pho0_noiso_mva" || tmp_title == "h_WGG_muo_pho0_noiso_mva") {
-    h_ratio->GetXaxis()->SetTitle("mva^{#gamma}");
-  } else if (tmp_title == "h_WGG_ele_pho1_noiso_mva" || tmp_title == "h_WGG_muo_pho1_noiso_mva") {
-    h_ratio->GetXaxis()->SetTitle("mva^{#gamma}");
-  } else if (tmp_title == "h_ZG_ele_pho0_noiso_mva" || tmp_title == "h_ZG_muo_pho0_noiso_mva") {
-    h_ratio->GetXaxis()->SetTitle("mva^{#gamma}");
-  } else if (tmp_title == "h_ZGG_ele_pho0_noiso_mva" || tmp_title == "h_ZGG_muo_pho0_noiso_mva") {
-    h_ratio->GetXaxis()->SetTitle("mva^{#gamma}");
-  } else if (tmp_title == "h_ZGG_ele_pho1_noiso_mva" || tmp_title == "h_ZGG_muo_pho1_noiso_mva") {
-    h_ratio->GetXaxis()->SetTitle("mva^{#gamma}");
   } else if (tmp_title == "h_W_ele0_trig" || tmp_title == "h_W_muo0_trig") {
     h_ratio->GetXaxis()->SetTitle("Trigger bits");
   } else if (tmp_title == "h_Z_ele0_trig" || tmp_title == "h_Z_muo0_trig") {

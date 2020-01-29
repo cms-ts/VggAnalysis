@@ -1108,10 +1108,6 @@ void plot6(string plot="", string title="", string version="v00", string options
     h_ratio_gen->GetXaxis()->SetTitle("M^{l#gamma#gamma}");
   } else if (tmp_title == "h_ZGG_ele_ele0_ele1_pho0_pho1" || tmp_title == "h_ZGG_muo_muo0_muo1_pho0_pho1") {
     h_ratio_gen->GetXaxis()->SetTitle("M^{ll#gamma#gamma}");
-  } else if (tmp_title == "h_ZGG_ele_pho0_noiso_mva" || tmp_title == "h_ZGG_muo_pho0_noiso_mva") {
-    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
-  } else if (tmp_title == "h_ZGG_ele_pho1_noiso_mva" || tmp_title == "h_ZGG_muo_pho1_noiso_mva") {
-    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma}");
   } else {
     tmp_title.erase(0, 2);
     h_ratio_gen->GetXaxis()->SetTitle(tmp_title.c_str());

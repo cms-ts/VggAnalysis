@@ -671,12 +671,6 @@ void plot5(string plot="", string title="", string version="v00", string options
   } else if (tmp_title == "h_ZGG_ele_ele0_ele1_pho0_pho1" || tmp_title == "h_ZGG_muo_muo0_muo1_pho0_pho1") {
     h_ratio_gen->GetXaxis()->SetTitle("M^{l_{1}l_{2}#gamma_{1}#gamma_{2}} [GeV]");
     h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dM^{l_{1}l_{2}#gamma_{1}#gamma_{2}} [pb/GeV]");
-  } else if (tmp_title == "h_ZGG_ele_pho0_noiso_mva" || tmp_title == "h_ZGG_muo_pho0_noiso_mva") {
-    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma_{1}}");
-    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dmva^{#gamma_{1}} [pb]");
-  } else if (tmp_title == "h_ZGG_ele_pho1_noiso_mva" || tmp_title == "h_ZGG_muo_pho1_noiso_mva") {
-    h_ratio_gen->GetXaxis()->SetTitle("mva^{#gamma_{2}}");
-    h_xsec_mc_gen->GetYaxis()->SetTitle("d#sigma / dmva^{#gamma_{2}} [pb]");
   } else {
     tmp_title.erase(0, 2);
     h_ratio_gen->GetXaxis()->SetTitle(tmp_title.c_str());

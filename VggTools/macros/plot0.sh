@@ -315,22 +315,6 @@ for YEAR in $YEARS; do
   SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_muo1_pho0_pho1\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_muo0_muo1_pho0_pho1\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
 
-        SKIP2 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_WG_ele_pho0_noiso_mva\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-        SKIP2 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho0_noiso_mva\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-        SKIP2 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_WGG_ele_pho1_noiso_mva\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-
-        SKIP2 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WG_muo_pho0_noiso_mva\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-        SKIP2 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho0_noiso_mva\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-        SKIP2 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_WGG_muo_pho1_noiso_mva\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-
-  SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_ZG_ele_pho0_noiso_mva\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-  SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_ele_pho0_noiso_mva\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-  SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_ZGG_ele_pho1_noiso_mva\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-
-  SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_ZG_muo_pho0_noiso_mva\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-  SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_pho0_noiso_mva\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-  SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_ZGG_muo_pho1_noiso_mva\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-
         SKIP2 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_trig\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
 
         SKIP2 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo0_trig\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
