@@ -188,13 +188,17 @@ void plot4(string plot="", string title="", string version="v00", string options
       }
       if (histo[index]) {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+#if defined(USE_MATRIX)
         if (index == 1021) h = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+#endif // defined(USE_MATRIX)
         if (h) {
           histo[index]->Add(h, norm);
         }
       } else {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+#if defined(USE_MATRIX)
         if (index == 1021) h = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+#endif // defined(USE_MATRIX)
         if (h) {
           histo[index] = h;
           histo[index]->SetDirectory(0);

@@ -25,6 +25,14 @@ void plot3(string plot="", string title="", string version="v00", string options
 #define USE_MATRIX
 
 #if defined(USE_CATEGORIES)
+  if (options.find("test") != string::npos) version = version + ".test";
+  if (options.find("new") != string::npos) version = version + ".new";
+  if (options.find("jet") != string::npos) version = version + ".jet";
+
+  if (options.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
+  if (options.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (options.find("default") != string::npos) version = version + ".default";
+
   TFile* file_iso = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + ".root").c_str());
   TH1D* h_iso_data = (TH1D*)file_iso->Get("h_data_cat");
   TH1D* h_iso_mc = (TH1D*)file_iso->Get("h_mc_cat");
