@@ -127,10 +127,14 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("eg_misid_up");
   flags.push_back("eg_misid_down");
 
+  flags.push_back("jet_misid_syst");
+
+#if 0
   flags.push_back("jet_misid_cat1");
   flags.push_back("jet_misid_cat2");
 
   flags.push_back("jet_misid_mc");
+#endif
 
   flags.push_back("jet_bkg_mc");
 
@@ -485,6 +489,15 @@ void plot6(string plot="", string title="", string version="v00", string options
     errors_tot["eg_misid"] = xval;
   }
 
+  if (h_xsec_rec["jet_misid_syst"]) {
+    double xval_stat = 0.;
+    double xval = h_xsec_rec["jet_misid_syst"]->IntegralAndError(0, h_xsec_rec["jet_misid_syst"]->GetNbinsX()+1, xval_stat, "width");
+    xval = xval - xsec_data_ref;
+    xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    errors_tot["jet_misid_syst"] = xval;
+  }
+
+#if 0
   if (h_xsec_rec["jet_misid_cat1"] && h_xsec_rec["jet_misid_cat2"]) {
     double xval_stat_up = 0.;
     double xval_up = h_xsec_rec["jet_misid_cat1"]->IntegralAndError(0, h_xsec_rec["jet_misid_cat1"]->GetNbinsX()+1, xval_stat_up, "width");
@@ -495,10 +508,9 @@ void plot6(string plot="", string title="", string version="v00", string options
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
-    errors_tot["jet_misid"] = xval;
+    errors_tot["jet_misid_syst"] = xval;
   }
 
-#if 0
   if (h_xsec_rec["jet_misid_mc"]) {
     double xval_stat = 0.;
     double xval = h_xsec_rec["jet_misid_mc"]->IntegralAndError(0, h_xsec_rec["jet_misid_mc"]->GetNbinsX()+1, xval_stat, "width");
@@ -705,6 +717,14 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["eg_misid"].push_back(xval);
     }
 
+    if (h_xsec_rec["jet_misid_syst"]) {
+      double xval = fabs(h_xsec_rec["jet_misid_syst"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_syst"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
+      errors["jet_misid_syst"].push_back(xval);
+    }
+
+#if 0
     if (h_xsec_rec["jet_misid_cat1"] && h_xsec_rec["jet_misid_cat2"]) {
       double xval_up = fabs(h_xsec_rec["jet_misid_cat1"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_cat1"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
@@ -712,10 +732,9 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_cat2"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
       xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
-      errors["jet_misid"].push_back(xval);
+      errors["jet_misid_syst"].push_back(xval);
     }
 
-#if 0
     if (h_xsec_rec["jet_misid_mc"]) {
       double xval = fabs(h_xsec_rec["jet_misid_mc"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_mc"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
@@ -766,7 +785,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (errors["pho_veto"].size()) labels.push_back("pho_veto");
   if (errors["l1prefire"].size()) labels.push_back("l1prefire");
   if (errors["eg_misid"].size()) labels.push_back("eg_misid");
-  if (errors["jet_misid"].size()) labels.push_back("jet_misid");
+  if (errors["jet_misid_syst"].size()) labels.push_back("jet_misid_syst");
   if (errors["jet_misid_mc"].size()) labels.push_back("jet_misid_mc");
   if (errors["jet_bkg_mc"].size()) labels.push_back("jet_bkg_mc");
   if (errors["qcd_fit"].size()) labels.push_back("qcd_fit");

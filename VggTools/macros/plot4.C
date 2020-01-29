@@ -21,12 +21,17 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (options.find("madgraph") != string::npos) plot = "madgraph/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
+// #define USE_CATEGORIES
+#define USE_MATRIX
+
+#if defined(USE_CATEGORIES)
   string cat = "cat3";
   if (flag == "jet_misid_cat1") cat = "cat1";
   if (flag == "jet_misid_cat2") cat = "cat2";
 
   bool useMC = false;
   if (flag == "jet_misid_mc") useMC = true;
+#endif // defined(USE_CATEGORIES)
 
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
@@ -63,7 +68,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -95,6 +100,8 @@ void plot4(string plot="", string title="", string version="v00", string options
           return;
         }
       }
+
+#if defined(USE_CATEGORIES)
       if (histo3[index]) {
         TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat + "_map").c_str());
         if (h3) {
@@ -107,6 +114,38 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo3[index]->SetDirectory(0);
         }
       }
+#endif // defined(USE_CATEGORIES)
+
+#if defined(USE_MATRIX)
+      int index_region = -1;
+      string eta_string = "";
+      string iso_string = "";
+      for (int eta_region = 1; eta_region < 5; eta_region++) {
+        if (eta_region == 1) eta_string = "bb";
+        if (eta_region == 2) eta_string = "be";
+        if (eta_region == 3) eta_string = "eb";
+        if (eta_region == 4) eta_string = "ee";
+        for (int iso_region = 1; iso_region < 5; iso_region++) {
+          if (iso_region == 1) iso_string = "tt";
+          if (iso_region == 2) iso_string = "tl";
+          if (iso_region == 3) iso_string = "lt";
+          if (iso_region == 4) iso_string = "ll";
+          index_region = 4200 + eta_region*10 + iso_region;
+          if (histo3[index_region]) {
+            TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + eta_string + "_" + iso_string).c_str());
+            if (h3) {
+              histo3[index_region]->Add(h3);
+            }
+          } else {
+            TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + eta_string + "_" + iso_string).c_str());
+            if (h3) {
+              histo3[index_region] = h3;
+              histo3[index_region]->SetDirectory(0);
+            }
+          }
+        }
+      }
+#endif // defined(USE_MATRIX)
       file->Close();
       delete file;
     }
@@ -119,9 +158,15 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
+#if defined(USE_CATEGORIES)
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
+#endif // defined(USE_CATEGORIES)
+#if defined(USE_MATRIX)
+    if (title.find("muo") != string::npos && index == 1021) continue;
+    if (index == 10 || index == 22 || index == 42 || index == 1010 || index == 1021 || index == 1022 || index == 1032) {
+#endif // defined(USE_MATRIX)
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_syst" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -143,17 +188,20 @@ void plot4(string plot="", string title="", string version="v00", string options
       }
       if (histo[index]) {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        if (index == 1021) h = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
         if (h) {
           histo[index]->Add(h, norm);
         }
       } else {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        if (index == 1021) h = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
         if (h) {
           histo[index] = h;
           histo[index]->SetDirectory(0);
           histo[index]->Scale(norm);
         }
       }
+#if defined(USE_CATEGORIES)
       if (histo3[index]) {
         TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat + "_map").c_str());
         if (h3) {
@@ -167,6 +215,7 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo3[index]->Scale(norm);
         }
       }
+#endif // defined(USE_CATEGORIES)
       file->Close();
       delete file;
     }
@@ -200,6 +249,8 @@ void plot4(string plot="", string title="", string version="v00", string options
       }
     }
   }
+
+#if defined(USE_CATEGORIES)
 
 // #define USE_RUN2_AVERAGES
 
@@ -375,6 +426,213 @@ void plot4(string plot="", string title="", string version="v00", string options
       }
     }
   }
+#endif // defined(USE_CATEGORIES)
+
+#if defined(USE_MATRIX)
+  TFile* file_matrix_2016 = 0;
+  TFile* file_matrix_2017 = 0;
+  TFile* file_matrix_2018 = 0;
+
+  if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
+    file_matrix_2016 = 0;
+    if (flag != "jet_misid_syst" && title.find("h_WGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_muo_t_matrix_weight.root").c_str());
+    if (flag != "jet_misid_syst" && title.find("h_ZGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_muo_t_matrix_weight.root").c_str());
+    if (flag == "jet_misid_syst" && title.find("h_WGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_muo_t_matrix_weight.root").c_str());
+    if (flag == "jet_misid_syst" && title.find("h_ZGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_muo_t_matrix_weight.root").c_str());
+    if (file_matrix_2016->IsZombie()) {
+      cout << "ERROR: file " << file_matrix_2016->GetName() << " is MISSING !!" << endl;
+      return;
+    }
+  }
+  if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
+    file_matrix_2017 = 0;
+    if (flag != "jet_misid_syst" && title.find("h_WGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_muo_t_matrix_weight.root").c_str());
+    if (flag != "jet_misid_syst" && title.find("h_ZGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_muo_t_matrix_weight.root").c_str());
+    if (flag == "jet_misid_syst" && title.find("h_WGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_muo_t_matrix_weight.root").c_str());
+    if (flag == "jet_misid_syst" && title.find("h_ZGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_muo_t_matrix_weight.root").c_str());
+    if ( file_matrix_2017->IsZombie()) {
+      cout << "ERROR: file " << file_matrix_2017->GetName() << " is MISSING !!" << endl;
+      return;
+    }
+  }
+  if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
+    file_matrix_2018 = 0;
+    if (flag != "jet_misid_syst" && title.find("h_WGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_muo_t_matrix_weight.root").c_str());
+    if (flag != "jet_misid_syst" && title.find("h_ZGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_muo_t_matrix_weight.root").c_str());
+    if (flag == "jet_misid_syst" && title.find("h_WGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_muo_t_matrix_weight.root").c_str());
+    if (flag == "jet_misid_syst" && title.find("h_ZGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_muo_t_matrix_weight.root").c_str());
+    if (file_matrix_2018->IsZombie()) {
+      cout << "ERROR: file " << file_matrix_2018->GetName() << " is MISSING !!" << endl;
+      return;
+    }
+  }
+
+  TH2D* h_weight_2016 = 0;
+  TH2D* h_weight_2017 = 0;
+  TH2D* h_weight_2018 = 0;
+
+  histo[8001] = (TH1D*)histo[0]->Clone();
+  histo[8001]->Reset();
+  histo[8001]->SetDirectory(0);
+
+  for (int var = 1; var < histo3[4211]->GetNbinsZ() + 1; var++) {
+    for (int pho0_pt = 2; pho0_pt < histo3[4211]->GetNbinsX() + 1; pho0_pt++) {
+      for (int pho1_pt = 2; pho1_pt < histo3[4211]->GetNbinsY() + 1; pho1_pt++) {
+        for (int eta = 1; eta < 5; eta++) {
+
+          int index_region = 4200 + eta*10;
+
+          TVectorD n_region(4);
+          n_region[0] = histo3[index_region + 1]->GetBinContent(pho0_pt, pho1_pt, var);
+          n_region[1] = histo3[index_region + 2]->GetBinContent(pho0_pt, pho1_pt, var);
+          n_region[2] = histo3[index_region + 3]->GetBinContent(pho0_pt, pho1_pt, var);
+          n_region[3] = histo3[index_region + 4]->GetBinContent(pho0_pt, pho1_pt, var);
+
+          TVectorD n_region_err(4);
+          n_region_err[0] = histo3[index_region + 1]->GetBinError(pho0_pt, pho1_pt, var);
+          n_region_err[1] = histo3[index_region + 2]->GetBinError(pho0_pt, pho1_pt, var);
+          n_region_err[2] = histo3[index_region + 3]->GetBinError(pho0_pt, pho1_pt, var);
+          n_region_err[3] = histo3[index_region + 4]->GetBinError(pho0_pt, pho1_pt, var);
+
+          if(n_region[0] < 0) {
+            n_region[0] = 0;
+            n_region_err[0] = 0;
+          }
+          if(n_region[1] < 0) {
+            n_region[1] = 0;
+            n_region_err[1] = 0;
+          }
+          if(n_region[2] < 0) {
+            n_region[2] = 0;
+            n_region_err[2] = 0;
+          }
+          if(n_region[3] < 0) {
+            n_region[3] = 0;
+            n_region_err[3] = 0;
+          }
+
+          string matrix_title = "h_matrix_";
+          matrix_title += std::to_string(pho0_pt);
+          matrix_title += std::to_string(pho1_pt);
+          matrix_title += std::to_string(eta);
+
+          if (file_matrix_2016) {
+            h_weight_2016 = (TH2D*)file_matrix_2016->Get((matrix_title).c_str());
+            h_weight_2016->SetDirectory(0);
+          }
+          if (file_matrix_2017) {
+            h_weight_2017 = (TH2D*)file_matrix_2017->Get((matrix_title).c_str());
+            h_weight_2017->SetDirectory(0);
+          }
+          if (file_matrix_2018) {
+            h_weight_2018 = (TH2D*)file_matrix_2018->Get((matrix_title).c_str());
+            h_weight_2018->SetDirectory(0);
+          }
+
+          TH2D* h_weight = 0;
+
+          if (!h_weight && h_weight_2016) h_weight = (TH2D*)h_weight_2016->Clone("h_weight");
+          if (!h_weight && h_weight_2017) h_weight = (TH2D*)h_weight_2017->Clone("h_weight");
+          if (!h_weight && h_weight_2018) h_weight = (TH2D*)h_weight_2018->Clone("h_weight");
+
+          h_weight->Reset();
+
+          if (h_weight_2016) h_weight->Add(h_weight_2016, lumi2016/lumi);
+          if (h_weight_2017) h_weight->Add(h_weight_2017, lumi2017/lumi);
+          if (h_weight_2018) h_weight->Add(h_weight_2018, lumi2018/lumi);
+
+          TMatrixD matrix(4,4);
+          for (int i = 1; i < 5; i++) {
+            for (int j = 1; j < 5; j++){
+              matrix(i-1,j-1) = h_weight->GetBinContent(i,j);
+            }
+          }
+
+          double det = -1.;
+          TMatrixD inverted_matrix = matrix;
+          inverted_matrix.Invert(&det);
+
+          TVectorD alpha(4);
+          alpha = inverted_matrix * n_region;
+          TVectorD alpha_err(4);
+          alpha_err = inverted_matrix * n_region_err * (1 + 0.1 * (flag == "jet_misid_stat"));
+
+          if (alpha(0) < 0) {
+            alpha(0) = 0.;
+            alpha_err(0) = 0.;
+          }
+          if (alpha(1) < 0) {
+            alpha(1) = 0.;
+            alpha_err(1) = 0.;
+          }
+          if (alpha(2) < 0) {
+            alpha(2) = 0.;
+            alpha_err(2) = 0.;
+          }
+          if (alpha(3) < 0) {
+            alpha(3) = 0.;
+            alpha_err(3) = 0.;
+          }
+
+          histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + matrix(0,1)*alpha(1) + matrix(0,2)*alpha(2) + matrix(0,3)*alpha(3));
+          histo[8001]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001]->GetBinError(var), 2) + TMath::Power(matrix(0,1)*alpha_err(1), 2) + TMath::Power(matrix(0,2)*alpha_err(2), 2) + TMath::Power(matrix(0,3)*alpha_err(3), 2)));
+
+          delete h_weight;
+        }
+      }
+    }
+  }
+
+  if (file_matrix_2016) {
+    file_matrix_2016->Close();
+    delete file_matrix_2016;
+  }
+  if (file_matrix_2017) {
+    file_matrix_2017->Close();
+    delete file_matrix_2017;
+  }
+  if (file_matrix_2018) {
+    file_matrix_2018->Close();
+    delete file_matrix_2018;
+  }
+
+  THStack* hstack_mc = new THStack("hstack_mc", "hstack_mc");
+  TH1D* h_mc_sum = (TH1D*)histo[0]->Clone("h_mc_sum");
+  h_mc_sum->Reset();
+
+  bool flowbins = true;
+
+  for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
+    int index = int(it->first);
+    if (flowbins) {
+      histo[index]->SetBinContent(1, histo[index]->GetBinContent(1) + histo[index]->GetBinContent(0));
+      histo[index]->SetBinContent(histo[index]->GetNbinsX(), histo[index]->GetBinContent(histo[index]->GetNbinsX()) + histo[index]->GetBinContent(histo[index]->GetNbinsX()+1));
+      histo[index]->SetBinError(1, TMath::Sqrt(TMath::Power(histo[index]->GetBinError(1), 2) + TMath::Power(histo[index]->GetBinError(0), 2)));
+      histo[index]->SetBinError(histo[index]->GetNbinsX(), TMath::Sqrt(TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()), 2) + TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()+1), 2)));
+      histo[index]->SetBinContent(0, 0.);
+      histo[index]->SetBinContent(histo[index]->GetNbinsX()+1, 0.);
+      histo[index]->SetBinError(0, 0.);
+      histo[index]->SetBinError(histo[index]->GetNbinsX()+1, 0.);
+    }
+    if (index > 0) {
+      if (options.find("nobkg") != string::npos) {
+        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index == 10 || index == 1010)) {
+          hstack_mc->Add(it->second);
+          h_mc_sum->Add(it->second);
+        }
+      } else {
+        if ((title.find("h_WGG_") != string::npos) && (index == 1010 || index == 1021 || index == 1022 || index == 1032 || index == 1051 || index == 8001)) {
+          hstack_mc->Add(it->second);
+          h_mc_sum->Add(it->second);
+        }
+        if ((title.find("h_ZGG_") != string::npos) && (index == 10 || index == 22 || index == 31 || index == 41 || index == 42 || index == 8001)) {
+          hstack_mc->Add(it->second);
+          h_mc_sum->Add(it->second);
+        }
+      }
+    }
+  }
+#endif // defined(USE_MATRIX)
 
   TH1D* h_ratio = (TH1D*)histo[0]->Clone("h_ratio");
   h_ratio->Divide(h_mc_sum);
@@ -429,19 +687,19 @@ void plot4(string plot="", string title="", string version="v00", string options
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "DYJets", "f");
     }
-    if (title.find("h_WGG_") != string::npos && it->first == 1031) {
+    if (it->first == 1031) {
       it->second->SetFillColor(kViolet-4);
       leg->AddEntry(it->second, "TT #gamma", "f");
     }
-    if (title.find("h_WGG_") != string::npos && it->first == 1032) {
+    if (it->first == 1032) {
       it->second->SetFillColor(kViolet-9);
       leg->AddEntry(it->second, "TT #gamma #gamma", "f");
     }
-    if (title.find("h_WGG_") != string::npos && it->first == 1051) {
+    if (it->first == 1051) {
       it->second->SetFillColor(kViolet+1);
       leg->AddEntry(it->second, "Diboson #gamma", "f");
     }
-    if (title.find("h_WGG_") != string::npos && it->first == 1021) {
+    if (it->first == 1021) {
       it->second->SetFillColor(kViolet-5);
       leg->AddEntry(it->second, "Z #gamma", "f");
     }
@@ -650,22 +908,28 @@ void plot4(string plot="", string title="", string version="v00", string options
   histo[8001]->Write((title + "_misid").c_str());
   if (title.find("h_WGG_") != string::npos) {
     histo[1010]->Write((title + "_sig").c_str());
-    histo[1011]->Write((title + "_wg").c_str());
     histo[1021]->Write((title + "_zg").c_str());
     histo[1022]->Write((title + "_zgg").c_str());
-    histo[1031]->Write((title + "_ttg").c_str());
     histo[1032]->Write((title + "_ttgg").c_str());
-    histo[1051]->Write((title + "_vvg").c_str());
   }
   if (title.find("h_ZGG_") != string::npos) {
     histo[10]->Write((title + "_sig").c_str());
-    histo[11]->Write((title + "_zg").c_str());
-    histo[21]->Write((title + "_wg").c_str());
     histo[22]->Write((title + "_wgg").c_str());
-    histo[31]->Write((title + "_vvg").c_str());
-    histo[41]->Write((title + "_ttg").c_str());
     histo[42]->Write((title + "_ttgg").c_str());
   }
+#if defined(USE_CATEGORIES)
+  if (title.find("h_WGG_") != string::npos) {
+    histo[1011]->Write((title + "_wg").c_str());
+    histo[1031]->Write((title + "_ttg").c_str());
+    histo[1051]->Write((title + "_vvg").c_str());
+  }
+  if (title.find("h_ZGG_") != string::npos) {
+    histo[11]->Write((title + "_zg").c_str());
+    histo[21]->Write((title + "_wg").c_str());
+    histo[31]->Write((title + "_vvg").c_str());
+    histo[41]->Write((title + "_ttg").c_str());
+  }
+#endif // defined(USE_CATEGORIES)
   file->Close();
   delete file;
 

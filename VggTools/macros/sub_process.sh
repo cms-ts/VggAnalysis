@@ -82,9 +82,10 @@ if [ ! -z "$4" ]; then
     FLAGS=$FLAGS" l1prefiring_down"
     FLAGS=$FLAGS" eg_misid_up"
     FLAGS=$FLAGS" eg_misid_down"
-    FLAGS=$FLAGS" jet_misid_cat1"
-    FLAGS=$FLAGS" jet_misid_cat2"
-    FLAGS=$FLAGS" jet_misid_mc"
+    FLAGS=$FLAGS" jet_misid_syst"
+#    FLAGS=$FLAGS" jet_misid_cat1"
+#    FLAGS=$FLAGS" jet_misid_cat2"
+#    FLAGS=$FLAGS" jet_misid_mc"
     FLAGS=$FLAGS" jet_bkg_mc"
     FLAGS=$FLAGS" qcd_fit"
   else
