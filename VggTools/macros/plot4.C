@@ -28,9 +28,6 @@ void plot4(string plot="", string title="", string version="v00", string options
   string cat = "cat3";
   if (flag == "jet_misid_cat1") cat = "cat1";
   if (flag == "jet_misid_cat2") cat = "cat2";
-
-  bool useMC = false;
-  if (flag == "jet_misid_mc") useMC = true;
 #endif // defined(USE_CATEGORIES)
 
   map<string, float> lumiMap;
@@ -270,7 +267,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     return;
   }
 
-  TH1D* h_weight = (TH1D*)file_matrix->Get(useMC ? "h_weight_mc" : "h_weight_data");
+  TH1D* h_weight = (TH1D*)file_matrix->Get(flag == "jet_misid_mc" ? "h_weight_mc" : "h_weight_data");
 
   h_weight->SetDirectory(0);
   file_matrix->Close();
@@ -315,9 +312,9 @@ void plot4(string plot="", string title="", string version="v00", string options
   TH1D* h_weight_2017 = 0;
   TH1D* h_weight_2018 = 0;
 
-  if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get(useMC ? "h_weight_mc" : "h_weight_data");
-  if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get(useMC ? "h_weight_mc" : "h_weight_data");
-  if (file_matrix_2018) h_weight_2018 = (TH1D*)file_matrix_2018->Get(useMC ? "h_weight_mc" : "h_weight_data");
+  if (file_matrix_2016) h_weight_2016 = (TH1D*)file_matrix_2016->Get(flag == "jet_misid_mc" ? "h_weight_mc" : "h_weight_data");
+  if (file_matrix_2017) h_weight_2017 = (TH1D*)file_matrix_2017->Get(flag == "jet_misid_mc" ? "h_weight_mc" : "h_weight_data");
+  if (file_matrix_2018) h_weight_2018 = (TH1D*)file_matrix_2018->Get(flag == "jet_misid_mc" ? "h_weight_mc" : "h_weight_data");
 
   if (file_matrix_2016) {
     h_weight_2016->SetDirectory(0);
