@@ -177,7 +177,23 @@ TH3D* rebin(TH3D* old) {
   int nzb = 0;
   float nzbins[100];
 
-  if (name.find("WGG_ele_pho0_pho1_pt_bb") != string::npos || name.find("WGG_muo_pho0_pho1_pt_bb") != string::npos ||
+  if (name.find("WGG_ele_pho0_pt_bb") != string::npos || name.find("WGG_muo_pho0_pt_bb") != string::npos ||
+      name.find("WGG_ele_pho0_pt_be") != string::npos || name.find("WGG_muo_pho0_pt_be") != string::npos ||
+      name.find("WGG_ele_pho0_pt_eb") != string::npos || name.find("WGG_muo_pho0_pt_eb") != string::npos ||
+      name.find("WGG_ele_pho0_pt_ee") != string::npos || name.find("WGG_muo_pho0_pt_ee") != string::npos ||
+      name.find("ZGG_ele_pho0_pt_bb") != string::npos || name.find("ZGG_muo_pho0_pt_bb") != string::npos ||
+      name.find("ZGG_ele_pho0_pt_be") != string::npos || name.find("ZGG_muo_pho0_pt_be") != string::npos ||
+      name.find("ZGG_ele_pho0_pt_eb") != string::npos || name.find("ZGG_muo_pho0_pt_eb") != string::npos ||
+      name.find("ZGG_ele_pho0_pt_ee") != string::npos || name.find("ZGG_muo_pho0_pt_ee") != string::npos ||
+      name.find("WGG_ele_pho1_pt_bb") != string::npos || name.find("WGG_muo_pho1_pt_bb") != string::npos ||
+      name.find("WGG_ele_pho1_pt_be") != string::npos || name.find("WGG_muo_pho1_pt_be") != string::npos ||
+      name.find("WGG_ele_pho1_pt_eb") != string::npos || name.find("WGG_muo_pho1_pt_eb") != string::npos ||
+      name.find("WGG_ele_pho1_pt_ee") != string::npos || name.find("WGG_muo_pho1_pt_ee") != string::npos ||
+      name.find("ZGG_ele_pho1_pt_bb") != string::npos || name.find("ZGG_muo_pho1_pt_bb") != string::npos ||
+      name.find("ZGG_ele_pho1_pt_be") != string::npos || name.find("ZGG_muo_pho1_pt_be") != string::npos ||
+      name.find("ZGG_ele_pho1_pt_eb") != string::npos || name.find("ZGG_muo_pho1_pt_eb") != string::npos ||
+      name.find("ZGG_ele_pho1_pt_ee") != string::npos || name.find("ZGG_muo_pho1_pt_ee") != string::npos ||
+      name.find("WGG_ele_pho0_pho1_pt_bb") != string::npos || name.find("WGG_muo_pho0_pho1_pt_bb") != string::npos ||
       name.find("WGG_ele_pho0_pho1_pt_be") != string::npos || name.find("WGG_muo_pho0_pho1_pt_be") != string::npos ||
       name.find("WGG_ele_pho0_pho1_pt_eb") != string::npos || name.find("WGG_muo_pho0_pho1_pt_eb") != string::npos ||
       name.find("WGG_ele_pho0_pho1_pt_ee") != string::npos || name.find("WGG_muo_pho0_pho1_pt_ee") != string::npos ||

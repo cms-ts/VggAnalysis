@@ -919,7 +919,7 @@ void plot4(string plot="", string title="", string version="v00", string options
   histo[8001]->Write((title + "_misid").c_str());
   if (title.find("h_WGG_") != string::npos) {
     histo[1010]->Write((title + "_sig").c_str());
-    histo[1021]->Write((title + "_zg").c_str());
+    if (title.find("muo") == string::npos) histo[1021]->Write((title + "_zg").c_str());
     histo[1022]->Write((title + "_zgg").c_str());
     histo[1032]->Write((title + "_ttgg").c_str());
   }
