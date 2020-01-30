@@ -17,9 +17,7 @@ TH1D* rebin(TH1D* old) {
       name.find("WGG_ele_pho0_pt") != string::npos || name.find("WGG_ele_pho1_pt") != string::npos ||
       name.find("WGG_muo_pho0_pt") != string::npos || name.find("WGG_muo_pho1_pt") != string::npos ||
       name.find("ZGG_ele_pho0_pt") != string::npos || name.find("ZGG_ele_pho1_pt") != string::npos ||
-      name.find("ZGG_muo_pho0_pt") != string::npos || name.find("ZGG_muo_pho1_pt") != string::npos ||
-      name.find("WG_ele_pho0_pt_genmatch2") != string::npos || name.find("WG_muo_pho0_pt_genmatch2") != string::npos ||
-      name.find("ZG_ele_pho0_pt_genmatch2") != string::npos || name.find("ZG_muo_pho0_pt_genmatch2") != string::npos) {
+      name.find("ZGG_muo_pho0_pt") != string::npos || name.find("ZGG_muo_pho1_pt") != string::npos) {
     nb = 6;
     nbins[0] = 1;
     nbins[1] = 1;

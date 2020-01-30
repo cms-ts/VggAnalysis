@@ -1261,22 +1261,22 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_ZGG_muo_pho1_pt_genmatch = new TH1D("h_ZGG_muo_pho1_pt_genmatch", "h_ZGG_muo_pho1_pt_genmatch", 15, 0., 300.);
    h_ZGG_muo_pho0_pho1_pt_genmatch = new TH1D("h_ZGG_muo_pho0_pho1_pt_genmatch", "h_ZGG_muo_pho0_pho1_pt_genmatch", 15, 0., 300.);
 
-   h_WG_ele_pho0_pt_genmatch2 = new TH1D("h_WG_ele_pho0_pt_genmatch2", "h_WG_ele_pho0_pt_genmatch2", 15, 0., 300.);
+   h_WG_ele_pho0_pt_genmatch2 = new TH1D("h_WG_ele_pho0_pt_genmatch2", "h_WG_ele_pho0_pt_genmatch2", 60, 0., 300.);
    h_WGG_ele_pho0_pt_genmatch2 = new TH1D("h_WGG_ele_pho0_pt_genmatch2", "h_WGG_ele_pho0_pt_genmatch2", 15, 0., 300.);
    h_WGG_ele_pho1_pt_genmatch2 = new TH1D("h_WGG_ele_pho1_pt_genmatch2", "h_WGG_ele_pho1_pt_genmatch2", 15, 0., 300.);
    h_WGG_ele_pho0_pho1_pt_genmatch2 = new TH1D("h_WGG_ele_pho0_pho1_pt_genmatch2", "h_WGG_ele_pho0_pho1_pt_genmatch2", 15, 0., 300.);
 
-   h_WG_muo_pho0_pt_genmatch2 = new TH1D("h_WG_muo_pho0_pt_genmatch2", "h_WG_muo_pho0_pt_genmatch2", 15, 0., 300.);
+   h_WG_muo_pho0_pt_genmatch2 = new TH1D("h_WG_muo_pho0_pt_genmatch2", "h_WG_muo_pho0_pt_genmatch2", 60, 0., 300.);
    h_WGG_muo_pho0_pt_genmatch2 = new TH1D("h_WGG_muo_pho0_pt_genmatch2", "h_WGG_muo_pho0_pt_genmatch2", 15, 0., 300.);
    h_WGG_muo_pho1_pt_genmatch2 = new TH1D("h_WGG_muo_pho1_pt_genmatch2", "h_WGG_muo_pho1_pt_genmatch2", 15, 0., 300.);
    h_WGG_muo_pho0_pho1_pt_genmatch2 = new TH1D("h_WGG_muo_pho0_pho1_pt_genmatch2", "h_WGG_muo_pho0_pho1_pt_genmatch2", 15, 0., 300.);
 
-   h_ZG_ele_pho0_pt_genmatch2 = new TH1D("h_ZG_ele_pho0_pt_genmatch2", "h_ZG_ele_pho0_pt_genmatch2", 15, 0., 300.);
+   h_ZG_ele_pho0_pt_genmatch2 = new TH1D("h_ZG_ele_pho0_pt_genmatch2", "h_ZG_ele_pho0_pt_genmatch2", 60, 0., 300.);
    h_ZGG_ele_pho0_pt_genmatch2 = new TH1D("h_ZGG_ele_pho0_pt_genmatch2", "h_ZGG_ele_pho0_pt_genmatch2", 15, 0., 300.);
    h_ZGG_ele_pho1_pt_genmatch2 = new TH1D("h_ZGG_ele_pho1_pt_genmatch2", "h_ZGG_ele_pho1_pt_genmatch2", 15, 0., 300.);
    h_ZGG_ele_pho0_pho1_pt_genmatch2 = new TH1D("h_ZGG_ele_pho0_pho1_pt_genmatch2", "h_ZGG_ele_pho0_pho1_pt_genmatch2", 15, 0., 300.);
 
-   h_ZG_muo_pho0_pt_genmatch2 = new TH1D("h_ZG_muo_pho0_pt_genmatch2", "h_ZG_muo_pho0_pt_genmatch2", 15, 0., 300.);
+   h_ZG_muo_pho0_pt_genmatch2 = new TH1D("h_ZG_muo_pho0_pt_genmatch2", "h_ZG_muo_pho0_pt_genmatch2", 60, 0., 300.);
    h_ZGG_muo_pho0_pt_genmatch2 = new TH1D("h_ZGG_muo_pho0_pt_genmatch2", "h_ZGG_muo_pho0_pt_genmatch2", 15, 0., 300.);
    h_ZGG_muo_pho1_pt_genmatch2 = new TH1D("h_ZGG_muo_pho1_pt_genmatch2", "h_ZGG_muo_pho1_pt_genmatch2", 15, 0., 300.);
    h_ZGG_muo_pho0_pho1_pt_genmatch2 = new TH1D("h_ZGG_muo_pho0_pho1_pt_genmatch2", "h_ZGG_muo_pho0_pho1_pt_genmatch2", 15, 0., 300.);
