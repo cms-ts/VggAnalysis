@@ -1308,8 +1308,11 @@ void plot6(string plot="", string title="", string version="v00", string options
   }
 
   out2 << "imax 1  number of channels" << endl;
-  if (title.find("WGG") != string::npos) out2 << "jmax 3  number of channels" << endl;
-  if (title.find("ZGG") != string::npos) out2 << "jmax 1  number of channels" << endl;
+  if (title.find("WGG_ele") != string::npos) {
+    out2 << "jmax 4  number of channels" << endl;
+  } else {
+    out2 << "jmax 3  number of channels" << endl;
+  } 
   out2 << "kmax "
        << kmax
        << "  number of nuisance parameters (sources of systematical uncertainties)" << endl;
@@ -1324,7 +1327,7 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   out2 << "------------" << endl;
 
-  out2 << std::setw(15) << left << "bin";
+  out2 << std::setw(20) << left << "bin";
   if (title.find("ele") != string::npos) {
     out2 << std::setw(8) << "ele"
          << std::setw(8) << "ele"
@@ -1342,7 +1345,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   }
   out2 << endl;
 
-  out2 << std::setw(15) << left << "process";
+  out2 << std::setw(20) << left << "process";
   if (title.find("WGG") != string::npos) out2 << std::setw(8) << "wgg";
   if (title.find("ZGG") != string::npos) out2 << std::setw(8) << "zgg";
   out2 << std::setw(8) << "jet_mis"
@@ -1358,7 +1361,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   }
   out2 << endl;
 
-  out2 << std::setw(15) << left << "process"
+  out2 << std::setw(20) << left << "process"
        << std::setw(8) << " 0"
        << std::setw(8) << " 1"
        << std::setw(8) << " 2"
@@ -1368,7 +1371,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   }
   out2 << endl;
 
-  out2 << std::setw(15) << left << "rate"
+  out2 << std::setw(20) << left << "rate"
        << std::setw(8) << h_sig->Integral()
        << std::setw(8) << h_misid->Integral()
        << std::setw(8) << h_ttgg->Integral();
@@ -1388,7 +1391,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   for (uint i = 0; i < labels.size(); i++) {
     if (labels[i].find("stat") != string::npos) continue;
     if (labels[i].find("jet_misid_syst") != string::npos) continue;
-    out2 << std::setw(15) << left << (labels[i] + " lnN").c_str()
+    out2 << std::setw(20) << left << (labels[i] + " lnN").c_str()
          << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref 
          << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
          << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
@@ -1399,7 +1402,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     out2 << endl;
   }
 
-  out2 << std::setw(15) << left << "jet_misid_syst lnN"
+  out2 << std::setw(20) << left << "jet_misid_syst lnN"
        << std::setw(8) << "-" 
        << std::setw(8) << 1. + errors_tot["jet_misid_syst"]/xsec_data_ref
        << std::setw(8) << "-"
