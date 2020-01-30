@@ -437,10 +437,13 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
     file_matrix_2016 = 0;
-    if (flag != "jet_misid_syst" && title.find("h_WGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_muo_t_matrix_weight.root").c_str());
-    if (flag != "jet_misid_syst" && title.find("h_ZGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_muo_t_matrix_weight.root").c_str());
-    if (flag == "jet_misid_syst" && title.find("h_WGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_muo_t_matrix_weight.root").c_str());
-    if (flag == "jet_misid_syst" && title.find("h_ZGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_muo_t_matrix_weight.root").c_str());
+    if (flag != "jet_misid_syst") {
+      if (title.find("h_WGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
+      if (title.find("h_ZGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
+    } else {
+      if (title.find("h_WGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
+      if (title.find("h_ZGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
+    }
     if (file_matrix_2016->IsZombie()) {
       cout << "ERROR: file " << file_matrix_2016->GetName() << " is MISSING !!" << endl;
       return;
@@ -448,10 +451,13 @@ void plot4(string plot="", string title="", string version="v00", string options
   }
   if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
     file_matrix_2017 = 0;
-    if (flag != "jet_misid_syst" && title.find("h_WGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_muo_t_matrix_weight.root").c_str());
-    if (flag != "jet_misid_syst" && title.find("h_ZGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_muo_t_matrix_weight.root").c_str());
-    if (flag == "jet_misid_syst" && title.find("h_WGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_muo_t_matrix_weight.root").c_str());
-    if (flag == "jet_misid_syst" && title.find("h_ZGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_muo_t_matrix_weight.root").c_str());
+    if (flag != "jet_misid_syst") {
+      if (title.find("h_WGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
+      if (title.find("h_ZGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
+    } else {
+      if (title.find("h_WGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
+      if (title.find("h_ZGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
+    }
     if ( file_matrix_2017->IsZombie()) {
       cout << "ERROR: file " << file_matrix_2017->GetName() << " is MISSING !!" << endl;
       return;
@@ -459,10 +465,13 @@ void plot4(string plot="", string title="", string version="v00", string options
   }
   if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
     file_matrix_2018 = 0;
-    if (flag != "jet_misid_syst" && title.find("h_WGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_muo_t_matrix_weight.root").c_str());
-    if (flag != "jet_misid_syst" && title.find("h_ZGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_muo_t_matrix_weight.root").c_str());
-    if (flag == "jet_misid_syst" && title.find("h_WGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_muo_t_matrix_weight.root").c_str());
-    if (flag == "jet_misid_syst" && title.find("h_ZGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_muo_t_matrix_weight.root").c_str());
+    if (flag != "jet_misid_syst") {
+      if (title.find("h_WGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
+      if (title.find("h_ZGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
+    } else {
+      if (title.find("h_WGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
+      if (title.find("h_ZGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
+    }
     if (file_matrix_2018->IsZombie()) {
       cout << "ERROR: file " << file_matrix_2018->GetName() << " is MISSING !!" << endl;
       return;
