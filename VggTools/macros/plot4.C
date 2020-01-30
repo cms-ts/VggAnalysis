@@ -564,9 +564,20 @@ void plot4(string plot="", string title="", string version="v00", string options
           inverted_matrix.Invert(&det);
 
           TVectorD alpha(4);
+
           alpha = inverted_matrix * n_region;
+
           TVectorD alpha_err(4);
-          alpha_err = inverted_matrix * n_region_err * (1 + 0.1 * (flag == "jet_misid_stat"));
+
+          alpha_err(0) = TMath::Sqrt(TMath::Power(inverted_matrix(0,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(0,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(0,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(0,3)*n_region_err(3), 2));
+          alpha_err(1) = TMath::Sqrt(TMath::Power(inverted_matrix(1,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(1,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(1,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(1,3)*n_region_err(3), 2));
+          alpha_err(2) = TMath::Sqrt(TMath::Power(inverted_matrix(2,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(2,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(2,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(2,3)*n_region_err(3), 2));
+          alpha_err(3) = TMath::Sqrt(TMath::Power(inverted_matrix(3,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(3,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(3,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(3,3)*n_region_err(3), 2));
+
+          alpha_err(0) = alpha_err(0) * (1 + 0.1 * (flag == "jet_misid_stat"));
+          alpha_err(1) = alpha_err(1) * (1 + 0.1 * (flag == "jet_misid_stat"));
+          alpha_err(2) = alpha_err(2) * (1 + 0.1 * (flag == "jet_misid_stat"));
+          alpha_err(3) = alpha_err(3) * (1 + 0.1 * (flag == "jet_misid_stat"));
 
           if (alpha(0) < 0) {
             alpha(0) = 0.;
