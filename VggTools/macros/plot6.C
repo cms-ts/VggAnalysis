@@ -1387,7 +1387,7 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   for (uint i = 0; i < labels.size(); i++) {
     if (labels[i].find("stat") != string::npos) continue;
-    if (labels[i].find("jet_misid") != string::npos) continue;
+    if (labels[i].find("jet_misid_syst") != string::npos) continue;
     out2 << std::setw(15) << left << (labels[i] + " lnN").c_str()
          << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref 
          << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
@@ -1399,9 +1399,9 @@ void plot6(string plot="", string title="", string version="v00", string options
     out2 << endl;
   }
 
-  out2 << std::setw(15) << left << "jet_misid lnN"
+  out2 << std::setw(15) << left << "jet_misid_syst lnN"
        << std::setw(8) << "-" 
-       << std::setw(8) << 1. + errors_tot["jet_misid"]/xsec_data_ref
+       << std::setw(8) << 1. + errors_tot["jet_misid_syst"]/xsec_data_ref
        << std::setw(8) << "-"
        << std::setw(8) << "-";
   if (title.find("WGG_ele") != string::npos) {
