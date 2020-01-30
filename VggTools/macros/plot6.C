@@ -1257,25 +1257,38 @@ void plot6(string plot="", string title="", string version="v00", string options
   TH1D* h_sig = 0;
   TH1D* h_misid = 0;
 
+  TH1D* h_ttgg = 0;
+
   TH1D* h_zg = 0;
   TH1D* h_zgg = 0;
+
+  TH1D* h_wgg = 0;
 
   if (!file2->IsZombie()) {
 
     h_data = (TH1D*)file2->Get((title + "_data").c_str());
     h_sig = (TH1D*)file2->Get((title + "_sig").c_str());
     h_misid = (TH1D*)file2->Get((title + "_misid").c_str());
+    h_ttgg = (TH1D*)file2->Get((title + "_ttgg").c_str());
 
     h_data->SetDirectory(0);
     h_sig->SetDirectory(0);
     h_misid->SetDirectory(0);
+    h_ttgg->SetDirectory(0);
 
     if (title.find("WGG") != string::npos) {
-      h_zg = (TH1D*)file2->Get((title + "_zg").c_str());
       h_zgg = (TH1D*)file2->Get((title + "_zgg").c_str());
-
-      h_zg->SetDirectory(0);
       h_zgg->SetDirectory(0);
+    }
+
+    if (title.find("WGG_ele") != string::npos) {
+      h_zg = (TH1D*)file2->Get((title + "_zg").c_str());
+      h_zg->SetDirectory(0);
+    }
+
+    if (title.find("ZGG") != string::npos) {
+      h_wgg = (TH1D*)file2->Get((title + "_wgg").c_str());
+      h_wgg->SetDirectory(0);
     }
 
     file2->Close();
@@ -1314,47 +1327,59 @@ void plot6(string plot="", string title="", string version="v00", string options
   out2 << std::setw(15) << left << "bin";
   if (title.find("ele") != string::npos) {
     out2 << std::setw(8) << "ele"
+         << std::setw(8) << "ele"
+         << std::setw(8) << "ele"
          << std::setw(8) << "ele";
     if (title.find("WGG") != string::npos) {
-      out2 << std::setw(8) << "ele"
-           << std::setw(8) << "ele";
+      out2 << std::setw(8) << "ele";
     }
   }
   if (title.find("muo") != string::npos) {
     out2 << std::setw(8) << "muo"
+         << std::setw(8) << "muo"
+         << std::setw(8) << "muo"
          << std::setw(8) << "muo";
-    if (title.find("WGG") != string::npos) {
-      out2 << std::setw(8) << "muo"
-           << std::setw(8) << "muo";
-    }
   }
   out2 << endl;
 
   out2 << std::setw(15) << left << "process";
   if (title.find("WGG") != string::npos) out2 << std::setw(8) << "wgg";
   if (title.find("ZGG") != string::npos) out2 << std::setw(8) << "zgg";
-  out2 << std::setw(8) << "jet_mis";
+  out2 << std::setw(8) << "jet_mis"
+       << std::setw(8) << "ttgg";
   if (title.find("WGG") != string::npos) {
-    out2 << std::setw(8) << "zg"
-         << std::setw(8) << "zgg";
+    out2 << std::setw(8) << "zgg";
+    if (title.find("WGG_ele") != string::npos) {
+      out2 << std::setw(8) << "zg";
+    }
+  }
+  if (title.find("ZGG") != string::npos) {
+    out2 << std::setw(8) << "wgg";
   }
   out2 << endl;
 
   out2 << std::setw(15) << left << "process"
        << std::setw(8) << " 0"
-       << std::setw(8) << " 1";
-  if (title.find("WGG") != string::npos) {
-    out2 << std::setw(8) << " 2"
-         << std::setw(8) << " 3";
+       << std::setw(8) << " 1"
+       << std::setw(8) << " 2"
+       << std::setw(8) << " 3";
+  if (title.find("WGG_ele") != string::npos) {
+    out2 << std::setw(8) << " 4";
   }
   out2 << endl;
 
   out2 << std::setw(15) << left << "rate"
        << std::setw(8) << h_sig->Integral()
-       << std::setw(8) << h_misid->Integral();
+       << std::setw(8) << h_misid->Integral()
+       << std::setw(8) << h_ttgg->Integral();
   if (title.find("WGG") != string::npos) {
-    out2 << std::setw(8) << h_zg->Integral()
-         << std::setw(8) << h_zgg->Integral();
+    out2 << std::setw(8) << h_zgg->Integral();
+    if (title.find("WGG_ele") != string::npos) {
+      out2 << std::setw(8) << h_zg->Integral();
+    }
+  }
+  if (title.find("ZGG") != string::npos) {
+    out2 << std::setw(8) << h_wgg->Integral();
   }
   out2 << endl;
 
@@ -1365,20 +1390,22 @@ void plot6(string plot="", string title="", string version="v00", string options
     if (labels[i].find("jet_misid") != string::npos) continue;
     out2 << std::setw(15) << left << (labels[i] + " lnN").c_str()
          << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref 
+         << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
+         << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
          << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref; 
-    if (title.find("WGG") != string::npos) {
-      out2 << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
-           << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref; 
+    if (title.find("WGG_ele") != string::npos) {
+      out2 << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref;
     }
     out2 << endl;
   }
 
   out2 << std::setw(15) << left << "jet_misid lnN"
        << std::setw(8) << "-" 
-       << std::setw(8) << 1. + errors_tot["jet_misid"]/xsec_data_ref; 
-  if (title.find("WGG") != string::npos) {
-    out2 << std::setw(8) << "-"
-         << std::setw(8) << "-"; 
+       << std::setw(8) << 1. + errors_tot["jet_misid"]/xsec_data_ref
+       << std::setw(8) << "-"
+       << std::setw(8) << "-";
+  if (title.find("WGG_ele") != string::npos) {
+    out2 << std::setw(8) << "-";
   }
   out2 << endl;
 
