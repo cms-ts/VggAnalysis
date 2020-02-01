@@ -234,15 +234,8 @@ void plot0(string plot="", string title="", string version="v00", string options
       histo[index]->SetBinError(histo[index]->GetNbinsX() + 1, 0.);
     }
     if (index > 0) {
-      if (options.find("nobkg") != string::npos) {
-        if ((index >= 10 && index <= 12) || (index >= 1010 && index <= 1012)) {
-          hstack_mc->Add(it->second);
-          h_mc_sum->Add(it->second);
-        }
-      } else {
-        hstack_mc->Add(it->second);
-        h_mc_sum->Add(it->second);
-      }
+      hstack_mc->Add(it->second);
+      h_mc_sum->Add(it->second);
       if (index != 10 && index != 1010) {
         h_bkg->Add(it->second);
       }
@@ -258,10 +251,6 @@ void plot0(string plot="", string title="", string version="v00", string options
         h_qcd->SetBinError(i, 0);
       }
     }
-  }
-
-  if (options.find("nobkg") != string::npos) {
-    histo[0]->Add(h_bkg, -1);
   }
 
   TH1D* h_ratio = (TH1D*)histo[0]->Clone("h_ratio");
@@ -292,47 +281,47 @@ void plot0(string plot="", string title="", string version="v00", string options
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "DYJets", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 13) {
+    if (it->first == 13) {
       it->second->SetFillColor(kOrange+2);
       leg->AddEntry(it->second, "Z #rightarrow #tau #tau", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 20) {
+    if (it->first == 20) {
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "WJets", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 21) {
+    if (it->first == 21) {
       it->second->SetFillColor(kOrange-5);
       leg->AddEntry(it->second, "W #gamma", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 22) {
+    if (it->first == 22) {
       it->second->SetFillColor(kOrange-6);
       leg->AddEntry(it->second, "W #gamma #gamma", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 30) {
+    if (it->first == 30) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 31) {
+    if (it->first == 31) {
       it->second->SetFillColor(kGreen+3);
       leg->AddEntry(it->second, "Diboson #gamma", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 35) {
+    if (it->first == 35) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Triboson", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 40) {
+    if (it->first == 40) {
       it->second->SetFillColor(kBlue);
       leg->AddEntry(it->second, "TT", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 41) {
+    if (it->first == 41) {
       it->second->SetFillColor(kBlue+2);
       leg->AddEntry(it->second, "TT #gamma", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 42) {
+    if (it->first == 42) {
       it->second->SetFillColor(kBlue+3);
       leg->AddEntry(it->second, "TT #gamma #gamma", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 50) {
+    if (it->first == 50) {
       it->second->SetFillColor(kOrange-3);
       leg->AddEntry(it->second, "SingleTop", "f");
     }
@@ -351,52 +340,52 @@ void plot0(string plot="", string title="", string version="v00", string options
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "WJets", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 1013) {
+    if (it->first == 1013) {
       it->second->SetFillColor(kOrange+2);
       leg->AddEntry(it->second, "W #rightarrow #tau #nu", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 1020) {
+    if (it->first == 1020) {
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "DYJets", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 1021) {
+    if (it->first == 1021) {
       it->second->SetFillColor(kOrange-5);
       leg->AddEntry(it->second, "Z #gamma", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 1022) {
+    if (it->first == 1022) {
       it->second->SetFillColor(kOrange-6);
       leg->AddEntry(it->second, "Z #gamma #gamma", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 1030) {
+    if (it->first == 1030) {
       it->second->SetFillColor(kBlue);
       leg->AddEntry(it->second, "TT", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 1031) {
+    if (it->first == 1031) {
       it->second->SetFillColor(kBlue+2);
       leg->AddEntry(it->second, "TT #gamma", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 1032) {
+    if (it->first == 1032) {
       it->second->SetFillColor(kBlue+3);
       leg->AddEntry(it->second, "TT #gamma #gamma", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 1040) {
+    if (it->first == 1040) {
       it->second->SetFillColor(kOrange-3);
       leg->AddEntry(it->second, "SingleTop", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 1050) {
+    if (it->first == 1050) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 1051) {
+    if (it->first == 1051) {
       it->second->SetFillColor(kGreen+3);
       leg->AddEntry(it->second, "Diboson #gamma", "f");
     }
-    if (options.find("nobkg") == string::npos && it->first == 1055) {
+    if (it->first == 1055) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Triboson", "f");
     }
 
-    if (options.find("nobkg") == string::npos && it->first == 9001) {
+    if (it->first == 9001) {
       it->second->SetFillColor(kMagenta+3);
       leg->AddEntry(it->second, "QCD", "f");
     }

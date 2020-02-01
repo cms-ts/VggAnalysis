@@ -415,16 +415,9 @@ void plot4(string plot="", string title="", string version="v00", string options
       histo[index]->SetBinError(histo[index]->GetNbinsX()+1, 0.);
     }
     if (index > 0) {
-      if (options.find("nobkg") != string::npos) {
-        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index == 10 || index == 1010)) {
-          hstack_mc->Add(it->second);
-          h_mc_sum->Add(it->second);
-        }
-      } else {
-        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051 || index == 8001)) {
-          hstack_mc->Add(it->second);
-          h_mc_sum->Add(it->second);
-        }
+      if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051 || index == 8001)) {
+        hstack_mc->Add(it->second);
+        h_mc_sum->Add(it->second);
       }
     }
   }
@@ -637,20 +630,13 @@ void plot4(string plot="", string title="", string version="v00", string options
       histo[index]->SetBinError(histo[index]->GetNbinsX()+1, 0.);
     }
     if (index > 0) {
-      if (options.find("nobkg") != string::npos) {
-        if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index == 10 || index == 1010)) {
-          hstack_mc->Add(it->second);
-          h_mc_sum->Add(it->second);
-        }
-      } else {
-        if ((title.find("h_WGG_") != string::npos) && (index == 1010 || index == 1021 || index == 1022 || index == 1032 || index == 1051 || index == 8001)) {
-          hstack_mc->Add(it->second);
-          h_mc_sum->Add(it->second);
-        }
-        if ((title.find("h_ZGG_") != string::npos) && (index == 10 || index == 22 || index == 31 || index == 41 || index == 42 || index == 8001)) {
-          hstack_mc->Add(it->second);
-          h_mc_sum->Add(it->second);
-        }
+      if ((title.find("h_WGG_") != string::npos) && (index == 1010 || index == 1021 || index == 1022 || index == 1032 || index == 1051 || index == 8001)) {
+        hstack_mc->Add(it->second);
+        h_mc_sum->Add(it->second);
+      }
+      if ((title.find("h_ZGG_") != string::npos) && (index == 10 || index == 22 || index == 31 || index == 41 || index == 42 || index == 8001)) {
+        hstack_mc->Add(it->second);
+        h_mc_sum->Add(it->second);
       }
     }
   }
