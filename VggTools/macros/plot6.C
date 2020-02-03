@@ -197,34 +197,34 @@ void plot6(string plot="", string title="", string version="v00", string options
       if (h_xsec_rec["reference"]) {
         if (flags[i].find("reference") != string::npos) {
           cout << std::fixed << std::setprecision(2)
-               << std::setw(6) << 0.
+               << std::setw(6) << 100. * xsec_stat_data / xsec_data_ref
                << " %"
                << " : "
                << std::setw(6) << 0.
                << " %"
                << endl;
-          h_xsec_rec_errors_p->SetBinContent(i+1, +100. * xsec_stat_data / xsec_data);
-          h_xsec_rec_errors_m->SetBinContent(i+1, -100. * xsec_stat_data / xsec_data);
+          h_xsec_rec_errors_p->SetBinContent(i+1, +100. * xsec_stat_data / xsec_data_ref);
+          h_xsec_rec_errors_m->SetBinContent(i+1, -100. * xsec_stat_data / xsec_data_ref);
         } else if (flags[i].find("stat") != string::npos) {
           cout << std::fixed << std::setprecision(2)
-               << std::setw(6) << 100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data
+               << std::setw(6) << 100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data_ref
                << " %"
                << " : "
                << std::setw(6) << 0.
                << " %"
                << endl;
-          h_xsec_rec_errors_p->SetBinContent(i+1, +100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data);
-          h_xsec_rec_errors_m->SetBinContent(i+1, -100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data);
+          h_xsec_rec_errors_p->SetBinContent(i+1, +100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data_ref);
+          h_xsec_rec_errors_m->SetBinContent(i+1, -100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data_ref);
         } else {
           cout << std::fixed << std::setprecision(2)
-               << std::setw(6) << 100. * (xsec_data - xsec_data_ref) / xsec_data
+               << std::setw(6) << 100. * (xsec_data - xsec_data_ref) / xsec_data_ref
                << " %"
                << " : "
-               << std::setw(6) << TMath::Sign(1, xsec_data - xsec_data_ref) * 100. * (TMath::Sqrt(TMath::Max(0.,TMath::Power(xsec_data - xsec_data_ref,2) - TMath::Abs(TMath::Power(xsec_stat_data,2) - TMath::Power(xsec_stat_data_ref,2))))) / xsec_data
+               << std::setw(6) << TMath::Sign(1, xsec_data - xsec_data_ref) * 100. * (TMath::Sqrt(TMath::Max(0.,TMath::Power(xsec_data - xsec_data_ref,2) - TMath::Abs(TMath::Power(xsec_stat_data,2) - TMath::Power(xsec_stat_data_ref,2))))) / xsec_data_ref
                << " %"
                << endl;
-          h_xsec_rec_errors_p->SetBinContent(i+1, +100. * (xsec_data - xsec_data_ref) / xsec_data);
-          h_xsec_rec_errors_m->SetBinContent(i+1, -100. * (xsec_data - xsec_data_ref) / xsec_data);
+          h_xsec_rec_errors_p->SetBinContent(i+1, +100. * (xsec_data - xsec_data_ref) / xsec_data_ref);
+          h_xsec_rec_errors_m->SetBinContent(i+1, -100. * (xsec_data - xsec_data_ref) / xsec_data_ref);
         }
       } else {
         cout << "reference cross section not available" << endl;
