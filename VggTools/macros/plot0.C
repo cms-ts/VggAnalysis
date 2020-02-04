@@ -234,10 +234,10 @@ void plot0(string plot="", string title="", string version="v00", string options
       histo[index]->SetBinError(histo[index]->GetNbinsX() + 1, 0.);
     }
     if (index > 0) {
-      hstack_mc->Add(it->second);
-      h_mc_sum->Add(it->second);
+      hstack_mc->Add(histo[index]);
+      h_mc_sum->Add(histo[index]);
       if (index != 10 && index != 1010) {
-        h_bkg->Add(it->second);
+        h_bkg->Add(histo[index]);
       }
     }
   }
@@ -263,129 +263,131 @@ void plot0(string plot="", string title="", string version="v00", string options
   leg->SetFillStyle(0);
 
   for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
-    if (it->first == 0) {
+    int index = int(it->first);
+
+    if (index == 0) {
       leg->AddEntry(it->second, "Data", "p");
     }
 
-    if (it->first == 10) {
+    if (index == 10) {
       it->second->SetFillColor(kOrange+7);
       it->second->SetFillStyle(3254);
       leg->AddEntry(it->second, "Z #gamma #gamma", "f");
     }
-    if (it->first == 11) {
+    if (index == 11) {
       it->second->SetFillColor(kOrange-4);
       it->second->SetFillStyle(3245);
       leg->AddEntry(it->second, "Z #gamma", "f");
     }
-    if (it->first == 12) {
+    if (index == 12) {
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "DYJets", "f");
     }
-    if (it->first == 13) {
+    if (index == 13) {
       it->second->SetFillColor(kOrange+2);
       leg->AddEntry(it->second, "Z #rightarrow #tau #tau", "f");
     }
-    if (it->first == 20) {
+    if (index == 20) {
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "WJets", "f");
     }
-    if (it->first == 21) {
+    if (index == 21) {
       it->second->SetFillColor(kOrange-5);
       leg->AddEntry(it->second, "W #gamma", "f");
     }
-    if (it->first == 22) {
+    if (index == 22) {
       it->second->SetFillColor(kOrange-6);
       leg->AddEntry(it->second, "W #gamma #gamma", "f");
     }
-    if (it->first == 30) {
+    if (index == 30) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
-    if (it->first == 31) {
+    if (index == 31) {
       it->second->SetFillColor(kGreen+3);
       leg->AddEntry(it->second, "Diboson #gamma", "f");
     }
-    if (it->first == 35) {
+    if (index == 35) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Triboson", "f");
     }
-    if (it->first == 40) {
+    if (index == 40) {
       it->second->SetFillColor(kBlue);
       leg->AddEntry(it->second, "TT", "f");
     }
-    if (it->first == 41) {
+    if (index == 41) {
       it->second->SetFillColor(kBlue+2);
       leg->AddEntry(it->second, "TT #gamma", "f");
     }
-    if (it->first == 42) {
+    if (index == 42) {
       it->second->SetFillColor(kBlue+3);
       leg->AddEntry(it->second, "TT #gamma #gamma", "f");
     }
-    if (it->first == 50) {
+    if (index == 50) {
       it->second->SetFillColor(kOrange-3);
       leg->AddEntry(it->second, "SingleTop", "f");
     }
 
-    if (it->first == 1010) {
+    if (index == 1010) {
       it->second->SetFillColor(kOrange+7);
       it->second->SetFillStyle(3254);
       leg->AddEntry(it->second, "W #gamma #gamma", "f");
     }
-    if (it->first == 1011) {
+    if (index == 1011) {
       it->second->SetFillColor(kOrange-4);
       it->second->SetFillStyle(3245);
       leg->AddEntry(it->second, "W #gamma", "f");
     }
-    if (it->first == 1012) {
+    if (index == 1012) {
       it->second->SetFillColor(kYellow-4);
       leg->AddEntry(it->second, "WJets", "f");
     }
-    if (it->first == 1013) {
+    if (index == 1013) {
       it->second->SetFillColor(kOrange+2);
       leg->AddEntry(it->second, "W #rightarrow #tau #nu", "f");
     }
-    if (it->first == 1020) {
+    if (index == 1020) {
       it->second->SetFillColor(kOrange);
       leg->AddEntry(it->second, "DYJets", "f");
     }
-    if (it->first == 1021) {
+    if (index == 1021) {
       it->second->SetFillColor(kOrange-5);
       leg->AddEntry(it->second, "Z #gamma", "f");
     }
-    if (it->first == 1022) {
+    if (index == 1022) {
       it->second->SetFillColor(kOrange-6);
       leg->AddEntry(it->second, "Z #gamma #gamma", "f");
     }
-    if (it->first == 1030) {
+    if (index == 1030) {
       it->second->SetFillColor(kBlue);
       leg->AddEntry(it->second, "TT", "f");
     }
-    if (it->first == 1031) {
+    if (index == 1031) {
       it->second->SetFillColor(kBlue+2);
       leg->AddEntry(it->second, "TT #gamma", "f");
     }
-    if (it->first == 1032) {
+    if (index == 1032) {
       it->second->SetFillColor(kBlue+3);
       leg->AddEntry(it->second, "TT #gamma #gamma", "f");
     }
-    if (it->first == 1040) {
+    if (index == 1040) {
       it->second->SetFillColor(kOrange-3);
       leg->AddEntry(it->second, "SingleTop", "f");
     }
-    if (it->first == 1050) {
+    if (index == 1050) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Diboson", "f");
     }
-    if (it->first == 1051) {
+    if (index == 1051) {
       it->second->SetFillColor(kGreen+3);
       leg->AddEntry(it->second, "Diboson #gamma", "f");
     }
-    if (it->first == 1055) {
+    if (index == 1055) {
       it->second->SetFillColor(kGreen+2);
       leg->AddEntry(it->second, "Triboson", "f");
     }
 
-    if (it->first == 9001) {
+    if (index == 9001) {
       it->second->SetFillColor(kMagenta+3);
       leg->AddEntry(it->second, "QCD", "f");
     }
