@@ -742,7 +742,7 @@ void plot0(string plot="", string title="", string version="v00", string options
 #if defined(USE_CATEGORIES)
   if (options.find("nofit") != string::npos) return;
 
-  if ((title.find("h_WG_ele_pho0_pt") != string::npos) || (title.find("h_WG_muo_pho0_pt") != string::npos) || (title.find("h_ZG_ele_pho0_pt") != string::npos) || (title.find("h_ZG_muo_pho0_pt") != string::npos)) {
+  if (title.find("h_WG_ele_pho0_pt") != string::npos || title.find("h_WG_muo_pho0_pt") != string::npos || title.find("h_ZG_ele_pho0_pt") != string::npos || title.find("h_ZG_muo_pho0_pt") != string::npos) {
 
     TH1D* h_data_cat = (TH1D*)histo[0]->Clone("h_data_cat");
 
