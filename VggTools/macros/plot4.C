@@ -160,7 +160,6 @@ void plot4(string plot="", string title="", string version="v00", string options
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
 #endif // defined(USE_CATEGORIES)
 #if defined(USE_MATRIX)
-    if (title.find("muo") != string::npos && index == 1021) continue;
     if (index == 10 || index == 22 || index == 42 || index == 1010 || index == 1021 || index == 1022 || index == 1032) {
 #endif // defined(USE_MATRIX)
       TFile* file = 0;
@@ -916,13 +915,12 @@ void plot4(string plot="", string title="", string version="v00", string options
   histo[8001]->Write((title + "_misid").c_str());
   if (title.find("h_WGG_") != string::npos) {
     histo[1010]->Write((title + "_sig").c_str());
-    if (title.find("muo") == string::npos) histo[1021]->Write((title + "_zg").c_str());
+    histo[1021]->Write((title + "_zg").c_str());
     histo[1022]->Write((title + "_zgg").c_str());
     histo[1032]->Write((title + "_ttgg").c_str());
   }
   if (title.find("h_ZGG_") != string::npos) {
     histo[10]->Write((title + "_sig").c_str());
-    histo[22]->Write((title + "_wgg").c_str());
     histo[42]->Write((title + "_ttgg").c_str());
   }
 #if defined(USE_CATEGORIES)
