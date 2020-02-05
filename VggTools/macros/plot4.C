@@ -254,7 +254,6 @@ void plot4(string plot="", string title="", string version="v00", string options
   }
 
 #if defined(USE_CATEGORIES)
-
   TFile* file_matrix_2016 = 0;
   TFile* file_matrix_2017 = 0;
   TFile* file_matrix_2018 = 0;
@@ -860,7 +859,7 @@ void plot4(string plot="", string title="", string version="v00", string options
         hstack_mc->Add(histo[index]);
         h_mc_sum->Add(histo[index]);
       }
-      if (title.find("h_ZGG_") != string::npos && (index == 10 || index == 31 || index == 41 || index == 42 || index == 8001)) {
+      if (title.find("h_ZGG_") != string::npos && (index == 10 || index == 42 || index == 8001)) {
         hstack_mc->Add(histo[index]);
         h_mc_sum->Add(histo[index]);
       }
