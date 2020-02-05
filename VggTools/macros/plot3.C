@@ -502,78 +502,78 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->first);
 
     if (index == 0) {
-      leg->AddEntry(it->second, "Data", "p");
+      leg->AddEntry(histo1[index], "Data", "p");
     }
 
     if (index == 10) {
-      it->second->SetFillColor(kOrange+7);
-      it->second->SetFillStyle(3254);
-      leg->AddEntry(it->second, "Z #gamma #gamma", "f");
+      histo1[index]->SetFillColor(kOrange+7);
+      histo1[index]->SetFillStyle(3254);
+      leg->AddEntry(histo1[index], "Z #gamma #gamma", "f");
     }
     if (index == 11) {
-      it->second->SetFillColor(kOrange-4);
-      it->second->SetFillStyle(3254);
-      leg->AddEntry(it->second, "Z #gamma", "f");
+      histo1[index]->SetFillColor(kOrange-4);
+      histo1[index]->SetFillStyle(3254);
+      leg->AddEntry(histo1[index], "Z #gamma", "f");
     }
     if (index == 21) {
-      it->second->SetFillColor(kOrange-5);
-      leg->AddEntry(it->second, "W #gamma", "f");
+      histo1[index]->SetFillColor(kOrange-5);
+      leg->AddEntry(histo1[index], "W #gamma", "f");
     }
     if (index == 22) {
-      it->second->SetFillColor(kOrange-6);
-      leg->AddEntry(it->second, "W #gamma #gamma", "f");
+      histo1[index]->SetFillColor(kOrange-6);
+      leg->AddEntry(histo1[index], "W #gamma #gamma", "f");
     }
     if (index == 31) {
-      it->second->SetFillColor(kGreen+3);
-      leg->AddEntry(it->second, "Diboson #gamma", "f");
+      histo1[index]->SetFillColor(kGreen+3);
+      leg->AddEntry(histo1[index], "Diboson #gamma", "f");
     }
     if (index == 41) {
-      it->second->SetFillColor(kBlue+2);
-      leg->AddEntry(it->second, "TT #gamma", "f");
+      histo1[index]->SetFillColor(kBlue+2);
+      leg->AddEntry(histo1[index], "TT #gamma", "f");
     }
     if (index == 42) {
-      it->second->SetFillColor(kBlue+3);
-      leg->AddEntry(it->second, "TT #gamma #gamma", "f");
+      histo1[index]->SetFillColor(kBlue+3);
+      leg->AddEntry(histo1[index], "TT #gamma #gamma", "f");
     }
 
     if (index == 1010) {
-      it->second->SetFillColor(kOrange+7);
-      it->second->SetFillStyle(3254);
-      leg->AddEntry(it->second, "W #gamma #gamma", "f");
+      histo1[index]->SetFillColor(kOrange+7);
+      histo1[index]->SetFillStyle(3254);
+      leg->AddEntry(histo1[index], "W #gamma #gamma", "f");
     }
     if (index == 1011) {
-      it->second->SetFillColor(kOrange-4);
-      it->second->SetFillStyle(3254);
-      leg->AddEntry(it->second, "W #gamma", "f");
+      histo1[index]->SetFillColor(kOrange-4);
+      histo1[index]->SetFillStyle(3254);
+      leg->AddEntry(histo1[index], "W #gamma", "f");
     }
     if (index == 1020) {
-      it->second->SetFillColor(kOrange);
-      leg->AddEntry(it->second, "DYJets", "f");
+      histo1[index]->SetFillColor(kOrange);
+      leg->AddEntry(histo1[index], "DYJets", "f");
     }
     if (index == 1021) {
-      it->second->SetFillColor(kOrange-5);
-      leg->AddEntry(it->second, "Z #gamma", "f");
+      histo1[index]->SetFillColor(kOrange-5);
+      leg->AddEntry(histo1[index], "Z #gamma", "f");
     }
     if (index == 1022) {
-      it->second->SetFillColor(kOrange-6);
-      leg->AddEntry(it->second, "Z #gamma #gamma", "f");
+      histo1[index]->SetFillColor(kOrange-6);
+      leg->AddEntry(histo1[index], "Z #gamma #gamma", "f");
     }
     if (index == 1031) {
-      it->second->SetFillColor(kBlue+2);
-      leg->AddEntry(it->second, "TT #gamma", "f");
+      histo1[index]->SetFillColor(kBlue+2);
+      leg->AddEntry(histo1[index], "TT #gamma", "f");
     }
     if (index == 1032) {
-      it->second->SetFillColor(kBlue+3);
-      leg->AddEntry(it->second, "TT #gamma #gamma", "f");
+      histo1[index]->SetFillColor(kBlue+3);
+      leg->AddEntry(histo1[index], "TT #gamma #gamma", "f");
     }
     if (index == 1051) {
-      it->second->SetFillColor(kGreen+3);
-      leg->AddEntry(it->second, "Diboson #gamma", "f");
+      histo1[index]->SetFillColor(kGreen+3);
+      leg->AddEntry(histo1[index], "Diboson #gamma", "f");
     }
 
     if (index == 8001) {
-      it->second->SetFillColor(kMagenta+3);
-      leg->AddEntry(it->second, "Jet MisID", "f");
+      histo1[index]->SetFillColor(kMagenta+3);
+      leg->AddEntry(histo1[index], "Jet MisID", "f");
     }
   }
 

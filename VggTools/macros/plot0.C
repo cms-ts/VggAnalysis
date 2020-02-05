@@ -266,130 +266,130 @@ void plot0(string plot="", string title="", string version="v00", string options
     int index = int(it->first);
 
     if (index == 0) {
-      leg->AddEntry(it->second, "Data", "p");
+      leg->AddEntry(histo[index], "Data", "p");
     }
 
     if (index == 10) {
-      it->second->SetFillColor(kOrange+7);
-      it->second->SetFillStyle(3254);
-      leg->AddEntry(it->second, "Z #gamma #gamma", "f");
+      histo[index]->SetFillColor(kOrange+7);
+      histo[index]->SetFillStyle(3254);
+      leg->AddEntry(histo[index], "Z #gamma #gamma", "f");
     }
     if (index == 11) {
-      it->second->SetFillColor(kOrange-4);
-      it->second->SetFillStyle(3245);
-      leg->AddEntry(it->second, "Z #gamma", "f");
+      histo[index]->SetFillColor(kOrange-4);
+      histo[index]->SetFillStyle(3245);
+      leg->AddEntry(histo[index], "Z #gamma", "f");
     }
     if (index == 12) {
-      it->second->SetFillColor(kYellow-4);
-      leg->AddEntry(it->second, "DYJets", "f");
+      histo[index]->SetFillColor(kYellow-4);
+      leg->AddEntry(histo[index], "DYJets", "f");
     }
     if (index == 13) {
-      it->second->SetFillColor(kOrange+2);
-      leg->AddEntry(it->second, "Z #rightarrow #tau #tau", "f");
+      histo[index]->SetFillColor(kOrange+2);
+      leg->AddEntry(histo[index], "Z #rightarrow #tau #tau", "f");
     }
     if (index == 20) {
-      it->second->SetFillColor(kOrange);
-      leg->AddEntry(it->second, "WJets", "f");
+      histo[index]->SetFillColor(kOrange);
+      leg->AddEntry(histo[index], "WJets", "f");
     }
     if (index == 21) {
-      it->second->SetFillColor(kOrange-5);
-      leg->AddEntry(it->second, "W #gamma", "f");
+      histo[index]->SetFillColor(kOrange-5);
+      leg->AddEntry(histo[index], "W #gamma", "f");
     }
     if (index == 22) {
-      it->second->SetFillColor(kOrange-6);
-      leg->AddEntry(it->second, "W #gamma #gamma", "f");
+      histo[index]->SetFillColor(kOrange-6);
+      leg->AddEntry(histo[index], "W #gamma #gamma", "f");
     }
     if (index == 30) {
-      it->second->SetFillColor(kGreen+2);
-      leg->AddEntry(it->second, "Diboson", "f");
+      histo[index]->SetFillColor(kGreen+2);
+      leg->AddEntry(histo[index], "Diboson", "f");
     }
     if (index == 31) {
-      it->second->SetFillColor(kGreen+3);
-      leg->AddEntry(it->second, "Diboson #gamma", "f");
+      histo[index]->SetFillColor(kGreen+3);
+      leg->AddEntry(histo[index], "Diboson #gamma", "f");
     }
     if (index == 35) {
-      it->second->SetFillColor(kGreen+2);
-      leg->AddEntry(it->second, "Triboson", "f");
+      histo[index]->SetFillColor(kGreen+2);
+      leg->AddEntry(histo[index], "Triboson", "f");
     }
     if (index == 40) {
-      it->second->SetFillColor(kBlue);
-      leg->AddEntry(it->second, "TT", "f");
+      histo[index]->SetFillColor(kBlue);
+      leg->AddEntry(histo[index], "TT", "f");
     }
     if (index == 41) {
-      it->second->SetFillColor(kBlue+2);
-      leg->AddEntry(it->second, "TT #gamma", "f");
+      histo[index]->SetFillColor(kBlue+2);
+      leg->AddEntry(histo[index], "TT #gamma", "f");
     }
     if (index == 42) {
-      it->second->SetFillColor(kBlue+3);
-      leg->AddEntry(it->second, "TT #gamma #gamma", "f");
+      histo[index]->SetFillColor(kBlue+3);
+      leg->AddEntry(histo[index], "TT #gamma #gamma", "f");
     }
     if (index == 50) {
-      it->second->SetFillColor(kOrange-3);
-      leg->AddEntry(it->second, "SingleTop", "f");
+      histo[index]->SetFillColor(kOrange-3);
+      leg->AddEntry(histo[index], "SingleTop", "f");
     }
 
     if (index == 1010) {
-      it->second->SetFillColor(kOrange+7);
-      it->second->SetFillStyle(3254);
-      leg->AddEntry(it->second, "W #gamma #gamma", "f");
+      histo[index]->SetFillColor(kOrange+7);
+      histo[index]->SetFillStyle(3254);
+      leg->AddEntry(histo[index], "W #gamma #gamma", "f");
     }
     if (index == 1011) {
-      it->second->SetFillColor(kOrange-4);
-      it->second->SetFillStyle(3245);
-      leg->AddEntry(it->second, "W #gamma", "f");
+      histo[index]->SetFillColor(kOrange-4);
+      histo[index]->SetFillStyle(3245);
+      leg->AddEntry(histo[index], "W #gamma", "f");
     }
     if (index == 1012) {
-      it->second->SetFillColor(kYellow-4);
-      leg->AddEntry(it->second, "WJets", "f");
+      histo[index]->SetFillColor(kYellow-4);
+      leg->AddEntry(histo[index], "WJets", "f");
     }
     if (index == 1013) {
-      it->second->SetFillColor(kOrange+2);
-      leg->AddEntry(it->second, "W #rightarrow #tau #nu", "f");
+      histo[index]->SetFillColor(kOrange+2);
+      leg->AddEntry(histo[index], "W #rightarrow #tau #nu", "f");
     }
     if (index == 1020) {
-      it->second->SetFillColor(kOrange);
-      leg->AddEntry(it->second, "DYJets", "f");
+      histo[index]->SetFillColor(kOrange);
+      leg->AddEntry(histo[index], "DYJets", "f");
     }
     if (index == 1021) {
-      it->second->SetFillColor(kOrange-5);
-      leg->AddEntry(it->second, "Z #gamma", "f");
+      histo[index]->SetFillColor(kOrange-5);
+      leg->AddEntry(histo[index], "Z #gamma", "f");
     }
     if (index == 1022) {
-      it->second->SetFillColor(kOrange-6);
-      leg->AddEntry(it->second, "Z #gamma #gamma", "f");
+      histo[index]->SetFillColor(kOrange-6);
+      leg->AddEntry(histo[index], "Z #gamma #gamma", "f");
     }
     if (index == 1030) {
-      it->second->SetFillColor(kBlue);
-      leg->AddEntry(it->second, "TT", "f");
+      histo[index]->SetFillColor(kBlue);
+      leg->AddEntry(histo[index], "TT", "f");
     }
     if (index == 1031) {
-      it->second->SetFillColor(kBlue+2);
-      leg->AddEntry(it->second, "TT #gamma", "f");
+      histo[index]->SetFillColor(kBlue+2);
+      leg->AddEntry(histo[index], "TT #gamma", "f");
     }
     if (index == 1032) {
-      it->second->SetFillColor(kBlue+3);
-      leg->AddEntry(it->second, "TT #gamma #gamma", "f");
+      histo[index]->SetFillColor(kBlue+3);
+      leg->AddEntry(histo[index], "TT #gamma #gamma", "f");
     }
     if (index == 1040) {
-      it->second->SetFillColor(kOrange-3);
-      leg->AddEntry(it->second, "SingleTop", "f");
+      histo[index]->SetFillColor(kOrange-3);
+      leg->AddEntry(histo[index], "SingleTop", "f");
     }
     if (index == 1050) {
-      it->second->SetFillColor(kGreen+2);
-      leg->AddEntry(it->second, "Diboson", "f");
+      histo[index]->SetFillColor(kGreen+2);
+      leg->AddEntry(histo[index], "Diboson", "f");
     }
     if (index == 1051) {
-      it->second->SetFillColor(kGreen+3);
-      leg->AddEntry(it->second, "Diboson #gamma", "f");
+      histo[index]->SetFillColor(kGreen+3);
+      leg->AddEntry(histo[index], "Diboson #gamma", "f");
     }
     if (index == 1055) {
-      it->second->SetFillColor(kGreen+2);
-      leg->AddEntry(it->second, "Triboson", "f");
+      histo[index]->SetFillColor(kGreen+2);
+      leg->AddEntry(histo[index], "Triboson", "f");
     }
 
     if (index == 9001) {
-      it->second->SetFillColor(kMagenta+3);
-      leg->AddEntry(it->second, "QCD", "f");
+      histo[index]->SetFillColor(kMagenta+3);
+      leg->AddEntry(histo[index], "QCD", "f");
     }
   }
 
