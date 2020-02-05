@@ -255,26 +255,6 @@ void plot4(string plot="", string title="", string version="v00", string options
 
 #if defined(USE_CATEGORIES)
 
-// #define USE_RUN2_AVERAGES
-
-#if defined(USE_RUN2_AVERAGES)
-  TFile* file_matrix = 0;
-
-  if (title.find("h_WGG_ele") != string::npos) file_matrix = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_WG_ele_pho0_pt_matrix_weight.root").c_str());
-  if (title.find("h_WGG_muo") != string::npos) file_matrix = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_WG_muo_pho0_pt_matrix_weight.root").c_str());
-  if (title.find("h_ZGG_ele") != string::npos) file_matrix = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_ZG_ele_pho0_pt_matrix_weight.root").c_str());
-  if (title.find("h_ZGG_muo") != string::npos) file_matrix = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_ZG_muo_pho0_pt_matrix_weight.root").c_str());
-  if (file_matrix->IsZombie()) {
-    cout << "ERROR: file " << file_matrix->GetName() << " is MISSING !!" << endl;
-    return;
-  }
-
-  TH1D* h_weight = (TH1D*)file_matrix->Get(flag == "jet_misid_mc" ? "h_weight_mc" : "h_weight_data");
-
-  h_weight->SetDirectory(0);
-  file_matrix->Close();
-  delete file_matrix;
-#else
   TFile* file_matrix_2016 = 0;
   TFile* file_matrix_2017 = 0;
   TFile* file_matrix_2018 = 0;
@@ -344,7 +324,6 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (h_weight_2016) h_weight->Add(h_weight_2016, lumi2016/lumi);
   if (h_weight_2017) h_weight->Add(h_weight_2017, lumi2017/lumi);
   if (h_weight_2018) h_weight->Add(h_weight_2018, lumi2018/lumi);
-#endif // defined(USE_RUN2_AVERAGES)
 
   for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
     int index = int(it->first);
