@@ -25,6 +25,11 @@ void plot4(string plot="", string title="", string version="v00", string options
 #define USE_MATRIX
 
 #if defined(USE_CATEGORIES)
+  if (plot.find("Run2") != string::npos) {
+    cout << "Run2 averages are not supported in this configuration" << endl;
+    return;
+  }
+
   string cat = "cat3";
   if (flag == "jet_misid_cat1") cat = "cat1";
   if (flag == "jet_misid_cat2") cat = "cat2";
