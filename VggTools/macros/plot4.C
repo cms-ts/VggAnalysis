@@ -956,7 +956,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     }
 
     if (index == 8001) {
-      histo[index]->SetFillColor(kMagenta+3);
+      histo[index]->SetFillColor(kPink+4);
       leg->AddEntry(histo[index], "Jet MisID", "f");
     }
   }
