@@ -195,7 +195,7 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
+    if (index > 0) {
       TFile* file = 0;
       if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_syst" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -326,6 +326,18 @@ void plot3(string plot="", string title="", string version="v00", string options
     histo[0]->Add(histo[31], -1);
     histo[0]->Add(histo[41], -1);
     histo[0]->Add(histo[42], -1);
+  }
+
+  if (flag == "jet_misid_mc") {
+    histo[0]->Reset();
+    for (map<int, TH3D*>::iterator it = histo.begin(); it != histo.end(); it++) {
+      int index = int(it->first);
+      if (index > 0) {
+        if (index != 10 && index != 11 && index != 21 && index != 22 && index != 31 && index != 41 && index != 42 && index != 1010 && index != 1011 && index != 1021 && index != 1022 && index != 1031 && index != 1032 && index != 1051) {
+          histo[0]->Add(histo[index]);
+        }
+      }
+    }
   }
 
   for (int i = 0; i < histo[0]->GetNbinsX() + 1; i++) {
