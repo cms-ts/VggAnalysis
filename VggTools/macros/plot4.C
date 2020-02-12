@@ -162,7 +162,7 @@ void plot4(string plot="", string title="", string version="v00", string options
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
 #if defined(USE_CATEGORIES)
-    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
+    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
 #endif // defined(USE_CATEGORIES)
 #if defined(USE_MATRIX)
     if (index == 10 || index == 42 || index == 1010 || index == 1021 || index == 1022 || index == 1032) {
