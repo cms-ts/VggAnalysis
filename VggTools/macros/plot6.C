@@ -20,6 +20,15 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (options.find("madgraph") != string::npos) plot = "madgraph/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
+// #define USE_CATEGORIES
+
+#if defined(USE_CATEGORIES)
+  if (plot.find("Run2") != string::npos) {
+    cout << "Run2 averages are not supported in this configuration" << endl;
+    return;
+  }
+#endif // defined(USE_CATEGORIES)
+
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
