@@ -127,14 +127,14 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("eg_misid_up");
   flags.push_back("eg_misid_down");
 
+#if 0
   flags.push_back("jet_misid_syst");
 
-#if 0
   flags.push_back("jet_misid_cat1");
   flags.push_back("jet_misid_cat2");
+#endif
 
   flags.push_back("jet_misid_mc");
-#endif
 
   flags.push_back("jet_bkg_mc");
 
@@ -489,6 +489,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     errors_tot["eg_misid"] = xval;
   }
 
+#if 0
   if (h_xsec_rec["jet_misid_syst"]) {
     double xval_stat = 0.;
     double xval = h_xsec_rec["jet_misid_syst"]->IntegralAndError(0, h_xsec_rec["jet_misid_syst"]->GetNbinsX()+1, xval_stat, "width");
@@ -497,7 +498,6 @@ void plot6(string plot="", string title="", string version="v00", string options
     errors_tot["jet_misid_syst"] = xval;
   }
 
-#if 0
   if (h_xsec_rec["jet_misid_cat1"] && h_xsec_rec["jet_misid_cat2"]) {
     double xval_stat_up = 0.;
     double xval_up = h_xsec_rec["jet_misid_cat1"]->IntegralAndError(0, h_xsec_rec["jet_misid_cat1"]->GetNbinsX()+1, xval_stat_up, "width");
@@ -510,6 +510,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     double xval = 0.5 * (xval_up + xval_down);
     errors_tot["jet_misid_syst"] = xval;
   }
+#endif
 
   if (h_xsec_rec["jet_misid_mc"]) {
     double xval_stat = 0.;
@@ -518,7 +519,6 @@ void plot6(string plot="", string title="", string version="v00", string options
     xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     errors_tot["jet_misid_mc"] = xval;
   }
-#endif
 
 #if 0
   if (h_xsec_rec["jet_bkg_mc"]) {
@@ -717,6 +717,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["eg_misid"].push_back(xval);
     }
 
+#if 0
     if (h_xsec_rec["jet_misid_syst"]) {
       double xval = fabs(h_xsec_rec["jet_misid_syst"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_syst"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
@@ -724,7 +725,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["jet_misid_syst"].push_back(xval);
     }
 
-#if 0
     if (h_xsec_rec["jet_misid_cat1"] && h_xsec_rec["jet_misid_cat2"]) {
       double xval_up = fabs(h_xsec_rec["jet_misid_cat1"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_cat1"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
@@ -734,6 +734,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["jet_misid_syst"].push_back(xval);
     }
+#endif
 
     if (h_xsec_rec["jet_misid_mc"]) {
       double xval = fabs(h_xsec_rec["jet_misid_mc"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
@@ -741,7 +742,6 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["jet_misid_mc"].push_back(xval);
     }
-#endif
 
 #if 0
     if (h_xsec_rec["jet_bkg_mc"]) {
@@ -921,7 +921,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (options.find("nolog") != string::npos) {
     h_xsec_mc_gen["reference"]->SetMaximum(1.2*TMath::Max(h_xsec_mc_gen["reference"]->GetBinContent(h_xsec_mc_gen["reference"]->GetMaximumBin()), h_xsec_rec["reference"]->GetBinContent(h_xsec_rec["reference"]->GetMaximumBin())));
   }
- 
+
   h_xsec_mc_gen["reference"]->SetTitle("");
   h_xsec_mc_gen["reference"]->SetStats(kFALSE);
 
@@ -1312,7 +1312,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     out2 << "jmax 4  number of channels" << endl;
   } else {
     out2 << "jmax 3  number of channels" << endl;
-  } 
+  }
   out2 << "kmax "
        << kmax
        << "  number of nuisance parameters (sources of systematical uncertainties)" << endl;
@@ -1392,10 +1392,10 @@ void plot6(string plot="", string title="", string version="v00", string options
     if (labels[i].find("stat") != string::npos) continue;
     if (labels[i].find("jet_misid_syst") != string::npos) continue;
     out2 << std::setw(20) << left << (labels[i] + " lnN").c_str()
-         << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref 
          << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
          << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
-         << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref; 
+         << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
+         << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref;
     if (title.find("WGG_ele") != string::npos) {
       out2 << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref;
     }
@@ -1403,7 +1403,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   }
 
   out2 << std::setw(20) << left << "jet_misid_syst lnN"
-       << std::setw(8) << "-" 
+       << std::setw(8) << "-"
        << std::setw(8) << 1. + errors_tot["jet_misid_syst"]/xsec_data_ref
        << std::setw(8) << "-"
        << std::setw(8) << "-";
