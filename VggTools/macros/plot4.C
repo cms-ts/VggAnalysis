@@ -554,23 +554,6 @@ void plot4(string plot="", string title="", string version="v00", string options
           alpha_err(2) = alpha_err(2) * (1 + 0.1 * (flag == "jet_misid_stat"));
           alpha_err(3) = alpha_err(3) * (1 + 0.1 * (flag == "jet_misid_stat"));
 
-          if (alpha(0) < 0) {
-            alpha(0) = 0.;
-            alpha_err(0) = 0.;
-          }
-          if (alpha(1) < 0) {
-            alpha(1) = 0.;
-            alpha_err(1) = 0.;
-          }
-          if (alpha(2) < 0) {
-            alpha(2) = 0.;
-            alpha_err(2) = 0.;
-          }
-          if (alpha(3) < 0) {
-            alpha(3) = 0.;
-            alpha_err(3) = 0.;
-          }
-
           histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + matrix(0,1)*alpha(1) + matrix(0,2)*alpha(2) + matrix(0,3)*alpha(3));
           histo[8001]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001]->GetBinError(var), 2) + TMath::Power(matrix(0,1)*alpha_err(1), 2) + TMath::Power(matrix(0,2)*alpha_err(2), 2) + TMath::Power(matrix(0,3)*alpha_err(3), 2)));
 
