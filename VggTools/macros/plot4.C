@@ -461,9 +461,9 @@ void plot4(string plot="", string title="", string version="v00", string options
   histo[8001]->Reset();
   histo[8001]->SetDirectory(0);
 
-  for (int var = 1; var < histo3[4211]->GetNbinsZ() + 1; var++) {
-    for (int pho0_pt = 2; pho0_pt < histo3[4211]->GetNbinsX() + 1; pho0_pt++) {
-      for (int pho1_pt = 2; pho1_pt < histo3[4211]->GetNbinsY() + 1; pho1_pt++) {
+  for (int var = 1; var < histo3[4211]->GetNbinsZ() + 2; var++) {
+    for (int pho0_pt = 2; pho0_pt < histo3[4211]->GetNbinsX() + 2; pho0_pt++) {
+      for (int pho1_pt = 2; pho1_pt < histo3[4211]->GetNbinsY() + 2; pho1_pt++) {
         for (int eta = 1; eta < 5; eta++) {
 
           int index_region = 4200 + eta*10;

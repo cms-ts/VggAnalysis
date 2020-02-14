@@ -365,8 +365,8 @@ void plot3(string plot="", string title="", string version="v00", string options
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + "_matrix_weight.root").c_str());
 
   for (int eta = 1; eta < 5; eta++) {
-    for (int pho0_pt = 2; pho0_pt < histo[0]->GetNbinsX() + 1; pho0_pt++) {
-      for (int pho1_pt = 2; pho1_pt < histo[0]->GetNbinsX() + 1; pho1_pt++) {
+    for (int pho0_pt = 2; pho0_pt < histo[0]->GetNbinsX() + 2; pho0_pt++) {
+      for (int pho1_pt = 2; pho1_pt < histo[0]->GetNbinsX() + 2; pho1_pt++) {
         double e1 = 0;
         double e2 = 0;
         double f1 = 0;
