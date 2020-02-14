@@ -237,7 +237,7 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
+    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
       TFile* file = 0;
       if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_syst" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -261,13 +261,11 @@ void plot3(string plot="", string title="", string version="v00", string options
       }
       if (histo1[index]) {
         TH1D* h1 = (TH1D*)gDirectory->Get(title.c_str());
-        if (index == 1020) h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
         if (h1) {
           histo1[index]->Add(h1, norm);
         }
       } else {
         TH1D* h1 = (TH1D*)gDirectory->Get(title.c_str());
-        if (index == 1020) h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
         if (h1) {
           histo1[index] = h1;
           histo1[index]->SetDirectory(0);
@@ -310,7 +308,6 @@ void plot3(string plot="", string title="", string version="v00", string options
   if (title.find("h_WG") != string::npos) {
     histo[0]->Add(histo[1010], -1);
     histo[0]->Add(histo[1011], -1);
-    histo[0]->Add(histo[1020], -1);
     histo[0]->Add(histo[1021], -1);
     histo[0]->Add(histo[1022], -1);
     histo[0]->Add(histo[1031], -1);
@@ -557,10 +554,6 @@ void plot3(string plot="", string title="", string version="v00", string options
       histo1[index]->SetFillColor(kOrange-4);
       histo1[index]->SetFillStyle(3254);
       leg->AddEntry(histo1[index], "W #gamma", "f");
-    }
-    if (index == 1020) {
-      histo1[index]->SetFillColor(kOrange);
-      leg->AddEntry(histo1[index], "DYJets", "f");
     }
     if (index == 1021) {
       histo1[index]->SetFillColor(kOrange-5);
