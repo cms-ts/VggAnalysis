@@ -136,7 +136,10 @@ void plot1(string plot="", string title="", string version="v00", string options
 
   ofstream out;
   out.open(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_fit.dat").c_str());
+  Info("File::Open", "dat file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_fit.dat").c_str());
+
   out << fitter->GetParameter(0) << " " << fitter->GetParError(0) << endl;
+
   out.close();
 
 }
