@@ -462,9 +462,9 @@ void plot4(string plot="", string title="", string version="v00", string options
   histo[8001]->SetDirectory(0);
 
   for (int var = 1; var < histo3[4211]->GetNbinsZ() + 2; var++) {
-    for (int pho0_pt = 2; pho0_pt < histo3[4211]->GetNbinsX() + 2; pho0_pt++) {
-      for (int pho1_pt = 2; pho1_pt < histo3[4211]->GetNbinsY() + 2; pho1_pt++) {
-        for (int eta = 1; eta < 5; eta++) {
+    for (int eta = 1; eta < 5; eta++) {
+      for (int pho0_pt = 2; pho0_pt < histo3[4211]->GetNbinsX() + 2; pho0_pt++) {
+        for (int pho1_pt = 2; pho1_pt < histo3[4211]->GetNbinsY() + 2; pho1_pt++) {
 
           int index_region = 4200 + eta*10;
 
@@ -843,7 +843,7 @@ void plot4(string plot="", string title="", string version="v00", string options
       histo[index]->SetBinError(histo[index]->GetNbinsX()+1, 0.);
     }
     if (index > 0) {
-      if (title.find("h_WGG_") != string::npos && (index == 1010 || index == 1021 || index == 1022 || index == 1032 || index == 1051 || index == 8001)) {
+      if (title.find("h_WGG_") != string::npos && (index == 1010 || index == 1021 || index == 1022 || index == 1032 || index == 8001)) {
         hstack_mc->Add(histo[index]);
         h_mc_sum->Add(histo[index]);
       }
