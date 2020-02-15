@@ -176,8 +176,10 @@ void plot2(string plot="", string title="", string version="v00", string options
 
   h_mc_eff->Draw("0");
 
+  TH1D* h_mc_eff_genmatch = 0;
+
   if (h3) {
-    TH1D* h_mc_eff_genmatch = (TH1D*)h3->Clone("h_mc_eff_genmatch");
+    h_mc_eff_genmatch = (TH1D*)h3->Clone("h_mc_eff_genmatch");
 
     h_mc_eff_genmatch->Divide(h_mc_eff_genmatch, h2, 1., 1., "B");
 
@@ -191,8 +193,12 @@ void plot2(string plot="", string title="", string version="v00", string options
     h_mc_eff_genmatch->SetMarkerColor(kRed);
 
     h_mc_eff_genmatch->Draw("0SAME");
+  }
 
-    TH1D* h_mc_pur = (TH1D*)h3->Clone("h_mc_pur");
+  TH1D* h_mc_pur = 0;
+
+  if (h3) {
+    h_mc_pur = (TH1D*)h3->Clone("h_mc_pur");
 
     h_mc_pur->Divide(h_mc_pur, h1, 1., 1., "B");
 
@@ -249,7 +255,13 @@ void plot2(string plot="", string title="", string version="v00", string options
   ofstream out;
   out.open(("html/" + version + "/" + flag + "/" + year + ".eff/" + title + ".dat").c_str());
   for (int i = 0; i < h_mc_eff->GetNbinsX()+2; i++) {
-    out << i << " " << h_mc_eff->GetBinContent(i) << " " << h_mc_eff->GetBinError(i) << endl;
+    out << i << " " << h_mc_eff->GetBinContent(i) << " " << h_mc_eff->GetBinError(i);
+    if (h3) {
+      out << " " << h_mc_eff_genmatch->GetBinContent(i) << " " << h_mc_eff_genmatch->GetBinError(i);
+    } else {
+      out << " " <<  0. << " " << 0.;
+    }
+    out << endl;
   }
   out.close();
 
@@ -261,6 +273,11 @@ void plot2(string plot="", string title="", string version="v00", string options
   h1->Write((title + "_mc_rec").c_str());
   h2->Write((title + "_mc_gen").c_str());
   h_mc_eff->Write((title + "_mc_eff").c_str());
+  if (h3) {
+    h3->Write((title + "_mc_genmatch").c_str());
+    h_mc_eff_genmatch->Write((title + "_mc_eff_genmatch").c_str());
+    h_mc_pur->Write((title + "_mc_pur").c_str());
+  }
   file->Close();
   delete file;
 
