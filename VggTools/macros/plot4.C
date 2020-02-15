@@ -461,6 +461,17 @@ void plot4(string plot="", string title="", string version="v00", string options
   histo[8001]->Reset();
   histo[8001]->SetDirectory(0);
 
+// #define CHECK_CLOSURE
+
+#if defined(CHECK_CLOSURE)
+  if (title.find("h_WGG_") != string::npos) {
+    histo[1010]->Reset();
+  }
+  if (title.find("h_ZGG_") != string::npos) {
+    histo[10]->Reset();
+  }
+#endif // defined(CHECK_CLOSURE)
+
   for (int var = 1; var < histo3[4211]->GetNbinsZ() + 2; var++) {
     for (int eta = 1; eta < 5; eta++) {
       for (int pho0_pt = 2; pho0_pt < histo3[4211]->GetNbinsX() + 2; pho0_pt++) {
@@ -557,6 +568,17 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + matrix(0,1)*alpha(1) + matrix(0,2)*alpha(2) + matrix(0,3)*alpha(3));
           histo[8001]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001]->GetBinError(var), 2) + TMath::Power(matrix(0,1)*alpha_err(1), 2) + TMath::Power(matrix(0,2)*alpha_err(2), 2) + TMath::Power(matrix(0,3)*alpha_err(3), 2)));
 
+#if defined(CHECK_CLOSURE)
+          if (title.find("h_WGG_") != string::npos) {
+            histo[1010]->SetBinContent(var, histo[1010]->GetBinContent(var) + matrix(0,0)*alpha(0));
+            histo[1010]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[1010]->GetBinError(var), 2) + TMath::Power(matrix(0,0)*alpha_err(0), 2)));
+          }
+          if (title.find("h_ZGG_") != string::npos) {
+            histo[10]->SetBinContent(var, histo[10]->GetBinContent(var) + matrix(0,0)*alpha(0));
+            histo[10]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[10]->GetBinError(var), 2) + TMath::Power(matrix(0,0)*alpha_err(0), 2)));
+          }
+#endif // defined(CHECK_CLOSURE)
+
           delete h_weight;
         }
       }
@@ -575,6 +597,25 @@ void plot4(string plot="", string title="", string version="v00", string options
     file_matrix_2018->Close();
     delete file_matrix_2018;
   }
+
+#if defined(CHECK_CLOSURE)
+  for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
+    int index = int(it->first);
+    if (title.find("h_WGG_") != string::npos && (index == 1021 || index == 1022 || index == 1032)) {
+      for (int i = 0; i < histo[1010]->GetNbinsX()+2; i++) {
+        if (title.find("h_WGG_muo") != string::npos && index == 1021) continue;
+        histo[1010]->SetBinContent(i, histo[1010]->GetBinContent(i) - histo[index]->GetBinContent(i));
+        histo[1010]->SetBinError(i, TMath::Sqrt(TMath::Max(0., TMath::Power(histo[1010]->GetBinError(i), 2) - TMath::Power(histo[index]->GetBinError(i), 2))));
+      }
+    }
+    if (title.find("h_ZGG_") != string::npos && index == 42) {
+      for (int i = 0; i < histo[10]->GetNbinsX()+2; i++) {
+        histo[10]->SetBinContent(i, histo[10]->GetBinContent(i) - histo[index]->GetBinContent(i));
+        histo[10]->SetBinError(i, TMath::Sqrt(TMath::Max(0., TMath::Power(histo[10]->GetBinError(i), 2) - TMath::Power(histo[index]->GetBinError(i), 2))));
+      }
+    }
+  }
+#endif // defined(CHECK_CLOSURE)
 
   if (plot.find("Run2") != string::npos) {
     TFile* file_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/" + title + ".root").c_str());
