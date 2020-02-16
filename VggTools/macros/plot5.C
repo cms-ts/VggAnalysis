@@ -114,11 +114,13 @@ void plot5(string plot="", string title="", string version="v00", string options
   TH1D* h_mc_gen = (TH1D*)f2->Get((title + "_mc_gen").c_str());
 
   TH1D* h_mc_eff = (TH1D*)f2->Get((title + "_mc_eff").c_str());
+  TH1D* h_mc_eff_genmatch = (TH1D*)f2->Get((title + "_mc_eff_genmatch").c_str());
 
   h_data->SetDirectory(0);
   h_bkg->SetDirectory(0);
   h_mc_gen->SetDirectory(0);
   h_mc_eff->SetDirectory(0);
+  if (h_mc_eff_genmatch) h_mc_eff_genmatch->SetDirectory(0);
 
   f1->Close();
   f2->Close();
