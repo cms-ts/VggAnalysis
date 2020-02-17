@@ -1006,6 +1006,11 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_ZG_ele_t = new TH3D("h_ZG_ele_t", "h_ZG_ele_t", 15, 0., 300., 2, -0.5, 1.5, 2, -0.5, 1.5);
    h_ZG_muo_t = new TH3D("h_ZG_muo_t", "h_ZG_muo_t", 15, 0., 300., 2, -0.5, 1.5, 2, -0.5, 1.5);
 
+   h_WG_ele_t_genmatch = new TH3D("h_WG_ele_t_genmatch", "h_WG_ele_t_genmatch", 15, 0., 300., 2, -0.5, 1.5, 2, -0.5, 1.5);
+   h_WG_muo_t_genmatch = new TH3D("h_WG_muo_t_genmatch", "h_WG_muo_t_genmatch", 15, 0., 300., 2, -0.5, 1.5, 2, -0.5, 1.5);
+   h_ZG_ele_t_genmatch = new TH3D("h_ZG_ele_t_genmatch", "h_ZG_ele_t_genmatch", 15, 0., 300., 2, -0.5, 1.5, 2, -0.5, 1.5);
+   h_ZG_muo_t_genmatch = new TH3D("h_ZG_muo_t_genmatch", "h_ZG_muo_t_genmatch", 15, 0., 300., 2, -0.5, 1.5, 2, -0.5, 1.5);
+
    h_WGG_ele_pho0_pho1_pt_bb_tt = new TH3D("h_WGG_ele_pho0_pho1_pt_bb_tt", "h_WGG_ele_pho0_pho1_pt_bb_tt", 15, 0., 300., 15, 0., 300., 15, 0., 300.);
    h_WGG_ele_pho0_pho1_pt_bb_tl = new TH3D("h_WGG_ele_pho0_pho1_pt_bb_tl", "h_WGG_ele_pho0_pho1_pt_bb_tl", 15, 0., 300., 15, 0., 300., 15, 0., 300.);
    h_WGG_ele_pho0_pho1_pt_bb_lt = new TH3D("h_WGG_ele_pho0_pho1_pt_bb_lt", "h_WGG_ele_pho0_pho1_pt_bb_lt", 15, 0., 300., 15, 0., 300., 15, 0., 300.);
@@ -1245,18 +1250,22 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_ZGG_muo_pho1_pt_gen = new TH1D("h_ZGG_muo_pho1_pt_gen", "h_ZGG_muo_pho1_pt_gen", 15, 0., 300.);
    h_ZGG_muo_pho0_pho1_pt_gen = new TH1D("h_ZGG_muo_pho0_pho1_pt_gen", "h_ZGG_muo_pho0_pho1_pt_gen", 15, 0., 300.);
 
+   h_WG_ele_pho0_pt_genmatch = new TH1D("h_WG_ele_pho0_pt_genmatch", "h_WG_ele_pho0_pt_genmatch", 60, 0., 300.);
    h_WGG_ele_pho0_pt_genmatch = new TH1D("h_WGG_ele_pho0_pt_genmatch", "h_WGG_ele_pho0_pt_genmatch", 15, 0., 300.);
    h_WGG_ele_pho1_pt_genmatch = new TH1D("h_WGG_ele_pho1_pt_genmatch", "h_WGG_ele_pho1_pt_genmatch", 15, 0., 300.);
    h_WGG_ele_pho0_pho1_pt_genmatch = new TH1D("h_WGG_ele_pho0_pho1_pt_genmatch", "h_WGG_ele_pho0_pho1_pt_genmatch", 15, 0., 300.);
 
+   h_WG_muo_pho0_pt_genmatch = new TH1D("h_WG_muo_pho0_pt_genmatch", "h_WG_muo_pho0_pt_genmatch", 60, 0., 300.);
    h_WGG_muo_pho0_pt_genmatch = new TH1D("h_WGG_muo_pho0_pt_genmatch", "h_WGG_muo_pho0_pt_genmatch", 15, 0., 300.);
    h_WGG_muo_pho1_pt_genmatch = new TH1D("h_WGG_muo_pho1_pt_genmatch", "h_WGG_muo_pho1_pt_genmatch", 15, 0., 300.);
    h_WGG_muo_pho0_pho1_pt_genmatch = new TH1D("h_WGG_muo_pho0_pho1_pt_genmatch", "h_WGG_muo_pho0_pho1_pt_genmatch", 15, 0., 300.);
 
+   h_ZG_ele_pho0_pt_genmatch = new TH1D("h_ZG_ele_pho0_pt_genmatch", "h_ZG_ele_pho0_pt_genmatch", 60, 0., 300.);
    h_ZGG_ele_pho0_pt_genmatch = new TH1D("h_ZGG_ele_pho0_pt_genmatch", "h_ZGG_ele_pho0_pt_genmatch", 15, 0., 300.);
    h_ZGG_ele_pho1_pt_genmatch = new TH1D("h_ZGG_ele_pho1_pt_genmatch", "h_ZGG_ele_pho1_pt_genmatch", 15, 0., 300.);
    h_ZGG_ele_pho0_pho1_pt_genmatch = new TH1D("h_ZGG_ele_pho0_pho1_pt_genmatch", "h_ZGG_ele_pho0_pho1_pt_genmatch", 15, 0., 300.);
 
+   h_ZG_muo_pho0_pt_genmatch = new TH1D("h_ZG_muo_pho0_pt_genmatch", "h_ZG_muo_pho0_pt_genmatch", 60, 0., 300.);
    h_ZGG_muo_pho0_pt_genmatch = new TH1D("h_ZGG_muo_pho0_pt_genmatch", "h_ZGG_muo_pho0_pt_genmatch", 15, 0., 300.);
    h_ZGG_muo_pho1_pt_genmatch = new TH1D("h_ZGG_muo_pho1_pt_genmatch", "h_ZGG_muo_pho1_pt_genmatch", 15, 0., 300.);
    h_ZGG_muo_pho0_pho1_pt_genmatch = new TH1D("h_ZGG_muo_pho0_pho1_pt_genmatch", "h_ZGG_muo_pho0_pho1_pt_genmatch", 15, 0., 300.);
@@ -4411,14 +4420,42 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (abs(pho0_iso.Eta()) < 1.442) {
          if (is_pho0_iso) {
            h_WG_ele_t->Fill(pho0_iso.Pt(), 0., 0., weight_W_ele * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_WG_ele_t_genmatch->Fill(pho0_iso.Pt(), 0., 0., weight_W_ele * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          } else {
            h_WG_ele_t->Fill(pho0_iso.Pt(), 0., 1., weight_W_ele * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_WG_ele_t_genmatch->Fill(pho0_iso.Pt(), 0., 1., weight_W_ele * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          }
        } else {
          if (is_pho0_iso) {
            h_WG_ele_t->Fill(pho0_iso.Pt(), 1., 0., weight_W_ele * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_WG_ele_t_genmatch->Fill(pho0_iso.Pt(), 1., 0., weight_W_ele * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          } else {
            h_WG_ele_t->Fill(pho0_iso.Pt(), 1., 1., weight_W_ele * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_WG_ele_t_genmatch->Fill(pho0_iso.Pt(), 1., 1., weight_W_ele * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          }
        }
      }
@@ -4606,14 +4643,42 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (abs(pho0_iso.Eta()) < 1.442) {
          if (is_pho0_iso) {
            h_WG_muo_t->Fill(pho0_iso.Pt(), 0., 0., weight_W_muo * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_WG_muo_t_genmatch->Fill(pho0_iso.Pt(), 0., 0., weight_W_muo * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          } else {
            h_WG_muo_t->Fill(pho0_iso.Pt(), 0., 1., weight_W_muo * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_WG_muo_t_genmatch->Fill(pho0_iso.Pt(), 0., 1., weight_W_muo * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          }
        } else {
          if (is_pho0_iso) {
            h_WG_muo_t->Fill(pho0_iso.Pt(), 1., 0., weight_W_muo * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_WG_muo_t_genmatch->Fill(pho0_iso.Pt(), 1., 0., weight_W_muo * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          } else {
            h_WG_muo_t->Fill(pho0_iso.Pt(), 1., 1., weight_W_muo * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_WG_muo_t_genmatch->Fill(pho0_iso.Pt(), 1., 1., weight_W_muo * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          }
        }
      }
@@ -4806,14 +4871,42 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (abs(pho0_iso.Eta()) < 1.442) {
          if (is_pho0_iso) {
            h_ZG_ele_t->Fill(pho0_iso.Pt(), 0., 0., weight_Z_ele * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_ZG_ele_t_genmatch->Fill(pho0_iso.Pt(), 0., 0., weight_Z_ele * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          } else {
            h_ZG_ele_t->Fill(pho0_iso.Pt(), 0., 1., weight_Z_ele * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_ZG_ele_t_genmatch->Fill(pho0_iso.Pt(), 0., 1., weight_Z_ele * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          }
        } else {
          if (is_pho0_iso) {
            h_ZG_ele_t->Fill(pho0_iso.Pt(), 1., 0., weight_Z_ele * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_ZG_ele_t_genmatch->Fill(pho0_iso.Pt(), 1., 0., weight_Z_ele * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          } else {
            h_ZG_ele_t->Fill(pho0_iso.Pt(), 1., 1., weight_Z_ele * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_ZG_ele_t_genmatch->Fill(pho0_iso.Pt(), 1., 1., weight_Z_ele * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          }
        }
      }
@@ -5004,14 +5097,42 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (abs(pho0_iso.Eta()) < 1.442) {
          if (is_pho0_iso) {
            h_ZG_muo_t->Fill(pho0_iso.Pt(), 0., 0., weight_Z_muo * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_ZG_muo_t_genmatch->Fill(pho0_iso.Pt(), 0., 0., weight_Z_muo * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          } else {
            h_ZG_muo_t->Fill(pho0_iso.Pt(), 0., 1., weight_Z_muo * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_ZG_muo_t_genmatch->Fill(pho0_iso.Pt(), 0., 1., weight_Z_muo * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          }
        } else {
          if (is_pho0_iso) {
            h_ZG_muo_t->Fill(pho0_iso.Pt(), 1., 0., weight_Z_muo * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_ZG_muo_t_genmatch->Fill(pho0_iso.Pt(), 1., 0., weight_Z_muo * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          } else {
            h_ZG_muo_t->Fill(pho0_iso.Pt(), 1., 1., weight_Z_muo * weight_pho0_iso);
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+           if (ipho0_iso != -1 && Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart) {
+             if (fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
+               h_ZG_muo_t_genmatch->Fill(pho0_iso.Pt(), 1., 1., weight_Z_muo * weight_pho0_iso);
+             }
+           }
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
          }
        }
      }
@@ -5741,6 +5862,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (W_ele_sel) {
+     if (ipho0 != -1) {
+       if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
+         h_WG_ele_pho0_pt_genmatch->Fill(pho0.Pt(), weight_W_ele * weight_pho0);
+       }
+     }
      if (ipho1 != -1) {
        if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
          if (GenPart_pt[Photon_genPartIdx[ipho0]] > 20) {
@@ -5757,6 +5883,11 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (W_muo_sel) {
+     if (ipho0 != -1) {
+       if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
+         h_WG_muo_pho0_pt_genmatch->Fill(pho0.Pt(), weight_W_muo * weight_pho0);
+       }
+     }
      if (ipho1 != -1) {
        if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
          if (GenPart_pt[Photon_genPartIdx[ipho0]] > 20) {
@@ -5773,6 +5904,11 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (Z_ele_sel) {
+     if (ipho0 != -1) {
+       if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
+         h_ZG_ele_pho0_pt_genmatch->Fill(pho0.Pt(), weight_Z_ele * weight_pho0);
+       }
+     }
      if (ipho1 != -1) {
        if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
          if (GenPart_pt[Photon_genPartIdx[ipho0]] > 20) {
@@ -5789,6 +5925,11 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 
    if (Z_muo_sel) {
+     if (ipho0 != -1) {
+       if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
+         h_ZG_muo_pho0_pt_genmatch->Fill(pho0.Pt(), weight_Z_muo * weight_pho0);
+       }
+     }
      if (ipho1 != -1) {
        if (Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 22) {
          if (GenPart_pt[Photon_genPartIdx[ipho0]] > 20) {
