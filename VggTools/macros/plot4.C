@@ -161,12 +161,7 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-#if defined(USE_CATEGORIES)
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
-#endif // defined(USE_CATEGORIES)
-#if defined(USE_MATRIX)
-    if (index == 10 || index == 42 || index == 1010 || index == 1021 || index == 1022 || index == 1032) {
-#endif // defined(USE_MATRIX)
       TFile* file = 0;
       if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_syst" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -191,7 +186,11 @@ void plot4(string plot="", string title="", string version="v00", string options
       if (histo[index]) {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
 #if defined(USE_MATRIX)
-        if (index == 1021) h = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+        h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        if (title.find("h_WGG_ele") != string::npos) {
+          TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+          h->Add(h1);
+        }
 #endif // defined(USE_MATRIX)
         if (h) {
           histo[index]->Add(h, norm);
@@ -199,7 +198,11 @@ void plot4(string plot="", string title="", string version="v00", string options
       } else {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
 #if defined(USE_MATRIX)
-        if (index == 1021) h = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+        h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        if (title.find("h_WGG_ele") != string::npos) {
+          TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+          h->Add(h1);
+        }
 #endif // defined(USE_MATRIX)
         if (h) {
           histo[index] = h;
@@ -223,6 +226,40 @@ void plot4(string plot="", string title="", string version="v00", string options
         }
       }
 #endif // defined(USE_CATEGORIES)
+
+#if defined(USE_MATRIX)
+      if (title.find("h_WGG_ele") != string::npos && index == 1021) {
+        int index_region = -1;
+        string eta_string = "";
+        string iso_string = "";
+        for (int eta_region = 1; eta_region < 5; eta_region++) {
+          if (eta_region == 1) eta_string = "bb";
+          if (eta_region == 2) eta_string = "be";
+          if (eta_region == 3) eta_string = "eb";
+          if (eta_region == 4) eta_string = "ee";
+          for (int iso_region = 1; iso_region < 5; iso_region++) {
+            if (iso_region == 1) iso_string = "tt";
+            if (iso_region == 2) iso_string = "tl";
+            if (iso_region == 3) iso_string = "lt";
+            if (iso_region == 4) iso_string = "ll";
+            index_region = 4200 + eta_region*10 + iso_region;
+            if (histo3[-index_region]) {
+              TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + eta_string + "_" + iso_string).c_str());
+              if (h3) {
+                histo3[-index_region]->Add(h3, norm);
+              }
+            } else {
+              TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + eta_string + "_" + iso_string).c_str());
+              if (h3) {
+                histo3[-index_region] = h3;
+                histo3[-index_region]->SetDirectory(0);
+                histo3[-index_region]->Scale(norm);
+              }
+            }
+          }
+        }
+      }
+#endif // defined(USE_MATRIX)
 
       file->Close();
       delete file;
@@ -358,7 +395,7 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
     int index = int(it->first);
-    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) { 
+    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
       histo3_cr->Add(histo3[index], -1);
     }
   }
@@ -491,6 +528,20 @@ void plot4(string plot="", string title="", string version="v00", string options
           n_region_err[2] = histo3[index_region + 3]->GetBinError(pho0_pt, pho1_pt, var);
           n_region_err[3] = histo3[index_region + 4]->GetBinError(pho0_pt, pho1_pt, var);
 
+          if (title.find("h_WGG_ele") != string::npos) {
+
+            n_region[0] = n_region[0] - histo3[-(index_region + 1)]->GetBinContent(pho0_pt, pho1_pt, var);
+            n_region[1] = n_region[1] - histo3[-(index_region + 2)]->GetBinContent(pho0_pt, pho1_pt, var);
+            n_region[2] = n_region[2] - histo3[-(index_region + 3)]->GetBinContent(pho0_pt, pho1_pt, var);
+            n_region[3] = n_region[3] - histo3[-(index_region + 4)]->GetBinContent(pho0_pt, pho1_pt, var);
+
+            n_region_err[0] = TMath::Sqrt(TMath::Power(n_region_err[0], 2) + TMath::Power(histo3[-(index_region + 1)]->GetBinError(pho0_pt, pho1_pt, var), 2));
+            n_region_err[1] = TMath::Sqrt(TMath::Power(n_region_err[1], 2) + TMath::Power(histo3[-(index_region + 2)]->GetBinError(pho0_pt, pho1_pt, var), 2));
+            n_region_err[2] = TMath::Sqrt(TMath::Power(n_region_err[2], 2) + TMath::Power(histo3[-(index_region + 3)]->GetBinError(pho0_pt, pho1_pt, var), 2));
+            n_region_err[3] = TMath::Sqrt(TMath::Power(n_region_err[3], 2) + TMath::Power(histo3[-(index_region + 4)]->GetBinError(pho0_pt, pho1_pt, var), 2));
+
+          }
+
           if(n_region[0] < 0) {
             n_region[0] = 0;
             n_region_err[0] = 0;
@@ -601,17 +652,18 @@ void plot4(string plot="", string title="", string version="v00", string options
 #if defined(CHECK_CLOSURE)
   for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
-    if (title.find("h_WGG_") != string::npos && (index == 1021 || index == 1022 || index == 1032)) {
-      for (int i = 0; i < histo[1010]->GetNbinsX()+2; i++) {
-        if (title.find("h_WGG_muo") != string::npos && index == 1021) continue;
-        histo[1010]->SetBinContent(i, histo[1010]->GetBinContent(i) - histo[index]->GetBinContent(i));
-        histo[1010]->SetBinError(i, TMath::Sqrt(TMath::Max(0., TMath::Power(histo[1010]->GetBinError(i), 2) - TMath::Power(histo[index]->GetBinError(i), 2))));
+    if (index > 0) {
+      if (title.find("h_WGG_") != string::npos && index != 1010 && index != 8001) {
+        for (int i = 0; i < histo[1010]->GetNbinsX()+2; i++) {
+          histo[1010]->SetBinContent(i, histo[1010]->GetBinContent(i) - histo[index]->GetBinContent(i));
+          histo[1010]->SetBinError(i, TMath::Sqrt(TMath::Max(0., TMath::Power(histo[1010]->GetBinError(i), 2) - TMath::Power(histo[index]->GetBinError(i), 2))));
+        }
       }
-    }
-    if (title.find("h_ZGG_") != string::npos && index == 42) {
-      for (int i = 0; i < histo[10]->GetNbinsX()+2; i++) {
-        histo[10]->SetBinContent(i, histo[10]->GetBinContent(i) - histo[index]->GetBinContent(i));
-        histo[10]->SetBinError(i, TMath::Sqrt(TMath::Max(0., TMath::Power(histo[10]->GetBinError(i), 2) - TMath::Power(histo[index]->GetBinError(i), 2))));
+      if (title.find("h_ZGG_") != string::npos && index != 10 && index != 8001) {
+        for (int i = 0; i < histo[10]->GetNbinsX()+2; i++) {
+          histo[10]->SetBinContent(i, histo[10]->GetBinContent(i) - histo[index]->GetBinContent(i));
+          histo[10]->SetBinError(i, TMath::Sqrt(TMath::Max(0., TMath::Power(histo[10]->GetBinError(i), 2) - TMath::Power(histo[index]->GetBinError(i), 2))));
+        }
       }
     }
   }
@@ -710,7 +762,35 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo[1010]->SetDirectory(0);
         }
       }
-  
+
+      h = (TH1D*)file_2016->Get((title + "_wg").c_str());
+      if (h) {
+        if (histo[1011]) {
+          histo[1011]->Add(h);
+        } else {
+          histo[1011] = h;
+          histo[1011]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2017->Get((title + "_wg").c_str());
+      if (h) {
+        if (histo[1011]) {
+          histo[1011]->Add(h);
+        } else {
+          histo[1011] = h;
+          histo[1011]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2018->Get((title + "_wg").c_str());
+      if (h) {
+        if (histo[1011]) {
+          histo[1011]->Add(h);
+        } else {
+          histo[1011] = h;
+          histo[1011]->SetDirectory(0);
+        }
+      }
+
       h = (TH1D*)file_2016->Get((title + "_zg").c_str());
       if (h) {
         if (histo[1021]) {
@@ -738,7 +818,7 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo[1021]->SetDirectory(0);
         }
       }
-  
+
       h = (TH1D*)file_2016->Get((title + "_zgg").c_str());
       if (h) {
         if (histo[1022]) {
@@ -766,7 +846,35 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo[1022]->SetDirectory(0);
         }
       }
-  
+
+      h = (TH1D*)file_2016->Get((title + "_ttg").c_str());
+      if (h) {
+        if (histo[1031]) {
+          histo[1031]->Add(h);
+        } else {
+          histo[1031] = h;
+          histo[1031]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2017->Get((title + "_ttg").c_str());
+      if (h) {
+        if (histo[1031]) {
+          histo[1031]->Add(h);
+        } else {
+          histo[1031] = h;
+          histo[1031]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2018->Get((title + "_ttg").c_str());
+      if (h) {
+        if (histo[1031]) {
+          histo[1031]->Add(h);
+        } else {
+          histo[1031] = h;
+          histo[1031]->SetDirectory(0);
+        }
+      }
+
       h = (TH1D*)file_2016->Get((title + "_ttgg").c_str());
       if (h) {
         if (histo[1032]) {
@@ -794,8 +902,36 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo[1032]->SetDirectory(0);
         }
       }
+
+      h = (TH1D*)file_2016->Get((title + "_vvg").c_str());
+      if (h) {
+        if (histo[1051]) {
+          histo[1051]->Add(h);
+        } else {
+          histo[1051] = h;
+          histo[1051]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2017->Get((title + "_vvg").c_str());
+      if (h) {
+        if (histo[1051]) {
+          histo[1051]->Add(h);
+        } else {
+          histo[1051] = h;
+          histo[1051]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2018->Get((title + "_vvg").c_str());
+      if (h) {
+        if (histo[1051]) {
+          histo[1051]->Add(h);
+        } else {
+          histo[1051] = h;
+          histo[1051]->SetDirectory(0);
+        }
+      }
     }
-  
+
     if (title.find("h_ZGG_") != string::npos) {
       h = (TH1D*)file_2016->Get((title + "_sig").c_str());
       if (h) {
@@ -824,7 +960,119 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo[10]->SetDirectory(0);
         }
       }
-  
+
+      h = (TH1D*)file_2016->Get((title + "_zg").c_str());
+      if (h) {
+        if (histo[11]) {
+          histo[11]->Add(h);
+        } else {
+          histo[11] = h;
+          histo[11]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2017->Get((title + "_zg").c_str());
+      if (h) {
+        if (histo[11]) {
+          histo[11]->Add(h);
+        } else {
+          histo[11] = h;
+          histo[11]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2018->Get((title + "_zg").c_str());
+      if (h) {
+        if (histo[11]) {
+          histo[11]->Add(h);
+        } else {
+          histo[11] = h;
+          histo[11]->SetDirectory(0);
+        }
+      }
+
+      h = (TH1D*)file_2016->Get((title + "_wg").c_str());
+      if (h) {
+        if (histo[21]) {
+          histo[21]->Add(h);
+        } else {
+          histo[21] = h;
+          histo[21]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2017->Get((title + "_wg").c_str());
+      if (h) {
+        if (histo[21]) {
+          histo[21]->Add(h);
+        } else {
+          histo[21] = h;
+          histo[21]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2018->Get((title + "_wg").c_str());
+      if (h) {
+        if (histo[21]) {
+          histo[21]->Add(h);
+        } else {
+          histo[21] = h;
+          histo[21]->SetDirectory(0);
+        }
+      }
+
+      h = (TH1D*)file_2016->Get((title + "_vvg").c_str());
+      if (h) {
+        if (histo[31]) {
+          histo[31]->Add(h);
+        } else {
+          histo[31] = h;
+          histo[31]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2017->Get((title + "_vvg").c_str());
+      if (h) {
+        if (histo[31]) {
+          histo[31]->Add(h);
+        } else {
+          histo[31] = h;
+          histo[31]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2018->Get((title + "_vvg").c_str());
+      if (h) {
+        if (histo[31]) {
+          histo[31]->Add(h);
+        } else {
+          histo[31] = h;
+          histo[31]->SetDirectory(0);
+        }
+      }
+
+      h = (TH1D*)file_2016->Get((title + "_ttg").c_str());
+      if (h) {
+        if (histo[41]) {
+          histo[41]->Add(h);
+        } else {
+          histo[41] = h;
+          histo[41]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2017->Get((title + "_ttg").c_str());
+      if (h) {
+        if (histo[41]) {
+          histo[41]->Add(h);
+        } else {
+          histo[41] = h;
+          histo[41]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2018->Get((title + "_ttg").c_str());
+      if (h) {
+        if (histo[41]) {
+          histo[41]->Add(h);
+        } else {
+          histo[41] = h;
+          histo[41]->SetDirectory(0);
+        }
+      }
+
       h = (TH1D*)file_2016->Get((title + "_ttgg").c_str());
       if (h) {
         if (histo[42]) {
@@ -858,9 +1106,9 @@ void plot4(string plot="", string title="", string version="v00", string options
     file_2017->Close();
     file_2018->Close();
 
-    delete file_2016;    
-    delete file_2017;    
-    delete file_2018;    
+    delete file_2016;
+    delete file_2017;
+    delete file_2018;
   }
 
   THStack* hstack_mc = new THStack("hstack_mc", "hstack_mc");
@@ -871,7 +1119,6 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
     int index = int(it->first);
-    if (title.find("h_WGG_muo") != string::npos && index == 1021) continue;
 
     if (flowbins) {
       histo[index]->SetBinContent(1, histo[index]->GetBinContent(1) + histo[index]->GetBinContent(0));
@@ -884,14 +1131,8 @@ void plot4(string plot="", string title="", string version="v00", string options
       histo[index]->SetBinError(histo[index]->GetNbinsX()+1, 0.);
     }
     if (index > 0) {
-      if (title.find("h_WGG_") != string::npos && (index == 1010 || index == 1021 || index == 1022 || index == 1032 || index == 8001)) {
-        hstack_mc->Add(histo[index]);
-        h_mc_sum->Add(histo[index]);
-      }
-      if (title.find("h_ZGG_") != string::npos && (index == 10 || index == 42 || index == 8001)) {
-        hstack_mc->Add(histo[index]);
-        h_mc_sum->Add(histo[index]);
-      }
+      hstack_mc->Add(histo[index]);
+      h_mc_sum->Add(histo[index]);
     }
   }
 #endif // defined(USE_MATRIX)
@@ -907,7 +1148,6 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
-    if (title.find("h_WGG_muo") != string::npos && index == 1021) continue;
 
     if (index == 0) {
       leg->AddEntry(histo[index], "Data", "p");
@@ -953,10 +1193,6 @@ void plot4(string plot="", string title="", string version="v00", string options
       histo[index]->SetFillColor(kOrange-4);
       histo[index]->SetFillStyle(3254);
       leg->AddEntry(histo[index], "W #gamma", "f");
-    }
-    if (index == 1020) {
-      histo[index]->SetFillColor(kOrange);
-      leg->AddEntry(histo[index], "DYJets", "f");
     }
     if (index == 1021) {
       histo[index]->SetFillColor(kOrange-5);
@@ -1180,27 +1416,21 @@ void plot4(string plot="", string title="", string version="v00", string options
   histo[8001]->Write((title + "_misid").c_str());
   if (title.find("h_WGG_") != string::npos) {
     histo[1010]->Write((title + "_sig").c_str());
+    histo[1011]->Write((title + "_wg").c_str());
     histo[1021]->Write((title + "_zg").c_str());
     histo[1022]->Write((title + "_zgg").c_str());
-    histo[1032]->Write((title + "_ttgg").c_str());
-  }
-  if (title.find("h_ZGG_") != string::npos) {
-    histo[10]->Write((title + "_sig").c_str());
-    histo[42]->Write((title + "_ttgg").c_str());
-  }
-#if defined(USE_CATEGORIES)
-  if (title.find("h_WGG_") != string::npos) {
-    histo[1011]->Write((title + "_wg").c_str());
     histo[1031]->Write((title + "_ttg").c_str());
+    histo[1032]->Write((title + "_ttgg").c_str());
     histo[1051]->Write((title + "_vvg").c_str());
   }
   if (title.find("h_ZGG_") != string::npos) {
+    histo[10]->Write((title + "_sig").c_str());
     histo[11]->Write((title + "_zg").c_str());
     histo[21]->Write((title + "_wg").c_str());
     histo[31]->Write((title + "_vvg").c_str());
     histo[41]->Write((title + "_ttg").c_str());
+    histo[42]->Write((title + "_ttgg").c_str());
   }
-#endif // defined(USE_CATEGORIES)
 
   file->Close();
   delete file;

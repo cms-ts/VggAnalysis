@@ -195,7 +195,7 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index > 0) {
+    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
       TFile* file = 0;
       if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_syst" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -218,12 +218,12 @@ void plot3(string plot="", string title="", string version="v00", string options
         return;
       }
       if (histo[index]) {
-        TH3D* h = (TH3D*)gDirectory->Get(string(title).erase(title.find("pho0_pt"), 6).c_str());
+        TH3D* h = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
         if (h) {
           histo[index]->Add(h, norm);
         }
       } else {
-        TH3D* h = (TH3D*)gDirectory->Get(string(title).erase(title.find("pho0_pt"), 6).c_str());
+        TH3D* h = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
         if (h) {
           histo[index] = h;
           histo[index]->SetDirectory(0);
@@ -260,12 +260,12 @@ void plot3(string plot="", string title="", string version="v00", string options
         return;
       }
       if (histo1[index]) {
-        TH1D* h1 = (TH1D*)gDirectory->Get(title.c_str());
+        TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
         if (h1) {
           histo1[index]->Add(h1, norm);
         }
       } else {
-        TH1D* h1 = (TH1D*)gDirectory->Get(title.c_str());
+        TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
         if (h1) {
           histo1[index] = h1;
           histo1[index]->SetDirectory(0);
@@ -305,35 +305,10 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   TH3D* histo_data = (TH3D*)histo[0]->Clone("histo_data");
 
-  if (title.find("h_WG") != string::npos) {
-    histo[0]->Add(histo[1010], -1);
-    histo[0]->Add(histo[1011], -1);
-    histo[0]->Add(histo[1021], -1);
-    histo[0]->Add(histo[1022], -1);
-    histo[0]->Add(histo[1031], -1);
-    histo[0]->Add(histo[1032], -1);
-    histo[0]->Add(histo[1051], -1);
-  }
-
-  if (title.find("h_ZG") != string::npos) {
-    histo[0]->Add(histo[10], -1);
-    histo[0]->Add(histo[11], -1);
-    histo[0]->Add(histo[21], -1);
-    histo[0]->Add(histo[22], -1);
-    histo[0]->Add(histo[31], -1);
-    histo[0]->Add(histo[41], -1);
-    histo[0]->Add(histo[42], -1);
-  }
-
-  if (flag == "jet_misid_mc") {
-    histo[0]->Reset();
-    for (map<int, TH3D*>::iterator it = histo.begin(); it != histo.end(); it++) {
-      int index = int(it->first);
-      if (index > 0) {
-        if (index != 10 && index != 11 && index != 21 && index != 22 && index != 31 && index != 41 && index != 42 && index != 1010 && index != 1011 && index != 1021 && index != 1022 && index != 1031 && index != 1032 && index != 1051) {
-          histo[0]->Add(histo[index]);
-        }
-      }
+  for (map<int, TH3D*>::iterator it = histo.begin(); it != histo.end(); it++) {
+    int index = int(it->first);
+    if (index > 0) {
+      histo[0]->Add(histo[index], -1);
     }
   }
 
