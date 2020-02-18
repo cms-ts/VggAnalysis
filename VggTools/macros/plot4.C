@@ -542,19 +542,19 @@ void plot4(string plot="", string title="", string version="v00", string options
 
           }
 
-          if(n_region[0] < 0) {
+          if (n_region[0] < 0) {
             n_region[0] = 0;
             n_region_err[0] = 0;
           }
-          if(n_region[1] < 0) {
+          if (n_region[1] < 0) {
             n_region[1] = 0;
             n_region_err[1] = 0;
           }
-          if(n_region[2] < 0) {
+          if (n_region[2] < 0) {
             n_region[2] = 0;
             n_region_err[2] = 0;
           }
-          if(n_region[3] < 0) {
+          if (n_region[3] < 0) {
             n_region[3] = 0;
             n_region_err[3] = 0;
           }
