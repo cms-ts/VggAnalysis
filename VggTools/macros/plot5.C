@@ -20,6 +20,8 @@ void plot5(string plot="", string title="", string version="v00", string options
   if (options.find("madgraph") != string::npos) plot = "madgraph/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
+#define USE_MATRIX
+
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
@@ -113,14 +115,16 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   TH1D* h_mc_gen = (TH1D*)f2->Get((title + "_mc_gen").c_str());
 
+#if defined(USE_MATRIX)
+  TH1D* h_mc_eff = (TH1D*)f2->Get((title + "_mc_eff_genmatch").c_str());
+#else
   TH1D* h_mc_eff = (TH1D*)f2->Get((title + "_mc_eff").c_str());
-  TH1D* h_mc_eff_genmatch = (TH1D*)f2->Get((title + "_mc_eff_genmatch").c_str());
+#endif
 
   h_data->SetDirectory(0);
   h_bkg->SetDirectory(0);
   h_mc_gen->SetDirectory(0);
   h_mc_eff->SetDirectory(0);
-  if (h_mc_eff_genmatch) h_mc_eff_genmatch->SetDirectory(0);
 
   f1->Close();
   f2->Close();
@@ -276,9 +280,15 @@ void plot5(string plot="", string title="", string version="v00", string options
   TH1D* h_mc_eff_2017 = 0;
   TH1D* h_mc_eff_2018 = 0;
 
+#if defined(USE_MATRIX)
+  if (f2_2016) h_mc_eff_2016 = (TH1D*)f2_2016->Get((title + "_mc_eff_genmatch").c_str());
+  if (f2_2017) h_mc_eff_2017 = (TH1D*)f2_2017->Get((title + "_mc_eff_genmatch").c_str());
+  if (f2_2018) h_mc_eff_2018 = (TH1D*)f2_2018->Get((title + "_mc_eff_genmatch").c_str());
+#else
   if (f2_2016) h_mc_eff_2016 = (TH1D*)f2_2016->Get((title + "_mc_eff").c_str());
   if (f2_2017) h_mc_eff_2017 = (TH1D*)f2_2017->Get((title + "_mc_eff").c_str());
   if (f2_2018) h_mc_eff_2018 = (TH1D*)f2_2018->Get((title + "_mc_eff").c_str());
+#endif
 
   if (f1_2016) {
     h_data_2016->SetDirectory(0);
