@@ -292,9 +292,9 @@ void plot3(string plot="", string title="", string version="v00", string options
   if (title.find("h_WG") != string::npos) myindex = 1011;
   if (title.find("h_ZG") != string::npos) myindex = 11;
 
-  for (int i = 0; i < histo[myindex]->GetNbinsX() + 1; i++) {
-    for (int j = 0; j < histo[myindex]->GetNbinsY() + 1; j++) {
-      for (int k = 0; k < histo[myindex]->GetNbinsZ() + 1; k++) {
+  for (int i = 0; i < histo[myindex]->GetNbinsX() + 2; i++) {
+    for (int j = 0; j < histo[myindex]->GetNbinsY() + 2; j++) {
+      for (int k = 0; k < histo[myindex]->GetNbinsZ() + 2; k++) {
         if (histo[myindex]->GetBinContent(i, j, k) < 0) {
           histo[myindex]->SetBinContent(i, j, k, 0.);
           histo[myindex]->SetBinError(i, j, k, 0.);
@@ -312,9 +312,9 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  for (int i = 0; i < histo[0]->GetNbinsX() + 1; i++) {
-    for (int j = 0; j < histo[0]->GetNbinsY() + 1; j++) {
-      for (int k = 0; k < histo[0]->GetNbinsZ() + 1; k++) {
+  for (int i = 0; i < histo[0]->GetNbinsX() + 2; i++) {
+    for (int j = 0; j < histo[0]->GetNbinsY() + 2; j++) {
+      for (int k = 0; k < histo[0]->GetNbinsZ() + 2; k++) {
         if (histo[0]->GetBinContent(i, j, k) < 0) {
           histo[0]->SetBinContent(i, j, k, 0.);
           histo[0]->SetBinError(i, j, k, 0.);
