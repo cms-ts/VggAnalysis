@@ -372,6 +372,11 @@ void plot3(string plot="", string title="", string version="v00", string options
           f2 = histo[0]->GetBinContent(pho1_pt, 2, 1) / (histo[0]->GetBinContent(pho1_pt, 2, 1) + histo[0]->GetBinContent(pho1_pt, 2, 2));
         }
 
+        if (!TMath::Finite(e1)) e1 = 0.;
+        if (!TMath::Finite(e2)) e2 = 0.;
+        if (!TMath::Finite(f1)) f1 = 0.;
+        if (!TMath::Finite(f2)) f2 = 0.;
+
         string matrix_title = "h_matrix_";
         matrix_title += std::to_string(pho0_pt);
         matrix_title += std::to_string(pho1_pt);
