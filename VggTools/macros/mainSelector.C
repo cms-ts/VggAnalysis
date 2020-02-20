@@ -115,6 +115,8 @@ void mainSelector::Begin(TTree * /*tree*/)
      if (TString(fInput->FindObject("flag")->GetTitle()).Contains("eg_misid_up")) iflag = 130;
      if (TString(fInput->FindObject("flag")->GetTitle()).Contains("eg_misid_down")) iflag = 135;
 
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jet_misid_syst")) iflag = 140;
+
      if (iflag == -1) {
        Error("Begin", "%s : unknown flag = %s", now.AsSQLString(), fInput->FindObject("flag")->GetTitle());
        gSystem->Exit(1);
@@ -2387,16 +2389,15 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-
-     //if ((Photon_vidNestedWPBitmap[i] & 0b0010100010101010) != 0b0010100010101010) continue;
-
-     if ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
+     //if ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
+     if (iflag != 140 && ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010)) continue;
+     if (iflag == 140 && ((Photon_vidNestedWPBitmap[i] & 0b0010101000101010) != 0b0010101000101010)) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
      //if (Photon_pfRelIso03_all[i] > 0.15) continue;
-     //if ((Photon_vidNestedWPBitmap[i] & 0b0000001100000000) == 0b0000000000000000) continue;
+     //if ((Photon_vidNestedWPBitmap[i] & 0b0010101000000000) != 0b0010101000000000) continue;
 
      bool skip = false;
 
@@ -2538,12 +2539,12 @@ Bool_t mainSelector::Process(Long64_t entry)
    bool is_pho1_iso = false;
 
    if (ipho0_iso != -1) {
-     //if ((Photon_vidNestedWPBitmap[ipho0_iso] & 0b0000001000000000) == 0b0000001000000000) is_pho0_iso = true;
-     if ((Photon_vidNestedWPBitmap[ipho0_iso] & 0b0010101000000000) == 0b0010101000000000) is_pho0_iso = true;
+     if (iflag != 140 && ((Photon_vidNestedWPBitmap[ipho0_iso] & 0b0010101000000000) == 0b0010101000000000)) is_pho0_iso = true;
+     if (iflag == 140 && ((Photon_vidNestedWPBitmap[ipho0_iso] & 0b0000000010000000) == 0b0000000010000000)) is_pho0_iso = true;
    }
    if (ipho1_iso != -1) {
-     //if ((Photon_vidNestedWPBitmap[ipho1_iso] & 0b0000001000000000) == 0b0000001000000000) is_pho1_iso = true;
-     if ((Photon_vidNestedWPBitmap[ipho1_iso] & 0b0010101000000000) == 0b0010101000000000) is_pho1_iso = true;
+     if (iflag != 140 && ((Photon_vidNestedWPBitmap[ipho1_iso] & 0b0010101000000000) == 0b0010101000000000)) is_pho1_iso = true;
+     if (iflag == 140 && ((Photon_vidNestedWPBitmap[ipho1_iso] & 0b0000000010000000) == 0b0000000010000000)) is_pho1_iso = true;
    }
 
 // photons cat

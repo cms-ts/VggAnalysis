@@ -70,6 +70,7 @@ if [ ! -z "$2" ]; then
     FLAGS=$FLAGS" l1prefiring_down"
     FLAGS=$FLAGS" eg_misid_up"
     FLAGS=$FLAGS" eg_misid_down"
+    FLAGS=$FLAGS" jet_misid_syst"
   else
     FLAGS=$2
   fi
