@@ -787,6 +787,9 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_ZG_ele_pho0_pf_iso_chg = new TH1D("h_ZG_ele_pho0_pf_iso_chg", "h_ZG_ele_pho0_pf_iso_chg", 50, 0.0, 0.4);
    h_ZG_ele_pho0_dR = new TH1D("h_ZG_ele_pho0_dR", "h_ZG_ele_pho0_dR", 50, 0., 5.);
 
+   h_ZG_ele_pho0_pt_fsr_iso = new TH1D("h_ZG_ele_pho0_pt_fsr_iso", "h_ZG_ele_pho0_pt_fsr_iso", 60, 0., 300.);
+   h_ZG_ele_pho0_pt_fsr_noiso = new TH1D("h_ZG_ele_pho0_pt_fsr_noiso", "h_ZG_ele_pho0_pt_fsr_noiso", 60, 0., 300.);
+
    h_ZGG_ele_ele0_pt = new TH1D("h_ZGG_ele_ele0_pt", "h_ZGG_ele_ele0_pt", 15, 0., 300.);
    h_ZGG_ele_ele1_pt = new TH1D("h_ZGG_ele_ele1_pt", "h_ZGG_ele_ele1_pt", 15, 0., 300.);
    h_ZGG_ele_pho0_pt = new TH1D("h_ZGG_ele_pho0_pt", "h_ZGG_ele_pho0_pt", 15, 0., 300.);
@@ -818,6 +821,9 @@ void mainSelector::SlaveBegin(TTree * /*tree*/)
    h_ZG_muo_pho0_pf_iso_all = new TH1D("h_ZG_muo_pho0_pf_iso_all", "h_ZG_muo_pho0_pf_iso_all", 50, 0.0, 0.4);
    h_ZG_muo_pho0_pf_iso_chg = new TH1D("h_ZG_muo_pho0_pf_iso_chg", "h_ZG_muo_pho0_pf_iso_chg", 50, 0.0, 0.4);
    h_ZG_muo_pho0_dR = new TH1D("h_ZG_muo_pho0_dR", "h_ZG_muo_pho0_dR", 50, 0., 5.);
+
+   h_ZG_muo_pho0_pt_fsr_iso = new TH1D("h_ZG_muo_pho0_pt_fsr_iso", "h_ZG_muo_pho0_pt_fsr_iso", 60, 0., 300.);
+   h_ZG_muo_pho0_pt_fsr_noiso = new TH1D("h_ZG_muo_pho0_pt_fsr_noiso", "h_ZG_muo_pho0_pt_fsr_noiso", 60, 0., 300.);
 
    h_ZGG_muo_muo0_pt = new TH1D("h_ZGG_muo_muo0_pt", "h_ZGG_muo_muo0_pt", 15, 0., 300.);
    h_ZGG_muo_muo1_pt = new TH1D("h_ZGG_muo_muo1_pt", "h_ZGG_muo_muo1_pt", 15, 0., 300.);
@@ -5285,6 +5291,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho0 != -1) {
        h_ZG_ele_ele0_pt->Fill(Electron_pt[iele0], weight_Z_ele * weight_pho0);
        h_ZG_ele_pho0_pt->Fill(Photon_pt[ipho0], weight_Z_ele * weight_pho0);
+       if (fabs((ele0+ele1+pho0).M() - 91.2) < 5) h_ZG_ele_pho0_pt_fsr_iso->Fill(Photon_pt[ipho0], weight_Z_ele * weight_pho0);
        h_ZG_ele_pho0_eta->Fill(Photon_eta[ipho0], weight_Z_ele * weight_pho0);
        h_ZG_ele_pho0_phi->Fill(Photon_phi[ipho0], weight_Z_ele * weight_pho0);
        h_ZG_ele_pho0_r9->Fill(Photon_r9[ipho0], weight_Z_ele * weight_pho0);
@@ -5358,6 +5365,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
      if (ipho0_iso != -1) {
+       if (!is_pho0_iso && (fabs((ele0+ele1+pho0_iso).M() - 91.2) < 5)) h_ZG_ele_pho0_pt_fsr_noiso->Fill(Photon_pt[ipho0_iso], weight_Z_ele * weight_pho0);
        if (fabs(pho0_iso.Eta()) < 1.442) {
          if (is_pho0_iso) {
            h_ZG_ele_t->Fill(pho0_iso.Pt(), 0., 0., weight_Z_ele * weight_pho0_iso);
@@ -5651,6 +5659,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (ipho0 != -1) {
        h_ZG_muo_muo0_pt->Fill(Muon_pt[imuo0], weight_Z_muo * weight_pho0);
        h_ZG_muo_pho0_pt->Fill(Photon_pt[ipho0], weight_Z_muo * weight_pho0);
+       if (fabs((muo0+muo1+pho0).M() - 91.2) < 5) h_ZG_muo_pho0_pt_fsr_iso->Fill(Photon_pt[ipho0], weight_Z_muo * weight_pho0);
        h_ZG_muo_pho0_eta->Fill(Photon_eta[ipho0], weight_Z_muo * weight_pho0);
        h_ZG_muo_pho0_phi->Fill(Photon_phi[ipho0], weight_Z_muo * weight_pho0);
        h_ZG_muo_pho0_r9->Fill(Photon_r9[ipho0], weight_Z_muo * weight_pho0);
@@ -5724,6 +5733,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
      if (ipho0_iso != -1) {
+       if (!is_pho0_iso && (fabs((muo0+muo1+pho0_iso).M() - 91.2) < 5)) h_ZG_muo_pho0_pt_fsr_noiso->Fill(Photon_pt[ipho0_iso], weight_Z_muo * weight_pho0);
        if (fabs(pho0_iso.Eta()) < 1.442) {
          if (is_pho0_iso) {
            h_ZG_muo_t->Fill(pho0_iso.Pt(), 0., 0., weight_Z_muo * weight_pho0_iso);

@@ -250,6 +250,9 @@ public :
    TH1D* h_ZG_ele_pho0_pf_iso_chg = 0;
    TH1D* h_ZG_ele_pho0_dR = 0;
 
+   TH1D* h_ZG_ele_pho0_pt_fsr_iso = 0;
+   TH1D* h_ZG_ele_pho0_pt_fsr_noiso = 0;
+
    TH1D* h_ZGG_ele_ele0_pt = 0;
    TH1D* h_ZGG_ele_ele1_pt = 0;
    TH1D* h_ZGG_ele_pho0_pt = 0;
@@ -281,6 +284,9 @@ public :
    TH1D* h_ZG_muo_pho0_pf_iso_all = 0;
    TH1D* h_ZG_muo_pho0_pf_iso_chg = 0;
    TH1D* h_ZG_muo_pho0_dR = 0;
+
+   TH1D* h_ZG_muo_pho0_pt_fsr_iso = 0;
+   TH1D* h_ZG_muo_pho0_pt_fsr_noiso = 0;
 
    TH1D* h_ZGG_muo_muo0_pt = 0;
    TH1D* h_ZGG_muo_muo1_pt = 0;
