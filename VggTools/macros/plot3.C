@@ -88,8 +88,8 @@ void plot3(string plot="", string title="", string version="v00", string options
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + "_matrix_weight.root").c_str(), "RECREATE");
-  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + "_matrix_weight.root").c_str());
+  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str());
 
   h_weight_data->Write("h_weight_data");
   h_weight_mc->Write("h_weight_mc");
@@ -336,8 +336,8 @@ void plot3(string plot="", string title="", string version="v00", string options
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + "_matrix_weight.root").c_str(), "RECREATE");
-  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + "_matrix_weight.root").c_str());
+  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str());
 
   for (int eta = 1; eta < 5; eta++) {
     for (int pho0_pt = 2; pho0_pt < histo[0]->GetNbinsX() + 2; pho0_pt++) {
