@@ -475,10 +475,6 @@ void plot4(string plot="", string title="", string version="v00", string options
     }
   }
 
-  TH2D* h_weight_2016 = 0;
-  TH2D* h_weight_2017 = 0;
-  TH2D* h_weight_2018 = 0;
-
   histo[8001] = (TH1D*)histo[0]->Clone();
   histo[8001]->Reset();
   histo[8001]->SetDirectory(0);
@@ -544,41 +540,24 @@ void plot4(string plot="", string title="", string version="v00", string options
             n_region_err[3] = 0;
           }
 
-          string matrix_title = "h_matrix_";
+          string matrix_title = "matrix_";
           matrix_title += std::to_string(pho0_pt);
           matrix_title += std::to_string(pho1_pt);
           matrix_title += std::to_string(eta);
 
+          TMatrixD matrix(4,4);
+
           if (file_matrix_2016) {
-            h_weight_2016 = (TH2D*)file_matrix_2016->Get((matrix_title).c_str());
-            h_weight_2016->SetDirectory(0);
+            TMatrixD* matrix_2016 = (TMatrixD*)file_matrix_2016->Get((matrix_title).c_str());
+            matrix = matrix + (*matrix_2016) * double(lumi2016/lumi);
           }
           if (file_matrix_2017) {
-            h_weight_2017 = (TH2D*)file_matrix_2017->Get((matrix_title).c_str());
-            h_weight_2017->SetDirectory(0);
+            TMatrixD* matrix_2017 = (TMatrixD*)file_matrix_2017->Get((matrix_title).c_str());
+            matrix = matrix + (*matrix_2017) * double(lumi2017/lumi);
           }
           if (file_matrix_2018) {
-            h_weight_2018 = (TH2D*)file_matrix_2018->Get((matrix_title).c_str());
-            h_weight_2018->SetDirectory(0);
-          }
-
-          TH2D* h_weight = 0;
-
-          if (!h_weight && h_weight_2016) h_weight = (TH2D*)h_weight_2016->Clone("h_weight");
-          if (!h_weight && h_weight_2017) h_weight = (TH2D*)h_weight_2017->Clone("h_weight");
-          if (!h_weight && h_weight_2018) h_weight = (TH2D*)h_weight_2018->Clone("h_weight");
-
-          h_weight->Reset();
-
-          if (h_weight_2016) h_weight->Add(h_weight_2016, lumi2016/lumi);
-          if (h_weight_2017) h_weight->Add(h_weight_2017, lumi2017/lumi);
-          if (h_weight_2018) h_weight->Add(h_weight_2018, lumi2018/lumi);
-
-          TMatrixD matrix(4,4);
-          for (int i = 1; i < 5; i++) {
-            for (int j = 1; j < 5; j++){
-              matrix(i-1,j-1) = h_weight->GetBinContent(i,j);
-            }
+            TMatrixD* matrix_2018 = (TMatrixD*)file_matrix_2018->Get((matrix_title).c_str());
+            matrix = matrix + (*matrix_2018) * double(lumi2018/lumi);
           }
 
           double det = -1.;
@@ -614,8 +593,6 @@ void plot4(string plot="", string title="", string version="v00", string options
             histo[10]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[10]->GetBinError(var), 2) + TMath::Power(matrix(0,0)*alpha_err(0), 2)));
           }
 #endif // defined(CHECK_CLOSURE)
-
-          delete h_weight;
         }
       }
     }

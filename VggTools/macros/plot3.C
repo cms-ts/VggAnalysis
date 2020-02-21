@@ -377,36 +377,34 @@ void plot3(string plot="", string title="", string version="v00", string options
         if (!TMath::Finite(f1)) f1 = 0.;
         if (!TMath::Finite(f2)) f2 = 0.;
 
-        string matrix_title = "h_matrix_";
+        string matrix_title = "matrix_";
         matrix_title += std::to_string(pho0_pt);
         matrix_title += std::to_string(pho1_pt);
         matrix_title += std::to_string(eta);
 
-        TH2D* matrix = new TH2D("matrix", "matrix", 4, -0.5, 3.5, 4, -0.5, 3.5);
+        TMatrixD matrix(4,4);
 
-        matrix->SetBinContent(1, 1, e1 * e2);
-        matrix->SetBinContent(1, 2, e1 * f2);
-        matrix->SetBinContent(1, 3, f1 * e2);
-        matrix->SetBinContent(1, 4, f1 * f2);
+        matrix(0, 0) = e1 * e2;
+        matrix(0, 1) = e1 * f2;
+        matrix(0, 2) = f1 * e2;
+        matrix(0, 3) = f1 * f2;
 
-        matrix->SetBinContent(2, 1, e1 * (1.-e2));
-        matrix->SetBinContent(2, 2, e1 * (1.-f2));
-        matrix->SetBinContent(2, 3, f1 * (1.-e2));
-        matrix->SetBinContent(2, 4, f1 * (1.-f2));
+        matrix(1, 0) = e1 * (1.-e2);
+        matrix(1, 1) = e1 * (1.-f2);
+        matrix(1, 2) = f1 * (1.-e2);
+        matrix(1, 3) = f1 * (1.-f2);
 
-        matrix->SetBinContent(3, 1, (1.-e1) * e2);
-        matrix->SetBinContent(3, 2, (1.-e1) * f2);
-        matrix->SetBinContent(3, 3, (1.-f1) * e2);
-        matrix->SetBinContent(3, 4, (1.-f1) * f2);
+        matrix(2, 0) = (1.-e1) * e2;
+        matrix(2, 1) = (1.-e1) * f2;
+        matrix(2, 2) = (1.-f1) * e2;
+        matrix(2, 3) = (1.-f1) * f2;
 
-        matrix->SetBinContent(4, 1, (1.-e1) * (1.-e2));
-        matrix->SetBinContent(4, 2, (1.-e1) * (1.-f2));
-        matrix->SetBinContent(4, 3, (1.-f1) * (1.-e2));
-        matrix->SetBinContent(4, 4, (1.-f1) * (1.-f2));
+        matrix(3, 0) = (1.-e1) * (1.-e2);
+        matrix(3, 1) = (1.-e1) * (1.-f2);
+        matrix(3, 2) = (1.-f1) * (1.-e2);
+        matrix(3, 3) = (1.-f1) * (1.-f2);
 
-        matrix->Write((matrix_title).c_str());
-
-        delete matrix;
+        matrix.Write((matrix_title).c_str());
       }
     }
   }
