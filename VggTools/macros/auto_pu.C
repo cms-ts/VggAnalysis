@@ -14,9 +14,9 @@ using namespace std;
 
 #include "../scripts/WeightCalculatorFromHistogram.C"
 
-#define NANOAODv5
+// #define NANOAODv5
 
-// #define NANOAODv6
+#define NANOAODv6
 
 #if defined(NANOAODv5)
 #undef NANOAODv6
