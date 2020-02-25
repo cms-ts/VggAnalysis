@@ -161,7 +161,7 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
+    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
       if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -395,7 +395,7 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
     int index = int(it->first);
-    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
+    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       histo3_cr->Add(histo3[index], -1);
     }
   }
@@ -434,9 +434,11 @@ void plot4(string plot="", string title="", string version="v00", string options
       histo[index]->SetBinError(histo[index]->GetNbinsX()+1, 0.);
     }
     if (index > 0) {
-      if ((title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) && (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051 || index == 8001)) {
-        hstack_mc->Add(histo[index]);
-        h_mc_sum->Add(histo[index]);
+      if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
+        if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
+          hstack_mc->Add(histo[index]);
+          h_mc_sum->Add(histo[index]);
+        }
       }
     }
   }
@@ -865,6 +867,34 @@ void plot4(string plot="", string title="", string version="v00", string options
         }
       }
 
+      h = (TH1D*)file_2016->Get((title + "_tg").c_str());
+      if (h) {
+        if (histo[1041]) {
+          histo[1041]->Add(h);
+        } else {
+          histo[1041] = h;
+          histo[1041]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2017->Get((title + "_tg").c_str());
+      if (h) {
+        if (histo[1041]) {
+          histo[1041]->Add(h);
+        } else {
+          histo[1041] = h;
+          histo[1041]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2018->Get((title + "_tg").c_str());
+      if (h) {
+        if (histo[1041]) {
+          histo[1041]->Add(h);
+        } else {
+          histo[1041] = h;
+          histo[1041]->SetDirectory(0);
+        }
+      }
+
       h = (TH1D*)file_2016->Get((title + "_vvg").c_str());
       if (h) {
         if (histo[1051]) {
@@ -1062,6 +1092,34 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo[42]->SetDirectory(0);
         }
       }
+
+      h = (TH1D*)file_2016->Get((title + "_tg").c_str());
+      if (h) {
+        if (histo[51]) {
+          histo[51]->Add(h);
+        } else {
+          histo[51] = h;
+          histo[51]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2017->Get((title + "_tg").c_str());
+      if (h) {
+        if (histo[51]) {
+          histo[51]->Add(h);
+        } else {
+          histo[51] = h;
+          histo[51]->SetDirectory(0);
+        }
+      }
+      h = (TH1D*)file_2018->Get((title + "_tg").c_str());
+      if (h) {
+        if (histo[51]) {
+          histo[51]->Add(h);
+        } else {
+          histo[51] = h;
+          histo[51]->SetDirectory(0);
+        }
+      }
     }
 
     file_2016->Close();
@@ -1145,6 +1203,10 @@ void plot4(string plot="", string title="", string version="v00", string options
       histo[index]->SetFillColor(kBlue+3);
       leg->AddEntry(histo[index], "TT #gamma #gamma", "f");
     }
+    if (index == 51) {
+      histo[index]->SetFillColor(kOrange+7);
+      leg->AddEntry(histo[index], "SingleTop #gamma", "f");
+    }
 
     if (index == 1010) {
       histo[index]->SetFillColor(kOrange+7);
@@ -1171,6 +1233,10 @@ void plot4(string plot="", string title="", string version="v00", string options
     if (index == 1032) {
       histo[index]->SetFillColor(kBlue+3);
       leg->AddEntry(histo[index], "TT #gamma #gamma", "f");
+    }
+    if (index == 1041) {
+      histo[index]->SetFillColor(kOrange+7);
+      leg->AddEntry(histo[index], "SingleTop #gamma", "f");
     }
     if (index == 1051) {
       histo[index]->SetFillColor(kGreen+3);
@@ -1383,6 +1449,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     histo[1022]->Write((title + "_zgg").c_str());
     histo[1031]->Write((title + "_ttg").c_str());
     histo[1032]->Write((title + "_ttgg").c_str());
+    histo[1041]->Write((title + "_tg").c_str());
     histo[1051]->Write((title + "_vvg").c_str());
   }
   if (title.find("h_ZGG_") != string::npos) {
@@ -1392,6 +1459,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     histo[31]->Write((title + "_vvg").c_str());
     histo[41]->Write((title + "_ttg").c_str());
     histo[42]->Write((title + "_ttgg").c_str());
+    histo[51]->Write((title + "_tg").c_str());
   }
 
   file->Close();

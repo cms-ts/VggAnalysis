@@ -327,6 +327,10 @@ void plot0(string plot="", string title="", string version="v00", string options
       histo[index]->SetFillColor(kOrange-3);
       leg->AddEntry(histo[index], "SingleTop", "f");
     }
+    if (index == 51) {
+      histo[index]->SetFillColor(kOrange+7);
+      leg->AddEntry(histo[index], "SingleTop #gamma", "f");
+    }
 
     if (index == 1010) {
       histo[index]->SetFillColor(kOrange+7);
@@ -373,6 +377,10 @@ void plot0(string plot="", string title="", string version="v00", string options
     if (index == 1040) {
       histo[index]->SetFillColor(kOrange-3);
       leg->AddEntry(histo[index], "SingleTop", "f");
+    }
+    if (index == 1041) {
+      histo[index]->SetFillColor(kOrange+7);
+      leg->AddEntry(histo[index], "SingleTop #gamma", "f");
     }
     if (index == 1050) {
       histo[index]->SetFillColor(kGreen+2);
