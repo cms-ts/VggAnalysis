@@ -633,6 +633,12 @@ void plot4(string plot="", string title="", string version="v00", string options
   }
 #endif // defined(CHECK_CLOSURE)
 
+  for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
+    int index = int(it->first);
+    histo[index]->SetName((string(histo[index]->GetName()) + "_rebin").c_str());
+    histo[index] = rebin(histo[index]);
+  }
+
   if (plot.find("Run2") != string::npos) {
     TFile* file_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/" + title + ".root").c_str());
     TFile* file_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/" + title + ".root").c_str());
