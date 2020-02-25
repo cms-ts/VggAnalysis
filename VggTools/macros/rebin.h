@@ -19,6 +19,7 @@ TH1D* rebin(TH1D* old) {
       nbins[1] = 2;
       nbins[2] = 1;
       nbins[3] = 1;
+
     } else if (name.find("WGG_ele_pho0_pt") != string::npos || name.find("WGG_muo_pho0_pt") != string::npos ||
                name.find("ZGG_ele_pho0_pt") != string::npos || name.find("ZGG_muo_pho0_pt") != string::npos ) {
 
@@ -27,6 +28,7 @@ TH1D* rebin(TH1D* old) {
       nbins[1] = 3;
       nbins[2] = 1;
       nbins[3] = 1;
+
     } else {
       return old;
     }
@@ -44,6 +46,7 @@ TH1D* rebin(TH1D* old) {
     nbins[3] = 1;
     nbins[4] = 5;
     nbins[5] = 6;
+
   } else if (name.find("WG_ele_pho0_pt") != string::npos ||
              name.find("WG_muo_pho0_pt") != string::npos ||
              name.find("ZG_ele_pho0_pt") != string::npos ||
@@ -110,6 +113,7 @@ TH2D* rebin(TH2D* old) {
   float nybins[100];
 
   if (name.find("misid") != string::npos) {
+
     nxb = 8;
     for (int i = 0; i < 8; i++) {
       nxbins[i] = 1;
@@ -123,6 +127,7 @@ TH2D* rebin(TH2D* old) {
     nybins[16] = 6;
     nybins[17] = 6;
     nybins[18] = 12;
+
   } else {
     return old;
   }
@@ -242,6 +247,7 @@ TH3D* rebin(TH3D* old) {
     nzbins[3] = 1;
     nzbins[4] = 5;
     nzbins[5] = 6;
+
   } else if (name.find("WGG_ele_pho0_pho1_pt") != string::npos || name.find("WGG_muo_pho0_pho1_pt") != string::npos ||
              name.find("ZGG_ele_pho0_pho1_pt") != string::npos || name.find("ZGG_muo_pho0_pho1_pt") != string::npos ||
              name.find("WGG_ele_pho0_pt") != string::npos || name.find("WGG_muo_pho0_pt") != string::npos ||
@@ -272,8 +278,10 @@ TH3D* rebin(TH3D* old) {
     nzbins[3] = 1;
     nzbins[4] = 5;
     nzbins[5] = 6;
+
   } else if (name.find("WG_ele_t") != string::npos || name.find("WG_muo_t") != string::npos ||
              name.find("ZG_ele_t") != string::npos || name.find("ZG_muo_t") != string::npos) {
+
     nxb = 6;
     nxbins[0] = 1;
     nxbins[1] = 1;
@@ -289,6 +297,7 @@ TH3D* rebin(TH3D* old) {
     nzb = 2;
     nzbins[0] = 1;
     nzbins[1] = 1;
+
   } else {
     return old;
   }
