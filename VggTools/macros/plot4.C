@@ -419,20 +419,8 @@ void plot4(string plot="", string title="", string version="v00", string options
   TH1D* h_mc_sum = (TH1D*)histo[0]->Clone("h_mc_sum");
   h_mc_sum->Reset();
 
-  bool flowbins = true;
-
   for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
     int index = int(it->first);
-    if (flowbins) {
-      histo[index]->SetBinContent(1, histo[index]->GetBinContent(1) + histo[index]->GetBinContent(0));
-      histo[index]->SetBinContent(histo[index]->GetNbinsX(), histo[index]->GetBinContent(histo[index]->GetNbinsX()) + histo[index]->GetBinContent(histo[index]->GetNbinsX()+1));
-      histo[index]->SetBinError(1, TMath::Sqrt(TMath::Power(histo[index]->GetBinError(1), 2) + TMath::Power(histo[index]->GetBinError(0), 2)));
-      histo[index]->SetBinError(histo[index]->GetNbinsX(), TMath::Sqrt(TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()), 2) + TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()+1), 2)));
-      histo[index]->SetBinContent(0, 0.);
-      histo[index]->SetBinContent(histo[index]->GetNbinsX()+1, 0.);
-      histo[index]->SetBinError(0, 0.);
-      histo[index]->SetBinError(histo[index]->GetNbinsX()+1, 0.);
-    }
     if (index > 0) {
       if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
         if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
@@ -492,10 +480,10 @@ void plot4(string plot="", string title="", string version="v00", string options
   }
 #endif // defined(CHECK_CLOSURE)
 
-  for (int var = 1; var < histo3[4211]->GetNbinsZ() + 2; var++) {
+  for (int var = 1; var < histo3[4211]->GetNbinsZ()+1; var++) {
     for (int eta = 1; eta < 5; eta++) {
-      for (int pho0_pt = 2; pho0_pt < histo3[4211]->GetNbinsX() + 2; pho0_pt++) {
-        for (int pho1_pt = 2; pho1_pt < histo3[4211]->GetNbinsY() + 2; pho1_pt++) {
+      for (int pho0_pt = 2; pho0_pt < histo3[4211]->GetNbinsX()+1; pho0_pt++) {
+        for (int pho1_pt = 2; pho1_pt < histo3[4211]->GetNbinsY()+1; pho1_pt++) {
 
           int index_region = 4200 + eta*10;
 
@@ -1143,21 +1131,8 @@ void plot4(string plot="", string title="", string version="v00", string options
   TH1D* h_mc_sum = (TH1D*)histo[0]->Clone("h_mc_sum");
   h_mc_sum->Reset();
 
-  bool flowbins = true;
-
   for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
     int index = int(it->first);
-
-    if (flowbins) {
-      histo[index]->SetBinContent(1, histo[index]->GetBinContent(1) + histo[index]->GetBinContent(0));
-      histo[index]->SetBinContent(histo[index]->GetNbinsX(), histo[index]->GetBinContent(histo[index]->GetNbinsX()) + histo[index]->GetBinContent(histo[index]->GetNbinsX()+1));
-      histo[index]->SetBinError(1, TMath::Sqrt(TMath::Power(histo[index]->GetBinError(1), 2) + TMath::Power(histo[index]->GetBinError(0), 2)));
-      histo[index]->SetBinError(histo[index]->GetNbinsX(), TMath::Sqrt(TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()), 2) + TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()+1), 2)));
-      histo[index]->SetBinContent(0, 0.);
-      histo[index]->SetBinContent(histo[index]->GetNbinsX()+1, 0.);
-      histo[index]->SetBinError(0, 0.);
-      histo[index]->SetBinError(histo[index]->GetNbinsX()+1, 0.);
-    }
     if (index > 0) {
       hstack_mc->Add(histo[index]);
       h_mc_sum->Add(histo[index]);

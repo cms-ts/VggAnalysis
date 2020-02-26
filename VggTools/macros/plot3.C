@@ -340,8 +340,8 @@ void plot3(string plot="", string title="", string version="v00", string options
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str());
 
   for (int eta = 1; eta < 5; eta++) {
-    for (int pho0_pt = 2; pho0_pt < histo[0]->GetNbinsX() + 2; pho0_pt++) {
-      for (int pho1_pt = 2; pho1_pt < histo[0]->GetNbinsX() + 2; pho1_pt++) {
+    for (int pho0_pt = 2; pho0_pt < histo[0]->GetNbinsX()+1; pho0_pt++) {
+      for (int pho1_pt = 2; pho1_pt < histo[0]->GetNbinsX()+1; pho1_pt++) {
         double e1 = 0;
         double e2 = 0;
         double f1 = 0;
@@ -371,11 +371,6 @@ void plot3(string plot="", string title="", string version="v00", string options
           f1 = histo[0]->GetBinContent(pho0_pt, 2, 1) / (histo[0]->GetBinContent(pho0_pt, 2, 1) + histo[0]->GetBinContent(pho0_pt, 2, 2));
           f2 = histo[0]->GetBinContent(pho1_pt, 2, 1) / (histo[0]->GetBinContent(pho1_pt, 2, 1) + histo[0]->GetBinContent(pho1_pt, 2, 2));
         }
-
-        if (!TMath::Finite(e1)) e1 = 0.;
-        if (!TMath::Finite(e2)) e2 = 0.;
-        if (!TMath::Finite(f1)) f1 = 0.;
-        if (!TMath::Finite(f2)) f2 = 0.;
 
         string matrix_title = "matrix_";
         matrix_title += std::to_string(pho0_pt);
@@ -456,20 +451,8 @@ void plot3(string plot="", string title="", string version="v00", string options
   TH1D* h_mc_sum = (TH1D*)histo1[0]->Clone("h_mc_sum");
   h_mc_sum->Reset();
 
-  bool flowbins = true;
-
   for (map<int, TH1D*>::reverse_iterator it = histo1.rbegin(); it != histo1.rend(); it++) {
     int index = int(it->first);
-    if (flowbins) {
-      histo1[index]->SetBinContent(1, histo1[index]->GetBinContent(1) + histo1[index]->GetBinContent(0));
-      histo1[index]->SetBinContent(histo1[index]->GetNbinsX(), histo1[index]->GetBinContent(histo1[index]->GetNbinsX()) + histo1[index]->GetBinContent(histo1[index]->GetNbinsX()+1));
-      histo1[index]->SetBinError(1, TMath::Sqrt(TMath::Power(histo1[index]->GetBinError(1), 2) + TMath::Power(histo1[index]->GetBinError(0), 2)));
-      histo1[index]->SetBinError(histo1[index]->GetNbinsX(), TMath::Sqrt(TMath::Power(histo1[index]->GetBinError(histo1[index]->GetNbinsX()), 2) + TMath::Power(histo1[index]->GetBinError(histo1[index]->GetNbinsX()+1), 2)));
-      histo1[index]->SetBinContent(0, 0.);
-      histo1[index]->SetBinContent(histo1[index]->GetNbinsX()+1, 0.);
-      histo1[index]->SetBinError(0, 0.);
-      histo1[index]->SetBinError(histo1[index]->GetNbinsX()+1, 0.);
-    }
     if (index > 0) {
       hstack_mc->Add(histo1[index]);
       h_mc_sum->Add(histo1[index]);

@@ -5,6 +5,15 @@
 
 TH1D* rebin(TH1D* old) {
 
+  old->SetBinContent(1, old->GetBinContent(1) + old->GetBinContent(0));
+  old->SetBinContent(old->GetXaxis()->GetNbins(), old->GetBinContent(old->GetXaxis()->GetNbins()) + old->GetBinContent(old->GetXaxis()->GetNbins()+1));
+  old->SetBinError(1, TMath::Sqrt(TMath::Power(old->GetBinError(1), 2) + TMath::Power(old->GetBinError(0), 2)));
+  old->SetBinError(old->GetXaxis()->GetNbins(), TMath::Sqrt(TMath::Power(old->GetBinError(old->GetXaxis()->GetNbins()), 2) + TMath::Power(old->GetBinError(old->GetXaxis()->GetNbins()+1), 2)));
+  old->SetBinContent(0, 0.);
+  old->SetBinContent(old->GetXaxis()->GetNbins()+1, 0.);
+  old->SetBinError(0, 0.);
+  old->SetBinError(old->GetXaxis()->GetNbins()+1, 0.);
+
   string name = old->GetName();
 
   int nb = 0;
@@ -106,6 +115,27 @@ TH1D* rebin(TH1D* old) {
 
 TH2D* rebin(TH2D* old) {
 
+  for (int i = 1; i < old->GetXaxis()->GetNbins()+1; i++) {
+    old->SetBinContent(i, 1, old->GetBinContent(i, 1) + old->GetBinContent(i, 0));
+    old->SetBinContent(i, old->GetYaxis()->GetNbins(), old->GetBinContent(i, old->GetYaxis()->GetNbins()) + old->GetBinContent(i, old->GetYaxis()->GetNbins()+1));
+    old->SetBinError(i, 1, TMath::Sqrt(TMath::Power(old->GetBinContent(i, 1), 2) + TMath::Power(old->GetBinContent(i, 0), 2)));
+    old->SetBinError(i, old->GetYaxis()->GetNbins(), TMath::Sqrt(TMath::Power(old->GetBinContent(i, old->GetYaxis()->GetNbins()), 2) + TMath::Power(old->GetBinContent(i, old->GetYaxis()->GetNbins()+1), 2)));
+    old->SetBinContent(i, 0, 0.);
+    old->SetBinContent(i, old->GetYaxis()->GetNbins()+1, 0.);
+    old->SetBinError(i, 0, 0.);
+    old->SetBinError(i, old->GetYaxis()->GetNbins()+1, 0.);
+  }
+  for (int i = 1; i < old->GetYaxis()->GetNbins()+1; i++) {
+    old->SetBinContent(1, i, old->GetBinContent(1, i) + old->GetBinContent(0, i));
+    old->SetBinContent(old->GetXaxis()->GetNbins(), i, old->GetBinContent(old->GetXaxis()->GetNbins(), i) + old->GetBinContent(old->GetXaxis()->GetNbins()+1, i));
+    old->SetBinError(1, i, TMath::Sqrt(TMath::Power(old->GetBinContent(1, i), 2) + TMath::Power(old->GetBinContent(0, i), 2)));
+    old->SetBinError(old->GetXaxis()->GetNbins(), i, TMath::Sqrt(TMath::Power(old->GetBinContent(old->GetXaxis()->GetNbins(), i), 2) + TMath::Power(old->GetBinContent(old->GetXaxis()->GetNbins()+1, i), 2)));
+    old->SetBinContent(0, i, 0.);
+    old->SetBinContent(old->GetXaxis()->GetNbins()+1, i, 0.);
+    old->SetBinError(0, i, 0.);
+    old->SetBinError(old->GetXaxis()->GetNbins()+1, i, 0.);
+  }
+
   string name = old->GetName();
 
   int nxb = 0;
@@ -190,6 +220,64 @@ TH2D* rebin(TH2D* old) {
 }
 
 TH3D* rebin(TH3D* old) {
+
+  for (int i = 1; i < old->GetXaxis()->GetNbins()+1; i++) {
+    old->SetBinContent(i, 1, 1, old->GetBinContent(i, 1, 1) + old->GetBinContent(i, 0, 1));
+    old->SetBinContent(i, old->GetYaxis()->GetNbins(), 1, old->GetBinContent(i, old->GetYaxis()->GetNbins(), 1) + old->GetBinContent(i, old->GetYaxis()->GetNbins()+1, 1));
+    old->SetBinError(i, 1, 1, TMath::Sqrt(TMath::Power(old->GetBinContent(i, 1, 1), 2) + TMath::Power(old->GetBinContent(i, 0, 1), 2)));
+    old->SetBinError(i, old->GetYaxis()->GetNbins(), 1, TMath::Sqrt(TMath::Power(old->GetBinContent(i, old->GetYaxis()->GetNbins(), 1), 2) + TMath::Power(old->GetBinContent(i, old->GetYaxis()->GetNbins()+1, 1), 2)));
+    old->SetBinContent(i, 0, 1, 0.);
+    old->SetBinContent(i, old->GetYaxis()->GetNbins()+1, 1, 0.);
+    old->SetBinError(i, 0, 1, 0.);
+    old->SetBinError(i, old->GetYaxis()->GetNbins()+1, 1, 0.);
+
+    old->SetBinContent(i, 1, 1, old->GetBinContent(i, 1, 1) + old->GetBinContent(i, 1, 0));
+    old->SetBinContent(i, 1, old->GetZaxis()->GetNbins(), old->GetBinContent(i, 1, old->GetZaxis()->GetNbins()) + old->GetBinContent(i, 1, old->GetZaxis()->GetNbins()+1));
+    old->SetBinError(i, 1, 1, TMath::Sqrt(TMath::Power(old->GetBinContent(i, 1, 1), 2) + TMath::Power(old->GetBinContent(i, 1, 0), 2)));
+    old->SetBinError(i, 1, old->GetZaxis()->GetNbins(), TMath::Sqrt(TMath::Power(old->GetBinContent(i, 1, old->GetZaxis()->GetNbins()), 2) + TMath::Power(old->GetBinContent(i, 1, old->GetZaxis()->GetNbins()+1), 2)));
+    old->SetBinContent(i, 1, 0, 0.);
+    old->SetBinContent(i, 1, old->GetZaxis()->GetNbins()+1, 0.);
+    old->SetBinError(i, 1, 0, 0.);
+    old->SetBinError(i, 1, old->GetZaxis()->GetNbins()+1, 0.);
+  }
+  for (int i = 1; i < old->GetYaxis()->GetNbins()+1; i++) {
+    old->SetBinContent(1, i, 1, old->GetBinContent(1, i, 1) + old->GetBinContent(0, i, 1));
+    old->SetBinContent(old->GetXaxis()->GetNbins(), i, 1, old->GetBinContent(old->GetXaxis()->GetNbins(), i, 1) + old->GetBinContent(old->GetXaxis()->GetNbins()+1, i, 1));
+    old->SetBinError(1, i, 1, TMath::Sqrt(TMath::Power(old->GetBinContent(1, i, 1), 2) + TMath::Power(old->GetBinContent(0, i, 1), 2)));
+    old->SetBinError(old->GetXaxis()->GetNbins(), i, 1, TMath::Sqrt(TMath::Power(old->GetBinContent(old->GetXaxis()->GetNbins(), i, 1), 2) + TMath::Power(old->GetBinContent(old->GetXaxis()->GetNbins()+1, i, 1), 2)));
+    old->SetBinContent(0, i, 1, 0.);
+    old->SetBinContent(old->GetXaxis()->GetNbins()+1, i, 1, 0.);
+    old->SetBinError(0, i, 1, 0.);
+    old->SetBinError(old->GetXaxis()->GetNbins()+1, i, 1, 0.);
+
+    old->SetBinContent(1, i, 1, old->GetBinContent(1, i, 1) + old->GetBinContent(1, i, 0));
+    old->SetBinContent(1, i, old->GetZaxis()->GetNbins(), old->GetBinContent(1, i, old->GetZaxis()->GetNbins()) + old->GetBinContent(1, i, old->GetZaxis()->GetNbins()+1));
+    old->SetBinError(1, i, 1, TMath::Sqrt(TMath::Power(old->GetBinContent(1, i, 1), 2) + TMath::Power(old->GetBinContent(1, i, 0), 2)));
+    old->SetBinError(1, i, old->GetZaxis()->GetNbins(), TMath::Sqrt(TMath::Power(old->GetBinContent(1, i, old->GetZaxis()->GetNbins()), 2) + TMath::Power(old->GetBinContent(1, i, old->GetZaxis()->GetNbins()+1), 2)));
+    old->SetBinContent(1, i, 0, 0.);
+    old->SetBinContent(1, i, old->GetZaxis()->GetNbins()+1, 0.);
+    old->SetBinError(1, i, 0, 0.);
+    old->SetBinError(1, i, old->GetZaxis()->GetNbins()+1, 0.);
+  }
+  for (int i = 1; i < old->GetZaxis()->GetNbins()+1; i++) {
+    old->SetBinContent(1, 1, i, old->GetBinContent(1, 1, i) + old->GetBinContent(0, 1, i));
+    old->SetBinContent(old->GetXaxis()->GetNbins(), 1, i, old->GetBinContent(old->GetXaxis()->GetNbins(), 1, i) + old->GetBinContent(old->GetXaxis()->GetNbins()+1, 1, i));
+    old->SetBinError(1, 1, i, TMath::Sqrt(TMath::Power(old->GetBinContent(1, 1, i), 2) + TMath::Power(old->GetBinContent(0, 1, i), 2)));
+    old->SetBinError(old->GetXaxis()->GetNbins(), 1, i, TMath::Sqrt(TMath::Power(old->GetBinContent(old->GetXaxis()->GetNbins(), 1, i), 2) + TMath::Power(old->GetBinContent(old->GetXaxis()->GetNbins()+1, 1, i), 2)));
+    old->SetBinContent(0, 1, i, 0.);
+    old->SetBinContent(old->GetXaxis()->GetNbins()+1, 1, i, 0.);
+    old->SetBinError(0, 1, i, 0.);
+    old->SetBinError(old->GetXaxis()->GetNbins()+1, 1, i, 0.);
+
+    old->SetBinContent(1, 1, i, old->GetBinContent(1, 1, i) + old->GetBinContent(1, 0, i));
+    old->SetBinContent(1, old->GetYaxis()->GetNbins(), i, old->GetBinContent(1, old->GetYaxis()->GetNbins(), i) + old->GetBinContent(1, old->GetYaxis()->GetNbins()+1, i));
+    old->SetBinError(1, 1, i, TMath::Sqrt(TMath::Power(old->GetBinContent(1, 1, i), 2) + TMath::Power(old->GetBinContent(1, 0, i), 2)));
+    old->SetBinError(1, old->GetYaxis()->GetNbins(), i, TMath::Sqrt(TMath::Power(old->GetBinContent(1, old->GetYaxis()->GetNbins(), i), 2) + TMath::Power(old->GetBinContent(1, old->GetYaxis()->GetNbins()+1, i), 2)));
+    old->SetBinContent(1, 0, i, 0.);
+    old->SetBinContent(1, old->GetYaxis()->GetNbins()+1, i, 0.);
+    old->SetBinError(1, 0, i, 0.);
+    old->SetBinError(1, old->GetYaxis()->GetNbins()+1, i, 0.);
+  }
 
   string name = old->GetName();
 

@@ -223,20 +223,8 @@ void plot0(string plot="", string title="", string version="v00", string options
   TH1D* h_bkg = (TH1D*)histo[0]->Clone("h_bkg");
   h_bkg->Reset();
 
-  bool flowbins = true;
-
   for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
     int index = int(it->first);
-    if (flowbins) {
-      histo[index]->SetBinContent(1, histo[index]->GetBinContent(1) + histo[index]->GetBinContent(0));
-      histo[index]->SetBinContent(histo[index]->GetNbinsX(), histo[index]->GetBinContent(histo[index]->GetNbinsX()) + histo[index]->GetBinContent(histo[index]->GetNbinsX() + 1));
-      histo[index]->SetBinError(1, TMath::Sqrt(TMath::Power(histo[index]->GetBinError(1), 2) + TMath::Power(histo[index]->GetBinError(0), 2)));
-      histo[index]->SetBinError(histo[index]->GetNbinsX(), TMath::Sqrt(TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX()), 2) + TMath::Power(histo[index]->GetBinError(histo[index]->GetNbinsX() + 1), 2)));
-      histo[index]->SetBinContent(0, 0.);
-      histo[index]->SetBinContent(histo[index]->GetNbinsX() + 1, 0.);
-      histo[index]->SetBinError(0, 0.);
-      histo[index]->SetBinError(histo[index]->GetNbinsX() + 1, 0.);
-    }
     if (index > 0) {
       hstack_mc->Add(histo[index]);
       h_mc_sum->Add(histo[index]);
