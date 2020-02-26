@@ -31,6 +31,8 @@ TH1D* rebin(TH1D* old) {
   } else if (name.find("_rebin") != string::npos && (name.find("WGG_ele_pho1_pt") != string::npos || name.find("WGG_muo_pho1_pt") != string::npos ||
                                                      name.find("ZGG_ele_pho1_pt") != string::npos || name.find("ZGG_muo_pho1_pt") != string::npos)) {
     return old;
+  } else if (name.find("_rebin") != string::npos) {
+    return old;
   } else if (name.find("WGG_ele_pho0_pho1_pt") != string::npos || name.find("WGG_muo_pho0_pho1_pt") != string::npos ||
              name.find("ZGG_ele_pho0_pho1_pt") != string::npos || name.find("ZGG_muo_pho0_pho1_pt") != string::npos ||
              name.find("WGG_ele_pho0_pt") != string::npos || name.find("WGG_muo_pho0_pt") != string::npos ||
