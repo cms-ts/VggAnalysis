@@ -635,8 +635,10 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
-    histo[index]->SetName((string(histo[index]->GetName()) + "_rebin").c_str());
-    histo[index] = rebin(histo[index]);
+    if (histo[index]) {
+      histo[index]->SetName((string(histo[index]->GetName()) + "_rebin").c_str());
+      histo[index] = rebin(histo[index]);
+    }
   }
 
   if (plot.find("Run2") != string::npos) {

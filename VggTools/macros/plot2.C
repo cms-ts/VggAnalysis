@@ -154,6 +154,13 @@ void plot2(string plot="", string title="", string version="v00", string options
   h2 = rebin(h2);
   h3 = rebin(h3);
 
+  h1->SetName((string(h1->GetName()) + "_rebin").c_str());
+  h1 = rebin(h1);
+  h2->SetName((string(h2->GetName()) + "_rebin").c_str());
+  h2 = rebin(h2);
+  h3->SetName((string(h3->GetName()) + "_rebin").c_str());
+  h3 = rebin(h3);
+
   if (options.find("test") != string::npos) version = version + ".test";
   if (options.find("new") != string::npos) version = version + ".new";
   if (options.find("jet") != string::npos) version = version + ".jet";

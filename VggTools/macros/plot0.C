@@ -165,7 +165,11 @@ void plot0(string plot="", string title="", string version="v00", string options
 
   for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
-    if (histo[index]) histo[index] = rebin(histo[index]);
+    if (histo[index]) {
+      histo[index] = rebin(histo[index]);
+      histo[index]->SetName((string(histo[index]->GetName()) + "_rebin").c_str());
+      histo[index] = rebin(histo[index]);
+    }
   }
 
   if (options.find("test") != string::npos) version = version + ".test";
