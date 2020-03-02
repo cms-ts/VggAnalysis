@@ -2032,10 +2032,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      //if (Electron_mvaID_WP80[i] == 0) continue;
-     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+     if (Electron_Id_noIso(Electron_vidNestedWPBitmap[i], 4) == 0) continue;
 
      //if (Electron_pfRelIso03_all[i] > 0.15) continue;
-     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) != 0b00000000100000000000000000000000) continue;
+     if (Electron_Iso(Electron_vidNestedWPBitmap[i], 4) == 0) continue;
 
      if (iele0 != -1) {
        if (Electron_charge[i] == Electron_charge[iele0]) {
@@ -2085,10 +2085,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      //if (Electron_mvaID_WP80[i] == 0) continue;
-     if ((Electron_vidNestedWPBitmap[i] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+     if (Electron_Id_noIso(Electron_vidNestedWPBitmap[i], 4) == 0) continue;
 
      //if (Electron_pfRelIso03_all[i] < 0.15) continue;
-     if ((Electron_vidNestedWPBitmap[i] & 0b00000000100000000000000000000000) == 0b00000000100000000000000000000000) continue;
+     if (Electron_Iso(Electron_vidNestedWPBitmap[i], 4) != 0) continue;
 
      if (Electron_pfRelIso03_all[i] > 0.15) continue;
 
@@ -2241,13 +2241,13 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-     if ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
+     if (Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
      //if (Photon_pfRelIso03_all[i] > 0.15) continue;
-     if ((Photon_vidNestedWPBitmap[i] & 0b0010101000000000) != 0b0010101000000000) continue;
+     if (Photon_Iso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      bool skip = false;
 
@@ -2276,7 +2276,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-       if ((Electron_vidNestedWPBitmap[j] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+       if (Electron_Id_noIso(Electron_vidNestedWPBitmap[j], 4) == 0) continue;
 
        TLorentzVector tmp_ele;
        tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -2415,15 +2415,15 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-     //if ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
-     if (iflag != 140 && ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010)) continue;
-     if (iflag == 140 && ((Photon_vidNestedWPBitmap[i] & 0b0010101000101010) != 0b0010101000101010)) continue;
+     //if (Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
+     if (iflag != 140 && Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
+     if (iflag == 140 && Photon_Id_noSieie(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
      //if (Photon_pfRelIso03_all[i] > 0.15) continue;
-     //if ((Photon_vidNestedWPBitmap[i] & 0b0010101000000000) != 0b0010101000000000) continue;
+     //if (Photon_Iso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      bool skip = false;
 
@@ -2452,7 +2452,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-       if ((Electron_vidNestedWPBitmap[j] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+       if (Electron_Id_noIso(Electron_vidNestedWPBitmap[j], 4) == 0) continue;
 
        TLorentzVector tmp_ele;
        tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -2565,12 +2565,12 @@ Bool_t mainSelector::Process(Long64_t entry)
    bool is_pho1_iso = false;
 
    if (ipho0_iso != -1) {
-     if (iflag != 140 && ((Photon_vidNestedWPBitmap[ipho0_iso] & 0b0010101000000000) == 0b0010101000000000)) is_pho0_iso = true;
-     if (iflag == 140 && ((Photon_vidNestedWPBitmap[ipho0_iso] & 0b0000000010000000) == 0b0000000010000000)) is_pho0_iso = true;
+     if (iflag != 140 && Photon_Iso(Photon_vidNestedWPBitmap[ipho0_iso], 2) != 0) is_pho0_iso = true;
+     if (iflag == 140 && Photon_Id(Photon_vidNestedWPBitmap[ipho0_iso], 2) != 0) is_pho0_iso = true;
    }
    if (ipho1_iso != -1) {
-     if (iflag != 140 && ((Photon_vidNestedWPBitmap[ipho1_iso] & 0b0010101000000000) == 0b0010101000000000)) is_pho1_iso = true;
-     if (iflag == 140 && ((Photon_vidNestedWPBitmap[ipho1_iso] & 0b0000000010000000) == 0b0000000010000000)) is_pho1_iso = true;
+     if (iflag != 140 && Photon_Iso(Photon_vidNestedWPBitmap[ipho1_iso], 2) != 0) is_pho1_iso = true;
+     if (iflag == 140 && Photon_Id(Photon_vidNestedWPBitmap[ipho1_iso], 2) != 0) is_pho1_iso = true;
    }
 
 // photons cat
@@ -2596,13 +2596,13 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-     if ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
+     if (Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
      //if (Photon_pfRelIso03_all[i] > 0.15) continue;
-     //if ((Photon_vidNestedWPBitmap[i] & 0b0010100000000000) != 0b0010100000000000) continue;
+     //if (Photon_Iso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      bool skip = false;
 
@@ -2631,7 +2631,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-       if ((Electron_vidNestedWPBitmap[j] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+       if (Electron_Id_noIso(Electron_vidNestedWPBitmap[j], 4) == 0) continue;
 
        TLorentzVector tmp_ele;
        tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -2709,12 +2709,12 @@ Bool_t mainSelector::Process(Long64_t entry)
    bool is_iso_pho1 = false;
 
    if (ipho0_cat != -1) {
-     if ((Photon_vidNestedWPBitmap[ipho0_cat] & 0b0010101000000000) == 0b0010101000000000) is_iso_pho0 = true;
+     if (Photon_Iso(Photon_vidNestedWPBitmap[ipho0_cat], 2) != 0) is_iso_pho0 = true;
    }
 
    if (ipho1_cat != -1) {
 
-     if ((Photon_vidNestedWPBitmap[ipho1_cat] & 0b0010101000000000) == 0b0010101000000000) is_iso_pho1 = true;
+     if (Photon_Iso(Photon_vidNestedWPBitmap[ipho1_cat], 2) != 0) is_iso_pho1 = true;
 
      if (is_iso_pho0 && is_iso_pho1) category2d = 0;
 
@@ -2746,13 +2746,13 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-     if ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
+     if (Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
      //if (Photon_pfRelIso03_all[i] > 0.15) continue;
-     if ((Photon_vidNestedWPBitmap[i] & 0b0010101000000000) != 0b0010101000000000) continue;
+     if (Photon_Iso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      bool skip = false;
 
@@ -2781,7 +2781,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-       if ((Electron_vidNestedWPBitmap[j] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+       if (Electron_Id_noIso(Electron_vidNestedWPBitmap[j], 4) == 0) continue;
 
        TLorentzVector tmp_ele;
        tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -2886,15 +2886,15 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-     //if ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
-     if (iflag != 140 && ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010)) continue;
-     if (iflag == 140 && ((Photon_vidNestedWPBitmap[i] & 0b0010101000101010) != 0b0010101000101010)) continue;
+     //if (Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
+     if (iflag != 140 && Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
+     if (iflag == 140 && Photon_Id_noSieie(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
      //if (Photon_pfRelIso03_all[i] > 0.15) continue;
-     //if ((Photon_vidNestedWPBitmap[i] & 0b0010101000000000) != 0b0010101000000000) continue;
+     //if (Photon_Iso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      bool skip = false;
 
@@ -2923,7 +2923,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-       if ((Electron_vidNestedWPBitmap[j] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+       if (Electron_Id_noIso(Electron_vidNestedWPBitmap[j], 4) == 0) continue;
 
        TLorentzVector tmp_ele;
        tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -3036,12 +3036,12 @@ Bool_t mainSelector::Process(Long64_t entry)
    bool is_pho1_iso_qcd = false;
 
    if (ipho0_iso_qcd != -1) {
-     if (iflag != 140 && ((Photon_vidNestedWPBitmap[ipho0_iso_qcd] & 0b0010101000000000) == 0b0010101000000000)) is_pho0_iso_qcd = true;
-     if (iflag == 140 && ((Photon_vidNestedWPBitmap[ipho0_iso_qcd] & 0b0000000010000000) == 0b0000000010000000)) is_pho0_iso_qcd = true;
+     if (iflag != 140 && Photon_Iso(Photon_vidNestedWPBitmap[ipho0_iso_qcd], 2) != 0) is_pho0_iso_qcd = true;
+     if (iflag == 140 && Photon_Id(Photon_vidNestedWPBitmap[ipho0_iso_qcd], 2) != 0) is_pho0_iso_qcd = true;
    }
    if (ipho1_iso_qcd != -1) {
-     if (iflag != 140 && ((Photon_vidNestedWPBitmap[ipho1_iso_qcd] & 0b0010101000000000) == 0b0010101000000000)) is_pho1_iso_qcd = true;
-     if (iflag == 140 && ((Photon_vidNestedWPBitmap[ipho1_iso_qcd] & 0b0000000010000000) == 0b0000000010000000)) is_pho1_iso_qcd = true;
+     if (iflag != 140 && Photon_Iso(Photon_vidNestedWPBitmap[ipho1_iso_qcd], 2) != 0) is_pho1_iso_qcd = true;
+     if (iflag == 140 && Photon_Id(Photon_vidNestedWPBitmap[ipho1_iso_qcd], 2) != 0) is_pho1_iso_qcd = true;
    }
 
 // photons cat QCD
@@ -3067,13 +3067,13 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-     if ((Photon_vidNestedWPBitmap[i] & 0b0000000010101010) != 0b0000000010101010) continue;
+     if (Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
 
      //if (Photon_pfRelIso03_all[i] > 0.15) continue;
-     //if ((Photon_vidNestedWPBitmap[i] & 0b0010100000000000) != 0b0010100000000000) continue;
+     //if (Photon_Iso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      bool skip = false;
 
@@ -3102,7 +3102,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
-       if ((Electron_vidNestedWPBitmap[j] & 0b00100100000100100100100100100100) != 0b00100100000100100100100100100100) continue;
+       if (Electron_Id_noIso(Electron_vidNestedWPBitmap[j], 4) == 0) continue;
 
        TLorentzVector tmp_ele;
        tmp_ele.SetPtEtaPhiM(Electron_pt[j], Electron_eta[j], Electron_phi[j], Electron_mass[j]);
@@ -3180,12 +3180,12 @@ Bool_t mainSelector::Process(Long64_t entry)
    bool is_iso_pho1_qcd = false;
 
    if (ipho0_cat_qcd != -1) {
-     if ((Photon_vidNestedWPBitmap[ipho0_cat_qcd] & 0b0010101000000000) == 0b0010101000000000) is_iso_pho0_qcd = true;
+     if (Photon_Iso(Photon_vidNestedWPBitmap[ipho0_cat_qcd], 2) != 0) is_iso_pho0_qcd = true;
    }
 
    if (ipho1_cat_qcd != -1) {
 
-     if ((Photon_vidNestedWPBitmap[ipho1_cat_qcd] & 0b0010101000000000) == 0b0010101000000000) is_iso_pho1_qcd = true;
+     if (Photon_Iso(Photon_vidNestedWPBitmap[ipho1_cat_qcd], 2) != 0) is_iso_pho1_qcd = true;
 
      if (is_iso_pho0_qcd && is_iso_pho1_qcd) category2d_qcd = 0;
 

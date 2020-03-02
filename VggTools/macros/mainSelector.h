@@ -1357,4 +1357,75 @@ float getWeight(float photon_eta, float photon_pt, float var = 0) {
 }
 #endif // defined(mainSelectorMC18_cxx)
 
+//
+// each cut is represented by 3 bits (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
+//
+// Electron_vidNestedWPBitmap
+// 0 - MinPtCut
+// 1 - GsfEleSCEtaMultiRangeCut
+// 2 - GsfEleDEtaInSeedCut
+// 3 - GsfEleDPhiInCut
+// 4 - GsfEleFull5x5SigmaIEtaIEtaCut
+// 5 - GsfEleHadronicOverEMEnergyScaledCut
+// 6 - GsfEleEInverseMinusPInverseCut
+// 7 - GsfEleRelPFIsoScaledCut
+// 8 - GsfEleConversionVetoCut
+// 9 - GsfEleMissingHitsCut
+//
+
+bool Electron_Id(int bitmap, int level){
+   for (int i=0; i<10; i++){
+     if (((bitmap >> i*3) & 0x7) < level) return false;
+   }
+   return true;
+}
+
+bool Electron_Id_noIso(int bitmap, int level){
+   for (int i=0; i<10; i++){
+     if (i==7) continue;
+     if (((bitmap >> i*3) & 0x7) < level) return false;
+   }
+   return true;
+}
+
+bool Electron_Iso(int bitmap, int level){
+   int i=7;
+   if (((bitmap >> i*3) & 0x7) < level) return false;
+   return true;
+}
+
+//
+// each cut is represented by 2 bits (0:fail, 1:loose, 2:medium, 3:tight)
+//
+// Photon_vidNestedWPBitmap
+// 0 - MinPtCut
+// 1 - PhoSCEtaMultiRangeCut
+// 2 - PhoSingleTowerHadOverEmCut
+// 3 - PhoFull5x5SigmaIEtaIEtaCut
+// 4 - PhoAnyPFIsoWithEACut
+// 5 - PhoAnyPFIsoWithEAAndQuadScalingCut
+// 6 - PhoAnyPFIsoWithEACut
+
+bool Photon_Id(int bitmap, int level){
+   for (int i=0; i<4; i++){
+     if (((bitmap >> i*2) & 0x3) < level) return false;
+   }
+   return true;
+}
+
+bool Photon_Id_noSieie(int bitmap, int level){
+   for (int i=0; i<7; i++){
+     if (i==3) continue;
+     if (((bitmap >> i*2) & 0x3) < level) return false;
+   }
+   return true;
+}
+
+bool Photon_Iso(int bitmap, int level){
+   for (int i=4; i<7; i++){
+     if (((bitmap >> i*2) & 0x3) < level) return false;
+   }
+   return true;
+}
+
 #endif // mainSelector_cxx
