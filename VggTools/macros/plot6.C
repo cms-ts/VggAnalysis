@@ -1300,28 +1300,25 @@ void plot6(string plot="", string title="", string version="v00", string options
   TH1D* h_data = 0;
   TH1D* h_sig = 0;
   TH1D* h_misid = 0;
-  TH1D* h_ttgg = 0;
+  TH1D* h_irred = 0;
 
-  TH1D* h_zg = 0;
-  TH1D* h_zgg = 0;
+  TH1D* h_egmisid = 0;
 
   if (!file2->IsZombie()) {
 
     h_data = (TH1D*)file2->Get((title + "_data").c_str());
     h_sig = (TH1D*)file2->Get((title + "_sig").c_str());
     h_misid = (TH1D*)file2->Get((title + "_misid").c_str());
-    h_ttgg = (TH1D*)file2->Get((title + "_ttgg").c_str());
+    h_irred = (TH1D*)file2->Get((title + "_irred").c_str());
 
     h_data->SetDirectory(0);
     h_sig->SetDirectory(0);
     h_misid->SetDirectory(0);
-    h_ttgg->SetDirectory(0);
+    h_irred->SetDirectory(0);
 
     if (title.find("WGG") != string::npos) {
-      h_zg = (TH1D*)file2->Get((title + "_zg").c_str());
-      h_zg->SetDirectory(0);
-      h_zgg = (TH1D*)file2->Get((title + "_zgg").c_str());
-      h_zgg->SetDirectory(0);
+      h_egmisid = (TH1D*)file2->Get((title + "_egmisid").c_str());
+      h_egmisid->SetDirectory(0);
     }
 
     file2->Close();
@@ -1345,7 +1342,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     out2 << "jmax 4  number of channels" << endl;
   }
   if (title.find("ZGG") != string::npos) {
-    out2 << "jmax 2  number of channels" << endl;
+    out2 << "jmax 3  number of channels" << endl;
   }
   out2 << "kmax "
        << kmax
@@ -1367,8 +1364,7 @@ void plot6(string plot="", string title="", string version="v00", string options
          << std::setw(8) << "ele"
          << std::setw(8) << "ele";
     if (title.find("WGG") != string::npos) {
-      out2 << std::setw(8) << "ele"
-           << std::setw(8) << "ele";
+      out2 << std::setw(8) << "ele";
     }
   }
   if (title.find("muo") != string::npos) {
@@ -1376,8 +1372,7 @@ void plot6(string plot="", string title="", string version="v00", string options
          << std::setw(8) << "muo"
          << std::setw(8) << "muo";
     if (title.find("WGG") != string::npos) {
-      out2 << std::setw(8) << "muo"
-           << std::setw(8) << "muo";
+      out2 << std::setw(8) << "muo";
     }
   }
   out2 << endl;
@@ -1386,10 +1381,9 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (title.find("WGG") != string::npos) out2 << std::setw(8) << "wgg";
   if (title.find("ZGG") != string::npos) out2 << std::setw(8) << "zgg";
   out2 << std::setw(8) << "jet_mis"
-       << std::setw(8) << "ttgg";
+       << std::setw(8) << "irred";
   if (title.find("WGG") != string::npos) {
-    out2 << std::setw(8) << "zg"
-         << std::setw(8) << "zgg";
+    out2 << std::setw(8) << "eg_mis";
   }
   out2 << endl;
 
@@ -1398,18 +1392,16 @@ void plot6(string plot="", string title="", string version="v00", string options
        << std::setw(8) << " 1"
        << std::setw(8) << " 2";
   if (title.find("WGG") != string::npos) {
-    out2 << std::setw(8) << " 3"
-         << std::setw(8) << " 4";
+    out2 << std::setw(8) << " 3";
   }
   out2 << endl;
 
   out2 << std::setw(20) << left << "rate"
        << std::setw(8) << h_sig->Integral()
        << std::setw(8) << h_misid->Integral()
-       << std::setw(8) << h_ttgg->Integral();
+       << std::setw(8) << h_irred->Integral();
   if (title.find("WGG") != string::npos) {
-    out2 << std::setw(8) << h_zg->Integral();
-    out2 << std::setw(8) << h_zgg->Integral();
+    out2 << std::setw(8) << h_egmisid->Integral();
   }
   out2 << endl;
 
@@ -1424,8 +1416,7 @@ void plot6(string plot="", string title="", string version="v00", string options
          << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
          << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref;
     if (title.find("WGG") != string::npos) {
-      out2 << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
-           << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref;
+      out2 << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref;
     }
     out2 << endl;
   }
@@ -1437,8 +1428,7 @@ void plot6(string plot="", string title="", string version="v00", string options
            << std::setw(8) << 1. + errors_tot["jet_misid_syst"]/xsec_data_ref
            << std::setw(8) << "-";
       if (title.find("WGG") != string::npos) {
-        out2 << std::setw(8) << "-"
-             << std::setw(8) << "-";
+        out2 << std::setw(8) << "-";
       }
     }
     if (labels[i].find("jet_misid_mc") != string::npos) {
@@ -1447,8 +1437,7 @@ void plot6(string plot="", string title="", string version="v00", string options
            << std::setw(8) << 1. + errors_tot["jet_misid_mc"]/xsec_data_ref
            << std::setw(8) << "-";
       if (title.find("WGG") != string::npos) {
-        out2 << std::setw(8) << "-"
-             << std::setw(8) << "-";
+        out2 << std::setw(8) << "-";
       }
     }
   }

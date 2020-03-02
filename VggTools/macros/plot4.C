@@ -1425,8 +1425,11 @@ void plot4(string plot="", string title="", string version="v00", string options
   TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str(), "RECREATE");
   histo[0]->Write((title + "_data").c_str());
   histo[8001]->Write((title + "_misid").c_str());
+  TH1D *h_irred = (TH1D*)histo[0]->Clone("h_irred");
+  h_irred->Reset();
   if (title.find("h_WGG_") != string::npos) {
     histo[1010]->Write((title + "_sig").c_str());
+    histo[1021]->Write((title + "_egmisid").c_str());
     histo[1011]->Write((title + "_wg").c_str());
     histo[1021]->Write((title + "_zg").c_str());
     histo[1022]->Write((title + "_zgg").c_str());
@@ -1434,6 +1437,13 @@ void plot4(string plot="", string title="", string version="v00", string options
     histo[1032]->Write((title + "_ttgg").c_str());
     histo[1041]->Write((title + "_tg").c_str());
     histo[1051]->Write((title + "_vvg").c_str());
+    h_irred->Add(histo[1011]);
+    h_irred->Add(histo[1022]);
+    h_irred->Add(histo[1031]);
+    h_irred->Add(histo[1032]);
+    h_irred->Add(histo[1041]);
+    h_irred->Add(histo[1051]);
+    h_irred->Write((title + "_irred").c_str());
   }
   if (title.find("h_ZGG_") != string::npos) {
     histo[10]->Write((title + "_sig").c_str());
@@ -1443,6 +1453,13 @@ void plot4(string plot="", string title="", string version="v00", string options
     histo[41]->Write((title + "_ttg").c_str());
     histo[42]->Write((title + "_ttgg").c_str());
     histo[51]->Write((title + "_tg").c_str());
+    h_irred->Add(histo[11]);
+    h_irred->Add(histo[21]);
+    h_irred->Add(histo[31]);
+    h_irred->Add(histo[41]);
+    h_irred->Add(histo[42]);
+    h_irred->Add(histo[51]);
+    h_irred->Write((title + "_irred").c_str());
   }
 
   file->Close();
