@@ -117,6 +117,9 @@ void mainSelector::Begin(TTree * /*tree*/)
 
      if (TString(fInput->FindObject("flag")->GetTitle()).Contains("jet_misid_syst")) iflag = 140;
 
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("veto_ele_medium")) iflag = 150;
+     if (TString(fInput->FindObject("flag")->GetTitle()).Contains("veto_muo_medium")) iflag = 155;
+
      if (iflag == -1) {
        Error("Begin", "%s : unknown flag = %s", now.AsSQLString(), fInput->FindObject("flag")->GetTitle());
        gSystem->Exit(1);
@@ -2032,10 +2035,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      //if (Electron_mvaID_WP80[i] == 0) continue;
-     if (Electron_Id_noIso(Electron_vidNestedWPBitmap[i], 4) == 0) continue;
+     if (iflag != 150 && Electron_Id_noIso(Electron_vidNestedWPBitmap[i], 4) == 0) continue;
+     if (iflag == 150 && Electron_Id_noIso(Electron_vidNestedWPBitmap[i], 3) == 0) continue;
 
      //if (Electron_pfRelIso03_all[i] > 0.15) continue;
-     if (Electron_Iso(Electron_vidNestedWPBitmap[i], 4) == 0) continue;
+     if (iflag != 150 && Electron_Iso(Electron_vidNestedWPBitmap[i], 4) == 0) continue;
+     if (iflag == 150 && Electron_Iso(Electron_vidNestedWPBitmap[i], 3) == 0) continue;
 
      if (iele0 != -1) {
        if (Electron_charge[i] == Electron_charge[iele0]) {
@@ -2085,10 +2090,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
 
      //if (Electron_mvaID_WP80[i] == 0) continue;
-     if (Electron_Id_noIso(Electron_vidNestedWPBitmap[i], 4) == 0) continue;
+     if (iflag != 150 && Electron_Id_noIso(Electron_vidNestedWPBitmap[i], 4) == 0) continue;
+     if (iflag == 150 && Electron_Id_noIso(Electron_vidNestedWPBitmap[i], 3) == 0) continue;
 
      //if (Electron_pfRelIso03_all[i] < 0.15) continue;
-     if (Electron_Iso(Electron_vidNestedWPBitmap[i], 4) != 0) continue;
+     if (iflag != 150 && Electron_Iso(Electron_vidNestedWPBitmap[i], 4) != 0) continue;
+     if (iflag == 150 && Electron_Iso(Electron_vidNestedWPBitmap[i], 3) != 0) continue;
 
      if (Electron_pfRelIso03_all[i] > 0.15) continue;
 
@@ -2144,7 +2151,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Muon_pt[i] < 15) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
 
-     if (Muon_tightId[i] == 0) continue;
+     if (iflag != 155 && Muon_tightId[i] == 0) continue;
+     if (iflag == 155 && Muon_mediumId[i] == 0) continue;
 
      if (Muon_pfRelIso04_all[i] > 0.15) continue;
 
@@ -2185,7 +2193,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Muon_pt[i] < 15) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
 
-     if (Muon_tightId[i] == 0) continue;
+     if (iflag != 155 && Muon_tightId[i] == 0) continue;
+     if (iflag == 155 && Muon_mediumId[i] == 0) continue;
 
      if (Muon_pfRelIso04_all[i] < 0.15) continue;
 
@@ -3400,6 +3409,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    float W_ele0_mt = 0.;
 
    if (iele0 != -1 && iele1 == -1 && imuo0 == -1 && iele0_qcd == -1 && imuo0_qcd == -1) {
+     if (Electron_Id_noIso(Electron_vidNestedWPBitmap[iele0], 4) == 0) ele0.SetPtEtaPhiM(0., ele0.Eta(), ele0.Phi(), ele0.M());
+     if (Electron_Iso(Electron_vidNestedWPBitmap[iele0], 4) == 0) ele0.SetPtEtaPhiM(0., ele0.Eta(), ele0.Phi(), ele0.M());
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_Ele27_WPTight_Gsf) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -3427,6 +3438,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    float W_ele0_mt_qcd = 0.;
 
    if (iele0_qcd != -1 && iele1_qcd == -1 && imuo0_qcd == -1 && iele0 == -1 && imuo0 == -1) {
+     if (Electron_Id_noIso(Electron_vidNestedWPBitmap[iele0_qcd], 4) == 0) ele0_qcd.SetPtEtaPhiM(0., ele0_qcd.Eta(), ele0_qcd.Phi(), ele0_qcd.M());
+     if (Electron_Iso(Electron_vidNestedWPBitmap[iele0_qcd], 4) != 0) ele0_qcd.SetPtEtaPhiM(0., ele0_qcd.Eta(), ele0_qcd.Phi(), ele0_qcd.M());
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_Ele27_WPTight_Gsf) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -3454,6 +3467,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    float W_muo0_mt = 0.;
 
    if (imuo0 != -1 && imuo1 == -1 && iele0 == -1 && iele0_qcd == -1 && imuo0_qcd == -1) {
+     if (Muon_tightId[imuo0] == 0) muo0.SetPtEtaPhiM(0., muo0.Eta(), muo0.Phi(), muo0.M());
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_IsoMu24 || *HLT_IsoTkMu24) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -3481,6 +3495,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    float W_muo0_mt_qcd = 0.;
 
    if (imuo0_qcd != -1 && imuo1_qcd == -1 && iele0_qcd == -1 && iele0 == -1 && imuo0 == -1) {
+     if (Muon_tightId[imuo0_qcd] == 0) muo0_qcd.SetPtEtaPhiM(0., muo0_qcd.Eta(), muo0_qcd.Phi(), muo0_qcd.M());
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_IsoMu24 || *HLT_IsoTkMu24) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -3508,6 +3523,10 @@ Bool_t mainSelector::Process(Long64_t entry)
    float Z_ele0_ele1_m = 0.;
 
    if (iele0 != -1 && iele1 != -1) {
+     if (Electron_Id_noIso(Electron_vidNestedWPBitmap[iele0], 4) == 0) ele0.SetPtEtaPhiM(0., ele0.Eta(), ele0.Phi(), ele0.M());
+     if (Electron_Iso(Electron_vidNestedWPBitmap[iele0], 4) == 0) ele0.SetPtEtaPhiM(0., ele0.Eta(), ele0.Phi(), ele0.M());
+     if (Electron_Id_noIso(Electron_vidNestedWPBitmap[iele1], 4) == 0) ele1.SetPtEtaPhiM(0., ele1.Eta(), ele1.Phi(), ele1.M());
+     if (Electron_Iso(Electron_vidNestedWPBitmap[iele1], 4) == 0) ele1.SetPtEtaPhiM(0., ele1.Eta(), ele1.Phi(), ele1.M());
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_Ele27_WPTight_Gsf) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -3535,6 +3554,10 @@ Bool_t mainSelector::Process(Long64_t entry)
    float Z_ele0_ele1_m_qcd = 0.;
 
    if (iele0_qcd != -1 && iele1_qcd != -1) {
+     if (Electron_Id_noIso(Electron_vidNestedWPBitmap[iele0_qcd], 4) == 0) ele0_qcd.SetPtEtaPhiM(0., ele0_qcd.Eta(), ele0_qcd.Phi(), ele0_qcd.M());
+     if (Electron_Iso(Electron_vidNestedWPBitmap[iele0_qcd], 4) != 0) ele0_qcd.SetPtEtaPhiM(0., ele0_qcd.Eta(), ele0_qcd.Phi(), ele0_qcd.M());
+     if (Electron_Id_noIso(Electron_vidNestedWPBitmap[iele1_qcd], 4) == 0) ele1_qcd.SetPtEtaPhiM(0., ele1_qcd.Eta(), ele1_qcd.Phi(), ele1_qcd.M());
+     if (Electron_Iso(Electron_vidNestedWPBitmap[iele1_qcd], 4) != 0) ele1_qcd.SetPtEtaPhiM(0., ele1_qcd.Eta(), ele1_qcd.Phi(), ele1_qcd.M());
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_Ele27_WPTight_Gsf) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -3562,6 +3585,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    float Z_muo0_muo1_m = 0.;
 
    if (imuo0 != -1 && imuo1 != -1) {
+     if (Muon_tightId[imuo0] == 0) muo0.SetPtEtaPhiM(0., muo0.Eta(), muo0.Phi(), muo0.M());
+     if (Muon_tightId[imuo1] == 0) muo1.SetPtEtaPhiM(0., muo1.Eta(), muo1.Phi(), muo1.M());
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_IsoMu24 || *HLT_IsoTkMu24) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
@@ -3589,6 +3614,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    float Z_muo0_muo1_m_qcd = 0.;
 
    if (imuo0_qcd != -1 && imuo1_qcd != -1) {
+     if (Muon_tightId[imuo0_qcd] == 0) muo0_qcd.SetPtEtaPhiM(0., muo0_qcd.Eta(), muo0_qcd.Phi(), muo0_qcd.M());
+     if (Muon_tightId[imuo1_qcd] == 0) muo1_qcd.SetPtEtaPhiM(0., muo1_qcd.Eta(), muo1_qcd.Phi(), muo1_qcd.M());
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (*HLT_IsoMu24 || *HLT_IsoTkMu24) {
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)

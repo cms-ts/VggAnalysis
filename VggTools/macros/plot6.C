@@ -149,6 +149,9 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   flags.push_back("qcd_fit");
 
+  flags.push_back("veto_ele_medium");
+  flags.push_back("veto_muo_medium");
+
   map<string, TH1D*> h_xsec_rec;
   map<string, TH1D*> h_xsec_mc_gen;
 
@@ -547,6 +550,22 @@ void plot6(string plot="", string title="", string version="v00", string options
     errors_tot["qcd_fit"] = xval;
   }
 
+  if (h_xsec_rec["veto_ele_medium"]) {
+    double xval_stat = 0.;
+    double xval = h_xsec_rec["veto_ele_medium"]->IntegralAndError(0, h_xsec_rec["veto_ele_medium"]->GetNbinsX()+1, xval_stat, "width");
+    xval = xval - xsec_data_ref;
+    xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    errors_tot["veto_ele_medium"] = xval;
+  }
+
+  if (h_xsec_rec["veto_muo_medium"]) {
+    double xval_stat = 0.;
+    double xval = h_xsec_rec["veto_muo_medium"]->IntegralAndError(0, h_xsec_rec["veto_muo_medium"]->GetNbinsX()+1, xval_stat, "width");
+    xval = xval - xsec_data_ref;
+    xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    errors_tot["veto_muo_medium"] = xval;
+  }
+
   double xval = xsec_data_ref * lumierror / 100.;
   errors_tot["lumi"] = xval;
 
@@ -768,6 +787,20 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["qcd_fit"].push_back(xval);
     }
 
+    if (h_xsec_rec["veto_ele_medium"]) {
+      double xval = fabs(h_xsec_rec["veto_ele_medium"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["veto_ele_medium"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
+      errors["veto_ele_medium"].push_back(xval);
+    }
+
+    if (h_xsec_rec["veto_muo_medium"]) {
+      double xval = fabs(h_xsec_rec["veto_muo_medium"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["veto_muo_medium"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
+      errors["veto_muo_medium"].push_back(xval);
+    }
+
     double xval = h_xsec_rec["reference"]->GetBinContent(i) * lumierror / 100.;
     xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
     errors["lumi"].push_back(xval);
@@ -798,6 +831,8 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (errors["jet_misid_mc"].size()) labels.push_back("jet_misid_mc");
   if (errors["jet_bkg_mc"].size()) labels.push_back("jet_bkg_mc");
   if (errors["qcd_fit"].size()) labels.push_back("qcd_fit");
+  if (errors["veto_ele_medium"].size()) labels.push_back("veto_ele_medium");
+  if (errors["veto_muo_medium"].size()) labels.push_back("veto_muo_medium");
   if (errors["lumi"].size()) labels.push_back("lumi");
 
   ofstream out1;
