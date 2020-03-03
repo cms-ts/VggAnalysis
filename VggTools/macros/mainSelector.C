@@ -2250,7 +2250,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-     if (Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
+     if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
@@ -2424,8 +2424,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-     //if (Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
-     if (iflag != 140 && Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
+     //if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
+     if (iflag != 140 && Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
      if (iflag == 140 && Photon_Id_noSieie(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
@@ -2575,11 +2575,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (ipho0_iso != -1) {
      if (iflag != 140 && Photon_Iso(Photon_vidNestedWPBitmap[ipho0_iso], 2) != 0) is_pho0_iso = true;
-     if (iflag == 140 && Photon_Id(Photon_vidNestedWPBitmap[ipho0_iso], 2) != 0) is_pho0_iso = true;
+     if (iflag == 140 && Photon_Id_noIso(Photon_vidNestedWPBitmap[ipho0_iso], 2) != 0) is_pho0_iso = true;
    }
    if (ipho1_iso != -1) {
      if (iflag != 140 && Photon_Iso(Photon_vidNestedWPBitmap[ipho1_iso], 2) != 0) is_pho1_iso = true;
-     if (iflag == 140 && Photon_Id(Photon_vidNestedWPBitmap[ipho1_iso], 2) != 0) is_pho1_iso = true;
+     if (iflag == 140 && Photon_Id_noIso(Photon_vidNestedWPBitmap[ipho1_iso], 2) != 0) is_pho1_iso = true;
    }
 
 // photons cat
@@ -2605,7 +2605,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-     if (Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
+     if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
@@ -2755,7 +2755,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-     if (Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
+     if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;
@@ -2895,8 +2895,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-     //if (Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
-     if (iflag != 140 && Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
+     //if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
+     if (iflag != 140 && Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
      if (iflag == 140 && Photon_Id_noSieie(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
@@ -3046,11 +3046,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    if (ipho0_iso_qcd != -1) {
      if (iflag != 140 && Photon_Iso(Photon_vidNestedWPBitmap[ipho0_iso_qcd], 2) != 0) is_pho0_iso_qcd = true;
-     if (iflag == 140 && Photon_Id(Photon_vidNestedWPBitmap[ipho0_iso_qcd], 2) != 0) is_pho0_iso_qcd = true;
+     if (iflag == 140 && Photon_Id_noIso(Photon_vidNestedWPBitmap[ipho0_iso_qcd], 2) != 0) is_pho0_iso_qcd = true;
    }
    if (ipho1_iso_qcd != -1) {
      if (iflag != 140 && Photon_Iso(Photon_vidNestedWPBitmap[ipho1_iso_qcd], 2) != 0) is_pho1_iso_qcd = true;
-     if (iflag == 140 && Photon_Id(Photon_vidNestedWPBitmap[ipho1_iso_qcd], 2) != 0) is_pho1_iso_qcd = true;
+     if (iflag == 140 && Photon_Id_noIso(Photon_vidNestedWPBitmap[ipho1_iso_qcd], 2) != 0) is_pho1_iso_qcd = true;
    }
 
 // photons cat QCD
@@ -3076,7 +3076,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
-     if (Photon_Id(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
+     if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
 
      //if (Photon_electronVeto[i] == 0) continue;
      if (Photon_pixelSeed[i] != 0) continue;

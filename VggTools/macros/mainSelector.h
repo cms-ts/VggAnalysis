@@ -1408,6 +1408,13 @@ bool Electron_Iso(int bitmap, int level){
 // 6 - PhoAnyPFIsoWithEACut
 
 bool Photon_Id(int bitmap, int level){
+   for (int i=0; i<7; i++){
+     if (((bitmap >> i*2) & 0x3) < level) return false;
+   }
+   return true;
+}
+
+bool Photon_Id_noIso(int bitmap, int level){
    for (int i=0; i<4; i++){
      if (((bitmap >> i*2) & 0x3) < level) return false;
    }
