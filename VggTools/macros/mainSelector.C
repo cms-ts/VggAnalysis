@@ -57,6 +57,9 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (option.Contains("ZGG"))                                                      isZGG        = true;
    if (option.Contains("ZTauTau"))                                                  isZTauTau    = true;
 
+   if (option.Contains("ST_t-channel") && !option.Contains("ST_tW"))                isST         = true;
+   if (option.Contains("TGJets") && !option.Contains("TTGJets"))                    isTGJets     = true;
+
    if (option.Contains("TTJets"))                                                   isTTJets     = true;
    if (option.Contains("TTGJets"))                                                  isTTGJets    = true;
    if (option.Contains("TTGG"))                                                     isTTGG       = true;
@@ -1700,7 +1703,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    TLorentzVector pho0_gen;
    TLorentzVector pho1_gen;
 
-   if (isWJetsToLNu || isWG || isWGG || isDYJetsToLL || isZG || isZGG || isTTJets || isTTGJets || isTTGG || isWW || isWWG || isWZ || isWZG) {
+   if (isWJetsToLNu || isWG || isWGG || isDYJetsToLL || isZG || isZGG || isST || isTGJets || isTTJets || isTTGJets || isTTGG || isWW || isWWG || isWZ || isWZG) {
 
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 11) continue;
@@ -1901,6 +1904,13 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
      if (isZGG) {
        if (n_photons_gen == 0 || n_photons_gen == 1) return kTRUE;
+     }
+
+     if (isST) {
+       if (n_photons_gen != 0) return kTRUE;
+     }
+     if (isTGJets) {
+       if (n_photons_gen == 0) return kTRUE;
      }
 
      if (isTTJets) {

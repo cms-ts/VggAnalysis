@@ -80,6 +80,8 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
     if (input.Contains("ZG") && !input.Contains("ZGG") && !input.Contains("WZG")) selector->SetOption("MC,ZG");
     if (input.Contains("ZGG"))                                                    selector->SetOption("MC,ZGG");
     if (input.Contains("ZTauTau"))                                                selector->SetOption("MC,ZTauTau");
+    if (input.Contains("ST_t-channel") && !input.Contains("ST_tW"))               selector->SetOption("MC,ST_t-channel");
+    if (input.Contains("TGJets") && !input.Contains("TTGJets"))                   selector->SetOption("MC,TGJets");
     if (input.Contains("TTJets"))                                                 selector->SetOption("MC,TTJets");
     if (input.Contains("TTGJets"))                                                selector->SetOption("MC,TTGJets");
     if (input.Contains("TTGG"))                                                   selector->SetOption("MC,TTGG");

@@ -72,6 +72,9 @@ public :
    bool isZGG = false;
    bool isZTauTau = false;
 
+   bool isST = false;
+   bool isTGJets = false;
+
    bool isTTJets = false;
    bool isTTGJets = false;
    bool isTTGG = false;
