@@ -227,6 +227,20 @@ void plot6(string plot="", string title="", string version="v00", string options
                << endl;
           h_xsec_rec_errors_p->SetBinContent(i+1, +100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data_ref);
           h_xsec_rec_errors_m->SetBinContent(i+1, -100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data_ref);
+        } else if (flags[i].find("jet_misid_syst") != string::npos ||
+                   flags[i].find("jet_misid_mc") != string::npos ||
+                   flags[i].find("jet_bkg_mc") != string::npos ||
+                   flags[i].find("veto_ele_medium") != string::npos ||
+                   flags[i].find("veto_muo_medium") != string::npos) {
+          cout << std::fixed << std::setprecision(2)
+               << std::setw(6) << 100. * (xsec_data - xsec_data_ref) / xsec_data_ref / 2.0
+               << " %"
+               << " : "
+               << std::setw(6) << TMath::Sign(1, xsec_data - xsec_data_ref) * 100. * (TMath::Sqrt(TMath::Max(0.,TMath::Power(xsec_data - xsec_data_ref,2) - TMath::Abs(TMath::Power(xsec_stat_data,2) - TMath::Power(xsec_stat_data_ref,2))))) / xsec_data_ref / 2.0
+               << " %"
+               << endl;
+          h_xsec_rec_errors_p->SetBinContent(i+1, +100. * (xsec_data - xsec_data_ref) / xsec_data_ref / 2.0);
+          h_xsec_rec_errors_m->SetBinContent(i+1, -100. * (xsec_data - xsec_data_ref) / xsec_data_ref / 2.0);
         } else {
           cout << std::fixed << std::setprecision(2)
                << std::setw(6) << 100. * (xsec_data - xsec_data_ref) / xsec_data_ref
