@@ -506,6 +506,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     double xval = h_xsec_rec["jet_misid_syst"]->IntegralAndError(0, h_xsec_rec["jet_misid_syst"]->GetNbinsX()+1, xval_stat, "width");
     xval = xval - xsec_data_ref;
     xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    xval = xval / 2.0;
     errors_tot["jet_misid_syst"] = xval;
   }
 
@@ -529,6 +530,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     double xval = h_xsec_rec["jet_misid_mc"]->IntegralAndError(0, h_xsec_rec["jet_misid_mc"]->GetNbinsX()+1, xval_stat, "width");
     xval = xval - xsec_data_ref;
     xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    xval = xval / 2.0;
     errors_tot["jet_misid_mc"] = xval;
   }
 
@@ -538,6 +540,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     double xval = h_xsec_rec["jet_bkg_mc"]->IntegralAndError(0, h_xsec_rec["jet_bkg_mc"]->GetNbinsX()+1, xval_stat, "width");
     xval = xval - xsec_data_ref;
     xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    xval = xval / 2.0;
     errors_tot["jet_bkg_mc"] = xval;
   }
 #endif
@@ -555,6 +558,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     double xval = h_xsec_rec["veto_ele_medium"]->IntegralAndError(0, h_xsec_rec["veto_ele_medium"]->GetNbinsX()+1, xval_stat, "width");
     xval = xval - xsec_data_ref;
     xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    xval = xval / 2.0;
     errors_tot["veto_ele_medium"] = xval;
   }
 
@@ -563,6 +567,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     double xval = h_xsec_rec["veto_muo_medium"]->IntegralAndError(0, h_xsec_rec["veto_muo_medium"]->GetNbinsX()+1, xval_stat, "width");
     xval = xval - xsec_data_ref;
     xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    xval = xval / 2.0;
     errors_tot["veto_muo_medium"] = xval;
   }
 
@@ -749,6 +754,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = fabs(h_xsec_rec["jet_misid_syst"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_syst"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
+      xval = xval / 2.0;
       errors["jet_misid_syst"].push_back(xval);
     }
 
@@ -768,6 +774,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = fabs(h_xsec_rec["jet_misid_mc"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_mc"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
+      xval = xval / 2.0;
       errors["jet_misid_mc"].push_back(xval);
     }
 
@@ -776,6 +783,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = fabs(h_xsec_rec["jet_bkg_mc"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_bkg_mc"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
+      xval = xval / 2.0;
       errors["jet_bkg_mc"].push_back(xval);
     }
 #endif
@@ -791,6 +799,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = fabs(h_xsec_rec["veto_ele_medium"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["veto_ele_medium"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
+      xval = xval / 2.0;
       errors["veto_ele_medium"].push_back(xval);
     }
 
@@ -798,6 +807,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       double xval = fabs(h_xsec_rec["veto_muo_medium"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["veto_muo_medium"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
+      xval = xval / 2.0;
       errors["veto_muo_medium"].push_back(xval);
     }
 
