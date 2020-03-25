@@ -16,8 +16,8 @@ if [ `voms-proxy-info --timeleft` == "0" ]; then
   exit
 fi
 
-if [ -r $CMS_PATH/slc6_amd64_gcc700/cms/cmssw/CMSSW_10_5_0 ]; then
-  cd $CMS_PATH/slc6_amd64_gcc700/cms/cmssw/CMSSW_10_5_0
+if [ -r $CMS_PATH/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_0_0 ]; then
+  cd $CMS_PATH/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_0_0
   eval `scramv1 runtime -sh`
   cd $OLDPWD
 fi
