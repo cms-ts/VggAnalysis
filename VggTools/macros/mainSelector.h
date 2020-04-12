@@ -21,28 +21,22 @@
 #include "TH2D.h"
 #include "TH3D.h"
 
-// #define NANOAODv5
-
 #define NANOAODv6
+
+// #define NANOAODv7
+
+#define USE_SPRING16V2_PHOTON_ID
 
 // #define COMPUTE_EG_MISID
 
 // #define RIVET
 
-#if defined(NANOAODv5)
+#if defined(NANOAODv7)
 #undef NANOAODv6
-#endif // defined(NANOAODv5)
+#endif // defined(NANOAODv7)
 
 #if defined(__linux__)
 #include "roccor.Run2.v3/RoccoR.h"
-
-#if defined(NANOAODv5)
-#if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
-#define __ROOTCLING__ 1
-#include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
-#include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
-#endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
-#endif // defined(NANOAODv5)
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
@@ -1061,12 +1055,6 @@ public :
 #if defined(__linux__)
    RoccoR* roccor = 0;
 
-#if defined(NANOAODv5)
-#if defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
-   FactorizedJetCorrector* jet_corrector = 0;
-#endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
-#endif // defined(NANOAODv5)
-
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
    JetCorrectionUncertainty* jet_correction_unc = 0;
 #endif // defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
@@ -1137,7 +1125,22 @@ public :
 
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
+#if defined(NANOAODv6)
    TTreeReaderArray<Int_t> Photon_vidNestedWPBitmap = {fReader, "Photon_vidNestedWPBitmap"};
+#endif // defined(NANOAODv6)
+
+#if defined(NANOAODv7)
+#if defined (USE_SPRING16V2_PHOTON_ID)
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+   TTreeReaderArray<Int_t> Photon_vidNestedWPBitmap_Spring16V2p2 = {fReader, "Photon_vidNestedWPBitmap_Spring16V2p2"};
+#define Photon_vidNestedWPBitmap Photon_vidNestedWPBitmap_Spring16V2p2
+#else
+   TTreeReaderArray<Int_t> Photon_vidNestedWPBitmap = {fReader, "Photon_vidNestedWPBitmap"};
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#else
+   TTreeReaderArray<Int_t> Photon_vidNestedWPBitmap = {fReader, "Photon_vidNestedWPBitmap"};
+#endif // defined (USE_SPRING16V2_PHOTON_ID)
+#endif // defined(NANOAODv7)
 
    TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
    TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};

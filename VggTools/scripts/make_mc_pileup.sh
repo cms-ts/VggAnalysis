@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd $HOME/work/cms/CMSSW_10_2_9/
+cd $HOME/work/cms/CMSSW_10_2_22/
 eval `scramv1 runtime -sh`
 cd $OLDPWD
 

@@ -16,7 +16,7 @@ cd $WORKDIR
 
 DATADIR=/eos/infnts/cms/store/data
 
-for F in `eos find -f $DATADIR/ | grep Run2016 | grep NANOAOD | grep 25Oct2019`; do
+for F in `eos find -f $DATADIR/ | grep Run2016 | grep NANOAOD | grep 02Apr2020`; do
   if [ -s $F ]; then
     if [ ! -e logs/`basename $F .root`_Skim.log ]; then
       touch logs/`basename $F .root`_Skim.log
@@ -26,7 +26,7 @@ for F in `eos find -f $DATADIR/ | grep Run2016 | grep NANOAOD | grep 25Oct2019`;
   fi
 done
 
-for F in `eos find -f $DATADIR/ | grep Run2017 | grep NANOAOD | grep 25Oct2019`; do
+for F in `eos find -f $DATADIR/ | grep Run2017 | grep NANOAOD | grep 02Apr2020`; do
   if [ -s $F ]; then
     if [ ! -e logs/`basename $F .root`_Skim.log ]; then
       touch logs/`basename $F .root`_Skim.log
@@ -36,7 +36,7 @@ for F in `eos find -f $DATADIR/ | grep Run2017 | grep NANOAOD | grep 25Oct2019`;
   fi
 done
 
-for F in `eos find -f $DATADIR/ | grep Run2018 | grep NANOAOD | grep 25Oct2019`; do
+for F in `eos find -f $DATADIR/ | grep Run2018 | grep NANOAOD | grep 02Apr2020`; do
   if [ -s $F ]; then
     if [ ! -e logs/`basename $F .root`_Skim.log ]; then
       touch logs/`basename $F .root`_Skim.log
