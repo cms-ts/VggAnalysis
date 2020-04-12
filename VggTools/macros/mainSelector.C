@@ -285,12 +285,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_pho_sf_eff->Close();
    delete file_pho_sf_eff;
 
-#if defined(NANOAODv5)
    TFile* file_eg_misid = new TFile("root/sf_eg_misid_2016_v5.root");
-#endif // defined(NANOAODv5)
-#if defined(NANOAODv6)
-   TFile* file_eg_misid = new TFile("root/sf_eg_misid_2016_v6.root");
-#endif // defined(NANOAODv6)
 
    sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D");
    sf_eg_misid->SetDirectory(0);
@@ -298,12 +293,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_eg_misid->Close();
    delete file_eg_misid;
 
-#if defined(NANOAODv5)
    TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2016_v5.root");
-#endif // defined(NANOAODv5)
-#if defined(NANOAODv6)
-   TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2016_v6.root");
-#endif // defined(NANOAODv6)
 
    sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D");
    sf_eg_misid_qcd->SetDirectory(0);
@@ -371,12 +361,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_pho_sf_eff->Close();
    delete file_pho_sf_eff;
 
-#if defined(NANOAODv5)
    TFile* file_eg_misid = new TFile("root/sf_eg_misid_2017_v5.root");
-#endif // defined(NANOAODv5)
-#if defined(NANOAODv6)
-   TFile* file_eg_misid = new TFile("root/sf_eg_misid_2017_v6.root");
-#endif // defined(NANOAODv6)
 
    sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D");
    sf_eg_misid->SetDirectory(0);
@@ -384,12 +369,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_eg_misid->Close();
    delete file_eg_misid;
 
-#if defined(NANOAODv5)
    TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2017_v5.root");
-#endif // defined(NANOAODv5)
-#if defined(NANOAODv6)
-   TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2017_v6.root");
-#endif // defined(NANOAODv6)
 
    sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D");
    sf_eg_misid_qcd->SetDirectory(0);
@@ -467,12 +447,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_pho_sf_eff->Close();
    delete file_pho_sf_eff;
 
-#if defined(NANOAODv5)
    TFile* file_eg_misid = new TFile("root/sf_eg_misid_2018_v5.root");
-#endif // defined(NANOAODv5)
-#if defined(NANOAODv6)
-   TFile* file_eg_misid = new TFile("root/sf_eg_misid_2018_v6.root");
-#endif // defined(NANOAODv6)
 
    sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D");
    sf_eg_misid->SetDirectory(0);
@@ -480,12 +455,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_eg_misid->Close();
    delete file_eg_misid;
 
-#if defined(NANOAODv5)
    TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2018_v5.root");
-#endif // defined(NANOAODv5)
-#if defined(NANOAODv6)
-   TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2018_v6.root");
-#endif // defined(NANOAODv6)
 
    sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D");
    sf_eg_misid_qcd->SetDirectory(0);
