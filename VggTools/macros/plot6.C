@@ -93,6 +93,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("pileup_up");
   flags.push_back("pileup_down");
 
+#if 0
   flags.push_back("jec_up_2016");
   flags.push_back("jec_up_2017");
   flags.push_back("jec_up_2018");
@@ -106,6 +107,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("jer_down_2016");
   flags.push_back("jer_down_2017");
   flags.push_back("jer_down_2018");
+#endif
 
   flags.push_back("sf_ele_eff_up");
   flags.push_back("sf_ele_eff_down");
@@ -315,6 +317,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     errors_tot["pileup"] = xval;
   }
 
+#if 0
   if (h_xsec_rec["jec_up_2016"] && h_xsec_rec["jec_down_2016"] && h_xsec_rec["jec_up_2017"] && h_xsec_rec["jec_down_2017"] && h_xsec_rec["jec_up_2018"] && h_xsec_rec["jec_down_2018"]) {
     double xval_2016_stat_up = 0.;
     double xval_2016_up = h_xsec_rec["jec_up_2016"]->IntegralAndError(0, h_xsec_rec["jec_up_2016"]->GetNbinsX()+1, xval_2016_stat_up, "width");
@@ -372,6 +375,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     double xval = TMath::Sqrt(TMath::Power(0.5 * (xval_2016_up + xval_2016_down), 2) + TMath::Power(0.5 * (xval_2017_up + xval_2017_down), 2) + TMath::Power(0.5 * (xval_2018_up + xval_2018_down), 2));
     errors_tot["jer"] = xval;
   }
+#endif
 
   if (h_xsec_rec["sf_ele_eff_up"] && h_xsec_rec["sf_ele_eff_down"]) {
     double xval_stat_up = 0.;
@@ -624,6 +628,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["pileup"].push_back(xval);
     }
 
+#if 0
     if (h_xsec_rec["jec_up_2016"] && h_xsec_rec["jec_down_2016"] && h_xsec_rec["jec_up_2017"] && h_xsec_rec["jec_down_2017"] && h_xsec_rec["jec_up_2018"] && h_xsec_rec["jec_down_2018"]) {
       double xval_2016_up = fabs(h_xsec_rec["jec_up_2016"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval_2016_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_2016_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jec_up_2016"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
@@ -659,6 +664,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
       errors["jer"].push_back(xval);
     }
+#endif
 
     if (h_xsec_rec["sf_ele_eff_up"] && h_xsec_rec["sf_ele_eff_down"]) {
       double xval_up = fabs(h_xsec_rec["sf_ele_eff_up"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
