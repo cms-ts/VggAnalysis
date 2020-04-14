@@ -208,7 +208,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       }
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
-        double ngen = ((TH3D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
+        double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
         norm = xsecMap[it->first] * 1000. * lumi / ngen;
         if (it->first.find("RunIISummer16") != string::npos) norm = norm * lumi2016 / lumi;
         if (it->first.find("RunIIFall17") != string::npos) norm = norm * lumi2017 / lumi;
@@ -250,7 +250,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       }
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
-        double ngen = ((TH3D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
+        double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
         norm = xsecMap[it->first] * 1000. * lumi / ngen;
         if (it->first.find("RunIISummer16") != string::npos) norm = norm * lumi2016 / lumi;
         if (it->first.find("RunIIFall17") != string::npos) norm = norm * lumi2017 / lumi;
