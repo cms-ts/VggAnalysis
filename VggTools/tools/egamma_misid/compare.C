@@ -85,7 +85,12 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
 
    TCanvas * c3 = new TCanvas("c3","c3",0,0,1000,1000);
    c3->cd();
-   h_final->SetTitle("Scale factors");
+   string pdf_title = "Scale factors - ";
+   pdf_title += std::to_string(year);
+   h_final->SetTitle((pdf_title).c_str());
+   h_final->GetXaxis()->SetTitle("|#eta|");
+   h_final->GetYaxis()->SetTitleOffset(1.35);
+   h_final->GetYaxis()->SetTitle("p_{T}");
    h_final->Draw("COLZ TEXT ERROR");
 
    c3->SaveAs((plot_final).c_str());
