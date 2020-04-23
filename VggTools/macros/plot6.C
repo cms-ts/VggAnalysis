@@ -229,7 +229,8 @@ void plot6(string plot="", string title="", string version="v00", string options
                << endl;
           h_xsec_rec_errors_p->SetBinContent(i+1, +100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data_ref);
           h_xsec_rec_errors_m->SetBinContent(i+1, -100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data_ref);
-        } else if (flags[i].find("jet_misid_syst") != string::npos ||
+        } else if (flags[i].find("eg_misid") != string::npos ||
+                   flags[i].find("jet_misid_syst") != string::npos ||
                    flags[i].find("jet_misid_mc") != string::npos ||
                    flags[i].find("jet_bkg_mc") != string::npos ||
                    flags[i].find("veto_ele_medium") != string::npos ||
@@ -516,6 +517,7 @@ void plot6(string plot="", string title="", string version="v00", string options
     xval_down = xval_down - xsec_data_ref;
     xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
     double xval = 0.5 * (xval_up + xval_down);
+    xval = xval / 2.0;
     errors_tot["eg_misid"] = xval;
   }
 
@@ -767,6 +769,7 @@ void plot6(string plot="", string title="", string version="v00", string options
       xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["eg_misid_down"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
       double xval = 0.5 * (xval_up + xval_down);
       xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
+      xval = xval / 2.0;
       errors["eg_misid"].push_back(xval);
     }
 
