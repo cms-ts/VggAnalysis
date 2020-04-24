@@ -872,7 +872,10 @@ void plot6(string plot="", string title="", string version="v00", string options
   out1.open(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".dat").c_str());
   Info("File::Open", "dat file %s has been created", ("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".dat").c_str());
 
-  out1 << title << " (" << h_xsec_mc_gen["reference"]->Integral(0, h_xsec_mc_gen["reference"]->GetNbinsX()+1, "width") << ")" << endl;
+  double xsec_stat_mc_gen = 0.;
+  double xsec_mc_gen = h_xsec_mc_gen["reference"]->IntegralAndError(0, h_xsec_mc_gen["reference"]->GetNbinsX()+1, xsec_stat_mc_gen, "width");
+
+  out1 << title << " (" << xsec_mc_gen << " +- " << xsec_stat_mc_gen << ")" << endl;
 
   out1 << std::setw(25) << "data";
 
