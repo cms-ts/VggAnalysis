@@ -1765,7 +1765,16 @@ Bool_t mainSelector::Process(Long64_t entry)
 
        for (uint j = 0; j < *nGenPart; j++) {
          if (skip) continue;
+#if 0
          if (fabs(GenPart_pdgId[j]) >= 6 && fabs(GenPart_pdgId[j]) != 21) continue;
+#endif
+#if 1
+         if (GenPart_status[j] != 1) continue;
+         if (fabs(GenPart_pdgId[j]) == 22) continue;
+         if (fabs(GenPart_pdgId[j]) == 12) continue;
+         if (fabs(GenPart_pdgId[j]) == 14) continue;
+         if (fabs(GenPart_pdgId[j]) == 16) continue;
+#endif
          if (GenPart_pt[j] < 15) continue;
          if (fabs(GenPart_eta[j]) > 2.400) continue;
 
