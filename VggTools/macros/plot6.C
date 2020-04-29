@@ -1390,7 +1390,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (title.find("muo") != string::npos) out2 << "bin muo" << endl;
   out2 << "observation "
        << std::fixed << std::setprecision(2)
-       << h_data->Integral() << endl;
+       << h_data->Integral(0, h_data->GetNbinsX()+1) << endl;
 
   out2 << "------------" << endl;
 
@@ -1433,11 +1433,11 @@ void plot6(string plot="", string title="", string version="v00", string options
   out2 << endl;
 
   out2 << std::setw(20) << left << "rate"
-       << std::setw(8) << h_sig->Integral()
-       << std::setw(8) << h_misid->Integral()
-       << std::setw(8) << h_irred->Integral();
+       << std::setw(8) << h_sig->Integral(0, h_sig->GetNbinsX()+1)
+       << std::setw(8) << h_misid->Integral(0, h_misid->GetNbinsX()+1)
+       << std::setw(8) << h_irred->Integral(0, h_irred->GetNbinsX()+1);
   if (title.find("WGG") != string::npos) {
-    out2 << std::setw(8) << h_egmisid->Integral();
+    out2 << std::setw(8) << h_egmisid->Integral(0, h_egmisid->GetNbinsX()+1);
   }
   out2 << endl;
 
