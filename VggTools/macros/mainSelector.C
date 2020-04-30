@@ -1592,17 +1592,15 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      for (uint i = 0; i < *nGenPart; i++) {
        if (fabs(GenPart_pdgId[i]) != 15) continue;
-       if (isWJetsToLNu || isWG || isWGG) {
-         if (GenPart_genPartIdxMother[i] >= 0 && (uint)GenPart_genPartIdxMother[i] < *nGenPart && fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 24) return kTRUE;
-       }
-       if (isDYJetsToLL || isZG || isZGG) {
-         if (GenPart_genPartIdxMother[i] >= 0 && (uint)GenPart_genPartIdxMother[i] < *nGenPart && fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 23) return kTRUE;
-       }
-       if (isWTauNu) {
-         if (GenPart_genPartIdxMother[i] >= 0 && (uint)GenPart_genPartIdxMother[i] < *nGenPart && fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 24) W_tau_sel_gen = true;
-       }
-       if (isZTauTau) {
-         if (GenPart_genPartIdxMother[i] >= 0 && (uint)GenPart_genPartIdxMother[i] < *nGenPart && fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 23) Z_tau_sel_gen = true;
+       if (GenPart_genPartIdxMother[i] >= 0 && (uint)GenPart_genPartIdxMother[i] < *nGenPart) {
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 24) {
+           if (isWJetsToLNu || isWG || isWGG) return kTRUE;
+           if (isWTauNu) W_tau_sel_gen = true;
+         }
+         if (fabs(GenPart_pdgId[GenPart_genPartIdxMother[i]]) == 23) {
+           if (isDYJetsToLL || isZG || isZGG) return kTRUE;
+           if (isZTauTau) Z_tau_sel_gen = true;
+         }
        }
      }
 
