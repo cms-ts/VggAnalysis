@@ -1704,7 +1704,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0_gen != -1 && iele1_gen == -1 && imuo0_gen == -1) {
        W_ele0_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * (*MET_fiducialGenPt) * (1. - TMath::Cos(ele0_gen.Phi() - (*MET_fiducialGenPhi))));
-       if (*MET_fiducialGenPt > 0 && W_ele0_gen_mt > 0 && ele0_gen.Pt() > 35) {
+       if (*MET_fiducialGenPt > 0 && W_ele0_gen_mt > 0 && ele0_gen.Pt() > 30) {
          W_ele_sel_gen = true;
        }
      }
@@ -1722,7 +1722,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
      if (iele0_gen != -1 && iele1_gen != -1) {
        Z_ele0_ele1_gen_m = (ele0_gen + ele1_gen).M();
-       if (Z_ele0_ele1_gen_m >= 55. && (ele0_gen.Pt() > 35 || ele1_gen.Pt() > 35)) {
+       if (Z_ele0_ele1_gen_m >= 55. && (ele0_gen.Pt() > 30 || ele1_gen.Pt() > 30)) {
          Z_ele_sel_gen = true;
        }
      }
