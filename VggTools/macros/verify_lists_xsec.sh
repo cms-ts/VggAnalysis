@@ -119,7 +119,7 @@ done
 [ $check -eq 0 ] && echo "ok"
 
 echo
-echo './xsec.dat* => ./amcatnlo*/ ./madgraph*/'
+echo './xsec.dat* => ./amcatnlo*/ ./madgraph*/ ./sherpa*/'
 echo
 
 DATASETS=`grep -v \# ./xsec.dat* | awk -F: '{print $2}' | awk '{print $1}' | sort | uniq`
@@ -130,11 +130,9 @@ for D in $DATASETS; do
   [ -z "${D##*DY[1234]JetsToLL*}" ] && continue
   [ -z "${D##*W[1234]JetsToLNu*}" ] && continue
 
-  [ -z "${D##*ZGJetsToLLG_012nlo3lo_13TeV-sherpa*}" ] && continue
-
-  X=`grep $D ./amcatnlo*/*.dat* ./madgraph*/*.dat*`
+  X=`grep $D ./amcatnlo*/*.dat* ./madgraph*/*.dat* ./sherpa*/*.dat*`
   if [ -z "$X" ]; then
-    echo "not used in ./amcatnlo*/ or ./madgraph*/ : "$D
+    echo "not used in ./amcatnlo*/ or ./madgraph*/ or ./sherpa*/ : "$D
     check=1
   fi
 
@@ -143,10 +141,10 @@ done
 [ $check -eq 0 ] && echo "ok"
 
 echo
-echo './amcatnlo*/ ./madgraph*/ => ./xsec.dat*'
+echo './amcatnlo*/ ./madgraph*/ ./sherpa*/ => ./xsec.dat*'
 echo
 
-DATASETS=`cat ./amcatnlo*/*.dat* ./madgraph*/*.dat* | grep RunII | grep -v \# | awk '{print $1}' | sort | uniq`
+DATASETS=`cat ./amcatnlo*/*.dat* ./madgraph*/*.dat* ./sherpa*/*.dat* | grep RunII | grep -v \# | awk '{print $1}' | sort | uniq`
 
 check=0
 for D in $DATASETS; do
@@ -162,10 +160,10 @@ done
 [ $check -eq 0 ] && echo "ok"
 
 echo
-echo './amcatnlo*/ ./madgraph*/ => ./lists/'
+echo './amcatnlo*/ ./madgraph*/ ./sherpa*/ => ./lists/'
 echo
 
-DATASETS=`cat ./amcatnlo*/*.dat* ./madgraph*/*.dat* | grep RunII | grep -v \# | awk '{print $1}' | sort | uniq`
+DATASETS=`cat ./amcatnlo*/*.dat* ./madgraph*/*.dat* ./sherpa*/*.dat* | grep RunII | grep -v \# | awk '{print $1}' | sort | uniq`
 
 check=0
 for D in $DATASETS; do
