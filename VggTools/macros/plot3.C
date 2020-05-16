@@ -19,6 +19,7 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   if (options.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
   if (options.find("madgraph") != string::npos) plot = "madgraph/" + plot;
+  if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
 // #define USE_CATEGORIES
@@ -31,6 +32,7 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   if (options.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (options.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (options.find("sherpa") != string::npos) version = version + ".sherpa";
   if (options.find("default") != string::npos) version = version + ".default";
 
   TFile* file_iso = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + ".root").c_str());
@@ -331,6 +333,7 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   if (options.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (options.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (options.find("sherpa") != string::npos) version = version + ".sherpa";
   if (options.find("default") != string::npos) version = version + ".default";
 
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {

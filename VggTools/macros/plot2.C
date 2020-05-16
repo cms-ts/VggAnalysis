@@ -17,6 +17,7 @@ void plot2(string plot="", string title="", string version="v00", string options
 
   if (options.find("amcatnlo") != string::npos) plot = "amcatnlo/" + plot;
   if (options.find("madgraph") != string::npos) plot = "madgraph/" + plot;
+  if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
   map<string, float> lumiMap;
@@ -167,6 +168,7 @@ void plot2(string plot="", string title="", string version="v00", string options
 
   if (options.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
   if (options.find("madgraph") != string::npos) version = version + ".madgraph";
+  if (options.find("sherpa") != string::npos) version = version + ".sherpa";
   if (options.find("default") != string::npos) version = version + ".default";
 
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
