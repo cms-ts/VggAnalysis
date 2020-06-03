@@ -206,7 +206,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_ele_sf_reco->Close();
    delete file_ele_sf_reco;
 
-   TFile* file_ele_sf_trig = new TFile("root/sf_ele_2016_trig_v5.root");
+   TFile* file_ele_sf_trig = new TFile("root/sf_ele_2016_trig_v6.root");
 
    sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
    sf_ele_trig->SetDirectory(0);
@@ -350,7 +350,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_ele_sf_reco->Close();
    delete file_ele_sf_reco;
 
-   TFile* file_ele_sf_trig = new TFile("root/sf_ele_2017_trig_v5.root");
+   TFile* file_ele_sf_trig = new TFile("root/sf_ele_2017_trig_v6.root");
 
    sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
    sf_ele_trig->SetDirectory(0);
@@ -425,7 +425,7 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_ele_sf_reco->Close();
    delete file_ele_sf_reco;
 
-   TFile* file_ele_sf_trig = new TFile("root/sf_ele_2018_trig_v5.root");
+   TFile* file_ele_sf_trig = new TFile("root/sf_ele_2018_trig_v6.root");
 
    sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
    sf_ele_trig->SetDirectory(0);
@@ -1643,7 +1643,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 11) continue;
        if (GenDressedLepton_pt[i] < 15) continue;
-       if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
+       if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
 
        if (iele0_gen != -1) {
          if (GenDressedLepton_pdgId[i] == GenDressedLepton_pdgId[iele0_gen]) {
@@ -1673,7 +1673,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      for (uint i = 0; i < *nGenDressedLepton; i++) {
        if (fabs(GenDressedLepton_pdgId[i]) != 13) continue;
        if (GenDressedLepton_pt[i] < 15) continue;
-       if (fabs(GenDressedLepton_eta[i]) > 2.400) continue;
+       if (fabs(GenDressedLepton_eta[i]) > 2.500) continue;
 
        if (imuo0_gen != -1) {
          if (GenDressedLepton_pdgId[i] == GenDressedLepton_pdgId[imuo0_gen]) {
@@ -1741,7 +1741,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(GenPart_pdgId[i]) != 22) continue;
        if ((GenPart_statusFlags[i] & 1) != 1) continue;
        if (GenPart_pt[i] < 15) continue;
-       if (fabs(GenPart_eta[i]) > 2.400) continue;
+       if (fabs(GenPart_eta[i]) > 2.500) continue;
 
        bool skip = false;
 
@@ -1752,7 +1752,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (skip) continue;
          if (fabs(GenDressedLepton_pdgId[j]) != 11 && fabs(GenDressedLepton_pdgId[j]) != 13) continue;
          if (GenDressedLepton_pt[j] < 15) continue;
-         if (fabs(GenDressedLepton_eta[j]) > 2.400) continue;
+         if (fabs(GenDressedLepton_eta[j]) > 2.500) continue;
 
          TLorentzVector tmp_lept_gen;
          tmp_lept_gen.SetPtEtaPhiM(GenDressedLepton_pt[j], GenDressedLepton_eta[j], GenDressedLepton_phi[j], GenDressedLepton_mass[j]);
@@ -1774,7 +1774,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(GenPart_pdgId[j]) == 16) continue;
 #endif
          if (GenPart_pt[j] < 15) continue;
-         if (fabs(GenPart_eta[j]) > 2.400) continue;
+         if (fabs(GenPart_eta[j]) > 2.500) continue;
 
          TLorentzVector tmp_part_gen;
          tmp_part_gen.SetPtEtaPhiM(GenPart_pt[j], GenPart_eta[j], GenPart_phi[j], GenPart_mass[j]);
@@ -1977,13 +1977,13 @@ Bool_t mainSelector::Process(Long64_t entry)
      Electron_pt[i] = Electron_pt[i] * eCorr_ele;
      if (Electron_pt[i] < 15) continue;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) continue;
-     if (fabs(Electron_eta[i]) > 2.400) continue;
+     if (fabs(Electron_eta[i]) > 2.500) continue;
 
      if (fabs(Electron_eta[i]) < 1.442) {
        if (fabs(Electron_dxy[i]) > 0.05) continue;
        if (fabs(Electron_dz[i]) > 0.10) continue;
      }
-     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
+     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.500) {
        if (fabs(Electron_dxy[i]) > 0.10) continue;
        if (fabs(Electron_dz[i]) > 0.20) continue;
      }
@@ -2032,13 +2032,13 @@ Bool_t mainSelector::Process(Long64_t entry)
    for (uint i = 0; i < *nElectron; i++) {
      if (Electron_pt[i] < 15) continue;
      if (fabs(Electron_eta[i]) > 1.442 && fabs(Electron_eta[i]) < 1.566) continue;
-     if (fabs(Electron_eta[i]) > 2.400) continue;
+     if (fabs(Electron_eta[i]) > 2.500) continue;
 
      if (fabs(Electron_eta[i]) < 1.442) {
        if (fabs(Electron_dxy[i]) > 0.05) continue;
        if (fabs(Electron_dz[i]) > 0.10) continue;
      }
-     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.400) {
+     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.500) {
        if (fabs(Electron_dxy[i]) > 0.10) continue;
        if (fabs(Electron_dz[i]) > 0.20) continue;
      }
@@ -2196,12 +2196,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      Photon_pt[i] = Photon_pt[i] * eCorr_pho;
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
-     if (fabs(Photon_eta[i]) > 2.400) continue;
+     if (fabs(Photon_eta[i]) > 2.500) continue;
 
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
-     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.500) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
      if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
@@ -2227,13 +2227,13 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Electron_pt[j] < 15) continue;
        if (fabs(Electron_eta[j]) > 1.442 && fabs(Electron_eta[j]) < 1.566) continue;
-       if (fabs(Electron_eta[j]) > 2.400) continue;
+       if (fabs(Electron_eta[j]) > 2.500) continue;
 
        if (fabs(Electron_eta[j]) < 1.442) {
          if (fabs(Electron_dxy[j]) > 0.05) continue;
          if (fabs(Electron_dz[j]) > 0.10) continue;
        }
-       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.400) {
+       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.500) {
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
@@ -2339,7 +2339,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(GenPart_pdgId[i]) != 22) continue;
        if ((GenPart_statusFlags[i] & 1) != 1) continue;
        if (GenPart_pt[i] < 20) continue;
-       if (fabs(GenPart_eta[i]) > 2.400) continue;
+       if (fabs(GenPart_eta[i]) > 2.500) continue;
 
        TLorentzVector tmp_pho_gen;
        tmp_pho_gen.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
@@ -2370,12 +2370,12 @@ Bool_t mainSelector::Process(Long64_t entry)
    for (uint i = 0; i < *nPhoton; i++) {
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
-     if (fabs(Photon_eta[i]) > 2.400) continue;
+     if (fabs(Photon_eta[i]) > 2.500) continue;
 
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
-     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.500) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
      //if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
@@ -2403,13 +2403,13 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Electron_pt[j] < 15) continue;
        if (fabs(Electron_eta[j]) > 1.442 && fabs(Electron_eta[j]) < 1.566) continue;
-       if (fabs(Electron_eta[j]) > 2.400) continue;
+       if (fabs(Electron_eta[j]) > 2.500) continue;
 
        if (fabs(Electron_eta[j]) < 1.442) {
          if (fabs(Electron_dxy[j]) > 0.05) continue;
          if (fabs(Electron_dz[j]) > 0.10) continue;
        }
-       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.400) {
+       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.500) {
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
@@ -2507,7 +2507,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(GenPart_pdgId[i]) != 22) continue;
        if ((GenPart_statusFlags[i] & 1) != 1) continue;
        if (GenPart_pt[i] < 20) continue;
-       if (fabs(GenPart_eta[i]) > 2.400) continue;
+       if (fabs(GenPart_eta[i]) > 2.500) continue;
 
        TLorentzVector tmp_pho_gen_iso;
        tmp_pho_gen_iso.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
@@ -2551,12 +2551,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      Photon_pt[i] = Photon_pt[i] * eCorr_pho;
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
-     if (fabs(Photon_eta[i]) > 2.400) continue;
+     if (fabs(Photon_eta[i]) > 2.500) continue;
 
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
-     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.500) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
      if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
@@ -2582,13 +2582,13 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Electron_pt[j] < 15) continue;
        if (fabs(Electron_eta[j]) > 1.442 && fabs(Electron_eta[j]) < 1.566) continue;
-       if (fabs(Electron_eta[j]) > 2.400) continue;
+       if (fabs(Electron_eta[j]) > 2.500) continue;
 
        if (fabs(Electron_eta[j]) < 1.442) {
          if (fabs(Electron_dxy[j]) > 0.05) continue;
          if (fabs(Electron_dz[j]) > 0.10) continue;
        }
-       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.400) {
+       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.500) {
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
@@ -2701,12 +2701,12 @@ Bool_t mainSelector::Process(Long64_t entry)
    for (uint i = 0; i < *nPhoton; i++) {
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
-     if (fabs(Photon_eta[i]) > 2.400) continue;
+     if (fabs(Photon_eta[i]) > 2.500) continue;
 
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
-     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.500) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
      if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
@@ -2732,13 +2732,13 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Electron_pt[j] < 15) continue;
        if (fabs(Electron_eta[j]) > 1.442 && fabs(Electron_eta[j]) < 1.566) continue;
-       if (fabs(Electron_eta[j]) > 2.400) continue;
+       if (fabs(Electron_eta[j]) > 2.500) continue;
 
        if (fabs(Electron_eta[j]) < 1.442) {
          if (fabs(Electron_dxy[j]) > 0.05) continue;
          if (fabs(Electron_dz[j]) > 0.10) continue;
        }
-       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.400) {
+       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.500) {
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
@@ -2841,12 +2841,12 @@ Bool_t mainSelector::Process(Long64_t entry)
    for (uint i = 0; i < *nPhoton; i++) {
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
-     if (fabs(Photon_eta[i]) > 2.400) continue;
+     if (fabs(Photon_eta[i]) > 2.500) continue;
 
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
-     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.500) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
      //if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
@@ -2874,13 +2874,13 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Electron_pt[j] < 15) continue;
        if (fabs(Electron_eta[j]) > 1.442 && fabs(Electron_eta[j]) < 1.566) continue;
-       if (fabs(Electron_eta[j]) > 2.400) continue;
+       if (fabs(Electron_eta[j]) > 2.500) continue;
 
        if (fabs(Electron_eta[j]) < 1.442) {
          if (fabs(Electron_dxy[j]) > 0.05) continue;
          if (fabs(Electron_dz[j]) > 0.10) continue;
        }
-       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.400) {
+       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.500) {
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
@@ -2978,7 +2978,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(GenPart_pdgId[i]) != 22) continue;
        if ((GenPart_statusFlags[i] & 1) != 1) continue;
        if (GenPart_pt[i] < 20) continue;
-       if (fabs(GenPart_eta[i]) > 2.400) continue;
+       if (fabs(GenPart_eta[i]) > 2.500) continue;
 
        TLorentzVector tmp_pho_gen_iso_qcd;
        tmp_pho_gen_iso_qcd.SetPtEtaPhiM(GenPart_pt[i], GenPart_eta[i], GenPart_phi[i], GenPart_mass[i]);
@@ -3022,12 +3022,12 @@ Bool_t mainSelector::Process(Long64_t entry)
      Photon_pt[i] = Photon_pt[i] * eCorr_pho;
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
-     if (fabs(Photon_eta[i]) > 2.400) continue;
+     if (fabs(Photon_eta[i]) > 2.500) continue;
 
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
-     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.400) {
+     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.500) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
      if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
@@ -3053,13 +3053,13 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Electron_pt[j] < 15) continue;
        if (fabs(Electron_eta[j]) > 1.442 && fabs(Electron_eta[j]) < 1.566) continue;
-       if (fabs(Electron_eta[j]) > 2.400) continue;
+       if (fabs(Electron_eta[j]) > 2.500) continue;
 
        if (fabs(Electron_eta[j]) < 1.442) {
          if (fabs(Electron_dxy[j]) > 0.05) continue;
          if (fabs(Electron_dz[j]) > 0.10) continue;
        }
-       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.400) {
+       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.500) {
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
@@ -4744,28 +4744,28 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Photon_eta[ipho0_fake]) > 0.5 && fabs(Photon_eta[ipho0_fake]) < 1.0)   h_WG_ele_fake_2->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          if (fabs(Photon_eta[ipho0_fake]) > 1.0 && fabs(Photon_eta[ipho0_fake]) < 1.442) h_WG_ele_fake_3->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          if (fabs(Photon_eta[ipho0_fake]) > 1.566 && fabs(Photon_eta[ipho0_fake]) < 2.0) h_WG_ele_fake_4->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
-         if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.4)   h_WG_ele_fake_5->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
+         if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.5)   h_WG_ele_fake_5->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
        }
        if (Photon_pt[ipho0_fake] > 30 && Photon_pt[ipho0_fake] < 40) {
          if (fabs(Photon_eta[ipho0_fake]) > 0 && fabs(Photon_eta[ipho0_fake]) < 0.5)     h_WG_ele_fake_6->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          if (fabs(Photon_eta[ipho0_fake]) > 0.5 && fabs(Photon_eta[ipho0_fake]) < 1.0)   h_WG_ele_fake_7->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          if (fabs(Photon_eta[ipho0_fake]) > 1.0 && fabs(Photon_eta[ipho0_fake]) < 1.442) h_WG_ele_fake_8->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          if (fabs(Photon_eta[ipho0_fake]) > 1.566 && fabs(Photon_eta[ipho0_fake]) < 2.0) h_WG_ele_fake_9->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
-         if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.4)   h_WG_ele_fake_10->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
+         if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.5)   h_WG_ele_fake_10->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
        }
        if (Photon_pt[ipho0_fake] > 40 && Photon_pt[ipho0_fake] < 50) {
          if (fabs(Photon_eta[ipho0_fake]) > 0 && fabs(Photon_eta[ipho0_fake]) < 0.5)     h_WG_ele_fake_11->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          if (fabs(Photon_eta[ipho0_fake]) > 0.5 && fabs(Photon_eta[ipho0_fake]) < 1.0)   h_WG_ele_fake_12->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          if (fabs(Photon_eta[ipho0_fake]) > 1.0 && fabs(Photon_eta[ipho0_fake]) < 1.442) h_WG_ele_fake_13->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          if (fabs(Photon_eta[ipho0_fake]) > 1.566 && fabs(Photon_eta[ipho0_fake]) < 2.0) h_WG_ele_fake_14->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
-         if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.4)   h_WG_ele_fake_15->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
+         if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.5)   h_WG_ele_fake_15->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
        }
        if (Photon_pt[ipho0_fake] > 50) {
          if (fabs(Photon_eta[ipho0_fake]) > 0 && fabs(Photon_eta[ipho0_fake]) < 0.5)     h_WG_ele_fake_16->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          if (fabs(Photon_eta[ipho0_fake]) > 0.5 && fabs(Photon_eta[ipho0_fake]) < 1.0)   h_WG_ele_fake_17->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          if (fabs(Photon_eta[ipho0_fake]) > 1.0 && fabs(Photon_eta[ipho0_fake]) < 1.442) h_WG_ele_fake_18->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          if (fabs(Photon_eta[ipho0_fake]) > 1.566 && fabs(Photon_eta[ipho0_fake]) < 2.0) h_WG_ele_fake_19->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
-         if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.4)   h_WG_ele_fake_20->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
+         if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.5)   h_WG_ele_fake_20->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
        }
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
        if (Photon_genPartIdx[ipho0_fake] >= 0 && (uint)Photon_genPartIdx[ipho0_fake] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_fake]]) == 11) {
@@ -4774,28 +4774,28 @@ Bool_t mainSelector::Process(Long64_t entry)
            if (fabs(Photon_eta[ipho0_fake]) > 0.5 && fabs(Photon_eta[ipho0_fake]) < 1.0)   h_WG_ele_fake_truthmatch_2->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
            if (fabs(Photon_eta[ipho0_fake]) > 1.0 && fabs(Photon_eta[ipho0_fake]) < 1.442) h_WG_ele_fake_truthmatch_3->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
            if (fabs(Photon_eta[ipho0_fake]) > 1.566 && fabs(Photon_eta[ipho0_fake]) < 2.0) h_WG_ele_fake_truthmatch_4->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
-           if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.4)   h_WG_ele_fake_truthmatch_5->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
+           if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.5)   h_WG_ele_fake_truthmatch_5->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          }
          if (Photon_pt[ipho0_fake] > 30 && Photon_pt[ipho0_fake] < 40) {
            if (fabs(Photon_eta[ipho0_fake]) > 0 && fabs(Photon_eta[ipho0_fake]) < 0.5)     h_WG_ele_fake_truthmatch_6->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
            if (fabs(Photon_eta[ipho0_fake]) > 0.5 && fabs(Photon_eta[ipho0_fake]) < 1.0)   h_WG_ele_fake_truthmatch_7->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
            if (fabs(Photon_eta[ipho0_fake]) > 1.0 && fabs(Photon_eta[ipho0_fake]) < 1.442) h_WG_ele_fake_truthmatch_8->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
            if (fabs(Photon_eta[ipho0_fake]) > 1.566 && fabs(Photon_eta[ipho0_fake]) < 2.0) h_WG_ele_fake_truthmatch_9->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
-           if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.4)   h_WG_ele_fake_truthmatch_10->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
+           if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.5)   h_WG_ele_fake_truthmatch_10->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          }
          if (Photon_pt[ipho0_fake] > 40 && Photon_pt[ipho0_fake] < 50) {
            if (fabs(Photon_eta[ipho0_fake]) > 0 && fabs(Photon_eta[ipho0_fake]) < 0.5)     h_WG_ele_fake_truthmatch_11->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
            if (fabs(Photon_eta[ipho0_fake]) > 0.5 && fabs(Photon_eta[ipho0_fake]) < 1.0)   h_WG_ele_fake_truthmatch_12->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
            if (fabs(Photon_eta[ipho0_fake]) > 1.0 && fabs(Photon_eta[ipho0_fake]) < 1.442) h_WG_ele_fake_truthmatch_13->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
            if (fabs(Photon_eta[ipho0_fake]) > 1.566 && fabs(Photon_eta[ipho0_fake]) < 2.0) h_WG_ele_fake_truthmatch_14->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
-           if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.4)   h_WG_ele_fake_truthmatch_15->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
+           if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.5)   h_WG_ele_fake_truthmatch_15->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          }
          if (Photon_pt[ipho0_fake] > 50) {
            if (fabs(Photon_eta[ipho0_fake]) > 0 && fabs(Photon_eta[ipho0_fake]) < 0.5)     h_WG_ele_fake_truthmatch_16->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
            if (fabs(Photon_eta[ipho0_fake]) > 0.5 && fabs(Photon_eta[ipho0_fake]) < 1.0)   h_WG_ele_fake_truthmatch_17->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
            if (fabs(Photon_eta[ipho0_fake]) > 1.0 && fabs(Photon_eta[ipho0_fake]) < 1.442) h_WG_ele_fake_truthmatch_18->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
            if (fabs(Photon_eta[ipho0_fake]) > 1.566 && fabs(Photon_eta[ipho0_fake]) < 2.0) h_WG_ele_fake_truthmatch_19->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
-           if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.4)   h_WG_ele_fake_truthmatch_20->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
+           if (fabs(Photon_eta[ipho0_fake]) > 2.0 && fabs(Photon_eta[ipho0_fake]) < 2.5)   h_WG_ele_fake_truthmatch_20->Fill((ele0+pho0_fake).M(), weight_W_ele * weight_pho0_fake);
          }
        }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
@@ -6400,28 +6400,28 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 0.5 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.0)   QCD(h_WG_ele_fake_2)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.442) QCD(h_WG_ele_fake_3)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.566 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.0) QCD(h_WG_ele_fake_4)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
-         if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.4)   QCD(h_WG_ele_fake_5)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
+         if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.5)   QCD(h_WG_ele_fake_5)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
        }
        if (Photon_pt[ipho0_fake_qcd] > 30 && Photon_pt[ipho0_fake_qcd] < 40) {
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 0. && fabs(Photon_eta[ipho0_fake_qcd]) < 0.5)    QCD(h_WG_ele_fake_6)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 0.5 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.0)   QCD(h_WG_ele_fake_7)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.442) QCD(h_WG_ele_fake_8)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.566 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.0) QCD(h_WG_ele_fake_9)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
-         if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.4)   QCD(h_WG_ele_fake_10)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
+         if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.5)   QCD(h_WG_ele_fake_10)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
        }
        if (Photon_pt[ipho0_fake_qcd] > 40 && Photon_pt[ipho0_fake_qcd] < 50) {
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 0. && fabs(Photon_eta[ipho0_fake_qcd]) < 0.5)    QCD(h_WG_ele_fake_11)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 0.5 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.0)   QCD(h_WG_ele_fake_12)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.442) QCD(h_WG_ele_fake_13)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.566 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.0) QCD(h_WG_ele_fake_14)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
-         if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.4)   QCD(h_WG_ele_fake_15)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
+         if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.5)   QCD(h_WG_ele_fake_15)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
        }
        if (Photon_pt[ipho0_fake_qcd] > 50) {
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 0. && fabs(Photon_eta[ipho0_fake_qcd]) < 0.5)    QCD(h_WG_ele_fake_16)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 0.5 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.0)   QCD(h_WG_ele_fake_17)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.442) QCD(h_WG_ele_fake_18)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.566 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.0) QCD(h_WG_ele_fake_19)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
-         if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.4)   QCD(h_WG_ele_fake_20)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
+         if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.5)   QCD(h_WG_ele_fake_20)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
        }
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
        if (Photon_genPartIdx[ipho0_fake_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_fake_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_fake_qcd]]) == 11) {
@@ -6430,28 +6430,28 @@ Bool_t mainSelector::Process(Long64_t entry)
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 0.5 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.0)   QCD(h_WG_ele_fake_truthmatch_2)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.442) QCD(h_WG_ele_fake_truthmatch_3)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.566 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.0) QCD(h_WG_ele_fake_truthmatch_4)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
-           if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.4)   QCD(h_WG_ele_fake_truthmatch_5)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
+           if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.5)   QCD(h_WG_ele_fake_truthmatch_5)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          }
          if (Photon_pt[ipho0_fake_qcd] > 30 && Photon_pt[ipho0_fake_qcd] < 40) {
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 0. && fabs(Photon_eta[ipho0_fake_qcd]) < 0.5)    QCD(h_WG_ele_fake_truthmatch_6)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 0.5 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.0)   QCD(h_WG_ele_fake_truthmatch_7)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.442) QCD(h_WG_ele_fake_truthmatch_8)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.566 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.0) QCD(h_WG_ele_fake_truthmatch_9)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
-           if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.4)   QCD(h_WG_ele_fake_truthmatch_10)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
+           if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.5)   QCD(h_WG_ele_fake_truthmatch_10)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          }
          if (Photon_pt[ipho0_fake_qcd] > 40 && Photon_pt[ipho0_fake_qcd] < 50) {
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 0. && fabs(Photon_eta[ipho0_fake_qcd]) < 0.5)    QCD(h_WG_ele_fake_truthmatch_11)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 0.5 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.0)   QCD(h_WG_ele_fake_truthmatch_12)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.442) QCD(h_WG_ele_fake_truthmatch_13)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.566 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.0) QCD(h_WG_ele_fake_truthmatch_14)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
-           if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.4)   QCD(h_WG_ele_fake_truthmatch_15)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
+           if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.5)   QCD(h_WG_ele_fake_truthmatch_15)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          }
          if (Photon_pt[ipho0_fake_qcd] > 50) {
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 0. && fabs(Photon_eta[ipho0_fake_qcd]) < 0.5)    QCD(h_WG_ele_fake_truthmatch_16)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 0.5 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.0)   QCD(h_WG_ele_fake_truthmatch_17)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 1.442) QCD(h_WG_ele_fake_truthmatch_18)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
            if (fabs(Photon_eta[ipho0_fake_qcd]) > 1.566 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.0) QCD(h_WG_ele_fake_truthmatch_19)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
-           if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.4)   QCD(h_WG_ele_fake_truthmatch_20)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
+           if (fabs(Photon_eta[ipho0_fake_qcd]) > 2.0 && fabs(Photon_eta[ipho0_fake_qcd]) < 2.5)   QCD(h_WG_ele_fake_truthmatch_20)->Fill((ele0_qcd+pho0_fake_qcd).M(), weight_W_ele_qcd * weight_pho0_fake_qcd);
          }
        }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
