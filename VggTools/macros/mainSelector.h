@@ -1317,7 +1317,7 @@ float getWeight(float photon_eta, float photon_r9, float var = 0) {
      if (photon_r9 < 0.94) return 1.00479 + var * 0.0164;
      if (photon_r9 >= 0.94) return 0.985097 + var * 0.0086;
    }
-   if (fabs(photon_eta) > 1.566 && fabs(photon_eta) <= 2.500) {
+   if (fabs(photon_eta) > 1.566) {
      if (photon_r9 < 0.94) return 1.00703 + var * 0.0401;
      if (photon_r9 >= 0.94) return 0.972969 + var * 0.006;
    }
@@ -1332,7 +1332,7 @@ float getWeight(float photon_eta, float photon_r9, float var = 0) {
      if (photon_r9 < 0.94) return 0.960239 + var * 0.005568;
      if (photon_r9 >= 0.94) return 0.974239 + var * 0.003711;
    }
-   if (fabs(photon_eta) > 1.566 && fabs(photon_eta) <= 2.500) {
+   if (fabs(photon_eta) > 1.566) {
      if (photon_r9 < 0.94) return 0.919658 + var * 0.015263;
      if (photon_r9 >= 0.94) return 0.917715 + var * 0.012046;
    }
@@ -1348,7 +1348,7 @@ float getWeight(float photon_eta, float photon_pt, float var = 0) {
      if (photon_pt >= 30 && photon_pt < 60) return 0.9719 + var * 0.0130;
      if (photon_pt >= 60) return 0.9875 + var * 0.0964;
    }
-   if (fabs(photon_eta) > 1.566 && fabs(photon_eta) <= 2.500) {
+   if (fabs(photon_eta) > 1.566) {
      if (photon_pt >= 10 && photon_pt < 30) return 0.8663 + var * 0.0199;
      if (photon_pt >= 30 && photon_pt < 60) return 0.9184 + var * 0.0258;
      if (photon_pt >= 60) return 0.9680 + var * 0.1063;
