@@ -12,6 +12,7 @@ cd $WORKDIR
 export ROOT_HIST=0
 
 for L in `ls lists/`; do
+
   [ -z "${L##*WG_WJetsToLNu*}" ] && continue
   [ -z "${L##*WGG_WJetsToLNu*}" ] && continue
   [ -z "${L##*WTauNu_WJetsToLNu*}" ] && continue
@@ -24,9 +25,11 @@ for L in `ls lists/`; do
   [ -z "${L##*ZG_DYToLL*}" ] && continue
   [ -z "${L##*ZGG_DYToLL*}" ] && continue
   [ -z "${L##*ZTauTau_DYToLL*}" ] && continue
+
   [ -z "${L##*RunIISummer16NanoAODv5_*}" ] && continue
   [ -z "${L##*RunIIFall17NanoAODv5_*}" ] && continue
   [ -z "${L##*RunIIAutumn18NanoAODv5_*}" ] && continue
+
   root.exe -l -b -q evtcount.C\(\"lists/$L\"\) | \
   grep -v 'Processing'
 done
