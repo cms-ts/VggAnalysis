@@ -308,6 +308,8 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(NANOAODv7)
 
    sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D");
+   if (iflag == 10) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_pileup_up");
+   if (iflag == 15) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_pileup_down");
    sf_eg_misid->SetDirectory(0);
 
    file_eg_misid->Close();
@@ -326,6 +328,8 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(NANOAODv7)
 
    sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D");
+   if (iflag == 10) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_pileup_up");
+   if (iflag == 15) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_pileup_down");
    sf_eg_misid_qcd->SetDirectory(0);
 
    file_eg_misid_qcd->Close();
@@ -394,6 +398,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    TFile* file_eg_misid = new TFile("root/sf_eg_misid_2017_v6.root");
 
    sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D");
+   if (iflag == 10) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_pileup_up");
+   if (iflag == 15) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_pileup_down");
    sf_eg_misid->SetDirectory(0);
 
    file_eg_misid->Close();
@@ -402,6 +408,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2017_v6.root");
 
    sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D");
+   if (iflag == 10) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_pileup_up");
+   if (iflag == 15) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_pileup_down");
    sf_eg_misid_qcd->SetDirectory(0);
 
    file_eg_misid_qcd->Close();
@@ -480,6 +488,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    TFile* file_eg_misid = new TFile("root/sf_eg_misid_2018_v6.root");
 
    sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D");
+   if (iflag == 10) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_pileup_up");
+   if (iflag == 15) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_pileup_down");
    sf_eg_misid->SetDirectory(0);
 
    file_eg_misid->Close();
@@ -488,6 +498,8 @@ void mainSelector::Begin(TTree * /*tree*/)
    TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2018_v6.root");
 
    sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D");
+   if (iflag == 10) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_pileup_up");
+   if (iflag == 15) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_pileup_down");
    sf_eg_misid_qcd->SetDirectory(0);
 
    file_eg_misid_qcd->Close();
