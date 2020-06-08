@@ -11,23 +11,26 @@ cd $WORKDIR
 
 YEARS="2016 2017 2018"
 
+SYST="reference"
+
+mkdir -p ../../macros/html/egamma_v6/$SYST
+mkdir -p ../../macros/html/egamma_v6/$SYST/plot
+
 for YEAR in $YEARS; do
-
-  ./fitter.sh $YEAR false CB reference &
-  ./fitter.sh $YEAR false BW reference &
-  ./fitter.sh $YEAR false TP reference &
-  
-  ./fitter.sh $YEAR true CB reference &
-  ./fitter.sh $YEAR true BW reference &
-  ./fitter.sh $YEAR true TP reference &
-
+  ./fitter.sh $YEAR false TP $SYST &
+  ./fitter.sh $YEAR true TP $SYST &
 done
 
 wait
 
 for YEAR in $YEARS; do
+  ./fitter.sh $YEAR false DCB $SYST &
+  ./fitter.sh $YEAR true DCB $SYST &
+done
 
-  root.exe -l -b -q compare.C\($YEAR,true,\"data\",\"reference\",\"CB\",\"BW\"\)
-  root.exe -l -b -q compare.C\($YEAR,false,\"data\",\"reference\",\"CB\",\"BW\"\)
+wait
 
+for YEAR in $YEARS; do
+  root-6.12 -l -b -q compare.C\($YEAR,false,\"data\",\"$SYST\",\"TP\",\"DCB\"\)
+  root-6.12 -l -b -q compare.C\($YEAR,true,\"data\",\"$SYST\",\"TP\",\"DCB\"\)
 done

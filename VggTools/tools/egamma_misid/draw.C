@@ -7,6 +7,8 @@ void draw(int year, bool isQCD, string filename, string fitfunc, string syst) {
    txt_title += std::to_string(year);
    txt_title = txt_title + ".txt";
 
+cout << txt_title << endl;
+
    int index[20];
    double sf[20];
    double sf_e[20];
@@ -32,7 +34,7 @@ void draw(int year, bool isQCD, string filename, string fitfunc, string syst) {
    cout << index[i] << "  " << sf[i] << "  " << sf_e[i] << endl;
    }
 
-   double xbins[7] = {0., 0.5, 1., 1.4442, 1.566, 2., 2.4};
+   double xbins[7] = {0., 0.5, 1., 1.4442, 1.566, 2., 2.5};
    double ybins[5] = {20., 30., 40., 50., 200.};
 
    TH2D * h2 = new TH2D("elepho_sf","elepho_sf", 6, xbins, 4, ybins);
@@ -64,7 +66,7 @@ void draw(int year, bool isQCD, string filename, string fitfunc, string syst) {
    h2->SetBinContent(4, 4, 1.);
    h2->SetBinContent(5, 4, sf[18]);
    h2->SetBinContent(6, 4, sf[19]);
- 
+
 
    h2->SetBinError(1, 1, sf_e[0]);
    h2->SetBinError(2, 1, sf_e[1]);
@@ -94,18 +96,22 @@ void draw(int year, bool isQCD, string filename, string fitfunc, string syst) {
    h2->SetBinError(5, 4, sf_e[18]);
    h2->SetBinError(6, 4, sf_e[19]);
 
- 
+   gStyle->SetOptStat(0);
+
+   string c_title = "Scale factors - " + fitfunc + " fit - " + std::to_string(year);
+
    TCanvas * c = new TCanvas("c","c",0,0,800,800);
    c->cd();
+   h2->SetTitle((c_title).c_str());
    h2->Draw("COLZ TEXT ERROR");
 
-   string plot_title = "../../macros/html/egamma_v5/" + syst + "/sf_egamma_misid_" + filename + "_" + fitfunc + sqcd + "_";
+   string plot_title = "../../macros/html/egamma_v6/" + syst + "/sf_egamma_misid_" + filename + "_" + fitfunc + sqcd + "_";
    plot_title += std::to_string(year);
    plot_title = plot_title + ".pdf";
 
    c->SaveAs((plot_title).c_str());
 
-   string root_title = "../../macros/html/egamma_v5/" + syst + "/sf_egamma_misid_" + filename + "_" + fitfunc + sqcd + "_";
+   string root_title = "../../macros/html/egamma_v6/" + syst + "/sf_egamma_misid_" + filename + "_" + fitfunc + sqcd + "_";
    root_title += std::to_string(year);
    root_title = root_title + ".root";
 

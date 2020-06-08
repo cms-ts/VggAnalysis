@@ -213,6 +213,14 @@ void fitterBW(int number, int year, bool isQCD, string syst) {
    plot_fake_MC->SetTitle((draw_title_MC).c_str());
    plot_fake_MC->Draw();
 
+   TH1D *hPdf_fake_MC = (TH1D*)(model_fake_MC.createHistogram("hPdf_fake_MC", m_fake_MC));
+   double chi2_fake_MC  = h_WG_ele_ele0_pho0_fake_MC->Chi2Test(hPdf_fake_MC,"CHI2/NDFUW");
+   string chi_fake_MC = "#Chi^{2}/ndf = ";
+   chi_fake_MC += std::to_string(chi2_fake_MC);
+
+   string status_fake_MC = "Fit status = ";
+   status_fake_MC += std::to_string(fit_fake_MC->status());
+
    TLatex* label = new TLatex();
    label->SetTextFont(43);
    label->SetTextSize(16);
@@ -221,6 +229,8 @@ void fitterBW(int number, int year, bool isQCD, string syst) {
    label->DrawLatex(0.5, 0.85, "Breit Wigner + CMS shape");
    label->DrawLatex(0.5, 0.80, (pt_range).c_str());
    label->DrawLatex(0.5, 0.75, (eta_range).c_str());
+   label->DrawLatex(0.5, 0.70, (chi_fake_MC).c_str());
+   label->DrawLatex(0.5, 0.65, (status_fake_MC).c_str());
    label->Draw("same");
 
    c->cd(2);
@@ -235,12 +245,22 @@ void fitterBW(int number, int year, bool isQCD, string syst) {
    plot_fake_DT->SetTitle((draw_title_DT).c_str());
    plot_fake_DT->Draw();
 
+   TH1D *hPdf_fake_DT = (TH1D*)(model_fake_DT.createHistogram("hPdf_fake_DT", m_fake_DT));
+   double chi2_fake_DT  = h_WG_ele_ele0_pho0_fake_DT->Chi2Test(hPdf_fake_DT,"CHI2/NDFUW");
+   string chi_fake_DT = "#Chi^{2}/ndf = ";
+   chi_fake_DT += std::to_string(chi2_fake_DT);
+
+   string status_fake_DT = "Fit status = ";
+   status_fake_DT += std::to_string(fit_fake_DT->status());
+
    label->DrawLatex(0.5, 0.85, "Breit Wigner + CMS shape");
    label->DrawLatex(0.5, 0.80, (pt_range).c_str());
    label->DrawLatex(0.5, 0.75, (eta_range).c_str());
+   label->DrawLatex(0.5, 0.70, (chi_fake_DT).c_str());
+   label->DrawLatex(0.5, 0.65, (status_fake_DT).c_str());
    label->Draw("same");
 
-   string plot_title = "../../macros/html/egamma_v5/" + syst + "/plot/BW_bin_";
+   string plot_title = "../../macros/html/egamma_v6/" + syst + "/plot/BW_bin_";
    plot_title += std::to_string(year);
    plot_title = plot_title + sqcd + "_";
    plot_title += std::to_string(number);

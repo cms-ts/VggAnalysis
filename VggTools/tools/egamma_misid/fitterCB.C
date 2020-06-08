@@ -7,6 +7,7 @@
 #include "TStyle.h"
 #include "TROOT.h"
 #include "TLatex.h"
+#include "rebin.h"
 
 #include "RooRealVar.h"
 #include "RooBinning.h"
@@ -22,6 +23,7 @@
 #include "RooDoubleCB.h"
 #include "RooCMSShape.h"
 #include "RooCBShape.h"
+#include "RooChi2Var.h"
 
 void fitterCB(int number, int year, bool isQCD, string syst) {
 
@@ -41,17 +43,17 @@ void fitterCB(int number, int year, bool isQCD, string syst) {
    if (year == 2017) f1 = new TFile((syst + "/RunIIFall17NanoAODv5_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8.root").c_str());
    if (year == 2018) f1 = new TFile((syst + "/RunIIAutumn18NanoAODv5_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8.root").c_str());
 
-   TH1D * h_WG_ele_ele0_pho0_fake_MC = (TH1D*)f1->Get((h_fake_title).c_str());
-   TH1D * h_Z_ele_MC = (TH1D*)f1->Get("h_Z_ele");
+   TH1D * h_WG_ele_ele0_pho0_fake_MC_tmp = (TH1D*)f1->Get((h_fake_title).c_str());
+   TH1D * h_Z_ele_MC_tmp = (TH1D*)f1->Get("h_Z_ele");
    TH1D * h_nevt = (TH1D*)f1->Get("h_nevt");
 
    if (year == 2016) f2 = new TFile("reference/Run2016_SingleElectron_1June2019.root");
    if (year == 2017) f2 = new TFile("reference/Run2017_SingleElectron_1June2019.root");
    if (year == 2018) f2 = new TFile("reference/Run2018_EGamma_1June2019.root");
 
-   TH1D * h_WG_ele_ele0_pho0_fake_DT = (TH1D*)f2->Get((h_fake_title).c_str());
-   TH1D * h_Z_ele_DT = (TH1D*)f2->Get("h_Z_ele");
-
+   TH1D * h_WG_ele_ele0_pho0_fake_DT_tmp = (TH1D*)f2->Get((h_fake_title).c_str());
+   TH1D * h_Z_ele_DT_tmp = (TH1D*)f2->Get("h_Z_ele");
+/*
    for (int i = 0; i < h_WG_ele_ele0_pho0_fake_MC->GetNbinsX(); i++) {
      if (h_WG_ele_ele0_pho0_fake_MC->GetBinContent(i) < 0) {
         h_WG_ele_ele0_pho0_fake_MC->SetBinContent(i, 0.);
@@ -61,15 +63,34 @@ void fitterCB(int number, int year, bool isQCD, string syst) {
    for (int i = 0; i < h_Z_ele_MC->GetNbinsX(); i++) {
      if (h_Z_ele_MC->GetBinContent(i) < 0) {
        h_Z_ele_MC->SetBinContent(i, 0.);
-       h_Z_ele_MC->SetBinError(i, 0.);
      }
    }
+*/
+
+   TH1D * h_WG_ele_ele0_pho0_fake_MC = new TH1D("h_WG_ele_ele0_pho0_fake_MC","h_WG_ele_ele0_pho0_fake_MC",50,40,120);
+   TH1D * h_Z_ele_MC = new TH1D("h_Z_ele_MC","h_Z_ele_MC",50,40,120);
+   TH1D * h_WG_ele_ele0_pho0_fake_DT = new TH1D("h_WG_ele_ele0_pho0_fake_DT","h_WG_ele_ele0_pho0_fake_DT",50,40,120);
+   TH1D * h_Z_ele_DT = new TH1D("h_Z_ele_DT","h_Z_ele_DT",50,40,120);
+
+   for (int i = 1; i < h_WG_ele_ele0_pho0_fake_MC->GetNbinsX()+1; i++){
+     h_WG_ele_ele0_pho0_fake_MC->SetBinContent(i, h_WG_ele_ele0_pho0_fake_MC_tmp->GetBinContent(i));
+     h_WG_ele_ele0_pho0_fake_MC->SetBinError(i, h_WG_ele_ele0_pho0_fake_MC_tmp->GetBinError(i));
+     h_Z_ele_MC->SetBinContent(i, h_Z_ele_MC_tmp->GetBinContent(i));
+     h_Z_ele_MC->SetBinError(i, h_Z_ele_MC_tmp->GetBinError(i));
+     h_WG_ele_ele0_pho0_fake_DT->SetBinContent(i, h_WG_ele_ele0_pho0_fake_DT_tmp->GetBinContent(i));
+     h_WG_ele_ele0_pho0_fake_DT->SetBinError(i, h_WG_ele_ele0_pho0_fake_DT_tmp->GetBinError(i));
+     h_Z_ele_DT->SetBinContent(i, h_Z_ele_DT_tmp->GetBinContent(i));
+     h_Z_ele_DT->SetBinError(i, h_Z_ele_DT_tmp->GetBinError(i));
+   }
+
+   h_WG_ele_ele0_pho0_fake_MC = rebin(h_WG_ele_ele0_pho0_fake_MC);
+   h_WG_ele_ele0_pho0_fake_DT = rebin(h_WG_ele_ele0_pho0_fake_DT);
 
    gStyle->SetOptFit(kTRUE);
 
-   RooRealVar m_fake_MC("m_fake_MC", "m(e#gamma)", 40, 200, "GeV");
+   RooRealVar m_fake_MC("m_fake_MC", "m(e#gamma)", 40, 120, "GeV");
    RooRealVar m_Z_MC("m_Z_MC", "m(e#gamma)", 51, 131, "GeV");
-   RooRealVar m_fake_DT("m_fake_DT", "m(e#gamma)", 40, 200, "GeV");
+   RooRealVar m_fake_DT("m_fake_DT", "m(e#gamma)", 40, 120, "GeV");
    RooRealVar m_Z_DT("m_Z_DT", "m(e#gamma)", 51, 131, "GeV");
 
    RooDataHist data_fake_MC("data_fake_MC", "data_fake_MC", m_fake_MC, h_WG_ele_ele0_pho0_fake_MC);
@@ -85,18 +106,38 @@ void fitterCB(int number, int year, bool isQCD, string syst) {
    RooRealVar CBn1_fake_MC("CBn1_fake_MC","CBn1_fake_MC",2.,1.,4.);
    RooCBShape CB_fake_MC("CB_fake_MC","CB_fake_MC", m_fake_MC, CBm0_fake_MC, CBsigma_fake_MC, CBalpha1_fake_MC, CBn1_fake_MC);
 
-   RooRealVar CMSalpha_fake_MC ("CMSalpha_fake_MC", "CMSalpha_fake_MC", 60.,50.,80.);
+   double CMSalpha_fake_MC_ave = 60.;
+   double CMSalpha_fake_MC_low = 50.;
+   double CMSalpha_fake_MC_high = 80.;
+   if (number >= 16) {
+     CMSalpha_fake_MC_ave = 100.;
+     CMSalpha_fake_MC_low = 60.;
+     CMSalpha_fake_MC_high = 115.;
+   }
+
+   RooRealVar CMSalpha_fake_MC ("CMSalpha_fake_MC", "CMSalpha_fake_MC", CMSalpha_fake_MC_ave, CMSalpha_fake_MC_low, CMSalpha_fake_MC_high);
    RooRealVar CMSbeta_fake_MC ("CMSbeta_fake_MC", "CMSbeta_fake_MC", 0.4,0.,5.);
-   RooRealVar CMSpeak_fake_MC ("CMSpeak_fake_MC", "CMSpeak_fake_MC", 70.,50.,90.);
+   RooRealVar CMSpeak_fake_MC ("CMSpeak_fake_MC", "CMSpeak_fake_MC", 70., 50., 90.);
    RooRealVar CMSgamma_fake_MC ("CMSgamma_fake_MC", "CMSgamma_fake_MC", 0.2,0.,1.);
    RooCMSShape CMS_fake_MC("CMS_fake_MC","CMS_fake_MC", m_fake_MC, CMSalpha_fake_MC, CMSbeta_fake_MC, CMSgamma_fake_MC, CMSpeak_fake_MC);
 
-   RooRealVar bkgfrac_fake_MC("bkgfrac_fake_MC","bkgfrac_fake_MC", 0.3, 0., 1.) ;
+   double bkgfrac_fake_MC_ave = 0.3;
+   if (number >= 16) bkgfrac_fake_MC_ave = 0.05;
+
+   RooRealVar bkgfrac_fake_MC("bkgfrac_fake_MC","bkgfrac_fake_MC", bkgfrac_fake_MC_ave, 0., 1.) ;
    RooAddPdf  model_fake_MC("model_fake_MC","model_fake_MC",RooArgList(CMS_fake_MC,CB_fake_MC),bkgfrac_fake_MC) ;
 
-   RooFitResult* fit_fake_MC = model_fake_MC.fitTo(data_fake_MC, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 200.), RooFit::Save(kTRUE));
+   bool nullchi = false;
+   for (int i = 1; i < h_WG_ele_ele0_pho0_fake_MC->GetNbinsX(); i++) {
+     if (h_WG_ele_ele0_pho0_fake_MC->GetBinError(i) == 0) nullchi = true;
+   }
+   RooFitResult* fit_fake_MC;
+   if (nullchi) {
+     fit_fake_MC = model_fake_MC.fitTo(data_fake_MC, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 120.), RooFit::Save(kTRUE));
+   } else {
+     fit_fake_MC = model_fake_MC.chi2FitTo(data_fake_MC, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 120.), RooFit::Save(kTRUE));
+   }
    fit_fake_MC->SetName("fit_fake_MC");
-
 
    // Z MC
 
@@ -117,7 +158,7 @@ void fitterCB(int number, int year, bool isQCD, string syst) {
    RooRealVar bkgfrac_Z_MC("bkgfrac_Z_MC","bkgfrac_Z_MC", 0.1, 0., 1.) ;
    RooAddPdf  model_Z_MC("model_Z_MC","model_Z_MC",RooArgList(CMS_Z_MC,CB_Z_MC),bkgfrac_Z_MC) ;
 
-   RooFitResult* fit_Z_MC = model_Z_MC.fitTo(data_Z_MC, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 200.), RooFit::Save(kTRUE));
+   RooFitResult* fit_Z_MC = model_Z_MC.fitTo(data_Z_MC, RooFit::SumW2Error(kFALSE), RooFit::Range(51., 131.), RooFit::Save(kTRUE));
    fit_Z_MC->SetName("fit_Z_MC");
 
    //FAKE DT
@@ -127,16 +168,30 @@ void fitterCB(int number, int year, bool isQCD, string syst) {
    RooRealVar CBn1_fake_DT("CBn1_fake_DT","CBn1_fake_DT",2.,1.,4.);
    RooCBShape CB_fake_DT("CB_fake_DT","CB_fake_DT", m_fake_DT, CBm0_fake_DT, CBsigma_fake_DT, CBalpha1_fake_DT, CBn1_fake_DT);
 
-   RooRealVar CMSalpha_fake_DT ("CMSalpha_fake_DT", "CMSalpha_fake_DT", 75.,65.,85.);
+   double CMSalpha_fake_DT_ave = 75.;
+   double CMSalpha_fake_DT_low = 65.;
+   double CMSalpha_fake_DT_high = 85.;
+   if (number >= 16) {
+     CMSalpha_fake_DT_ave = 95.;
+     CMSalpha_fake_DT_low = 65.;
+     CMSalpha_fake_DT_high = 115.;
+   }
+
+   RooRealVar CMSalpha_fake_DT ("CMSalpha_fake_DT", "CMSalpha_fake_DT", CMSalpha_fake_DT_ave, CMSalpha_fake_DT_low, CMSalpha_fake_DT_high);
    RooRealVar CMSbeta_fake_DT ("CMSbeta_fake_DT", "CMSbeta_fake_DT", 0.07,0.,1.);
    RooRealVar CMSpeak_fake_DT ("CMSpeak_fake_DT", "CMSpeak_fake_DT", 50.,40.,60.);
    RooRealVar CMSgamma_fake_DT ("CMSgamma_fake_DT", "CMSgamma_fake_DT",0.08 ,0.,0.1);
+//   RooRealVar CMSgamma_fake_DT ("CMSgamma_fake_DT", "CMSgamma_fake_DT",0.08 ,0.,0.2);
    RooCMSShape CMS_fake_DT("CMS_fake_DT","CMS_fake_DT", m_fake_DT, CMSalpha_fake_DT, CMSbeta_fake_DT, CMSgamma_fake_DT, CMSpeak_fake_DT);
 
-   RooRealVar bkgfrac_fake_DT("bkgfrac_fake_DT","bkgfrac_fake_DT",0.9, 0., 1.) ;
+//   double bkgfrac_fake_DT_ave = 0.9;
+   double bkgfrac_fake_DT_ave = 0.7;
+   if (number >= 16) bkgfrac_fake_DT_ave = 0.1;
+
+   RooRealVar bkgfrac_fake_DT("bkgfrac_fake_DT","bkgfrac_fake_DT",bkgfrac_fake_DT_ave, 0., 1.) ;
    RooAddPdf  model_fake_DT("model_fake_DT","model_fake_DT",RooArgList(CMS_fake_DT,CB_fake_DT),bkgfrac_fake_DT) ;
 
-   RooFitResult* fit_fake_DT = model_fake_DT.fitTo(data_fake_DT, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 200.), RooFit::Save(kTRUE));
+   RooFitResult* fit_fake_DT = model_fake_DT.fitTo(data_fake_DT, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 120.), RooFit::Save(kTRUE));
    fit_fake_DT->SetName("fit_fake_DT");
 
    // Z DT
@@ -158,7 +213,7 @@ void fitterCB(int number, int year, bool isQCD, string syst) {
    RooRealVar bkgfrac_Z_DT("bkgfrac_Z_DT","bkgfrac_Z_DT",0.01, 0., 1.) ;
    RooAddPdf  model_Z_DT("model_Z_DT","model_Z_DT",RooArgList(CMS_Z_DT,CB_Z_DT),bkgfrac_Z_DT) ;
 
-   RooFitResult* fit_Z_DT = model_Z_DT.fitTo(data_Z_DT, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 200.), RooFit::Save(kTRUE));
+   RooFitResult* fit_Z_DT = model_Z_DT.fitTo(data_Z_DT, RooFit::SumW2Error(kFALSE), RooFit::Range(51., 131.), RooFit::Save(kTRUE));
    fit_Z_DT->SetName("fit_Z_DT");
 
    string pt_range = "";
@@ -198,7 +253,7 @@ void fitterCB(int number, int year, bool isQCD, string syst) {
    c->cd(1);
    RooPlot* plot_fake_MC = m_fake_MC.frame();
    data_fake_MC.plotOn(plot_fake_MC);
-   model_fake_MC.plotOn(plot_fake_MC, RooFit::LineColor(kRed), RooFit::LineStyle(7));
+   model_fake_MC.plotOn(plot_fake_MC, RooFit::LineColor(kRed), RooFit::LineStyle(7), RooFit::Name("pdf1"));
    model_fake_MC.plotOn(plot_fake_MC, RooFit::Components(CMS_fake_MC), RooFit::LineColor(kBlue), RooFit::LineStyle(7)) ;
    model_fake_MC.plotOn(plot_fake_MC, RooFit::Components(CB_fake_MC), RooFit::LineColor(kGreen), RooFit::LineStyle(7)) ;
    plot_fake_MC->GetYaxis()->SetTitle("");
@@ -207,14 +262,29 @@ void fitterCB(int number, int year, bool isQCD, string syst) {
    plot_fake_MC->SetTitle((draw_title_MC).c_str());
    plot_fake_MC->Draw();
 
+   string chi_fake_MC = "#Chi^{2}/ndf = ";
+   if (nullchi) {
+     chi_fake_MC = chi_fake_MC + "NULL";
+   } else {
+     RooChi2Var chi2_MC_fake("chi2_MC_fake","chi2_MC_fake",model_fake_MC,data_fake_MC) ;
+     double chival_MC_fake = chi2_MC_fake.getVal();
+     chival_MC_fake = chival_MC_fake/91.;
+     chi_fake_MC += std::to_string(chival_MC_fake);
+   }
+
+   string status_fake_MC = "Fit status = ";
+   status_fake_MC += std::to_string(fit_fake_MC->status());
+
    TLatex* label = new TLatex();
    label->SetTextFont(43);
    label->SetTextSize(16);
    label->SetLineWidth(2);
    label->SetNDC();
-   label->DrawLatex(0.5, 0.85, "Crystal Ball + CMS shape");
-   label->DrawLatex(0.5, 0.80, (pt_range).c_str());
-   label->DrawLatex(0.5, 0.75, (eta_range).c_str());
+   label->DrawLatex(0.15, 0.85, "Crystal Ball + CMS shape");
+   label->DrawLatex(0.15, 0.80, (pt_range).c_str());
+   label->DrawLatex(0.15, 0.75, (eta_range).c_str());
+   label->DrawLatex(0.15, 0.70, (chi_fake_MC).c_str());
+   label->DrawLatex(0.15, 0.65, (status_fake_MC).c_str());
    label->Draw("same");
 
    c->cd(2);
@@ -229,18 +299,29 @@ void fitterCB(int number, int year, bool isQCD, string syst) {
    plot_fake_DT->SetTitle((draw_title_DT).c_str());
    plot_fake_DT->Draw();
 
-   label->DrawLatex(0.5, 0.85, "Crystal Ball + CMS shape");
-   label->DrawLatex(0.5, 0.80, (pt_range).c_str());
-   label->DrawLatex(0.5, 0.75, (eta_range).c_str());
+   RooChi2Var chi2_DT_fake("chi2_DT_fake","chi2_DT_fake",model_fake_DT,data_fake_DT) ;
+   double chival_DT_fake = chi2_DT_fake.getVal();
+   chival_DT_fake = chival_DT_fake/91.;
+   string chi_fake_DT = "#Chi^{2}/ndf = ";
+   chi_fake_DT += std::to_string(chival_DT_fake);
+
+   string status_fake_DT = "Fit status = ";
+   status_fake_DT += std::to_string(fit_fake_DT->status());
+
+   label->DrawLatex(0.15, 0.85, "Crystal Ball + CMS shape");
+   label->DrawLatex(0.15, 0.80, (pt_range).c_str());
+   label->DrawLatex(0.15, 0.75, (eta_range).c_str());
+   label->DrawLatex(0.15, 0.70, (chi_fake_DT).c_str());
+   label->DrawLatex(0.15, 0.65, (status_fake_DT).c_str());
    label->Draw("same");
 
-   string plot_title = "../../macros/html/egamma_v5/" + syst + "/plot/CB_bin_";
+   string plot_title = "../../macros/html/egamma_v6/" + syst + "/plot/CB_bin_";
    plot_title += std::to_string(year);
    plot_title = plot_title + sqcd + "_";
    plot_title += std::to_string(number);
    plot_title = plot_title + ".pdf";
    c->SaveAs((plot_title).c_str());
-
+/*
    float n_fake_MC = h_WG_ele_ele0_pho0_fake_MC->Integral(1, h_WG_ele_ele0_pho0_fake_MC->GetNbinsX())*(1.-bkgfrac_fake_MC.getVal());
    float n_Z_MC = h_Z_ele_MC->Integral(1, h_Z_ele_MC->GetNbinsX())*(1.-bkgfrac_Z_MC.getVal());
    float n_fake_DT = h_WG_ele_ele0_pho0_fake_DT->Integral(1, h_WG_ele_ele0_pho0_fake_DT->GetNbinsX())*(1.-bkgfrac_fake_DT.getVal());
@@ -275,5 +356,5 @@ void fitterCB(int number, int year, bool isQCD, string syst) {
    sf_xsec.open((txt_title2).c_str(), std::ios_base::app);
    sf_xsec << number << "\t" << n_fake_DT/n_fake_MC_lumixsec << "\t" << (sf_error*n_Z_DT)/(n_Z_MC*xsec_factor) << endl;
    sf_xsec.close();  
-
+*/
 }

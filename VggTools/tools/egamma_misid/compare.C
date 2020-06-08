@@ -3,11 +3,11 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
    string sqcd = "";
    if (isQCD) sqcd = "_qcd";
 
-   string variation_title = "../../macros/html/egamma_v5/" + syst + "/sf_egamma_misid_" + filename + "_" + variation + sqcd + "_";
+   string variation_title = "../../macros/html/egamma_v6/" + syst + "/sf_egamma_misid_" + filename + "_" + variation + sqcd + "_";
    variation_title += std::to_string(year);
    variation_title = variation_title + ".root";
 
-   string base_title = "../../macros/html/egamma_v5/" + syst + "/sf_egamma_misid_" + filename + "_" + base + sqcd + "_";
+   string base_title = "../../macros/html/egamma_v6/" + syst + "/sf_egamma_misid_" + filename + "_" + base + sqcd + "_";
    base_title += std::to_string(year);
    base_title = base_title + ".root";
 
@@ -35,9 +35,13 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
      }
    }
 
+   gStyle->SetOptStat(0);
+
+   string c1_title = "SF ratio " + base + "/" + variation + " - " + std::to_string(year);
+
    TCanvas * c1 = new TCanvas("c1","c1",0,0,1000,1000);
    c1->cd();
-   h_ratio->SetTitle("Ratio variation/base");
+   h_ratio->SetTitle((c1_title).c_str());
    h_ratio->Draw("COLZ TEXT");
 
    TCanvas * c2 = new TCanvas("c2","c2",0,0,1000,1000);
@@ -45,11 +49,11 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
    h_ratio_err->SetTitle("Error ratio variation/base");
    h_ratio_err->Draw("COLZ TEXT");
 
-   string plot_ratio = "../../macros/html/egamma_v5/" + syst + "/ratio_sf_egamma_misid_" + filename + sqcd + "_";
+   string plot_ratio = "../../macros/html/egamma_v6/" + syst + "/ratio_sf_egamma_misid_" + filename + sqcd + "_";
    plot_ratio += std::to_string(year);
    plot_ratio = plot_ratio + ".pdf";
 
-   string plot_ratio_err = "../../macros/html/egamma_v5/" + syst + "/ratio_errors_sf_egamma_misid_" + filename + sqcd + "_";
+   string plot_ratio_err = "../../macros/html/egamma_v6/" + syst + "/ratio_errors_sf_egamma_misid_" + filename + sqcd + "_";
    plot_ratio_err += std::to_string(year);
    plot_ratio_err = plot_ratio_err + ".pdf";
 
@@ -58,7 +62,7 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
 
    TH2D* h_final = (TH2D*)h_base->Clone("h_final");
 
-   string final_txt_title = "../../macros/html/egamma_v5/" + syst + "/final_" + filename + sqcd + "_";
+   string final_txt_title = "../../macros/html/egamma_v6/" + syst + "/final_" + filename + sqcd + "_" + base + "_" + variation + "_";
    final_txt_title += std::to_string(year);
    final_txt_title = final_txt_title + ".txt";
 
@@ -68,20 +72,19 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
 
    for(int j = 1; j <= h_final->GetNbinsY(); j++) {
      for(int i = 1; i <= h_final->GetNbinsX(); i++) {
-       float bin_err = TMath::Sqrt(TMath::Power(h_final->GetBinError(i,j), 2) + TMath::Power(fabs(h_base->GetBinContent(i,j) - h_variation->GetBinContent(i,j)), 2)); 
+       float bin_err = TMath::Sqrt(TMath::Power(h_final->GetBinError(i,j), 2) + TMath::Power(fabs(h_base->GetBinContent(i,j) - h_variation->GetBinContent(i,j)), 2));
        final_txt << std::fixed << std::setprecision(2) << h_final->GetBinContent(i,j) << "\t\t" << bin_err << "\t\t" << std::setprecision(1) << bin_err/h_final->GetBinContent(i,j)*100 << " \%" << std::setprecision(2) << "\t\t" << h_final->GetBinError(i,j) << "\t\t" << fabs(h_base->GetBinContent(i,j) - h_variation->GetBinContent(i,j)) << endl;
        h_final->SetBinError(i, j, bin_err);
      }
        final_txt << " " << endl;
-   }   
+   }
 
    final_txt.close();
 
-   string plot_final = "../../macros/html/egamma_v5/" + syst + "/final_" + filename + sqcd + "_";
+   string plot_final = "../../macros/html/egamma_v6/" + syst + "/final_" + filename + sqcd + "_" + base + "_" + variation + "_";
    plot_final += std::to_string(year);
    plot_final = plot_final + ".pdf";
 
-   gStyle->SetOptStat(0);
 
    TCanvas * c3 = new TCanvas("c3","c3",0,0,1000,1000);
    c3->cd();
@@ -95,7 +98,7 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
 
    c3->SaveAs((plot_final).c_str());
 
-   string root_title = "../../macros/html/egamma_v5/" + syst + "/final_" + filename + sqcd + "_";
+   string root_title = "../../macros/html/egamma_v6/" + syst + "/final_" + filename + sqcd + "_" + base + "_" + variation + "_";
    root_title += std::to_string(year);
    root_title = root_title + ".root";
 
