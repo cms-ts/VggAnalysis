@@ -69,7 +69,7 @@ void plot0(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -79,10 +79,31 @@ void plot0(string plot="", string title="", string version="v00", string options
         return;
       }
       if (lumiMap[it->first] != 0) {
-        lumi = lumi + lumiMap[it->first];
-        if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first];
-        if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first];
-        if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first];
+        float var = (flag == "lumi_up") - (flag == "lumi_down");
+        if (year.find("2016") != string::npos) {
+          lumi = lumi + lumiMap[it->first] * (1.000 + 0.025 * var);
+          if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.025 * var);
+          if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.023 * var);
+          if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.025 * var);
+        }
+        if (year.find("2017") != string::npos) {
+          lumi = lumi + lumiMap[it->first] * (1.000 + 0.023 * var);
+          if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.025 * var);
+          if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.023 * var);
+          if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.025 * var);
+        }
+        if (year.find("2018") != string::npos) {
+          lumi = lumi + lumiMap[it->first] * (1.000 + 0.025 * var);
+          if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.025 * var);
+          if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.023 * var);
+          if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.025 * var);
+        }
+        if (year.find("Run2") != string::npos) {
+          lumi = lumi + lumiMap[it->first] * (1.000 + 0.018 * var);
+          if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.018 * var);
+          if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.018 * var);
+          if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.018 * var);
+        }
       } else {
         cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
       }
@@ -115,7 +136,7 @@ void plot0(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index > 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -127,10 +148,9 @@ void plot0(string plot="", string title="", string version="v00", string options
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
         double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
-        norm = xsecMap[it->first] * 1000. * lumi / ngen;
-        if (it->first.find("RunIISummer16") != string::npos) norm = norm * lumi2016 / lumi;
-        if (it->first.find("RunIIFall17") != string::npos) norm = norm * lumi2017 / lumi;
-        if (it->first.find("RunIIAutumn18") != string::npos) norm = norm * lumi2018 / lumi;
+        if (it->first.find("RunIISummer16") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2016 / ngen;
+        if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
+        if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
       } else {
         cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
         return;

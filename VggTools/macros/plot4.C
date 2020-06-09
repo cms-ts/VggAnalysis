@@ -71,7 +71,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -81,10 +81,31 @@ void plot4(string plot="", string title="", string version="v00", string options
         return;
       }
       if (lumiMap[it->first] != 0) {
-        lumi = lumi + lumiMap[it->first];
-        if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first];
-        if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first];
-        if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first];
+        float var = (flag == "lumi_up") - (flag == "lumi_down");
+        if (year.find("2016") != string::npos) {
+          lumi = lumi + lumiMap[it->first] * (1.000 + 0.025 * var);
+          if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.025 * var);
+          if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.023 * var);
+          if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.025 * var);
+        }
+        if (year.find("2017") != string::npos) {
+          lumi = lumi + lumiMap[it->first] * (1.000 + 0.023 * var);
+          if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.025 * var);
+          if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.023 * var);
+          if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.025 * var);
+        }
+        if (year.find("2018") != string::npos) {
+          lumi = lumi + lumiMap[it->first] * (1.000 + 0.025 * var);
+          if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.025 * var);
+          if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.023 * var);
+          if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.025 * var);
+        }
+        if (year.find("Run2") != string::npos) {
+          lumi = lumi + lumiMap[it->first] * (1.000 + 0.018 * var);
+          if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.018 * var);
+          if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.018 * var);
+          if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.018 * var);
+        }
       } else {
         cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
       }
@@ -164,7 +185,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -176,10 +197,9 @@ void plot4(string plot="", string title="", string version="v00", string options
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
         double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
-        norm = xsecMap[it->first] * 1000. * lumi / ngen;
-        if (it->first.find("RunIISummer16") != string::npos) norm = norm * lumi2016 / lumi;
-        if (it->first.find("RunIIFall17") != string::npos) norm = norm * lumi2017 / lumi;
-        if (it->first.find("RunIIAutumn18") != string::npos) norm = norm * lumi2018 / lumi;
+        if (it->first.find("RunIISummer16") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2016 / ngen;
+        if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
+        if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
       } else {
         cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
         return;
@@ -636,37 +656,9 @@ void plot4(string plot="", string title="", string version="v00", string options
     TFile* file_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/" + title + ".root").c_str());
     TFile* file_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/" + title + ".root").c_str());
 
-    histo.clear();
+    histo[8001]->Reset();
 
     TH1D* h = 0;
-
-    h = (TH1D*)file_2016->Get((title + "_data").c_str());
-    if (h) {
-      if (histo[0]) {
-        histo[0]->Add(h);
-      } else {
-        histo[0] = h;
-        histo[0]->SetDirectory(0);
-      }
-    }
-    h = (TH1D*)file_2017->Get((title + "_data").c_str());
-    if (h) {
-      if (histo[0]) {
-        histo[0]->Add(h);
-      } else {
-        histo[0] = h;
-        histo[0]->SetDirectory(0);
-      }
-    }
-    h = (TH1D*)file_2018->Get((title + "_data").c_str());
-    if (h) {
-      if (histo[0]) {
-        histo[0]->Add(h);
-      } else {
-        histo[0] = h;
-        histo[0]->SetDirectory(0);
-      }
-    }
 
     h = (TH1D*)file_2016->Get((title + "_misid").c_str());
     if (h) {
@@ -693,430 +685,6 @@ void plot4(string plot="", string title="", string version="v00", string options
       } else {
         histo[8001] = h;
         histo[8001]->SetDirectory(0);
-      }
-    }
-
-    if (title.find("h_WGG_") != string::npos) {
-      h = (TH1D*)file_2016->Get((title + "_sig").c_str());
-      if (h) {
-        if (histo[1010]) {
-          histo[1010]->Add(h);
-        } else {
-          histo[1010] = h;
-          histo[1010]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_sig").c_str());
-      if (h) {
-        if (histo[1010]) {
-          histo[1010]->Add(h);
-        } else {
-          histo[1010] = h;
-          histo[1010]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_sig").c_str());
-      if (h) {
-        if (histo[1010]) {
-          histo[1010]->Add(h);
-        } else {
-          histo[1010] = h;
-          histo[1010]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_wg").c_str());
-      if (h) {
-        if (histo[1011]) {
-          histo[1011]->Add(h);
-        } else {
-          histo[1011] = h;
-          histo[1011]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_wg").c_str());
-      if (h) {
-        if (histo[1011]) {
-          histo[1011]->Add(h);
-        } else {
-          histo[1011] = h;
-          histo[1011]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_wg").c_str());
-      if (h) {
-        if (histo[1011]) {
-          histo[1011]->Add(h);
-        } else {
-          histo[1011] = h;
-          histo[1011]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_zg").c_str());
-      if (h) {
-        if (histo[1021]) {
-          histo[1021]->Add(h);
-        } else {
-          histo[1021] = h;
-          histo[1021]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_zg").c_str());
-      if (h) {
-        if (histo[1021]) {
-          histo[1021]->Add(h);
-        } else {
-          histo[1021] = h;
-          histo[1021]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_zg").c_str());
-      if (h) {
-        if (histo[1021]) {
-          histo[1021]->Add(h);
-        } else {
-          histo[1021] = h;
-          histo[1021]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_zgg").c_str());
-      if (h) {
-        if (histo[1022]) {
-          histo[1022]->Add(h);
-        } else {
-          histo[1022] = h;
-          histo[1022]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_zgg").c_str());
-      if (h) {
-        if (histo[1022]) {
-          histo[1022]->Add(h);
-        } else {
-          histo[1022] = h;
-          histo[1022]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_zgg").c_str());
-      if (h) {
-        if (histo[1022]) {
-          histo[1022]->Add(h);
-        } else {
-          histo[1022] = h;
-          histo[1022]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_ttg").c_str());
-      if (h) {
-        if (histo[1031]) {
-          histo[1031]->Add(h);
-        } else {
-          histo[1031] = h;
-          histo[1031]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_ttg").c_str());
-      if (h) {
-        if (histo[1031]) {
-          histo[1031]->Add(h);
-        } else {
-          histo[1031] = h;
-          histo[1031]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_ttg").c_str());
-      if (h) {
-        if (histo[1031]) {
-          histo[1031]->Add(h);
-        } else {
-          histo[1031] = h;
-          histo[1031]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_ttgg").c_str());
-      if (h) {
-        if (histo[1032]) {
-          histo[1032]->Add(h);
-        } else {
-          histo[1032] = h;
-          histo[1032]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_ttgg").c_str());
-      if (h) {
-        if (histo[1032]) {
-          histo[1032]->Add(h);
-        } else {
-          histo[1032] = h;
-          histo[1032]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_ttgg").c_str());
-      if (h) {
-        if (histo[1032]) {
-          histo[1032]->Add(h);
-        } else {
-          histo[1032] = h;
-          histo[1032]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_tg").c_str());
-      if (h) {
-        if (histo[1041]) {
-          histo[1041]->Add(h);
-        } else {
-          histo[1041] = h;
-          histo[1041]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_tg").c_str());
-      if (h) {
-        if (histo[1041]) {
-          histo[1041]->Add(h);
-        } else {
-          histo[1041] = h;
-          histo[1041]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_tg").c_str());
-      if (h) {
-        if (histo[1041]) {
-          histo[1041]->Add(h);
-        } else {
-          histo[1041] = h;
-          histo[1041]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_vvg").c_str());
-      if (h) {
-        if (histo[1051]) {
-          histo[1051]->Add(h);
-        } else {
-          histo[1051] = h;
-          histo[1051]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_vvg").c_str());
-      if (h) {
-        if (histo[1051]) {
-          histo[1051]->Add(h);
-        } else {
-          histo[1051] = h;
-          histo[1051]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_vvg").c_str());
-      if (h) {
-        if (histo[1051]) {
-          histo[1051]->Add(h);
-        } else {
-          histo[1051] = h;
-          histo[1051]->SetDirectory(0);
-        }
-      }
-    }
-
-    if (title.find("h_ZGG_") != string::npos) {
-      h = (TH1D*)file_2016->Get((title + "_sig").c_str());
-      if (h) {
-        if (histo[10]) {
-          histo[10]->Add(h);
-        } else {
-          histo[10] = h;
-          histo[10]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_sig").c_str());
-      if (h) {
-        if (histo[10]) {
-          histo[10]->Add(h);
-        } else {
-          histo[10] = h;
-          histo[10]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_sig").c_str());
-      if (h) {
-        if (histo[10]) {
-          histo[10]->Add(h);
-        } else {
-          histo[10] = h;
-          histo[10]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_zg").c_str());
-      if (h) {
-        if (histo[11]) {
-          histo[11]->Add(h);
-        } else {
-          histo[11] = h;
-          histo[11]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_zg").c_str());
-      if (h) {
-        if (histo[11]) {
-          histo[11]->Add(h);
-        } else {
-          histo[11] = h;
-          histo[11]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_zg").c_str());
-      if (h) {
-        if (histo[11]) {
-          histo[11]->Add(h);
-        } else {
-          histo[11] = h;
-          histo[11]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_wg").c_str());
-      if (h) {
-        if (histo[21]) {
-          histo[21]->Add(h);
-        } else {
-          histo[21] = h;
-          histo[21]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_wg").c_str());
-      if (h) {
-        if (histo[21]) {
-          histo[21]->Add(h);
-        } else {
-          histo[21] = h;
-          histo[21]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_wg").c_str());
-      if (h) {
-        if (histo[21]) {
-          histo[21]->Add(h);
-        } else {
-          histo[21] = h;
-          histo[21]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_vvg").c_str());
-      if (h) {
-        if (histo[31]) {
-          histo[31]->Add(h);
-        } else {
-          histo[31] = h;
-          histo[31]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_vvg").c_str());
-      if (h) {
-        if (histo[31]) {
-          histo[31]->Add(h);
-        } else {
-          histo[31] = h;
-          histo[31]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_vvg").c_str());
-      if (h) {
-        if (histo[31]) {
-          histo[31]->Add(h);
-        } else {
-          histo[31] = h;
-          histo[31]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_ttg").c_str());
-      if (h) {
-        if (histo[41]) {
-          histo[41]->Add(h);
-        } else {
-          histo[41] = h;
-          histo[41]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_ttg").c_str());
-      if (h) {
-        if (histo[41]) {
-          histo[41]->Add(h);
-        } else {
-          histo[41] = h;
-          histo[41]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_ttg").c_str());
-      if (h) {
-        if (histo[41]) {
-          histo[41]->Add(h);
-        } else {
-          histo[41] = h;
-          histo[41]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_ttgg").c_str());
-      if (h) {
-        if (histo[42]) {
-          histo[42]->Add(h);
-        } else {
-          histo[42] = h;
-          histo[42]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_ttgg").c_str());
-      if (h) {
-        if (histo[42]) {
-          histo[42]->Add(h);
-        } else {
-          histo[42] = h;
-          histo[42]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_ttgg").c_str());
-      if (h) {
-        if (histo[42]) {
-          histo[42]->Add(h);
-        } else {
-          histo[42] = h;
-          histo[42]->SetDirectory(0);
-        }
-      }
-
-      h = (TH1D*)file_2016->Get((title + "_tg").c_str());
-      if (h) {
-        if (histo[51]) {
-          histo[51]->Add(h);
-        } else {
-          histo[51] = h;
-          histo[51]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2017->Get((title + "_tg").c_str());
-      if (h) {
-        if (histo[51]) {
-          histo[51]->Add(h);
-        } else {
-          histo[51] = h;
-          histo[51]->SetDirectory(0);
-        }
-      }
-      h = (TH1D*)file_2018->Get((title + "_tg").c_str());
-      if (h) {
-        if (histo[51]) {
-          histo[51]->Add(h);
-        } else {
-          histo[51] = h;
-          histo[51]->SetDirectory(0);
-        }
       }
     }
 

@@ -90,6 +90,8 @@ if [ ! -z "$4" ]; then
     FLAGS=$FLAGS" qcd_fit"
     FLAGS=$FLAGS" veto_ele_medium"
     FLAGS=$FLAGS" veto_muo_medium"
+    FLAGS=$FLAGS" lumi_up"
+    FLAGS=$FLAGS" lumi_down"
   else
     FLAGS=$4
   fi

@@ -73,9 +73,6 @@ void plot6(string plot="", string title="", string version="v00", string options
     return;
   }
 
-  double lumierror = (lumi2016 * 2.5 + lumi2017 * 2.3 + lumi2018 * 2.5) / lumi;
-  if (plot.find("Run2") != string::npos) lumierror = 1.8;
-
   if (options.find("test") != string::npos) version = version + ".test";
   if (options.find("new") != string::npos) version = version + ".new";
   if (options.find("jet") != string::npos) version = version + ".jet";
@@ -155,6 +152,9 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   flags.push_back("veto_ele_medium");
   flags.push_back("veto_muo_medium");
+
+  flags.push_back("lumi_up");
+  flags.push_back("lumi_down");
 
   map<string, TH1D*> h_xsec_rec;
   map<string, TH1D*> h_xsec_mc_gen;
@@ -267,28 +267,6 @@ void plot6(string plot="", string title="", string version="v00", string options
 
     }
 
-  }
-
-  if (h_xsec_rec["reference"]) {
-    cout << std::setw(21)
-         << "lumi"
-         << " : "
-         << "xsec = "
-         << std::fixed << std::setprecision(5)
-         << std::setw(8) << xsec_data_ref * (1. + lumierror / 100.)
-         << " +- "
-         << std::setw(4) << xsec_stat_data_ref
-         << " : "
-         << std::fixed << std::setprecision(2)
-         << std::setw(6) << lumierror
-         << " %"
-         << " : "
-         << std::setw(6) << 0.
-         << " %"
-         << endl;
-  } else {
-    cout << "reference cross section not available" << endl;
-    return;
   }
 
   map<string, double> errors_tot;
@@ -593,8 +571,18 @@ void plot6(string plot="", string title="", string version="v00", string options
     errors_tot["veto_muo_medium"] = xval;
   }
 
-  double xval = xsec_data_ref * lumierror / 100.;
-  errors_tot["lumi"] = xval;
+  if (h_xsec_rec["lumi_up"] && h_xsec_rec["lumi_down"]) {
+    double xval_stat_up = 0.;
+    double xval_up = h_xsec_rec["lumi_up"]->IntegralAndError(0, h_xsec_rec["lumi_up"]->GetNbinsX()+1, xval_stat_up, "width");
+    xval_up = xval_up - xsec_data_ref;
+    xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(xval_stat_up, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    double xval_stat_down = 0.;
+    double xval_down = h_xsec_rec["lumi_down"]->IntegralAndError(0, h_xsec_rec["lumi_down"]->GetNbinsX()+1, xval_stat_down, "width");
+    xval_down = xval_down - xsec_data_ref;
+    xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(xval_stat_down, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    double xval = 0.5 * (xval_up + xval_down);
+    errors_tot["lumi"] = xval;
+  }
 
   map<string, vector<double>> values;
   map<string, vector<double>> errors;
@@ -836,9 +824,15 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["veto_muo_medium"].push_back(xval);
     }
 
-    double xval = h_xsec_rec["reference"]->GetBinContent(i) * lumierror / 100.;
-    xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
-    errors["lumi"].push_back(xval);
+    if (h_xsec_rec["lumi_up"] && h_xsec_rec["lumi_down"]) {
+      double xval_up = fabs(h_xsec_rec["lumi_up"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_up = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_up, 2) - TMath::Abs(TMath::Power(h_xsec_rec["lumi_up"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval_down = fabs(h_xsec_rec["lumi_down"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval_down = TMath::Sqrt(TMath::Max(0., TMath::Power(xval_down, 2) - TMath::Abs(TMath::Power(h_xsec_rec["lumi_down"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      double xval = 0.5 * (xval_up + xval_down);
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
+      errors["lumi"].push_back(xval);
+    }
   }
 
   while (gSystem->AccessPathName(("html/" + version + "/reference/" + year + ".xsec/root/").c_str())) {
@@ -953,12 +947,8 @@ void plot6(string plot="", string title="", string version="v00", string options
       << std::setw(8) << (errors_tot["bkg_stat"] ? (errors_tot["jet_misid_stat"] ? TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - TMath::Power(errors_tot["bkg_stat"], 2) - TMath::Power(errors_tot["jet_misid_stat"], 2))  : TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - TMath::Power(errors_tot["bkg_stat"], 2)) ) : (errors_tot["jet_misid_stat"] ? TMath::Sqrt(TMath::Power(xsec_stat_data_ref, 2) - TMath::Power(errors_tot["jet_misid_stat"], 2)) : xsec_stat_data_ref));
 
   for (uint j = 0; j < labels.size(); j++) {
-    out1 << std::setw(3) << " +-";
-    if (labels[j] == "lumi") {
-      out1 << std::setw(8) << xsec_data_ref * lumierror / 100.;
-    } else {
-      out1 << std::setw(8) << errors_tot[labels[j]];
-    }
+    out1 << std::setw(3) << " +-"
+        << std::setw(8) << errors_tot[labels[j]];
   }
 
   out1 << std::setw(3) << " =>"
