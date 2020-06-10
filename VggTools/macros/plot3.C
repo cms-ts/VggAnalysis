@@ -147,30 +147,10 @@ void plot3(string plot="", string title="", string version="v00", string options
       }
       if (lumiMap[it->first] != 0) {
         float var = (flag == "lumi_up") - (flag == "lumi_down");
-        if (year.find("2016") != string::npos) {
-          lumi = lumi + lumiMap[it->first] * (1.000 + 0.025 * var);
-          if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.025 * var);
-          if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.023 * var);
-          if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.025 * var);
-        }
-        if (year.find("2017") != string::npos) {
-          lumi = lumi + lumiMap[it->first] * (1.000 + 0.023 * var);
-          if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.025 * var);
-          if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.023 * var);
-          if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.025 * var);
-        }
-        if (year.find("2018") != string::npos) {
-          lumi = lumi + lumiMap[it->first] * (1.000 + 0.025 * var);
-          if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.025 * var);
-          if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.023 * var);
-          if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.025 * var);
-        }
-        if (year.find("Run2") != string::npos) {
-          lumi = lumi + lumiMap[it->first] * (1.000 + 0.018 * var);
-          if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.018 * var);
-          if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.018 * var);
-          if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.018 * var);
-        }
+        lumi = lumi + lumiMap[it->first] * (1.000 + 0.018 * var);
+        if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.018 * var);
+        if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.018 * var);
+        if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.018 * var);
       } else {
         cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
       }
