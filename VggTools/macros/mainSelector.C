@@ -310,6 +310,10 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D");
    if (iflag == 10) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_pileup_up");
    if (iflag == 15) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_pileup_down");
+   if (iflag == 100) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_eff_up");
+   if (iflag == 105) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_eff_down");
+   if (iflag == 111) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_veto_up");
+   if (iflag == 116) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_veto_down");
    sf_eg_misid->SetDirectory(0);
 
    file_eg_misid->Close();
@@ -330,6 +334,10 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D");
    if (iflag == 10) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_pileup_up");
    if (iflag == 15) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_pileup_down");
+   if (iflag == 100) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_eff_up");
+   if (iflag == 105) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_eff_down");
+   if (iflag == 111) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_veto_up");
+   if (iflag == 116) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_veto_down");
    sf_eg_misid_qcd->SetDirectory(0);
 
    file_eg_misid_qcd->Close();
@@ -400,6 +408,10 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D");
    if (iflag == 10) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_pileup_up");
    if (iflag == 15) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_pileup_down");
+   if (iflag == 100) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_eff_up");
+   if (iflag == 105) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_eff_down");
+   if (iflag == 112) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_veto_up");
+   if (iflag == 117) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_veto_down");
    sf_eg_misid->SetDirectory(0);
 
    file_eg_misid->Close();
@@ -410,6 +422,10 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D");
    if (iflag == 10) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_pileup_up");
    if (iflag == 15) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_pileup_down");
+   if (iflag == 100) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_eff_up");
+   if (iflag == 105) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_eff_down");
+   if (iflag == 112) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_veto_up");
+   if (iflag == 117) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_veto_down");
    sf_eg_misid_qcd->SetDirectory(0);
 
    file_eg_misid_qcd->Close();
@@ -490,6 +506,10 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D");
    if (iflag == 10) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_pileup_up");
    if (iflag == 15) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_pileup_down");
+   if (iflag == 100) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_eff_up");
+   if (iflag == 105) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_eff_down");
+   if (iflag == 113) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_veto_up");
+   if (iflag == 118) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_veto_down");
    sf_eg_misid->SetDirectory(0);
 
    file_eg_misid->Close();
@@ -500,6 +520,10 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D");
    if (iflag == 10) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_pileup_up");
    if (iflag == 15) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_pileup_down");
+   if (iflag == 100) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_eff_up");
+   if (iflag == 105) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_eff_down");
+   if (iflag == 113) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_veto_up");
+   if (iflag == 118) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_veto_down");
    sf_eg_misid_qcd->SetDirectory(0);
 
    file_eg_misid_qcd->Close();
