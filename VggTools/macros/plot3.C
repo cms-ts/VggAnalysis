@@ -22,85 +22,6 @@ void plot3(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
-// #define USE_CATEGORIES
-#define USE_MATRIX
-
-#if defined(USE_CATEGORIES)
-  if (options.find("test") != string::npos) version = version + ".test";
-  if (options.find("new") != string::npos) version = version + ".new";
-  if (options.find("jet") != string::npos) version = version + ".jet";
-
-  if (options.find("amcatnlo") != string::npos) version = version + ".amcatnlo";
-  if (options.find("madgraph") != string::npos) version = version + ".madgraph";
-  if (options.find("sherpa") != string::npos) version = version + ".sherpa";
-  if (options.find("default") != string::npos) version = version + ".default";
-
-  TFile* file_iso = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + ".root").c_str());
-  TH1D* h_iso_data = (TH1D*)file_iso->Get("h_data_cat");
-  TH1D* h_iso_mc = (TH1D*)file_iso->Get("h_mc_cat");
-
-  h_iso_data->SetDirectory(0);
-  h_iso_mc->SetDirectory(0);
-  file_iso->Close();
-  delete file_iso;
-
-  TFile* file_noiso = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + "_noiso.root").c_str());
-  TH1D* h_noiso_data = (TH1D*)file_noiso->Get("h_data_cat");
-  TH1D* h_noiso_mc = (TH1D*)file_noiso->Get("h_mc_cat");
-
-  h_noiso_data->SetDirectory(0);
-  h_noiso_mc->SetDirectory(0);
-  file_noiso->Close();
-  delete file_noiso;
-
-  for (int i = 0; i < h_iso_data->GetNbinsX()+2; i++) {
-    if (h_iso_data->GetBinContent(i) <= 0) {
-      h_iso_data->SetBinContent(i, 0);
-      h_iso_data->SetBinError(i, 0);
-    }
-    if (h_noiso_data->GetBinContent(i) <= 0) {
-      h_noiso_data->SetBinContent(i, 0);
-      h_noiso_data->SetBinError(i, 0);
-    }
-  }
-
-  for (int i = 0; i < h_iso_mc->GetNbinsX()+2; i++) {
-    if (h_iso_mc->GetBinContent(i) <= 0) {
-      h_iso_mc->SetBinContent(i, 0);
-      h_iso_mc->SetBinError(i, 0);
-    }
-    if (h_noiso_mc->GetBinContent(i) <= 0) {
-      h_noiso_mc->SetBinContent(i, 0);
-      h_noiso_mc->SetBinError(i, 0);
-    }
-  }
-
-  TH1D* h_sum_data = (TH1D*)h_iso_data->Clone("h_sum_data");
-  h_sum_data->Add(h_noiso_data);
-
-  TH1D* h_sum_mc = (TH1D*)h_iso_mc->Clone("h_sum_mc");
-  h_sum_mc->Add(h_noiso_mc);
-
-  TH1D* h_weight_data = (TH1D*)h_iso_data->Clone("h_weight_data");
-  h_weight_data->Divide(h_weight_data, h_sum_data, 1., 1., "B");
-
-  TH1D* h_weight_mc = (TH1D*)h_iso_mc->Clone("h_weight_mc");
-  h_weight_mc->Divide(h_weight_mc, h_sum_mc, 1., 1., "B");
-
-  while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);
-  }
-  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str(), "RECREATE");
-  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str());
-
-  h_weight_data->Write("h_weight_data");
-  h_weight_mc->Write("h_weight_mc");
-
-  file->Close();
-  delete file;
-#endif // defined(USE_CATEGORIES)
-
-#if defined(USE_MATRIX)
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
@@ -136,7 +57,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -200,7 +121,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -241,7 +162,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -739,7 +660,6 @@ void plot3(string plot="", string title="", string version="v00", string options
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/").c_str(), kTRUE);
   }
   c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".matrix/" + title + ".pdf").c_str());
-#endif // defined(USE_MATRIX)
 
 }
 

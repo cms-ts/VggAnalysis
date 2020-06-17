@@ -69,7 +69,7 @@ void plot0(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -116,7 +116,7 @@ void plot0(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index > 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -740,38 +740,6 @@ void plot0(string plot="", string title="", string version="v00", string options
     histo[0]->Write((title + "_data").c_str());
     h_bkg->Write((title + "_bkg").c_str());
   }
-
-// #define USE_CATEGORIES
-
-#if defined(USE_CATEGORIES)
-  if (options.find("nofit") != string::npos) return;
-
-  if (title.find("h_WG_ele_pho0_pt") != string::npos || title.find("h_WG_muo_pho0_pt") != string::npos || title.find("h_ZG_ele_pho0_pt") != string::npos || title.find("h_ZG_muo_pho0_pt") != string::npos) {
-
-    TH1D* h_data_cat = (TH1D*)histo[0]->Clone("h_data_cat");
-
-    TH1D* h_mc_cat = (TH1D*)histo[0]->Clone("h_mc_cat");
-    h_mc_cat->Reset();
-
-    for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
-      int index = int(it->first);
-      if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1051) {
-        h_data_cat->Add(histo[index], -1);
-      } else {
-        if (index != 0) {
-          h_mc_cat->Add(histo[index]);
-        }
-      }
-    }
-
-    h_data_cat->Write("h_data_cat");
-    h_mc_cat->Write("h_mc_cat");
-
-  }
-
-  file->Close();
-  delete file;
-#endif // defined(USE_CATEGORIES)
 
 }
 

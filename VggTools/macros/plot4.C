@@ -22,20 +22,6 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
-// #define USE_CATEGORIES
-#define USE_MATRIX
-
-#if defined(USE_CATEGORIES)
-  if (plot.find("Run2") != string::npos) {
-    cout << "Run2 averages are not supported in this configuration" << endl;
-    return;
-  }
-
-  string cat = "cat3";
-  if (flag == "jet_misid_cat1") cat = "cat1";
-  if (flag == "jet_misid_cat2") cat = "cat2";
-#endif // defined(USE_CATEGORIES)
-
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
@@ -71,7 +57,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -105,22 +91,6 @@ void plot4(string plot="", string title="", string version="v00", string options
         }
       }
 
-#if defined(USE_CATEGORIES)
-      if (histo3[index]) {
-        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat + "_map").c_str());
-        if (h3) {
-          histo3[index]->Add(h3);
-        }
-      } else {
-        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat + "_map").c_str());
-        if (h3) {
-          histo3[index] = h3;
-          histo3[index]->SetDirectory(0);
-        }
-      }
-#endif // defined(USE_CATEGORIES)
-
-#if defined(USE_MATRIX)
       int index_region = -1;
       string eta_string = "";
       string iso_string = "";
@@ -149,7 +119,6 @@ void plot4(string plot="", string title="", string version="v00", string options
           }
         }
       }
-#endif // defined(USE_MATRIX)
 
       file->Close();
       delete file;
@@ -165,7 +134,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_cat1" || flag == "jet_misid_cat2" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -186,25 +155,21 @@ void plot4(string plot="", string title="", string version="v00", string options
       }
       if (histo[index]) {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
-#if defined(USE_MATRIX)
         h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
         if (title.find("h_WGG_ele") != string::npos) {
           TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
           h->Add(h1);
         }
-#endif // defined(USE_MATRIX)
         if (h) {
           histo[index]->Add(h, norm);
         }
       } else {
         TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
-#if defined(USE_MATRIX)
         h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
         if (title.find("h_WGG_ele") != string::npos) {
           TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
           h->Add(h1);
         }
-#endif // defined(USE_MATRIX)
         if (h) {
           histo[index] = h;
           histo[index]->SetDirectory(0);
@@ -212,23 +177,6 @@ void plot4(string plot="", string title="", string version="v00", string options
         }
       }
 
-#if defined(USE_CATEGORIES)
-      if (histo3[index]) {
-        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat + "_map").c_str());
-        if (h3) {
-          histo3[index]->Add(h3, norm);
-        }
-      } else {
-        TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + cat + "_map").c_str());
-        if (h3) {
-          histo3[index] = h3;
-          histo3[index]->SetDirectory(0);
-          histo3[index]->Scale(norm);
-        }
-      }
-#endif // defined(USE_CATEGORIES)
-
-#if defined(USE_MATRIX)
       if (title.find("h_WGG_ele") != string::npos && index == 1021) {
         int index_region = -1;
         string eta_string = "";
@@ -260,7 +208,6 @@ void plot4(string plot="", string title="", string version="v00", string options
           }
         }
       }
-#endif // defined(USE_MATRIX)
 
       file->Close();
       delete file;
@@ -297,144 +244,6 @@ void plot4(string plot="", string title="", string version="v00", string options
     }
   }
 
-#if defined(USE_CATEGORIES)
-  TFile* file_weight_2016 = 0;
-  TFile* file_weight_2017 = 0;
-  TFile* file_weight_2018 = 0;
-
-  if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
-    if (title.find("h_WGG_ele") != string::npos) file_weight_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_ele_pho0_pt.root").c_str());
-    if (title.find("h_WGG_muo") != string::npos) file_weight_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_muo_pho0_pt.root").c_str());
-    if (title.find("h_ZGG_ele") != string::npos) file_weight_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_ele_pho0_pt.root").c_str());
-    if (title.find("h_ZGG_muo") != string::npos) file_weight_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_muo_pho0_pt.root").c_str());
-    if (file_weight_2016->IsZombie()) {
-      cout << "ERROR: file " << file_weight_2016->GetName() << " is MISSING !!" << endl;
-      return;
-    }
-  }
-  if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
-    if (title.find("h_WGG_ele") != string::npos) file_weight_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_ele_pho0_pt.root").c_str());
-    if (title.find("h_WGG_muo") != string::npos) file_weight_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_muo_pho0_pt.root").c_str());
-    if (title.find("h_ZGG_ele") != string::npos) file_weight_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_ele_pho0_pt.root").c_str());
-    if (title.find("h_ZGG_muo") != string::npos) file_weight_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_muo_pho0_pt.root").c_str());
-    if ( file_weight_2017->IsZombie()) {
-      cout << "ERROR: file " << file_weight_2017->GetName() << " is MISSING !!" << endl;
-      return;
-    }
-  }
-  if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
-    if (title.find("h_WGG_ele") != string::npos) file_weight_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_ele_pho0_pt.root").c_str());
-    if (title.find("h_WGG_muo") != string::npos) file_weight_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_muo_pho0_pt.root").c_str());
-    if (title.find("h_ZGG_ele") != string::npos) file_weight_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_ele_pho0_pt.root").c_str());
-    if (title.find("h_ZGG_muo") != string::npos) file_weight_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_muo_pho0_pt.root").c_str());
-    if (file_weight_2018->IsZombie()) {
-      cout << "ERROR: file " << file_weight_2018->GetName() << " is MISSING !!" << endl;
-      return;
-    }
-  }
-
-  TH1D* h_weight_2016 = 0;
-  TH1D* h_weight_2017 = 0;
-  TH1D* h_weight_2018 = 0;
-
-  if (file_weight_2016) h_weight_2016 = (TH1D*)file_weight_2016->Get(flag == "jet_misid_mc" ? "h_weight_mc" : "h_weight_data");
-  if (file_weight_2017) h_weight_2017 = (TH1D*)file_weight_2017->Get(flag == "jet_misid_mc" ? "h_weight_mc" : "h_weight_data");
-  if (file_weight_2018) h_weight_2018 = (TH1D*)file_weight_2018->Get(flag == "jet_misid_mc" ? "h_weight_mc" : "h_weight_data");
-
-  if (file_weight_2016) {
-    h_weight_2016->SetDirectory(0);
-    file_weight_2016->Close();
-    delete file_weight_2016;
-  }
-  if (file_weight_2017) {
-    h_weight_2017->SetDirectory(0);
-    file_weight_2017->Close();
-    delete file_weight_2017;
-  }
-  if (file_weight_2018) {
-    h_weight_2018->SetDirectory(0);
-    file_weight_2018->Close();
-    delete file_weight_2018;
-  }
-
-  TH1D* h_weight = 0;
-
-  if (!h_weight && h_weight_2016) h_weight = (TH1D*)h_weight_2016->Clone("h_weight");
-  if (!h_weight && h_weight_2017) h_weight = (TH1D*)h_weight_2017->Clone("h_weight");
-  if (!h_weight && h_weight_2018) h_weight = (TH1D*)h_weight_2018->Clone("h_weight");
-
-  h_weight->Reset();
-  if (h_weight_2016) h_weight->Add(h_weight_2016, lumi2016/lumi);
-  if (h_weight_2017) h_weight->Add(h_weight_2017, lumi2017/lumi);
-  if (h_weight_2018) h_weight->Add(h_weight_2018, lumi2018/lumi);
-
-  for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
-    int index = int(it->first);
-    if (!histo3[index]) continue;
-    for (int var = 0; var < histo3[index]->GetNbinsZ()+2; var++) {
-      for (int pho0 = 0; pho0 < histo3[index]->GetNbinsX()+2; pho0++) {
-        for (int pho1 = 0; pho1 < histo3[index]->GetNbinsY()+2; pho1++) {
-          if (cat == "cat1") {
-            histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) / (1 - h_weight->GetBinContent(pho0)));
-            histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho0) / (1 - h_weight->GetBinContent(pho0)), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho0) / TMath::Power(1 - h_weight->GetBinContent(pho0), 2), 2)));
-          }
-          if (cat == "cat2") {
-            histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho1)));
-            histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho1)), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho1) / TMath::Power(1 - h_weight->GetBinContent(pho1), 2), 2)));
-          }
-          if (cat == "cat3") {
-            histo3[index]->SetBinContent(pho0, pho1, var, histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1)));
-            histo3[index]->SetBinError(pho0, pho1, var, TMath::Sqrt(TMath::Power(histo3[index]->GetBinError(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1) / (1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1)), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinError(pho0) * h_weight->GetBinContent(pho1) / TMath::Power(1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1), 2), 2) + TMath::Power(histo3[index]->GetBinContent(pho0, pho1, var) * h_weight->GetBinContent(pho0) * h_weight->GetBinError(pho1) / TMath::Power(1 - h_weight->GetBinContent(pho0) * h_weight->GetBinContent(pho1), 2), 2)));
-
-          }
-          histo3[index]->SetBinError(pho0, pho1, var, histo3[index]->GetBinError(pho0, pho1, var) * (1 + 0.1 * (flag == "jet_misid_stat")));
-        }
-      }
-    }
-  }
-
-  TH3D* histo3_cr = (TH3D*)histo3[0]->Clone("histo3_cr");
-
-  for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
-    int index = int(it->first);
-    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
-      histo3_cr->Add(histo3[index], -1);
-    }
-  }
-
-  histo[8001] = (TH1D*)histo[0]->Clone();
-  histo[8001]->Reset();
-
-  if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
-    for (int var = 0; var < histo3[0]->GetNbinsZ()+2; var++) {
-      for (int pho0 = 0; pho0 < histo3[0]->GetNbinsX()+2; pho0++) {
-        for (int pho1 = 0; pho1 < histo3[0]->GetNbinsY()+2; pho1++) {
-          histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + histo3_cr->GetBinContent(pho0, pho1, var));
-          histo[8001]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001]->GetBinError(var), 2) + TMath::Power(histo3_cr->GetBinError(pho0, pho1, var), 2)));
-        }
-      }
-    }
-  }
-
-  THStack* hstack_mc = new THStack("hstack_mc", "hstack_mc");
-
-  TH1D* h_mc_sum = (TH1D*)histo[0]->Clone("h_mc_sum");
-  h_mc_sum->Reset();
-
-  for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
-    int index = int(it->first);
-    if (index > 0) {
-      if (title.find("h_WGG_") != string::npos || title.find("h_ZGG_") != string::npos) {
-        if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
-          hstack_mc->Add(histo[index]);
-          h_mc_sum->Add(histo[index]);
-        }
-      }
-    }
-  }
-#endif // defined(USE_CATEGORIES)
-
-#if defined(USE_MATRIX)
   TFile* file_matrix_2016 = 0;
   TFile* file_matrix_2017 = 0;
   TFile* file_matrix_2018 = 0;
@@ -688,7 +497,6 @@ void plot4(string plot="", string title="", string version="v00", string options
       h_mc_sum->Add(histo[index]);
     }
   }
-#endif // defined(USE_MATRIX)
 
   TH1D* h_ratio = (TH1D*)histo[0]->Clone("h_ratio");
   h_ratio->Divide(h_mc_sum);
