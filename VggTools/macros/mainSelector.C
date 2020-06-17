@@ -33,7 +33,7 @@
 #include <TLorentzVector.h>
 
 #if defined(__linux__)
-#include "roccor.Run2.v3/RoccoR.cc"
+#include "roccor.Run2.v4/RoccoR.cc"
 #endif // defined(__linux__)
 
 void mainSelector::Begin(TTree * /*tree*/)
@@ -544,13 +544,13 @@ void mainSelector::Begin(TTree * /*tree*/)
 
 #if defined(__linux__)
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-   roccor = new RoccoR("roccor.Run2.v3/RoccoR2016.txt");
+   roccor = new RoccoR("roccor.Run2.v4/RoccoR2016.txt");
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-   roccor = new RoccoR("roccor.Run2.v3/RoccoR2017.txt");
+   roccor = new RoccoR("roccor.Run2.v4/RoccoR2017.txt");
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-   roccor = new RoccoR("roccor.Run2.v3/RoccoR2018.txt");
+   roccor = new RoccoR("roccor.Run2.v4/RoccoR2018.txt");
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)

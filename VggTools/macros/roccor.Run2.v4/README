@@ -1,30 +1,37 @@
 Information:
 ------------
-Muon calibration package for 2016,2017, and 2018 datasets
+Muon corrections for 2016, 2017, 2018 end-of-year and 2017 ultra-legacy samples
 
-2016:
+RoccoR2016.txt:
 Data: Run2016{B..H}-17Jul2018
 MC:   RunIISummer16MiniAODv3 
 
-2017:
+RoccoR2017.txt:
 Data: Run2017{B..F}-31Mar2018
 MC:   RunIIFall17MiniAODv2
 
-2018:
+RoccoR2018.txt:
 Data: Run2018{A..C}-17Sep2018 + Run2018DPromptReco
 MC:   RunIIAutumn18MiniAOD
+
+RoccoR2017UL.txt:
+Data: Run2017{B..F}-09Aug2019_UL2017
+MC:   RunIISummer19UL17MiniAOD
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
 
 
 Example 
 -------------------------------------------------------------------------------------
 //for root macro
 #include "RoccoR.cc"
-RoccoR  rc("RoccoR2017.txt"); // or "RoccoR2016.txt" or "RoccoR2018.txt"
+RoccoR  rc("RoccoR2017UL.txt"); 
 
 //Or in cmssw:
 #include "RoccoR.h"
 RoccoR rc; 
-rc.init(edm::FileInPath("path/to/RoccoR2017.txt").fullPath()); 
+rc.init(edm::FileInPath("path/to/RoccoR2017UL.txt").fullPath()); 
 ------
 //scale factors for momentum of each muon:
 double dtSF = rc.kScaleDT(Q, pt, eta, phi, s=0, m=0); //data

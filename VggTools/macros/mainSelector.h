@@ -34,7 +34,7 @@
 #endif // defined(NANOAODv7)
 
 #if defined(__linux__)
-#include "roccor.Run2.v3/RoccoR.h"
+#include "roccor.Run2.v4/RoccoR.h"
 
 #if defined(mainSelectorDT16_h) || defined(mainSelectorDT17_h) || defined(mainSelectorDT18_h)
 #include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
