@@ -25,8 +25,6 @@
 
 // #define NANOAODv7
 
-#define USE_SPRING16V2_PHOTON_ID
-
 // #define COMPUTE_EG_MISID
 
 // #define RIVET
@@ -1020,22 +1018,7 @@ public :
 
    TTreeReaderArray<Float_t> Photon_mvaID = {fReader, "Photon_mvaID"};
 
-#if defined(NANOAODv6)
    TTreeReaderArray<Int_t> Photon_vidNestedWPBitmap = {fReader, "Photon_vidNestedWPBitmap"};
-#endif // defined(NANOAODv6)
-
-#if defined(NANOAODv7)
-#if defined (USE_SPRING16V2_PHOTON_ID)
-#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-   TTreeReaderArray<Int_t> Photon_vidNestedWPBitmap_Spring16V2p2 = {fReader, "Photon_vidNestedWPBitmap_Spring16V2p2"};
-#define Photon_vidNestedWPBitmap Photon_vidNestedWPBitmap_Spring16V2p2
-#else
-   TTreeReaderArray<Int_t> Photon_vidNestedWPBitmap = {fReader, "Photon_vidNestedWPBitmap"};
-#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-#else
-   TTreeReaderArray<Int_t> Photon_vidNestedWPBitmap = {fReader, "Photon_vidNestedWPBitmap"};
-#endif // defined (USE_SPRING16V2_PHOTON_ID)
-#endif // defined(NANOAODv7)
 
    TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
    TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};
