@@ -46,8 +46,6 @@
 #endif // defined(__linux__)
 
 #define QCD(H) ((TH1*)GetOutputList()->FindObject((TString(H->GetName()) + "_qcd").Data()))
-#define QCD2(H) ((TH2*)GetOutputList()->FindObject((TString(H->GetName()) + "_qcd").Data()))
-#define QCD3(H) ((TH3*)GetOutputList()->FindObject((TString(H->GetName()) + "_qcd").Data()))
 
 class mainSelector : public TSelector {
 public :
