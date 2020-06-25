@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p "../../macros/html/egamma_v6/scale_factors"
+mkdir -p "../../macros/html/egamma_v7/scale_factors"
 
 YEARS="2016 2017 2018"
 

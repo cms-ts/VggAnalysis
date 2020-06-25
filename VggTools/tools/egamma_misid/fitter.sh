@@ -36,14 +36,14 @@ if [ -z "$4" ]; then
   echo "Will analyse the reference."
 fi
 
-if [ ! -d "../../macros/html/egamma_v6" ]; then
-  mkdir ../../macros/html/egamma_v6
+if [ ! -d "../../macros/html/egamma_v7" ]; then
+  mkdir ../../macros/html/egamma_v7
 fi
-if [ ! -d "../../macros/html/egamma_v6/$SYST" ]; then
-  mkdir ../../macros/html/egamma_v6/$SYST
+if [ ! -d "../../macros/html/egamma_v7/$SYST" ]; then
+  mkdir ../../macros/html/egamma_v7/$SYST
 fi
-if [ ! -d "../../macros/html/egamma_v6/$SYST/plot" ]; then
-  mkdir ../../macros/html/egamma_v6/$SYST/plot
+if [ ! -d "../../macros/html/egamma_v7/$SYST/plot" ]; then
+  mkdir ../../macros/html/egamma_v7/$SYST/plot
 fi
 
 if $ISQCD; then

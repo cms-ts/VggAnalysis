@@ -3,11 +3,11 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
    string sqcd = "";
    if (isQCD) sqcd = "_qcd";
 
-   string variation_title = "../../macros/html/egamma_v6/" + syst + "/sf_egamma_misid_" + filename + "_" + variation + sqcd + "_";
+   string variation_title = "../../macros/html/egamma_v7/" + syst + "/sf_egamma_misid_" + filename + "_" + variation + sqcd + "_";
    variation_title += std::to_string(year);
    variation_title = variation_title + ".root";
 
-   string base_title = "../../macros/html/egamma_v6/" + syst + "/sf_egamma_misid_" + filename + "_" + base + sqcd + "_";
+   string base_title = "../../macros/html/egamma_v7/" + syst + "/sf_egamma_misid_" + filename + "_" + base + sqcd + "_";
    base_title += std::to_string(year);
    base_title = base_title + ".root";
 
@@ -49,11 +49,11 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
    h_ratio_err->SetTitle("Error ratio variation/base");
    h_ratio_err->Draw("COLZ TEXT");
 
-   string plot_ratio = "../../macros/html/egamma_v6/" + syst + "/ratio_sf_egamma_misid_" + filename + sqcd + "_";
+   string plot_ratio = "../../macros/html/egamma_v7/" + syst + "/ratio_sf_egamma_misid_" + filename + sqcd + "_";
    plot_ratio += std::to_string(year);
    plot_ratio = plot_ratio + ".pdf";
 
-   string plot_ratio_err = "../../macros/html/egamma_v6/" + syst + "/ratio_errors_sf_egamma_misid_" + filename + sqcd + "_";
+   string plot_ratio_err = "../../macros/html/egamma_v7/" + syst + "/ratio_errors_sf_egamma_misid_" + filename + sqcd + "_";
    plot_ratio_err += std::to_string(year);
    plot_ratio_err = plot_ratio_err + ".pdf";
 
@@ -62,7 +62,7 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
 
    TH2D* h_final = (TH2D*)h_base->Clone("h_final");
 
-   string final_txt_title = "../../macros/html/egamma_v6/" + syst + "/final_" + filename + sqcd + "_" + base + "_" + variation + "_";
+   string final_txt_title = "../../macros/html/egamma_v7/" + syst + "/final_" + filename + sqcd + "_" + base + "_" + variation + "_";
    final_txt_title += std::to_string(year);
    final_txt_title = final_txt_title + ".txt";
 
@@ -81,7 +81,7 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
 
    final_txt.close();
 
-   string plot_final = "../../macros/html/egamma_v6/" + syst + "/final_" + filename + sqcd + "_" + base + "_" + variation + "_";
+   string plot_final = "../../macros/html/egamma_v7/" + syst + "/final_" + filename + sqcd + "_" + base + "_" + variation + "_";
    plot_final += std::to_string(year);
    plot_final = plot_final + ".pdf";
 
@@ -98,7 +98,7 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
 
    c3->SaveAs((plot_final).c_str());
 
-   string root_title = "../../macros/html/egamma_v6/" + syst + "/final_" + filename + sqcd + "_" + base + "_" + variation + "_";
+   string root_title = "../../macros/html/egamma_v7/" + syst + "/final_" + filename + sqcd + "_" + base + "_" + variation + "_";
    root_title += std::to_string(year);
    root_title = root_title + ".root";
 
@@ -106,6 +106,5 @@ void compare(int year, bool isQCD, string filename, string syst, string base, st
    h_final->Write("EGamma_SF2D");
    file->Close();
    delete file;
-
 
 }

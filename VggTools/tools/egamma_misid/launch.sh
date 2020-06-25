@@ -13,8 +13,8 @@ YEARS="2016 2017 2018"
 
 SYST="reference"
 
-mkdir -p ../../macros/html/egamma_v6/$SYST
-mkdir -p ../../macros/html/egamma_v6/$SYST/plot
+mkdir -p ../../macros/html/egamma_v7/$SYST
+mkdir -p ../../macros/html/egamma_v7/$SYST/plot
 
 for YEAR in $YEARS; do
   ./fitter.sh $YEAR false TP $SYST &

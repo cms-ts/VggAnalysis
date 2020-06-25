@@ -12,19 +12,19 @@ void merger(int year, string title) {
    TFile * f2 = 0;
 
    if (year == 2016) {
-     f0 = new TFile("RunIISummer16NanoAODv6_DYToLL_0J_13TeV-amcatnloFXFX-pythia8.root");
-     f1 = new TFile("RunIISummer16NanoAODv6_DYToLL_1J_13TeV-amcatnloFXFX-pythia8.root");
-     f2 = new TFile("RunIISummer16NanoAODv6_DYToLL_2J_13TeV-amcatnloFXFX-pythia8.root");
+     f0 = new TFile("RunIISummer16NanoAODv7_DYToLL_0J_13TeV-amcatnloFXFX-pythia8.root");
+     f1 = new TFile("RunIISummer16NanoAODv7_DYToLL_1J_13TeV-amcatnloFXFX-pythia8.root");
+     f2 = new TFile("RunIISummer16NanoAODv7_DYToLL_2J_13TeV-amcatnloFXFX-pythia8.root");
    }
    if (year == 2017) {
-     f0 = new TFile("RunIIFall17NanoAODv6_DYJetsToLL_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8.root");
-     f1 = new TFile("RunIIFall17NanoAODv6_DYJetsToLL_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8.root");
-     f2 = new TFile("RunIIFall17NanoAODv6_DYJetsToLL_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8.root");
+     f0 = new TFile("RunIIFall17NanoAODv7_DYJetsToLL_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8.root");
+     f1 = new TFile("RunIIFall17NanoAODv7_DYJetsToLL_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8.root");
+     f2 = new TFile("RunIIFall17NanoAODv7_DYJetsToLL_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8.root");
    }
    if (year == 2018) {
-     f0 = new TFile("RunIIAutumn18NanoAODv6_DYJetsToLL_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8.root");
-     f1 = new TFile("RunIIAutumn18NanoAODv6_DYJetsToLL_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8.root");
-     f2 = new TFile("RunIIAutumn18NanoAODv6_DYJetsToLL_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8.root");
+     f0 = new TFile("RunIIAutumn18NanoAODv7_DYJetsToLL_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8.root");
+     f1 = new TFile("RunIIAutumn18NanoAODv7_DYJetsToLL_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8.root");
+     f2 = new TFile("RunIIAutumn18NanoAODv7_DYJetsToLL_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8.root");
    }
 
    TH1D * h0 = (TH1D*)f0->Get((title).c_str());
@@ -46,9 +46,9 @@ void merger(int year, string title) {
    h->Add(h2);
 
    string root_title = "";
-   if (year == 2016) root_title = "RunIISummer16NanoAODv6_DYToLL_13TeV-amcatnloFXFX-pythia8.root";
-   if (year == 2017) root_title = "RunIIFall17NanoAODv6_DYJetsToLL_TuneCP5_13TeV-amcatnloFXFX-pythia8.root";
-   if (year == 2018) root_title = "RunIIAutumn18NanoAODv6_DYJetsToLL_TuneCP5_13TeV-amcatnloFXFX-pythia8.root"; 
+   if (year == 2016) root_title = "RunIISummer16NanoAODv7_DYToLL_13TeV-amcatnloFXFX-pythia8.root";
+   if (year == 2017) root_title = "RunIIFall17NanoAODv7_DYJetsToLL_TuneCP5_13TeV-amcatnloFXFX-pythia8.root";
+   if (year == 2018) root_title = "RunIIAutumn18NanoAODv7_DYJetsToLL_TuneCP5_13TeV-amcatnloFXFX-pythia8.root"; 
 
    TFile * file_root = new TFile((root_title).c_str(), "UPDATE");
    h->Write((title).c_str(),TObject::kOverwrite);

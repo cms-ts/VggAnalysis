@@ -13,10 +13,8 @@
 #include "RooBinning.h"
 #include "RooDataSet.h"
 #include "RooDataHist.h"
-#include "RooCBShape.h"
 #include "RooWorkspace.h"
 #include "RooPlot.h"
-#include "RooBreitWigner.h"
 #include "RooFFTConvPdf.h"
 #include "RooFitResult.h"
 #include "RooAddPdf.h"
@@ -39,17 +37,17 @@ void fitterDCB(int number, int year, bool isQCD, string syst) {
    TFile * f1 = 0;
    TFile * f2 = 0;
 
-   if (year == 2016) f1 = new TFile((syst + "/RunIISummer16NanoAODv6_DYToLL_13TeV-amcatnloFXFX-pythia8.root").c_str());
-   if (year == 2017) f1 = new TFile((syst + "/RunIIFall17NanoAODv6_DYJetsToLL_TuneCP5_13TeV-amcatnloFXFX-pythia8.root").c_str());
-   if (year == 2018) f1 = new TFile((syst + "/RunIIAutumn18NanoAODv6_DYJetsToLL_TuneCP5_13TeV-amcatnloFXFX-pythia8.root").c_str());
+   if (year == 2016) f1 = new TFile((syst + "/RunIISummer16NanoAODv7_DYToLL_13TeV-amcatnloFXFX-pythia8.root").c_str());
+   if (year == 2017) f1 = new TFile((syst + "/RunIIFall17NanoAODv7_DYJetsToLL_TuneCP5_13TeV-amcatnloFXFX-pythia8.root").c_str());
+   if (year == 2018) f1 = new TFile((syst + "/RunIIAutumn18NanoAODv7_DYJetsToLL_TuneCP5_13TeV-amcatnloFXFX-pythia8.root").c_str());
 
    TH1D * h_WG_ele_ele0_pho0_fake_MC_tmp = (TH1D*)f1->Get((h_fake_title).c_str());
    TH1D * h_Z_ele_MC = (TH1D*)f1->Get("h_Z_ele");
    TH1D * h_nevt = (TH1D*)f1->Get("h_nevt");
 
-   if (year == 2016) f2 = new TFile("reference/Run2016_SingleElectron_25Oct2019.root");
-   if (year == 2017) f2 = new TFile("reference/Run2017_SingleElectron_25Oct2019.root");
-   if (year == 2018) f2 = new TFile("reference/Run2018_EGamma_25Oct2019.root");
+   if (year == 2016) f2 = new TFile("reference/Run2016_SingleElectron_02Apr2020.root");
+   if (year == 2017) f2 = new TFile("reference/Run2017_SingleElectron_02Apr2020.root");
+   if (year == 2018) f2 = new TFile("reference/Run2018_EGamma_02Apr2020.root");
 
    TH1D * h_WG_ele_ele0_pho0_fake_DT_tmp = (TH1D*)f2->Get((h_fake_title).c_str());
    TH1D * h_Z_ele_DT = (TH1D*)f2->Get("h_Z_ele");
@@ -109,6 +107,64 @@ void fitterDCB(int number, int year, bool isQCD, string syst) {
    txt_param >> DCBsigma_fake_DT_val[1] >> DCBsigma_fake_DT_val[0] >> DCBsigma_fake_DT_val[2];
    txt_param.close();
 
+   string txt_param_Z_title = "parameters_" + syst + "/param_Z" + sqcd + "_" + std::to_string(year) + ".txt";
+
+   double DCBn1_Z_MC_ave[3];
+   double DCBn2_Z_MC_ave[3];
+   double DCBalpha1_Z_MC_ave[3];
+   double DCBalpha2_Z_MC_ave[3];
+   double DCBmean_Z_MC_ave[3];
+   double DCBsigma_Z_MC_ave[3];
+   double CMSalpha_Z_MC_ave[3];
+   double CMSbeta_Z_MC_ave[3];
+   double CMSpeak_Z_MC_ave[3];
+   double CMSgamma_Z_MC_ave[3];
+
+   double DCBn1_Z_DT_ave[3];
+   double DCBn2_Z_DT_ave[3];
+   double DCBalpha1_Z_DT_ave[3];
+   double DCBalpha2_Z_DT_ave[3];
+   double DCBmean_Z_DT_ave[3];
+   double DCBsigma_Z_DT_ave[3];
+   double CMSalpha_Z_DT_ave[3];
+   double CMSbeta_Z_DT_ave[3];
+   double CMSpeak_Z_DT_ave[3];
+   double CMSgamma_Z_DT_ave[3];
+
+   ifstream txt_param_Z;
+   txt_param_Z.open((txt_param_Z_title).c_str());
+
+   txt_param_Z >> DCBn1_Z_MC_ave[1] >> DCBn1_Z_MC_ave[0] >> DCBn1_Z_MC_ave[2];
+   txt_param_Z >> DCBn2_Z_MC_ave[1] >> DCBn2_Z_MC_ave[0] >> DCBn2_Z_MC_ave[2];
+   txt_param_Z >> DCBalpha1_Z_MC_ave[1] >> DCBalpha1_Z_MC_ave[0] >> DCBalpha1_Z_MC_ave[2];
+   txt_param_Z >> DCBalpha2_Z_MC_ave[1] >> DCBalpha2_Z_MC_ave[0] >> DCBalpha2_Z_MC_ave[2];
+   txt_param_Z >> DCBmean_Z_MC_ave[1] >> DCBmean_Z_MC_ave[0] >> DCBmean_Z_MC_ave[2];
+   txt_param_Z >> DCBsigma_Z_MC_ave[1] >> DCBsigma_Z_MC_ave[0] >> DCBsigma_Z_MC_ave[2];
+   txt_param_Z >> CMSalpha_Z_MC_ave[1] >> CMSalpha_Z_MC_ave[0] >> CMSalpha_Z_MC_ave[2];
+   txt_param_Z >> CMSbeta_Z_MC_ave[1] >> CMSbeta_Z_MC_ave[0] >> CMSbeta_Z_MC_ave[2];
+   txt_param_Z >> CMSpeak_Z_MC_ave[1] >> CMSpeak_Z_MC_ave[0] >> CMSpeak_Z_MC_ave[2];
+   txt_param_Z >> CMSgamma_Z_MC_ave[1] >> CMSgamma_Z_MC_ave[0] >> CMSgamma_Z_MC_ave[2];
+
+   txt_param_Z >> DCBn1_Z_DT_ave[1] >> DCBn1_Z_DT_ave[0] >> DCBn1_Z_DT_ave[2];
+   txt_param_Z >> DCBn2_Z_DT_ave[1] >> DCBn2_Z_DT_ave[0] >> DCBn2_Z_DT_ave[2];
+   txt_param_Z >> DCBalpha1_Z_DT_ave[1] >> DCBalpha1_Z_DT_ave[0] >> DCBalpha1_Z_DT_ave[2];
+   txt_param_Z >> DCBalpha2_Z_DT_ave[1] >> DCBalpha2_Z_DT_ave[0] >> DCBalpha2_Z_DT_ave[2];
+   txt_param_Z >> DCBmean_Z_DT_ave[1] >> DCBmean_Z_DT_ave[0] >> DCBmean_Z_DT_ave[2];
+   txt_param_Z >> DCBsigma_Z_DT_ave[1] >> DCBsigma_Z_DT_ave[0] >> DCBsigma_Z_DT_ave[2];
+   txt_param_Z >> CMSalpha_Z_DT_ave[1] >> CMSalpha_Z_DT_ave[0] >> CMSalpha_Z_DT_ave[2];
+   txt_param_Z >> CMSbeta_Z_DT_ave[1] >> CMSbeta_Z_DT_ave[0] >> CMSbeta_Z_DT_ave[2];
+   txt_param_Z >> CMSpeak_Z_DT_ave[1] >> CMSpeak_Z_DT_ave[0] >> CMSpeak_Z_DT_ave[2];
+   txt_param_Z >> CMSgamma_Z_DT_ave[1] >> CMSgamma_Z_DT_ave[0] >> CMSgamma_Z_DT_ave[2];
+
+   txt_param_Z.close();
+
+
+
+
+
+
+
+
    gStyle->SetOptFit(kTRUE);
 
    RooRealVar m_fake_MC("m_fake_MC", "m(e#gamma)", 40, 120, "GeV");
@@ -145,18 +201,18 @@ void fitterDCB(int number, int year, bool isQCD, string syst) {
 
    // Z MC
 
-   RooRealVar DCBn1_Z_MC("DCBn1_Z_MC","DCBn1_Z_MC",1.5,0.,20.);
-   RooRealVar DCBn2_Z_MC("DCBn2_Z_MC","DCBn2_Z_MC",7.,0.,10.);
-   RooRealVar DCBalpha1_Z_MC("DCBalpha1_Z_MC","DCBalpha1_Z_MC",1.3,0.,3.);
-   RooRealVar DCBalpha2_Z_MC("DCBalpha2_Z_MC","DCBalpha2_Z_MC",3.,0.,5.);
-   RooRealVar DCBmean_Z_MC ("DCBmean_Z_MC", "DCBmean_Z_MC", 88.,80., 100.);
-   RooRealVar DCBsigma_Z_MC("DCBsigma_Z_MC","DCBsigma_Z_MC", 4., 0., 7.);
+   RooRealVar DCBn1_Z_MC("DCBn1_Z_MC","DCBn1_Z_MC", DCBn1_Z_MC_ave[1], DCBn1_Z_MC_ave[0], DCBn1_Z_MC_ave[2]);
+   RooRealVar DCBn2_Z_MC("DCBn2_Z_MC","DCBn2_Z_MC", DCBn2_Z_MC_ave[1], DCBn2_Z_MC_ave[0], DCBn2_Z_MC_ave[2]);
+   RooRealVar DCBalpha1_Z_MC("DCBalpha1_Z_MC","DCBalpha1_Z_MC", DCBalpha1_Z_MC_ave[1], DCBalpha1_Z_MC_ave[0], DCBalpha1_Z_MC_ave[2]);
+   RooRealVar DCBalpha2_Z_MC("DCBalpha2_Z_MC","DCBalpha2_Z_MC", DCBalpha2_Z_MC_ave[1], DCBalpha2_Z_MC_ave[0], DCBalpha2_Z_MC_ave[2]);
+   RooRealVar DCBmean_Z_MC ("DCBmean_Z_MC", "DCBmean_Z_MC", DCBmean_Z_MC_ave[1], DCBmean_Z_MC_ave[0], DCBmean_Z_MC_ave[2]);
+   RooRealVar DCBsigma_Z_MC("DCBsigma_Z_MC","DCBsigma_Z_MC", DCBsigma_Z_MC_ave[1], DCBsigma_Z_MC_ave[0], DCBsigma_Z_MC_ave[2]);
    RooDoubleCB DCB_Z_MC("DCB_Z_MC","DCB_Z_MC", m_Z_MC, DCBmean_Z_MC, DCBsigma_Z_MC, DCBalpha1_Z_MC, DCBn1_Z_MC, DCBalpha2_Z_MC, DCBn2_Z_MC);
 
-   RooRealVar CMSalpha_Z_MC ("CMSalpha_Z_MC", "CMSalpha_Z_MC", 60.,50.,80.);
-   RooRealVar CMSbeta_Z_MC ("CMSbeta_Z_MC", "CMSbeta_Z_MC", 0.4,0.,5.);
-   RooRealVar CMSpeak_Z_MC ("CMSpeak_Z_MC", "CMSpeak_Z_MC", 70.,50.,90.);
-   RooRealVar CMSgamma_Z_MC ("CMSgamma_Z_MC", "CMSgamma_Z_MC", 0.2,0.,4.);
+   RooRealVar CMSalpha_Z_MC ("CMSalpha_Z_MC", "CMSalpha_Z_MC", CMSalpha_Z_MC_ave[1], CMSalpha_Z_MC_ave[0], CMSalpha_Z_MC_ave[2]);
+   RooRealVar CMSbeta_Z_MC ("CMSbeta_Z_MC", "CMSbeta_Z_MC", CMSbeta_Z_MC_ave[1], CMSbeta_Z_MC_ave[0], CMSbeta_Z_MC_ave[2]);
+   RooRealVar CMSpeak_Z_MC ("CMSpeak_Z_MC", "CMSpeak_Z_MC", CMSpeak_Z_MC_ave[1], CMSpeak_Z_MC_ave[0], CMSpeak_Z_MC_ave[2]);
+   RooRealVar CMSgamma_Z_MC ("CMSgamma_Z_MC", "CMSgamma_Z_MC", CMSgamma_Z_MC_ave[1], CMSgamma_Z_MC_ave[0], CMSgamma_Z_MC_ave[2]);
    RooCMSShape CMS_Z_MC("CMS_Z_MC","CMS_Z_MC", m_Z_MC, CMSalpha_Z_MC, CMSbeta_Z_MC, CMSgamma_Z_MC, CMSpeak_Z_MC);
 
    RooRealVar bkgfrac_Z_MC("bkgfrac_Z_MC","bkgfrac_Z_MC", 0.1, 0., 1.) ;
@@ -180,18 +236,18 @@ void fitterDCB(int number, int year, bool isQCD, string syst) {
 
    // Z DT
 
-   RooRealVar DCBn1_Z_DT("DCBn1_Z_DT","DCBn1_Z_DT",1.5,0.,20.);
-   RooRealVar DCBn2_Z_DT("DCBn2_Z_DT","DCBn2_Z_DT",7.,0.,10.);
-   RooRealVar DCBalpha1_Z_DT("DCBalpha1_Z_DT","DCBalpha1_Z_DT",1.3,0.,3.);
-   RooRealVar DCBalpha2_Z_DT("DCBalpha2_Z_DT","DCBalpha2_Z_DT",3.,0.,5.);
-   RooRealVar DCBmean_Z_DT ("DCBmean_Z_DT", "DCBmean_Z_DT", 88.,80., 100.);
-   RooRealVar DCBsigma_Z_DT("DCBsigma_Z_DT","DCBsigma_Z_DT", 4., 0., 7.);
+   RooRealVar DCBn1_Z_DT("DCBn1_Z_DT","DCBn1_Z_DT", DCBn1_Z_DT_ave[1], DCBn1_Z_DT_ave[0], DCBn1_Z_DT_ave[2]);
+   RooRealVar DCBn2_Z_DT("DCBn2_Z_DT","DCBn2_Z_DT", DCBn2_Z_DT_ave[1], DCBn2_Z_DT_ave[0], DCBn2_Z_DT_ave[2]);
+   RooRealVar DCBalpha1_Z_DT("DCBalpha1_Z_DT","DCBalpha1_Z_DT", DCBalpha1_Z_DT_ave[1], DCBalpha1_Z_DT_ave[0], DCBalpha1_Z_DT_ave[2]);
+   RooRealVar DCBalpha2_Z_DT("DCBalpha2_Z_DT","DCBalpha2_Z_DT", DCBalpha2_Z_DT_ave[1], DCBalpha2_Z_DT_ave[0], DCBalpha2_Z_DT_ave[2]);
+   RooRealVar DCBmean_Z_DT ("DCBmean_Z_DT", "DCBmean_Z_DT", DCBmean_Z_DT_ave[1], DCBmean_Z_DT_ave[0], DCBmean_Z_DT_ave[2]);
+   RooRealVar DCBsigma_Z_DT("DCBsigma_Z_DT","DCBsigma_Z_DT", DCBsigma_Z_DT_ave[1], DCBsigma_Z_DT_ave[0], DCBsigma_Z_DT_ave[2]);
    RooDoubleCB DCB_Z_DT("DCB_Z_DT","DCB_Z_DT", m_Z_DT, DCBmean_Z_DT, DCBsigma_Z_DT, DCBalpha1_Z_DT, DCBn1_Z_DT, DCBalpha2_Z_DT, DCBn2_Z_DT);
 
-   RooRealVar CMSalpha_Z_DT ("CMSalpha_Z_DT", "CMSalpha_Z_DT", 60.,50.,75.);
-   RooRealVar CMSbeta_Z_DT ("CMSbeta_Z_DT", "CMSbeta_Z_DT", 0.4,0.,5.);
-   RooRealVar CMSpeak_Z_DT ("CMSpeak_Z_DT", "CMSpeak_Z_DT", 70.,50.,90.);
-   RooRealVar CMSgamma_Z_DT ("CMSgamma_Z_DT", "CMSgamma_Z_DT",0.2 ,0.,4.);
+   RooRealVar CMSalpha_Z_DT ("CMSalpha_Z_DT", "CMSalpha_Z_DT", CMSalpha_Z_DT_ave[1], CMSalpha_Z_DT_ave[0], CMSalpha_Z_DT_ave[2]);
+   RooRealVar CMSbeta_Z_DT ("CMSbeta_Z_DT", "CMSbeta_Z_DT", CMSbeta_Z_DT_ave[1], CMSbeta_Z_DT_ave[0], CMSbeta_Z_DT_ave[2]);
+   RooRealVar CMSpeak_Z_DT ("CMSpeak_Z_DT", "CMSpeak_Z_DT", CMSpeak_Z_DT_ave[1], CMSpeak_Z_DT_ave[0], CMSpeak_Z_DT_ave[2]);
+   RooRealVar CMSgamma_Z_DT ("CMSgamma_Z_DT", "CMSgamma_Z_DT", CMSgamma_Z_DT_ave[1], CMSgamma_Z_DT_ave[0], CMSgamma_Z_DT_ave[2]);
    RooCMSShape CMS_Z_DT("CMS_Z_DT","CMS_Z_DT", m_Z_DT, CMSalpha_Z_DT, CMSbeta_Z_DT, CMSgamma_Z_DT, CMSpeak_Z_DT);
 
    RooRealVar bkgfrac_Z_DT("bkgfrac_Z_DT","bkgfrac_Z_DT",0.1, 0., 0.2) ;
@@ -295,7 +351,7 @@ void fitterDCB(int number, int year, bool isQCD, string syst) {
    label->DrawLatex(0.15, 0.65, (status_fake_DT).c_str());
    label->Draw("same");
 
-   string plot_title = "../../macros/html/egamma_v6/" + syst + "/plot/DCB_bin_";
+   string plot_title = "../../macros/html/egamma_v7/" + syst + "/plot/DCB_bin_";
    plot_title += std::to_string(year);
    plot_title = plot_title + sqcd + "_";
    plot_title += std::to_string(number);
@@ -363,7 +419,7 @@ void fitterDCB(int number, int year, bool isQCD, string syst) {
      label->DrawLatex(0.15, 0.75, (status_Z_DT).c_str());
      label->Draw("same");
   
-     string Zplot_title = "../../macros/html/egamma_v6/" + syst + "/plot/DCB_Z_";
+     string Zplot_title = "../../macros/html/egamma_v7/" + syst + "/plot/DCB_Z_";
      Zplot_title += std::to_string(year);
      Zplot_title = Zplot_title + sqcd;
      Zplot_title = Zplot_title + ".pdf";

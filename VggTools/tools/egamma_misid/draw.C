@@ -105,13 +105,13 @@ cout << txt_title << endl;
    h2->SetTitle((c_title).c_str());
    h2->Draw("COLZ TEXT ERROR");
 
-   string plot_title = "../../macros/html/egamma_v6/" + syst + "/sf_egamma_misid_" + filename + "_" + fitfunc + sqcd + "_";
+   string plot_title = "../../macros/html/egamma_v7/" + syst + "/sf_egamma_misid_" + filename + "_" + fitfunc + sqcd + "_";
    plot_title += std::to_string(year);
    plot_title = plot_title + ".pdf";
 
    c->SaveAs((plot_title).c_str());
 
-   string root_title = "../../macros/html/egamma_v6/" + syst + "/sf_egamma_misid_" + filename + "_" + fitfunc + sqcd + "_";
+   string root_title = "../../macros/html/egamma_v7/" + syst + "/sf_egamma_misid_" + filename + "_" + fitfunc + sqcd + "_";
    root_title += std::to_string(year);
    root_title = root_title + ".root";
 

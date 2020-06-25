@@ -1,8 +1,8 @@
 #!/bin/bash
 
-rm RunIISummer16NanoAODv6_DYToLL_13TeV-amcatnloFXFX-pythia8.root
-rm RunIIFall17NanoAODv6_DYJetsToLL_TuneCP5_13TeV-amcatnloFXFX-pythia8.root
-rm RunIIAutumn18NanoAODv6_DYJetsToLL_TuneCP5_13TeV-amcatnloFXFX-pythia8.root
+rm RunIISummer16NanoAODv7_DYToLL_13TeV-amcatnloFXFX-pythia8.root
+rm RunIIFall17NanoAODv7_DYJetsToLL_TuneCP5_13TeV-amcatnloFXFX-pythia8.root
+rm RunIIAutumn18NanoAODv7_DYJetsToLL_TuneCP5_13TeV-amcatnloFXFX-pythia8.root
 
 YEARS="2016 2017 2018"
 
