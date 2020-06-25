@@ -94,6 +94,7 @@ for YEAR in $YEARS; do
         ./plot2.sh $VERSION $YEAR $OPTION $FLAG ; \
         ./plot3.sh $VERSION $YEAR $OPTION $FLAG ; \
         ./plot4.sh $VERSION $YEAR $OPTION $FLAG ; \
+        ./plot4.sh $VERSION $YEAR $OPTION",paper" $FLAG ; \
         ./plot5.sh $VERSION $YEAR $OPTION $FLAG \
       ) &
     done

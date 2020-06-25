@@ -486,6 +486,8 @@ void plot4(string plot="", string title="", string version="v00", string options
     delete file_2018;
   }
 
+  if (options.find("paper") != string::npos) title = title + "_paper";
+
   THStack* hstack_mc = new THStack("hstack_mc", "hstack_mc");
   TH1D* h_mc_sum = (TH1D*)histo[0]->Clone("h_mc_sum");
   h_mc_sum->Reset();
@@ -493,7 +495,7 @@ void plot4(string plot="", string title="", string version="v00", string options
   for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
     int index = int(it->first);
     if (index > 0) {
-      hstack_mc->Add(histo[index]);
+      if (options.find("paper") == string::npos) hstack_mc->Add(histo[index]);
       h_mc_sum->Add(histo[index]);
     }
   }
@@ -590,6 +592,70 @@ void plot4(string plot="", string title="", string version="v00", string options
     }
   }
 
+  TH1D* h_irred = (TH1D*)histo[0]->Clone("h_irred");
+  h_irred->Reset();
+
+  if (title.find("h_WGG_") != string::npos) {
+    h_irred->Add(histo[1011]);
+    h_irred->Add(histo[1022]);
+    h_irred->Add(histo[1031]);
+    h_irred->Add(histo[1032]);
+    h_irred->Add(histo[1041]);
+    h_irred->Add(histo[1051]);
+  }
+  if (title.find("h_ZGG_") != string::npos) {
+    h_irred->Add(histo[11]);
+    h_irred->Add(histo[21]);
+    h_irred->Add(histo[31]);
+    h_irred->Add(histo[41]);
+    h_irred->Add(histo[42]);
+    h_irred->Add(histo[51]);
+  }
+
+  if (options.find("paper") != string::npos) {
+    leg->Clear();
+
+    histo[0]->SetLineColor(kBlack);
+    histo[0]->SetBinErrorOption(TH1::kPoisson);
+    leg->AddEntry(histo[0], "Data", "p");
+
+    if (title.find("h_WGG_") != string::npos) {
+      hstack_mc->Add(histo[8001]);
+      h_mc_sum->Add(histo[8001]);
+      hstack_mc->Add(h_irred);
+      h_mc_sum->Add(h_irred);
+      hstack_mc->Add(histo[1021]);
+      h_mc_sum->Add(histo[1021]);
+      hstack_mc->Add(histo[1010]);
+      h_mc_sum->Add(histo[1010]);
+
+      histo[1010]->SetFillColor(kOrange+7);
+      histo[1010]->SetFillStyle(3254);
+      leg->AddEntry(histo[1010], "W #gamma #gamma", "f");
+
+      histo[1021]->SetFillColorAlpha(kOrange, 0.3);
+      leg->AddEntry(histo[1021], "Z #gamma", "f");
+    }
+    if (title.find("h_ZGG_") != string::npos) {
+      hstack_mc->Add(histo[8001]);
+      h_mc_sum->Add(histo[8001]);
+      hstack_mc->Add(h_irred);
+      h_mc_sum->Add(h_irred);
+      hstack_mc->Add(histo[10]);
+      h_mc_sum->Add(histo[10]);
+
+      histo[10]->SetFillColor(kOrange+7);
+      histo[10]->SetFillStyle(3254);
+      leg->AddEntry(histo[10], "Z #gamma #gamma", "f");
+    }
+
+    h_irred->SetFillColorAlpha(kGreen+3, 0.5);
+    leg->AddEntry(h_irred, "Others", "f");
+
+    histo[8001]->SetFillColor(kPink+4);
+    leg->AddEntry(histo[8001], "Jet MisID", "f");
+  }
+
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
   c1->cd();
 
@@ -612,6 +678,7 @@ void plot4(string plot="", string title="", string version="v00", string options
   hstack_mc->GetXaxis()->SetLabelSize(0.08);
 
   hstack_mc->GetYaxis()->SetTitle("Events");
+  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitle("< Events / GeV >");
   hstack_mc->GetYaxis()->SetTitleSize(0.05);
   hstack_mc->GetYaxis()->SetTitleOffset(0.8);
   hstack_mc->GetYaxis()->SetLabelSize(0.045);
@@ -737,6 +804,18 @@ void plot4(string plot="", string title="", string version="v00", string options
     h_ratio->GetXaxis()->SetTitle("M^{l#gamma#gamma}");
   } else if (tmp_title == "h_ZGG_ele_ele0_ele1_pho0_pho1" || tmp_title == "h_ZGG_muo_muo0_muo1_pho0_pho1") {
     h_ratio->GetXaxis()->SetTitle("M^{ll#gamma#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho0_pt_paper" || tmp_title == "h_WGG_muo_pho0_pt_paper") {
+      h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma} [GeV]");
+  } else if (tmp_title == "h_WGG_ele_pho1_pt_paper" || tmp_title == "h_WGG_muo_pho1_pt_paper") {
+      h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma} [GeV]");
+  } else if (tmp_title == "h_ZGG_ele_pho0_pt_paper" || tmp_title == "h_ZGG_muo_pho0_pt_paper") {
+      h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma} [GeV]");
+  } else if (tmp_title == "h_ZGG_ele_pho1_pt_paper" || tmp_title == "h_ZGG_muo_pho1_pt_paper") {
+      h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma} [GeV]");
+  } else if (tmp_title == "h_WGG_ele_pho0_pho1_pt_paper" || tmp_title == "h_WGG_muo_pho0_pho1_pt_paper") {
+      h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma#gamma} [GeV]");
+  } else if (tmp_title == "h_ZGG_ele_pho0_pho1_pt_paper" || tmp_title == "h_ZGG_muo_pho0_pho1_pt_paper") {
+    h_ratio->GetXaxis()->SetTitle("p_{T}^{#gamma#gamma} [GeV]");
   } else {
     tmp_title.erase(0, 2);
     h_ratio->GetXaxis()->SetTitle(tmp_title.c_str());
@@ -749,6 +828,7 @@ void plot4(string plot="", string title="", string version="v00", string options
   h_ratio->GetXaxis()->SetLabelSize(0.10);
 
   h_ratio->GetYaxis()->SetTitle("Data/MC");
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitle("Data / MC");
   h_ratio->GetYaxis()->SetTitleSize(0.11);
   h_ratio->GetYaxis()->SetTitleOffset(0.36);
   h_ratio->GetYaxis()->SetLabelSize(0.1);
@@ -783,8 +863,6 @@ void plot4(string plot="", string title="", string version="v00", string options
   TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str(), "RECREATE");
   histo[0]->Write((title + "_data").c_str());
   histo[8001]->Write((title + "_misid").c_str());
-  TH1D *h_irred = (TH1D*)histo[0]->Clone("h_irred");
-  h_irred->Reset();
   if (title.find("h_WGG_") != string::npos) {
     histo[1010]->Write((title + "_sig").c_str());
     histo[1021]->Write((title + "_egmisid").c_str());
@@ -795,12 +873,6 @@ void plot4(string plot="", string title="", string version="v00", string options
     histo[1032]->Write((title + "_ttgg").c_str());
     histo[1041]->Write((title + "_tg").c_str());
     histo[1051]->Write((title + "_vvg").c_str());
-    h_irred->Add(histo[1011]);
-    h_irred->Add(histo[1022]);
-    h_irred->Add(histo[1031]);
-    h_irred->Add(histo[1032]);
-    h_irred->Add(histo[1041]);
-    h_irred->Add(histo[1051]);
     h_irred->Write((title + "_irred").c_str());
   }
   if (title.find("h_ZGG_") != string::npos) {
@@ -811,12 +883,6 @@ void plot4(string plot="", string title="", string version="v00", string options
     histo[41]->Write((title + "_ttg").c_str());
     histo[42]->Write((title + "_ttgg").c_str());
     histo[51]->Write((title + "_tg").c_str());
-    h_irred->Add(histo[11]);
-    h_irred->Add(histo[21]);
-    h_irred->Add(histo[31]);
-    h_irred->Add(histo[41]);
-    h_irred->Add(histo[42]);
-    h_irred->Add(histo[51]);
     h_irred->Write((title + "_irred").c_str());
   }
 
