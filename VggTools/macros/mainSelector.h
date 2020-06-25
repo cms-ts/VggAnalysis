@@ -21,9 +21,9 @@
 #include "TH2D.h"
 #include "TH3D.h"
 
-#define NANOAODv6
+// #define NANOAODv6
 
-// #define NANOAODv7
+#define NANOAODv7
 
 // #define COMPUTE_EG_MISID
 
