@@ -250,7 +250,7 @@ void plot0(string plot="", string title="", string version="v00", string options
   TH1D* h_ratio = (TH1D*)histo[0]->Clone("h_ratio");
   h_ratio->Divide(h_mc_sum);
 
-  TLegend* leg = new TLegend(0.65, 0.640, 0.91, 0.88);
+  TLegend* leg = new TLegend(0.65, 0.20, 0.91, 0.88);
   leg->SetBorderSize(0);
   leg->SetEntrySeparation(0.01);
   leg->SetFillColor(0);
