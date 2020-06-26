@@ -382,6 +382,12 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
+  TH1D* h_ratio_mc = (TH1D*)h_mc_sum->Clone("h_ratio_mc");
+  for (int i = 0; i < h_mc_sum->GetNbinsX()+2; i++) {
+    h_mc_sum->SetBinError(i, 0.0);
+  }
+  h_ratio_mc->Divide(h_mc_sum);
+
   TH1D* h_ratio = (TH1D*)histo1[0]->Clone("h_ratio");
   h_ratio->Divide(h_mc_sum);
 
@@ -643,10 +649,15 @@ void plot3(string plot="", string title="", string version="v00", string options
   h_ratio->SetMarkerStyle(20);
   h_ratio->Draw("E0PX0");
 
+  h_ratio_mc->SetFillColor(kGray);
+  h_ratio_mc->Draw("E2SAME");
+
   TLine* line = new TLine(h_ratio->GetXaxis()->GetXmin(), 1.0, h_ratio->GetXaxis()->GetXmax(), 1.0);
   line->SetLineColor(kRed);
   line->SetLineWidth(2);
   line->Draw();
+
+  h_ratio->Draw("E0PX0SAME");
 
   writeExtraText = true;
 
