@@ -280,6 +280,12 @@ void plot4(string plot="", string title="", string version="v00", string options
   histo[8001]->Reset();
   histo[8001]->SetDirectory(0);
 
+  for (int i = 1; i < 9; i++) {
+    histo[8001 + i] = (TH1D*)histo[0]->Clone();
+    histo[8001 + i]->Reset();
+    histo[8001 + i]->SetDirectory(0);
+  }
+
 // #define CHECK_CLOSURE
 
 #if defined(CHECK_CLOSURE)
@@ -341,48 +347,60 @@ void plot4(string plot="", string title="", string version="v00", string options
             n_region_err[3] = 0;
           }
 
-          string matrix_title = "matrix_";
-          matrix_title += std::to_string(pho0_pt);
-          matrix_title += std::to_string(pho1_pt);
-          matrix_title += std::to_string(eta);
+          for (int i = 0; i < 9; i++) {
 
-          TMatrixD matrix(4,4);
+            string matrix_title = "matrix_";
+            matrix_title += std::to_string(pho0_pt);
+            matrix_title += std::to_string(pho1_pt);
+            matrix_title += std::to_string(eta);
 
-          if (file_matrix_2016) {
-            TMatrixD* matrix_2016 = (TMatrixD*)file_matrix_2016->Get((matrix_title).c_str());
-            matrix = matrix + (*matrix_2016) * double(lumi2016/lumi);
+            if (i == 1) matrix_title += "_e1up";
+            if (i == 2) matrix_title += "_e2up";
+            if (i == 3) matrix_title += "_f1up";
+            if (i == 4) matrix_title += "_f2up";
+            if (i == 5) matrix_title += "_e1down";
+            if (i == 6) matrix_title += "_e2down";
+            if (i == 7) matrix_title += "_f1down";
+            if (i == 8) matrix_title += "_f2down";
+
+            TMatrixD matrix(4,4);
+
+            if (file_matrix_2016) {
+              TMatrixD* matrix_2016 = (TMatrixD*)file_matrix_2016->Get((matrix_title).c_str());
+              matrix = matrix + (*matrix_2016) * double(lumi2016/lumi);
+            }
+            if (file_matrix_2017) {
+              TMatrixD* matrix_2017 = (TMatrixD*)file_matrix_2017->Get((matrix_title).c_str());
+              matrix = matrix + (*matrix_2017) * double(lumi2017/lumi);
+            }
+            if (file_matrix_2018) {
+              TMatrixD* matrix_2018 = (TMatrixD*)file_matrix_2018->Get((matrix_title).c_str());
+              matrix = matrix + (*matrix_2018) * double(lumi2018/lumi);
+            }
+
+            double det = -1.;
+            TMatrixD inverted_matrix = matrix;
+            inverted_matrix.Invert(&det);
+
+            TVectorD alpha(4);
+
+            alpha = inverted_matrix * n_region;
+
+            TVectorD alpha_err(4);
+
+            alpha_err(0) = TMath::Sqrt(TMath::Power(inverted_matrix(0,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(0,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(0,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(0,3)*n_region_err(3), 2));
+            alpha_err(1) = TMath::Sqrt(TMath::Power(inverted_matrix(1,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(1,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(1,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(1,3)*n_region_err(3), 2));
+            alpha_err(2) = TMath::Sqrt(TMath::Power(inverted_matrix(2,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(2,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(2,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(2,3)*n_region_err(3), 2));
+            alpha_err(3) = TMath::Sqrt(TMath::Power(inverted_matrix(3,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(3,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(3,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(3,3)*n_region_err(3), 2));
+
+            alpha_err(0) = alpha_err(0) * (1. + 0.1 * (flag == "jet_misid_stat"));
+            alpha_err(1) = alpha_err(1) * (1. + 0.1 * (flag == "jet_misid_stat"));
+            alpha_err(2) = alpha_err(2) * (1. + 0.1 * (flag == "jet_misid_stat"));
+            alpha_err(3) = alpha_err(3) * (1. + 0.1 * (flag == "jet_misid_stat"));
+
+            histo[8001 + i]->SetBinContent(var, histo[8001 + i]->GetBinContent(var) + matrix(0,1)*alpha(1) + matrix(0,2)*alpha(2) + matrix(0,3)*alpha(3));
+            histo[8001 + i]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001 + i]->GetBinError(var), 2) + TMath::Power(matrix(0,1)*alpha_err(1), 2) + TMath::Power(matrix(0,2)*alpha_err(2), 2) + TMath::Power(matrix(0,3)*alpha_err(3), 2)));
           }
-          if (file_matrix_2017) {
-            TMatrixD* matrix_2017 = (TMatrixD*)file_matrix_2017->Get((matrix_title).c_str());
-            matrix = matrix + (*matrix_2017) * double(lumi2017/lumi);
-          }
-          if (file_matrix_2018) {
-            TMatrixD* matrix_2018 = (TMatrixD*)file_matrix_2018->Get((matrix_title).c_str());
-            matrix = matrix + (*matrix_2018) * double(lumi2018/lumi);
-          }
-
-          double det = -1.;
-          TMatrixD inverted_matrix = matrix;
-          inverted_matrix.Invert(&det);
-
-          TVectorD alpha(4);
-
-          alpha = inverted_matrix * n_region;
-
-          TVectorD alpha_err(4);
-
-          alpha_err(0) = TMath::Sqrt(TMath::Power(inverted_matrix(0,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(0,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(0,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(0,3)*n_region_err(3), 2));
-          alpha_err(1) = TMath::Sqrt(TMath::Power(inverted_matrix(1,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(1,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(1,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(1,3)*n_region_err(3), 2));
-          alpha_err(2) = TMath::Sqrt(TMath::Power(inverted_matrix(2,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(2,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(2,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(2,3)*n_region_err(3), 2));
-          alpha_err(3) = TMath::Sqrt(TMath::Power(inverted_matrix(3,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(3,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(3,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(3,3)*n_region_err(3), 2));
-
-          alpha_err(0) = alpha_err(0) * (1 + 0.1 * (flag == "jet_misid_stat"));
-          alpha_err(1) = alpha_err(1) * (1 + 0.1 * (flag == "jet_misid_stat"));
-          alpha_err(2) = alpha_err(2) * (1 + 0.1 * (flag == "jet_misid_stat"));
-          alpha_err(3) = alpha_err(3) * (1 + 0.1 * (flag == "jet_misid_stat"));
-
-          histo[8001]->SetBinContent(var, histo[8001]->GetBinContent(var) + matrix(0,1)*alpha(1) + matrix(0,2)*alpha(2) + matrix(0,3)*alpha(3));
-          histo[8001]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001]->GetBinError(var), 2) + TMath::Power(matrix(0,1)*alpha_err(1), 2) + TMath::Power(matrix(0,2)*alpha_err(2), 2) + TMath::Power(matrix(0,3)*alpha_err(3), 2)));
 
 #if defined(CHECK_CLOSURE)
           if (title.find("h_WGG_") != string::npos) {
@@ -397,6 +415,19 @@ void plot4(string plot="", string title="", string version="v00", string options
         }
       }
     }
+  }
+
+  for (int i = 0; i < histo[8001]->GetNbinsX() + 1; i++) {
+    histo[8001]->SetBinError(i, TMath::Sqrt(TMath::Power(histo[8001]->GetBinError(i), 2)
+    + TMath::Power(0.5 * (fabs(histo[8002]->GetBinContent(i) - histo[8001]->GetBinContent(i)) + fabs(histo[8006]->GetBinContent(i) - histo[8001]->GetBinContent(i))), 2)
+    + TMath::Power(0.5 * (fabs(histo[8003]->GetBinContent(i) - histo[8001]->GetBinContent(i)) + fabs(histo[8007]->GetBinContent(i) - histo[8001]->GetBinContent(i))), 2)
+    + TMath::Power(0.5 * (fabs(histo[8004]->GetBinContent(i) - histo[8001]->GetBinContent(i)) + fabs(histo[8008]->GetBinContent(i) - histo[8001]->GetBinContent(i))), 2)
+    + TMath::Power(0.5 * (fabs(histo[8005]->GetBinContent(i) - histo[8001]->GetBinContent(i)) + fabs(histo[8009]->GetBinContent(i) - histo[8001]->GetBinContent(i))), 2)));
+  }
+
+  for (int i = 1; i < 9; i++) {
+    histo[8001 + i]->Delete();
+    histo.erase(8001 + i);
   }
 
   if (file_matrix_2016) {

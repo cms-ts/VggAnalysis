@@ -227,10 +227,14 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   TH3D* histo_data = (TH3D*)histo[0]->Clone("histo_data");
 
+  TH3D* histo_mc_sum = (TH3D*)histo[0]->Clone("histo_mc_sum");
+  histo_mc_sum->Reset();
+
   for (map<int, TH3D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
     if (index > 0) {
       histo[0]->Add(histo[index], -1);
+      histo_mc_sum->Add(histo[index]);
     }
   }
 
@@ -238,8 +242,12 @@ void plot3(string plot="", string title="", string version="v00", string options
     for (int j = 0; j < histo[0]->GetNbinsY() + 2; j++) {
       for (int k = 0; k < histo[0]->GetNbinsZ() + 2; k++) {
         if (histo[0]->GetBinContent(i, j, k) < 0) {
+          float Nb = histo[0]->GetBinContent(i, j, k);
+          float eNb = TMath::Sqrt(TMath::Power(histo_data->GetBinError(i, j, k), 2) + TMath::Power(histo_mc_sum->GetBinError(i, j, k), 2));
+          float eNb0 = eNb != 0. ? eNb * (TMath::ErfcInverse(0.157299 * TMath::Erfc(fabs(Nb / eNb))) - fabs(Nb / eNb)) : 0.;
+
           histo[0]->SetBinContent(i, j, k, 0.);
-          histo[0]->SetBinError(i, j, k, 0.);
+          histo[0]->SetBinError(i, j, k, eNb0);
         }
       }
     }
@@ -270,59 +278,98 @@ void plot3(string plot="", string title="", string version="v00", string options
         double f1 = 0;
         double f2 = 0;
 
+        double e1_err = 0;
+        double e2_err = 0;
+        double f1_err = 0;
+        double f2_err = 0;
+
         if (eta == 1) {
           e1 = histo[myindex]->GetBinContent(pho0_pt, 1, 1) / (histo[myindex]->GetBinContent(pho0_pt, 1, 1) + histo[myindex]->GetBinContent(pho0_pt, 1, 2));
           e2 = histo[myindex]->GetBinContent(pho1_pt, 1, 1) / (histo[myindex]->GetBinContent(pho1_pt, 1, 1) + histo[myindex]->GetBinContent(pho1_pt, 1, 2));
           f1 = histo[0]->GetBinContent(pho0_pt, 1, 1) / (histo[0]->GetBinContent(pho0_pt, 1, 1) + histo[0]->GetBinContent(pho0_pt, 1, 2));
           f2 = histo[0]->GetBinContent(pho1_pt, 1, 1) / (histo[0]->GetBinContent(pho1_pt, 1, 1) + histo[0]->GetBinContent(pho1_pt, 1, 2));
+
+          e1_err = TMath::Power(1. / (histo[myindex]->GetBinContent(pho0_pt, 1, 1) + histo[myindex]->GetBinContent(pho0_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[myindex]->GetBinContent(pho0_pt, 1, 2) * histo[myindex]->GetBinError(pho0_pt, 1, 1), 2) + TMath::Power(histo[myindex]->GetBinContent(pho0_pt, 1, 1) * histo[myindex]->GetBinError(pho0_pt, 1, 2), 2));
+          e2_err = TMath::Power(1. / (histo[myindex]->GetBinContent(pho1_pt, 1, 1) + histo[myindex]->GetBinContent(pho1_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[myindex]->GetBinContent(pho1_pt, 1, 2) * histo[myindex]->GetBinError(pho1_pt, 1, 1), 2) + TMath::Power(histo[myindex]->GetBinContent(pho1_pt, 1, 1) * histo[myindex]->GetBinError(pho1_pt, 1, 2), 2));
+          f1_err = TMath::Power(1. / (histo[0]->GetBinContent(pho0_pt, 1, 1) + histo[0]->GetBinContent(pho0_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho0_pt, 1, 2) * histo[0]->GetBinError(pho0_pt, 1, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho0_pt, 1, 1) * histo[0]->GetBinError(pho0_pt, 1, 2), 2));
+          f2_err = TMath::Power(1. / (histo[0]->GetBinContent(pho1_pt, 1, 1) + histo[0]->GetBinContent(pho1_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho1_pt, 1, 2) * histo[0]->GetBinError(pho1_pt, 1, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho1_pt, 1, 1) * histo[0]->GetBinError(pho1_pt, 1, 2), 2));
         }
+
         if (eta == 2) {
           e1 = histo[myindex]->GetBinContent(pho0_pt, 1, 1) / (histo[myindex]->GetBinContent(pho0_pt, 1, 1) + histo[myindex]->GetBinContent(pho0_pt, 1, 2));
           e2 = histo[myindex]->GetBinContent(pho1_pt, 2, 1) / (histo[myindex]->GetBinContent(pho1_pt, 2, 1) + histo[myindex]->GetBinContent(pho1_pt, 2, 2));
           f1 = histo[0]->GetBinContent(pho0_pt, 1, 1) / (histo[0]->GetBinContent(pho0_pt, 1, 1) + histo[0]->GetBinContent(pho0_pt, 1, 2));
           f2 = histo[0]->GetBinContent(pho1_pt, 2, 1) / (histo[0]->GetBinContent(pho1_pt, 2, 1) + histo[0]->GetBinContent(pho1_pt, 2, 2));
+
+          e1_err = TMath::Power(1. / (histo[myindex]->GetBinContent(pho0_pt, 1, 1) + histo[myindex]->GetBinContent(pho0_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[myindex]->GetBinContent(pho0_pt, 1, 2) * histo[myindex]->GetBinError(pho0_pt, 1, 1), 2) + TMath::Power(histo[myindex]->GetBinContent(pho0_pt, 1, 1) * histo[myindex]->GetBinError(pho0_pt, 1, 2), 2));
+          e2_err = TMath::Power(1. / (histo[myindex]->GetBinContent(pho1_pt, 2, 1) + histo[myindex]->GetBinContent(pho1_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[myindex]->GetBinContent(pho1_pt, 2, 2) * histo[myindex]->GetBinError(pho1_pt, 2, 1), 2) + TMath::Power(histo[myindex]->GetBinContent(pho1_pt, 2, 1) * histo[myindex]->GetBinError(pho1_pt, 2, 2), 2));
+          f1_err = TMath::Power(1. / (histo[0]->GetBinContent(pho0_pt, 1, 1) + histo[0]->GetBinContent(pho0_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho0_pt, 1, 2) * histo[0]->GetBinError(pho0_pt, 1, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho0_pt, 1, 1) * histo[0]->GetBinError(pho0_pt, 1, 2), 2));
+          f2_err = TMath::Power(1. / (histo[0]->GetBinContent(pho1_pt, 2, 1) + histo[0]->GetBinContent(pho1_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho1_pt, 2, 2) * histo[0]->GetBinError(pho1_pt, 2, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho1_pt, 2, 1) * histo[0]->GetBinError(pho1_pt, 2, 2), 2));
         }
+
         if (eta == 3) {
           e1 = histo[myindex]->GetBinContent(pho0_pt, 2, 1) / (histo[myindex]->GetBinContent(pho0_pt, 2, 1) + histo[myindex]->GetBinContent(pho0_pt, 2, 2));
           e2 = histo[myindex]->GetBinContent(pho1_pt, 1, 1) / (histo[myindex]->GetBinContent(pho1_pt, 1, 1) + histo[myindex]->GetBinContent(pho1_pt, 1, 2));
           f1 = histo[0]->GetBinContent(pho0_pt, 2, 1) / (histo[0]->GetBinContent(pho0_pt, 2, 1) + histo[0]->GetBinContent(pho0_pt, 2, 2));
           f2 = histo[0]->GetBinContent(pho1_pt, 1, 1) / (histo[0]->GetBinContent(pho1_pt, 1, 1) + histo[0]->GetBinContent(pho1_pt, 1, 2));
+
+          e1_err = TMath::Power(1. / (histo[myindex]->GetBinContent(pho0_pt, 2, 1) + histo[myindex]->GetBinContent(pho0_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[myindex]->GetBinContent(pho0_pt, 2, 2) * histo[myindex]->GetBinError(pho0_pt, 2, 1), 2) + TMath::Power(histo[myindex]->GetBinContent(pho0_pt, 2, 1) * histo[myindex]->GetBinError(pho0_pt, 2, 2), 2));
+          e2_err = TMath::Power(1. / (histo[myindex]->GetBinContent(pho1_pt, 1, 1) + histo[myindex]->GetBinContent(pho1_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[myindex]->GetBinContent(pho1_pt, 1, 2) * histo[myindex]->GetBinError(pho1_pt, 1, 1), 2) + TMath::Power(histo[myindex]->GetBinContent(pho1_pt, 1, 1) * histo[myindex]->GetBinError(pho1_pt, 1, 2), 2));
+          f1_err = TMath::Power(1. / (histo[0]->GetBinContent(pho0_pt, 2, 1) + histo[0]->GetBinContent(pho0_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho0_pt, 2, 2) * histo[0]->GetBinError(pho0_pt, 2, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho0_pt, 2, 1) * histo[0]->GetBinError(pho0_pt, 2, 2), 2));
+          f2_err = TMath::Power(1. / (histo[0]->GetBinContent(pho1_pt, 1, 1) + histo[0]->GetBinContent(pho1_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho1_pt, 1, 2) * histo[0]->GetBinError(pho1_pt, 1, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho1_pt, 1, 1) * histo[0]->GetBinError(pho1_pt, 1, 2), 2));
         }
+
         if (eta == 4) {
           e1 = histo[myindex]->GetBinContent(pho0_pt, 2, 1) / (histo[myindex]->GetBinContent(pho0_pt, 2, 1) + histo[myindex]->GetBinContent(pho0_pt, 2, 2));
           e2 = histo[myindex]->GetBinContent(pho1_pt, 2, 1) / (histo[myindex]->GetBinContent(pho1_pt, 2, 1) + histo[myindex]->GetBinContent(pho1_pt, 2, 2));
           f1 = histo[0]->GetBinContent(pho0_pt, 2, 1) / (histo[0]->GetBinContent(pho0_pt, 2, 1) + histo[0]->GetBinContent(pho0_pt, 2, 2));
           f2 = histo[0]->GetBinContent(pho1_pt, 2, 1) / (histo[0]->GetBinContent(pho1_pt, 2, 1) + histo[0]->GetBinContent(pho1_pt, 2, 2));
+
+          e1_err = TMath::Power(1. / (histo[myindex]->GetBinContent(pho0_pt, 2, 1) + histo[myindex]->GetBinContent(pho0_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[myindex]->GetBinContent(pho0_pt, 2, 2) * histo[myindex]->GetBinError(pho0_pt, 2, 1), 2) + TMath::Power(histo[myindex]->GetBinContent(pho0_pt, 2, 1) * histo[myindex]->GetBinError(pho0_pt, 2, 2), 2));
+          e2_err = TMath::Power(1. / (histo[myindex]->GetBinContent(pho1_pt, 2, 1) + histo[myindex]->GetBinContent(pho1_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[myindex]->GetBinContent(pho1_pt, 2, 2) * histo[myindex]->GetBinError(pho1_pt, 2, 1), 2) + TMath::Power(histo[myindex]->GetBinContent(pho1_pt, 2, 1) * histo[myindex]->GetBinError(pho1_pt, 2, 2), 2));
+          f1_err = TMath::Power(1. / (histo[0]->GetBinContent(pho0_pt, 2, 1) + histo[0]->GetBinContent(pho0_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho0_pt, 2, 2) * histo[0]->GetBinError(pho0_pt, 2, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho0_pt, 2, 1) * histo[0]->GetBinError(pho0_pt, 2, 2), 2));
+          f2_err = TMath::Power(1. / (histo[0]->GetBinContent(pho1_pt, 2, 1) + histo[0]->GetBinContent(pho1_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho1_pt, 2, 2) * histo[0]->GetBinError(pho1_pt, 2, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho1_pt, 2, 1) * histo[0]->GetBinError(pho1_pt, 2, 2), 2));
         }
 
-        string matrix_title = "matrix_";
-        matrix_title += std::to_string(pho0_pt);
-        matrix_title += std::to_string(pho1_pt);
-        matrix_title += std::to_string(eta);
+        for (int i=0; i < 9; i++) {
+          string matrix_title = "matrix_";
+          matrix_title += std::to_string(pho0_pt);
+          matrix_title += std::to_string(pho1_pt);
+          matrix_title += std::to_string(eta);
 
-        TMatrixD matrix(4,4);
+          if (i == 1) matrix_title += "_e1up";
+          if (i == 2) matrix_title += "_e2up";
+          if (i == 3) matrix_title += "_f1up";
+          if (i == 4) matrix_title += "_f2up";
+          if (i == 5) matrix_title += "_e1down";
+          if (i == 6) matrix_title += "_e2down";
+          if (i == 7) matrix_title += "_f1down";
+          if (i == 8) matrix_title += "_f2down";
 
-        matrix(0, 0) = e1 * e2;
-        matrix(0, 1) = e1 * f2;
-        matrix(0, 2) = f1 * e2;
-        matrix(0, 3) = f1 * f2;
+          TMatrixD matrix(4,4);
 
-        matrix(1, 0) = e1 * (1.-e2);
-        matrix(1, 1) = e1 * (1.-f2);
-        matrix(1, 2) = f1 * (1.-e2);
-        matrix(1, 3) = f1 * (1.-f2);
+          matrix(0, 0) = (e1 + e1_err * ((i == 1) - (i == 5))) * (e2 + e2_err * ((i == 2) - (i == 6)));
+          matrix(0, 1) = (e1 + e1_err * ((i == 1) - (i == 5))) * (f2 + f2_err * ((i == 4) - (i == 8)));
+          matrix(0, 2) = (f1 + f1_err * ((i == 3) - (i == 7))) * (e2 + e2_err * ((i == 2) - (i == 6)));
+          matrix(0, 3) = (f1 + f1_err * ((i == 3) - (i == 7))) * (f2 + f2_err * ((i == 4) - (i == 8)));
 
-        matrix(2, 0) = (1.-e1) * e2;
-        matrix(2, 1) = (1.-e1) * f2;
-        matrix(2, 2) = (1.-f1) * e2;
-        matrix(2, 3) = (1.-f1) * f2;
+          matrix(1, 0) = (e1 + e1_err * ((i == 1) - (i == 5))) * (1. - (e2 + e2_err * ((i == 2) - (i == 6))));
+          matrix(1, 1) = (e1 + e1_err * ((i == 1) - (i == 5))) * (1. - (f2 + f2_err * ((i == 4) - (i == 8))));
+          matrix(1, 2) = (f1 + f1_err * ((i == 3) - (i == 7))) * (1. - (e2 + e2_err * ((i == 2) - (i == 6))));
+          matrix(1, 3) = (f1 + f1_err * ((i == 3) - (i == 7))) * (1. - (f2 + f2_err * ((i == 4) - (i == 8))));
 
-        matrix(3, 0) = (1.-e1) * (1.-e2);
-        matrix(3, 1) = (1.-e1) * (1.-f2);
-        matrix(3, 2) = (1.-f1) * (1.-e2);
-        matrix(3, 3) = (1.-f1) * (1.-f2);
+          matrix(2, 0) = (1. - (e1 + e1_err * ((i == 1) - (i == 5)))) * (e2 + e2_err * ((i == 2) - (i == 6)));
+          matrix(2, 1) = (1. - (e1 + e1_err * ((i == 1) - (i == 5)))) * (f2 + f2_err * ((i == 4) - (i == 8)));
+          matrix(2, 2) = (1. - (f1 + f1_err * ((i == 3) - (i == 7)))) * (e2 + e2_err * ((i == 2) - (i == 6)));
+          matrix(2, 3) = (1. - (f1 + f1_err * ((i == 3) - (i == 7)))) * (f2 + f2_err * ((i == 4) - (i == 8)));
 
-        matrix.Write((matrix_title).c_str());
+          matrix(3, 0) = (1. - (e1 + e1_err * ((i == 1) - (i == 5)))) * (1. - (e2 + e2_err * ((i == 2) - (i == 6))));
+          matrix(3, 1) = (1. - (e1 + e1_err * ((i == 1) - (i == 5)))) * (1. - (f2 + f2_err * ((i == 4) - (i == 8))));
+          matrix(3, 2) = (1. - (f1 + f1_err * ((i == 3) - (i == 7)))) * (1. - (e2 + e2_err * ((i == 2) - (i == 6))));
+          matrix(3, 3) = (1. - (f1 + f1_err * ((i == 3) - (i == 7)))) * (1. - (f2 + f2_err * ((i == 4) - (i == 8))));
+
+          matrix.Write((matrix_title).c_str());
+        }
       }
     }
   }
