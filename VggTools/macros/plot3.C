@@ -331,6 +331,13 @@ void plot3(string plot="", string title="", string version="v00", string options
           f2_err = TMath::Power(1. / (histo[0]->GetBinContent(pho1_pt, 2, 1) + histo[0]->GetBinContent(pho1_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho1_pt, 2, 2) * histo[0]->GetBinError(pho1_pt, 2, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho1_pt, 2, 1) * histo[0]->GetBinError(pho1_pt, 2, 2), 2));
         }
 
+        if (flag == "jet_misid_stat") {
+          e1_err = e1_err * 1.1;
+          e2_err = e2_err * 1.1;
+          f1_err = f1_err * 1.1;
+          f2_err = f2_err * 1.1;
+        }
+
         for (int i=0; i < 9; i++) {
           string matrix_title = "matrix_";
           matrix_title += std::to_string(pho0_pt);
