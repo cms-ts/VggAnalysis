@@ -93,6 +93,8 @@ for YEAR in $YEARS; do
         ./plot0.sh $VERSION $YEAR $OPTION $FLAG ; \
         ./plot2.sh $VERSION $YEAR $OPTION $FLAG ; \
         ./plot3.sh $VERSION $YEAR $OPTION $FLAG ; \
+        ./plot3.sh $VERSION $YEAR $OPTION",identity" $FLAG ; \
+        ./plot3.sh $VERSION $YEAR $OPTION",closure" $FLAG ; \
         ./plot4.sh $VERSION $YEAR $OPTION $FLAG ; \
         ./plot4.sh $VERSION $YEAR $OPTION",paper" $FLAG ; \
         ./plot5.sh $VERSION $YEAR $OPTION $FLAG \

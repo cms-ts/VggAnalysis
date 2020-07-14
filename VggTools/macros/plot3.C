@@ -22,6 +22,21 @@ void plot3(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
+  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+    if (flag != "reference") return;
+  }
+
+  if (options.find("closure") != string::npos) {
+    if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
+      cout << "ERROR: no sherpa sample available for this year !!" << endl;
+      return;
+    }
+    if (title.find("h_WG") != string::npos) {
+      cout << "ERROR: no sherpa sample available for the W channel !!" << endl;
+      return;
+    }
+  }
+
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
@@ -47,6 +62,9 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   map<int, TH3D*> histo;
   map<int, TH1D*> histo1;
+
+  map<int, TH3D*> histo_mc;
+  map<int, TH1D*> histo1_mc;
 
   float lumi = 0.;
   float lumi2016 = 0.;
@@ -199,6 +217,90 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
+  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+    for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+      int index = int(it->second);
+      if (index > 0) {
+        TFile* file = 0;
+        if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+          file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
+        } else {
+          file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
+        }
+        if (file->IsZombie()) {
+          cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
+          return;
+        }
+        double norm = 1.;
+        if (xsecMap[it->first] != 0) {
+          double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
+          if (it->first.find("RunIISummer16") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2016 / ngen;
+          if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
+          if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
+        } else {
+          cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
+          return;
+        }
+        if (histo1_mc[index]) {
+          TH1D* h1_mc = (TH1D*)gDirectory->Get((title).c_str());
+          if (h1_mc) {
+            histo1_mc[index]->Add(h1_mc, norm);
+          }
+        } else {
+          TH1D* h1_mc = (TH1D*)gDirectory->Get((title).c_str());
+          if (h1_mc) {
+            histo1_mc[index] = h1_mc;
+            histo1_mc[index]->SetDirectory(0);
+            histo1_mc[index]->Scale(norm);
+          }
+        }
+        if (histo_mc[index]) {
+          TH3D* h_mc = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6)).c_str());
+          if (h_mc) {
+            histo_mc[index]->Add(h_mc, norm);
+          }
+        } else {
+          TH3D* h_mc = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6)).c_str());
+          if (h_mc) {
+            histo_mc[index] = h_mc;
+            histo_mc[index]->SetDirectory(0);
+            histo_mc[index]->Scale(norm);
+          }
+        }
+        file->Close();
+        delete file;
+      }
+    }
+  }
+
+  if (options.find("closure") != string::npos) {
+    TFile* file1 = 0;
+    if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (year == "2016") file1 = new TFile(("data/" + version + "/reference/RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
+      if (year == "2017") file1 = new TFile(("data/" + version + "/reference/RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
+    } else {
+      if (year == "2016") file1 = new TFile(("data/" + version + "/" + flag + "/RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
+      if (year == "2017") file1 = new TFile(("data/" + version + "/" + flag + "/RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
+    }
+    if (file1->IsZombie()) {
+      if (year == "2016") cout << "ERROR: file " << "RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root" << " is MISSING !!" << endl;
+      if (year == "2017") cout << "ERROR: file " << "RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root" << " is MISSING !!" << endl;
+      return;
+    }
+    TH1D* h1_mc = (TH1D*)gDirectory->Get((title).c_str());
+    if (h1_mc) {
+      histo1_mc[-11] = h1_mc;
+      histo1_mc[-11]->SetDirectory(0);
+    }
+    TH3D* h_mc = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6)).c_str());
+    if (h_mc) {
+      histo_mc[-11] = h_mc;
+      histo_mc[-11]->SetDirectory(0);
+    }
+    file1->Close();
+    delete file1;
+  }
+
   for (map<int, TH3D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
     if (histo[index]) histo[index] = rebin(histo[index]);
@@ -209,10 +311,32 @@ void plot3(string plot="", string title="", string version="v00", string options
     if (histo1[index]) histo1[index] = rebin(histo1[index]);
   }
 
+  for (map<int, TH3D*>::iterator it = histo_mc.begin(); it != histo_mc.end(); it++) {
+    int index = int(it->first);
+    if (histo_mc[index]) histo_mc[index] = rebin(histo_mc[index]);
+  }
+
+  for (map<int, TH1D*>::iterator it = histo1_mc.begin(); it != histo1_mc.end(); it++) {
+    int index = int(it->first);
+    if (histo1_mc[index]) histo1_mc[index] = rebin(histo1_mc[index]);
+  }
+
+  if (options.find("closure") != string::npos) {
+    histo1_mc[-11]->Scale(histo1_mc[11]->Integral()/histo1_mc[-11]->Integral());
+    histo_mc[-11]->Scale(histo_mc[11]->Integral()/histo_mc[-11]->Integral());
+  }
+
   int myindex = -1;
 
   if (title.find("h_WG") != string::npos) myindex = 1011;
   if (title.find("h_ZG") != string::npos) myindex = 11;
+
+  double bias_factor = 1.;
+
+  histo[myindex]->Scale(bias_factor);
+  histo1[myindex]->Scale(bias_factor);
+  histo_mc[myindex]->Scale(bias_factor);
+  histo1_mc[myindex]->Scale(bias_factor);
 
   for (int i = 0; i < histo[myindex]->GetNbinsX() + 2; i++) {
     for (int j = 0; j < histo[myindex]->GetNbinsY() + 2; j++) {
@@ -220,6 +344,34 @@ void plot3(string plot="", string title="", string version="v00", string options
         if (histo[myindex]->GetBinContent(i, j, k) < 0) {
           histo[myindex]->SetBinContent(i, j, k, 0.);
           histo[myindex]->SetBinError(i, j, k, 0.);
+        }
+      }
+    }
+  }
+
+  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+    histo[0]->Reset();
+    histo1[0]->Reset();
+
+    for (map<int, TH3D*>::iterator it = histo_mc.begin(); it != histo_mc.end(); it++) {
+      int index = int(it->first);
+      if (options.find("closure") != string::npos && index == 11) continue;
+      if (histo_mc[index]) histo[0]->Add(histo_mc[index]);
+    }
+
+    for (map<int, TH1D*>::iterator it = histo1_mc.begin(); it != histo1_mc.end(); it++) {
+      int index = int(it->first);
+      if (options.find("closure") != string::npos && index == 11) continue;
+      if (histo1_mc[index]) histo1[0]->Add(histo1_mc[index]);
+    }
+
+    for (int i = 0; i < histo[0]->GetNbinsX() + 2; i++) {
+      for (int j = 0; j < histo[0]->GetNbinsY() + 2; j++) {
+        for (int k = 0; k < histo[0]->GetNbinsZ() + 2; k++) {
+          if (histo[0]->GetBinContent(i, j, k) < 0) {
+            histo[0]->SetBinContent(i, j, k, 0.);
+            histo[0]->SetBinError(i, j, k, 0.);
+          }
         }
       }
     }
@@ -238,16 +390,18 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  for (int i = 0; i < histo[0]->GetNbinsX() + 2; i++) {
-    for (int j = 0; j < histo[0]->GetNbinsY() + 2; j++) {
-      for (int k = 0; k < histo[0]->GetNbinsZ() + 2; k++) {
-        if (histo[0]->GetBinContent(i, j, k) < 0) {
-          float Nb = histo[0]->GetBinContent(i, j, k);
-          float eNb = TMath::Sqrt(TMath::Power(histo_data->GetBinError(i, j, k), 2) + TMath::Power(histo_mc_sum->GetBinError(i, j, k), 2));
-          float eNb0 = eNb != 0. ? eNb * (TMath::ErfcInverse(0.157299 * TMath::Erfc(fabs(Nb / eNb))) - fabs(Nb / eNb)) : 0.;
+  if (options.find("identity") == string::npos) {
+    for (int i = 0; i < histo[0]->GetNbinsX() + 2; i++) {
+      for (int j = 0; j < histo[0]->GetNbinsY() + 2; j++) {
+        for (int k = 0; k < histo[0]->GetNbinsZ() + 2; k++) {
+          if (histo[0]->GetBinContent(i, j, k) < 0) {
+            float Nb = histo[0]->GetBinContent(i, j, k);
+            float eNb = TMath::Sqrt(TMath::Power(histo_data->GetBinError(i, j, k), 2) + TMath::Power(histo_mc_sum->GetBinError(i, j, k), 2));
+            float eNb0 = eNb != 0. ? eNb * (TMath::ErfcInverse(0.157299 * TMath::Erfc(fabs(Nb / eNb))) - fabs(Nb / eNb)) : 0.;
 
-          histo[0]->SetBinContent(i, j, k, 0.);
-          histo[0]->SetBinError(i, j, k, eNb0);
+            histo[0]->SetBinContent(i, j, k, 0.);
+            histo[0]->SetBinError(i, j, k, eNb0);
+          }
         }
       }
     }
@@ -724,7 +878,27 @@ void plot3(string plot="", string title="", string version="v00", string options
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/").c_str(), kTRUE);
   }
+
+  if (options.find("identity") != string::npos) title += "_identity";
+  if (options.find("closure") != string::npos) title += "_closure";
+
   c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".matrix/" + title + ".pdf").c_str());
+
+  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+    for (map<int, TH1D*>::reverse_iterator it = histo1.rbegin(); it != histo1.rend(); it++) {
+      int index = int(it->first);
+      if (index > 0 && index != 8001) {
+        histo1[0]->Add(histo1[index], -1);
+      }
+    }
+
+    cout << "+++++++++++++++++++++++++++++++++++++" << endl;
+    cout << "Bkg from matrix = " << histo1[8001]->Integral() << endl;
+    cout << "Bkg from MC     = " << histo1[0]->Integral() << endl;
+    cout << "Bias factor     = " << bias_factor << endl;
+    cout << "Signal/Bkg      = " << histo1[myindex]->Integral()/histo1[8001]->Integral() << endl;
+    cout << "+++++++++++++++++++++++++++++++++++++" << endl;
+  }
 
 }
 
