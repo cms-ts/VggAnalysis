@@ -86,69 +86,71 @@ void plot2(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (title.find("h_ZGG_") != string::npos && index != 10) continue;
-    if (title.find("h_WGG_") != string::npos && index != 1010) continue;
-    TFile* file = 0;
-    if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
-      file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
-    } else {
-      file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
-    }
-    if (file->IsZombie()) {
-      cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
-      return;
-    }
-    double norm = 1.;
-    if (xsecMap[it->first] != 0) {
-      double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
-      if (it->first.find("RunIISummer16") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2016 / ngen;
-      if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
-      if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
-    } else {
-      cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
-      return;
-    }
-    if (h1) {
-      TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
-      if (h) {
-        h1->Add(h, norm);
+    if (index > 0) {
+      if (title.find("h_ZGG_") != string::npos && index != 10) continue;
+      if (title.find("h_WGG_") != string::npos && index != 1010) continue;
+      TFile* file = 0;
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+        file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
+      } else {
+        file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
       }
-    } else {
-      TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
-      if (h) {
-        h1 = h;
-        h1->SetDirectory(0);
-        h1->Scale(norm);
+      if (file->IsZombie()) {
+        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
+        return;
       }
+      double norm = 1.;
+      if (xsecMap[it->first] != 0) {
+        double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
+        if (it->first.find("RunIISummer16") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2016 / ngen;
+        if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
+        if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
+      } else {
+        cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
+        return;
+      }
+      if (h1) {
+        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        if (h) {
+          h1->Add(h, norm);
+        }
+      } else {
+        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        if (h) {
+          h1 = h;
+          h1->SetDirectory(0);
+          h1->Scale(norm);
+        }
+      }
+      if (h2) {
+        TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
+        if (h) {
+          h2->Add(h, norm);
+        }
+      } else {
+        TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
+        if (h) {
+          h2 = h;
+          h2->SetDirectory(0);
+          h2->Scale(norm);
+        }
+      }
+      if (h3) {
+        TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        if (h) {
+          h3->Add(h, norm);
+        }
+      } else {
+        TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        if (h) {
+          h3 = h;
+          h3->SetDirectory(0);
+          h3->Scale(norm);
+        }
+      }
+      file->Close();
+      delete file;
     }
-    if (h2) {
-      TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
-      if (h) {
-        h2->Add(h, norm);
-      }
-    } else {
-      TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
-      if (h) {
-        h2 = h;
-        h2->SetDirectory(0);
-        h2->Scale(norm);
-      }
-    }
-    if (h3) {
-      TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
-      if (h) {
-        h3->Add(h, norm);
-      }
-    } else {
-      TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
-      if (h) {
-        h3 = h;
-        h3->SetDirectory(0);
-        h3->Scale(norm);
-      }
-    }
-    file->Close();
-    delete file;
   }
 
   h1 = rebin(h1);
