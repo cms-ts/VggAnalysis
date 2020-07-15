@@ -860,6 +860,7 @@ void plot3(string plot="", string title="", string version="v00", string options
   h_ratio->GetYaxis()->SetLabelOffset(0.01);
   h_ratio->GetYaxis()->SetNdivisions(505);
   h_ratio->GetYaxis()->SetRangeUser(0.5, 1.5);
+  if (options.find("identity") != string::npos || options.find("closure") != string::npos) h_ratio->GetYaxis()->SetRangeUser(0.85, 1.15);
 
   h_ratio->SetMarkerStyle(20);
   h_ratio->Draw("E0PX0");
