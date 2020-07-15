@@ -336,10 +336,12 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   double bias_factor = 1.;
 
-  histo[myindex]->Scale(bias_factor);
-  histo1[myindex]->Scale(bias_factor);
-  histo_mc[myindex]->Scale(bias_factor);
-  histo1_mc[myindex]->Scale(bias_factor);
+  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+    histo[myindex]->Scale(bias_factor);
+    histo1[myindex]->Scale(bias_factor);
+    histo_mc[myindex]->Scale(bias_factor);
+    histo1_mc[myindex]->Scale(bias_factor);
+  }
 
   for (int i = 0; i < histo[myindex]->GetNbinsX() + 2; i++) {
     for (int j = 0; j < histo[myindex]->GetNbinsY() + 2; j++) {
