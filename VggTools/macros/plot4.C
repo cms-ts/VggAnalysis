@@ -22,6 +22,21 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
+  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+    if (flag != "reference") return;
+  }
+
+  if (options.find("closure") != string::npos) {
+    if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
+      cout << "ERROR: no sherpa sample available for this year !!" << endl;
+      return;
+    }
+    if (title.find("h_WG") != string::npos) {
+      cout << "ERROR: no sherpa sample available for the W channel !!" << endl;
+      return;
+    }
+  }
+
   map<string, float> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
@@ -898,6 +913,10 @@ void plot4(string plot="", string title="", string version="v00", string options
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/").c_str(), kTRUE);
   }
+
+  if (options.find("identity") != string::npos) title += "_identity";
+  if (options.find("closure") != string::npos) title += "_closure";
+
   c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".matrix/" + title + ".pdf").c_str());
 
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
