@@ -314,14 +314,16 @@ void plot3(string plot="", string title="", string version="v00", string options
     if (histo1[index]) histo1[index] = rebin(histo1[index]);
   }
 
-  for (map<int, TH3D*>::iterator it = histo_mc.begin(); it != histo_mc.end(); it++) {
-    int index = int(it->first);
-    if (histo_mc[index]) histo_mc[index] = rebin(histo_mc[index]);
-  }
+  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+    for (map<int, TH3D*>::iterator it = histo_mc.begin(); it != histo_mc.end(); it++) {
+      int index = int(it->first);
+      if (histo_mc[index]) histo_mc[index] = rebin(histo_mc[index]);
+    }
 
-  for (map<int, TH1D*>::iterator it = histo1_mc.begin(); it != histo1_mc.end(); it++) {
-    int index = int(it->first);
-    if (histo1_mc[index]) histo1_mc[index] = rebin(histo1_mc[index]);
+    for (map<int, TH1D*>::iterator it = histo1_mc.begin(); it != histo1_mc.end(); it++) {
+      int index = int(it->first);
+      if (histo1_mc[index]) histo1_mc[index] = rebin(histo1_mc[index]);
+    }
   }
 
   if (options.find("closure") != string::npos) {
