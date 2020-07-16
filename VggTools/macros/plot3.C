@@ -22,11 +22,11 @@ void plot3(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
-  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+  if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
     if (flag != "reference") return;
   }
 
-  if (options.find("closure") != string::npos) {
+  if (options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
     if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
       cout << "ERROR: no sherpa sample available for this year !!" << endl;
       return;
@@ -219,7 +219,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+  if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
     for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
       int index = int(it->second);
       if (index > 0) {
@@ -276,7 +276,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  if (options.find("closure") != string::npos) {
+  if (options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
     TFile* file1 = 0;
     if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
       if (year == "2016") file1 = new TFile(("data/" + version + "/reference/RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
@@ -290,15 +290,29 @@ void plot3(string plot="", string title="", string version="v00", string options
       if (year == "2017") cout << "ERROR: file " << "RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root" << " is MISSING !!" << endl;
       return;
     }
-    TH1D* h1_mc = (TH1D*)gDirectory->Get((title).c_str());
-    if (h1_mc) {
-      histo1_mc[-11] = h1_mc;
-      histo1_mc[-11]->SetDirectory(0);
+    if (options.find("identity1") != string::npos || options.find("closure0") != string::npos) {
+      TH1D* h1_mc = (TH1D*)gDirectory->Get((title).c_str());
+      if (h1_mc) {
+        histo1_mc[111] = h1_mc;
+        histo1_mc[111]->SetDirectory(0);
+      }
+      TH3D* h_mc = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6)).c_str());
+      if (h_mc) {
+        histo_mc[111] = h_mc;
+        histo_mc[111]->SetDirectory(0);
+      }
     }
-    TH3D* h_mc = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6)).c_str());
-    if (h_mc) {
-      histo_mc[-11] = h_mc;
-      histo_mc[-11]->SetDirectory(0);
+    if (options.find("identity1") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
+      TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+      if (h1) {
+        histo1[111] = h1;
+        histo1[111]->SetDirectory(0);
+      }
+      TH3D* h = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
+      if (h) {
+        histo[111] = h;
+        histo[111]->SetDirectory(0);
+      }
     }
     file1->Close();
     delete file1;
@@ -314,7 +328,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     if (histo1[index]) histo1[index] = rebin(histo1[index]);
   }
 
-  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+  if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
     for (map<int, TH3D*>::iterator it = histo_mc.begin(); it != histo_mc.end(); it++) {
       int index = int(it->first);
       if (histo_mc[index]) histo_mc[index] = rebin(histo_mc[index]);
@@ -326,9 +340,13 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  if (options.find("closure") != string::npos) {
-    histo1_mc[-11]->Scale(histo1_mc[11]->Integral()/histo1_mc[-11]->Integral());
-    histo_mc[-11]->Scale(histo_mc[11]->Integral()/histo_mc[-11]->Integral());
+  if (options.find("identity1") != string::npos || options.find("closure0") != string::npos) {
+    histo1_mc[111]->Scale(histo_mc[11]->Integral()/histo_mc[111]->Integral());
+    histo_mc[111]->Scale(histo_mc[11]->Integral()/histo_mc[111]->Integral());
+  }
+  if (options.find("identity1") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
+    histo1[111]->Scale(histo[11]->Integral()/histo[111]->Integral());
+    histo[111]->Scale(histo[11]->Integral()/histo[111]->Integral());
   }
 
   int myindex = -1;
@@ -338,7 +356,7 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   double bias_factor = 1.;
 
-  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+  if (options.find("identity0") != string::npos || options.find("identity1") != string::npos) {
     histo[myindex]->Scale(bias_factor);
     histo1[myindex]->Scale(bias_factor);
     histo_mc[myindex]->Scale(bias_factor);
@@ -356,31 +374,20 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+  if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
     histo[0]->Reset();
     histo1[0]->Reset();
 
     for (map<int, TH3D*>::iterator it = histo_mc.begin(); it != histo_mc.end(); it++) {
       int index = int(it->first);
-      if (options.find("closure") != string::npos && index == 11) continue;
+      if ((options.find("identity1") != string::npos || options.find("closure0") != string::npos) && index == 11) continue;
       if (histo_mc[index]) histo[0]->Add(histo_mc[index]);
     }
 
     for (map<int, TH1D*>::iterator it = histo1_mc.begin(); it != histo1_mc.end(); it++) {
       int index = int(it->first);
-      if (options.find("closure") != string::npos && index == 11) continue;
+      if ((options.find("identity1") != string::npos || options.find("closure0") != string::npos) && index == 11) continue;
       if (histo1_mc[index]) histo1[0]->Add(histo1_mc[index]);
-    }
-
-    for (int i = 0; i < histo[0]->GetNbinsX() + 2; i++) {
-      for (int j = 0; j < histo[0]->GetNbinsY() + 2; j++) {
-        for (int k = 0; k < histo[0]->GetNbinsZ() + 2; k++) {
-          if (histo[0]->GetBinContent(i, j, k) < 0) {
-            histo[0]->SetBinContent(i, j, k, 0.);
-            histo[0]->SetBinError(i, j, k, 0.);
-          }
-        }
-      }
     }
   }
 
@@ -392,12 +399,13 @@ void plot3(string plot="", string title="", string version="v00", string options
   for (map<int, TH3D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
     if (index > 0) {
+      if ((options.find("identity1") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) && index == 11) continue;
       histo[0]->Add(histo[index], -1);
       histo_mc_sum->Add(histo[index]);
     }
   }
 
-  if (options.find("identity") == string::npos) {
+  if (options.find("identity0") == string::npos && options.find("identity1") == string::npos && options.find("closure0") == string::npos && options.find("closure1") == string::npos) {
     for (int i = 0; i < histo[0]->GetNbinsX() + 2; i++) {
       for (int j = 0; j < histo[0]->GetNbinsY() + 2; j++) {
         for (int k = 0; k < histo[0]->GetNbinsZ() + 2; k++) {
@@ -425,11 +433,18 @@ void plot3(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) version = version + ".sherpa";
   if (options.find("default") != string::npos) version = version + ".default";
 
+  string title_tmp = title;
+  if (options.find("identity0") != string::npos) title_tmp += "_identity0";
+  if (options.find("identity1") != string::npos) title_tmp += "_identity1";
+  if (options.find("closure0") != string::npos) title_tmp += "_closure0";
+  if (options.find("closure1") != string::npos) title_tmp += "_closure1";
+  if (options.find("validation") != string::npos) title_tmp += "_validation";
+
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
-  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str(), "RECREATE");
-  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str());
+  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str());
 
   for (int eta = 1; eta < 5; eta++) {
     for (int pho0_pt = 2; pho0_pt < histo[0]->GetNbinsX()+1; pho0_pt++) {
@@ -577,9 +592,6 @@ void plot3(string plot="", string title="", string version="v00", string options
       TVectorD alpha(2);
       alpha = inverse_matrix * n_region;
 
-      if (alpha(0) < 0) alpha(0) = 0.;
-      if (alpha(1) < 0) alpha(1) = 0.;
-
       histo1[8001]->SetBinContent(pho0_pt, histo1[8001]->GetBinContent(pho0_pt) + matrix(0,1) * alpha(1));
 
     }
@@ -592,6 +604,7 @@ void plot3(string plot="", string title="", string version="v00", string options
   for (map<int, TH1D*>::reverse_iterator it = histo1.rbegin(); it != histo1.rend(); it++) {
     int index = int(it->first);
     if (index > 0) {
+      if ((options.find("identity1") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) && index == 11) continue;
       hstack_mc->Add(histo1[index]);
       h_mc_sum->Add(histo1[index]);
     }
@@ -625,6 +638,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       leg->AddEntry(histo1[index], "Z #gamma #gamma", "f");
     }
     if (index == 11) {
+      if (options.find("identity1") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) index = 111;
       histo1[index]->SetFillColor(kOrange-4);
       histo1[index]->SetFillStyle(3254);
       leg->AddEntry(histo1[index], "Z #gamma", "f");
@@ -860,7 +874,7 @@ void plot3(string plot="", string title="", string version="v00", string options
   h_ratio->GetYaxis()->SetLabelOffset(0.01);
   h_ratio->GetYaxis()->SetNdivisions(505);
   h_ratio->GetYaxis()->SetRangeUser(0.5, 1.5);
-  if (options.find("identity") != string::npos || options.find("closure") != string::npos) h_ratio->GetYaxis()->SetRangeUser(0.85, 1.15);
+  h_ratio->GetYaxis()->SetRangeUser(0.85, 1.15);
 
   h_ratio->SetMarkerStyle(20);
   h_ratio->Draw("E0PX0");
@@ -887,15 +901,19 @@ void plot3(string plot="", string title="", string version="v00", string options
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/").c_str(), kTRUE);
   }
 
-  if (options.find("identity") != string::npos) title += "_identity";
-  if (options.find("closure") != string::npos) title += "_closure";
+  if (options.find("identity0") != string::npos) title += "_identity0";
+  if (options.find("identity1") != string::npos) title += "_identity1";
+  if (options.find("closure0") != string::npos) title += "_closure0";
+  if (options.find("closure1") != string::npos) title += "_closure1";
+  if (options.find("validation") != string::npos) title += "_validation";
 
   c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".matrix/" + title + ".pdf").c_str());
 
-  if (options.find("identity") != string::npos || options.find("closure") != string::npos) {
+  if (options.find("identity0") != string::npos || options.find("identity1") != string::npos) {
     for (map<int, TH1D*>::reverse_iterator it = histo1.rbegin(); it != histo1.rend(); it++) {
       int index = int(it->first);
       if (index > 0 && index != 8001) {
+        if (options.find("identity1") != string::npos && index == 11) continue;
         histo1[0]->Add(histo1[index], -1);
       }
     }
