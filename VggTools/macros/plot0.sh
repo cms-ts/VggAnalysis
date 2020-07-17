@@ -88,7 +88,7 @@ for YEAR in $YEARS; do
   SKIP1       root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_npvs_w\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
 
   SKIP1       root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-  SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
+  SKIP1       root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_phi\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_r9\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_sieie\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
@@ -101,7 +101,7 @@ for YEAR in $YEARS; do
   SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_met_phi\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
 
   SKIP1       root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-  SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
+  SKIP1       root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo0_phi\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1       root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo1_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1 SKIP2 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo1_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
