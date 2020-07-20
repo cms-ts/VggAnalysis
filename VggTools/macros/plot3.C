@@ -75,7 +75,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "bkg_syst" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -139,7 +139,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "bkg_syst" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -155,6 +155,9 @@ void plot3(string plot="", string title="", string version="v00", string options
         if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
         if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
         if (flag == "bkg_syst") norm = norm * 1.05;
+        if (flag == "xsec_syst_wg" && (index == 21 || index == 1011)) norm = norm * 1.05;
+        if (flag == "xsec_syst_zg" && (index == 11 || index == 1021)) norm = norm * 1.05;
+        if (flag == "xsec_syst_others" && index != 10 && index != 11 && index != 21 && index != 1010 && index != 1011 && index != 1021) norm = norm * 1.05;
       } else {
         cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
         return;
@@ -181,7 +184,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "bkg_syst" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -197,6 +200,9 @@ void plot3(string plot="", string title="", string version="v00", string options
         if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
         if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
         if (flag == "bkg_syst") norm = norm * 1.05;
+        if (flag == "xsec_syst_wg" && (index == 21 || index == 1011)) norm = norm * 1.05;
+        if (flag == "xsec_syst_zg" && (index == 11 || index == 1021)) norm = norm * 1.05;
+        if (flag == "xsec_syst_others" && index != 10 && index != 11 && index != 21 && index != 1010 && index != 1011 && index != 1021) norm = norm * 1.05;
       } else {
         cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
         return;
@@ -224,7 +230,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       int index = int(it->second);
       if (index > 0) {
         TFile* file = 0;
-        if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+        if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
           file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
         } else {
           file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -240,6 +246,9 @@ void plot3(string plot="", string title="", string version="v00", string options
           if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
           if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
           if (flag == "bkg_syst") norm = norm * 1.05;
+          if (flag == "xsec_syst_wg" && (index == 21 || index == 1011)) norm = norm * 1.05;
+          if (flag == "xsec_syst_zg" && (index == 11 || index == 1021)) norm = norm * 1.05;
+          if (flag == "xsec_syst_others" && index != 10 && index != 11 && index != 21 && index != 1010 && index != 1011 && index != 1021) norm = norm * 1.05;
         } else {
           cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
           return;
@@ -919,10 +928,11 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
 
     cout << "+++++++++++++++++++++++++++++++++++++" << endl;
-    cout << "Bkg from matrix = " << histo1[8001]->Integral() << endl;
-    cout << "Bkg from MC     = " << histo1[0]->Integral() << endl;
-    cout << "Bias factor     = " << bias_factor << endl;
-    cout << "Signal/Bkg      = " << histo1[myindex]->Integral()/histo1[8001]->Integral() << endl;
+    cout << "Bkg from matrix   = " << histo1[8001]->Integral() << endl;
+    cout << "Bkg from MC       = " << histo1[0]->Integral() << endl;
+    cout << "Bias factor       = " << bias_factor << endl;
+    cout << "Signal/Bkg MC     = " << histo1[myindex]->Integral()/histo1[0]->Integral() << endl;
+    cout << "Signal/Bkg matrix = " << histo1[myindex]->Integral()/histo1[8001]->Integral() << endl;
     cout << "+++++++++++++++++++++++++++++++++++++" << endl;
   }
 
