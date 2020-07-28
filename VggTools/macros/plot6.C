@@ -142,6 +142,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("xsec_syst_zg");
   flags.push_back("xsec_syst_others");
   flags.push_back("jet_misid_syst");
+  flags.push_back("jet_misid_test");
 
   flags.push_back("jet_misid_mc");
 
@@ -232,6 +233,7 @@ void plot6(string plot="", string title="", string version="v00", string options
           h_xsec_rec_errors_m->SetBinContent(i+1, -100. * TMath::Sqrt((TMath::Power(xsec_stat_data, 2) - TMath::Power(xsec_stat_data_ref, 2))/(1.1 * 1.1 - 1.)) / xsec_data_ref);
         } else if (flags[i].find("eg_misid") != string::npos ||
                    flags[i].find("jet_misid_syst") != string::npos ||
+                   flags[i].find("jet_misid_test") != string::npos ||
                    flags[i].find("jet_misid_mc") != string::npos ||
                    flags[i].find("jet_bkg_mc") != string::npos ||
                    flags[i].find("veto_ele_medium") != string::npos ||
@@ -541,6 +543,15 @@ void plot6(string plot="", string title="", string version="v00", string options
     errors_tot["jet_misid_syst"] = xval;
   }
 
+  if (h_xsec_rec["jet_misid_test"]) {
+    double xval_stat = 0.;
+    double xval = h_xsec_rec["jet_misid_test"]->IntegralAndError(0, h_xsec_rec["jet_misid_test"]->GetNbinsX()+1, xval_stat, "width");
+    xval = xval - xsec_data_ref;
+    xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    xval = xval / 2.0;
+    errors_tot["jet_misid_test"] = xval;
+  }
+
   if (h_xsec_rec["jet_misid_mc"]) {
     double xval_stat = 0.;
     double xval = h_xsec_rec["jet_misid_mc"]->IntegralAndError(0, h_xsec_rec["jet_misid_mc"]->GetNbinsX()+1, xval_stat, "width");
@@ -815,6 +826,14 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["jet_misid_syst"].push_back(xval);
     }
 
+    if (h_xsec_rec["jet_misid_test"]) {
+      double xval = fabs(h_xsec_rec["jet_misid_test"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_test"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
+      xval = xval / 2.0;
+      errors["jet_misid_test"].push_back(xval);
+    }
+
     if (h_xsec_rec["jet_misid_mc"]) {
       double xval = fabs(h_xsec_rec["jet_misid_mc"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_mc"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
@@ -893,6 +912,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (errors["xsec_syst_zg"].size()) labels.push_back("xsec_syst_zg");
   if (errors["xsec_syst_others"].size()) labels.push_back("xsec_syst_others");
   if (errors["jet_misid_syst"].size()) labels.push_back("jet_misid_syst");
+  if (errors["jet_misid_test"].size()) labels.push_back("jet_misid_test");
   if (errors["jet_misid_mc"].size()) labels.push_back("jet_misid_mc");
   if (errors["jet_bkg_mc"].size()) labels.push_back("jet_bkg_mc");
   if (errors["qcd_fit"].size()) labels.push_back("qcd_fit");
@@ -1474,6 +1494,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   for (uint i = 0; i < labels.size(); i++) {
     if (labels[i].find("stat") != string::npos) continue;
     if (labels[i].find("jet_misid_syst") != string::npos) continue;
+    if (labels[i].find("jet_misid_test") != string::npos) continue;
     if (labels[i].find("jet_misid_mc") != string::npos) continue;
     out2 << std::setw(20) << left << (labels[i] + " lnN").c_str()
          << std::setw(8) << 1. + errors_tot[labels[i]]/xsec_data_ref
@@ -1490,6 +1511,15 @@ void plot6(string plot="", string title="", string version="v00", string options
       out2 << std::setw(20) << left << "jet_misid_syst lnN"
            << std::setw(8) << "-"
            << std::setw(8) << 1. + errors_tot["jet_misid_syst"]/xsec_data_ref
+           << std::setw(8) << "-";
+      if (title.find("WGG") != string::npos) {
+        out2 << std::setw(8) << "-";
+      }
+    }
+    if (labels[i].find("jet_misid_test") != string::npos) {
+      out2 << std::setw(20) << left << "jet_misid_test lnN"
+           << std::setw(8) << "-"
+           << std::setw(8) << 1. + errors_tot["jet_misid_test"]/xsec_data_ref
            << std::setw(8) << "-";
       if (title.find("WGG") != string::npos) {
         out2 << std::setw(8) << "-";
