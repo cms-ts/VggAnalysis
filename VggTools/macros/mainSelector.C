@@ -3966,15 +3966,44 @@ Bool_t mainSelector::Process(Long64_t entry)
          if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = 1e
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        }
-       if (ele0_qcd.DeltaR(tmp_trg) < 0.3) {
-         for (uint j = 0; j < 32; j++) {
-           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_W_ele0_trig)->Fill(j+0.5, weight_W_ele_qcd);
-         }
-       }
      }
 
      if (!match0) {
        W_ele_sel = false;
+     }
+
+   }
+
+// W -> ele nu qcd trigger object matching
+
+   if (W_ele_sel_qcd) {
+
+     bool match0 = false;
+
+     for (uint i = 0; i < *nTrigObj; i++) {
+       if (match0) continue;
+       if (TrigObj_id[i] != 11) continue;
+
+       TLorentzVector tmp_trg;
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0.M());
+       if (ele0_qcd.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_W_ele0_trig)->Fill(j+0.5, weight_W_ele_qcd);
+         }
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+         if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = 1e
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+         if ((TrigObj_filterBits[i] & 1024) == 1024) match0 = true; // 1024 = 32_L1DoubleEG_AND_L1SingleEGOr
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+         if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = 1e
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       }
+     }
+
+     if (!match0) {
+       W_ele_sel_qcd = false;
      }
 
    }
@@ -3998,15 +4027,37 @@ Bool_t mainSelector::Process(Long64_t entry)
          if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = Iso
          if ((TrigObj_filterBits[i] & 8) == 8) match0 = true; // 8 = 1mu
        }
-       if (muo0_qcd.DeltaR(tmp_trg) < 0.1) {
-         for (uint j = 0; j < 32; j++) {
-           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_W_muo0_trig)->Fill(j+0.5, weight_W_muo_qcd);
-         }
-       }
      }
 
      if (!match0) {
        W_muo_sel = false;
+     }
+
+   }
+
+// W -> muo nu qcd trigger object matching
+
+   if (W_muo_sel_qcd) {
+
+     bool match0 = false;
+
+     for (uint i = 0; i < *nTrigObj; i++) {
+       if (match0) continue;
+       if (TrigObj_id[i] != 13) continue;
+
+       TLorentzVector tmp_trg;
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo0.M());
+       if (muo0_qcd.DeltaR(tmp_trg) < 0.1) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_W_muo0_trig)->Fill(j+0.5, weight_W_muo_qcd);
+         }
+         if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = Iso
+         if ((TrigObj_filterBits[i] & 8) == 8) match0 = true; // 8 = 1mu
+       }
+     }
+
+     if (!match0) {
+       W_muo_sel_qcd = false;
      }
 
    }
@@ -4037,15 +4088,44 @@ Bool_t mainSelector::Process(Long64_t entry)
          if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = 1e
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
        }
-       if (ele0_qcd.DeltaR(tmp_trg) < 0.3) {
-         for (uint j = 0; j < 32; j++) {
-           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_ele0_trig)->Fill(j+0.5, weight_Z_ele_qcd);
-         }
-       }
      }
 
      if (!match0) {
        Z_ele_sel = false;
+     }
+
+   }
+
+// Z -> ele ele qcd trigger objects matching
+
+   if (Z_ele_sel_qcd) {
+
+     bool match0 = false;
+
+     for (uint i = 0; i < *nTrigObj; i++) {
+       if (match0) continue;
+       if (TrigObj_id[i] != 11) continue;
+
+       TLorentzVector tmp_trg;
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0.M());
+       if (ele0_qcd.DeltaR(tmp_trg) < 0.3) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_ele0_trig)->Fill(j+0.5, weight_Z_ele_qcd);
+         }
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+         if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = 1e
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+         if ((TrigObj_filterBits[i] & 1024) == 1024) match0 = true; // 1024 = 32_L1DoubleEG_AND_L1SingleEGOr
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+         if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = 1e
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       }
+     }
+
+     if (!match0) {
+       Z_ele_sel_qcd = false;
      }
 
    }
@@ -4069,15 +4149,37 @@ Bool_t mainSelector::Process(Long64_t entry)
          if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = Iso
          if ((TrigObj_filterBits[i] & 8) == 8) match0 = true; // 8 = 1mu
        }
-       if (muo0_qcd.DeltaR(tmp_trg) < 0.1) {
-         for (uint j = 0; j < 32; j++) {
-           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_muo0_trig)->Fill(j+0.5, weight_Z_muo_qcd);
-         }
-       }
      }
 
      if (!match0) {
        Z_muo_sel = false;
+     }
+
+   }
+
+// Z -> muo muo qcd trigger objects matching
+
+   if (Z_muo_sel_qcd) {
+
+     bool match0 = false;
+
+     for (uint i = 0; i < *nTrigObj; i++) {
+       if (match0) continue;
+       if (TrigObj_id[i] != 13) continue;
+
+       TLorentzVector tmp_trg;
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo0.M());
+       if (muo0_qcd.DeltaR(tmp_trg) < 0.1) {
+         for (uint j = 0; j < 32; j++) {
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_muo0_trig)->Fill(j+0.5, weight_Z_muo_qcd);
+         }
+         if ((TrigObj_filterBits[i] & 2) == 2) match0 = true; // 2 = Iso
+         if ((TrigObj_filterBits[i] & 8) == 8) match0 = true; // 8 = 1mu
+       }
+     }
+
+     if (!match0) {
+       Z_muo_sel_qcd = false;
      }
 
    }
