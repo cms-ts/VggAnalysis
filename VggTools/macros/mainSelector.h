@@ -966,7 +966,6 @@ public :
 
    TH2D* sf_eg_misid = 0;
    TH2D* sf_eg_misid_qcd = 0;
-
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
 #if defined(__linux__)
@@ -1114,7 +1113,6 @@ public :
 #endif // defined(mainSelectorDT18_h)
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
-
    TTreeReaderValue<Float_t> Generator_weight = {fReader, "Generator_weight"};
 
    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
@@ -1149,7 +1147,6 @@ public :
 
    TTreeReaderValue<Float_t> MET_fiducialGenPhi = {fReader, "MET_fiducialGenPhi"};
    TTreeReaderValue<Float_t> MET_fiducialGenPt = {fReader, "MET_fiducialGenPt"};
-
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
    mainSelector(TTree * /*tree*/ =0) { }
@@ -1198,6 +1195,7 @@ Bool_t mainSelector::Notify()
    return kTRUE;
 }
 
+#if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 float getWeight(TH1* h, float x, float y, float var = 0) {
    if (h) {
      if (h->InheritsFrom("TH2")) {
@@ -1212,6 +1210,7 @@ float getWeight(TH1* h, float x, float y, float var = 0) {
    cout << "ERROR: missing weight." << endl;
    return 1.;
 }
+#endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
 #if defined(mainSelectorMC16_cxx)
 float getWeight(float photon_eta, float photon_r9, float var = 0) {
