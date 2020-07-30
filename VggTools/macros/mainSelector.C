@@ -3947,7 +3947,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      bool match0 = false;
 
      for (uint i = 0; i < *nTrigObj; i++) {
-       if (match0) continue;
        if (TrigObj_id[i] != 11) continue;
 
        TLorentzVector tmp_trg;
@@ -3981,7 +3980,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      bool match0 = false;
 
      for (uint i = 0; i < *nTrigObj; i++) {
-       if (match0) continue;
        if (TrigObj_id[i] != 11) continue;
 
        TLorentzVector tmp_trg;
@@ -4015,7 +4013,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      bool match0 = false;
 
      for (uint i = 0; i < *nTrigObj; i++) {
-       if (match0) continue;
        if (TrigObj_id[i] != 13) continue;
 
        TLorentzVector tmp_trg;
@@ -4042,7 +4039,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      bool match0 = false;
 
      for (uint i = 0; i < *nTrigObj; i++) {
-       if (match0) continue;
        if (TrigObj_id[i] != 13) continue;
 
        TLorentzVector tmp_trg;
@@ -4069,7 +4065,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      bool match0 = false;
 
      for (uint i = 0; i < *nTrigObj; i++) {
-       if (match0) continue;
        if (TrigObj_id[i] != 11) continue;
 
        TLorentzVector tmp_trg;
@@ -4103,7 +4098,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      bool match0 = false;
 
      for (uint i = 0; i < *nTrigObj; i++) {
-       if (match0) continue;
        if (TrigObj_id[i] != 11) continue;
 
        TLorentzVector tmp_trg;
@@ -4137,7 +4131,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      bool match0 = false;
 
      for (uint i = 0; i < *nTrigObj; i++) {
-       if (match0) continue;
        if (TrigObj_id[i] != 13) continue;
 
        TLorentzVector tmp_trg;
@@ -4164,7 +4157,6 @@ Bool_t mainSelector::Process(Long64_t entry)
      bool match0 = false;
 
      for (uint i = 0; i < *nTrigObj; i++) {
-       if (match0) continue;
        if (TrigObj_id[i] != 13) continue;
 
        TLorentzVector tmp_trg;
