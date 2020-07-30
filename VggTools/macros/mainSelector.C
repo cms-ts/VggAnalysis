@@ -3983,7 +3983,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (TrigObj_id[i] != 11) continue;
 
        TLorentzVector tmp_trg;
-       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0.M());
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0_qcd.M());
        if (ele0_qcd.DeltaR(tmp_trg) < 0.3) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_W_ele0_trig)->Fill(j+0.5, weight_W_ele_qcd);
@@ -4042,7 +4042,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (TrigObj_id[i] != 13) continue;
 
        TLorentzVector tmp_trg;
-       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo0.M());
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo0_qcd.M());
        if (muo0_qcd.DeltaR(tmp_trg) < 0.1) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_W_muo0_trig)->Fill(j+0.5, weight_W_muo_qcd);
@@ -4101,7 +4101,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (TrigObj_id[i] != 11) continue;
 
        TLorentzVector tmp_trg;
-       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0.M());
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele0_qcd.M());
        if (ele0_qcd.DeltaR(tmp_trg) < 0.3) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_ele0_trig)->Fill(j+0.5, weight_Z_ele_qcd);
@@ -4160,7 +4160,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (TrigObj_id[i] != 13) continue;
 
        TLorentzVector tmp_trg;
-       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo0.M());
+       tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], muo0_qcd.M());
        if (muo0_qcd.DeltaR(tmp_trg) < 0.1) {
          for (uint j = 0; j < 32; j++) {
            if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) QCD(h_Z_muo0_trig)->Fill(j+0.5, weight_Z_muo_qcd);
