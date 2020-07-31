@@ -991,6 +991,7 @@ public :
    TTreeReaderValue<UInt_t> nElectron = {fReader, "nElectron"};
    TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
    TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
+   TTreeReaderArray<Float_t> Electron_deltaEtaSC = {fReader, "Electron_deltaEtaSC"};
    TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_dxy = {fReader, "Electron_dxy"};
