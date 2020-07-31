@@ -1951,7 +1951,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(Electron_dxy[i]) > 0.05) continue;
        if (fabs(Electron_dz[i]) > 0.10) continue;
      }
-     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.500) {
+     if (fabs(Electron_eta[i]) > 1.566) {
        if (fabs(Electron_dxy[i]) > 0.10) continue;
        if (fabs(Electron_dz[i]) > 0.20) continue;
      }
@@ -2006,7 +2006,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(Electron_dxy[i]) > 0.05) continue;
        if (fabs(Electron_dz[i]) > 0.10) continue;
      }
-     if (fabs(Electron_eta[i]) > 1.566 && fabs(Electron_eta[i]) < 2.500) {
+     if (fabs(Electron_eta[i]) > 1.566) {
        if (fabs(Electron_dxy[i]) > 0.10) continue;
        if (fabs(Electron_dz[i]) > 0.20) continue;
      }
@@ -2169,7 +2169,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
-     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.500) {
+     //if (fabs(Photon_eta[i]) > 1.566) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
      if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
@@ -2201,7 +2201,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Electron_dxy[j]) > 0.05) continue;
          if (fabs(Electron_dz[j]) > 0.10) continue;
        }
-       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.500) {
+       if (fabs(Electron_eta[j]) > 1.566) {
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
@@ -2343,7 +2343,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
-     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.500) {
+     //if (fabs(Photon_eta[i]) > 1.566) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
      //if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
@@ -2377,7 +2377,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Electron_dxy[j]) > 0.05) continue;
          if (fabs(Electron_dz[j]) > 0.10) continue;
        }
-       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.500) {
+       if (fabs(Electron_eta[j]) > 1.566) {
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
@@ -2519,7 +2519,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
-     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.500) {
+     //if (fabs(Photon_eta[i]) > 1.566) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
      if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
@@ -2551,7 +2551,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Electron_dxy[j]) > 0.05) continue;
          if (fabs(Electron_dz[j]) > 0.10) continue;
        }
-       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.500) {
+       if (fabs(Electron_eta[j]) > 1.566) {
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
@@ -2659,7 +2659,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      //if (fabs(Photon_eta[i]) < 1.442) {
      //  if (Photon_mvaID[i] < -0.02) continue;
      //}
-     //if (fabs(Photon_eta[i]) > 1.566 && fabs(Photon_eta[i]) < 2.500) {
+     //if (fabs(Photon_eta[i]) > 1.566) {
      //  if (Photon_mvaID[i] < -0.26) continue;
      //}
      //if (Photon_Id_noIso(Photon_vidNestedWPBitmap[i], 2) == 0) continue;
@@ -2693,7 +2693,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Electron_dxy[j]) > 0.05) continue;
          if (fabs(Electron_dz[j]) > 0.10) continue;
        }
-       if (fabs(Electron_eta[j]) > 1.566 && fabs(Electron_eta[j]) < 2.500) {
+       if (fabs(Electron_eta[j]) > 1.566) {
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
