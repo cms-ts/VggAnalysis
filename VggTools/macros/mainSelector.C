@@ -4087,7 +4087,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        tmp_trg.SetPtEtaPhiM(TrigObj_pt[i], TrigObj_eta[i], TrigObj_phi[i], ele1.M());
        if (ele1.DeltaR(tmp_trg) < 0.3) {
          for (uint j = 0; j < 32; j++) {
-           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_Z_ele0_trig->Fill(j+0.5, weight_Z_ele);
+           if ((TrigObj_filterBits[i] & BIT(j)) == BIT(j)) h_Z_ele1_trig->Fill(j+0.5, weight_Z_ele);
          }
        }
      }
