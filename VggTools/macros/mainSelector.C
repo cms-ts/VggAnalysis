@@ -3014,7 +3014,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float W_ele0_mt = 0.;
 
-   if (iele0 != -1 && iele1 == -1 && imuo0 == -1 && iele0_qcd == -1 && imuo0_qcd == -1) {
+   if (iele0 != -1 && iele1 == -1 && imuo0 == -1) {
      if (iflag == 150) {
        if (Electron_Id_noIso(Electron_vidNestedWPBitmap[iele0], 4) == 0) ele0.SetPtEtaPhiM(0., ele0.Eta(), ele0.Phi(), ele0.M());
        if (Electron_Iso(Electron_vidNestedWPBitmap[iele0], 4) == 0) ele0.SetPtEtaPhiM(0., ele0.Eta(), ele0.Phi(), ele0.M());
@@ -3068,7 +3068,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float W_muo0_mt = 0.;
 
-   if (imuo0 != -1 && imuo1 == -1 && iele0 == -1 && iele0_qcd == -1 && imuo0_qcd == -1) {
+   if (imuo0 != -1 && imuo1 == -1 && iele0 == -1) {
      if (iflag == 155) {
        if (Muon_tightId[imuo0] == 0) muo0.SetPtEtaPhiM(0., muo0.Eta(), muo0.Phi(), muo0.M());
      }
@@ -3149,7 +3149,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float Z_ele0_ele1_m_qcd = 0.;
 
-   if (iele0_qcd != -1 && iele1_qcd != -1) {
+   if (iele0_qcd != -1 && iele1_qcd != -1 && iele0 == -1 && imuo0 == -1) {
      if (iflag == 150) {
        if (Electron_Id_noIso(Electron_vidNestedWPBitmap[iele0_qcd], 4) == 0) ele0_qcd.SetPtEtaPhiM(0., ele0_qcd.Eta(), ele0_qcd.Phi(), ele0_qcd.M());
        if (Electron_Iso(Electron_vidNestedWPBitmap[iele0_qcd], 4) != 0) ele0_qcd.SetPtEtaPhiM(0., ele0_qcd.Eta(), ele0_qcd.Phi(), ele0_qcd.M());
@@ -3205,7 +3205,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float Z_muo0_muo1_m_qcd = 0.;
 
-   if (imuo0_qcd != -1 && imuo1_qcd != -1) {
+   if (imuo0_qcd != -1 && imuo1_qcd != -1 && iele0 == -1 && imuo0 == -1) {
      if (iflag == 155) {
        if (Muon_tightId[imuo0_qcd] == 0) muo0_qcd.SetPtEtaPhiM(0., muo0_qcd.Eta(), muo0_qcd.Phi(), muo0_qcd.M());
        if (Muon_tightId[imuo1_qcd] == 0) muo1_qcd.SetPtEtaPhiM(0., muo1_qcd.Eta(), muo1_qcd.Phi(), muo1_qcd.M());
