@@ -3833,13 +3833,13 @@ Bool_t mainSelector::Process(Long64_t entry)
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0_iso_qcd != -1) {
      if (Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) {
-       weight_eg_misid_pho0_iso_qcd = getWeight(sf_eg_misid, fabs(Photon_eta[ipho0_iso_qcd]), Photon_pt[ipho0_iso_qcd], (iflag == 130) - (iflag == 135));
+       weight_eg_misid_pho0_iso_qcd = getWeight(sf_eg_misid_qcd, fabs(Photon_eta[ipho0_iso_qcd]), Photon_pt[ipho0_iso_qcd], (iflag == 130) - (iflag == 135));
      }
    }
 
    if (ipho1_iso_qcd != -1) {
      if (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11) {
-       weight_eg_misid_pho1_iso_qcd = getWeight(sf_eg_misid, fabs(Photon_eta[ipho1_iso_qcd]), Photon_pt[ipho1_iso_qcd], (iflag == 130) - (iflag == 135));
+       weight_eg_misid_pho1_iso_qcd = getWeight(sf_eg_misid_qcd, fabs(Photon_eta[ipho1_iso_qcd]), Photon_pt[ipho1_iso_qcd], (iflag == 130) - (iflag == 135));
      }
    }
 #if defined(COMPUTE_EG_MISID)
