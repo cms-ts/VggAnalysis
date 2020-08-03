@@ -122,7 +122,7 @@ for L in $LISTS; do
   fi
   for FLAG in $FLAGS; do
     mkdir -p data/$VERSION/$FLAG
-    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_selector.sh $VERSION lists/$L $FLAG
+    bsub -q $QUEUE -R "select[ncpus>2]" -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_selector.sh $VERSION lists/$L $FLAG
   done
 done
 
