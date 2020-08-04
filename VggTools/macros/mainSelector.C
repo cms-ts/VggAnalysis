@@ -2025,7 +2025,8 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (iflag != 150 && Electron_Iso(Electron_vidNestedWPBitmap[i], 4) != 0) continue;
      if (iflag == 150 && Electron_Iso(Electron_vidNestedWPBitmap[i], 3) != 0) continue;
 
-     if (Electron_pfRelIso03_all[i] > 0.15) continue;
+     if (iflag != 150 && Electron_Iso(Electron_vidNestedWPBitmap[i], 3) == 0) continue;
+     if (iflag == 150 && Electron_Iso(Electron_vidNestedWPBitmap[i], 2) == 0) continue;
 
      if (iele0_qcd == -1) {
        iele0_qcd = i;
