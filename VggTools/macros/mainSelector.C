@@ -1958,6 +1958,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(Electron_dxy[i]) > 0.10) continue;
        if (fabs(Electron_dz[i]) > 0.20) continue;
      }
+     if (fabs(Electron_sip3d[i]) > 4) continue;
 
      //if (Electron_mvaID_WP80[i] == 0) continue;
      if (iflag != 150 && Electron_Id_noIso(Electron_vidNestedWPBitmap[i], 4) == 0) continue;
@@ -2014,6 +2015,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (fabs(Electron_dxy[i]) > 0.10) continue;
        if (fabs(Electron_dz[i]) > 0.20) continue;
      }
+     if (fabs(Electron_sip3d[i]) > 4) continue;
 
      //if (Electron_mvaID_WP80[i] == 0) continue;
      if (iflag != 150 && Electron_Id_noIso(Electron_vidNestedWPBitmap[i], 4) == 0) continue;
@@ -2078,6 +2080,10 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (Muon_pt[i] < 15) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
 
+     if (fabs(Muon_dxy[i]) > 0.05) continue;
+     if (fabs(Muon_dz[i]) > 0.10) continue;
+     if (fabs(Muon_sip3d[i]) > 4) continue;
+
      if (iflag != 155 && Muon_tightId[i] == 0) continue;
      if (iflag == 155 && Muon_mediumId[i] == 0) continue;
 
@@ -2120,6 +2126,10 @@ Bool_t mainSelector::Process(Long64_t entry)
    for (uint i = 0; i < *nMuon; i++) {
      if (Muon_pt[i] < 15) continue;
      if (fabs(Muon_eta[i]) > 2.400) continue;
+
+     if (fabs(Muon_dxy[i]) > 0.05) continue;
+     if (fabs(Muon_dz[i]) > 0.10) continue;
+     if (fabs(Muon_sip3d[i]) > 4) continue;
 
      if (iflag != 155 && Muon_tightId[i] == 0) continue;
      if (iflag == 155 && Muon_mediumId[i] == 0) continue;
@@ -2212,6 +2222,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
+       if (fabs(Electron_sip3d[j]) > 4) continue;
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
        if (Electron_Id_noIso(Electron_vidNestedWPBitmap[j], 4) == 0) continue;
@@ -2225,6 +2236,10 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Muon_pt[j] < 15) continue;
        if (fabs(Muon_eta[j]) > 2.400) continue;
+
+       if (fabs(Muon_dxy[j]) > 0.05) continue;
+       if (fabs(Muon_dz[j]) > 0.10) continue;
+       if (fabs(Muon_sip3d[j]) > 4) continue;
 
        if (Muon_tightId[j] == 0) continue;
 
@@ -2389,6 +2404,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
+       if (fabs(Electron_sip3d[j]) > 4) continue;
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
        if (Electron_Id_noIso(Electron_vidNestedWPBitmap[j], 4) == 0) continue;
@@ -2402,6 +2418,10 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Muon_pt[j] < 15) continue;
        if (fabs(Muon_eta[j]) > 2.400) continue;
+
+       if (fabs(Muon_dxy[j]) > 0.05) continue;
+       if (fabs(Muon_dz[j]) > 0.10) continue;
+       if (fabs(Muon_sip3d[j]) > 4) continue;
 
        if (Muon_tightId[j] == 0) continue;
 
@@ -2564,6 +2584,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
+       if (fabs(Electron_sip3d[j]) > 4) continue;
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
        if (Electron_Id_noIso(Electron_vidNestedWPBitmap[j], 4) == 0) continue;
@@ -2577,6 +2598,10 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Muon_pt[j] < 15) continue;
        if (fabs(Muon_eta[j]) > 2.400) continue;
+
+       if (fabs(Muon_dxy[j]) > 0.05) continue;
+       if (fabs(Muon_dz[j]) > 0.10) continue;
+       if (fabs(Muon_sip3d[j]) > 4) continue;
 
        if (Muon_tightId[j] == 0) continue;
 
@@ -2707,6 +2732,7 @@ Bool_t mainSelector::Process(Long64_t entry)
          if (fabs(Electron_dxy[j]) > 0.10) continue;
          if (fabs(Electron_dz[j]) > 0.20) continue;
        }
+       if (fabs(Electron_sip3d[j]) > 4) continue;
 
        //if (Electron_mvaID_WP80[j] == 0) continue;
        if (Electron_Id_noIso(Electron_vidNestedWPBitmap[j], 4) == 0) continue;
@@ -2720,6 +2746,10 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Muon_pt[j] < 15) continue;
        if (fabs(Muon_eta[j]) > 2.400) continue;
+
+       if (fabs(Muon_dxy[j]) > 0.05) continue;
+       if (fabs(Muon_dz[j]) > 0.10) continue;
+       if (fabs(Muon_sip3d[j]) > 4) continue;
 
        if (Muon_tightId[j] == 0) continue;
 

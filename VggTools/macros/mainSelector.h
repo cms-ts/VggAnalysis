@@ -996,6 +996,7 @@ public :
    TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
    TTreeReaderArray<Float_t> Electron_dxy = {fReader, "Electron_dxy"};
    TTreeReaderArray<Float_t> Electron_dz = {fReader, "Electron_dz"};
+   TTreeReaderArray<Float_t> Electron_sip3d = {fReader, "Electron_sip3d"};
    TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
    TTreeReaderArray<Float_t> Electron_r9 = {fReader, "Electron_r9"};
    TTreeReaderArray<Float_t> Electron_sieie = {fReader, "Electron_sieie"};
@@ -1017,6 +1018,9 @@ public :
    TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
    TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
    TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
+   TTreeReaderArray<Float_t> Muon_dxy = {fReader, "Muon_dxy"};
+   TTreeReaderArray<Float_t> Muon_dz = {fReader, "Muon_dz"};
+   TTreeReaderArray<Float_t> Muon_sip3d = {fReader, "Muon_sip3d"};
    TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
    TTreeReaderArray<Int_t> Muon_nTrackerLayers = {fReader, "Muon_nTrackerLayers"};
 
