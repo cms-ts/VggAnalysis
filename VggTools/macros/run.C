@@ -10,6 +10,8 @@ using namespace std;
 #include <TSelector.h>
 #include <TSystem.h>
 
+#include <TH1D.h>
+
 #include <ROOT/TTreeProcessorMP.hxx>
 
 void run(TString input="lists/Run2017B_SingleElectron.list", TString output="selector.root", TString flag="reference") {

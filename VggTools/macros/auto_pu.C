@@ -8,7 +8,12 @@ using namespace std;
 #include <TChain.h>
 #include <TFile.h>
 #include <TSelector.h>
+#include <TTreeReader.h>
+#include <TTreeReaderValue.h>
+#include <TTreeReaderArray.h>
 #include <TSystem.h>
+
+#include <TH1D.h>
 
 #include <ROOT/TTreeProcessorMP.hxx>
 
