@@ -90,8 +90,7 @@ void plot1(string plot="", string title="", string version="v00", string options
   h_fit2 = (TH1D*)h2->Clone("h_fit2");
 
   TVirtualFitter::SetDefaultFitter("Minuit");
-  TVirtualFitter* fitter = 0;
-  fitter = TVirtualFitter::Fitter(0, 1);
+  TVirtualFitter* fitter = TVirtualFitter::Fitter(0, 1);
   fitter->SetFCN(fcn);
   double arglist[1] = {-1.0};
   fitter->ExecuteCommand("SET PRINT", arglist, 1);
