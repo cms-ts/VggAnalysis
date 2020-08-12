@@ -13,7 +13,6 @@ void fcn(int& npar, double* gin, double& fun, double* par, int iflag) {
     double xd = TMath::Power(h_fit1->GetBinError(i),2);
     xn = xn - par[0]*h_fit2->GetBinContent(i);
     xd = xd + TMath::Power(par[0]*h_fit2->GetBinError(i),2);
-
     if (xd!=0) chisq = chisq + (xn*xn)/xd;
   }
   fun = chisq;
@@ -95,7 +94,7 @@ void plot1(string plot="", string title="", string version="v00", string options
   double arglist[1] = {-1.0};
   fitter->ExecuteCommand("SET PRINT", arglist, 1);
   float xval = 1.;
-  if (h2->Integral(0., 40.) != 0) xval = h1->Integral(0., 40.) / h2->Integral(0., 40.);
+  if (h_fit2->Integral(0., 40.) != 0) xval = h_fit1->Integral(0., 40.) / h_fit2->Integral(0., 40.);
   fitter->SetParameter(0, "c_qcd", xval, 0.1, 0., 999.);
   fitter->ExecuteCommand("MIGRAD",arglist, 0);
 
