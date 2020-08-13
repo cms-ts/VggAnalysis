@@ -7,7 +7,7 @@ EXCLUDED_GROUPS="ts-acid_hg"
 
 for GROUP in $EXCLUDED_GROUPS; do
   for HOST in `bmgroup -r $GROUP`; do
-    if [ -z "${HOST##*farm*}" ]; then
+    if [ -z "${HOST##*farm0*}" ]; then
       EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=$HOST "
     fi
   done
