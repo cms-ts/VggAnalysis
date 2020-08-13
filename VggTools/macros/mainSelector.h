@@ -30,6 +30,8 @@
 // #define USE_EB_ONLY
 // #define USE_EE_ONLY
 
+#define USE_QCD_FIT_FACTORS
+
 // #define RIVET
 
 #if defined(NANOAODv7)

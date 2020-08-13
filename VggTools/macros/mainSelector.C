@@ -4013,6 +4013,54 @@ Bool_t mainSelector::Process(Long64_t entry)
    weight_Z_ele_qcd = weight_Z_ele_qcd * weight_l1prefiring;
    weight_Z_muo_qcd = weight_Z_muo_qcd * weight_l1prefiring;
 
+#if defined (USE_QCD_FIT_FACTORS)
+   if (W_ele_sel_qcd) {
+     if (fabs(Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd]) <= 1.442) {
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 4.38938;
+       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 5.69714;
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 4.80762;
+       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 5.75448;
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 3.98799;
+       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 2.23720;
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     }
+     if (fabs(Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd]) >= 1.566) {
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 11.1900;
+       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 13.0534;
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 9.74319;
+       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 10.7378;
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 11.6969;
+       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 17.7170;
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     }
+   }
+
+   if (W_muo_sel_qcd) {
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+     if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.21886;
+     if (ipho0_qcd != -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.81304;
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
+#if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+     if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.42676;
+     if (ipho0_qcd != -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.92584;
+#endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
+#if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+     if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.40858;
+     if (ipho0_qcd != -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.66881;
+#endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
+   }
+#endif // defined (USE_QCD_FIT_FACTORS)
+
 // W -> ele nu trigger object matching
 
    if (W_ele_sel) {
