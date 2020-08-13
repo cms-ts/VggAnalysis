@@ -4,6 +4,7 @@ TH1D* h_fit1 = 0;
 TH1D* h_fit2 = 0;
 
 void fcn(int& npar, double* gin, double& fun, double* par, int iflag) {
+
   double chisq = 0.0;
   if (npar) {}
   if (iflag) {}
@@ -16,6 +17,7 @@ void fcn(int& npar, double* gin, double& fun, double* par, int iflag) {
     if (xd!=0) chisq = chisq + (xn*xn)/xd;
   }
   fun = chisq;
+
 }
 
 void plot1(string plot="", string title="", string version="v00", string options="", string flag="reference") {
