@@ -3257,6 +3257,34 @@ Bool_t mainSelector::Process(Long64_t entry)
      }
    }
 
+#if defined(USE_EB_ONLY)
+   if (W_ele_sel) {
+     if (iele0 != -1) {
+       if (fabs(Electron_eta[iele0]+Electron_deltaEtaSC[iele0]) > 1.442) return kTRUE;
+     }
+   }
+
+   if (W_ele_sel_qcd) {
+     if (iele0_qcd != -1) {
+       if (fabs(Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd]) > 1.442) return kTRUE;
+     }
+   }
+#endif // defined(USE_EB_ONLY)
+
+#if defined(USE_EE_ONLY)
+   if (W_ele_sel) {
+     if (iele0 != -1) {
+       if (fabs(Electron_eta[iele0]+Electron_deltaEtaSC[iele0]) < 1.566) return kTRUE;
+     }
+   }
+
+   if (W_ele_sel_qcd) {
+     if (iele0_qcd != -1) {
+       if (fabs(Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd]) < 1.566) return kTRUE;
+     }
+   }
+#endif // defined(USE_EE_ONLY)
+
 // electron(s) scale factors
 
    float weight_eff_ele0 = 1.;

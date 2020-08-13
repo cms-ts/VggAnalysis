@@ -27,6 +27,9 @@
 
 // #define COMPUTE_EG_MISID
 
+// #define USE_EB_ONLY
+// #define USE_EE_ONLY
+
 // #define RIVET
 
 #if defined(NANOAODv7)
