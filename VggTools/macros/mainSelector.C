@@ -140,30 +140,18 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (iflag == 15) pileup_var = "down_";
 
 #if defined(mainSelectorMC16_cxx)
-#if defined(NANOAODv6)
-   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleElectron_25Oct2019.root").c_str());
-   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleMuon_25Oct2019.root").c_str());
-#endif // defined(NANOAODv6)
 #if defined(NANOAODv7)
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleElectron_02Apr2020.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2016_SingleMuon_02Apr2020.root").c_str());
 #endif // defined(NANOAODv7)
 #endif // defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorMC17_cxx)
-#if defined(NANOAODv6)
-   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleElectron_25Oct2019.root").c_str());
-   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleMuon_25Oct2019.root").c_str());
-#endif // defined(NANOAODv6)
 #if defined(NANOAODv7)
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleElectron_02Apr2020.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2017_SingleMuon_02Apr2020.root").c_str());
 #endif // defined(NANOAODv7)
 #endif // defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorMC18_cxx)
-#if defined(NANOAODv6)
-   TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_EGamma_25Oct2019.root").c_str());
-   TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_SingleMuon_25Oct2019.root").c_str());
-#endif // defined(NANOAODv6)
 #if defined(NANOAODv7)
    TFile* file_ele_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_EGamma_02Apr2020.root").c_str());
    TFile* file_muo_pu = new TFile(("root/ratio_pileup_" + pileup_var + "Run2018_SingleMuon_02Apr2020.root").c_str());
@@ -271,12 +259,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    delete sf_muo_iso_1;
    delete sf_muo_iso_2;
 
-#if defined(NANOAODv6)
-// Spring16V2 ID (80X|94X)
-   //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonMVAWP90.root");
-   TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonCutBasedMedium.root");
-#endif // defined(NANOAODv6)
-
 #if defined(NANOAODv7)
 // Fall17V2 ID (94X)
    //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2016_LegacyReReco_PhotonsMVAwp90_Fall17V2.root");
@@ -288,10 +270,6 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    file_pho_sf_eff->Close();
    delete file_pho_sf_eff;
-
-#if defined(NANOAODv6)
-   TFile* file_eg_misid = new TFile("root/sf_eg_misid_2016_v6.root");
-#endif // defined(NANOAODv6)
 
 #if defined(NANOAODv7)
    TFile* file_eg_misid = new TFile("root/sf_eg_misid_2016_v7.root");
@@ -308,10 +286,6 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    file_eg_misid->Close();
    delete file_eg_misid;
-
-#if defined(NANOAODv6)
-   TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2016_v6.root");
-#endif // defined(NANOAODv6)
 
 #if defined(NANOAODv7)
    TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2016_v7.root");
@@ -389,10 +363,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_pho_sf_eff->Close();
    delete file_pho_sf_eff;
 
-#if defined(NANOAODv6)
-   TFile* file_eg_misid = new TFile("root/sf_eg_misid_2017_v6.root");
-#endif // defined(NANOAODv6)
-
 #if defined(NANOAODv7)
    TFile* file_eg_misid = new TFile("root/sf_eg_misid_2017_v7.root");
 #endif // defined(NANOAODv7)
@@ -408,10 +378,6 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    file_eg_misid->Close();
    delete file_eg_misid;
-
-#if defined(NANOAODv6)
-   TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2017_v6.root");
-#endif // defined(NANOAODv6)
 
 #if defined(NANOAODv7)
    TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2017_v7.root");
@@ -500,10 +466,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_pho_sf_eff->Close();
    delete file_pho_sf_eff;
 
-#if defined(NANOAODv6)
-   TFile* file_eg_misid = new TFile("root/sf_eg_misid_2018_v6.root");
-#endif // defined(NANOAODv6)
-
 #if defined(NANOAODv7)
    TFile* file_eg_misid = new TFile("root/sf_eg_misid_2018_v7.root");
 #endif // defined(NANOAODv7)
@@ -519,10 +481,6 @@ void mainSelector::Begin(TTree * /*tree*/)
 
    file_eg_misid->Close();
    delete file_eg_misid;
-
-#if defined(NANOAODv6)
-   TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2018_v6.root");
-#endif // defined(NANOAODv6)
 
 #if defined(NANOAODv7)
    TFile* file_eg_misid_qcd = new TFile("root/sf_eg_misid_qcd_2018_v7.root");

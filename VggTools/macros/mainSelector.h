@@ -21,8 +21,6 @@
 #include <TH2D.h>
 #include <TH3D.h>
 
-// #define NANOAODv6
-
 #define NANOAODv7
 
 // #define COMPUTE_EG_MISID
@@ -33,10 +31,6 @@
 #define USE_QCD_FIT_FACTORS
 
 // #define RIVET
-
-#if defined(NANOAODv7)
-#undef NANOAODv6
-#endif // defined(NANOAODv7)
 
 #if defined(__linux__)
 #include "roccor.Run2.v4/RoccoR.h"
