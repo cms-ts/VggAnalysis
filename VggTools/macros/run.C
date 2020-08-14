@@ -53,7 +53,6 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
   int nWorkers = 10;
   if (gROOT->IsBatch()) nWorkers = 4;
 
-  ROOT::EnableThreadSafety();
   ROOT::TTreeProcessorMP workers(nWorkers);
 
   int nevt = -1;

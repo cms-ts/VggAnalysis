@@ -54,7 +54,6 @@ void auto_pu(TString input="lists/RunIIFall17NanoAODv6_DYJetsToLL_M-50_TuneCP5_1
   int nWorkers = 10;
   if (gROOT->IsBatch()) nWorkers = 4;
 
-  ROOT::EnableThreadSafety();
   ROOT::TTreeProcessorMP workers(nWorkers);
 
   int nevt = -1;
