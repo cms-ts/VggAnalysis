@@ -180,7 +180,7 @@ done
 if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
 
   echo
-  echo './lists/ <=> ../scripts/lists/'
+  echo './lists/ => ../scripts/lists/'
   echo
 
   DATASETS=`ls ./lists/ | sort | uniq | sed -e 's/.list//'`
