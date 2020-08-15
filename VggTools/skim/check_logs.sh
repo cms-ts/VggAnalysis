@@ -7,6 +7,7 @@ cd $WORKDIR
 cat logs/*_Skim.log | \
 grep -v 'Will\|Pre-select\|Selected\|Done\|Hz\|going\|copied' | \
 grep -v 'TClass::Init:0: RuntimeWarning: no dictionary for class ROOT::TIOFeatures is available' | \
+grep -v 'hadd Target\|hadd compression\|hadd Source' | \
 grep [a-z]
 
 exit
