@@ -158,13 +158,6 @@ void fitterDCB(int number, int year, bool isQCD, string syst) {
 
    txt_param_Z.close();
 
-
-
-
-
-
-
-
    gStyle->SetOptFit(kTRUE);
 
    RooRealVar m_fake_MC("m_fake_MC", "m(e#gamma)", 40, 120, "GeV");
@@ -188,7 +181,7 @@ void fitterDCB(int number, int year, bool isQCD, string syst) {
    RooDoubleCB DCB_fake_MC("DCB_fake_MC","DCB_fake_MC", m_fake_MC, DCBmean_fake_MC, DCBsigma_fake_MC, DCBalpha1_fake_MC, DCBn1_fake_MC, DCBalpha2_fake_MC, DCBn2_fake_MC);
 
    bool nullchi = false;
-   for (int i = 1; i < h_WG_ele_ele0_pho0_fake_MC->GetNbinsX(); i++) {
+   for (int i = 1; i < h_WG_ele_ele0_pho0_fake_MC->GetNbinsX() + 1; i++) {
      if (h_WG_ele_ele0_pho0_fake_MC->GetBinError(i) == 0) nullchi = true;
    }
    RooFitResult* fit_fake_MC;
@@ -231,7 +224,16 @@ void fitterDCB(int number, int year, bool isQCD, string syst) {
    RooRealVar DCBsigma_fake_DT("DCBsigma_fake_DT","DCBsigma_fake_DT", DCBsigma_fake_DT_val[1], DCBsigma_fake_DT_val[0], DCBsigma_fake_DT_val[2]);
    RooDoubleCB DCB_fake_DT("DCB_fake_DT","DCB_fake_DT", m_fake_DT, DCBmean_fake_DT, DCBsigma_fake_DT, DCBalpha1_fake_DT, DCBn1_fake_DT, DCBalpha2_fake_DT, DCBn2_fake_DT);
 
-   RooFitResult* fit_fake_DT = DCB_fake_DT.chi2FitTo(data_fake_DT, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 120.), RooFit::Save(kTRUE));
+   bool nullchiDT = false;
+   for (int i = 1; i < h_WG_ele_ele0_pho0_fake_DT->GetNbinsX() + 1; i++) {
+     if (h_WG_ele_ele0_pho0_fake_DT->GetBinError(i) == 0) nullchiDT = true;
+   }
+   RooFitResult* fit_fake_DT;
+   if (nullchi) {
+     fit_fake_DT = DCB_fake_DT.fitTo(data_fake_DT, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 120.), RooFit::Save(kTRUE));
+   } else {
+     fit_fake_DT = DCB_fake_DT.chi2FitTo(data_fake_DT, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 120.), RooFit::Save(kTRUE));
+   }
    fit_fake_DT->SetName("fit_fake_DT");
 
    // Z DT
@@ -306,7 +308,7 @@ void fitterDCB(int number, int year, bool isQCD, string syst) {
    } else {
      RooChi2Var chi2_MC_fake("chi2_MC_fake","chi2_MC_fake",DCB_fake_MC,data_fake_MC) ;
      double chival_MC_fake = chi2_MC_fake.getVal();
-     chival_MC_fake = chival_MC_fake/14.;
+     chival_MC_fake = chival_MC_fake/(h_WG_ele_ele0_pho0_fake_MC->GetNbinsX() - 5.);;
      chi_fake_MC += std::to_string(chival_MC_fake);
    }
 
@@ -335,11 +337,15 @@ void fitterDCB(int number, int year, bool isQCD, string syst) {
    plot_fake_DT->SetTitle((draw_title_DT).c_str());
    plot_fake_DT->Draw();
 
-   RooChi2Var chi2_DT_fake("chi2_DT_fake","chi2_DT_fake",DCB_fake_DT,data_fake_DT) ;
-   double chival_DT_fake = chi2_DT_fake.getVal();
-   chival_DT_fake = chival_DT_fake/14.;
    string chi_fake_DT = "#Chi^{2}/ndf = ";
-   chi_fake_DT += std::to_string(chival_DT_fake);
+   if (nullchiDT) {
+     chi_fake_DT = chi_fake_DT + "NULL";
+   } else {
+     RooChi2Var chi2_DT_fake("chi2_DT_fake","chi2_DT_fake",DCB_fake_DT,data_fake_DT) ;
+     double chival_DT_fake = chi2_DT_fake.getVal();
+     chival_DT_fake = chival_DT_fake/(h_WG_ele_ele0_pho0_fake_DT->GetNbinsX() - 5.);;
+     chi_fake_DT += std::to_string(chival_DT_fake);
+   }
 
    string status_fake_DT = "Fit status = ";
    status_fake_DT += std::to_string(fit_fake_DT->status());
@@ -447,5 +453,25 @@ void fitterDCB(int number, int year, bool isQCD, string syst) {
    sf_data.open((txt_title).c_str(), std::ios_base::app);
    sf_data << number << "\t" << (n_fake_DT/n_Z_DT)/(n_fake_MC/n_Z_MC) << "\t" << sf_error << endl;
    sf_data.close();
+
+   ofstream txt_param_out;
+   string txt_param_out_title ="parameters_" + syst + "/param_DCB_out" + sqcd + "_";
+   txt_param_out_title += std::to_string(year) + "_" + std::to_string(number) + ".txt";
+   txt_param_out.open((txt_param_out_title).c_str());
+
+   txt_param_out << DCBn1_fake_MC.getVal() << endl;
+   txt_param_out << DCBn2_fake_MC.getVal() << endl;
+   txt_param_out << DCBalpha1_fake_MC.getVal() << endl;
+   txt_param_out << DCBalpha2_fake_MC.getVal() << endl;
+   txt_param_out << DCBmean_fake_MC.getVal() << endl;
+   txt_param_out << DCBsigma_fake_MC.getVal() << endl;
+   txt_param_out << DCBn1_fake_DT.getVal() << endl;
+   txt_param_out << DCBn2_fake_DT.getVal() << endl;
+   txt_param_out << DCBalpha1_fake_DT.getVal() << endl;
+   txt_param_out << DCBalpha2_fake_DT.getVal() << endl;
+   txt_param_out << DCBmean_fake_DT.getVal() << endl;
+   txt_param_out << DCBsigma_fake_DT.getVal() << endl;
+
+   txt_param_out.close();
 
 }

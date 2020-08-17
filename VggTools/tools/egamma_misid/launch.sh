@@ -13,6 +13,10 @@ YEARS="2016 2017 2018"
 
 SYST="reference"
 
+if [ ! -z "$1" ]; then
+  SYST=$1
+fi
+
 mkdir -p ../../macros/html/egamma_v7/$SYST
 mkdir -p ../../macros/html/egamma_v7/$SYST/plot
 

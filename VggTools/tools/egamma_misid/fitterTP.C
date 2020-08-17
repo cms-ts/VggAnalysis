@@ -185,14 +185,14 @@ void fitterTP(int number, int year, bool isQCD, string syst) {
    RooAddPdf  model_fake_MC("model_fake_MC","model_fake_MC",RooArgList(CMS_fake_MC,TP_fake_MC),bkgfrac_fake_MC) ;
 
    bool nullchi = false;
-   for (int i = 1; i < h_WG_ele_ele0_pho0_fake_MC->GetNbinsX(); i++) {
+   for (int i = 1; i < h_WG_ele_ele0_pho0_fake_MC->GetNbinsX() + 1; i++) {
      if (h_WG_ele_ele0_pho0_fake_MC->GetBinError(i) == 0) nullchi = true;
    }
    RooFitResult* fit_fake_MC;
    if (nullchi) {
-     fit_fake_MC = model_fake_MC.fitTo(data_fake_MC, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 200.), RooFit::Save(kTRUE));
+     fit_fake_MC = model_fake_MC.fitTo(data_fake_MC, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 120.), RooFit::Save(kTRUE));
    } else {
-     fit_fake_MC = model_fake_MC.chi2FitTo(data_fake_MC, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 200.), RooFit::Save(kTRUE));
+     fit_fake_MC = model_fake_MC.chi2FitTo(data_fake_MC, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 120.), RooFit::Save(kTRUE));
    }
    fit_fake_MC->SetName("fit_fake_MC");
 
@@ -231,7 +231,16 @@ void fitterTP(int number, int year, bool isQCD, string syst) {
    RooRealVar bkgfrac_fake_DT("bkgfrac_fake_DT","bkgfrac_fake_DT",0.9, 0., 1.) ;
    RooAddPdf  model_fake_DT("model_fake_DT","model_fake_DT",RooArgList(CMS_fake_DT,TP_fake_DT),bkgfrac_fake_DT) ;
 
-   RooFitResult* fit_fake_DT = model_fake_DT.fitTo(data_fake_DT, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 200.), RooFit::Save(kTRUE));
+   bool nullchiDT = false;
+   for (int i = 1; i < h_WG_ele_ele0_pho0_fake_DT->GetNbinsX() + 1; i++) {
+     if (h_WG_ele_ele0_pho0_fake_DT->GetBinError(i) == 0) nullchiDT = true;
+   }
+   RooFitResult* fit_fake_DT;
+   if (nullchiDT) {
+     fit_fake_DT = model_fake_DT.fitTo(data_fake_DT, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 120.), RooFit::Save(kTRUE));
+   } else {
+     fit_fake_DT = model_fake_DT.chi2FitTo(data_fake_DT, RooFit::SumW2Error(kFALSE), RooFit::Range(40., 120.), RooFit::Save(kTRUE));
+   }
    fit_fake_DT->SetName("fit_fake_DT");
 
    // Z DT
@@ -309,7 +318,7 @@ void fitterTP(int number, int year, bool isQCD, string syst) {
    } else {
      RooChi2Var chi2_MC_fake("chi2_MC_fake","chi2_MC_fake",model_fake_MC,data_fake_MC) ;
      double chival_MC_fake = chi2_MC_fake.getVal();
-     chival_MC_fake = chival_MC_fake/91.;
+     chival_MC_fake = chival_MC_fake/(h_WG_ele_ele0_pho0_fake_MC->GetNbinsX() - 5.);
      chi_fake_MC += std::to_string(chival_MC_fake);
    }
 
@@ -340,11 +349,15 @@ void fitterTP(int number, int year, bool isQCD, string syst) {
    plot_fake_DT->SetTitle((draw_title_DT).c_str());
    plot_fake_DT->Draw();
 
-   RooChi2Var chi2_DT_fake("chi2_DT_fake","chi2_DT_fake",model_fake_DT,data_fake_DT) ;
-   double chival_DT_fake = chi2_DT_fake.getVal();
-   chival_DT_fake = chival_DT_fake/91.;
    string chi_fake_DT = "#Chi^{2}/ndf = ";
-   chi_fake_DT += std::to_string(chival_DT_fake);
+   if (nullchiDT) {
+     chi_fake_DT = chi_fake_DT + "NULL";
+   } else {
+     RooChi2Var chi2_DT_fake("chi2_DT_fake","chi2_DT_fake",model_fake_DT,data_fake_DT) ;
+     double chival_DT_fake = chi2_DT_fake.getVal();
+     chival_DT_fake = chival_DT_fake/(h_WG_ele_ele0_pho0_fake_DT->GetNbinsX() - 5.);
+     chi_fake_DT += std::to_string(chival_DT_fake);
+   }
 
    string status_fake_DT = "Fit status = ";
    status_fake_DT += std::to_string(fit_fake_DT->status());
