@@ -3,7 +3,7 @@
 QUEUE=normal_io
 export USE_LSF_STARTER=no
 
-EXCLUDED_GROUPS="ts-acid_hg"
+EXCLUDED_GROUPS="ts-acid_hg cfarmts_hg"
 
 for GROUP in $EXCLUDED_GROUPS; do
   for HOST in `bmgroup -r $GROUP`; do
