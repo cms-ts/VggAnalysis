@@ -77,6 +77,7 @@ if [ ! -z "$4" ]; then
     FLAGS=$FLAGS" xsec_syst_others"
     FLAGS=$FLAGS" jet_misid_syst"
     FLAGS=$FLAGS" jet_misid_test"
+    FLAGS=$FLAGS" jet_misid_qcd"
 #    FLAGS=$FLAGS" jet_misid_mc"
     FLAGS=$FLAGS" jet_bkg_mc"
     FLAGS=$FLAGS" qcd_fit"
@@ -97,6 +98,7 @@ for YEAR in $YEARS; do
         ./plot0.sh $VERSION $YEAR $OPTION",qcd,nofit" $FLAG ; \
         ./plot0.sh $VERSION $YEAR $OPTION $FLAG ; \
         ./plot2.sh $VERSION $YEAR $OPTION $FLAG ; \
+        ./plot3.sh $VERSION $YEAR $OPTION",qcd" $FLAG ; \
         ./plot3.sh $VERSION $YEAR $OPTION $FLAG ; \
         ./plot4.sh $VERSION $YEAR $OPTION $FLAG ; \
         ./plot3.sh $VERSION $YEAR $OPTION",identity0" $FLAG ; \

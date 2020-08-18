@@ -26,6 +26,10 @@ void plot3(string plot="", string title="", string version="v00", string options
     if (flag != "reference") return;
   }
 
+  if (options.find("qcd") != string::npos) {
+    if (flag != "jet_misid_qcd") return;
+  }
+
   if (options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
     if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
       cout << "ERROR: no sherpa sample available for this year !!" << endl;
@@ -75,7 +79,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -110,17 +114,17 @@ void plot3(string plot="", string title="", string version="v00", string options
         }
       }
       if (histo[index]) {
-        TH3D* h = (TH3D*)gDirectory->Get(string(title).erase(title.find("pho0_pt"), 6).c_str());
+        TH3D* h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str());
         if (h) {
           histo[index]->Add(h);
         }
       } else {
-        TH3D* h = (TH3D*)gDirectory->Get(string(title).erase(title.find("pho0_pt"), 6).c_str());
+        TH3D* h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str());
         if (h) {
           histo[index] = h;
           histo[index]->SetDirectory(0);
         } else {
-          Error("plot0", "skip missing histogram: %s", string(title).erase(title.find("pho0_pt"), 6).c_str());
+          Error("plot0", "skip missing histogram: %s", (options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str()));
           return;
         }
       }
@@ -139,7 +143,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -164,17 +168,17 @@ void plot3(string plot="", string title="", string version="v00", string options
       }
       if (title.find("h_WG_muo") != string::npos && index == 1020) continue;
       if (histo[index]) {
-        TH3D* h = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
+        TH3D* h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          h = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
+          h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
         }
         if (h) {
           histo[index]->Add(h, norm);
         }
       } else {
-        TH3D* h = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
+        TH3D* h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          h = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
+          h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
         }
         if (h) {
           histo[index] = h;
@@ -191,7 +195,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -244,7 +248,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       int index = int(it->second);
       if (index > 0) {
         TFile* file = 0;
-        if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+        if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
           file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
         } else {
           file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -281,12 +285,12 @@ void plot3(string plot="", string title="", string version="v00", string options
           }
         }
         if (histo_mc[index]) {
-          TH3D* h_mc = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6)).c_str());
+          TH3D* h_mc = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
           if (h_mc) {
             histo_mc[index]->Add(h_mc, norm);
           }
         } else {
-          TH3D* h_mc = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6)).c_str());
+          TH3D* h_mc = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
           if (h_mc) {
             histo_mc[index] = h_mc;
             histo_mc[index]->SetDirectory(0);
@@ -301,7 +305,7 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   if (options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
     TFile* file1 = 0;
-    if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+    if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
       if (year == "2016") file1 = new TFile(("data/" + version + "/reference/RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
       if (year == "2017") file1 = new TFile(("data/" + version + "/reference/RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
     } else {
@@ -319,7 +323,7 @@ void plot3(string plot="", string title="", string version="v00", string options
         histo1_mc[111] = h1_mc;
         histo1_mc[111]->SetDirectory(0);
       }
-      TH3D* h_mc = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6)).c_str());
+      TH3D* h_mc = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
       if (h_mc) {
         histo_mc[111] = h_mc;
         histo_mc[111]->SetDirectory(0);
@@ -331,7 +335,7 @@ void plot3(string plot="", string title="", string version="v00", string options
         histo1[111] = h1;
         histo1[111]->SetDirectory(0);
       }
-      TH3D* h = (TH3D*)gDirectory->Get((string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
+      TH3D* h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
       if (h) {
         histo[111] = h;
         histo[111]->SetDirectory(0);
@@ -467,7 +471,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
   TFile* file = 0;
-  if (options.find("closure2") == string::npos) {
+  if ((flag == "jet_misid_qcd" && options.find("qcd") != string::npos) || (flag != "jet_misid_qcd" && options.find("closure2") == string::npos)) {
     file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str(), "RECREATE");
     Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str());
   }
@@ -577,7 +581,9 @@ void plot3(string plot="", string title="", string version="v00", string options
           matrix(3, 2) = (1. - (f1 + f1_err * ((i == 3) - (i == 7)))) * (1. - (e2 + e2_err * ((i == 2) - (i == 6))));
           matrix(3, 3) = (1. - (f1 + f1_err * ((i == 3) - (i == 7)))) * (1. - (f2 + f2_err * ((i == 4) - (i == 8))));
 
-          if (options.find("closure2") == string::npos) matrix.Write((matrix_title).c_str());
+          if ((flag == "jet_misid_qcd" && options.find("qcd") != string::npos) || (flag != "jet_misid_qcd" && options.find("closure2") == string::npos)) {
+            matrix.Write((matrix_title).c_str());
+          }
         }
       }
     }
@@ -600,46 +606,95 @@ void plot3(string plot="", string title="", string version="v00", string options
       TMatrixD matrix(2,2);
       TMatrixD inverse_matrix(2,2);
 
-      if (options.find("closure2") == string::npos) {
+      if (flag == "jet_misid_qcd") {
 
-        double e1 = 0;
-        double f1 = 0;
+        if (options.find("qcd") != string::npos) {
 
-        e1 = histo_mc_sum->GetBinContent(pho0_pt, eta, 1) / (histo_mc_sum->GetBinContent(pho0_pt, eta, 1) + histo_mc_sum->GetBinContent(pho0_pt, eta, 2));
-        f1 = histo[0]->GetBinContent(pho0_pt, eta, 1) / (histo[0]->GetBinContent(pho0_pt, eta, 1) + histo[0]->GetBinContent(pho0_pt, eta, 2));
+          double e1 = 0;
+          double f1 = 0;
 
-        matrix(0, 0) = e1;
-        matrix(1, 0) = 1. - e1;
-        matrix(0, 1) = f1;
-        matrix(1, 1) = 1. - f1;
+          e1 = histo_mc_sum->GetBinContent(pho0_pt, eta, 1) / (histo_mc_sum->GetBinContent(pho0_pt, eta, 1) + histo_mc_sum->GetBinContent(pho0_pt, eta, 2));
+          f1 = histo[0]->GetBinContent(pho0_pt, eta, 1) / (histo[0]->GetBinContent(pho0_pt, eta, 1) + histo[0]->GetBinContent(pho0_pt, eta, 2));
 
-        matrix.Write((matrix_title).c_str());
+          matrix(0, 0) = e1;
+          matrix(1, 0) = 1. - e1;
+          matrix(0, 1) = f1;
+          matrix(1, 1) = 1. - f1;
+
+          matrix.Write((matrix_title).c_str());
+
+        } else {
+
+          TFile* file_matrix = 0;
+
+          file_matrix = 0;
+          if (title.find("h_WG") != string::npos) {
+            if (title.find("ele") != string::npos) file_matrix = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_WG_ele_pho0_pt.root").c_str());
+            if (title.find("muo") != string::npos) file_matrix = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_WG_muo_pho0_pt.root").c_str());
+          }
+          if (title.find("h_ZG") != string::npos) {
+            if (title.find("ele") != string::npos) file_matrix = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_ZG_ele_pho0_pt.root").c_str());
+            if (title.find("muo") != string::npos) file_matrix = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_ZG_muo_pho0_pt.root").c_str());
+          }
+          if (file_matrix->IsZombie()) {
+            cout << "ERROR: file " << file_matrix->GetName() << " is MISSING !!" << endl;
+            return;
+          }
+
+          if (file_matrix) {
+            TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get((matrix_title).c_str());
+            matrix = *tmp_matrix;
+          }
+
+          file_matrix->Close();
+          delete file_matrix;
+
+        }
 
       } else {
 
-        TFile* file_matrix = 0;
+        if (options.find("closure2") == string::npos) {
 
-        file_matrix = 0;
-        if (title.find("h_WG") != string::npos) {
-          if (title.find("ele") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_WG_muo_pho0_pt.root").c_str());
-          if (title.find("muo") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_WG_ele_pho0_pt.root").c_str());
-        }
-        if (title.find("h_ZG") != string::npos) {
-          if (title.find("ele") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_ZG_muo_pho0_pt.root").c_str());
-          if (title.find("muo") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_ZG_ele_pho0_pt.root").c_str());
-        }
-        if (file_matrix->IsZombie()) {
-          cout << "ERROR: file " << file_matrix->GetName() << " is MISSING !!" << endl;
-          return;
-        }
+          double e1 = 0;
+          double f1 = 0;
 
-        if (file_matrix) {
-          TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get((matrix_title).c_str());
-          matrix = *tmp_matrix;
-        }
+          e1 = histo_mc_sum->GetBinContent(pho0_pt, eta, 1) / (histo_mc_sum->GetBinContent(pho0_pt, eta, 1) + histo_mc_sum->GetBinContent(pho0_pt, eta, 2));
+          f1 = histo[0]->GetBinContent(pho0_pt, eta, 1) / (histo[0]->GetBinContent(pho0_pt, eta, 1) + histo[0]->GetBinContent(pho0_pt, eta, 2));
 
-        file_matrix->Close();
-        delete file_matrix;
+          matrix(0, 0) = e1;
+          matrix(1, 0) = 1. - e1;
+          matrix(0, 1) = f1;
+          matrix(1, 1) = 1. - f1;
+
+          matrix.Write((matrix_title).c_str());
+
+        } else {
+
+          TFile* file_matrix = 0;
+
+          file_matrix = 0;
+          if (title.find("h_WG") != string::npos) {
+            if (title.find("ele") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_WG_muo_pho0_pt.root").c_str());
+            if (title.find("muo") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_WG_ele_pho0_pt.root").c_str());
+          }
+          if (title.find("h_ZG") != string::npos) {
+            if (title.find("ele") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_ZG_muo_pho0_pt.root").c_str());
+            if (title.find("muo") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_ZG_ele_pho0_pt.root").c_str());
+          }
+          if (file_matrix->IsZombie()) {
+            cout << "ERROR: file " << file_matrix->GetName() << " is MISSING !!" << endl;
+            return;
+          }
+
+          if (file_matrix) {
+            TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get((matrix_title).c_str());
+            matrix = *tmp_matrix;
+          }
+
+          file_matrix->Close();
+          delete file_matrix;
+
+        }
 
       }
 

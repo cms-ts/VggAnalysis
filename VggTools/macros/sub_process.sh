@@ -92,6 +92,7 @@ if [ ! -z "$4" ]; then
     FLAGS=$FLAGS" xsec_syst_others"
     FLAGS=$FLAGS" jet_misid_syst"
     FLAGS=$FLAGS" jet_misid_test"
+    FLAGS=$FLAGS" jet_misid_qcd"
 #    FLAGS=$FLAGS" jet_misid_mc"
     FLAGS=$FLAGS" jet_bkg_mc"
     FLAGS=$FLAGS" qcd_fit"

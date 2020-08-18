@@ -52,7 +52,7 @@ void plot2(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -90,7 +90,7 @@ void plot2(string plot="", string title="", string version="v00", string options
       if (title.find("h_ZGG_") != string::npos && index != 10) continue;
       if (title.find("h_WGG_") != string::npos && index != 1010) continue;
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
