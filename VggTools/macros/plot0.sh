@@ -59,16 +59,16 @@ for YEAR in $YEARS; do
         SKIP2 SKIP3 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_npvs\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
               SKIP3 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_npvs_w\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
 
-              SKIP3 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-              SKIP3 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
+                    root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
+                    root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
         SKIP2 SKIP3 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_phi\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
         SKIP2 SKIP3 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_r9\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
         SKIP2 SKIP3 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele0_sieie\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
                     root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_met_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
         SKIP2 SKIP3 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_ele\",\"h_W_ele_met_phi\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
 
-              SKIP3 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-              SKIP3 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
+                    root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
+                    root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
         SKIP2 SKIP3 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo0_phi\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
                     root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_met_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
         SKIP2 SKIP3 root.exe -l -q -b plot0.C+\(\"Wgg"$YEAR"_muo\",\"h_W_muo_met_phi\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
@@ -89,7 +89,7 @@ for YEAR in $YEARS; do
   SKIP1       SKIP3 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo_npvs_w\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
 
   SKIP1       SKIP3 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-  SKIP1       SKIP3 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
+  SKIP1             root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1 SKIP2 SKIP3 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_phi\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1 SKIP2 SKIP3 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_r9\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1 SKIP2 SKIP3 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele0_sieie\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
@@ -102,7 +102,7 @@ for YEAR in $YEARS; do
   SKIP1 SKIP2 SKIP3 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_ele\",\"h_Z_ele_met_phi\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
 
   SKIP1       SKIP3 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo0_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
-  SKIP1       SKIP3 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
+  SKIP1             root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo0_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1 SKIP2 SKIP3 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo0_phi\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1       SKIP3 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo1_pt\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
   SKIP1       SKIP3 root.exe -l -q -b plot0.C+\(\"Zgg"$YEAR"_muo\",\"h_Z_muo1_eta\",\"$VERSION\",\"$OPTIONS\",\"$FLAG\"\)
