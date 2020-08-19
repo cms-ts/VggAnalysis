@@ -22,7 +22,7 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
-  if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
+  if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
     if (flag != "reference") return;
   }
 
