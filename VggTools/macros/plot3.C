@@ -26,10 +26,6 @@ void plot3(string plot="", string title="", string version="v00", string options
     if (flag != "reference") return;
   }
 
-  if (options.find("qcd") != string::npos) {
-    if (flag != "jet_misid_qcd") return;
-  }
-
   if (options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
     if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
       cout << "ERROR: no sherpa sample available for this year !!" << endl;
@@ -272,12 +268,12 @@ void plot3(string plot="", string title="", string version="v00", string options
           return;
         }
         if (histo1_mc[index]) {
-          TH1D* h1_mc = (TH1D*)gDirectory->Get((title).c_str());
+          TH1D* h1_mc = (TH1D*)gDirectory->Get(title.c_str());
           if (h1_mc) {
             histo1_mc[index]->Add(h1_mc, norm);
           }
         } else {
-          TH1D* h1_mc = (TH1D*)gDirectory->Get((title).c_str());
+          TH1D* h1_mc = (TH1D*)gDirectory->Get(title.c_str());
           if (h1_mc) {
             histo1_mc[index] = h1_mc;
             histo1_mc[index]->SetDirectory(0);
@@ -318,7 +314,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       return;
     }
     if (options.find("identity1") != string::npos || options.find("closure0") != string::npos) {
-      TH1D* h1_mc = (TH1D*)gDirectory->Get((title).c_str());
+      TH1D* h1_mc = (TH1D*)gDirectory->Get(title.c_str());
       if (h1_mc) {
         histo1_mc[111] = h1_mc;
         histo1_mc[111]->SetDirectory(0);
@@ -471,9 +467,14 @@ void plot3(string plot="", string title="", string version="v00", string options
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
   TFile* file = 0;
-  if ((flag == "jet_misid_qcd" && options.find("qcd") != string::npos) || (flag != "jet_misid_qcd" && options.find("closure2") == string::npos)) {
-    file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str(), "RECREATE");
-    Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str());
+  if (options.find("closure2") == string::npos) {
+    if (options.find("qcd") != string::npos) {
+      file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str(), "RECREATE");
+      Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str());
+    } else {
+      file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str(), "UPDATE");
+      Info("TFile::Open", "root file %s has been updated", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str());
+    }
   }
 
   double e[6][2] = {0};
@@ -610,8 +611,8 @@ void plot3(string plot="", string title="", string version="v00", string options
           matrix(3, 2) = (1. - (f1 + f1_err * ((i == 3) - (i == 7)))) * (1. - (e2 + e2_err * ((i == 2) - (i == 6))));
           matrix(3, 3) = (1. - (f1 + f1_err * ((i == 3) - (i == 7)))) * (1. - (f2 + f2_err * ((i == 4) - (i == 8))));
 
-          if ((flag == "jet_misid_qcd" && options.find("qcd") != string::npos) || (flag != "jet_misid_qcd" && options.find("closure2") == string::npos)) {
-            matrix.Write((matrix_title).c_str());
+          if (options.find("closure2") == string::npos) {
+            matrix.Write(options.find("qcd") != string::npos ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
           }
         }
       }
@@ -644,7 +645,7 @@ void plot3(string plot="", string title="", string version="v00", string options
           matrix(0, 1) = f[pho0_pt][eta];
           matrix(1, 1) = 1. - f[pho0_pt][eta];
 
-          matrix.Write((matrix_title).c_str());
+          matrix.Write((matrix_title + "_qcd").c_str());
 
         } else {
 
@@ -665,7 +666,7 @@ void plot3(string plot="", string title="", string version="v00", string options
           }
 
           if (file_matrix) {
-            TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get((matrix_title).c_str());
+            TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get((matrix_title + "_qcd").c_str());
             matrix = *tmp_matrix;
           }
 
@@ -683,7 +684,7 @@ void plot3(string plot="", string title="", string version="v00", string options
           matrix(0, 1) = f[pho0_pt][eta];
           matrix(1, 1) = 1. - f[pho0_pt][eta];
 
-          matrix.Write((matrix_title).c_str());
+          matrix.Write(options.find("qcd") != string::npos ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
 
         } else {
 
@@ -704,7 +705,7 @@ void plot3(string plot="", string title="", string version="v00", string options
           }
 
           if (file_matrix) {
-            TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get((matrix_title).c_str());
+            TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get(matrix_title.c_str());
             matrix = *tmp_matrix;
           }
 
