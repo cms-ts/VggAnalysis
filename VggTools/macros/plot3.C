@@ -476,9 +476,32 @@ void plot3(string plot="", string title="", string version="v00", string options
     Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str());
   }
 
-  for (int eta = 1; eta < 5; eta++) {
-    for (int pho0_pt = 2; pho0_pt < histo[0]->GetNbinsX()+1; pho0_pt++) {
-      for (int pho1_pt = 2; pho1_pt < histo[0]->GetNbinsX()+1; pho1_pt++) {
+  double e[6][2] = {0};
+  double f[6][2] = {0};
+  double e_err[6][2] = {0};
+  double f_err[6][2] = {0};
+
+  for (int eta = 0; eta < 2; eta++) {
+    for (int pho0_pt = 1; pho0_pt < histo[0]->GetNbinsX(); pho0_pt++) {
+
+      e[pho0_pt][eta] = histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 1) / (histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 1) + histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 2));
+      f[pho0_pt][eta] = histo[0]->GetBinContent(pho0_pt+1, eta+1, 1) / (histo[0]->GetBinContent(pho0_pt+1, eta+1, 1) + histo[0]->GetBinContent(pho0_pt+1, eta+1, 2));
+
+      e_err[pho0_pt][eta] = TMath::Power(1. / (histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 1) + histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 2)), 2) * TMath::Sqrt(TMath::Power(histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 2) * histo_mc_sum->GetBinError(pho0_pt+1, eta+1, 1), 2) + TMath::Power(histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 1) * histo_mc_sum->GetBinError(pho0_pt+1, eta+1, 2), 2));
+      f_err[pho0_pt][eta] = TMath::Power(1. / (histo[0]->GetBinContent(pho0_pt+1, eta+1, 1) + histo[0]->GetBinContent(pho0_pt+1, eta+1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho0_pt+1, eta+1, 2) * histo[0]->GetBinError(pho0_pt+1, eta+1, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho0_pt+1, eta+1, 1) * histo[0]->GetBinError(pho0_pt+1, eta+1, 2), 2));
+
+      if (flag == "jet_misid_stat") {
+        e_err[pho0_pt][eta] = e_err[pho0_pt][eta] * 1.1;
+        f_err[pho0_pt][eta] = f_err[pho0_pt][eta] * 1.1;
+      }
+
+    }
+  }
+
+  for (int eta = 0; eta < 4; eta++) {
+    for (int pho0_pt = 1; pho0_pt < histo[0]->GetNbinsX(); pho0_pt++) {
+      for (int pho1_pt = 1; pho1_pt < histo[0]->GetNbinsX(); pho1_pt++) {
+
         double e1 = 0;
         double e2 = 0;
         double f1 = 0;
@@ -489,66 +512,59 @@ void plot3(string plot="", string title="", string version="v00", string options
         double f1_err = 0;
         double f2_err = 0;
 
-        if (eta == 1) {
-          e1 = histo_mc_sum->GetBinContent(pho0_pt, 1, 1) / (histo_mc_sum->GetBinContent(pho0_pt, 1, 1) + histo_mc_sum->GetBinContent(pho0_pt, 1, 2));
-          e2 = histo_mc_sum->GetBinContent(pho1_pt, 1, 1) / (histo_mc_sum->GetBinContent(pho1_pt, 1, 1) + histo_mc_sum->GetBinContent(pho1_pt, 1, 2));
-          f1 = histo[0]->GetBinContent(pho0_pt, 1, 1) / (histo[0]->GetBinContent(pho0_pt, 1, 1) + histo[0]->GetBinContent(pho0_pt, 1, 2));
-          f2 = histo[0]->GetBinContent(pho1_pt, 1, 1) / (histo[0]->GetBinContent(pho1_pt, 1, 1) + histo[0]->GetBinContent(pho1_pt, 1, 2));
+        if (eta == 0) {
+          e1 = e[pho0_pt][0];
+          e2 = e[pho1_pt][0];
+          f1 = f[pho0_pt][0];
+          f2 = f[pho1_pt][0];
 
-          e1_err = TMath::Power(1. / (histo_mc_sum->GetBinContent(pho0_pt, 1, 1) + histo_mc_sum->GetBinContent(pho0_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo_mc_sum->GetBinContent(pho0_pt, 1, 2) * histo_mc_sum->GetBinError(pho0_pt, 1, 1), 2) + TMath::Power(histo_mc_sum->GetBinContent(pho0_pt, 1, 1) * histo_mc_sum->GetBinError(pho0_pt, 1, 2), 2));
-          e2_err = TMath::Power(1. / (histo_mc_sum->GetBinContent(pho1_pt, 1, 1) + histo_mc_sum->GetBinContent(pho1_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo_mc_sum->GetBinContent(pho1_pt, 1, 2) * histo_mc_sum->GetBinError(pho1_pt, 1, 1), 2) + TMath::Power(histo_mc_sum->GetBinContent(pho1_pt, 1, 1) * histo_mc_sum->GetBinError(pho1_pt, 1, 2), 2));
-          f1_err = TMath::Power(1. / (histo[0]->GetBinContent(pho0_pt, 1, 1) + histo[0]->GetBinContent(pho0_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho0_pt, 1, 2) * histo[0]->GetBinError(pho0_pt, 1, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho0_pt, 1, 1) * histo[0]->GetBinError(pho0_pt, 1, 2), 2));
-          f2_err = TMath::Power(1. / (histo[0]->GetBinContent(pho1_pt, 1, 1) + histo[0]->GetBinContent(pho1_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho1_pt, 1, 2) * histo[0]->GetBinError(pho1_pt, 1, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho1_pt, 1, 1) * histo[0]->GetBinError(pho1_pt, 1, 2), 2));
+          e1_err = e_err[pho0_pt][0];
+          e2_err = e_err[pho1_pt][0];
+          f1_err = f_err[pho0_pt][0];
+          f2_err = f_err[pho1_pt][0];
+        }
+
+        if (eta == 1) {
+          e1 = e[pho0_pt][0];
+          e2 = e[pho1_pt][1];
+          f1 = f[pho0_pt][0];
+          f2 = f[pho1_pt][1];
+
+          e1_err = e_err[pho0_pt][0];
+          e2_err = e_err[pho1_pt][1];
+          f1_err = f_err[pho0_pt][0];
+          f2_err = f_err[pho1_pt][1];
         }
 
         if (eta == 2) {
-          e1 = histo_mc_sum->GetBinContent(pho0_pt, 1, 1) / (histo_mc_sum->GetBinContent(pho0_pt, 1, 1) + histo_mc_sum->GetBinContent(pho0_pt, 1, 2));
-          e2 = histo_mc_sum->GetBinContent(pho1_pt, 2, 1) / (histo_mc_sum->GetBinContent(pho1_pt, 2, 1) + histo_mc_sum->GetBinContent(pho1_pt, 2, 2));
-          f1 = histo[0]->GetBinContent(pho0_pt, 1, 1) / (histo[0]->GetBinContent(pho0_pt, 1, 1) + histo[0]->GetBinContent(pho0_pt, 1, 2));
-          f2 = histo[0]->GetBinContent(pho1_pt, 2, 1) / (histo[0]->GetBinContent(pho1_pt, 2, 1) + histo[0]->GetBinContent(pho1_pt, 2, 2));
+          e1 = e[pho0_pt][1];
+          e2 = e[pho1_pt][0];
+          f1 = f[pho0_pt][1];
+          f2 = f[pho1_pt][0];
 
-          e1_err = TMath::Power(1. / (histo_mc_sum->GetBinContent(pho0_pt, 1, 1) + histo_mc_sum->GetBinContent(pho0_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo_mc_sum->GetBinContent(pho0_pt, 1, 2) * histo_mc_sum->GetBinError(pho0_pt, 1, 1), 2) + TMath::Power(histo_mc_sum->GetBinContent(pho0_pt, 1, 1) * histo_mc_sum->GetBinError(pho0_pt, 1, 2), 2));
-          e2_err = TMath::Power(1. / (histo_mc_sum->GetBinContent(pho1_pt, 2, 1) + histo_mc_sum->GetBinContent(pho1_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo_mc_sum->GetBinContent(pho1_pt, 2, 2) * histo_mc_sum->GetBinError(pho1_pt, 2, 1), 2) + TMath::Power(histo_mc_sum->GetBinContent(pho1_pt, 2, 1) * histo_mc_sum->GetBinError(pho1_pt, 2, 2), 2));
-          f1_err = TMath::Power(1. / (histo[0]->GetBinContent(pho0_pt, 1, 1) + histo[0]->GetBinContent(pho0_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho0_pt, 1, 2) * histo[0]->GetBinError(pho0_pt, 1, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho0_pt, 1, 1) * histo[0]->GetBinError(pho0_pt, 1, 2), 2));
-          f2_err = TMath::Power(1. / (histo[0]->GetBinContent(pho1_pt, 2, 1) + histo[0]->GetBinContent(pho1_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho1_pt, 2, 2) * histo[0]->GetBinError(pho1_pt, 2, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho1_pt, 2, 1) * histo[0]->GetBinError(pho1_pt, 2, 2), 2));
+          e1_err = e_err[pho0_pt][1];
+          e2_err = e_err[pho1_pt][0];
+          f1_err = f_err[pho0_pt][1];
+          f2_err = f_err[pho1_pt][0];
         }
 
         if (eta == 3) {
-          e1 = histo_mc_sum->GetBinContent(pho0_pt, 2, 1) / (histo_mc_sum->GetBinContent(pho0_pt, 2, 1) + histo_mc_sum->GetBinContent(pho0_pt, 2, 2));
-          e2 = histo_mc_sum->GetBinContent(pho1_pt, 1, 1) / (histo_mc_sum->GetBinContent(pho1_pt, 1, 1) + histo_mc_sum->GetBinContent(pho1_pt, 1, 2));
-          f1 = histo[0]->GetBinContent(pho0_pt, 2, 1) / (histo[0]->GetBinContent(pho0_pt, 2, 1) + histo[0]->GetBinContent(pho0_pt, 2, 2));
-          f2 = histo[0]->GetBinContent(pho1_pt, 1, 1) / (histo[0]->GetBinContent(pho1_pt, 1, 1) + histo[0]->GetBinContent(pho1_pt, 1, 2));
+          e1 = e[pho0_pt][1];
+          e2 = e[pho1_pt][1];
+          f1 = f[pho0_pt][1];
+          f2 = f[pho1_pt][1];
 
-          e1_err = TMath::Power(1. / (histo_mc_sum->GetBinContent(pho0_pt, 2, 1) + histo_mc_sum->GetBinContent(pho0_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo_mc_sum->GetBinContent(pho0_pt, 2, 2) * histo_mc_sum->GetBinError(pho0_pt, 2, 1), 2) + TMath::Power(histo_mc_sum->GetBinContent(pho0_pt, 2, 1) * histo_mc_sum->GetBinError(pho0_pt, 2, 2), 2));
-          e2_err = TMath::Power(1. / (histo_mc_sum->GetBinContent(pho1_pt, 1, 1) + histo_mc_sum->GetBinContent(pho1_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo_mc_sum->GetBinContent(pho1_pt, 1, 2) * histo_mc_sum->GetBinError(pho1_pt, 1, 1), 2) + TMath::Power(histo_mc_sum->GetBinContent(pho1_pt, 1, 1) * histo_mc_sum->GetBinError(pho1_pt, 1, 2), 2));
-          f1_err = TMath::Power(1. / (histo[0]->GetBinContent(pho0_pt, 2, 1) + histo[0]->GetBinContent(pho0_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho0_pt, 2, 2) * histo[0]->GetBinError(pho0_pt, 2, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho0_pt, 2, 1) * histo[0]->GetBinError(pho0_pt, 2, 2), 2));
-          f2_err = TMath::Power(1. / (histo[0]->GetBinContent(pho1_pt, 1, 1) + histo[0]->GetBinContent(pho1_pt, 1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho1_pt, 1, 2) * histo[0]->GetBinError(pho1_pt, 1, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho1_pt, 1, 1) * histo[0]->GetBinError(pho1_pt, 1, 2), 2));
-        }
-
-        if (eta == 4) {
-          e1 = histo_mc_sum->GetBinContent(pho0_pt, 2, 1) / (histo_mc_sum->GetBinContent(pho0_pt, 2, 1) + histo_mc_sum->GetBinContent(pho0_pt, 2, 2));
-          e2 = histo_mc_sum->GetBinContent(pho1_pt, 2, 1) / (histo_mc_sum->GetBinContent(pho1_pt, 2, 1) + histo_mc_sum->GetBinContent(pho1_pt, 2, 2));
-          f1 = histo[0]->GetBinContent(pho0_pt, 2, 1) / (histo[0]->GetBinContent(pho0_pt, 2, 1) + histo[0]->GetBinContent(pho0_pt, 2, 2));
-          f2 = histo[0]->GetBinContent(pho1_pt, 2, 1) / (histo[0]->GetBinContent(pho1_pt, 2, 1) + histo[0]->GetBinContent(pho1_pt, 2, 2));
-
-          e1_err = TMath::Power(1. / (histo_mc_sum->GetBinContent(pho0_pt, 2, 1) + histo_mc_sum->GetBinContent(pho0_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo_mc_sum->GetBinContent(pho0_pt, 2, 2) * histo_mc_sum->GetBinError(pho0_pt, 2, 1), 2) + TMath::Power(histo_mc_sum->GetBinContent(pho0_pt, 2, 1) * histo_mc_sum->GetBinError(pho0_pt, 2, 2), 2));
-          e2_err = TMath::Power(1. / (histo_mc_sum->GetBinContent(pho1_pt, 2, 1) + histo_mc_sum->GetBinContent(pho1_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo_mc_sum->GetBinContent(pho1_pt, 2, 2) * histo_mc_sum->GetBinError(pho1_pt, 2, 1), 2) + TMath::Power(histo_mc_sum->GetBinContent(pho1_pt, 2, 1) * histo_mc_sum->GetBinError(pho1_pt, 2, 2), 2));
-          f1_err = TMath::Power(1. / (histo[0]->GetBinContent(pho0_pt, 2, 1) + histo[0]->GetBinContent(pho0_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho0_pt, 2, 2) * histo[0]->GetBinError(pho0_pt, 2, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho0_pt, 2, 1) * histo[0]->GetBinError(pho0_pt, 2, 2), 2));
-          f2_err = TMath::Power(1. / (histo[0]->GetBinContent(pho1_pt, 2, 1) + histo[0]->GetBinContent(pho1_pt, 2, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho1_pt, 2, 2) * histo[0]->GetBinError(pho1_pt, 2, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho1_pt, 2, 1) * histo[0]->GetBinError(pho1_pt, 2, 2), 2));
-        }
-
-        if (flag == "jet_misid_stat") {
-          e1_err = e1_err * 1.1;
-          e2_err = e2_err * 1.1;
-          f1_err = f1_err * 1.1;
-          f2_err = f2_err * 1.1;
+          e1_err = e_err[pho0_pt][1];
+          e2_err = e_err[pho1_pt][1];
+          f1_err = f_err[pho0_pt][1];
+          f2_err = f_err[pho1_pt][1];
         }
 
         for (int i=0; i < 9; i++) {
           string matrix_title = "matrix_";
-          matrix_title += std::to_string(pho0_pt);
-          matrix_title += std::to_string(pho1_pt);
-          matrix_title += std::to_string(eta);
+          matrix_title += std::to_string(pho0_pt+1);
+          matrix_title += std::to_string(pho1_pt+1);
+          matrix_title += std::to_string(eta+1);
 
           if (i == 1) matrix_title += "_e1up";
           if (i == 2) matrix_title += "_e2up";
@@ -592,16 +608,16 @@ void plot3(string plot="", string title="", string version="v00", string options
   histo1[8001] = (TH1D*)histo1[0]->Clone();
   histo1[8001]->Reset();
 
-  for (int eta = 1; eta < 3; eta++) {
-    for (int pho0_pt = 2; pho0_pt < histo_data->GetNbinsX() + 1; pho0_pt++) {
+  for (int eta = 0; eta < 2; eta++) {
+    for (int pho0_pt = 1; pho0_pt < histo_data->GetNbinsX(); pho0_pt++) {
 
       string matrix_title = "matrix_";
-      matrix_title += std::to_string(pho0_pt);
-      matrix_title += std::to_string(eta);
+      matrix_title += std::to_string(pho0_pt+1);
+      matrix_title += std::to_string(eta+1);
 
       TVectorD n_region(2);
-      n_region[0] = histo_data->GetBinContent(pho0_pt, eta, 1);
-      n_region[1] = histo_data->GetBinContent(pho0_pt, eta, 2);
+      n_region[0] = histo_data->GetBinContent(pho0_pt+1, eta+1, 1);
+      n_region[1] = histo_data->GetBinContent(pho0_pt+1, eta+1, 2);
 
       TMatrixD matrix(2,2);
       TMatrixD inverse_matrix(2,2);
@@ -610,16 +626,10 @@ void plot3(string plot="", string title="", string version="v00", string options
 
         if (options.find("qcd") != string::npos) {
 
-          double e1 = 0;
-          double f1 = 0;
-
-          e1 = histo_mc_sum->GetBinContent(pho0_pt, eta, 1) / (histo_mc_sum->GetBinContent(pho0_pt, eta, 1) + histo_mc_sum->GetBinContent(pho0_pt, eta, 2));
-          f1 = histo[0]->GetBinContent(pho0_pt, eta, 1) / (histo[0]->GetBinContent(pho0_pt, eta, 1) + histo[0]->GetBinContent(pho0_pt, eta, 2));
-
-          matrix(0, 0) = e1;
-          matrix(1, 0) = 1. - e1;
-          matrix(0, 1) = f1;
-          matrix(1, 1) = 1. - f1;
+          matrix(0, 0) = e[pho0_pt][eta];
+          matrix(1, 0) = 1. - e[pho0_pt][eta];
+          matrix(0, 1) = f[pho0_pt][eta];
+          matrix(1, 1) = 1. - f[pho0_pt][eta];
 
           matrix.Write((matrix_title).c_str());
 
@@ -655,16 +665,10 @@ void plot3(string plot="", string title="", string version="v00", string options
 
         if (options.find("closure2") == string::npos) {
 
-          double e1 = 0;
-          double f1 = 0;
-
-          e1 = histo_mc_sum->GetBinContent(pho0_pt, eta, 1) / (histo_mc_sum->GetBinContent(pho0_pt, eta, 1) + histo_mc_sum->GetBinContent(pho0_pt, eta, 2));
-          f1 = histo[0]->GetBinContent(pho0_pt, eta, 1) / (histo[0]->GetBinContent(pho0_pt, eta, 1) + histo[0]->GetBinContent(pho0_pt, eta, 2));
-
-          matrix(0, 0) = e1;
-          matrix(1, 0) = 1. - e1;
-          matrix(0, 1) = f1;
-          matrix(1, 1) = 1. - f1;
+          matrix(0, 0) = e[pho0_pt][eta];
+          matrix(1, 0) = 1. - e[pho0_pt][eta];
+          matrix(0, 1) = f[pho0_pt][eta];
+          matrix(1, 1) = 1. - f[pho0_pt][eta];
 
           matrix.Write((matrix_title).c_str());
 
@@ -706,7 +710,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       TVectorD alpha(2);
       alpha = inverse_matrix * n_region;
 
-      histo1[8001]->SetBinContent(pho0_pt, histo1[8001]->GetBinContent(pho0_pt) + matrix(0,1) * alpha(1));
+      histo1[8001]->SetBinContent(pho0_pt+1, histo1[8001]->GetBinContent(pho0_pt+1) + matrix(0,1) * alpha(1));
 
     }
   }
