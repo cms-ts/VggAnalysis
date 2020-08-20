@@ -498,6 +498,19 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
+  for (int eta = 0; eta < 2; eta++) {
+    for (int pho0_pt = 1; pho0_pt < histo[0]->GetNbinsX(); pho0_pt++) {
+      if (e[pho0_pt][eta] == 0) {
+        e[pho0_pt][eta] = e[pho0_pt-1][eta];
+        e_err[pho0_pt][eta] = e_err[pho0_pt-1][eta];
+      }
+      if (f[pho0_pt][eta] == 0) {
+        f[pho0_pt][eta] = f[pho0_pt-1][eta];
+        f_err[pho0_pt][eta] = f_err[pho0_pt-1][eta];
+      }
+    }
+  }
+
   for (int eta = 0; eta < 4; eta++) {
     for (int pho0_pt = 1; pho0_pt < histo[0]->GetNbinsX(); pho0_pt++) {
       for (int pho1_pt = 1; pho1_pt < histo[0]->GetNbinsX(); pho1_pt++) {
