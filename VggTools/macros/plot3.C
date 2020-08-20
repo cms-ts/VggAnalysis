@@ -463,6 +463,30 @@ void plot3(string plot="", string title="", string version="v00", string options
   if (options.find("closure1") != string::npos) title_tmp += "_closure1";
   if (options.find("validation") != string::npos) title_tmp += "_validation";
 
+  double f_corr[6][2] = {0};
+
+  if (flag == "jet_misid_qcd" && options.find("qcd") == string::npos) {
+    if (title.find("h_ZG") != string::npos) {
+
+      TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_WG_muo_pho0_pt.root").c_str());
+      for (int eta = 0; eta < 2; eta++) {
+        for (int pho0_pt = 1; pho0_pt < histo[0]->GetNbinsX(); pho0_pt++) {
+          string matrix_title = "matrix_";
+          matrix_title += std::to_string(pho0_pt+1);
+          matrix_title += std::to_string(eta+1);
+
+          TMatrixD* matrix = (TMatrixD*)file->Get(matrix_title.c_str());
+          TMatrixD* matrix_qcd = (TMatrixD*)file->Get((matrix_title + "_qcd").c_str());
+
+          f_corr[pho0_pt][eta] = (*matrix)(0, 1) != 0 ? ((*matrix_qcd)(0, 1) - (*matrix)(0, 1)) / (*matrix)(0, 1) : 0.;
+        }
+      }
+      file->Close();
+      delete file;
+
+    }
+  }
+
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
@@ -509,6 +533,13 @@ void plot3(string plot="", string title="", string version="v00", string options
         f[pho0_pt][eta] = f[pho0_pt-1][eta];
         f_err[pho0_pt][eta] = f_err[pho0_pt-1][eta];
       }
+    }
+  }
+
+  for (int eta = 0; eta < 2; eta++) {
+    for (int pho0_pt = 1; pho0_pt < histo[0]->GetNbinsX(); pho0_pt++) {
+      f[pho0_pt][eta] = f[pho0_pt][eta] * (1. + f_corr[pho0_pt][eta]);
+      f_err[pho0_pt][eta] = f_err[pho0_pt][eta] * (1. + f_corr[pho0_pt][eta]);
     }
   }
 
@@ -636,83 +667,67 @@ void plot3(string plot="", string title="", string version="v00", string options
       TMatrixD matrix(2,2);
       TMatrixD inverse_matrix(2,2);
 
+      if (options.find("closure2") == string::npos) {
+        matrix(0, 0) = e[pho0_pt][eta];
+        matrix(1, 0) = 1. - e[pho0_pt][eta];
+        matrix(0, 1) = f[pho0_pt][eta];
+        matrix(1, 1) = 1. - f[pho0_pt][eta];
+
+        matrix.Write(options.find("qcd") != string::npos ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
+      }
+
       if (flag == "jet_misid_qcd") {
-
-        if (options.find("qcd") != string::npos) {
-
-          matrix(0, 0) = e[pho0_pt][eta];
-          matrix(1, 0) = 1. - e[pho0_pt][eta];
-          matrix(0, 1) = f[pho0_pt][eta];
-          matrix(1, 1) = 1. - f[pho0_pt][eta];
-
-          matrix.Write((matrix_title + "_qcd").c_str());
-
-        } else {
-
-          TFile* file_matrix = 0;
-
-          file_matrix = 0;
+        if (options.find("qcd") == string::npos) {
           if (title.find("h_WG") != string::npos) {
+
+            TDirectory::TContext ctxt;
+            TFile* file_matrix = 0;
+
             if (title.find("ele") != string::npos) file_matrix = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_WG_ele_pho0_pt.root").c_str());
             if (title.find("muo") != string::npos) file_matrix = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_WG_muo_pho0_pt.root").c_str());
-          }
-          if (title.find("h_ZG") != string::npos) {
-            if (title.find("ele") != string::npos) file_matrix = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_ZG_ele_pho0_pt.root").c_str());
-            if (title.find("muo") != string::npos) file_matrix = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_ZG_muo_pho0_pt.root").c_str());
-          }
-          if (file_matrix->IsZombie()) {
-            cout << "ERROR: file " << file_matrix->GetName() << " is MISSING !!" << endl;
-            return;
-          }
 
-          if (file_matrix) {
-            TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get((matrix_title + "_qcd").c_str());
-            matrix = *tmp_matrix;
+            if (file_matrix->IsZombie()) {
+              cout << "ERROR: file " << file_matrix->GetName() << " is MISSING !!" << endl;
+              return;
+            }
+
+            if (file_matrix) {
+              TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get((matrix_title + "_qcd").c_str());
+              matrix = *tmp_matrix;
+            }
+
+            file_matrix->Close();
+            delete file_matrix;
+
           }
+        }
+      }
 
-          file_matrix->Close();
-          delete file_matrix;
+      if (options.find("closure2") != string::npos) {
 
+        TDirectory::TContext ctxt;
+        TFile* file_matrix = 0;
+
+        if (title.find("h_WG") != string::npos) {
+          if (title.find("ele") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_WG_muo_pho0_pt.root").c_str());
+          if (title.find("muo") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_WG_ele_pho0_pt.root").c_str());
+        }
+        if (title.find("h_ZG") != string::npos) {
+          if (title.find("ele") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_ZG_muo_pho0_pt.root").c_str());
+          if (title.find("muo") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_ZG_ele_pho0_pt.root").c_str());
+        }
+        if (file_matrix->IsZombie()) {
+          cout << "ERROR: file " << file_matrix->GetName() << " is MISSING !!" << endl;
+          return;
         }
 
-      } else {
-
-        if (options.find("closure2") == string::npos) {
-
-          matrix(0, 0) = e[pho0_pt][eta];
-          matrix(1, 0) = 1. - e[pho0_pt][eta];
-          matrix(0, 1) = f[pho0_pt][eta];
-          matrix(1, 1) = 1. - f[pho0_pt][eta];
-
-          matrix.Write(options.find("qcd") != string::npos ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
-
-        } else {
-
-          TFile* file_matrix = 0;
-
-          file_matrix = 0;
-          if (title.find("h_WG") != string::npos) {
-            if (title.find("ele") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_WG_muo_pho0_pt.root").c_str());
-            if (title.find("muo") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_WG_ele_pho0_pt.root").c_str());
-          }
-          if (title.find("h_ZG") != string::npos) {
-            if (title.find("ele") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_ZG_muo_pho0_pt.root").c_str());
-            if (title.find("muo") != string::npos) file_matrix = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/h_ZG_ele_pho0_pt.root").c_str());
-          }
-          if (file_matrix->IsZombie()) {
-            cout << "ERROR: file " << file_matrix->GetName() << " is MISSING !!" << endl;
-            return;
-          }
-
-          if (file_matrix) {
-            TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get(matrix_title.c_str());
-            matrix = *tmp_matrix;
-          }
-
-          file_matrix->Close();
-          delete file_matrix;
-
+        if (file_matrix) {
+          TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get(matrix_title.c_str());
+          matrix = *tmp_matrix;
         }
+
+        file_matrix->Close();
+        delete file_matrix;
 
       }
 
@@ -1064,7 +1079,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     cout << "+++++++++++++++++++++++++++++++++++++" << endl;
   }
 
-  if (file) {
+  if (options.find("closure2") == string::npos) {
     file->Close();
     delete file;
   }

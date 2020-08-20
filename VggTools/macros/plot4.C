@@ -279,8 +279,6 @@ void plot4(string plot="", string title="", string version="v00", string options
     if (flag == "jet_misid_test") {
       if (title.find("h_WGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_ele_pho0_pt" + title_tmp + ".root").c_str());
       if (title.find("h_ZGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_ele_pho0_pt" + title_tmp + ".root").c_str());
-    } else if (flag == "jet_misid_qcd") {
-      file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_muo_pho0_pt" + title_tmp + ".root").c_str());
     } else {
       if (title.find("h_WGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_muo_pho0_pt" + title_tmp + ".root").c_str());
       if (title.find("h_ZGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_muo_pho0_pt" + title_tmp + ".root").c_str());
@@ -295,8 +293,6 @@ void plot4(string plot="", string title="", string version="v00", string options
     if (flag == "jet_misid_test") {
       if (title.find("h_WGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_ele_pho0_pt" + title_tmp + ".root").c_str());
       if (title.find("h_ZGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_ele_pho0_pt" + title_tmp + ".root").c_str());
-    } else if (flag == "jet_misid_qcd") {
-      file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_muo_pho0_pt" + title_tmp + ".root").c_str());
     } else {
       if (title.find("h_WGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_muo_pho0_pt" + title_tmp + ".root").c_str());
       if (title.find("h_ZGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_muo_pho0_pt" + title_tmp + ".root").c_str());
@@ -311,8 +307,6 @@ void plot4(string plot="", string title="", string version="v00", string options
     if (flag == "jet_misid_test") {
       if (title.find("h_WGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_ele_pho0_pt" + title_tmp + ".root").c_str());
       if (title.find("h_ZGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_ele_pho0_pt" + title_tmp + ".root").c_str());
-    } else if (flag == "jet_misid_qcd") {
-      file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_muo_pho0_pt" + title_tmp + ".root").c_str());
     } else {
       if (title.find("h_WGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_muo_pho0_pt" + title_tmp + ".root").c_str());
       if (title.find("h_ZGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_muo_pho0_pt" + title_tmp + ".root").c_str());
@@ -413,15 +407,15 @@ void plot4(string plot="", string title="", string version="v00", string options
             TMatrixD matrix(4,4);
 
             if (file_matrix_2016) {
-              TMatrixD* matrix_2016 = (TMatrixD*)file_matrix_2016->Get(flag == "jet_misid_qcd" ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
+              TMatrixD* matrix_2016 = (TMatrixD*)file_matrix_2016->Get((flag == "jet_misid_qcd" && title.find("h_WGG") != string::npos) ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
               matrix = matrix + (*matrix_2016) * double(lumi2016/lumi);
             }
             if (file_matrix_2017) {
-              TMatrixD* matrix_2017 = (TMatrixD*)file_matrix_2017->Get(flag == "jet_misid_qcd" ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
+              TMatrixD* matrix_2017 = (TMatrixD*)file_matrix_2017->Get((flag == "jet_misid_qcd" && title.find("h_WGG") != string::npos) ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
               matrix = matrix + (*matrix_2017) * double(lumi2017/lumi);
             }
             if (file_matrix_2018) {
-              TMatrixD* matrix_2018 = (TMatrixD*)file_matrix_2018->Get(flag == "jet_misid_qcd" ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
+              TMatrixD* matrix_2018 = (TMatrixD*)file_matrix_2018->Get((flag == "jet_misid_qcd" && title.find("h_WGG") != string::npos) ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
               matrix = matrix + (*matrix_2018) * double(lumi2018/lumi);
             }
 
