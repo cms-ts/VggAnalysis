@@ -653,6 +653,10 @@ void plot3(string plot="", string title="", string version="v00", string options
   histo1[8001] = (TH1D*)histo1[0]->Clone();
   histo1[8001]->Reset();
 
+  if (options.find("closure2") == string::npos) {
+    histo1[8001]->SetDirectory(0);
+  }
+
   for (int eta = 0; eta < 2; eta++) {
     for (int pho0_pt = 1; pho0_pt < histo_data->GetNbinsX(); pho0_pt++) {
 
@@ -742,6 +746,11 @@ void plot3(string plot="", string title="", string version="v00", string options
       histo1[8001]->SetBinContent(pho0_pt+1, histo1[8001]->GetBinContent(pho0_pt+1) + matrix(0,1) * alpha(1));
 
     }
+  }
+
+  if (options.find("closure2") == string::npos) {
+    file->Close();
+    delete file;
   }
 
   THStack* hstack_mc = new THStack("hstack_mc", "hstack_mc");
@@ -1077,11 +1086,6 @@ void plot3(string plot="", string title="", string version="v00", string options
     cout << "Signal/Bkg MC     = " << histo1[myindex]->Integral()/histo1[0]->Integral() << endl;
     cout << "Signal/Bkg matrix = " << histo1[myindex]->Integral()/histo1[8001]->Integral() << endl;
     cout << "+++++++++++++++++++++++++++++++++++++" << endl;
-  }
-
-  if (options.find("closure2") == string::npos) {
-    file->Close();
-    delete file;
   }
 
 }
