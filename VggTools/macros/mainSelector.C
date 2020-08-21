@@ -1906,7 +1906,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      Electron_pt[i] = Electron_pt[i] * eCorr_ele;
      if (Electron_pt[i] < 15) continue;
      if (fabs(Electron_eta[i]+Electron_deltaEtaSC[i]) > 1.442 && fabs(Electron_eta[i]+Electron_deltaEtaSC[i]) < 1.566) continue;
-     if (fabs(Electron_eta[i]) > 2.500) continue;
+     if (fabs(Electron_eta[i]+Electron_deltaEtaSC[i]) > 2.500) continue;
 
      if (fabs(Electron_eta[i]+Electron_deltaEtaSC[i]) <= 1.442) {
        if (fabs(Electron_dxy[i]) > 0.05) continue;
@@ -1963,7 +1963,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    for (uint i = 0; i < *nElectron; i++) {
      if (Electron_pt[i] < 15) continue;
      if (fabs(Electron_eta[i]+Electron_deltaEtaSC[i]) > 1.442 && fabs(Electron_eta[i]+Electron_deltaEtaSC[i]) < 1.566) continue;
-     if (fabs(Electron_eta[i]) > 2.500) continue;
+     if (fabs(Electron_eta[i]+Electron_deltaEtaSC[i]) > 2.500) continue;
 
      if (fabs(Electron_eta[i]+Electron_deltaEtaSC[i]) <= 1.442) {
        if (fabs(Electron_dxy[i]) > 0.05) continue;
@@ -2171,7 +2171,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Electron_pt[j] < 15) continue;
        if (fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) > 1.442 && fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) < 1.566) continue;
-       if (fabs(Electron_eta[j]) > 2.500) continue;
+       if (fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) > 2.500) continue;
 
        if (fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) <= 1.442) {
          if (fabs(Electron_dxy[j]) > 0.05) continue;
@@ -2353,7 +2353,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Electron_pt[j] < 15) continue;
        if (fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) > 1.442 && fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) < 1.566) continue;
-       if (fabs(Electron_eta[j]) > 2.500) continue;
+       if (fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) > 2.500) continue;
 
        if (fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) <= 1.442) {
          if (fabs(Electron_dxy[j]) > 0.05) continue;
@@ -2533,7 +2533,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Electron_pt[j] < 15) continue;
        if (fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) > 1.442 && fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) < 1.566) continue;
-       if (fabs(Electron_eta[j]) > 2.500) continue;
+       if (fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) > 2.500) continue;
 
        if (fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) <= 1.442) {
          if (fabs(Electron_dxy[j]) > 0.05) continue;
@@ -2681,7 +2681,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        if (skip) continue;
        if (Electron_pt[j] < 15) continue;
        if (fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) > 1.442 && fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) < 1.566) continue;
-       if (fabs(Electron_eta[j]) > 2.500) continue;
+       if (fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) > 2.500) continue;
 
        if (fabs(Electron_eta[j]+Electron_deltaEtaSC[j]) <= 1.442) {
          if (fabs(Electron_dxy[j]) > 0.05) continue;
@@ -3975,30 +3975,30 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (W_ele_sel_qcd) {
      if (fabs(Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd]) <= 1.442) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 4.38938;
-       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 5.69714;
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 4.39047;
+       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 5.70036;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 4.80762;
-       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 5.75448;
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 4.80766;
+       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 5.75551;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 3.98799;
-       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 2.23720;
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 3.98783;
+       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 2.23685;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
      if (fabs(Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd]) >= 1.566) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 11.1900;
-       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 13.0534;
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 11.1821;
+       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 13.0636;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 9.74319;
-       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 10.7378;
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 9.74719;
+       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 10.7234;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 11.6969;
-       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 17.7170;
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 11.7190;
+       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 17.7380;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
    }
@@ -4006,15 +4006,15 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (W_muo_sel_qcd) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
      if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.21886;
-     if (ipho0_qcd != -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.81304;
+     if (ipho0_qcd != -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.81312;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
      if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.42676;
      if (ipho0_qcd != -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.92584;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-     if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.40858;
-     if (ipho0_qcd != -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.66881;
+     if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.40857;
+     if (ipho0_qcd != -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.66882;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
    }
 #endif // defined (USE_QCD_FIT_FACTORS)
