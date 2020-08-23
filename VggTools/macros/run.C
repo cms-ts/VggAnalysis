@@ -33,7 +33,7 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
 
   Info("run", "input list = %s", input.Data());
 
-  vector<std::string> files;
+  vector<string> files;
 
   ifstream in(input.Data());
   while (in.good()) {

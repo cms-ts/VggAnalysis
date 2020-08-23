@@ -28,7 +28,7 @@ void auto_pu(TString input="lists/RunIIFall17NanoAODv7_DYJetsToLL_M-50_TuneCP5_1
 
   Info("auto_pu", "input list = %s", input.Data());
 
-  vector<std::string> files;
+  vector<string> files;
 
   ifstream in(input.Data());
   while (in.good()) {
