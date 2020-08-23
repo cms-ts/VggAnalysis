@@ -53,8 +53,8 @@ void auto_pu(TString input="lists/RunIIFall17NanoAODv7_DYJetsToLL_M-50_TuneCP5_1
   int nevt = -1;
 
   auto work = [](TTreeReader& fReader) {
-    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
     TH1D* h = new TH1D("pileup", "pileup", 100, 0., 100.);
+    TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
     while (fReader.Next()) {
       h->Fill(*Pileup_nTrueInt);
     }
