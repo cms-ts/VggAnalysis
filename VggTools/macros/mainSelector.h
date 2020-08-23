@@ -1197,6 +1197,11 @@ Bool_t mainSelector::Notify()
    // to the generated code, but the routine can be extended by the
    // user if needed. The return value is currently not used.
 
+#if 0
+   TDatime now;
+   Info("Notify", "%s : processing file = %s", now.AsSQLString(), fReader.GetTree()->GetCurrentFile()->GetName());
+#endif
+
    return kTRUE;
 }
 
