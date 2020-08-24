@@ -72,6 +72,27 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
     selector->SetOption("MC");
   }
 
+  if (option.Contains("DT")) {
+    if (input.Contains("Run2016B")) selector->SetOption("DT,2016B");
+    if (input.Contains("Run2016C")) selector->SetOption("DT,2016C");
+    if (input.Contains("Run2016D")) selector->SetOption("DT,2016D");
+    if (input.Contains("Run2016E")) selector->SetOption("DT,2016E");
+    if (input.Contains("Run2016F")) selector->SetOption("DT,2016F");
+    if (input.Contains("Run2016G")) selector->SetOption("DT,2016G");
+    if (input.Contains("Run2016H")) selector->SetOption("DT,2016H");
+
+    if (input.Contains("Run2017B")) selector->SetOption("DT,2017B");
+    if (input.Contains("Run2017C")) selector->SetOption("DT,2017C");
+    if (input.Contains("Run2017D")) selector->SetOption("DT,2017D");
+    if (input.Contains("Run2017E")) selector->SetOption("DT,2017E");
+    if (input.Contains("Run2017F")) selector->SetOption("DT,2017F");
+
+    if (input.Contains("Run2018A")) selector->SetOption("DT,2018A");
+    if (input.Contains("Run2018B")) selector->SetOption("DT,2018B");
+    if (input.Contains("Run2018C")) selector->SetOption("DT,2018C");
+    if (input.Contains("Run2018D")) selector->SetOption("DT,2018D");
+  }
+
   if (option.Contains("MC")) {
     if (input.Contains("WJetsToLNu") || input.Contains("WToLNu"))                 selector->SetOption("MC,WJetsToLNu");
     if (input.Contains("WG") && !input.Contains("WGG") && !input.Contains("WWG")) selector->SetOption("MC,WG");
@@ -97,25 +118,6 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
   Info("run", "flag = %s", flag.Data());
 
   fInput->Add(new TNamed("flag", flag.Data()));
-
-  if (input.Contains("Run2016B")) fInput->Add(new TNamed("era", "2016B"));
-  if (input.Contains("Run2016C")) fInput->Add(new TNamed("era", "2016C"));
-  if (input.Contains("Run2016D")) fInput->Add(new TNamed("era", "2016D"));
-  if (input.Contains("Run2016E")) fInput->Add(new TNamed("era", "2016E"));
-  if (input.Contains("Run2016F")) fInput->Add(new TNamed("era", "2016F"));
-  if (input.Contains("Run2016G")) fInput->Add(new TNamed("era", "2016G"));
-  if (input.Contains("Run2016H")) fInput->Add(new TNamed("era", "2016H"));
-
-  if (input.Contains("Run2017B")) fInput->Add(new TNamed("era", "2017B"));
-  if (input.Contains("Run2017C")) fInput->Add(new TNamed("era", "2017C"));
-  if (input.Contains("Run2017D")) fInput->Add(new TNamed("era", "2017D"));
-  if (input.Contains("Run2017E")) fInput->Add(new TNamed("era", "2017E"));
-  if (input.Contains("Run2017F")) fInput->Add(new TNamed("era", "2017F"));
-
-  if (input.Contains("Run2018A")) fInput->Add(new TNamed("era", "2018A"));
-  if (input.Contains("Run2018B")) fInput->Add(new TNamed("era", "2018B"));
-  if (input.Contains("Run2018C")) fInput->Add(new TNamed("era", "2018C"));
-  if (input.Contains("Run2018D")) fInput->Add(new TNamed("era", "2018D"));
 
   if (option.Contains("MC17")) {
     TString output_ele = "data/auto_pu/" + TString(gSystem->BaseName(input));

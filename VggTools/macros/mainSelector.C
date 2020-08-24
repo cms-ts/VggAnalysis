@@ -513,30 +513,24 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
 
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
-   if (fInput && fInput->FindObject("era")) {
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016B")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017BCD_V11_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016C")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017BCD_V11_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016D")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017BCD_V11_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016E")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017EF_V11_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016F")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017EF_V11_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016G")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017GH_V11_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2016H")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017GH_V11_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2016B")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017BCD_V11_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2016C")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017BCD_V11_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2016D")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017BCD_V11_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2016E")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017EF_V11_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2016F")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017EF_V11_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2016G")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017GH_V11_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2016H")) jet_correction_unc = new JetCorrectionUncertainty("jme/Summer16_07Aug2017GH_V11_DATA_Uncertainty_AK4PFchs.txt");
 
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2017B")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017B_V32_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2017C")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017C_V32_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2017D")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017DE_V32_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2017E")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017DE_V32_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2017F")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017F_V32_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2017B")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017B_V32_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2017C")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017C_V32_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2017D")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017DE_V32_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2017E")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017DE_V32_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2017F")) jet_correction_unc = new JetCorrectionUncertainty("jme/Fall17_17Nov2017F_V32_DATA_Uncertainty_AK4PFchs.txt");
 
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018A")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunA_V19_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018B")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunB_V19_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018C")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunC_V19_DATA_Uncertainty_AK4PFchs.txt");
-     if (TString(fInput->FindObject("era")->GetTitle()).Contains("2018D")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunD_V19_DATA_Uncertainty_AK4PFchs.txt");
-     if (jet_correction_unc == 0) {
-       Error("Begin", "%s : unknown era = %s", now.AsSQLString(), fInput->FindObject("era")->GetTitle());
-       gSystem->Exit(1);
-     }
-   }
+   if (option.Contains("2018A")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunA_V19_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2018B")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunB_V19_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2018C")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunC_V19_DATA_Uncertainty_AK4PFchs.txt");
+   if (option.Contains("2018D")) jet_correction_unc = new JetCorrectionUncertainty("jme/Autumn18_RunD_V19_DATA_Uncertainty_AK4PFchs.txt");
    if (jet_correction_unc == 0) {
      Error("Begin", "%s : missing era", now.AsSQLString());
      gSystem->Exit(1);
