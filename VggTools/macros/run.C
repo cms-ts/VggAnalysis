@@ -65,6 +65,7 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
     if (option.Contains("DT18")) selector = TSelector::GetSelector("mainSelectorDT18.C+");
     selector->SetOption("DT");
   }
+
   if (option.Contains("MC")) {
     if (option.Contains("MC16")) selector = TSelector::GetSelector("mainSelectorMC16.C+");
     if (option.Contains("MC17")) selector = TSelector::GetSelector("mainSelectorMC17.C+");
@@ -113,9 +114,9 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
     if (input.Contains("WZG"))                                                    selector->SetOption("MC,WZG");
   }
 
-  TList* fInput = new TList();
-
   Info("run", "flag = %s", flag.Data());
+
+  TList* fInput = new TList();
 
   fInput->Add(new TNamed("flag", flag.Data()));
 
