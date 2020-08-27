@@ -193,6 +193,8 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
     Error("run", "expected events: %d", nevt0);
   }
 
+  delete selector;
+
   now = TDatime();
   Info("run", "%s", now.AsSQLString());
 

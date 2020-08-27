@@ -7788,4 +7788,35 @@ void mainSelector::Terminate()
    TDatime now;
    Info("Terminate", "%s", now.AsSQLString());
 
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   delete pu_ele_weights;
+   delete pu_muo_weights;
+
+   delete sf_ele_trig;
+   delete sf_ele_reco;
+   delete sf_ele_eff;
+
+   delete sf_muo_trig;
+   delete sf_muo_id;
+   delete sf_muo_iso;
+
+   delete sf_pho_eff;
+
+   delete sf_eg_misid;
+   delete sf_eg_misid_qcd;
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+
+#if defined(__linux__)
+   delete roccor;
+
+#if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+   delete jet_correction_unc;
+#endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
+
+#if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+   delete jet_resolution;
+   delete jet_resolution_sf;
+#endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
+#endif // defined(__linux__)
+
 }
