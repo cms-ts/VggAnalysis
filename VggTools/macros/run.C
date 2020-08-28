@@ -50,7 +50,8 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
     return;
   }
 
-  int nWorkers = 10;
+  int nWorkers = 16;
+  if (TString(gSystem->HostName()).Contains("farmui")) nWorkers = 32;
   if (gROOT->IsBatch()) nWorkers = 4;
 
   ROOT::TTreeProcessorMP workers(nWorkers);

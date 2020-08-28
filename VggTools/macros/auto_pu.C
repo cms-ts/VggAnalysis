@@ -45,7 +45,8 @@ void auto_pu(TString input="lists/RunIIFall17NanoAODv7_DYJetsToLL_M-50_TuneCP5_1
     return;
   }
 
-  int nWorkers = 10;
+  int nWorkers = 16;
+  if (TString(gSystem->HostName()).Contains("farmui")) nWorkers = 32;
   if (gROOT->IsBatch()) nWorkers = 4;
 
   ROOT::TTreeProcessorMP workers(nWorkers);
