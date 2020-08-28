@@ -954,9 +954,9 @@ public :
    TH1D* pu_ele_weights = 0;
    TH1D* pu_muo_weights = 0;
 
-   TH2D* sf_ele_eff = 0;
-   TH2D* sf_ele_reco = 0;
    TH2D* sf_ele_trig = 0;
+   TH2D* sf_ele_reco = 0;
+   TH2D* sf_ele_eff = 0;
 
    TH2D* sf_muo_trig = 0;
    TH2D* sf_muo_id = 0;

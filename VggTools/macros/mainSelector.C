@@ -177,14 +177,13 @@ void mainSelector::Begin(TTree * /*tree*/)
    }
 
 #if defined(mainSelectorMC16_cxx)
-   //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVA80noiso_Fall17V2.root");
-   TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronTight_Fall17V2.root");
+   TFile* file_ele_sf_trig = new TFile("root/sf_ele_2016_trig_v6.root");
 
-   sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
-   sf_ele_eff->SetDirectory(0);
+   sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
+   sf_ele_trig->SetDirectory(0);
 
-   file_ele_sf_eff->Close();
-   delete file_ele_sf_eff;
+   file_ele_sf_trig->Close();
+   delete file_ele_sf_trig;
 
    TFile* file_ele_sf_reco = new TFile("root/sf_ele_2016_EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root");
 
@@ -194,13 +193,14 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_ele_sf_reco->Close();
    delete file_ele_sf_reco;
 
-   TFile* file_ele_sf_trig = new TFile("root/sf_ele_2016_trig_v6.root");
+   //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVA80noiso_Fall17V2.root");
+   TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronTight_Fall17V2.root");
 
-   sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
-   sf_ele_trig->SetDirectory(0);
+   sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
+   sf_ele_eff->SetDirectory(0);
 
-   file_ele_sf_trig->Close();
-   delete file_ele_sf_trig;
+   file_ele_sf_eff->Close();
+   delete file_ele_sf_eff;
 
    TFile* file_muo_sf_trig_1 = new TFile("root/sf_muo_2016_EfficienciesAndSF_RunBtoF.root");
    TFile* file_muo_sf_trig_2 = new TFile("root/sf_muo_2016_EfficienciesAndSF_Period4.root");
@@ -305,14 +305,13 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorMC16_cxx)
 
 #if defined(mainSelectorMC17_cxx)
-   //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronMVA80noiso_Fall17V2.root");
-   TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronTight_Fall17V2.root");
+   TFile* file_ele_sf_trig = new TFile("root/sf_ele_2017_trig_v6.root");
 
-   sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
-   sf_ele_eff->SetDirectory(0);
+   sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
+   sf_ele_trig->SetDirectory(0);
 
-   file_ele_sf_eff->Close();
-   delete file_ele_sf_eff;
+   file_ele_sf_trig->Close();
+   delete file_ele_sf_trig;
 
    TFile* file_ele_sf_reco = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
 
@@ -322,13 +321,14 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_ele_sf_reco->Close();
    delete file_ele_sf_reco;
 
-   TFile* file_ele_sf_trig = new TFile("root/sf_ele_2017_trig_v6.root");
+   //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronMVA80noiso_Fall17V2.root");
+   TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronTight_Fall17V2.root");
 
-   sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
-   sf_ele_trig->SetDirectory(0);
+   sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
+   sf_ele_eff->SetDirectory(0);
 
-   file_ele_sf_trig->Close();
-   delete file_ele_sf_trig;
+   file_ele_sf_eff->Close();
+   delete file_ele_sf_eff;
 
    TFile* file_muo_sf_trig = new TFile("root/sf_muo_2017_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root");
 
@@ -397,14 +397,13 @@ void mainSelector::Begin(TTree * /*tree*/)
 #endif // defined(mainSelectorMC17_cxx)
 
 #if defined(mainSelectorMC18_cxx)
-   //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronMVA80noiso_Fall17V2.root");
-   TFile* file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronTight_Fall17V2.root");
+   TFile* file_ele_sf_trig = new TFile("root/sf_ele_2018_trig_v6.root");
 
-   sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
-   sf_ele_eff->SetDirectory(0);
+   sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
+   sf_ele_trig->SetDirectory(0);
 
-   file_ele_sf_eff->Close();
-   delete file_ele_sf_eff;
+   file_ele_sf_trig->Close();
+   delete file_ele_sf_trig;
 
    TFile* file_ele_sf_reco = new TFile("root/sf_ele_2018_EGM2D_passingRECO.root");
 
@@ -414,13 +413,14 @@ void mainSelector::Begin(TTree * /*tree*/)
    file_ele_sf_reco->Close();
    delete file_ele_sf_reco;
 
-   TFile* file_ele_sf_trig = new TFile("root/sf_ele_2018_trig_v6.root");
+   //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronMVA80noiso_Fall17V2.root");
+   TFile* file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronTight_Fall17V2.root");
 
-   sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
-   sf_ele_trig->SetDirectory(0);
+   sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
+   sf_ele_eff->SetDirectory(0);
 
-   file_ele_sf_trig->Close();
-   delete file_ele_sf_trig;
+   file_ele_sf_eff->Close();
+   delete file_ele_sf_eff;
 
    TFile* file_muo_sf_trig_1 = new TFile("root/sf_muo_2018_EfficienciesAndSF_2018Data_BeforeMuonHLTUpdate.root");
    TFile* file_muo_sf_trig_2 = new TFile("root/sf_muo_2018_EfficienciesAndSF_2018Data_AfterMuonHLTUpdate.root");
@@ -3239,23 +3239,24 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // electron(s) scale factors
 
-   float weight_eff_ele0 = 1.;
-   float weight_reco_ele0 = 1.;
    float weight_trig_ele0 = 1.;
+   float weight_reco_ele0 = 1.;
+   float weight_eff_ele0 = 1.;
 
-   float weight_eff_ele1 = 1.;
-   float weight_reco_ele1 = 1.;
    float weight_trig_ele1 = 1.;
+   float weight_reco_ele1 = 1.;
+   float weight_eff_ele1 = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (iele0 != -1) {
-     weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0]+Electron_deltaEtaSC[iele0], Electron_pt[iele0], (iflag == 40) - (iflag == 45));
-     weight_reco_ele0 = getWeight(sf_ele_reco, Electron_eta[iele0]+Electron_deltaEtaSC[iele0], Electron_pt[iele0], (iflag == 50) - (iflag == 55));
      weight_trig_ele0 = getWeight(sf_ele_trig, Electron_eta[iele0]+Electron_deltaEtaSC[iele0], Electron_pt[iele0], (iflag == 60) - (iflag == 65));
+     weight_reco_ele0 = getWeight(sf_ele_reco, Electron_eta[iele0]+Electron_deltaEtaSC[iele0], Electron_pt[iele0], (iflag == 50) - (iflag == 55));
+     weight_eff_ele0 = getWeight(sf_ele_eff, Electron_eta[iele0]+Electron_deltaEtaSC[iele0], Electron_pt[iele0], (iflag == 40) - (iflag == 45));
    }
    if (iele1 != -1) {
-     weight_eff_ele1 = getWeight(sf_ele_eff, Electron_eta[iele1]+Electron_deltaEtaSC[iele1], Electron_pt[iele1], (iflag == 40) - (iflag == 45));
+     weight_trig_ele1 = 1.;
      weight_reco_ele1 = getWeight(sf_ele_reco, Electron_eta[iele1]+Electron_deltaEtaSC[iele1], Electron_pt[iele1], (iflag == 50) - (iflag == 55));
+     weight_eff_ele1 = getWeight(sf_ele_eff, Electron_eta[iele1]+Electron_deltaEtaSC[iele1], Electron_pt[iele1], (iflag == 40) - (iflag == 45));
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -3267,23 +3268,24 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // electron(s) scale factors QCD
 
-   float weight_eff_ele0_qcd = 1.;
-   float weight_reco_ele0_qcd = 1.;
    float weight_trig_ele0_qcd = 1.;
+   float weight_reco_ele0_qcd = 1.;
+   float weight_eff_ele0_qcd = 1.;
 
-   float weight_eff_ele1_qcd = 1.;
-   float weight_reco_ele1_qcd = 1.;
    float weight_trig_ele1_qcd = 1.;
+   float weight_reco_ele1_qcd = 1.;
+   float weight_eff_ele1_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (iele0_qcd != -1) {
-     weight_eff_ele0_qcd = getWeight(sf_ele_eff, Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd], Electron_pt[iele0_qcd], (iflag == 40) - (iflag == 45));
-     weight_reco_ele0_qcd = getWeight(sf_ele_reco, Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd], Electron_pt[iele0_qcd], (iflag == 50) - (iflag == 55));
      weight_trig_ele0_qcd = getWeight(sf_ele_trig, Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd], Electron_pt[iele0_qcd], (iflag == 60) - (iflag == 65));
+     weight_reco_ele0_qcd = getWeight(sf_ele_reco, Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd], Electron_pt[iele0_qcd], (iflag == 50) - (iflag == 55));
+     weight_eff_ele0_qcd = getWeight(sf_ele_eff, Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd], Electron_pt[iele0_qcd], (iflag == 40) - (iflag == 45));
    }
    if (iele1_qcd != -1) {
-     weight_eff_ele1_qcd = getWeight(sf_ele_eff, Electron_eta[iele1_qcd]+Electron_deltaEtaSC[iele1_qcd], Electron_pt[iele1_qcd], (iflag == 40) - (iflag == 45));
+     weight_trig_ele1_qcd = 1.;
      weight_reco_ele1_qcd = getWeight(sf_ele_reco, Electron_eta[iele1_qcd]+Electron_deltaEtaSC[iele1_qcd], Electron_pt[iele1_qcd], (iflag == 50) - (iflag == 55));
+     weight_eff_ele1_qcd = getWeight(sf_ele_eff, Electron_eta[iele1_qcd]+Electron_deltaEtaSC[iele1_qcd], Electron_pt[iele1_qcd], (iflag == 40) - (iflag == 45));
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -3927,22 +3929,22 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // W scale factors
 
-   float weight_W_ele = weight_gen * weight_pu_ele * weight_eff_ele0 * weight_reco_ele0 * weight_trig_ele0 * weight_hlt_ele;
+   float weight_W_ele = weight_gen * weight_pu_ele * weight_trig_ele0 * weight_reco_ele0 * weight_eff_ele0 * weight_hlt_ele;
    float weight_W_muo = weight_gen * weight_pu_muo * weight_trig_muo0 * weight_id_muo0 * weight_iso_muo0;
 
 // W scale factors QCD
 
-   float weight_W_ele_qcd = weight_gen * weight_pu_ele * weight_eff_ele0_qcd * weight_reco_ele0_qcd * weight_trig_ele0_qcd * weight_hlt_ele_qcd;
+   float weight_W_ele_qcd = weight_gen * weight_pu_ele * weight_trig_ele0_qcd * weight_reco_ele0_qcd * weight_eff_ele0_qcd * weight_hlt_ele_qcd;
    float weight_W_muo_qcd = weight_gen * weight_pu_muo * weight_trig_muo0_qcd * weight_id_muo0_qcd * weight_iso_muo0_qcd;
 
 // Z scale factors
 
-   float weight_Z_ele = weight_gen * weight_pu_ele * weight_eff_ele0 * weight_eff_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_trig_ele0 * weight_trig_ele1 * weight_hlt_ele;
+   float weight_Z_ele = weight_gen * weight_pu_ele * weight_trig_ele0 * weight_trig_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_eff_ele0 * weight_eff_ele1 * weight_hlt_ele;
    float weight_Z_muo = weight_gen * weight_pu_muo * weight_trig_muo0 * weight_trig_muo1 * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
 
 // Z scale factors QCD
 
-   float weight_Z_ele_qcd = weight_gen * weight_pu_ele * weight_eff_ele0_qcd * weight_eff_ele1_qcd * weight_reco_ele0_qcd * weight_reco_ele1_qcd * weight_trig_ele0_qcd * weight_trig_ele1_qcd * weight_hlt_ele_qcd;
+   float weight_Z_ele_qcd = weight_gen * weight_pu_ele * weight_trig_ele0_qcd * weight_trig_ele1_qcd * weight_reco_ele0_qcd * weight_reco_ele1_qcd * weight_eff_ele0_qcd * weight_eff_ele1_qcd * weight_hlt_ele_qcd;
    float weight_Z_muo_qcd = weight_gen * weight_pu_muo * weight_trig_muo0_qcd * weight_trig_muo1_qcd * weight_id_muo0_qcd * weight_id_muo1_qcd * weight_iso_muo0_qcd * weight_iso_muo1_qcd;
 
    float weight_l1prefiring = 1.;
