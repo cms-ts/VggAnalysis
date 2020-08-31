@@ -3863,6 +3863,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    float weight_pho0_iso_qcd = weight_eff_pho0_iso_qcd * weight_reco_pho0_iso_qcd * weight_ele_veto_pho0_iso_qcd * weight_eg_misid_pho0_iso_qcd;
    float weight_pho1_iso_qcd = weight_eff_pho1_iso_qcd * weight_reco_pho1_iso_qcd * weight_ele_veto_pho1_iso_qcd * weight_eg_misid_pho1_iso_qcd;
+
 // photon(s) fake scale factors QCD
 
    float weight_eff_pho0_fake_qcd = 1.;

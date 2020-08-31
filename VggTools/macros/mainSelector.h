@@ -1115,7 +1115,7 @@ public :
    TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf = {fReader, "HLT_Ele32_WPTight_Gsf"};
 
    TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "HLT_IsoMu24"};
-#endif // defined(mainSelectorDT18_h)
+#endif // defined(mainSelectorDT18_h) || defined(mainSelectorMC18_h)
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
    TTreeReaderValue<Float_t> Generator_weight = {fReader, "Generator_weight"};
