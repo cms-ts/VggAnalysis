@@ -1483,7 +1483,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    h_nevt->Fill(0.5);
 
-   float weight_gen = 1.;
+   double weight_gen = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    weight_gen = *Generator_weight;
@@ -1491,8 +1491,8 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    h_nevt->Fill(1.5, weight_gen);
 
-   float weight_pu_ele = 1.;
-   float weight_pu_muo = 1.;
+   double weight_pu_ele = 1.;
+   double weight_pu_muo = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    weight_pu_ele = getWeight(pu_ele_weights, *Pileup_nTrueInt, 0);
@@ -1622,7 +1622,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        muo1_gen.SetPtEtaPhiM(GenDressedLepton_pt[imuo1_gen], GenDressedLepton_eta[imuo1_gen], GenDressedLepton_phi[imuo1_gen], GenDressedLepton_mass[imuo1_gen]);
      }
 
-     float W_ele0_gen_mt = 0.;
+     double W_ele0_gen_mt = 0.;
 
      if (iele0_gen != -1 && iele1_gen == -1 && imuo0_gen == -1) {
        W_ele0_gen_mt = TMath::Sqrt(2. * ele0_gen.Pt() * (*MET_fiducialGenPt) * (1. - TMath::Cos(ele0_gen.Phi() - (*MET_fiducialGenPhi))));
@@ -1631,7 +1631,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-     float W_muo0_gen_mt = 0.;
+     double W_muo0_gen_mt = 0.;
 
      if (imuo0_gen != -1 && imuo1_gen == -1 && iele0_gen == -1) {
        W_muo0_gen_mt = TMath::Sqrt(2. * muo0_gen.Pt() * (*MET_fiducialGenPt) * (1. - TMath::Cos(muo0_gen.Phi() - (*MET_fiducialGenPhi))));
@@ -1640,7 +1640,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-     float Z_ele0_ele1_gen_m = 0.;
+     double Z_ele0_ele1_gen_m = 0.;
 
      if (iele0_gen != -1 && iele1_gen != -1) {
        Z_ele0_ele1_gen_m = (ele0_gen + ele1_gen).M();
@@ -1649,7 +1649,7 @@ Bool_t mainSelector::Process(Long64_t entry)
        }
      }
 
-     float Z_muo0_muo1_gen_m = 0.;
+     double Z_muo0_muo1_gen_m = 0.;
 
      if (imuo0_gen != -1 && imuo1_gen != -1) {
        Z_muo0_muo1_gen_m = (muo0_gen + muo1_gen).M();
@@ -1896,7 +1896,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int iele1 = -1;
 
    for (uint i = 0; i < *nElectron; i++) {
-     float eCorr_ele = 1.;
+     double eCorr_ele = 1.;
      Electron_pt[i] = Electron_pt[i] * eCorr_ele;
      if (Electron_pt[i] < 15) continue;
      if (fabs(Electron_eta[i]+Electron_deltaEtaSC[i]) > 1.442 && fabs(Electron_eta[i]+Electron_deltaEtaSC[i]) < 1.566) continue;
@@ -2015,7 +2015,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int imuo1 = -1;
 
    for (uint i = 0; i < *nMuon; i++) {
-     float eCorr_muo = 1.;
+     double eCorr_muo = 1.;
 #if defined(__linux__)
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
      eCorr_muo = roccor->kScaleDT(Muon_charge[i], Muon_pt[i], Muon_eta[i], Muon_phi[i], 0, 0);
@@ -2130,7 +2130,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    int ipho0_fake = -1;
 
    for (uint i = 0; i < *nPhoton; i++) {
-     float eCorr_pho = 1.;
+     double eCorr_pho = 1.;
      Photon_pt[i] = Photon_pt[i] * eCorr_pho;
      if (Photon_pt[i] < 20) continue;
      if (fabs(Photon_eta[i]) > 1.442 && fabs(Photon_eta[i]) < 1.566) continue;
@@ -2819,19 +2819,19 @@ Bool_t mainSelector::Process(Long64_t entry)
    int n_jets = 0;
    int ijet0 = -1;
 
-   float met_px = *MET_pt * TMath::Cos(*MET_phi);
-   float met_py = *MET_pt * TMath::Sin(*MET_phi);
+   double met_px = *MET_pt * TMath::Cos(*MET_phi);
+   double met_py = *MET_pt * TMath::Sin(*MET_phi);
 
    for (uint i = 0; i < *nJet; i++) {
 
-     float jet_pt_ref = Jet_pt[i];
+     double jet_pt_ref = Jet_pt[i];
 
 #if defined(__linux__)
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorDT17_cxx) || defined(mainSelectorDT18_cxx)
      if (Jet_pt[i] > 10 && fabs(Jet_eta[i]) < 5.2) {
        jet_correction_unc->setJetPt(Jet_pt[i]);
        jet_correction_unc->setJetEta(Jet_eta[i]);
-       float jet_unc = jet_correction_unc->getUncertainty(true);
+       double jet_unc = jet_correction_unc->getUncertainty(true);
 
        int jec_var = 0;
 #if defined(mainSelectorDT16_cxx)
@@ -2879,7 +2879,7 @@ Bool_t mainSelector::Process(Long64_t entry)
      if (iflag == 28) jer_var = Variation::DOWN;
 #endif // defined(mainSelectorMC18_cxx)
 
-     float jet_smear = 1.;
+     double jet_smear = 1.;
      if (jet_match) {
        jet_smear = 1. + (jet_resolution_sf->getScaleFactor(jer_parameters, jer_var) - 1.) * (Jet_pt[i] - GenJet_pt[Jet_genJetIdx[i]]) / Jet_pt[i];
      } else {
@@ -2995,7 +2995,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    bool W_ele_sel = false;
 
-   float W_ele0_mt = 0.;
+   double W_ele0_mt = 0.;
 
    if (iele0 != -1 && iele1 == -1 && imuo0 == -1) {
      if (iflag == 150) {
@@ -3022,7 +3022,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    bool W_ele_sel_qcd = false;
 
-   float W_ele0_mt_qcd = 0.;
+   double W_ele0_mt_qcd = 0.;
 
    if (iele0_qcd != -1 && iele1_qcd == -1 && imuo0_qcd == -1 && iele0 == -1 && imuo0 == -1) {
      if (iflag == 150) {
@@ -3049,7 +3049,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    bool W_muo_sel = false;
 
-   float W_muo0_mt = 0.;
+   double W_muo0_mt = 0.;
 
    if (imuo0 != -1 && imuo1 == -1 && iele0 == -1) {
      if (iflag == 155) {
@@ -3075,7 +3075,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    bool W_muo_sel_qcd = false;
 
-   float W_muo0_mt_qcd = 0.;
+   double W_muo0_mt_qcd = 0.;
 
    if (imuo0_qcd != -1 && imuo1_qcd == -1 && iele0_qcd == -1 && iele0 == -1 && imuo0 == -1) {
      if (iflag == 155) {
@@ -3101,7 +3101,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    bool Z_ele_sel = false;
 
-   float Z_ele0_ele1_m = 0.;
+   double Z_ele0_ele1_m = 0.;
 
    if (iele0 != -1 && iele1 != -1) {
      if (iflag == 150) {
@@ -3130,7 +3130,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    bool Z_ele_sel_qcd = false;
 
-   float Z_ele0_ele1_m_qcd = 0.;
+   double Z_ele0_ele1_m_qcd = 0.;
 
    if (iele0_qcd != -1 && iele1_qcd != -1 && iele0 == -1 && imuo0 == -1) {
      if (iflag == 150) {
@@ -3159,7 +3159,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    bool Z_muo_sel = false;
 
-   float Z_muo0_muo1_m = 0.;
+   double Z_muo0_muo1_m = 0.;
 
    if (imuo0 != -1 && imuo1 != -1) {
      if (iflag == 155) {
@@ -3186,7 +3186,7 @@ Bool_t mainSelector::Process(Long64_t entry)
 
    bool Z_muo_sel_qcd = false;
 
-   float Z_muo0_muo1_m_qcd = 0.;
+   double Z_muo0_muo1_m_qcd = 0.;
 
    if (imuo0_qcd != -1 && imuo1_qcd != -1 && iele0 == -1 && imuo0 == -1) {
      if (iflag == 155) {
@@ -3239,13 +3239,13 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // electron(s) scale factors
 
-   float weight_trig_ele0 = 1.;
-   float weight_reco_ele0 = 1.;
-   float weight_eff_ele0 = 1.;
+   double weight_trig_ele0 = 1.;
+   double weight_reco_ele0 = 1.;
+   double weight_eff_ele0 = 1.;
 
-   float weight_trig_ele1 = 1.;
-   float weight_reco_ele1 = 1.;
-   float weight_eff_ele1 = 1.;
+   double weight_trig_ele1 = 1.;
+   double weight_reco_ele1 = 1.;
+   double weight_eff_ele1 = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (iele0 != -1) {
@@ -3260,7 +3260,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_hlt_ele = 1.;
+   double weight_hlt_ele = 1.;
 
 #if defined(mainSelectorMC17_cxx)
    weight_hlt_ele = 0.991 + ((iflag == 60) - (iflag == 65)) * 0.001;
@@ -3268,13 +3268,13 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // electron(s) scale factors QCD
 
-   float weight_trig_ele0_qcd = 1.;
-   float weight_reco_ele0_qcd = 1.;
-   float weight_eff_ele0_qcd = 1.;
+   double weight_trig_ele0_qcd = 1.;
+   double weight_reco_ele0_qcd = 1.;
+   double weight_eff_ele0_qcd = 1.;
 
-   float weight_trig_ele1_qcd = 1.;
-   float weight_reco_ele1_qcd = 1.;
-   float weight_eff_ele1_qcd = 1.;
+   double weight_trig_ele1_qcd = 1.;
+   double weight_reco_ele1_qcd = 1.;
+   double weight_eff_ele1_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (iele0_qcd != -1) {
@@ -3289,7 +3289,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_hlt_ele_qcd = 1.;
+   double weight_hlt_ele_qcd = 1.;
 
 #if defined(mainSelectorMC17_cxx)
    weight_hlt_ele_qcd = 0.991 + ((iflag == 60) - (iflag == 65)) * 0.001;
@@ -3297,13 +3297,13 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // muon(s) scale factors
 
-   float weight_trig_muo0 = 1.;
-   float weight_id_muo0 = 1.;
-   float weight_iso_muo0 = 1.;
+   double weight_trig_muo0 = 1.;
+   double weight_id_muo0 = 1.;
+   double weight_iso_muo0 = 1.;
 
-   float weight_trig_muo1 = 1.;
-   float weight_id_muo1 = 1.;
-   float weight_iso_muo1 = 1.;
+   double weight_trig_muo1 = 1.;
+   double weight_id_muo1 = 1.;
+   double weight_iso_muo1 = 1.;
 
 #if defined(mainSelectorMC16_cxx)
    if (imuo0 != -1) {
@@ -3330,13 +3330,13 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // muon(s) scale factors QCD
 
-   float weight_trig_muo0_qcd = 1.;
-   float weight_id_muo0_qcd = 1.;
-   float weight_iso_muo0_qcd = 1.;
+   double weight_trig_muo0_qcd = 1.;
+   double weight_id_muo0_qcd = 1.;
+   double weight_iso_muo0_qcd = 1.;
 
-   float weight_trig_muo1_qcd = 1.;
-   float weight_id_muo1_qcd = 1.;
-   float weight_iso_muo1_qcd = 1.;
+   double weight_trig_muo1_qcd = 1.;
+   double weight_id_muo1_qcd = 1.;
+   double weight_iso_muo1_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx)
    if (imuo0_qcd != -1) {
@@ -3363,11 +3363,11 @@ Bool_t mainSelector::Process(Long64_t entry)
 
 // photon(s) scale factors
 
-   float weight_eff_pho0 = 1.;
-   float weight_reco_pho0 = 1.;
+   double weight_eff_pho0 = 1.;
+   double weight_reco_pho0 = 1.;
 
-   float weight_eff_pho1 = 1.;
-   float weight_reco_pho1 = 1.;
+   double weight_eff_pho1 = 1.;
+   double weight_reco_pho1 = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0 != -1) {
@@ -3388,8 +3388,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_ele_veto_pho0 = 1.;
-   float weight_ele_veto_pho1 = 1.;
+   double weight_ele_veto_pho0 = 1.;
+   double weight_ele_veto_pho1 = 1.;
 
 #if defined(mainSelectorMC16_cxx)
    if (ipho0 != -1) {
@@ -3446,8 +3446,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC18_cxx)
 
-   float weight_eg_misid_pho0 = 1.;
-   float weight_eg_misid_pho1 = 1.;
+   double weight_eg_misid_pho0 = 1.;
+   double weight_eg_misid_pho1 = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
@@ -3470,16 +3470,16 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(COMPUTE_EG_MISID)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_pho0 = weight_eff_pho0 * weight_reco_pho0 * weight_ele_veto_pho0 * weight_eg_misid_pho0;
-   float weight_pho1 = weight_eff_pho1 * weight_reco_pho1 * weight_ele_veto_pho1 * weight_eg_misid_pho1;
+   double weight_pho0 = weight_eff_pho0 * weight_reco_pho0 * weight_ele_veto_pho0 * weight_eg_misid_pho0;
+   double weight_pho1 = weight_eff_pho1 * weight_reco_pho1 * weight_ele_veto_pho1 * weight_eg_misid_pho1;
 
 // photon(s) scale factors iso
 
-   float weight_eff_pho0_iso = 1.;
-   float weight_reco_pho0_iso = 1.;
+   double weight_eff_pho0_iso = 1.;
+   double weight_reco_pho0_iso = 1.;
 
-   float weight_eff_pho1_iso = 1.;
-   float weight_reco_pho1_iso = 1.;
+   double weight_eff_pho1_iso = 1.;
+   double weight_reco_pho1_iso = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0_iso != -1) {
@@ -3500,8 +3500,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_ele_veto_pho0_iso = 1.;
-   float weight_ele_veto_pho1_iso = 1.;
+   double weight_ele_veto_pho0_iso = 1.;
+   double weight_ele_veto_pho1_iso = 1.;
 
 #if defined(mainSelectorMC16_cxx)
    if (ipho0_iso != -1) {
@@ -3558,8 +3558,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC18_cxx)
 
-   float weight_eg_misid_pho0_iso = 1.;
-   float weight_eg_misid_pho1_iso = 1.;
+   double weight_eg_misid_pho0_iso = 1.;
+   double weight_eg_misid_pho1_iso = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0_iso != -1) {
@@ -3579,13 +3579,13 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(COMPUTE_EG_MISID)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_pho0_iso = weight_eff_pho0_iso * weight_reco_pho0_iso * weight_ele_veto_pho0_iso * weight_eg_misid_pho0_iso;
-   float weight_pho1_iso = weight_eff_pho1_iso * weight_reco_pho1_iso * weight_ele_veto_pho1_iso * weight_eg_misid_pho1_iso;
+   double weight_pho0_iso = weight_eff_pho0_iso * weight_reco_pho0_iso * weight_ele_veto_pho0_iso * weight_eg_misid_pho0_iso;
+   double weight_pho1_iso = weight_eff_pho1_iso * weight_reco_pho1_iso * weight_ele_veto_pho1_iso * weight_eg_misid_pho1_iso;
 
 // photon(s) fake scale factors
 
-   float weight_eff_pho0_fake = 1.;
-   float weight_reco_pho0_fake = 1.;
+   double weight_eff_pho0_fake = 1.;
+   double weight_reco_pho0_fake = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0_fake != -1) {
@@ -3598,7 +3598,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_ele_veto_pho0_fake = 1.;
+   double weight_ele_veto_pho0_fake = 1.;
 
 #if defined(mainSelectorMC16_cxx)
    if (ipho0_fake != -1) {
@@ -3631,7 +3631,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC18_cxx)
 
-   float weight_eg_misid_pho0_fake = 1.;
+   double weight_eg_misid_pho0_fake = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0_fake != -1) {
@@ -3644,15 +3644,15 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(COMPUTE_EG_MISID)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_pho0_fake = weight_eff_pho0_fake * weight_reco_pho0_fake * weight_ele_veto_pho0_fake * weight_eg_misid_pho0_fake;
+   double weight_pho0_fake = weight_eff_pho0_fake * weight_reco_pho0_fake * weight_ele_veto_pho0_fake * weight_eg_misid_pho0_fake;
 
 // photon(s) scale factors QCD
 
-   float weight_eff_pho0_qcd = 1.;
-   float weight_reco_pho0_qcd = 1.;
+   double weight_eff_pho0_qcd = 1.;
+   double weight_reco_pho0_qcd = 1.;
 
-   float weight_eff_pho1_qcd = 1.;
-   float weight_reco_pho1_qcd = 1.;
+   double weight_eff_pho1_qcd = 1.;
+   double weight_reco_pho1_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0_qcd != -1) {
@@ -3673,8 +3673,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_ele_veto_pho0_qcd = 1.;
-   float weight_ele_veto_pho1_qcd = 1.;
+   double weight_ele_veto_pho0_qcd = 1.;
+   double weight_ele_veto_pho1_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx)
    if (ipho0_qcd != -1) {
@@ -3731,8 +3731,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC18_cxx)
 
-   float weight_eg_misid_pho0_qcd = 1.;
-   float weight_eg_misid_pho1_qcd = 1.;
+   double weight_eg_misid_pho0_qcd = 1.;
+   double weight_eg_misid_pho1_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0_qcd != -1) {
@@ -3752,16 +3752,16 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(COMPUTE_EG_MISID)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_pho0_qcd = weight_eff_pho0_qcd * weight_reco_pho0_qcd * weight_ele_veto_pho0_qcd * weight_eg_misid_pho0_qcd;
-   float weight_pho1_qcd = weight_eff_pho1_qcd * weight_reco_pho1_qcd * weight_ele_veto_pho1_qcd * weight_eg_misid_pho1_qcd;
+   double weight_pho0_qcd = weight_eff_pho0_qcd * weight_reco_pho0_qcd * weight_ele_veto_pho0_qcd * weight_eg_misid_pho0_qcd;
+   double weight_pho1_qcd = weight_eff_pho1_qcd * weight_reco_pho1_qcd * weight_ele_veto_pho1_qcd * weight_eg_misid_pho1_qcd;
 
 // photon(s) scale factors iso qcd
 
-   float weight_eff_pho0_iso_qcd = 1.;
-   float weight_reco_pho0_iso_qcd = 1.;
+   double weight_eff_pho0_iso_qcd = 1.;
+   double weight_reco_pho0_iso_qcd = 1.;
 
-   float weight_eff_pho1_iso_qcd = 1.;
-   float weight_reco_pho1_iso_qcd = 1.;
+   double weight_eff_pho1_iso_qcd = 1.;
+   double weight_reco_pho1_iso_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0_iso_qcd != -1) {
@@ -3782,8 +3782,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_ele_veto_pho0_iso_qcd = 1.;
-   float weight_ele_veto_pho1_iso_qcd = 1.;
+   double weight_ele_veto_pho0_iso_qcd = 1.;
+   double weight_ele_veto_pho1_iso_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx)
    if (ipho0_iso_qcd != -1) {
@@ -3840,8 +3840,8 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC18_cxx)
 
-   float weight_eg_misid_pho0_iso_qcd = 1.;
-   float weight_eg_misid_pho1_iso_qcd = 1.;
+   double weight_eg_misid_pho0_iso_qcd = 1.;
+   double weight_eg_misid_pho1_iso_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0_iso_qcd != -1) {
@@ -3861,13 +3861,13 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(COMPUTE_EG_MISID)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_pho0_iso_qcd = weight_eff_pho0_iso_qcd * weight_reco_pho0_iso_qcd * weight_ele_veto_pho0_iso_qcd * weight_eg_misid_pho0_iso_qcd;
-   float weight_pho1_iso_qcd = weight_eff_pho1_iso_qcd * weight_reco_pho1_iso_qcd * weight_ele_veto_pho1_iso_qcd * weight_eg_misid_pho1_iso_qcd;
+   double weight_pho0_iso_qcd = weight_eff_pho0_iso_qcd * weight_reco_pho0_iso_qcd * weight_ele_veto_pho0_iso_qcd * weight_eg_misid_pho0_iso_qcd;
+   double weight_pho1_iso_qcd = weight_eff_pho1_iso_qcd * weight_reco_pho1_iso_qcd * weight_ele_veto_pho1_iso_qcd * weight_eg_misid_pho1_iso_qcd;
 
 // photon(s) fake scale factors QCD
 
-   float weight_eff_pho0_fake_qcd = 1.;
-   float weight_reco_pho0_fake_qcd = 1.;
+   double weight_eff_pho0_fake_qcd = 1.;
+   double weight_reco_pho0_fake_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0_fake_qcd != -1) {
@@ -3880,7 +3880,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_ele_veto_pho0_fake_qcd = 1.;
+   double weight_ele_veto_pho0_fake_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx)
    if (ipho0_fake_qcd != -1) {
@@ -3913,7 +3913,7 @@ Bool_t mainSelector::Process(Long64_t entry)
    }
 #endif // defined(mainSelectorMC18_cxx)
 
-   float weight_eg_misid_pho0_fake_qcd = 1.;
+   double weight_eg_misid_pho0_fake_qcd = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
    if (ipho0_fake_qcd != -1) {
@@ -3926,29 +3926,29 @@ Bool_t mainSelector::Process(Long64_t entry)
 #endif // defined(COMPUTE_EG_MISID)
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
 
-   float weight_pho0_fake_qcd = weight_eff_pho0_fake_qcd * weight_reco_pho0_fake_qcd * weight_ele_veto_pho0_fake_qcd * weight_eg_misid_pho0_fake_qcd;
+   double weight_pho0_fake_qcd = weight_eff_pho0_fake_qcd * weight_reco_pho0_fake_qcd * weight_ele_veto_pho0_fake_qcd * weight_eg_misid_pho0_fake_qcd;
 
 // W scale factors
 
-   float weight_W_ele = weight_gen * weight_pu_ele * weight_trig_ele0 * weight_reco_ele0 * weight_eff_ele0 * weight_hlt_ele;
-   float weight_W_muo = weight_gen * weight_pu_muo * weight_trig_muo0 * weight_id_muo0 * weight_iso_muo0;
+   double weight_W_ele = weight_gen * weight_pu_ele * weight_trig_ele0 * weight_reco_ele0 * weight_eff_ele0 * weight_hlt_ele;
+   double weight_W_muo = weight_gen * weight_pu_muo * weight_trig_muo0 * weight_id_muo0 * weight_iso_muo0;
 
 // W scale factors QCD
 
-   float weight_W_ele_qcd = weight_gen * weight_pu_ele * weight_trig_ele0_qcd * weight_reco_ele0_qcd * weight_eff_ele0_qcd * weight_hlt_ele_qcd;
-   float weight_W_muo_qcd = weight_gen * weight_pu_muo * weight_trig_muo0_qcd * weight_id_muo0_qcd * weight_iso_muo0_qcd;
+   double weight_W_ele_qcd = weight_gen * weight_pu_ele * weight_trig_ele0_qcd * weight_reco_ele0_qcd * weight_eff_ele0_qcd * weight_hlt_ele_qcd;
+   double weight_W_muo_qcd = weight_gen * weight_pu_muo * weight_trig_muo0_qcd * weight_id_muo0_qcd * weight_iso_muo0_qcd;
 
 // Z scale factors
 
-   float weight_Z_ele = weight_gen * weight_pu_ele * weight_trig_ele0 * weight_trig_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_eff_ele0 * weight_eff_ele1 * weight_hlt_ele;
-   float weight_Z_muo = weight_gen * weight_pu_muo * weight_trig_muo0 * weight_trig_muo1 * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
+   double weight_Z_ele = weight_gen * weight_pu_ele * weight_trig_ele0 * weight_trig_ele1 * weight_reco_ele0 * weight_reco_ele1 * weight_eff_ele0 * weight_eff_ele1 * weight_hlt_ele;
+   double weight_Z_muo = weight_gen * weight_pu_muo * weight_trig_muo0 * weight_trig_muo1 * weight_id_muo0 * weight_id_muo1 * weight_iso_muo0 * weight_iso_muo1;
 
 // Z scale factors QCD
 
-   float weight_Z_ele_qcd = weight_gen * weight_pu_ele * weight_trig_ele0_qcd * weight_trig_ele1_qcd * weight_reco_ele0_qcd * weight_reco_ele1_qcd * weight_eff_ele0_qcd * weight_eff_ele1_qcd * weight_hlt_ele_qcd;
-   float weight_Z_muo_qcd = weight_gen * weight_pu_muo * weight_trig_muo0_qcd * weight_trig_muo1_qcd * weight_id_muo0_qcd * weight_id_muo1_qcd * weight_iso_muo0_qcd * weight_iso_muo1_qcd;
+   double weight_Z_ele_qcd = weight_gen * weight_pu_ele * weight_trig_ele0_qcd * weight_trig_ele1_qcd * weight_reco_ele0_qcd * weight_reco_ele1_qcd * weight_eff_ele0_qcd * weight_eff_ele1_qcd * weight_hlt_ele_qcd;
+   double weight_Z_muo_qcd = weight_gen * weight_pu_muo * weight_trig_muo0_qcd * weight_trig_muo1_qcd * weight_id_muo0_qcd * weight_id_muo1_qcd * weight_iso_muo0_qcd * weight_iso_muo1_qcd;
 
-   float weight_l1prefiring = 1.;
+   double weight_l1prefiring = 1.;
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx)
    weight_l1prefiring = *L1PreFiringWeight_Nom;

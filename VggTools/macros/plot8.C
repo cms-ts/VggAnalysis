@@ -59,15 +59,15 @@ void plot8(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
-  map<string, float> lumiMap;
+  map<string, double> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
 
-  map<string, float> xsecMap;
+  map<string, double> xsecMap;
   readMap("xsec.dat", xsecMap);
   cout << "Read xsec map for " << xsecMap.size() << " datasets from " << "xsec.dat" << endl;
 
-  multimap<string, float> plotMap;
+  multimap<string, double> plotMap;
   if (plot.find("Run2") == string::npos) {
     readMultiMap(plot, plotMap);
   } else {
@@ -84,12 +84,12 @@ void plot8(string plot="", string title="", string version="v00", string options
 
   map<int, TH1D*> histo;
 
-  float lumi = 0.;
-  float lumi2016 = 0.;
-  float lumi2017 = 0.;
-  float lumi2018 = 0.;
+  double lumi = 0.;
+  double lumi2016 = 0.;
+  double lumi2017 = 0.;
+  double lumi2018 = 0.;
 
-  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+  for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
@@ -131,7 +131,7 @@ void plot8(string plot="", string title="", string version="v00", string options
     return;
   }
 
-  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+  for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index > 0) {
       TFile* file = 0;
@@ -186,8 +186,8 @@ void plot8(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) version = version + ".sherpa";
   if (options.find("default") != string::npos) version = version + ".default";
 
-  float fitval = 0.;
-  float fiterr = 0.;
+  double fitval = 0.;
+  double fiterr = 0.;
   int index = 9001;
   ifstream file1;
   if (title.find("h_W_") != string::npos) {

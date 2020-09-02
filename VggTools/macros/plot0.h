@@ -35,14 +35,14 @@ using namespace std;
 #include "TLatex.h"
 #include "TVirtualFitter.h"
 
-void readMap(string myFile, map<string, float> &myMap) {
+void readMap(string myFile, map<string, double> &myMap) {
   ifstream input(myFile.data());
   string line;
   while (getline(input, line)) {
     if (line.length() > 0 && line[0] != '#') {
       istringstream stream(line);
       string key;
-      float val;
+      double val;
       stream >> key >> val;
       myMap[key] = val;
     }
@@ -50,16 +50,16 @@ void readMap(string myFile, map<string, float> &myMap) {
   input.close();
 }
 
-void readMultiMap(string myFile, multimap<string, float> &myMap) {
+void readMultiMap(string myFile, multimap<string, double> &myMap) {
   ifstream input(myFile.data());
   string line;
   while (getline(input, line)) {
     if (line.length() > 0 && line[0] != '#') {
       istringstream stream(line);
       string key;
-      float val;
+      double val;
       stream >> key >> val;
-      myMap.insert(pair<string, float>(key, val));
+      myMap.insert(pair<string, double>(key, val));
     }
   }
   input.close();

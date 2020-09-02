@@ -1206,7 +1206,7 @@ Bool_t mainSelector::Notify()
 }
 
 #if defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
-float getWeight(TH1* h, float x, float y, float var = 0) {
+double getWeight(TH1* h, double x, double y, double var = 0) {
    if (h) {
      if (h->InheritsFrom("TH2")) {
        int binx = max(1, min(h->GetNbinsX(), h->GetXaxis()->FindBin(x)));
@@ -1223,7 +1223,7 @@ float getWeight(TH1* h, float x, float y, float var = 0) {
 #endif // defined(mainSelectorMC16_h) || defined(mainSelectorMC17_h) || defined(mainSelectorMC18_h)
 
 #if defined(mainSelectorMC16_cxx)
-float getWeight(float photon_eta, float photon_r9, float var = 0) {
+double getWeight(double photon_eta, double photon_r9, double var = 0) {
    if (fabs(photon_eta) < 1.442) {
      if (photon_r9 < 0.94) return 1.00479 + var * 0.0164;
      if (photon_r9 >= 0.94) return 0.985097 + var * 0.0086;
@@ -1238,7 +1238,7 @@ float getWeight(float photon_eta, float photon_r9, float var = 0) {
 #endif // defined(mainSelectorMC16_cxx)
 
 #if defined(mainSelectorMC17_cxx)
-float getWeight(float photon_eta, float photon_r9, float var = 0) {
+double getWeight(double photon_eta, double photon_r9, double var = 0) {
    if (fabs(photon_eta) < 1.442) {
      if (photon_r9 < 0.94) return 0.960239 + var * 0.005568;
      if (photon_r9 >= 0.94) return 0.974239 + var * 0.003711;
@@ -1253,7 +1253,7 @@ float getWeight(float photon_eta, float photon_r9, float var = 0) {
 #endif // defined(mainSelectorMC17_cxx)
 
 #if defined(mainSelectorMC18_cxx)
-float getWeight(float photon_eta, float photon_pt, float var = 0) {
+double getWeight(double photon_eta, double photon_pt, double var = 0) {
    if (fabs(photon_eta) < 1.442) {
      if (photon_pt >= 10 && photon_pt < 30) return 0.9619 + var * 0.0044;
      if (photon_pt >= 30 && photon_pt < 60) return 0.9719 + var * 0.0130;

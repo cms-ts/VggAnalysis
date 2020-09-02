@@ -37,15 +37,15 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  map<string, float> lumiMap;
+  map<string, double> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
 
-  map<string, float> xsecMap;
+  map<string, double> xsecMap;
   readMap("xsec.dat", xsecMap);
   cout << "Read xsec map for " << xsecMap.size() << " datasets from " << "xsec.dat" << endl;
 
-  multimap<string, float> plotMap;
+  multimap<string, double> plotMap;
   if (plot.find("Run2") == string::npos) {
     readMultiMap(plot, plotMap);
   } else {
@@ -66,12 +66,12 @@ void plot3(string plot="", string title="", string version="v00", string options
   map<int, TH3D*> histo_mc;
   map<int, TH1D*> histo1_mc;
 
-  float lumi = 0.;
-  float lumi2016 = 0.;
-  float lumi2017 = 0.;
-  float lumi2018 = 0.;
+  double lumi = 0.;
+  double lumi2016 = 0.;
+  double lumi2017 = 0.;
+  double lumi2018 = 0.;
 
-  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+  for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
@@ -85,7 +85,7 @@ void plot3(string plot="", string title="", string version="v00", string options
         return;
       }
       if (lumiMap[it->first] != 0) {
-        float var = (flag == "lumi_up") - (flag == "lumi_down");
+        double var = (flag == "lumi_up") - (flag == "lumi_down");
         lumi = lumi + lumiMap[it->first] * (1.000 + 0.018 * var);
         if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.018 * var);
         if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.018 * var);
@@ -135,7 +135,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     return;
   }
 
-  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+  for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
@@ -187,7 +187,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+  for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
@@ -240,7 +240,7 @@ void plot3(string plot="", string title="", string version="v00", string options
   }
 
   if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
-    for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+    for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
       int index = int(it->second);
       if (index > 0) {
         TFile* file = 0;
@@ -433,9 +433,9 @@ void plot3(string plot="", string title="", string version="v00", string options
       for (int j = 0; j < histo[0]->GetNbinsY() + 2; j++) {
         for (int k = 0; k < histo[0]->GetNbinsZ() + 2; k++) {
           if (histo[0]->GetBinContent(i, j, k) < 0) {
-            float Nb = histo[0]->GetBinContent(i, j, k);
-            float eNb = TMath::Sqrt(TMath::Power(histo_data->GetBinError(i, j, k), 2) + TMath::Power(histo_mc_sum->GetBinError(i, j, k), 2));
-            float eNb0 = eNb != 0. ? eNb * (TMath::ErfcInverse(0.157299 * TMath::Erfc(fabs(Nb / eNb))) - fabs(Nb / eNb)) : 0.;
+            double Nb = histo[0]->GetBinContent(i, j, k);
+            double eNb = TMath::Sqrt(TMath::Power(histo_data->GetBinError(i, j, k), 2) + TMath::Power(histo_mc_sum->GetBinError(i, j, k), 2));
+            double eNb0 = eNb != 0. ? eNb * (TMath::ErfcInverse(0.157299 * TMath::Erfc(fabs(Nb / eNb))) - fabs(Nb / eNb)) : 0.;
 
             histo[0]->SetBinContent(i, j, k, 0.);
             histo[0]->SetBinError(i, j, k, eNb0);

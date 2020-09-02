@@ -39,7 +39,7 @@ void plot1(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
-  multimap<string, float> plotMap;
+  multimap<string, double> plotMap;
   if (plot.find("Run2") == string::npos) {
     readMultiMap(plot, plotMap);
   } else {
@@ -95,7 +95,7 @@ void plot1(string plot="", string title="", string version="v00", string options
   fitter->SetFCN(fcn);
   double arglist[1] = {-1.0};
   fitter->ExecuteCommand("SET PRINT", arglist, 1);
-  float xval = 1.;
+  double xval = 1.;
   if (h_fit2->Integral(0., 40.) != 0) xval = h_fit1->Integral(0., 40.) / h_fit2->Integral(0., 40.);
   fitter->SetParameter(0, "c_qcd", xval, 0.1, 0., 999.);
   fitter->ExecuteCommand("MIGRAD",arglist, 0);

@@ -20,15 +20,15 @@ void plot2(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
-  map<string, float> lumiMap;
+  map<string, double> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
 
-  map<string, float> xsecMap;
+  map<string, double> xsecMap;
   readMap("xsec.dat", xsecMap);
   cout << "Read xsec map for " << xsecMap.size() << " datasets from " << "xsec.dat" << endl;
 
-  multimap<string, float> plotMap;
+  multimap<string, double> plotMap;
   if (plot.find("Run2") == string::npos) {
     readMultiMap(plot, plotMap);
   } else {
@@ -43,12 +43,12 @@ void plot2(string plot="", string title="", string version="v00", string options
     return;
   }
 
-  float lumi = 0.;
-  float lumi2016 = 0.;
-  float lumi2017 = 0.;
-  float lumi2018 = 0.;
+  double lumi = 0.;
+  double lumi2016 = 0.;
+  double lumi2017 = 0.;
+  double lumi2018 = 0.;
 
-  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+  for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
@@ -62,7 +62,7 @@ void plot2(string plot="", string title="", string version="v00", string options
         return;
       }
       if (lumiMap[it->first] != 0) {
-        float var = (flag == "lumi_up") - (flag == "lumi_down");
+        double var = (flag == "lumi_up") - (flag == "lumi_down");
         lumi = lumi + lumiMap[it->first] * (1.000 + 0.018 * var);
         if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.018 * var);
         if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.018 * var);
@@ -84,7 +84,7 @@ void plot2(string plot="", string title="", string version="v00", string options
   TH1D* h2 = 0;
   TH1D* h3 = 0;
 
-  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+  for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index > 0) {
       if (title.find("h_ZGG_") != string::npos && index != 10) continue;

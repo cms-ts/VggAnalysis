@@ -30,11 +30,11 @@ void plot6(string plot="", string title="", string version="v00", string options
   }
 #endif // defined(USE_CATEGORIES)
 
-  map<string, float> lumiMap;
+  map<string, double> lumiMap;
   readMap("lumi.dat", lumiMap);
   cout << "Read lumi map for " << lumiMap.size() << " datasets from " << "lumi.dat" << endl;
 
-  multimap<string, float> plotMap;
+  multimap<string, double> plotMap;
   if (plot.find("Run2") == string::npos) {
     readMultiMap(plot, plotMap);
   } else {
@@ -49,12 +49,12 @@ void plot6(string plot="", string title="", string version="v00", string options
     return;
   }
 
-  float lumi = 0.;
-  float lumi2016 = 0.;
-  float lumi2017 = 0.;
-  float lumi2018 = 0.;
+  double lumi = 0.;
+  double lumi2016 = 0.;
+  double lumi2017 = 0.;
+  double lumi2018 = 0.;
 
-  for (multimap<string, float>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
+  for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
       if (lumiMap[it->first] != 0) {

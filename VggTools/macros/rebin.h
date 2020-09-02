@@ -99,10 +99,10 @@ TH1D* rebin(TH1D* old) {
   TH1D* tmp = new TH1D("tmp", old->GetTitle(), nxb, xbins);
 
   for (int i = 0; i < old->GetXaxis()->GetNbins()+2; i++) {
-    float c1 = old->GetBinContent(i);
-    float e1 = old->GetBinError(i);
-    float c1b = tmp->GetBinContent(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)));
-    float e1b = tmp->GetBinError(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)));
+    double c1 = old->GetBinContent(i);
+    double e1 = old->GetBinError(i);
+    double c1b = tmp->GetBinContent(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)));
+    double e1b = tmp->GetBinError(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)));
     tmp->SetBinContent(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), c1+c1b);
     tmp->SetBinError(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), TMath::Sqrt(e1*e1+e1b*e1b));
   }
@@ -204,10 +204,10 @@ TH2D* rebin(TH2D* old) {
 
   for (int i = 0; i < old->GetXaxis()->GetNbins()+2; i++) {
     for (int j = 0; j < old->GetYaxis()->GetNbins()+2; j++) {
-      float c2 = old->GetBinContent(i, j);
-      float e2 = old->GetBinError(i, j);
-      float c2b = tmp->GetBinContent(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), tmp->GetYaxis()->FindBin(old->GetYaxis()->GetBinCenter(j)));
-      float e2b = tmp->GetBinError(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), tmp->GetYaxis()->FindBin(old->GetYaxis()->GetBinCenter(j)));
+      double c2 = old->GetBinContent(i, j);
+      double e2 = old->GetBinError(i, j);
+      double c2b = tmp->GetBinContent(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), tmp->GetYaxis()->FindBin(old->GetYaxis()->GetBinCenter(j)));
+      double e2b = tmp->GetBinError(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), tmp->GetYaxis()->FindBin(old->GetYaxis()->GetBinCenter(j)));
       tmp->SetBinContent(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), tmp->GetYaxis()->FindBin(old->GetYaxis()->GetBinCenter(j)), c2+c2b);
       tmp->SetBinError(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), tmp->GetYaxis()->FindBin(old->GetYaxis()->GetBinCenter(j)), TMath::Sqrt(e2*e2+e2b*e2b));
     }
@@ -448,10 +448,10 @@ TH3D* rebin(TH3D* old) {
   for (int i = 0; i < old->GetXaxis()->GetNbins()+2; i++) {
     for (int j = 0; j < old->GetYaxis()->GetNbins()+2; j++) {
       for (int k = 0; k < old->GetZaxis()->GetNbins()+2; k++) {
-        float c2 = old->GetBinContent(i, j, k);
-        float e2 = old->GetBinError(i, j, k);
-        float c2b = tmp->GetBinContent(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), tmp->GetYaxis()->FindBin(old->GetYaxis()->GetBinCenter(j)), tmp->GetZaxis()->FindBin(old->GetZaxis()->GetBinCenter(k)));
-        float e2b = tmp->GetBinError(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), tmp->GetYaxis()->FindBin(old->GetYaxis()->GetBinCenter(j)), tmp->GetZaxis()->FindBin(old->GetZaxis()->GetBinCenter(k)));
+        double c2 = old->GetBinContent(i, j, k);
+        double e2 = old->GetBinError(i, j, k);
+        double c2b = tmp->GetBinContent(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), tmp->GetYaxis()->FindBin(old->GetYaxis()->GetBinCenter(j)), tmp->GetZaxis()->FindBin(old->GetZaxis()->GetBinCenter(k)));
+        double e2b = tmp->GetBinError(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), tmp->GetYaxis()->FindBin(old->GetYaxis()->GetBinCenter(j)), tmp->GetZaxis()->FindBin(old->GetZaxis()->GetBinCenter(k)));
         tmp->SetBinContent(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), tmp->GetYaxis()->FindBin(old->GetYaxis()->GetBinCenter(j)), tmp->GetZaxis()->FindBin(old->GetZaxis()->GetBinCenter(k)), c2+c2b);
         tmp->SetBinError(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), tmp->GetYaxis()->FindBin(old->GetYaxis()->GetBinCenter(j)), tmp->GetZaxis()->FindBin(old->GetZaxis()->GetBinCenter(k)), TMath::Sqrt(e2*e2+e2b*e2b));
       }
