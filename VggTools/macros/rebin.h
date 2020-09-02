@@ -16,26 +16,26 @@ TH1D* rebin(TH1D* old) {
 
   string name = old->GetName();
 
-  int nb = 0;
-  float nbins[100];
+  int nxb = 0;
+  int nxbins[100];
 
   if (name.find("_rebin") != string::npos && (name.find("WGG_ele_pho0_pho1_pt") != string::npos || name.find("WGG_muo_pho0_pho1_pt") != string::npos ||
                                               name.find("ZGG_ele_pho0_pho1_pt") != string::npos || name.find("ZGG_muo_pho0_pho1_pt") != string::npos)) {
 
-    nb = 4;
-    nbins[0] = 2;
-    nbins[1] = 2;
-    nbins[2] = 1;
-    nbins[3] = 1;
+    nxb = 4;
+    nxbins[0] = 2;
+    nxbins[1] = 2;
+    nxbins[2] = 1;
+    nxbins[3] = 1;
 
   } else if (name.find("_rebin") != string::npos && (name.find("WGG_ele_pho0_pt") != string::npos || name.find("WGG_muo_pho0_pt") != string::npos ||
                                                      name.find("ZGG_ele_pho0_pt") != string::npos || name.find("ZGG_muo_pho0_pt") != string::npos)) {
 
-    nb = 4;
-    nbins[0] = 1;
-    nbins[1] = 3;
-    nbins[2] = 1;
-    nbins[3] = 1;
+    nxb = 4;
+    nxbins[0] = 1;
+    nxbins[1] = 3;
+    nxbins[2] = 1;
+    nxbins[3] = 1;
 
   } else if (name.find("_rebin") != string::npos && (name.find("WGG_ele_pho1_pt") != string::npos || name.find("WGG_muo_pho1_pt") != string::npos ||
                                                      name.find("ZGG_ele_pho1_pt") != string::npos || name.find("ZGG_muo_pho1_pt") != string::npos)) {
@@ -49,54 +49,54 @@ TH1D* rebin(TH1D* old) {
              name.find("ZGG_ele_pho0_pt") != string::npos || name.find("ZGG_muo_pho0_pt") != string::npos ||
              name.find("ZGG_ele_pho1_pt") != string::npos || name.find("ZGG_muo_pho1_pt") != string::npos) {
 
-    nb = 6;
-    nbins[0] = 1;
-    nbins[1] = 1;
-    nbins[2] = 1;
-    nbins[3] = 1;
-    nbins[4] = 5;
-    nbins[5] = 6;
+    nxb = 6;
+    nxbins[0] = 1;
+    nxbins[1] = 1;
+    nxbins[2] = 1;
+    nxbins[3] = 1;
+    nxbins[4] = 5;
+    nxbins[5] = 6;
 
   } else if (name.find("WG_ele_pho0_pt") != string::npos ||
              name.find("WG_muo_pho0_pt") != string::npos ||
              name.find("ZG_ele_pho0_pt") != string::npos ||
              name.find("ZG_muo_pho0_pt") != string::npos ) {
 
-    nb = 6;
-    nbins[0] = 4;
-    nbins[1] = 4;
-    nbins[2] = 4;
-    nbins[3] = 4;
-    nbins[4] = 20;
-    nbins[5] = 24;
+    nxb = 6;
+    nxbins[0] = 4;
+    nxbins[1] = 4;
+    nxbins[2] = 4;
+    nxbins[3] = 4;
+    nxbins[4] = 20;
+    nxbins[5] = 24;
 
   } else {
     return old;
   }
 
-  if (old->GetNbinsX() == nb) {
+  if (old->GetNbinsX() == nxb) {
     cout << "ERROR: " << name << " already rebinned" << endl;
     return old;
   }
 
-  int n = 0;
-  for (int i = 0; i < nb; i++) {
-    n = n + nbins[i];
+  int nx = 0;
+  for (int i = 0; i < nxb; i++) {
+    nx = nx + nxbins[i];
   }
-  if (n != old->GetNbinsX()) {
-    cout << "ERROR: " << name << " - " << n << " " << old->GetNbinsX() << endl;
+  if (nx != old->GetNbinsX()) {
+    cout << "ERROR: " << name << " - " << nx << " " << old->GetNbinsX() << endl;
     return old;
   }
 
-  int s = 0;
-  const int nbs = nb + 1;
-  double xbins[nbs];
-  for (int i = 0; i < nb + 1; i++) {
-    if (i > 0) s = s + nbins[i - 1];
-    xbins[i] = old->GetXaxis()->GetBinUpEdge(s);
+  int sx = 0;
+  const int nxbs = nxb + 1;
+  double xbins[nxbs];
+  for (int i = 0; i < nxb + 1; i++) {
+    if (i > 0) sx = sx + nxbins[i - 1];
+    xbins[i] = old->GetXaxis()->GetBinUpEdge(sx);
   }
 
-  TH1D* tmp = new TH1D("tmp", old->GetTitle(), nb, xbins);
+  TH1D* tmp = new TH1D("tmp", old->GetTitle(), nxb, xbins);
 
   for (int i = 0; i < old->GetXaxis()->GetNbins()+2; i++) {
     float c1 = old->GetBinContent(i);
@@ -139,9 +139,9 @@ TH2D* rebin(TH2D* old) {
   string name = old->GetName();
 
   int nxb = 0;
-  float nxbins[100];
+  int nxbins[100];
   int nyb = 0;
-  float nybins[100];
+  int nybins[100];
 
   if (name.find("misid") != string::npos) {
 
@@ -282,11 +282,11 @@ TH3D* rebin(TH3D* old) {
   string name = old->GetName();
 
   int nxb = 0;
-  float nxbins[100];
+  int nxbins[100];
   int nyb = 0;
-  float nybins[100];
+  int nybins[100];
   int nzb = 0;
-  float nzbins[100];
+  int nzbins[100];
 
   if (name.find("WGG_ele_pho0_pt_bb") != string::npos || name.find("WGG_muo_pho0_pt_bb") != string::npos ||
       name.find("WGG_ele_pho0_pt_be") != string::npos || name.find("WGG_muo_pho0_pt_be") != string::npos ||
