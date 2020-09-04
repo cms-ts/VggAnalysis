@@ -147,7 +147,7 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
+    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 61 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051 || index == 1061) {
       TFile* file = 0;
       if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_sherpa" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -613,7 +613,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     }
     if (index == 31) {
       histo[index]->SetFillColor(kGreen+3);
-      leg->AddEntry(histo[index], "Diboson #gamma", "f");
+      leg->AddEntry(histo[index], "VV #gamma", "f");
     }
     if (index == 41) {
       histo[index]->SetFillColor(kBlue+2);
@@ -625,7 +625,11 @@ void plot4(string plot="", string title="", string version="v00", string options
     }
     if (index == 51) {
       histo[index]->SetFillColor(kOrange+7);
-      leg->AddEntry(histo[index], "SingleTop #gamma", "f");
+      leg->AddEntry(histo[index], "T #gamma", "f");
+    }
+    if (index == 61) {
+      histo[index]->SetFillColor(kRed+1);
+      leg->AddEntry(histo[index], "#gamma Jets", "f");
     }
 
     if (index == 1010) {
@@ -656,11 +660,15 @@ void plot4(string plot="", string title="", string version="v00", string options
     }
     if (index == 1041) {
       histo[index]->SetFillColor(kOrange+7);
-      leg->AddEntry(histo[index], "SingleTop #gamma", "f");
+      leg->AddEntry(histo[index], "T #gamma", "f");
     }
     if (index == 1051) {
       histo[index]->SetFillColor(kGreen+3);
-      leg->AddEntry(histo[index], "Diboson #gamma", "f");
+      leg->AddEntry(histo[index], "VV #gamma", "f");
+    }
+    if (index == 1061) {
+      histo[index]->SetFillColor(kRed+1);
+      leg->AddEntry(histo[index], "#gamma Jets", "f");
     }
 
     if (index == 8001) {
@@ -679,6 +687,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     h_irred->Add(histo[1032]);
     h_irred->Add(histo[1041]);
     h_irred->Add(histo[1051]);
+    h_irred->Add(histo[1061]);
   }
   if (title.find("h_ZGG_") != string::npos) {
     h_irred->Add(histo[11]);
@@ -687,6 +696,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     h_irred->Add(histo[41]);
     h_irred->Add(histo[42]);
     h_irred->Add(histo[51]);
+    h_irred->Add(histo[61]);
   }
 
   if (options.find("paper") != string::npos) {
@@ -961,6 +971,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     histo[1032]->Write((title + "_ttgg").c_str());
     histo[1041]->Write((title + "_tg").c_str());
     histo[1051]->Write((title + "_vvg").c_str());
+    histo[1061]->Write((title + "_gj").c_str());
     h_irred->Write((title + "_irred").c_str());
   }
   if (title.find("h_ZGG_") != string::npos) {
@@ -971,6 +982,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     histo[41]->Write((title + "_ttg").c_str());
     histo[42]->Write((title + "_ttgg").c_str());
     histo[51]->Write((title + "_tg").c_str());
+    histo[61]->Write((title + "_gj").c_str());
     h_irred->Write((title + "_irred").c_str());
   }
 

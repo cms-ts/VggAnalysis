@@ -137,7 +137,7 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
+    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 61 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051 || index == 1061) {
       TFile* file = 0;
       if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_sherpa" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -189,7 +189,7 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
-    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
+    if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 61 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051 || index == 1061) {
       TFile* file = 0;
       if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_sherpa" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -826,7 +826,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
     if (index == 31) {
       histo1[index]->SetFillColor(kGreen+3);
-      leg->AddEntry(histo1[index], "Diboson #gamma", "f");
+      leg->AddEntry(histo1[index], "VV #gamma", "f");
     }
     if (index == 41) {
       histo1[index]->SetFillColor(kBlue+2);
@@ -838,7 +838,11 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
     if (index == 51) {
       histo1[index]->SetFillColor(kOrange+7);
-      leg->AddEntry(histo1[index], "SingleTop #gamma", "f");
+      leg->AddEntry(histo1[index], "T #gamma", "f");
+    }
+    if (index == 61) {
+      histo1[index]->SetFillColor(kRed+1);
+      leg->AddEntry(histo1[index], "#gamma Jets", "f");
     }
 
     if (index == 1010) {
@@ -854,7 +858,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
     if (index == 1020) {
       histo1[index]->SetFillColor(kOrange);
-      leg->AddEntry(histo1[index], "DYJets", "f");
+      leg->AddEntry(histo1[index], "Z Jets", "f");
     }
     if (index == 1021) {
       if (flag == "jet_misid_sherpa") index = 121;
@@ -875,11 +879,15 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
     if (index == 1041) {
       histo1[index]->SetFillColor(kOrange+7);
-      leg->AddEntry(histo1[index], "SingleTop #gamma", "f");
+      leg->AddEntry(histo1[index], "T #gamma", "f");
     }
     if (index == 1051) {
       histo1[index]->SetFillColor(kGreen+3);
-      leg->AddEntry(histo1[index], "Diboson #gamma", "f");
+      leg->AddEntry(histo1[index], "VV #gamma", "f");
+    }
+    if (index == 1061) {
+      histo1[index]->SetFillColor(kRed+1);
+      leg->AddEntry(histo1[index], "#gamma Jets", "f");
     }
 
     if (index == 8001) {

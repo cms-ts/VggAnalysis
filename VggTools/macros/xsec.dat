@@ -67,6 +67,12 @@ RunIISummer16NanoAODv7_WGToLNuG_TuneCUETP8M1_13TeV-madgraphMLM-pythia8		464.8
 RunIISummer16NanoAODv7_WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8	2.001
 RunIISummer16NanoAODv7_WGGJets_TuneCUETP8M1_13TeV_madgraphMLM_pythia8	1.688
 #
+RunIISummer16NanoAODv7_GJets_HT-40To100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8		18570
+RunIISummer16NanoAODv7_GJets_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8		8601
+RunIISummer16NanoAODv7_GJets_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8		2194.
+RunIISummer16NanoAODv7_GJets_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8		257.8
+RunIISummer16NanoAODv7_GJets_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8		84.92
+#
 # 2017
 #
 RunIIFall17NanoAODv7_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8	6077.22
@@ -129,6 +135,12 @@ RunIIFall17NanoAODv7_WGToLNuG_TuneCP5_13TeV-madgraphMLM-pythia8		464.8
 RunIIFall17NanoAODv7_WGG_5f_TuneCP5_13TeV-amcatnlo-pythia8	2.001
 RunIIFall17NanoAODv7_WGGJets_TuneCP5_13TeV_madgraphMLM_pythia8	1.688
 #
+RunIIFall17NanoAODv7_GJets_HT-40To100_TuneCP5_13TeV-madgraphMLM-pythia8		18570.
+RunIIFall17NanoAODv7_GJets_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8	8601.
+RunIIFall17NanoAODv7_GJets_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8	2194.
+RunIIFall17NanoAODv7_GJets_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8	257.8
+RunIIFall17NanoAODv7_GJets_HT-600ToInf_TuneCP5_13TeV-madgraphMLM-pythia8	84.92
+#
 # 2018
 #
 RunIIAutumn18NanoAODv7_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8	6077.22
@@ -188,6 +200,12 @@ RunIIAutumn18NanoAODv7_WGToLNuG_TuneCP5_13TeV-madgraphMLM-pythia8		464.8
 #
 RunIIAutumn18NanoAODv7_WGG_5f_TuneCP5_13TeV-amcatnlo-pythia8		2.001
 RunIIAutumn18NanoAODv7_WGGJets_TuneCP5_13TeV_madgraphMLM_pythia8	1.688
+#
+RunIIAutumn18NanoAODv7_GJets_HT-40To100_TuneCP5_13TeV-madgraphMLM-pythia8	18570.
+RunIIAutumn18NanoAODv7_GJets_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8	8601.
+RunIIAutumn18NanoAODv7_GJets_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8	2194.
+RunIIAutumn18NanoAODv7_GJets_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8	257.8
+RunIIAutumn18NanoAODv7_GJets_HT-600ToInf_TuneCP5_13TeV-madgraphMLM-pythia8	84.92
 #
 # ZTauTau exclusive samples from Z inclusive samples
 #

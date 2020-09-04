@@ -115,6 +115,8 @@ void plot5(string plot="", string title="", string version="v00", string options
       h_bkg->Add(h6);
       TH1D* h7 = (TH1D*)f1->Get((title + "_vvg").c_str());
       h_bkg->Add(h7);
+      TH1D* h8 = (TH1D*)f1->Get((title + "_gj").c_str());
+      h_bkg->Add(h8);
     }
     if (title.find("h_ZGG_") != string::npos) {
       TH1D* h1 = (TH1D*)f1->Get((title + "_wg").c_str());
@@ -129,6 +131,8 @@ void plot5(string plot="", string title="", string version="v00", string options
       h_bkg->Add(h5);
       TH1D* h6 = (TH1D*)f1->Get((title + "_vvg").c_str());
       h_bkg->Add(h6);
+      TH1D* h7 = (TH1D*)f1->Get((title + "_gj").c_str());
+      h_bkg->Add(h7);
     }
   }
 
@@ -264,6 +268,8 @@ void plot5(string plot="", string title="", string version="v00", string options
         h_bkg_2016->Add(h6);
         TH1D* h7 = (TH1D*)f1_2016->Get((title + "_vvg").c_str());
         h_bkg_2016->Add(h7);
+        TH1D* h8 = (TH1D*)f1_2016->Get((title + "_gj").c_str());
+        h_bkg_2016->Add(h8);
       }
       if (title.find("h_ZGG_") != string::npos) {
         TH1D* h1 = (TH1D*)f1_2016->Get((title + "_wg").c_str());
@@ -278,6 +284,8 @@ void plot5(string plot="", string title="", string version="v00", string options
         h_bkg_2016->Add(h5);
         TH1D* h6 = (TH1D*)f1_2016->Get((title + "_vvg").c_str());
         h_bkg_2016->Add(h6);
+        TH1D* h7 = (TH1D*)f1_2016->Get((title + "_gj").c_str());
+        h_bkg_2016->Add(h7);
       }
     }
 
@@ -297,6 +305,8 @@ void plot5(string plot="", string title="", string version="v00", string options
         h_bkg_2017->Add(h6);
         TH1D* h7 = (TH1D*)f1_2017->Get((title + "_vvg").c_str());
         h_bkg_2017->Add(h7);
+        TH1D* h8 = (TH1D*)f1_2017->Get((title + "_gj").c_str());
+        h_bkg_2017->Add(h8);
       }
       if (title.find("h_ZGG_") != string::npos) {
         TH1D* h1 = (TH1D*)f1_2017->Get((title + "_wg").c_str());
@@ -311,6 +321,8 @@ void plot5(string plot="", string title="", string version="v00", string options
         h_bkg_2017->Add(h5);
         TH1D* h6 = (TH1D*)f1_2017->Get((title + "_vvg").c_str());
         h_bkg_2017->Add(h6);
+        TH1D* h7 = (TH1D*)f1_2017->Get((title + "_gj").c_str());
+        h_bkg_2017->Add(h7);
       }
     }
 
@@ -330,6 +342,8 @@ void plot5(string plot="", string title="", string version="v00", string options
         h_bkg_2018->Add(h6);
         TH1D* h7 = (TH1D*)f1_2018->Get((title + "_vvg").c_str());
         h_bkg_2018->Add(h7);
+        TH1D* h8 = (TH1D*)f1_2018->Get((title + "_gj").c_str());
+        h_bkg_2018->Add(h8);
       }
       if (title.find("h_ZGG_") != string::npos) {
         TH1D* h1 = (TH1D*)f1_2018->Get((title + "_wg").c_str());
@@ -344,6 +358,8 @@ void plot5(string plot="", string title="", string version="v00", string options
         h_bkg_2018->Add(h5);
         TH1D* h6 = (TH1D*)f1_2018->Get((title + "_vvg").c_str());
         h_bkg_2018->Add(h6);
+        TH1D* h7 = (TH1D*)f1_2018->Get((title + "_gj").c_str());
+        h_bkg_2018->Add(h7);
       }
     }
   }

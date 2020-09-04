@@ -285,7 +285,7 @@ void plot0(string plot="", string title="", string version="v00", string options
     }
     if (index == 12) {
       histo[index]->SetFillColor(kYellow-4);
-      leg->AddEntry(histo[index], "DYJets", "f");
+      leg->AddEntry(histo[index], "Z Jets", "f");
     }
     if (index == 13) {
       histo[index]->SetFillColor(kOrange+2);
@@ -293,7 +293,7 @@ void plot0(string plot="", string title="", string version="v00", string options
     }
     if (index == 20) {
       histo[index]->SetFillColor(kOrange);
-      leg->AddEntry(histo[index], "WJets", "f");
+      leg->AddEntry(histo[index], "W Jets", "f");
     }
     if (index == 21) {
       histo[index]->SetFillColor(kOrange-5);
@@ -305,15 +305,15 @@ void plot0(string plot="", string title="", string version="v00", string options
     }
     if (index == 30) {
       histo[index]->SetFillColor(kGreen+2);
-      leg->AddEntry(histo[index], "Diboson", "f");
+      leg->AddEntry(histo[index], "VV", "f");
     }
     if (index == 31) {
       histo[index]->SetFillColor(kGreen+3);
-      leg->AddEntry(histo[index], "Diboson #gamma", "f");
+      leg->AddEntry(histo[index], "VV #gamma", "f");
     }
     if (index == 35) {
       histo[index]->SetFillColor(kGreen+2);
-      leg->AddEntry(histo[index], "Triboson", "f");
+      leg->AddEntry(histo[index], "VVV", "f");
     }
     if (index == 40) {
       histo[index]->SetFillColor(kBlue);
@@ -329,11 +329,15 @@ void plot0(string plot="", string title="", string version="v00", string options
     }
     if (index == 50) {
       histo[index]->SetFillColor(kOrange-3);
-      leg->AddEntry(histo[index], "SingleTop", "f");
+      leg->AddEntry(histo[index], "T", "f");
     }
     if (index == 51) {
       histo[index]->SetFillColor(kOrange+7);
-      leg->AddEntry(histo[index], "SingleTop #gamma", "f");
+      leg->AddEntry(histo[index], "T #gamma", "f");
+    }
+    if (index == 61) {
+      histo[index]->SetFillColor(kRed+1);
+      leg->AddEntry(histo[index], "#gamma Jets", "f");
     }
 
     if (index == 1010) {
@@ -348,7 +352,7 @@ void plot0(string plot="", string title="", string version="v00", string options
     }
     if (index == 1012) {
       histo[index]->SetFillColor(kYellow-4);
-      leg->AddEntry(histo[index], "WJets", "f");
+      leg->AddEntry(histo[index], "W Jets", "f");
     }
     if (index == 1013) {
       histo[index]->SetFillColor(kOrange+2);
@@ -356,7 +360,7 @@ void plot0(string plot="", string title="", string version="v00", string options
     }
     if (index == 1020) {
       histo[index]->SetFillColor(kOrange);
-      leg->AddEntry(histo[index], "DYJets", "f");
+      leg->AddEntry(histo[index], "Z Jets", "f");
     }
     if (index == 1021) {
       histo[index]->SetFillColor(kOrange-5);
@@ -380,23 +384,27 @@ void plot0(string plot="", string title="", string version="v00", string options
     }
     if (index == 1040) {
       histo[index]->SetFillColor(kOrange-3);
-      leg->AddEntry(histo[index], "SingleTop", "f");
+      leg->AddEntry(histo[index], "T", "f");
     }
     if (index == 1041) {
       histo[index]->SetFillColor(kOrange+7);
-      leg->AddEntry(histo[index], "SingleTop #gamma", "f");
+      leg->AddEntry(histo[index], "T #gamma", "f");
     }
     if (index == 1050) {
       histo[index]->SetFillColor(kGreen+2);
-      leg->AddEntry(histo[index], "Diboson", "f");
+      leg->AddEntry(histo[index], "VV", "f");
     }
     if (index == 1051) {
       histo[index]->SetFillColor(kGreen+3);
-      leg->AddEntry(histo[index], "Diboson #gamma", "f");
+      leg->AddEntry(histo[index], "VV #gamma", "f");
     }
     if (index == 1055) {
       histo[index]->SetFillColor(kGreen+2);
-      leg->AddEntry(histo[index], "Triboson", "f");
+      leg->AddEntry(histo[index], "VVV", "f");
+    }
+    if (index == 1061) {
+      histo[index]->SetFillColor(kRed+1);
+      leg->AddEntry(histo[index], "#gamma Jets", "f");
     }
 
     if (index == 9001) {
