@@ -144,6 +144,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   flags.push_back("jet_misid_syst");
   flags.push_back("jet_misid_test");
   flags.push_back("jet_misid_qcd");
+  flags.push_back("jet_misid_sherpa");
 
   flags.push_back("jet_misid_mc");
 
@@ -236,6 +237,7 @@ void plot6(string plot="", string title="", string version="v00", string options
                    flags[i].find("jet_misid_syst") != string::npos ||
                    flags[i].find("jet_misid_test") != string::npos ||
                    flags[i].find("jet_misid_qcd") != string::npos ||
+                   flags[i].find("jet_misid_sherpa") != string::npos ||
                    flags[i].find("jet_misid_mc") != string::npos ||
                    flags[i].find("jet_bkg_mc") != string::npos ||
                    flags[i].find("veto_ele_medium") != string::npos ||
@@ -563,6 +565,15 @@ void plot6(string plot="", string title="", string version="v00", string options
     errors_tot["jet_misid_qcd"] = xval;
   }
 
+  if (h_xsec_rec["jet_misid_sherpa"]) {
+    double xval_stat = 0.;
+    double xval = h_xsec_rec["jet_misid_sherpa"]->IntegralAndError(0, h_xsec_rec["jet_misid_sherpa"]->GetNbinsX()+1, xval_stat, "width");
+    xval = xval - xsec_data_ref;
+    xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(xval_stat, 2) - TMath::Power(xsec_stat_data_ref, 2))));
+    xval = xval / 2.0;
+    errors_tot["jet_misid_sherpa"] = xval;
+  }
+
   if (h_xsec_rec["jet_misid_mc"]) {
     double xval_stat = 0.;
     double xval = h_xsec_rec["jet_misid_mc"]->IntegralAndError(0, h_xsec_rec["jet_misid_mc"]->GetNbinsX()+1, xval_stat, "width");
@@ -853,6 +864,14 @@ void plot6(string plot="", string title="", string version="v00", string options
       errors["jet_misid_qcd"].push_back(xval);
     }
 
+    if (h_xsec_rec["jet_misid_sherpa"]) {
+      double xval = fabs(h_xsec_rec["jet_misid_sherpa"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
+      xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_sherpa"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
+      xval = xval * h_xsec_rec["reference"]->GetBinWidth(i);
+      xval = xval / 2.0;
+      errors["jet_misid_sherpa"].push_back(xval);
+    }
+
     if (h_xsec_rec["jet_misid_mc"]) {
       double xval = fabs(h_xsec_rec["jet_misid_mc"]->GetBinContent(i) - h_xsec_rec["reference"]->GetBinContent(i));
       xval = TMath::Sqrt(TMath::Max(0., TMath::Power(xval, 2) - TMath::Abs(TMath::Power(h_xsec_rec["jet_misid_mc"]->GetBinError(i), 2) - TMath::Power(h_xsec_rec["reference"]->GetBinError(i), 2))));
@@ -933,6 +952,7 @@ void plot6(string plot="", string title="", string version="v00", string options
   if (errors["jet_misid_syst"].size()) labels.push_back("jet_misid_syst");
   if (errors["jet_misid_test"].size()) labels.push_back("jet_misid_test");
   if (errors["jet_misid_qcd"].size()) labels.push_back("jet_misid_qcd");
+  if (errors["jet_misid_sherpa"].size()) labels.push_back("jet_misid_sherpa");
   if (errors["jet_misid_mc"].size()) labels.push_back("jet_misid_mc");
   if (errors["jet_bkg_mc"].size()) labels.push_back("jet_bkg_mc");
   if (errors["qcd_fit"].size()) labels.push_back("qcd_fit");

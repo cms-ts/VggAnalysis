@@ -78,6 +78,7 @@ if [ ! -z "$4" ]; then
     FLAGS=$FLAGS" jet_misid_syst"
     FLAGS=$FLAGS" jet_misid_test"
     FLAGS=$FLAGS" jet_misid_qcd"
+    FLAGS=$FLAGS" jet_misid_sherpa"
 #    FLAGS=$FLAGS" jet_misid_mc"
     FLAGS=$FLAGS" jet_bkg_mc"
     FLAGS=$FLAGS" qcd_fit"
@@ -110,8 +111,6 @@ for YEAR in $YEARS; do
         ./plot3.sh $VERSION $YEAR $OPTION",closure1" $FLAG ; \
         ./plot4.sh $VERSION $YEAR $OPTION",closure1" $FLAG ; \
         ./plot3.sh $VERSION $YEAR $OPTION",closure2" $FLAG ; \
-        ./plot3.sh $VERSION $YEAR $OPTION",validation" $FLAG ; \
-        ./plot4.sh $VERSION $YEAR $OPTION",validation" $FLAG ; \
         ./plot4.sh $VERSION $YEAR $OPTION",paper" $FLAG ; \
         ./plot5.sh $VERSION $YEAR $OPTION $FLAG \
       ) &

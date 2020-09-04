@@ -22,11 +22,11 @@ void plot3(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
-  if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos || options.find("closure2") != string::npos || options.find("validation") != string::npos) {
+  if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos || options.find("closure2") != string::npos) {
     if (flag != "reference") return;
   }
 
-  if (options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
+  if (options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
     if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
       cout << "ERROR: no sherpa sample available for this year !!" << endl;
       return;
@@ -75,7 +75,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_sherpa" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -139,7 +139,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_sherpa" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -191,7 +191,7 @@ void plot3(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_sherpa" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -299,18 +299,18 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  if (options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
+  if (flag == "jet_misid_sherpa" || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
     TFile* file1 = 0;
-    if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+    if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_sherpa" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
       if (year == "2016") file1 = new TFile(("data/" + version + "/reference/RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
-      if (year == "2017") file1 = new TFile(("data/" + version + "/reference/RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
+      if (year == "2017" || year == "2018" || year == "Run2") file1 = new TFile(("data/" + version + "/reference/RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
     } else {
       if (year == "2016") file1 = new TFile(("data/" + version + "/" + flag + "/RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
-      if (year == "2017") file1 = new TFile(("data/" + version + "/" + flag + "/RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
+      if (year == "2017" || year == "2018" || year == "Run2") file1 = new TFile(("data/" + version + "/" + flag + "/RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
     }
     if (file1->IsZombie()) {
       if (year == "2016") cout << "ERROR: file " << "RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root" << " is MISSING !!" << endl;
-      if (year == "2017") cout << "ERROR: file " << "RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root" << " is MISSING !!" << endl;
+      if (year == "2017" || year == "2018" || year == "Run2") cout << "ERROR: file " << "RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root" << " is MISSING !!" << endl;
       return;
     }
     if (options.find("identity1") != string::npos || options.find("closure0") != string::npos) {
@@ -325,7 +325,7 @@ void plot3(string plot="", string title="", string version="v00", string options
         histo_mc[111]->SetDirectory(0);
       }
     }
-    if (options.find("identity1") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
+    if (flag == "jet_misid_sherpa" || options.find("identity1") != string::npos || options.find("closure1") != string::npos) {
       TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
       if (h1) {
         histo1[111] = h1;
@@ -367,9 +367,24 @@ void plot3(string plot="", string title="", string version="v00", string options
     histo1_mc[111]->Scale(histo_mc[11]->Integral()/histo_mc[111]->Integral());
     histo_mc[111]->Scale(histo_mc[11]->Integral()/histo_mc[111]->Integral());
   }
-  if (options.find("identity1") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
+  if (options.find("identity1") != string::npos || options.find("closure1") != string::npos) {
     histo1[111]->Scale(histo[11]->Integral()/histo[111]->Integral());
     histo[111]->Scale(histo[11]->Integral()/histo[111]->Integral());
+  }
+
+  if (flag == "jet_misid_sherpa") {
+    if (title.find("h_WG") != string::npos) {
+      histo1[121] = (TH1D*)histo1[111]->Clone();
+      histo[121] = (TH3D*)histo[111]->Clone();
+      histo1[111]->Scale(histo[1011]->Integral()/histo[111]->Integral());
+      histo[111]->Scale(histo[1011]->Integral()/histo[111]->Integral());
+      histo1[121]->Scale(histo[1021]->Integral()/histo[121]->Integral());
+      histo[121]->Scale(histo[1021]->Integral()/histo[121]->Integral());
+    }
+    if (title.find("h_ZG") != string::npos) {
+      histo1[111]->Scale(histo[11]->Integral()/histo[111]->Integral());
+      histo[111]->Scale(histo[11]->Integral()/histo[111]->Integral());
+    }
   }
 
   int myindex = -1;
@@ -422,7 +437,8 @@ void plot3(string plot="", string title="", string version="v00", string options
   for (map<int, TH3D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
     if (index > 0) {
-      if ((options.find("identity1") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) && index == 11) continue;
+      if ((options.find("identity1") != string::npos || options.find("closure1") != string::npos) && index == 11) continue;
+      if (flag == "jet_misid_sherpa" && (index == 11 || index == 1011 || index == 1021)) continue;
       histo[0]->Add(histo[index], -1);
       histo_mc_sum->Add(histo[index]);
     }
@@ -461,7 +477,6 @@ void plot3(string plot="", string title="", string version="v00", string options
   if (options.find("identity1") != string::npos) title_tmp += "_identity1";
   if (options.find("closure0") != string::npos) title_tmp += "_closure0";
   if (options.find("closure1") != string::npos) title_tmp += "_closure1";
-  if (options.find("validation") != string::npos) title_tmp += "_validation";
 
   double f_corr[6][2] = {0};
 
@@ -760,7 +775,8 @@ void plot3(string plot="", string title="", string version="v00", string options
   for (map<int, TH1D*>::reverse_iterator it = histo1.rbegin(); it != histo1.rend(); it++) {
     int index = int(it->first);
     if (index > 0) {
-      if ((options.find("identity1") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) && index == 11) continue;
+      if ((options.find("identity1") != string::npos || options.find("closure1") != string::npos) && index == 11) continue;
+      if (flag == "jet_misid_sherpa" && (index == 11 || index == 1011 || index == 1021)) continue;
       hstack_mc->Add(histo1[index]);
       h_mc_sum->Add(histo1[index]);
     }
@@ -794,7 +810,8 @@ void plot3(string plot="", string title="", string version="v00", string options
       leg->AddEntry(histo1[index], "Z #gamma #gamma", "f");
     }
     if (index == 11) {
-      if (options.find("identity1") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) index = 111;
+      if (options.find("identity1") != string::npos || options.find("closure1") != string::npos) index = 111;
+      if (flag == "jet_misid_sherpa") index = 111;
       histo1[index]->SetFillColor(kOrange-4);
       histo1[index]->SetFillStyle(3254);
       leg->AddEntry(histo1[index], "Z #gamma", "f");
@@ -830,6 +847,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       leg->AddEntry(histo1[index], "W #gamma #gamma", "f");
     }
     if (index == 1011) {
+      if (flag == "jet_misid_sherpa") index = 111;
       histo1[index]->SetFillColor(kOrange-4);
       histo1[index]->SetFillStyle(3254);
       leg->AddEntry(histo1[index], "W #gamma", "f");
@@ -839,6 +857,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       leg->AddEntry(histo1[index], "DYJets", "f");
     }
     if (index == 1021) {
+      if (flag == "jet_misid_sherpa") index = 121;
       histo1[index]->SetFillColor(kOrange-5);
       leg->AddEntry(histo1[index], "Z #gamma", "f");
     }
@@ -1065,7 +1084,6 @@ void plot3(string plot="", string title="", string version="v00", string options
   if (options.find("identity1") != string::npos) title += "_identity1";
   if (options.find("closure0") != string::npos) title += "_closure0";
   if (options.find("closure1") != string::npos) title += "_closure1";
-  if (options.find("validation") != string::npos) title += "_validation";
   if (options.find("closure2") != string::npos) title += "_closure2";
 
   c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".matrix/" + title + ".pdf").c_str());
@@ -1085,6 +1103,8 @@ void plot3(string plot="", string title="", string version="v00", string options
     cout << "Bias factor       = " << bias_factor << endl;
     cout << "Signal/Bkg MC     = " << histo1[myindex]->Integral()/histo1[0]->Integral() << endl;
     cout << "Signal/Bkg matrix = " << histo1[myindex]->Integral()/histo1[8001]->Integral() << endl;
+
+    cout << "Signal/All MC     = " << histo1[myindex]->Integral()/h_mc_sum->Integral() << endl;
     cout << "+++++++++++++++++++++++++++++++++++++" << endl;
   }
 

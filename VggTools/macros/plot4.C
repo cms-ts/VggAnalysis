@@ -22,11 +22,11 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) plot = "sherpa/" + plot;
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
-  if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
+  if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
     if (flag != "reference") return;
   }
 
-  if (options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos || options.find("validation") != string::npos) {
+  if (options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
     if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
       cout << "ERROR: no sherpa sample available for this year !!" << endl;
       return;
@@ -72,7 +72,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 0) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_sherpa"|| flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -149,7 +149,7 @@ void plot4(string plot="", string title="", string version="v00", string options
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 1010 || index == 1011 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051) {
       TFile* file = 0;
-      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
+      if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_sherpa" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
@@ -272,7 +272,6 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (options.find("identity1") != string::npos) title_tmp += "_identity1";
   if (options.find("closure0") != string::npos) title_tmp += "_closure0";
   if (options.find("closure1") != string::npos) title_tmp += "_closure1";
-  if (options.find("validation") != string::npos) title_tmp += "_validation";
 
   if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
     file_matrix_2016 = 0;
@@ -943,7 +942,6 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (options.find("identity1") != string::npos) title += "_identity1";
   if (options.find("closure0") != string::npos) title += "_closure0";
   if (options.find("closure1") != string::npos) title += "_closure1";
-  if (options.find("validation") != string::npos) title += "_validation";
 
   c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".matrix/" + title + ".pdf").c_str());
 
