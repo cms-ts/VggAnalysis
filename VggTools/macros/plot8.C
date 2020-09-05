@@ -245,8 +245,8 @@ void plot8(string plot="", string title="", string version="v00", string options
   fitter->ExecuteCommand("SET PRINT", arglist, 1);
   double xval1 = 1.;
   double xval2 = 1.;
-  if (histo[myindex1]->Integral(0., histo[myindex1]->GetNbinsX()) != 0) xval1 = histo[0]->Integral(0., histo[0]->GetNbinsX()) / histo[myindex1]->Integral(0., histo[myindex1]->GetNbinsX());
-  if (myindex2 != -1 && histo[myindex2]->Integral(0., histo[myindex2]->GetNbinsX()) != 0) xval2 = histo[0]->Integral(0., histo[0]->GetNbinsX()) / histo[myindex2]->Integral(0., histo[myindex2]->GetNbinsX());
+  if (histo[myindex1]->Integral(0, histo[myindex1]->GetNbinsX()) != 0) xval1 = histo[0]->Integral(0, histo[0]->GetNbinsX()) / histo[myindex1]->Integral(0, histo[myindex1]->GetNbinsX());
+  if (myindex2 != -1 && histo[myindex2]->Integral(0, histo[myindex2]->GetNbinsX()) != 0) xval2 = histo[0]->Integral(0, histo[0]->GetNbinsX()) / histo[myindex2]->Integral(0, histo[myindex2]->GetNbinsX());
   fitter->SetParameter(0, "c1", xval1, 0.1, 0., 999.);
   if (myindex2 != -1) fitter->SetParameter(1, "c2", xval2, 0.1, 0, 999.);
   fitter->ExecuteCommand("MIGRAD", arglist, 0);
