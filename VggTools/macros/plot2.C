@@ -391,14 +391,18 @@ void plot2(string plot="", string title="", string version="v00", string options
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".eff/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".eff/root/").c_str(), kTRUE);
   }
+
   TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".eff/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".eff/root/" + title + ".root").c_str());
+
   h1->Write((title + "_mc_rec").c_str());
   h2->Write((title + "_mc_gen").c_str());
   h3->Write((title + "_mc_genmatch").c_str());
+
   h_mc_eff->Write((title + "_mc_eff").c_str());
   h_mc_eff_genmatch->Write((title + "_mc_eff_genmatch").c_str());
   h_mc_pur->Write((title + "_mc_pur").c_str());
+
   file->Close();
   delete file;
 

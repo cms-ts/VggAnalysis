@@ -820,18 +820,24 @@ void plot8(string plot="", string title="", string version="v00", string options
   while (gSystem->AccessPathName(("html/" + version + "/reference/" + year + "/").c_str())) {
     gSystem->mkdir(("html/" + version + "/reference/" + year + "/").c_str(), kTRUE);
   }
+
   c1->SaveAs(("html/" + version + "/reference/" + year + "/" + title + ".pdf").c_str());
 
   while (gSystem->AccessPathName(("html/" + version + "/reference/" + year + "/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/reference/" + year + "/root/").c_str(), kTRUE);
   }
+
   TFile* file = new TFile(("html/" + version + "/reference/" + year + "/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/reference/" + year + "/root/" + title + ".root").c_str());
+
   if (options.find("nofit") != string::npos) h_qcd->Write(title.c_str());
   if (options.find("nofit") == string::npos) {
     histo[0]->Write((title + "_data").c_str());
     h_bkg->Write((title + "_bkg").c_str());
   }
+
+  file->Close();
+  delete file;
 
 }
 

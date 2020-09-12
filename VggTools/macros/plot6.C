@@ -1416,9 +1416,11 @@ void plot6(string plot="", string title="", string version="v00", string options
 
   TFile* file1 = new TFile(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str());
+
   h_xsec_rec["reference"]->Write((title + "_xsec_rec").c_str());
   h_xsec_mc_gen["reference"]->Write((title + "_xsec_mc_gen").c_str());
   h_xsec_rec_err->Write((title + "_xsec_rec_err").c_str());
+
   file1->Close();
   delete file1;
 
