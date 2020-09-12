@@ -583,100 +583,100 @@ void plot4(string plot="", string title="", string version="v00", string options
   TH1D* h_ratio = (TH1D*)histo[0]->Clone("h_ratio");
   h_ratio->Divide(h_mc_sum);
 
-  TLegend* leg = new TLegend(0.65, 0.44, 0.91, 0.88);
-  leg->SetBorderSize(0);
-  leg->SetEntrySeparation(0.01);
-  leg->SetFillColor(0);
-  leg->SetFillStyle(0);
+  TLegend* legend = new TLegend(0.65, 0.44, 0.91, 0.88);
+  legend->SetBorderSize(0);
+  legend->SetEntrySeparation(0.01);
+  legend->SetFillColor(0);
+  legend->SetFillStyle(0);
 
   for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
 
     if (index == 0) {
-      leg->AddEntry(histo[index], "Data", "p");
+      legend->AddEntry(histo[index], "Data", "p");
     }
 
     if (index == 10) {
       histo[index]->SetFillColor(kOrange+7);
       histo[index]->SetFillStyle(3254);
-      leg->AddEntry(histo[index], "Z #gamma #gamma", "f");
+      legend->AddEntry(histo[index], "Z #gamma #gamma", "f");
     }
     if (index == 11) {
       histo[index]->SetFillColor(kOrange-4);
       histo[index]->SetFillStyle(3254);
-      leg->AddEntry(histo[index], "Z #gamma", "f");
+      legend->AddEntry(histo[index], "Z #gamma", "f");
     }
     if (index == 21) {
       histo[index]->SetFillColor(kOrange-5);
-      leg->AddEntry(histo[index], "W #gamma", "f");
+      legend->AddEntry(histo[index], "W #gamma", "f");
     }
     if (index == 22) {
       histo[index]->SetFillColor(kOrange-6);
-      leg->AddEntry(histo[index], "W #gamma #gamma", "f");
+      legend->AddEntry(histo[index], "W #gamma #gamma", "f");
     }
     if (index == 31) {
       histo[index]->SetFillColor(kGreen+3);
-      leg->AddEntry(histo[index], "VV #gamma", "f");
+      legend->AddEntry(histo[index], "VV #gamma", "f");
     }
     if (index == 41) {
       histo[index]->SetFillColor(kBlue+2);
-      leg->AddEntry(histo[index], "TT #gamma", "f");
+      legend->AddEntry(histo[index], "TT #gamma", "f");
     }
     if (index == 42) {
       histo[index]->SetFillColor(kBlue+3);
-      leg->AddEntry(histo[index], "TT #gamma #gamma", "f");
+      legend->AddEntry(histo[index], "TT #gamma #gamma", "f");
     }
     if (index == 51) {
       histo[index]->SetFillColor(kOrange+7);
-      leg->AddEntry(histo[index], "T #gamma", "f");
+      legend->AddEntry(histo[index], "T #gamma", "f");
     }
     if (index == 61) {
       histo[index]->SetFillColor(kRed+1);
-      leg->AddEntry(histo[index], "#gamma Jets", "f");
+      legend->AddEntry(histo[index], "#gamma Jets", "f");
     }
 
     if (index == 1010) {
       histo[index]->SetFillColor(kOrange+7);
       histo[index]->SetFillStyle(3254);
-      leg->AddEntry(histo[index], "W #gamma #gamma", "f");
+      legend->AddEntry(histo[index], "W #gamma #gamma", "f");
     }
     if (index == 1011) {
       histo[index]->SetFillColor(kOrange-4);
       histo[index]->SetFillStyle(3254);
-      leg->AddEntry(histo[index], "W #gamma", "f");
+      legend->AddEntry(histo[index], "W #gamma", "f");
     }
     if (index == 1021) {
       histo[index]->SetFillColor(kOrange-5);
-      leg->AddEntry(histo[index], "Z #gamma", "f");
+      legend->AddEntry(histo[index], "Z #gamma", "f");
     }
     if (index == 1022) {
       histo[index]->SetFillColor(kOrange-6);
-      leg->AddEntry(histo[index], "Z #gamma #gamma", "f");
+      legend->AddEntry(histo[index], "Z #gamma #gamma", "f");
     }
     if (index == 1031) {
       histo[index]->SetFillColor(kBlue+2);
-      leg->AddEntry(histo[index], "TT #gamma", "f");
+      legend->AddEntry(histo[index], "TT #gamma", "f");
     }
     if (index == 1032) {
       histo[index]->SetFillColor(kBlue+3);
-      leg->AddEntry(histo[index], "TT #gamma #gamma", "f");
+      legend->AddEntry(histo[index], "TT #gamma #gamma", "f");
     }
     if (index == 1041) {
       histo[index]->SetFillColor(kOrange+7);
-      leg->AddEntry(histo[index], "T #gamma", "f");
+      legend->AddEntry(histo[index], "T #gamma", "f");
     }
     if (index == 1051) {
       histo[index]->SetFillColor(kGreen+3);
-      leg->AddEntry(histo[index], "VV #gamma", "f");
+      legend->AddEntry(histo[index], "VV #gamma", "f");
     }
     if (index == 1061) {
       histo[index]->SetFillColor(kRed+1);
-      leg->AddEntry(histo[index], "#gamma Jets", "f");
+      legend->AddEntry(histo[index], "#gamma Jets", "f");
     }
 
     if (index == 8001) {
       histo[index]->SetFillColor(kPink+4);
-      leg->AddEntry(histo[index], "Jet MisID", "f");
+      legend->AddEntry(histo[index], "Jet MisID", "f");
     }
   }
 
@@ -703,11 +703,11 @@ void plot4(string plot="", string title="", string version="v00", string options
   }
 
   if (options.find("paper") != string::npos) {
-    leg->Clear();
+    legend->Clear();
 
     histo[0]->SetLineColor(kBlack);
     histo[0]->SetBinErrorOption(TH1::kPoisson);
-    leg->AddEntry(histo[0], "Data", "p");
+    legend->AddEntry(histo[0], "Data", "p");
 
     if (title.find("h_WGG_") != string::npos) {
       hstack_mc->Add(histo[8001]);
@@ -721,10 +721,10 @@ void plot4(string plot="", string title="", string version="v00", string options
 
       histo[1010]->SetFillColor(kOrange+7);
       histo[1010]->SetFillStyle(3254);
-      leg->AddEntry(histo[1010], "W #gamma #gamma", "f");
+      legend->AddEntry(histo[1010], "W #gamma #gamma", "f");
 
       histo[1021]->SetFillColorAlpha(kOrange, 0.3);
-      leg->AddEntry(histo[1021], "Z #gamma", "f");
+      legend->AddEntry(histo[1021], "Z #gamma", "f");
     }
     if (title.find("h_ZGG_") != string::npos) {
       hstack_mc->Add(histo[8001]);
@@ -736,14 +736,14 @@ void plot4(string plot="", string title="", string version="v00", string options
 
       histo[10]->SetFillColor(kOrange+7);
       histo[10]->SetFillStyle(3254);
-      leg->AddEntry(histo[10], "Z #gamma #gamma", "f");
+      legend->AddEntry(histo[10], "Z #gamma #gamma", "f");
     }
 
     h_irred->SetFillColorAlpha(kGreen+3, 0.5);
-    leg->AddEntry(h_irred, "Others", "f");
+    legend->AddEntry(h_irred, "Others", "f");
 
     histo[8001]->SetFillColor(kPink+4);
-    leg->AddEntry(histo[8001], "Jet MisID", "f");
+    legend->AddEntry(histo[8001], "Jet MisID", "f");
   }
 
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
@@ -779,7 +779,7 @@ void plot4(string plot="", string title="", string version="v00", string options
 
   histo[0]->Draw("EXP0SAMES");
 
-  leg->Draw();
+  legend->Draw();
 
   if (options.find("nolog") == string::npos) {
     if (h_mc_sum->GetMaximum() != 0) pad1->SetLogy();
