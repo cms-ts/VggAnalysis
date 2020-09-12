@@ -1,7 +1,10 @@
 #include "plot0.h"
 #include "rebin.h"
 
+#ifndef CMS_lumi_C
+#define CMS_lumi_C
 #include "CMS_lumi.C"
+#endif
 
 void plot0(string plot="", string title="", string version="v00", string options="", string flag="reference") {
 
@@ -792,6 +795,7 @@ void plot0(string plot="", string title="", string version="v00", string options
 
 }
 
+#ifndef __CLING__
 int main(int argc, char *argv[]) {
 
 #pragma unused (argc)
@@ -804,4 +808,7 @@ cout << "Processing plot0.C(\"" << argv[1] << "\",\""
 
 plot0(argv[1], argv[2], argv[3], argv[4], argv[5]);
 
+return 0;
+
 }
+#endif

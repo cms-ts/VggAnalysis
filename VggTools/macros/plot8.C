@@ -1,13 +1,16 @@
 #include "plot8.h"
 #include "rebin.h"
 
+#ifndef CMS_lumi_C
+#define CMS_lumi_C
 #include "CMS_lumi.C"
+#endif
 
 TH1D* h_data_fit = 0;
 TH1D* h_mc_fit0 = 0;
 TH1D* h_mc_fit1 = 0;
 
-void fcn(int& npar, double* gin, double& fun, double* par, int iflag) {
+void fcn8(int& npar, double* gin, double& fun, double* par, int iflag) {
 
   double chisq = 0.0;
   if (iflag) {};
@@ -240,7 +243,7 @@ void plot8(string plot="", string title="", string version="v00", string options
   TVirtualFitter::SetDefaultFitter("Minuit");
   TVirtualFitter* fitter = 0;
   fitter = TVirtualFitter::Fitter(0, nfits);
-  fitter->SetFCN(fcn);
+  fitter->SetFCN(fcn8);
   double arglist[1] = {-1.0};
   fitter->ExecuteCommand("SET PRINT", arglist, 1);
   double xval1 = 1.;
@@ -832,6 +835,7 @@ void plot8(string plot="", string title="", string version="v00", string options
 
 }
 
+#ifndef __CLING__
 int main(int argc, char *argv[]) {
 
 #pragma unused (argc)
@@ -844,4 +848,6 @@ cout << "Processing plot8.C(\"" << argv[1] << "\",\""
 
 plot8(argv[1], argv[2], argv[3], argv[4], atoi(argv[5]));
 
+return 0;
 }
+#endif

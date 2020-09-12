@@ -1,3 +1,5 @@
+#ifndef plot0_h
+#define plot0_h
 
 #include <fstream>
 #include <sstream>
@@ -65,3 +67,4 @@ void readMultiMap(string myFile, multimap<string, double> &myMap) {
   input.close();
 }
 
+#endif

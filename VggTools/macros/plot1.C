@@ -3,7 +3,7 @@
 TH1D* h_fit1 = 0;
 TH1D* h_fit2 = 0;
 
-void fcn(int& npar, double* gin, double& fun, double* par, int iflag) {
+void fcn1(int& npar, double* gin, double& fun, double* par, int iflag) {
 
   double chisq = 0.0;
   if (npar) {}
@@ -92,7 +92,7 @@ void plot1(string plot="", string title="", string version="v00", string options
 
   TVirtualFitter::SetDefaultFitter("Minuit");
   TVirtualFitter* fitter = TVirtualFitter::Fitter(0, 1);
-  fitter->SetFCN(fcn);
+  fitter->SetFCN(fcn1);
   double arglist[1] = {-1.0};
   fitter->ExecuteCommand("SET PRINT", arglist, 1);
   double xval = 1.;
@@ -146,6 +146,7 @@ void plot1(string plot="", string title="", string version="v00", string options
 
 }
 
+#ifndef __CLING__
 int main(int argc, char *argv[]) {
 
 #pragma unused (argc)
@@ -158,4 +159,7 @@ cout << "Processing plot1.C(\"" << argv[1] << "\",\""
 
 plot1(argv[1], argv[2], argv[3], argv[4], argv[5]);
 
+return 0;
+
 }
+#endif

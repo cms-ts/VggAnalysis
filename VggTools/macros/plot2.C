@@ -1,6 +1,11 @@
 #include "plot2.h"
 #include "rebin.h"
 
+#ifndef CMS_lumi_C
+#define CMS_lumi_C
+#include "CMS_lumi.C"
+#endif
+
 void plot2(string plot="", string title="", string version="v00", string options="", string flag="reference") {
 
   string year = "";
@@ -188,6 +193,7 @@ void plot2(string plot="", string title="", string version="v00", string options
   h_mc_eff_genmatch->Divide(h_mc_eff_genmatch, h2, 1., 1., "B");
   h_mc_pur->Divide(h_mc_pur, h1, 1., 1., "B");
 
+  h_mc_eff->SetTitle("");
   h_mc_eff->SetStats(kFALSE);
   h_mc_eff_genmatch->SetStats(kFALSE);
   h_mc_pur->SetStats(kFALSE);
@@ -212,6 +218,116 @@ void plot2(string plot="", string title="", string version="v00", string options
   h_mc_pur->SetMarkerColor(kGreen+2);
 
   h_mc_pur->Draw("0SAME");
+
+  string tmp_title = title;
+
+  if (tmp_title == "h_WG_ele_pho0_pt" || tmp_title == "h_WG_muo_pho0_pt") {
+    h_mc_eff->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_ZG_ele_pho0_pt" || tmp_title == "h_ZG_muo_pho0_pt") {
+    h_mc_eff->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_eta" || tmp_title == "h_WGG_muo_pho1_eta") {
+    h_mc_eff->GetXaxis()->SetTitle("#eta^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_phi" || tmp_title == "h_WGG_muo_pho1_phi") {
+    h_mc_eff->GetXaxis()->SetTitle("#phi^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_r9" || tmp_title == "h_WGG_muo_pho1_r9") {
+    h_mc_eff->GetXaxis()->SetTitle("R_{9}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho0_sieie" || tmp_title == "h_WGG_muo_pho0_sieie") {
+    h_mc_eff->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_sieie" || tmp_title == "h_WGG_muo_pho1_sieie") {
+    h_mc_eff->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_jet0_dR" || tmp_title == "h_WGG_muo_pho1_jet0_dR") {
+    h_mc_eff->GetXaxis()->SetTitle("#DeltaR^{j#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho0_mva" || tmp_title == "h_WGG_muo_pho0_mva") {
+    h_mc_eff->GetXaxis()->SetTitle("mva^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_mva" || tmp_title == "h_WGG_muo_pho1_mva") {
+    h_mc_eff->GetXaxis()->SetTitle("mva^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_pf_iso_all" || tmp_title == "h_WGG_muo_pf_iso_all") {
+    h_mc_eff->GetXaxis()->SetTitle("Iso_{all}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_pf_iso_chg" || tmp_title == "h_WGG_muo_pf_iso_chg") {
+    h_mc_eff->GetXaxis()->SetTitle("Iso_{chg}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_dR" || tmp_title == "h_WGG_muo_pho1_dR") {
+    h_mc_eff->GetXaxis()->SetTitle("#DeltaR^{l#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho0_pt" || tmp_title == "h_WGG_muo_pho0_pt") {
+    h_mc_eff->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho1_pt" || tmp_title == "h_WGG_muo_pho1_pt") {
+    h_mc_eff->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_WGG_ele_ele0_pt" || tmp_title == "h_WGG_muo_muo0_pt") {
+    h_mc_eff->GetXaxis()->SetTitle("p_{T}^{l}");
+  } else if (tmp_title == "h_WGG_ele_pho0_pho1_dR" || tmp_title == "h_WGG_muo_pho0_pho1_dR") {
+    h_mc_eff->GetXaxis()->SetTitle("#DeltaR^{#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_eta" || tmp_title == "h_ZGG_muo_pho1_eta") {
+    h_mc_eff->GetXaxis()->SetTitle("#eta^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_phi" || tmp_title == "h_ZGG_muo_pho1_phi") {
+    h_mc_eff->GetXaxis()->SetTitle("#phi^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_r9" || tmp_title == "h_ZGG_muo_pho1_r9") {
+    h_mc_eff->GetXaxis()->SetTitle("R_{9}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_sieie" || tmp_title == "h_ZGG_muo_pho0_sieie") {
+    h_mc_eff->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_sieie" || tmp_title == "h_ZGG_muo_pho1_sieie") {
+    h_mc_eff->GetXaxis()->SetTitle("#sigma_{i#etai#eta}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_jet0_dR" || tmp_title == "h_ZGG_muo_pho1_jet0_dR") {
+    h_mc_eff->GetXaxis()->SetTitle("#DeltaR^{j#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_mva" || tmp_title == "h_ZGG_muo_pho0_mva") {
+    h_mc_eff->GetXaxis()->SetTitle("mva^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_mva" || tmp_title == "h_ZGG_muo_pho1_mva") {
+    h_mc_eff->GetXaxis()->SetTitle("mva^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_pf_iso_all" || tmp_title == "h_ZGG_muo_pf_iso_all") {
+    h_mc_eff->GetXaxis()->SetTitle("Iso_{all}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_pf_iso_chg" || tmp_title == "h_ZGG_muo_pf_iso_chg") {
+    h_mc_eff->GetXaxis()->SetTitle("Iso_{chg}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_dR" || tmp_title == "h_ZGG_muo_pho1_dR") {
+    h_mc_eff->GetXaxis()->SetTitle("#DeltaR^{l#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_pt" || tmp_title == "h_ZGG_muo_pho0_pt") {
+    h_mc_eff->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho1_pt" || tmp_title == "h_ZGG_muo_pho1_pt") {
+    h_mc_eff->GetXaxis()->SetTitle("p_{T}^{#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_ele0_pt" || tmp_title == "h_ZGG_muo_muo0_pt") {
+    h_mc_eff->GetXaxis()->SetTitle("p_{T}^{l}");
+  } else if (tmp_title == "h_ZGG_ele_ele1_pt" || tmp_title == "h_ZGG_muo_muo1_pt") {
+    h_mc_eff->GetXaxis()->SetTitle("p_{T}^{l}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_pho1_dR" || tmp_title == "h_ZGG_muo_pho0_pho1_dR") {
+    h_mc_eff->GetXaxis()->SetTitle("#DeltaR^{#gamma#gamma}");
+  } else if (tmp_title == "h_WGG_ele" || tmp_title == "h_WGG_muo") {
+    h_mc_eff->GetXaxis()->SetTitle("M_{T} [GeV]");
+  } else if (tmp_title == "h_ZGG_ele" || tmp_title == "h_ZGG_muo") {
+    h_mc_eff->GetXaxis()->SetTitle("M_{ll} [GeV]");
+  } else if (tmp_title == "h_WGG_ele_pho0_pho1_pt" || tmp_title == "h_WGG_muo_pho0_pho1_pt") {
+    h_mc_eff->GetXaxis()->SetTitle("p_{T}^{#gamma#gamma}");
+  } else if (tmp_title == "h_WGG_ele_pho0_pho1" || tmp_title == "h_WGG_muo_pho0_pho1") {
+    h_mc_eff->GetXaxis()->SetTitle("M^{#gamma#gamma}");
+  } else if (tmp_title == "h_WGG_ele_ele0_pho0" || tmp_title == "h_WGG_muo_muo0_pho0") {
+    h_mc_eff->GetXaxis()->SetTitle("M^{l#gamma}");
+  } else if (tmp_title == "h_WGG_ele_ele0_pho1" || tmp_title == "h_WGG_muo_muo0_pho1") {
+    h_mc_eff->GetXaxis()->SetTitle("M^{l#gamma}");
+  } else if (tmp_title == "h_WGG_ele_ele0_pho0_pho1" || tmp_title == "h_WGG_muo_muo0_pho0_pho1") {
+    h_mc_eff->GetXaxis()->SetTitle("M^{l#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_pho1_pt" || tmp_title == "h_ZGG_muo_pho0_pho1_pt") {
+    h_mc_eff->GetXaxis()->SetTitle("p_{T}^{#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_pho0_pho1" || tmp_title == "h_ZGG_muo_pho0_pho1") {
+    h_mc_eff->GetXaxis()->SetTitle("M^{#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_ele0_pho1" || tmp_title == "h_ZGG_muo_muo0_pho1") {
+    h_mc_eff->GetXaxis()->SetTitle("M^{l#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_ele1_pho1" || tmp_title == "h_ZGG_muo_muo1_pho1") {
+    h_mc_eff->GetXaxis()->SetTitle("M^{l#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_ele0_pho0_pho1" || tmp_title == "h_ZGG_muo_muo0_pho0_pho1") {
+    h_mc_eff->GetXaxis()->SetTitle("M^{l#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_ele1_pho0_pho1" || tmp_title == "h_ZGG_muo_muo1_pho0_pho1") {
+    h_mc_eff->GetXaxis()->SetTitle("M^{l#gamma#gamma}");
+  } else if (tmp_title == "h_ZGG_ele_ele0_ele1_pho0_pho1" || tmp_title == "h_ZGG_muo_muo0_muo1_pho0_pho1") {
+    h_mc_eff->GetXaxis()->SetTitle("M^{ll#gamma#gamma}");
+  } else {
+    tmp_title.erase(0, 2);
+    h_mc_eff->GetXaxis()->SetTitle(tmp_title.c_str());
+  }
+
+  h_mc_eff->GetXaxis()->SetTitleSize(0.04);
+  h_mc_eff->GetXaxis()->SetLabelFont(42);
+  h_mc_eff->GetXaxis()->SetLabelSize(0.03);
+
+  h_mc_eff->GetYaxis()->SetTitle("fraction");
+  h_mc_eff->GetYaxis()->SetTitleSize(0.04);
+  h_mc_eff->GetYaxis()->SetTitleOffset(0.8);
+  h_mc_eff->GetYaxis()->SetLabelSize(0.03);
 
   TLatex* label = new TLatex();
   label->SetTextSize(0.0275);
@@ -243,6 +359,16 @@ void plot2(string plot="", string title="", string version="v00", string options
   sprintf(buff, "< purity > = %6.4f #pm %6.4f", xval, xerr);
   label->SetTextColor(kGreen+2);
   label->DrawLatex(0.50, 0.45, buff);
+
+  writeExtraText = true;
+
+  lumiTextSize = 0.4;
+  cmsTextSize = 0.50;
+
+  lumi_13TeV  = Form("%.1f fb^{-1}", lumi);
+  int iPeriod = 4;
+  int iPos = 0;
+  CMS_lumi(c1, iPeriod, iPos);
 
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".eff/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".eff/").c_str(), kTRUE);
@@ -278,6 +404,7 @@ void plot2(string plot="", string title="", string version="v00", string options
 
 }
 
+#ifndef __CLING__
 int main(int argc, char *argv[]) {
 
 #pragma unused (argc)
@@ -290,4 +417,7 @@ cout << "Processing plot2.C(\"" << argv[1] << "\",\""
 
 plot2(argv[1], argv[2], argv[3], argv[4], argv[5]);
 
+return 0;
+
 }
+#endif

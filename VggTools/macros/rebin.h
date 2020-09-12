@@ -1,3 +1,6 @@
+#ifndef rebin_h
+#define rebin_h
+
 #include "TH1D.h"
 #include "TH2D.h"
 #include "TH3D.h"
@@ -464,3 +467,4 @@ TH3D* rebin(TH3D* old) {
   return tmp;
 }
 
+#endif

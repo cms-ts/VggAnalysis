@@ -201,6 +201,7 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
 
 }
 
+#ifndef __CLING__
 int main(int argc, char *argv[]) {
 
 #pragma unused (argc)
@@ -211,4 +212,7 @@ cout << "Processing run.C(\"" << argv[1] << "\",\""
 
 run(argv[1], argv[2], argv[3]);
 
+return 0;
+
 }
+#endif

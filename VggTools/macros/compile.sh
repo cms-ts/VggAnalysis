@@ -13,7 +13,7 @@ FLAGS="kcO"
 
 if [ ! -z "$1" ]; then
   FLAGS="kcOf"
-  if [ "$1" == "mainSelector" ] || [ "$1" == "auto_pu" ] || [ "$1" == "plot" ]; then
+  if [ "$1" == "mainSelector" ] || [ "$1" == "auto_pu" ] || [ "$1" == "plot" ] || [ "$1" == "exe" ]; then
     OPTION="$1"
   else
     OPTION="force"
@@ -43,7 +43,7 @@ if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "plot" ]; then
   make_lib "plot0.C plot1.C plot2.C plot3.C plot4.C plot5.C plot6.C plot7.C plot8.C"
 fi
 
-exit
+[ "$OPTION" != "exe" ] && exit
 
 make_exe() {
   FILES=$1
@@ -56,7 +56,7 @@ make_exe() {
   done
 }
 
-if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "plot" ]; then
+if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "plot" ] || [ "$OPTION" == "exe" ]; then
   make_exe "plot0.C plot1.C plot2.C plot3.C plot4.C plot5.C plot6.C plot7.C plot8.C"
 fi
 
