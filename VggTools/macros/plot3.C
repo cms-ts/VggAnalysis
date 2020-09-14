@@ -169,7 +169,8 @@ void plot3(string plot="", string title="", string version="v00", string options
       if (histo[index]) {
         TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          h = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+          TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+          h->Add(h1);
         }
         if (h) {
           histo[index]->Add(h, norm);
@@ -177,7 +178,8 @@ void plot3(string plot="", string title="", string version="v00", string options
       } else {
         TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          h = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+          TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+          h->Add(h1);
         }
         if (h) {
           histo[index] = h;
@@ -221,7 +223,8 @@ void plot3(string plot="", string title="", string version="v00", string options
       if (histo3[index]) {
         TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
+          TH3D* h31 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
+          h3->Add(h31);
         }
         if (h3) {
           histo3[index]->Add(h3, norm);
@@ -229,7 +232,8 @@ void plot3(string plot="", string title="", string version="v00", string options
       } else {
         TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
+          TH3D* h31 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
+          h3->Add(h31);
         }
         if (h3) {
           histo3[index] = h3;
