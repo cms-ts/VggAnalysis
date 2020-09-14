@@ -63,29 +63,29 @@ void plot1(string plot="", string title="", string version="v00", string options
   if (options.find("sherpa") != string::npos) version = version + ".sherpa";
   if (options.find("default") != string::npos) version = version + ".default";
 
-  TFile* f1 = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + "_nofit.root").c_str());
-  TFile* f2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+  TFile* file1 = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + "_nofit.root").c_str());
+  TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
 
-  if (f1->IsZombie()) {
-    cout << "ERROR: file " << f1->GetName() << " is MISSING !!" << endl;
+  if (file1->IsZombie()) {
+    cout << "ERROR: file " << file1->GetName() << " is MISSING !!" << endl;
     return;
   }
-  if (f2->IsZombie()) {
-    cout << "ERROR: file " << f2->GetName() << " is MISSING !!" << endl;
+  if (file2->IsZombie()) {
+    cout << "ERROR: file " << file2->GetName() << " is MISSING !!" << endl;
     return;
   }
 
-  TH1D* h1 = (TH1D*)f1->Get((title + "_nofit").c_str());
-  TH1D* h2 = (TH1D*)f2->Get((title + "_qcd_nofit").c_str());
+  TH1D* h1 = (TH1D*)file1->Get((title + "_nofit").c_str());
+  TH1D* h2 = (TH1D*)file2->Get((title + "_qcd_nofit").c_str());
 
   h1->SetDirectory(0);
   h2->SetDirectory(0);
 
-  f1->Close();
-  f2->Close();
+  file1->Close();
+  file2->Close();
 
-  delete f1;
-  delete f2;
+  delete file1;
+  delete file2;
 
   h_fit1 = (TH1D*)h1->Clone("h_fit1");
   h_fit2 = (TH1D*)h2->Clone("h_fit2");

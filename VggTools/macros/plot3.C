@@ -98,12 +98,12 @@ void plot3(string plot="", string title="", string version="v00", string options
       }
 
       if (histo[index]) {
-        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        TH1D* h = (TH1D*)file->Get(title.c_str());
         if (h) {
           histo[index]->Add(h);
         }
       } else {
-        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        TH1D* h = (TH1D*)file->Get(title.c_str());
         if (h) {
           histo[index] = h;
           histo[index]->SetDirectory(0);
@@ -113,12 +113,12 @@ void plot3(string plot="", string title="", string version="v00", string options
         }
       }
       if (histo3[index]) {
-        TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str());
+        TH3D* h3 = (TH3D*)file->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str());
         if (h3) {
           histo3[index]->Add(h3);
         }
       } else {
-        TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str());
+        TH3D* h3 = (TH3D*)file->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str());
         if (h3) {
           histo3[index] = h3;
           histo3[index]->SetDirectory(0);
@@ -127,7 +127,6 @@ void plot3(string plot="", string title="", string version="v00", string options
           return;
         }
       }
-
       file->Close();
       delete file;
     }
@@ -153,7 +152,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       }
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
-        double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
+        double ngen = ((TH1D*)file->Get("h_nevt"))->GetBinContent(2);
         if (it->first.find("RunIISummer16") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2016 / ngen;
         if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
         if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
@@ -167,18 +166,18 @@ void plot3(string plot="", string title="", string version="v00", string options
       }
       if (title.find("h_WG_muo") != string::npos && index == 1020) continue;
       if (histo[index]) {
-        TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        TH1D* h = (TH1D*)file->Get((title + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+          TH1D* h1 = (TH1D*)file->Get((title + "_genmatch2").c_str());
           h->Add(h1);
         }
         if (h) {
           histo[index]->Add(h, norm);
         }
       } else {
-        TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        TH1D* h = (TH1D*)file->Get((title + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+          TH1D* h1 = (TH1D*)file->Get((title + "_genmatch2").c_str());
           h->Add(h1);
         }
         if (h) {
@@ -207,7 +206,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       }
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
-        double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
+        double ngen = ((TH1D*)file->Get("h_nevt"))->GetBinContent(2);
         if (it->first.find("RunIISummer16") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2016 / ngen;
         if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
         if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
@@ -221,18 +220,18 @@ void plot3(string plot="", string title="", string version="v00", string options
       }
       if (title.find("h_WG_muo") != string::npos && index == 1020) continue;
       if (histo3[index]) {
-        TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
+        TH3D* h3 = (TH3D*)file->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          TH3D* h31 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
+          TH3D* h31 = (TH3D*)file->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
           h3->Add(h31);
         }
         if (h3) {
           histo3[index]->Add(h3, norm);
         }
       } else {
-        TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
+        TH3D* h3 = (TH3D*)file->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          TH3D* h31 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
+          TH3D* h31 = (TH3D*)file->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
           h3->Add(h31);
         }
         if (h3) {
@@ -262,7 +261,7 @@ void plot3(string plot="", string title="", string version="v00", string options
         }
         double norm = 1.;
         if (xsecMap[it->first] != 0) {
-          double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
+          double ngen = ((TH1D*)file->Get("h_nevt"))->GetBinContent(2);
           if (it->first.find("RunIISummer16") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2016 / ngen;
           if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
           if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
@@ -275,12 +274,12 @@ void plot3(string plot="", string title="", string version="v00", string options
           return;
         }
         if (histo_mc[index]) {
-          TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+          TH1D* h = (TH1D*)file->Get(title.c_str());
           if (h) {
             histo_mc[index]->Add(h, norm);
           }
         } else {
-          TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+          TH1D* h = (TH1D*)file->Get(title.c_str());
           if (h) {
             histo_mc[index] = h;
             histo_mc[index]->SetDirectory(0);
@@ -288,12 +287,12 @@ void plot3(string plot="", string title="", string version="v00", string options
           }
         }
         if (histo3_mc[index]) {
-          TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
+          TH3D* h3 = (TH3D*)file->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
           if (h3) {
             histo3_mc[index]->Add(h3, norm);
           }
         } else {
-          TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
+          TH3D* h3 = (TH3D*)file->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
           if (h3) {
             histo3_mc[index] = h3;
             histo3_mc[index]->SetDirectory(0);
@@ -307,45 +306,45 @@ void plot3(string plot="", string title="", string version="v00", string options
   }
 
   if (flag == "jet_misid_sherpa" || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
-    TFile* file1 = 0;
+    TFile* file = 0;
     if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_sherpa" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
-      if (year == "2016") file1 = new TFile(("data/" + version + "/reference/RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
-      if (year == "2017" || year == "2018" || year == "Run2") file1 = new TFile(("data/" + version + "/reference/RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
+      if (year == "2016") file = new TFile(("data/" + version + "/reference/RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
+      if (year == "2017" || year == "2018" || year == "Run2") file = new TFile(("data/" + version + "/reference/RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
     } else {
-      if (year == "2016") file1 = new TFile(("data/" + version + "/" + flag + "/RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
-      if (year == "2017" || year == "2018" || year == "Run2") file1 = new TFile(("data/" + version + "/" + flag + "/RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
+      if (year == "2016") file = new TFile(("data/" + version + "/" + flag + "/RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
+      if (year == "2017" || year == "2018" || year == "Run2") file = new TFile(("data/" + version + "/" + flag + "/RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root").c_str());
     }
-    if (file1->IsZombie()) {
+    if (file->IsZombie()) {
       if (year == "2016") cout << "ERROR: file " << "RunIISummer16NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root" << " is MISSING !!" << endl;
       if (year == "2017" || year == "2018" || year == "Run2") cout << "ERROR: file " << "RunIIFall17NanoAODv7_ZGJetsToLLG_012nlo3lo_13TeV-sherpa.root" << " is MISSING !!" << endl;
       return;
     }
     if (options.find("identity1") != string::npos || options.find("closure0") != string::npos) {
-      TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+      TH1D* h = (TH1D*)file->Get(title.c_str());
       if (h) {
         histo_mc[111] = h;
         histo_mc[111]->SetDirectory(0);
       }
-      TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
+      TH3D* h3 = (TH3D*)file->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
       if (h3) {
         histo3_mc[111] = h3;
         histo3_mc[111]->SetDirectory(0);
       }
     }
     if (flag == "jet_misid_sherpa" || options.find("identity1") != string::npos || options.find("closure1") != string::npos) {
-      TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+      TH1D* h = (TH1D*)file->Get((title + "_genmatch").c_str());
       if (h) {
         histo[111] = h;
         histo[111]->SetDirectory(0);
       }
-      TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
+      TH3D* h3 = (TH3D*)file->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
       if (h3) {
         histo3[111] = h3;
         histo3[111]->SetDirectory(0);
       }
     }
-    file1->Close();
-    delete file1;
+    file->Close();
+    delete file;
   }
 
   for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {

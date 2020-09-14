@@ -106,7 +106,7 @@ void plot2(string plot="", string title="", string version="v00", string options
       }
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
-        double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
+        double ngen = ((TH1D*)file->Get("h_nevt"))->GetBinContent(2);
         if (it->first.find("RunIISummer16") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2016 / ngen;
         if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
         if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
@@ -119,12 +119,12 @@ void plot2(string plot="", string title="", string version="v00", string options
         return;
       }
       if (h1) {
-        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        TH1D* h = (TH1D*)file->Get(title.c_str());
         if (h) {
           h1->Add(h, norm);
         }
       } else {
-        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        TH1D* h = (TH1D*)file->Get(title.c_str());
         if (h) {
           h1 = h;
           h1->SetDirectory(0);
@@ -132,12 +132,12 @@ void plot2(string plot="", string title="", string version="v00", string options
         }
       }
       if (h2) {
-        TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
+        TH1D* h = (TH1D*)file->Get((title + "_gen").c_str());
         if (h) {
           h2->Add(h, norm);
         }
       } else {
-        TH1D* h = (TH1D*)gDirectory->Get((title + "_gen").c_str());
+        TH1D* h = (TH1D*)file->Get((title + "_gen").c_str());
         if (h) {
           h2 = h;
           h2->SetDirectory(0);
@@ -145,12 +145,12 @@ void plot2(string plot="", string title="", string version="v00", string options
         }
       }
       if (h3) {
-        TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        TH1D* h = (TH1D*)file->Get((title + "_genmatch").c_str());
         if (h) {
           h3->Add(h, norm);
         }
       } else {
-        TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        TH1D* h = (TH1D*)file->Get((title + "_genmatch").c_str());
         if (h) {
           h3 = h;
           h3->SetDirectory(0);

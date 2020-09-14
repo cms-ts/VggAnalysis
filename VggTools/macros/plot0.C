@@ -91,12 +91,12 @@ void plot0(string plot="", string title="", string version="v00", string options
         cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
       }
       if (histo[index]) {
-        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        TH1D* h = (TH1D*)file->Get(title.c_str());
         if (h) {
           histo[index]->Add(h);
         }
       } else {
-        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        TH1D* h = (TH1D*)file->Get(title.c_str());
         if (h) {
           histo[index] = h;
           histo[index]->SetDirectory(0);
@@ -130,7 +130,7 @@ void plot0(string plot="", string title="", string version="v00", string options
       }
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
-        double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
+        double ngen = ((TH1D*)file->Get("h_nevt"))->GetBinContent(2);
         if (it->first.find("RunIISummer16") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2016 / ngen;
         if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
         if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
@@ -143,12 +143,12 @@ void plot0(string plot="", string title="", string version="v00", string options
         return;
       }
       if (histo[index]) {
-        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        TH1D* h = (TH1D*)file->Get(title.c_str());
         if (h) {
           histo[index]->Add(h, norm);
         }
       } else {
-        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        TH1D* h = (TH1D*)file->Get(title.c_str());
         if (h) {
           histo[index] = h;
           histo[index]->SetDirectory(0);
@@ -207,17 +207,17 @@ void plot0(string plot="", string title="", string version="v00", string options
     if (file1.is_open()) {
       file1 >> fitval >> fiterr;
       file1.close();
-      TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
-      if (!file2->IsZombie()) {
-        histo[index] = (TH1D*)gDirectory->Get((title + "_qcd_nofit").c_str());
+      TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
+      if (!file->IsZombie()) {
+        histo[index] = (TH1D*)file->Get((title + "_qcd_nofit").c_str());
         histo[index]->SetDirectory(0);
         if (flag == "qcd_fit") {
           histo[index]->Scale(fitval + fiterr);
         } else {
           histo[index]->Scale(fitval);
         }
-        file2->Close();
-        delete file2;
+        file->Close();
+        delete file;
       }
     }
   }

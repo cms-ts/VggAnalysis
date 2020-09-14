@@ -94,12 +94,12 @@ void plot4(string plot="", string title="", string version="v00", string options
         cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
       }
       if (histo[index]) {
-        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        TH1D* h = (TH1D*)file->Get(title.c_str());
         if (h) {
           histo[index]->Add(h);
         }
       } else {
-        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        TH1D* h = (TH1D*)file->Get(title.c_str());
         if (h) {
           histo[index] = h;
           histo[index]->SetDirectory(0);
@@ -124,12 +124,12 @@ void plot4(string plot="", string title="", string version="v00", string options
           if (iso_region == 4) iso_string = "ll";
           index_region = 4200 + eta_region*10 + iso_region;
           if (histo3[index_region]) {
-            TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + eta_string + "_" + iso_string).c_str());
+            TH3D* h3 = (TH3D*)file->Get((title + "_" + eta_string + "_" + iso_string).c_str());
             if (h3) {
               histo3[index_region]->Add(h3);
             }
           } else {
-            TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + eta_string + "_" + iso_string).c_str());
+            TH3D* h3 = (TH3D*)file->Get((title + "_" + eta_string + "_" + iso_string).c_str());
             if (h3) {
               histo3[index_region] = h3;
               histo3[index_region]->SetDirectory(0);
@@ -163,7 +163,7 @@ void plot4(string plot="", string title="", string version="v00", string options
       }
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
-        double ngen = ((TH1D*)gDirectory->Get("h_nevt"))->GetBinContent(2);
+        double ngen = ((TH1D*)file->Get("h_nevt"))->GetBinContent(2);
         if (it->first.find("RunIISummer16") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2016 / ngen;
         if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
         if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
@@ -176,18 +176,18 @@ void plot4(string plot="", string title="", string version="v00", string options
         return;
       }
       if (histo[index]) {
-        TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        TH1D* h = (TH1D*)file->Get((title + "_genmatch").c_str());
         if (title.find("h_WGG_ele") != string::npos) {
-          TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+          TH1D* h1 = (TH1D*)file->Get((title + "_genmatch2").c_str());
           h->Add(h1);
         }
         if (h) {
           histo[index]->Add(h, norm);
         }
       } else {
-        TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        TH1D* h = (TH1D*)file->Get((title + "_genmatch").c_str());
         if (title.find("h_WGG_ele") != string::npos) {
-          TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+          TH1D* h1 = (TH1D*)file->Get((title + "_genmatch2").c_str());
           h->Add(h1);
         }
         if (h) {
@@ -213,12 +213,12 @@ void plot4(string plot="", string title="", string version="v00", string options
             if (iso_region == 4) iso_string = "ll";
             index_region = 4200 + eta_region*10 + iso_region;
             if (histo3[-index_region]) {
-              TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + eta_string + "_" + iso_string).c_str());
+              TH3D* h3 = (TH3D*)file->Get((title + "_" + eta_string + "_" + iso_string).c_str());
               if (h3) {
                 histo3[-index_region]->Add(h3, norm);
               }
             } else {
-              TH3D* h3 = (TH3D*)gDirectory->Get((title + "_" + eta_string + "_" + iso_string).c_str());
+              TH3D* h3 = (TH3D*)file->Get((title + "_" + eta_string + "_" + iso_string).c_str());
               if (h3) {
                 histo3[-index_region] = h3;
                 histo3[-index_region]->SetDirectory(0);

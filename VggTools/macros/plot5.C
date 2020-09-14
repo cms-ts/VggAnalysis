@@ -80,79 +80,79 @@ void plot5(string plot="", string title="", string version="v00", string options
 // #define USE_RUN2_AVERAGES
 
 #if defined(USE_RUN2_AVERAGES)
-  TFile* f1 = 0;
+  TFile* file1 = 0;
   if (flag == "jet_bkg_mc") {
-    f1 = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + ".root").c_str());
+    file1 = new TFile(("html/" + version + "/" + flag + "/" + year + "/root/" + title + ".root").c_str());
   } else {
-    f1 = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str());
+    file1 = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str());
   }
-  TFile* f2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".eff/root/" + title + ".root").c_str());
+  TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".eff/root/" + title + ".root").c_str());
 
-  if (f1->IsZombie()) {
-    cout << "ERROR: file " << f1->GetName() << " is MISSING !!" << endl;
+  if (file1->IsZombie()) {
+    cout << "ERROR: file " << file1->GetName() << " is MISSING !!" << endl;
     return;
   }
-  if (f2->IsZombie()) {
-    cout << "ERROR: file " << f2->GetName() << " is MISSING !!" << endl;
+  if (file2->IsZombie()) {
+    cout << "ERROR: file " << file2->GetName() << " is MISSING !!" << endl;
     return;
   }
 
-  TH1D* h_data = (TH1D*)f1->Get((title + "_data").c_str());
+  TH1D* h_data = (TH1D*)file1->Get((title + "_data").c_str());
   TH1D* h_bkg = 0;
   if (flag == "jet_bkg_mc") {
-    h_bkg = (TH1D*)f1->Get((title + "_bkg").c_str());
+    h_bkg = (TH1D*)file1->Get((title + "_bkg").c_str());
   } else {
-    h_bkg = (TH1D*)f1->Get((title + "_misid").c_str());
+    h_bkg = (TH1D*)file1->Get((title + "_misid").c_str());
     if (title.find("h_WGG_") != string::npos) {
-      TH1D* h1 = (TH1D*)f1->Get((title + "_wg").c_str());
+      TH1D* h1 = (TH1D*)file1->Get((title + "_wg").c_str());
       h_bkg->Add(h1);
-      TH1D* h2 = (TH1D*)f1->Get((title + "_zg").c_str());
+      TH1D* h2 = (TH1D*)file1->Get((title + "_zg").c_str());
       h_bkg->Add(h2);
-      TH1D* h3 = (TH1D*)f1->Get((title + "_zgg").c_str());
+      TH1D* h3 = (TH1D*)file1->Get((title + "_zgg").c_str());
       h_bkg->Add(h3);
-      TH1D* h4 = (TH1D*)f1->Get((title + "_ttg").c_str());
+      TH1D* h4 = (TH1D*)file1->Get((title + "_ttg").c_str());
       h_bkg->Add(h4);
-      TH1D* h5 = (TH1D*)f1->Get((title + "_ttgg").c_str());
+      TH1D* h5 = (TH1D*)file1->Get((title + "_ttgg").c_str());
       h_bkg->Add(h5);
-      TH1D* h6 = (TH1D*)f1->Get((title + "_tg").c_str());
+      TH1D* h6 = (TH1D*)file1->Get((title + "_tg").c_str());
       h_bkg->Add(h6);
-      TH1D* h7 = (TH1D*)f1->Get((title + "_vvg").c_str());
+      TH1D* h7 = (TH1D*)file1->Get((title + "_vvg").c_str());
       h_bkg->Add(h7);
-      TH1D* h8 = (TH1D*)f1->Get((title + "_gj").c_str());
+      TH1D* h8 = (TH1D*)file1->Get((title + "_gj").c_str());
       h_bkg->Add(h8);
     }
     if (title.find("h_ZGG_") != string::npos) {
-      TH1D* h1 = (TH1D*)f1->Get((title + "_wg").c_str());
+      TH1D* h1 = (TH1D*)file1->Get((title + "_wg").c_str());
       h_bkg->Add(h1);
-      TH1D* h2 = (TH1D*)f1->Get((title + "_zg").c_str());
+      TH1D* h2 = (TH1D*)file1->Get((title + "_zg").c_str());
       h_bkg->Add(h2);
-      TH1D* h3 = (TH1D*)f1->Get((title + "_ttg").c_str());
+      TH1D* h3 = (TH1D*)file1->Get((title + "_ttg").c_str());
       h_bkg->Add(h3);
-      TH1D* h4 = (TH1D*)f1->Get((title + "_ttgg").c_str());
+      TH1D* h4 = (TH1D*)file1->Get((title + "_ttgg").c_str());
       h_bkg->Add(h4);
-      TH1D* h5 = (TH1D*)f1->Get((title + "_tg").c_str());
+      TH1D* h5 = (TH1D*)file1->Get((title + "_tg").c_str());
       h_bkg->Add(h5);
-      TH1D* h6 = (TH1D*)f1->Get((title + "_vvg").c_str());
+      TH1D* h6 = (TH1D*)file1->Get((title + "_vvg").c_str());
       h_bkg->Add(h6);
-      TH1D* h7 = (TH1D*)f1->Get((title + "_gj").c_str());
+      TH1D* h7 = (TH1D*)file1->Get((title + "_gj").c_str());
       h_bkg->Add(h7);
     }
   }
 
-  TH1D* h_mc_gen = (TH1D*)f2->Get((title + "_mc_gen").c_str());
+  TH1D* h_mc_gen = (TH1D*)file2->Get((title + "_mc_gen").c_str());
 
-  TH1D* h_mc_eff = (TH1D*)f2->Get((title + "_mc_eff_genmatch").c_str());
+  TH1D* h_mc_eff = (TH1D*)file2->Get((title + "_mc_eff_genmatch").c_str());
 
   h_data->SetDirectory(0);
   h_bkg->SetDirectory(0);
   h_mc_gen->SetDirectory(0);
   h_mc_eff->SetDirectory(0);
 
-  f1->Close();
-  f2->Close();
+  file1->Close();
+  file2->Close();
 
-  delete f1;
-  delete f2;
+  delete file1;
+  delete file2;
 
   h_data->Add(h_bkg, -1);
 
@@ -172,58 +172,58 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   h_xsec_mc_gen->Scale(1. / (1000. * lumi), "width");
 #else
-  TFile* f1_2016 = 0;
-  TFile* f2_2016 = 0;
-  TFile* f1_2017 = 0;
-  TFile* f2_2017 = 0;
-  TFile* f1_2018 = 0;
-  TFile* f2_2018 = 0;
+  TFile* file1_2016 = 0;
+  TFile* file2_2016 = 0;
+  TFile* file1_2017 = 0;
+  TFile* file2_2017 = 0;
+  TFile* file1_2018 = 0;
+  TFile* file2_2018 = 0;
 
   if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
     if (flag == "jet_bkg_mc") {
-      f1_2016 = new TFile(("html/" + version + "/" + flag + "/2016/root/" + title + ".root").c_str());
+      file1_2016 = new TFile(("html/" + version + "/" + flag + "/2016/root/" + title + ".root").c_str());
     } else {
-      f1_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/" + title + ".root").c_str());
+      file1_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/" + title + ".root").c_str());
     }
-    if (f1_2016->IsZombie()) {
-      cout << "ERROR: file " << f1_2016->GetName() << " is MISSING !!" << endl;
+    if (file1_2016->IsZombie()) {
+      cout << "ERROR: file " << file1_2016->GetName() << " is MISSING !!" << endl;
       return;
     }
-    f2_2016 = new TFile(("html/" + version + "/" + flag + "/2016.eff/root/" + title + ".root").c_str());
-    if (f2_2016->IsZombie()) {
-      cout << "ERROR: file " << f2_2016->GetName() << " is MISSING !!" << endl;
+    file2_2016 = new TFile(("html/" + version + "/" + flag + "/2016.eff/root/" + title + ".root").c_str());
+    if (file2_2016->IsZombie()) {
+      cout << "ERROR: file " << file2_2016->GetName() << " is MISSING !!" << endl;
       return;
     }
   }
   if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
     if (flag == "jet_bkg_mc") {
-      f1_2017 = new TFile(("html/" + version + "/" + flag + "/2017/root/" + title + ".root").c_str());
+      file1_2017 = new TFile(("html/" + version + "/" + flag + "/2017/root/" + title + ".root").c_str());
     } else {
-      f1_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/" + title + ".root").c_str());
+      file1_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/" + title + ".root").c_str());
     }
-    if (f1_2017->IsZombie()) {
-      cout << "ERROR: file " << f1_2017->GetName() << " is MISSING !!" << endl;
+    if (file1_2017->IsZombie()) {
+      cout << "ERROR: file " << file1_2017->GetName() << " is MISSING !!" << endl;
       return;
     }
-    f2_2017 = new TFile(("html/" + version + "/" + flag + "/2017.eff/root/" + title + ".root").c_str());
-    if (f2_2017->IsZombie()) {
-      cout << "ERROR: file " << f2_2017->GetName() << " is MISSING !!" << endl;
+    file2_2017 = new TFile(("html/" + version + "/" + flag + "/2017.eff/root/" + title + ".root").c_str());
+    if (file2_2017->IsZombie()) {
+      cout << "ERROR: file " << file2_2017->GetName() << " is MISSING !!" << endl;
       return;
     }
   }
   if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
     if (flag == "jet_bkg_mc") {
-      f1_2018 = new TFile(("html/" + version + "/" + flag + "/2018/root/" + title + ".root").c_str());
+      file1_2018 = new TFile(("html/" + version + "/" + flag + "/2018/root/" + title + ".root").c_str());
     } else {
-      f1_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/" + title + ".root").c_str());
+      file1_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/" + title + ".root").c_str());
     }
-    if (f1_2018->IsZombie()) {
-      cout << "ERROR: file " << f1_2018->GetName() << " is MISSING !!" << endl;
+    if (file1_2018->IsZombie()) {
+      cout << "ERROR: file " << file1_2018->GetName() << " is MISSING !!" << endl;
       return;
     }
-    f2_2018 = new TFile(("html/" + version + "/" + flag + "/2018.eff/root/" + title + ".root").c_str());
-    if (f2_2018->IsZombie()) {
-      cout << "ERROR: file " << f2_2018->GetName() << " is MISSING !!" << endl;
+    file2_2018 = new TFile(("html/" + version + "/" + flag + "/2018.eff/root/" + title + ".root").c_str());
+    if (file2_2018->IsZombie()) {
+      cout << "ERROR: file " << file2_2018->GetName() << " is MISSING !!" << endl;
       return;
     }
   }
@@ -232,136 +232,136 @@ void plot5(string plot="", string title="", string version="v00", string options
   TH1D* h_data_2017 = 0;
   TH1D* h_data_2018 = 0;
 
-  if (f1_2016) h_data_2016 = (TH1D*)f1_2016->Get((title + "_data").c_str());
-  if (f1_2017) h_data_2017 = (TH1D*)f1_2017->Get((title + "_data").c_str());
-  if (f1_2018) h_data_2018 = (TH1D*)f1_2018->Get((title + "_data").c_str());
+  if (file1_2016) h_data_2016 = (TH1D*)file1_2016->Get((title + "_data").c_str());
+  if (file1_2017) h_data_2017 = (TH1D*)file1_2017->Get((title + "_data").c_str());
+  if (file1_2018) h_data_2018 = (TH1D*)file1_2018->Get((title + "_data").c_str());
 
   TH1D* h_bkg_2016 = 0;
   TH1D* h_bkg_2017 = 0;
   TH1D* h_bkg_2018 = 0;
 
   if (flag == "jet_bkg_mc") {
-    if (f1_2016) h_bkg_2016 = (TH1D*)f1_2016->Get((title + "_bkg").c_str());
-    if (f1_2017) h_bkg_2017 = (TH1D*)f1_2017->Get((title + "_bkg").c_str());
-    if (f1_2018) h_bkg_2018 = (TH1D*)f1_2018->Get((title + "_bkg").c_str());
+    if (file1_2016) h_bkg_2016 = (TH1D*)file1_2016->Get((title + "_bkg").c_str());
+    if (file1_2017) h_bkg_2017 = (TH1D*)file1_2017->Get((title + "_bkg").c_str());
+    if (file1_2018) h_bkg_2018 = (TH1D*)file1_2018->Get((title + "_bkg").c_str());
   } else {
-    if (f1_2016) {
-      h_bkg_2016 = (TH1D*)f1_2016->Get((title + "_misid").c_str());
+    if (file1_2016) {
+      h_bkg_2016 = (TH1D*)file1_2016->Get((title + "_misid").c_str());
     }
-    if (f1_2017) {
-      h_bkg_2017 = (TH1D*)f1_2017->Get((title + "_misid").c_str());
+    if (file1_2017) {
+      h_bkg_2017 = (TH1D*)file1_2017->Get((title + "_misid").c_str());
     }
-    if (f1_2018) {
-      h_bkg_2018 = (TH1D*)f1_2018->Get((title + "_misid").c_str());
+    if (file1_2018) {
+      h_bkg_2018 = (TH1D*)file1_2018->Get((title + "_misid").c_str());
     }
 
-    if (f1_2016) {
+    if (file1_2016) {
       if (title.find("h_WGG_") != string::npos) {
-        TH1D* h1 = (TH1D*)f1_2016->Get((title + "_wg").c_str());
+        TH1D* h1 = (TH1D*)file1_2016->Get((title + "_wg").c_str());
         h_bkg_2016->Add(h1);
-        TH1D* h2 = (TH1D*)f1_2016->Get((title + "_zg").c_str());
+        TH1D* h2 = (TH1D*)file1_2016->Get((title + "_zg").c_str());
         h_bkg_2016->Add(h2);
-        TH1D* h3 = (TH1D*)f1_2016->Get((title + "_zgg").c_str());
+        TH1D* h3 = (TH1D*)file1_2016->Get((title + "_zgg").c_str());
         h_bkg_2016->Add(h3);
-        TH1D* h4 = (TH1D*)f1_2016->Get((title + "_ttg").c_str());
+        TH1D* h4 = (TH1D*)file1_2016->Get((title + "_ttg").c_str());
         h_bkg_2016->Add(h4);
-        TH1D* h5 = (TH1D*)f1_2016->Get((title + "_ttgg").c_str());
+        TH1D* h5 = (TH1D*)file1_2016->Get((title + "_ttgg").c_str());
         h_bkg_2016->Add(h5);
-        TH1D* h6 = (TH1D*)f1_2016->Get((title + "_tg").c_str());
+        TH1D* h6 = (TH1D*)file1_2016->Get((title + "_tg").c_str());
         h_bkg_2016->Add(h6);
-        TH1D* h7 = (TH1D*)f1_2016->Get((title + "_vvg").c_str());
+        TH1D* h7 = (TH1D*)file1_2016->Get((title + "_vvg").c_str());
         h_bkg_2016->Add(h7);
-        TH1D* h8 = (TH1D*)f1_2016->Get((title + "_gj").c_str());
+        TH1D* h8 = (TH1D*)file1_2016->Get((title + "_gj").c_str());
         h_bkg_2016->Add(h8);
       }
       if (title.find("h_ZGG_") != string::npos) {
-        TH1D* h1 = (TH1D*)f1_2016->Get((title + "_wg").c_str());
+        TH1D* h1 = (TH1D*)file1_2016->Get((title + "_wg").c_str());
         h_bkg_2016->Add(h1);
-        TH1D* h2 = (TH1D*)f1_2016->Get((title + "_zg").c_str());
+        TH1D* h2 = (TH1D*)file1_2016->Get((title + "_zg").c_str());
         h_bkg_2016->Add(h2);
-        TH1D* h3 = (TH1D*)f1_2016->Get((title + "_ttg").c_str());
+        TH1D* h3 = (TH1D*)file1_2016->Get((title + "_ttg").c_str());
         h_bkg_2016->Add(h3);
-        TH1D* h4 = (TH1D*)f1_2016->Get((title + "_ttgg").c_str());
+        TH1D* h4 = (TH1D*)file1_2016->Get((title + "_ttgg").c_str());
         h_bkg_2016->Add(h4);
-        TH1D* h5 = (TH1D*)f1_2016->Get((title + "_tg").c_str());
+        TH1D* h5 = (TH1D*)file1_2016->Get((title + "_tg").c_str());
         h_bkg_2016->Add(h5);
-        TH1D* h6 = (TH1D*)f1_2016->Get((title + "_vvg").c_str());
+        TH1D* h6 = (TH1D*)file1_2016->Get((title + "_vvg").c_str());
         h_bkg_2016->Add(h6);
-        TH1D* h7 = (TH1D*)f1_2016->Get((title + "_gj").c_str());
+        TH1D* h7 = (TH1D*)file1_2016->Get((title + "_gj").c_str());
         h_bkg_2016->Add(h7);
       }
     }
 
-    if (f1_2017) {
+    if (file1_2017) {
       if (title.find("h_WGG_") != string::npos) {
-        TH1D* h1 = (TH1D*)f1_2017->Get((title + "_wg").c_str());
+        TH1D* h1 = (TH1D*)file1_2017->Get((title + "_wg").c_str());
         h_bkg_2017->Add(h1);
-        TH1D* h2 = (TH1D*)f1_2017->Get((title + "_zg").c_str());
+        TH1D* h2 = (TH1D*)file1_2017->Get((title + "_zg").c_str());
         h_bkg_2017->Add(h2);
-        TH1D* h3 = (TH1D*)f1_2017->Get((title + "_zgg").c_str());
+        TH1D* h3 = (TH1D*)file1_2017->Get((title + "_zgg").c_str());
         h_bkg_2017->Add(h3);
-        TH1D* h4 = (TH1D*)f1_2017->Get((title + "_ttg").c_str());
+        TH1D* h4 = (TH1D*)file1_2017->Get((title + "_ttg").c_str());
         h_bkg_2017->Add(h4);
-        TH1D* h5 = (TH1D*)f1_2017->Get((title + "_ttgg").c_str());
+        TH1D* h5 = (TH1D*)file1_2017->Get((title + "_ttgg").c_str());
         h_bkg_2017->Add(h5);
-        TH1D* h6 = (TH1D*)f1_2017->Get((title + "_tg").c_str());
+        TH1D* h6 = (TH1D*)file1_2017->Get((title + "_tg").c_str());
         h_bkg_2017->Add(h6);
-        TH1D* h7 = (TH1D*)f1_2017->Get((title + "_vvg").c_str());
+        TH1D* h7 = (TH1D*)file1_2017->Get((title + "_vvg").c_str());
         h_bkg_2017->Add(h7);
-        TH1D* h8 = (TH1D*)f1_2017->Get((title + "_gj").c_str());
+        TH1D* h8 = (TH1D*)file1_2017->Get((title + "_gj").c_str());
         h_bkg_2017->Add(h8);
       }
       if (title.find("h_ZGG_") != string::npos) {
-        TH1D* h1 = (TH1D*)f1_2017->Get((title + "_wg").c_str());
+        TH1D* h1 = (TH1D*)file1_2017->Get((title + "_wg").c_str());
         h_bkg_2017->Add(h1);
-        TH1D* h2 = (TH1D*)f1_2017->Get((title + "_zg").c_str());
+        TH1D* h2 = (TH1D*)file1_2017->Get((title + "_zg").c_str());
         h_bkg_2017->Add(h2);
-        TH1D* h3 = (TH1D*)f1_2017->Get((title + "_ttg").c_str());
+        TH1D* h3 = (TH1D*)file1_2017->Get((title + "_ttg").c_str());
         h_bkg_2017->Add(h3);
-        TH1D* h4 = (TH1D*)f1_2017->Get((title + "_ttgg").c_str());
+        TH1D* h4 = (TH1D*)file1_2017->Get((title + "_ttgg").c_str());
         h_bkg_2017->Add(h4);
-        TH1D* h5 = (TH1D*)f1_2017->Get((title + "_tg").c_str());
+        TH1D* h5 = (TH1D*)file1_2017->Get((title + "_tg").c_str());
         h_bkg_2017->Add(h5);
-        TH1D* h6 = (TH1D*)f1_2017->Get((title + "_vvg").c_str());
+        TH1D* h6 = (TH1D*)file1_2017->Get((title + "_vvg").c_str());
         h_bkg_2017->Add(h6);
-        TH1D* h7 = (TH1D*)f1_2017->Get((title + "_gj").c_str());
+        TH1D* h7 = (TH1D*)file1_2017->Get((title + "_gj").c_str());
         h_bkg_2017->Add(h7);
       }
     }
 
-    if (f1_2018) {
+    if (file1_2018) {
       if (title.find("h_WGG_") != string::npos) {
-        TH1D* h1 = (TH1D*)f1_2018->Get((title + "_wg").c_str());
+        TH1D* h1 = (TH1D*)file1_2018->Get((title + "_wg").c_str());
         h_bkg_2018->Add(h1);
-        TH1D* h2 = (TH1D*)f1_2018->Get((title + "_zg").c_str());
+        TH1D* h2 = (TH1D*)file1_2018->Get((title + "_zg").c_str());
         h_bkg_2018->Add(h2);
-        TH1D* h3 = (TH1D*)f1_2018->Get((title + "_zgg").c_str());
+        TH1D* h3 = (TH1D*)file1_2018->Get((title + "_zgg").c_str());
         h_bkg_2018->Add(h3);
-        TH1D* h4 = (TH1D*)f1_2018->Get((title + "_ttg").c_str());
+        TH1D* h4 = (TH1D*)file1_2018->Get((title + "_ttg").c_str());
         h_bkg_2018->Add(h4);
-        TH1D* h5 = (TH1D*)f1_2018->Get((title + "_ttgg").c_str());
+        TH1D* h5 = (TH1D*)file1_2018->Get((title + "_ttgg").c_str());
         h_bkg_2018->Add(h5);
-        TH1D* h6 = (TH1D*)f1_2018->Get((title + "_tg").c_str());
+        TH1D* h6 = (TH1D*)file1_2018->Get((title + "_tg").c_str());
         h_bkg_2018->Add(h6);
-        TH1D* h7 = (TH1D*)f1_2018->Get((title + "_vvg").c_str());
+        TH1D* h7 = (TH1D*)file1_2018->Get((title + "_vvg").c_str());
         h_bkg_2018->Add(h7);
-        TH1D* h8 = (TH1D*)f1_2018->Get((title + "_gj").c_str());
+        TH1D* h8 = (TH1D*)file1_2018->Get((title + "_gj").c_str());
         h_bkg_2018->Add(h8);
       }
       if (title.find("h_ZGG_") != string::npos) {
-        TH1D* h1 = (TH1D*)f1_2018->Get((title + "_wg").c_str());
+        TH1D* h1 = (TH1D*)file1_2018->Get((title + "_wg").c_str());
         h_bkg_2018->Add(h1);
-        TH1D* h2 = (TH1D*)f1_2018->Get((title + "_zg").c_str());
+        TH1D* h2 = (TH1D*)file1_2018->Get((title + "_zg").c_str());
         h_bkg_2018->Add(h2);
-        TH1D* h3 = (TH1D*)f1_2018->Get((title + "_ttg").c_str());
+        TH1D* h3 = (TH1D*)file1_2018->Get((title + "_ttg").c_str());
         h_bkg_2018->Add(h3);
-        TH1D* h4 = (TH1D*)f1_2018->Get((title + "_ttgg").c_str());
+        TH1D* h4 = (TH1D*)file1_2018->Get((title + "_ttgg").c_str());
         h_bkg_2018->Add(h4);
-        TH1D* h5 = (TH1D*)f1_2018->Get((title + "_tg").c_str());
+        TH1D* h5 = (TH1D*)file1_2018->Get((title + "_tg").c_str());
         h_bkg_2018->Add(h5);
-        TH1D* h6 = (TH1D*)f1_2018->Get((title + "_vvg").c_str());
+        TH1D* h6 = (TH1D*)file1_2018->Get((title + "_vvg").c_str());
         h_bkg_2018->Add(h6);
-        TH1D* h7 = (TH1D*)f1_2018->Get((title + "_gj").c_str());
+        TH1D* h7 = (TH1D*)file1_2018->Get((title + "_gj").c_str());
         h_bkg_2018->Add(h7);
       }
     }
@@ -371,55 +371,55 @@ void plot5(string plot="", string title="", string version="v00", string options
   TH1D* h_mc_gen_2017 = 0;
   TH1D* h_mc_gen_2018 = 0;
 
-  if (f2_2016) h_mc_gen_2016 = (TH1D*)f2_2016->Get((title + "_mc_gen").c_str());
-  if (f2_2017) h_mc_gen_2017 = (TH1D*)f2_2017->Get((title + "_mc_gen").c_str());
-  if (f2_2018) h_mc_gen_2018 = (TH1D*)f2_2018->Get((title + "_mc_gen").c_str());
+  if (file2_2016) h_mc_gen_2016 = (TH1D*)file2_2016->Get((title + "_mc_gen").c_str());
+  if (file2_2017) h_mc_gen_2017 = (TH1D*)file2_2017->Get((title + "_mc_gen").c_str());
+  if (file2_2018) h_mc_gen_2018 = (TH1D*)file2_2018->Get((title + "_mc_gen").c_str());
 
   TH1D* h_mc_eff_2016 = 0;
   TH1D* h_mc_eff_2017 = 0;
   TH1D* h_mc_eff_2018 = 0;
 
-  if (f2_2016) h_mc_eff_2016 = (TH1D*)f2_2016->Get((title + "_mc_eff_genmatch").c_str());
-  if (f2_2017) h_mc_eff_2017 = (TH1D*)f2_2017->Get((title + "_mc_eff_genmatch").c_str());
-  if (f2_2018) h_mc_eff_2018 = (TH1D*)f2_2018->Get((title + "_mc_eff_genmatch").c_str());
+  if (file2_2016) h_mc_eff_2016 = (TH1D*)file2_2016->Get((title + "_mc_eff_genmatch").c_str());
+  if (file2_2017) h_mc_eff_2017 = (TH1D*)file2_2017->Get((title + "_mc_eff_genmatch").c_str());
+  if (file2_2018) h_mc_eff_2018 = (TH1D*)file2_2018->Get((title + "_mc_eff_genmatch").c_str());
 
-  if (f1_2016) {
+  if (file1_2016) {
     h_data_2016->SetDirectory(0);
     h_bkg_2016->SetDirectory(0);
-    f1_2016->Close();
-    delete f1_2016;
+    file1_2016->Close();
+    delete file1_2016;
   }
-  if (f2_2016) {
+  if (file2_2016) {
     h_mc_gen_2016->SetDirectory(0);
     h_mc_eff_2016->SetDirectory(0);
-    f2_2016->Close();
-    delete f2_2016;
+    file2_2016->Close();
+    delete file2_2016;
   }
 
-  if (f1_2017) {
+  if (file1_2017) {
     h_data_2017->SetDirectory(0);
     h_bkg_2017->SetDirectory(0);
-    f1_2017->Close();
-    delete f1_2017;
+    file1_2017->Close();
+    delete file1_2017;
   }
-  if (f2_2017) {
+  if (file2_2017) {
     h_mc_gen_2017->SetDirectory(0);
     h_mc_eff_2017->SetDirectory(0);
-    f2_2017->Close();
-    delete f2_2017;
+    file2_2017->Close();
+    delete file2_2017;
   }
 
-  if (f1_2018) {
+  if (file1_2018) {
     h_data_2018->SetDirectory(0);
     h_bkg_2018->SetDirectory(0);
-    f1_2018->Close();
-    delete f1_2018;
+    file1_2018->Close();
+    delete file1_2018;
   }
-    if (f2_2018) {
+    if (file2_2018) {
     h_mc_gen_2018->SetDirectory(0);
     h_mc_eff_2018->SetDirectory(0);
-    f2_2018->Close();
-    delete f2_2018;
+    file2_2018->Close();
+    delete file2_2018;
   }
 
   if (h_data_2016 && h_bkg_2016 && h_mc_eff_2016) {
