@@ -137,7 +137,6 @@ void plot4(string plot="", string title="", string version="v00", string options
           }
         }
       }
-
       file->Close();
       delete file;
     }
@@ -228,7 +227,6 @@ void plot4(string plot="", string title="", string version="v00", string options
           }
         }
       }
-
       file->Close();
       delete file;
     }
@@ -262,6 +260,25 @@ void plot4(string plot="", string title="", string version="v00", string options
         }
       }
     }
+  }
+
+// #define CHECK_CLOSURE
+
+#if defined(CHECK_CLOSURE)
+  if (title.find("h_WGG_") != string::npos) {
+    histo[1010]->Reset();
+  }
+  if (title.find("h_ZGG_") != string::npos) {
+    histo[10]->Reset();
+  }
+#endif // defined(CHECK_CLOSURE)
+
+  histo[8001] = (TH1D*)histo[0]->Clone();
+  histo[8001]->Reset();
+
+  for (int i = 1; i < 9; i++) {
+    histo[8001 + i] = (TH1D*)histo[0]->Clone();
+    histo[8001 + i]->Reset();
   }
 
   TFile* file_matrix_2016 = 0;
@@ -316,27 +333,6 @@ void plot4(string plot="", string title="", string version="v00", string options
       return;
     }
   }
-
-  histo[8001] = (TH1D*)histo[0]->Clone();
-  histo[8001]->Reset();
-  histo[8001]->SetDirectory(0);
-
-  for (int i = 1; i < 9; i++) {
-    histo[8001 + i] = (TH1D*)histo[0]->Clone();
-    histo[8001 + i]->Reset();
-    histo[8001 + i]->SetDirectory(0);
-  }
-
-// #define CHECK_CLOSURE
-
-#if defined(CHECK_CLOSURE)
-  if (title.find("h_WGG_") != string::npos) {
-    histo[1010]->Reset();
-  }
-  if (title.find("h_ZGG_") != string::npos) {
-    histo[10]->Reset();
-  }
-#endif // defined(CHECK_CLOSURE)
 
   for (int var = 1; var < histo3[4211]->GetNbinsZ()+1; var++) {
     for (int eta = 1; eta < 5; eta++) {
@@ -466,11 +462,6 @@ void plot4(string plot="", string title="", string version="v00", string options
     + TMath::Power(0.5 * (fabs(histo[8005]->GetBinContent(i) - histo[8001]->GetBinContent(i)) + fabs(histo[8009]->GetBinContent(i) - histo[8001]->GetBinContent(i))), 2)));
   }
 
-  for (int i = 1; i < 9; i++) {
-    histo[8001 + i]->Delete();
-    histo.erase(8001 + i);
-  }
-
   if (file_matrix_2016) {
     file_matrix_2016->Close();
     delete file_matrix_2016;
@@ -482,6 +473,11 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (file_matrix_2018) {
     file_matrix_2018->Close();
     delete file_matrix_2018;
+  }
+
+  for (int i = 1; i < 9; i++) {
+    histo[8001 + i]->Delete();
+    histo.erase(8001 + i);
   }
 
 #if defined(CHECK_CLOSURE)

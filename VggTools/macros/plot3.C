@@ -508,20 +508,6 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
-    gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);
-  }
-  TFile* file = 0;
-  if (options.find("closure2") == string::npos) {
-    if (options.find("qcd") != string::npos) {
-      file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str(), "RECREATE");
-      Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str());
-    } else {
-      file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str(), "UPDATE");
-      Info("TFile::Open", "root file %s has been updated", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str());
-    }
-  }
-
   double e[6][2] = {0};
   double f[6][2] = {0};
   double e_err[6][2] = {0};
@@ -561,6 +547,21 @@ void plot3(string plot="", string title="", string version="v00", string options
     for (int pho0_pt = 1; pho0_pt < histo3[0]->GetNbinsX(); pho0_pt++) {
       f[pho0_pt][eta] = f[pho0_pt][eta] * (1. + f_corr[pho0_pt][eta]);
       f_err[pho0_pt][eta] = f_err[pho0_pt][eta] * (1. + f_corr[pho0_pt][eta]);
+    }
+  }
+
+  while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
+    gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);
+  }
+
+  TFile* file = 0;
+  if (options.find("closure2") == string::npos) {
+    if (options.find("qcd") != string::npos) {
+      file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str(), "RECREATE");
+      Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str());
+    } else {
+      file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str(), "UPDATE");
+      Info("TFile::Open", "root file %s has been updated", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title_tmp + ".root").c_str());
     }
   }
 

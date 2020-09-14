@@ -373,6 +373,7 @@ void plot2(string plot="", string title="", string version="v00", string options
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".eff/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".eff/").c_str(), kTRUE);
   }
+
   c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".eff/" + title + ".pdf").c_str());
 
   ofstream out;
