@@ -1349,25 +1349,25 @@ void plot6(string plot="", string title="", string version="v00", string options
     label->DrawLatex(0.55, 0.85, "W, W#gamma, W#gamma#gamma selection");
     if (plot.find("ele") != string::npos) {
       label->DrawLatex(0.55, 0.80, "W #rightarrow e#nu");
-      label->DrawLatex(0.55, 0.75, "p_{T}^{e} > 40 GeV, #||{#eta^{e}} < 2.4, #slash{E}_{T} > 40 GeV");
+      label->DrawLatex(0.55, 0.75, "p_{T}^{e} > 30 GeV, #||{#eta^{e}} < 2.5");
     }
     if (plot.find("muo") != string::npos) {
       label->DrawLatex(0.55, 0.80, "W #rightarrow #mu#nu");
-      label->DrawLatex(0.55, 0.75, "p_{T}^{#mu} > 30 GeV, #||{#eta^{#mu}} < 2.4, #slash{E}_{T} > 40 GeV");
+      label->DrawLatex(0.55, 0.75, "p_{T}^{#mu} > 30 GeV, #||{#eta^{#mu}} < 2.5");
     }
-    label->DrawLatex(0.55, 0.69, "p_{T}^{#gamma} > 20 GeV, #||{#eta^{#gamma}} < 2.4");
+    label->DrawLatex(0.55, 0.69, "p_{T}^{#gamma} > 20 GeV, #||{#eta^{#gamma}} < 2.5");
   }
   if (plot.find("Z") != string::npos) {
     label->DrawLatex(0.55, 0.85, "Z, Z#gamma, Z#gamma#gamma selection");
     if (plot.find("ele") != string::npos) {
       label->DrawLatex(0.55, 0.80, "Z #rightarrow ee");
-      label->DrawLatex(0.55, 0.75, "p_{T}^{e#scale[0.8]{1}} > 28 GeV, p_{T}^{e#scale[0.8]{2}} > 20 GeV, #||{#eta^{e}} < 2.4");
+      label->DrawLatex(0.55, 0.75, "p_{T}^{e#scale[0.8]{1}} > 30 GeV, p_{T}^{e#scale[0.8]{2}} > 15 GeV, #||{#eta^{e}} < 2.5");
     }
     if (plot.find("muo") != string::npos) {
       label->DrawLatex(0.55, 0.80, "Z #rightarrow #mu#mu");
-      label->DrawLatex(0.55, 0.75, "p_{T}^{#mu#scale[0.8]{1}} > 20 GeV, p_{T}^{#mu#scale[0.8]{2}} > 15 GeV, #||{#eta^{#mu}} < 2.4");
+      label->DrawLatex(0.55, 0.75, "p_{T}^{#mu#scale[0.8]{1}} > 30 GeV, p_{T}^{#mu#scale[0.8]{2}} > 15 GeV, #||{#eta^{#mu}} < 2.5");
     }
-    label->DrawLatex(0.55, 0.69, "p_{T}^{#gamma} > 20 GeV, #||{#eta^{#gamma}} < 2.4");
+    label->DrawLatex(0.55, 0.69, "p_{T}^{#gamma} > 20 GeV, #||{#eta^{#gamma}} < 2.5");
   }
 
   label->Draw("same");
