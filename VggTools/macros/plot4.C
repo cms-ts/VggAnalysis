@@ -405,14 +405,17 @@ void plot4(string plot="", string title="", string version="v00", string options
             if (file_matrix_2016) {
               TMatrixD* matrix_2016 = (TMatrixD*)file_matrix_2016->Get((flag == "jet_misid_qcd" && title.find("h_WGG") != string::npos) ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
               matrix = matrix + (*matrix_2016) * double(lumi2016/lumi);
+              delete matrix_2016;
             }
             if (file_matrix_2017) {
               TMatrixD* matrix_2017 = (TMatrixD*)file_matrix_2017->Get((flag == "jet_misid_qcd" && title.find("h_WGG") != string::npos) ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
               matrix = matrix + (*matrix_2017) * double(lumi2017/lumi);
+              delete matrix_2017;
             }
             if (file_matrix_2018) {
               TMatrixD* matrix_2018 = (TMatrixD*)file_matrix_2018->Get((flag == "jet_misid_qcd" && title.find("h_WGG") != string::npos) ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
               matrix = matrix + (*matrix_2018) * double(lumi2018/lumi);
+              delete matrix_2018;
             }
 
             double det = -1.;

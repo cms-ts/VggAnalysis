@@ -500,6 +500,9 @@ void plot3(string plot="", string title="", string version="v00", string options
           TMatrixD* matrix_qcd = (TMatrixD*)file->Get((matrix_title + "_qcd").c_str());
 
           f_corr[pho0_pt][eta] = (*matrix)(0, 1) != 0 ? ((*matrix_qcd)(0, 1) - (*matrix)(0, 1)) / (*matrix)(0, 1) : 0.;
+
+          delete matrix;
+          delete matrix_qcd;
         }
       }
       file->Close();
@@ -719,7 +722,8 @@ void plot3(string plot="", string title="", string version="v00", string options
 
             if (file_matrix) {
               TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get((matrix_title + "_qcd").c_str());
-              matrix = *tmp_matrix;
+              matrix = (*tmp_matrix);
+              delete tmp_matrix;
             }
 
             file_matrix->Close();
@@ -749,7 +753,8 @@ void plot3(string plot="", string title="", string version="v00", string options
 
         if (file_matrix) {
           TMatrixD* tmp_matrix = (TMatrixD*)file_matrix->Get(matrix_title.c_str());
-          matrix = *tmp_matrix;
+          matrix = (*tmp_matrix);
+          delete tmp_matrix;
         }
 
         file_matrix->Close();
