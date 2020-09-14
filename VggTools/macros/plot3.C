@@ -63,11 +63,11 @@ void plot3(string plot="", string title="", string version="v00", string options
     return;
   }
 
-  map<int, TH3D*> histo;
-  map<int, TH1D*> histo1;
+  map<int, TH1D*> histo;
+  map<int, TH3D*> histo3;
 
-  map<int, TH3D*> histo_mc;
-  map<int, TH1D*> histo1_mc;
+  map<int, TH1D*> histo_mc;
+  map<int, TH3D*> histo3_mc;
 
   double lumi = 0.;
   double lumi2016 = 0.;
@@ -97,31 +97,31 @@ void plot3(string plot="", string title="", string version="v00", string options
         cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
       }
 
-      if (histo1[index]) {
-        TH1D* h1 = (TH1D*)gDirectory->Get(title.c_str());
-        if (h1) {
-          histo1[index]->Add(h1);
+      if (histo[index]) {
+        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        if (h) {
+          histo[index]->Add(h);
         }
       } else {
-        TH1D* h1 = (TH1D*)gDirectory->Get(title.c_str());
-        if (h1) {
-          histo1[index] = h1;
-          histo1[index]->SetDirectory(0);
+        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+        if (h) {
+          histo[index] = h;
+          histo[index]->SetDirectory(0);
         } else {
           Error("plot0", "skip missing histogram: %s", title.c_str());
           return;
         }
       }
-      if (histo[index]) {
-        TH3D* h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str());
-        if (h) {
-          histo[index]->Add(h);
+      if (histo3[index]) {
+        TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str());
+        if (h3) {
+          histo3[index]->Add(h3);
         }
       } else {
-        TH3D* h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str());
-        if (h) {
-          histo[index] = h;
-          histo[index]->SetDirectory(0);
+        TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str());
+        if (h3) {
+          histo3[index] = h3;
+          histo3[index]->SetDirectory(0);
         } else {
           Error("plot0", "skip missing histogram: %s", (options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str()));
           return;
@@ -167,17 +167,17 @@ void plot3(string plot="", string title="", string version="v00", string options
       }
       if (title.find("h_WG_muo") != string::npos && index == 1020) continue;
       if (histo[index]) {
-        TH3D* h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
+        TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
+          h = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
         }
         if (h) {
           histo[index]->Add(h, norm);
         }
       } else {
-        TH3D* h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
+        TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
+          h = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
         }
         if (h) {
           histo[index] = h;
@@ -218,23 +218,23 @@ void plot3(string plot="", string title="", string version="v00", string options
         return;
       }
       if (title.find("h_WG_muo") != string::npos && index == 1020) continue;
-      if (histo1[index]) {
-        TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+      if (histo3[index]) {
+        TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+          h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
         }
-        if (h1) {
-          histo1[index]->Add(h1, norm);
+        if (h3) {
+          histo3[index]->Add(h3, norm);
         }
       } else {
-        TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
-          h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
+          h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch2").c_str());
         }
-        if (h1) {
-          histo1[index] = h1;
-          histo1[index]->SetDirectory(0);
-          histo1[index]->Scale(norm);
+        if (h3) {
+          histo3[index] = h3;
+          histo3[index]->SetDirectory(0);
+          histo3[index]->Scale(norm);
         }
       }
       file->Close();
@@ -270,30 +270,30 @@ void plot3(string plot="", string title="", string version="v00", string options
           cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
           return;
         }
-        if (histo1_mc[index]) {
-          TH1D* h1_mc = (TH1D*)gDirectory->Get(title.c_str());
-          if (h1_mc) {
-            histo1_mc[index]->Add(h1_mc, norm);
-          }
-        } else {
-          TH1D* h1_mc = (TH1D*)gDirectory->Get(title.c_str());
-          if (h1_mc) {
-            histo1_mc[index] = h1_mc;
-            histo1_mc[index]->SetDirectory(0);
-            histo1_mc[index]->Scale(norm);
-          }
-        }
         if (histo_mc[index]) {
-          TH3D* h_mc = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
-          if (h_mc) {
-            histo_mc[index]->Add(h_mc, norm);
+          TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+          if (h) {
+            histo_mc[index]->Add(h, norm);
           }
         } else {
-          TH3D* h_mc = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
-          if (h_mc) {
-            histo_mc[index] = h_mc;
+          TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+          if (h) {
+            histo_mc[index] = h;
             histo_mc[index]->SetDirectory(0);
             histo_mc[index]->Scale(norm);
+          }
+        }
+        if (histo3_mc[index]) {
+          TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
+          if (h3) {
+            histo3_mc[index]->Add(h3, norm);
+          }
+        } else {
+          TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
+          if (h3) {
+            histo3_mc[index] = h3;
+            histo3_mc[index]->SetDirectory(0);
+            histo3_mc[index]->Scale(norm);
           }
         }
         file->Close();
@@ -317,76 +317,76 @@ void plot3(string plot="", string title="", string version="v00", string options
       return;
     }
     if (options.find("identity1") != string::npos || options.find("closure0") != string::npos) {
-      TH1D* h1_mc = (TH1D*)gDirectory->Get(title.c_str());
-      if (h1_mc) {
-        histo1_mc[111] = h1_mc;
-        histo1_mc[111]->SetDirectory(0);
-      }
-      TH3D* h_mc = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
-      if (h_mc) {
-        histo_mc[111] = h_mc;
+      TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
+      if (h) {
+        histo_mc[111] = h;
         histo_mc[111]->SetDirectory(0);
+      }
+      TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6)).c_str());
+      if (h3) {
+        histo3_mc[111] = h3;
+        histo3_mc[111]->SetDirectory(0);
       }
     }
     if (flag == "jet_misid_sherpa" || options.find("identity1") != string::npos || options.find("closure1") != string::npos) {
-      TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
-      if (h1) {
-        histo1[111] = h1;
-        histo1[111]->SetDirectory(0);
-      }
-      TH3D* h = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
+      TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
       if (h) {
         histo[111] = h;
         histo[111]->SetDirectory(0);
+      }
+      TH3D* h3 = (TH3D*)gDirectory->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
+      if (h3) {
+        histo3[111] = h3;
+        histo3[111]->SetDirectory(0);
       }
     }
     file1->Close();
     delete file1;
   }
 
-  for (map<int, TH3D*>::iterator it = histo.begin(); it != histo.end(); it++) {
+  for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
     if (histo[index]) histo[index] = rebin(histo[index]);
   }
 
-  for (map<int, TH1D*>::iterator it = histo1.begin(); it != histo1.end(); it++) {
+  for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
     int index = int(it->first);
-    if (histo1[index]) histo1[index] = rebin(histo1[index]);
+    if (histo3[index]) histo3[index] = rebin(histo3[index]);
   }
 
   if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
-    for (map<int, TH3D*>::iterator it = histo_mc.begin(); it != histo_mc.end(); it++) {
+    for (map<int, TH1D*>::iterator it = histo_mc.begin(); it != histo_mc.end(); it++) {
       int index = int(it->first);
       if (histo_mc[index]) histo_mc[index] = rebin(histo_mc[index]);
     }
 
-    for (map<int, TH1D*>::iterator it = histo1_mc.begin(); it != histo1_mc.end(); it++) {
+    for (map<int, TH3D*>::iterator it = histo3_mc.begin(); it != histo3_mc.end(); it++) {
       int index = int(it->first);
-      if (histo1_mc[index]) histo1_mc[index] = rebin(histo1_mc[index]);
+      if (histo3_mc[index]) histo3_mc[index] = rebin(histo3_mc[index]);
     }
   }
 
   if (options.find("identity1") != string::npos || options.find("closure0") != string::npos) {
-    histo1_mc[111]->Scale(histo_mc[11]->Integral()/histo_mc[111]->Integral());
-    histo_mc[111]->Scale(histo_mc[11]->Integral()/histo_mc[111]->Integral());
+    histo_mc[111]->Scale(histo3_mc[11]->Integral()/histo3_mc[111]->Integral());
+    histo3_mc[111]->Scale(histo3_mc[11]->Integral()/histo3_mc[111]->Integral());
   }
   if (options.find("identity1") != string::npos || options.find("closure1") != string::npos) {
-    histo1[111]->Scale(histo[11]->Integral()/histo[111]->Integral());
-    histo[111]->Scale(histo[11]->Integral()/histo[111]->Integral());
+    histo[111]->Scale(histo3[11]->Integral()/histo3[111]->Integral());
+    histo3[111]->Scale(histo3[11]->Integral()/histo3[111]->Integral());
   }
 
   if (flag == "jet_misid_sherpa") {
     if (title.find("h_WG") != string::npos) {
-      histo1[121] = (TH1D*)histo1[111]->Clone();
-      histo[121] = (TH3D*)histo[111]->Clone();
-      histo1[111]->Scale(histo[1011]->Integral()/histo[111]->Integral());
-      histo[111]->Scale(histo[1011]->Integral()/histo[111]->Integral());
-      histo1[121]->Scale(histo[1021]->Integral()/histo[121]->Integral());
-      histo[121]->Scale(histo[1021]->Integral()/histo[121]->Integral());
+      histo[121] = (TH1D*)histo[111]->Clone();
+      histo3[121] = (TH3D*)histo3[111]->Clone();
+      histo[111]->Scale(histo3[1011]->Integral()/histo3[111]->Integral());
+      histo3[111]->Scale(histo3[1011]->Integral()/histo3[111]->Integral());
+      histo[121]->Scale(histo3[1021]->Integral()/histo3[121]->Integral());
+      histo3[121]->Scale(histo3[1021]->Integral()/histo3[121]->Integral());
     }
     if (title.find("h_ZG") != string::npos) {
-      histo1[111]->Scale(histo[11]->Integral()/histo[111]->Integral());
-      histo[111]->Scale(histo[11]->Integral()/histo[111]->Integral());
+      histo[111]->Scale(histo3[11]->Integral()/histo3[111]->Integral());
+      histo3[111]->Scale(histo3[11]->Integral()/histo3[111]->Integral());
     }
   }
 
@@ -399,17 +399,17 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   if (options.find("identity0") != string::npos || options.find("identity1") != string::npos) {
     histo[myindex]->Scale(bias_factor);
-    histo1[myindex]->Scale(bias_factor);
+    histo3[myindex]->Scale(bias_factor);
     histo_mc[myindex]->Scale(bias_factor);
-    histo1_mc[myindex]->Scale(bias_factor);
+    histo3_mc[myindex]->Scale(bias_factor);
   }
 
-  for (int i = 0; i < histo[myindex]->GetNbinsX() + 2; i++) {
-    for (int j = 0; j < histo[myindex]->GetNbinsY() + 2; j++) {
-      for (int k = 0; k < histo[myindex]->GetNbinsZ() + 2; k++) {
-        if (histo[myindex]->GetBinContent(i, j, k) < 0) {
-          histo[myindex]->SetBinContent(i, j, k, 0.);
-          histo[myindex]->SetBinError(i, j, k, 0.);
+  for (int i = 0; i < histo3[myindex]->GetNbinsX() + 2; i++) {
+    for (int j = 0; j < histo3[myindex]->GetNbinsY() + 2; j++) {
+      for (int k = 0; k < histo3[myindex]->GetNbinsZ() + 2; k++) {
+        if (histo3[myindex]->GetBinContent(i, j, k) < 0) {
+          histo3[myindex]->SetBinContent(i, j, k, 0.);
+          histo3[myindex]->SetBinError(i, j, k, 0.);
         }
       }
     }
@@ -417,47 +417,47 @@ void plot3(string plot="", string title="", string version="v00", string options
 
   if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
     histo[0]->Reset();
-    histo1[0]->Reset();
+    histo3[0]->Reset();
 
-    for (map<int, TH3D*>::iterator it = histo_mc.begin(); it != histo_mc.end(); it++) {
+    for (map<int, TH1D*>::iterator it = histo_mc.begin(); it != histo_mc.end(); it++) {
       int index = int(it->first);
       if ((options.find("identity1") != string::npos || options.find("closure0") != string::npos) && index == 11) continue;
       if (histo_mc[index]) histo[0]->Add(histo_mc[index]);
     }
 
-    for (map<int, TH1D*>::iterator it = histo1_mc.begin(); it != histo1_mc.end(); it++) {
+    for (map<int, TH3D*>::iterator it = histo3_mc.begin(); it != histo3_mc.end(); it++) {
       int index = int(it->first);
       if ((options.find("identity1") != string::npos || options.find("closure0") != string::npos) && index == 11) continue;
-      if (histo1_mc[index]) histo1[0]->Add(histo1_mc[index]);
+      if (histo3_mc[index]) histo3[0]->Add(histo3_mc[index]);
     }
   }
 
-  TH3D* histo_data = (TH3D*)histo[0]->Clone("histo_data");
+  TH3D* histo3_data = (TH3D*)histo3[0]->Clone("histo3_data");
 
-  TH3D* histo_mc_sum = (TH3D*)histo[0]->Clone("histo_mc_sum");
-  histo_mc_sum->Reset();
+  TH3D* histo3_mc_sum = (TH3D*)histo3[0]->Clone("histo3_mc_sum");
+  histo3_mc_sum->Reset();
 
-  for (map<int, TH3D*>::iterator it = histo.begin(); it != histo.end(); it++) {
+  for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
     int index = int(it->first);
     if (index > 0) {
       if ((options.find("identity1") != string::npos || options.find("closure1") != string::npos) && index == 11) continue;
       if (flag == "jet_misid_sherpa" && (index == 11 || index == 1011 || index == 1021)) continue;
-      histo[0]->Add(histo[index], -1);
-      histo_mc_sum->Add(histo[index]);
+      histo3[0]->Add(histo3[index], -1);
+      histo3_mc_sum->Add(histo3[index]);
     }
   }
 
   if (options.find("identity0") == string::npos && options.find("identity1") == string::npos && options.find("closure0") == string::npos && options.find("closure1") == string::npos) {
-    for (int i = 0; i < histo[0]->GetNbinsX() + 2; i++) {
-      for (int j = 0; j < histo[0]->GetNbinsY() + 2; j++) {
-        for (int k = 0; k < histo[0]->GetNbinsZ() + 2; k++) {
-          if (histo[0]->GetBinContent(i, j, k) < 0) {
-            double Nb = histo[0]->GetBinContent(i, j, k);
-            double eNb = TMath::Sqrt(TMath::Power(histo_data->GetBinError(i, j, k), 2) + TMath::Power(histo_mc_sum->GetBinError(i, j, k), 2));
+    for (int i = 0; i < histo3[0]->GetNbinsX() + 2; i++) {
+      for (int j = 0; j < histo3[0]->GetNbinsY() + 2; j++) {
+        for (int k = 0; k < histo3[0]->GetNbinsZ() + 2; k++) {
+          if (histo3[0]->GetBinContent(i, j, k) < 0) {
+            double Nb = histo3[0]->GetBinContent(i, j, k);
+            double eNb = TMath::Sqrt(TMath::Power(histo3_data->GetBinError(i, j, k), 2) + TMath::Power(histo3_mc_sum->GetBinError(i, j, k), 2));
             double eNb0 = eNb != 0. ? eNb * (TMath::ErfcInverse(0.157299 * TMath::Erfc(fabs(Nb / eNb))) - fabs(Nb / eNb)) : 0.;
 
-            histo[0]->SetBinContent(i, j, k, 0.);
-            histo[0]->SetBinError(i, j, k, eNb0);
+            histo3[0]->SetBinContent(i, j, k, 0.);
+            histo3[0]->SetBinError(i, j, k, eNb0);
           }
         }
       }
@@ -488,7 +488,7 @@ void plot3(string plot="", string title="", string version="v00", string options
 
       TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/h_WG_muo_pho0_pt.root").c_str());
       for (int eta = 0; eta < 2; eta++) {
-        for (int pho0_pt = 1; pho0_pt < histo[0]->GetNbinsX(); pho0_pt++) {
+        for (int pho0_pt = 1; pho0_pt < histo3[0]->GetNbinsX(); pho0_pt++) {
           string matrix_title = "matrix_";
           matrix_title += std::to_string(pho0_pt+1);
           matrix_title += std::to_string(eta+1);
@@ -525,13 +525,13 @@ void plot3(string plot="", string title="", string version="v00", string options
   double f_err[6][2] = {0};
 
   for (int eta = 0; eta < 2; eta++) {
-    for (int pho0_pt = 1; pho0_pt < histo[0]->GetNbinsX(); pho0_pt++) {
+    for (int pho0_pt = 1; pho0_pt < histo3[0]->GetNbinsX(); pho0_pt++) {
 
-      e[pho0_pt][eta] = histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 1) / (histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 1) + histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 2));
-      f[pho0_pt][eta] = histo[0]->GetBinContent(pho0_pt+1, eta+1, 1) / (histo[0]->GetBinContent(pho0_pt+1, eta+1, 1) + histo[0]->GetBinContent(pho0_pt+1, eta+1, 2));
+      e[pho0_pt][eta] = histo3_mc_sum->GetBinContent(pho0_pt+1, eta+1, 1) / (histo3_mc_sum->GetBinContent(pho0_pt+1, eta+1, 1) + histo3_mc_sum->GetBinContent(pho0_pt+1, eta+1, 2));
+      f[pho0_pt][eta] = histo3[0]->GetBinContent(pho0_pt+1, eta+1, 1) / (histo3[0]->GetBinContent(pho0_pt+1, eta+1, 1) + histo3[0]->GetBinContent(pho0_pt+1, eta+1, 2));
 
-      e_err[pho0_pt][eta] = TMath::Power(1. / (histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 1) + histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 2)), 2) * TMath::Sqrt(TMath::Power(histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 2) * histo_mc_sum->GetBinError(pho0_pt+1, eta+1, 1), 2) + TMath::Power(histo_mc_sum->GetBinContent(pho0_pt+1, eta+1, 1) * histo_mc_sum->GetBinError(pho0_pt+1, eta+1, 2), 2));
-      f_err[pho0_pt][eta] = TMath::Power(1. / (histo[0]->GetBinContent(pho0_pt+1, eta+1, 1) + histo[0]->GetBinContent(pho0_pt+1, eta+1, 2)), 2) * TMath::Sqrt(TMath::Power(histo[0]->GetBinContent(pho0_pt+1, eta+1, 2) * histo[0]->GetBinError(pho0_pt+1, eta+1, 1), 2) + TMath::Power(histo[0]->GetBinContent(pho0_pt+1, eta+1, 1) * histo[0]->GetBinError(pho0_pt+1, eta+1, 2), 2));
+      e_err[pho0_pt][eta] = TMath::Power(1. / (histo3_mc_sum->GetBinContent(pho0_pt+1, eta+1, 1) + histo3_mc_sum->GetBinContent(pho0_pt+1, eta+1, 2)), 2) * TMath::Sqrt(TMath::Power(histo3_mc_sum->GetBinContent(pho0_pt+1, eta+1, 2) * histo3_mc_sum->GetBinError(pho0_pt+1, eta+1, 1), 2) + TMath::Power(histo3_mc_sum->GetBinContent(pho0_pt+1, eta+1, 1) * histo3_mc_sum->GetBinError(pho0_pt+1, eta+1, 2), 2));
+      f_err[pho0_pt][eta] = TMath::Power(1. / (histo3[0]->GetBinContent(pho0_pt+1, eta+1, 1) + histo3[0]->GetBinContent(pho0_pt+1, eta+1, 2)), 2) * TMath::Sqrt(TMath::Power(histo3[0]->GetBinContent(pho0_pt+1, eta+1, 2) * histo3[0]->GetBinError(pho0_pt+1, eta+1, 1), 2) + TMath::Power(histo3[0]->GetBinContent(pho0_pt+1, eta+1, 1) * histo3[0]->GetBinError(pho0_pt+1, eta+1, 2), 2));
 
       if (flag == "jet_misid_stat") {
         e_err[pho0_pt][eta] = e_err[pho0_pt][eta] * 1.1;
@@ -542,7 +542,7 @@ void plot3(string plot="", string title="", string version="v00", string options
   }
 
   for (int eta = 0; eta < 2; eta++) {
-    for (int pho0_pt = 1; pho0_pt < histo[0]->GetNbinsX(); pho0_pt++) {
+    for (int pho0_pt = 1; pho0_pt < histo3[0]->GetNbinsX(); pho0_pt++) {
       if (e[pho0_pt][eta] == 0) {
         e[pho0_pt][eta] = e[pho0_pt-1][eta];
         e_err[pho0_pt][eta] = e_err[pho0_pt-1][eta];
@@ -555,15 +555,15 @@ void plot3(string plot="", string title="", string version="v00", string options
   }
 
   for (int eta = 0; eta < 2; eta++) {
-    for (int pho0_pt = 1; pho0_pt < histo[0]->GetNbinsX(); pho0_pt++) {
+    for (int pho0_pt = 1; pho0_pt < histo3[0]->GetNbinsX(); pho0_pt++) {
       f[pho0_pt][eta] = f[pho0_pt][eta] * (1. + f_corr[pho0_pt][eta]);
       f_err[pho0_pt][eta] = f_err[pho0_pt][eta] * (1. + f_corr[pho0_pt][eta]);
     }
   }
 
   for (int eta = 0; eta < 4; eta++) {
-    for (int pho0_pt = 1; pho0_pt < histo[0]->GetNbinsX(); pho0_pt++) {
-      for (int pho1_pt = 1; pho1_pt < histo[0]->GetNbinsX(); pho1_pt++) {
+    for (int pho0_pt = 1; pho0_pt < histo3[0]->GetNbinsX(); pho0_pt++) {
+      for (int pho1_pt = 1; pho1_pt < histo3[0]->GetNbinsX(); pho1_pt++) {
 
         double e1 = 0;
         double e2 = 0;
@@ -668,23 +668,23 @@ void plot3(string plot="", string title="", string version="v00", string options
     }
   }
 
-  histo1[8001] = (TH1D*)histo1[0]->Clone();
-  histo1[8001]->Reset();
+  histo[8001] = (TH1D*)histo[0]->Clone();
+  histo[8001]->Reset();
 
   if (options.find("closure2") == string::npos) {
-    histo1[8001]->SetDirectory(0);
+    histo[8001]->SetDirectory(0);
   }
 
   for (int eta = 0; eta < 2; eta++) {
-    for (int pho0_pt = 1; pho0_pt < histo_data->GetNbinsX(); pho0_pt++) {
+    for (int pho0_pt = 1; pho0_pt < histo3_data->GetNbinsX(); pho0_pt++) {
 
       string matrix_title = "matrix_";
       matrix_title += std::to_string(pho0_pt+1);
       matrix_title += std::to_string(eta+1);
 
       TVectorD n_region(2);
-      n_region[0] = histo_data->GetBinContent(pho0_pt+1, eta+1, 1);
-      n_region[1] = histo_data->GetBinContent(pho0_pt+1, eta+1, 2);
+      n_region[0] = histo3_data->GetBinContent(pho0_pt+1, eta+1, 1);
+      n_region[1] = histo3_data->GetBinContent(pho0_pt+1, eta+1, 2);
 
       TMatrixD matrix(2,2);
       TMatrixD inverse_matrix(2,2);
@@ -761,7 +761,7 @@ void plot3(string plot="", string title="", string version="v00", string options
       TVectorD alpha(2);
       alpha = inverse_matrix * n_region;
 
-      histo1[8001]->SetBinContent(pho0_pt+1, histo1[8001]->GetBinContent(pho0_pt+1) + matrix(0,1) * alpha(1));
+      histo[8001]->SetBinContent(pho0_pt+1, histo[8001]->GetBinContent(pho0_pt+1) + matrix(0,1) * alpha(1));
 
     }
   }
@@ -772,16 +772,16 @@ void plot3(string plot="", string title="", string version="v00", string options
   }
 
   THStack* hstack_mc = new THStack("hstack_mc", "hstack_mc");
-  TH1D* h_mc_sum = (TH1D*)histo1[0]->Clone("h_mc_sum");
+  TH1D* h_mc_sum = (TH1D*)histo[0]->Clone("h_mc_sum");
   h_mc_sum->Reset();
 
-  for (map<int, TH1D*>::reverse_iterator it = histo1.rbegin(); it != histo1.rend(); it++) {
+  for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
     int index = int(it->first);
     if (index > 0) {
       if ((options.find("identity1") != string::npos || options.find("closure1") != string::npos) && index == 11) continue;
       if (flag == "jet_misid_sherpa" && (index == 11 || index == 1011 || index == 1021)) continue;
-      hstack_mc->Add(histo1[index]);
-      h_mc_sum->Add(histo1[index]);
+      hstack_mc->Add(histo[index]);
+      h_mc_sum->Add(histo[index]);
     }
   }
 
@@ -791,7 +791,7 @@ void plot3(string plot="", string title="", string version="v00", string options
   }
   h_ratio_mc->Divide(h_mc_sum);
 
-  TH1D* h_ratio = (TH1D*)histo1[0]->Clone("h_ratio");
+  TH1D* h_ratio = (TH1D*)histo[0]->Clone("h_ratio");
   h_ratio->Divide(h_mc_sum);
 
   TLegend* legend = new TLegend(0.65, 0.40, 0.91, 0.88);
@@ -800,102 +800,102 @@ void plot3(string plot="", string title="", string version="v00", string options
   legend->SetFillColor(0);
   legend->SetFillStyle(0);
 
-  for (map<int, TH1D*>::iterator it = histo1.begin(); it != histo1.end(); it++) {
+  for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
     int index = int(it->first);
 
     if (index == 0) {
-      legend->AddEntry(histo1[index], "Data", "p");
+      legend->AddEntry(histo[index], "Data", "p");
     }
 
     if (index == 10) {
-      histo1[index]->SetFillColor(kOrange+7);
-      histo1[index]->SetFillStyle(3254);
-      legend->AddEntry(histo1[index], "Z #gamma #gamma", "f");
+      histo[index]->SetFillColor(kOrange+7);
+      histo[index]->SetFillStyle(3254);
+      legend->AddEntry(histo[index], "Z #gamma #gamma", "f");
     }
     if (index == 11) {
       if (options.find("identity1") != string::npos || options.find("closure1") != string::npos) index = 111;
       if (flag == "jet_misid_sherpa") index = 111;
-      histo1[index]->SetFillColor(kOrange-4);
-      histo1[index]->SetFillStyle(3254);
-      legend->AddEntry(histo1[index], "Z #gamma", "f");
+      histo[index]->SetFillColor(kOrange-4);
+      histo[index]->SetFillStyle(3254);
+      legend->AddEntry(histo[index], "Z #gamma", "f");
     }
     if (index == 21) {
-      histo1[index]->SetFillColor(kOrange-5);
-      legend->AddEntry(histo1[index], "W #gamma", "f");
+      histo[index]->SetFillColor(kOrange-5);
+      legend->AddEntry(histo[index], "W #gamma", "f");
     }
     if (index == 22) {
-      histo1[index]->SetFillColor(kOrange-6);
-      legend->AddEntry(histo1[index], "W #gamma #gamma", "f");
+      histo[index]->SetFillColor(kOrange-6);
+      legend->AddEntry(histo[index], "W #gamma #gamma", "f");
     }
     if (index == 31) {
-      histo1[index]->SetFillColor(kGreen+3);
-      legend->AddEntry(histo1[index], "VV #gamma", "f");
+      histo[index]->SetFillColor(kGreen+3);
+      legend->AddEntry(histo[index], "VV #gamma", "f");
     }
     if (index == 41) {
-      histo1[index]->SetFillColor(kBlue+2);
-      legend->AddEntry(histo1[index], "TT #gamma", "f");
+      histo[index]->SetFillColor(kBlue+2);
+      legend->AddEntry(histo[index], "TT #gamma", "f");
     }
     if (index == 42) {
-      histo1[index]->SetFillColor(kBlue+3);
-      legend->AddEntry(histo1[index], "TT #gamma #gamma", "f");
+      histo[index]->SetFillColor(kBlue+3);
+      legend->AddEntry(histo[index], "TT #gamma #gamma", "f");
     }
     if (index == 51) {
-      histo1[index]->SetFillColor(kOrange+7);
-      legend->AddEntry(histo1[index], "T #gamma", "f");
+      histo[index]->SetFillColor(kOrange+7);
+      legend->AddEntry(histo[index], "T #gamma", "f");
     }
     if (index == 61) {
-      histo1[index]->SetFillColor(kRed+1);
-      legend->AddEntry(histo1[index], "#gamma Jets", "f");
+      histo[index]->SetFillColor(kRed+1);
+      legend->AddEntry(histo[index], "#gamma Jets", "f");
     }
 
     if (index == 1010) {
-      histo1[index]->SetFillColor(kOrange+7);
-      histo1[index]->SetFillStyle(3254);
-      legend->AddEntry(histo1[index], "W #gamma #gamma", "f");
+      histo[index]->SetFillColor(kOrange+7);
+      histo[index]->SetFillStyle(3254);
+      legend->AddEntry(histo[index], "W #gamma #gamma", "f");
     }
     if (index == 1011) {
       if (flag == "jet_misid_sherpa") index = 111;
-      histo1[index]->SetFillColor(kOrange-4);
-      histo1[index]->SetFillStyle(3254);
-      legend->AddEntry(histo1[index], "W #gamma", "f");
+      histo[index]->SetFillColor(kOrange-4);
+      histo[index]->SetFillStyle(3254);
+      legend->AddEntry(histo[index], "W #gamma", "f");
     }
     if (index == 1020) {
-      histo1[index]->SetFillColor(kOrange);
-      legend->AddEntry(histo1[index], "Z Jets", "f");
+      histo[index]->SetFillColor(kOrange);
+      legend->AddEntry(histo[index], "Z Jets", "f");
     }
     if (index == 1021) {
       if (flag == "jet_misid_sherpa") index = 121;
-      histo1[index]->SetFillColor(kOrange-5);
-      legend->AddEntry(histo1[index], "Z #gamma", "f");
+      histo[index]->SetFillColor(kOrange-5);
+      legend->AddEntry(histo[index], "Z #gamma", "f");
     }
     if (index == 1022) {
-      histo1[index]->SetFillColor(kOrange-6);
-      legend->AddEntry(histo1[index], "Z #gamma #gamma", "f");
+      histo[index]->SetFillColor(kOrange-6);
+      legend->AddEntry(histo[index], "Z #gamma #gamma", "f");
     }
     if (index == 1031) {
-      histo1[index]->SetFillColor(kBlue+2);
-      legend->AddEntry(histo1[index], "TT #gamma", "f");
+      histo[index]->SetFillColor(kBlue+2);
+      legend->AddEntry(histo[index], "TT #gamma", "f");
     }
     if (index == 1032) {
-      histo1[index]->SetFillColor(kBlue+3);
-      legend->AddEntry(histo1[index], "TT #gamma #gamma", "f");
+      histo[index]->SetFillColor(kBlue+3);
+      legend->AddEntry(histo[index], "TT #gamma #gamma", "f");
     }
     if (index == 1041) {
-      histo1[index]->SetFillColor(kOrange+7);
-      legend->AddEntry(histo1[index], "T #gamma", "f");
+      histo[index]->SetFillColor(kOrange+7);
+      legend->AddEntry(histo[index], "T #gamma", "f");
     }
     if (index == 1051) {
-      histo1[index]->SetFillColor(kGreen+3);
-      legend->AddEntry(histo1[index], "VV #gamma", "f");
+      histo[index]->SetFillColor(kGreen+3);
+      legend->AddEntry(histo[index], "VV #gamma", "f");
     }
     if (index == 1061) {
-      histo1[index]->SetFillColor(kRed+1);
-      legend->AddEntry(histo1[index], "#gamma Jets", "f");
+      histo[index]->SetFillColor(kRed+1);
+      legend->AddEntry(histo[index], "#gamma Jets", "f");
     }
 
     if (index == 8001) {
-      histo1[index]->SetFillColor(kPink+4);
-      legend->AddEntry(histo1[index], "Jet MisID", "f");
+      histo[index]->SetFillColor(kPink+4);
+      legend->AddEntry(histo[index], "Jet MisID", "f");
     }
   }
 
@@ -907,14 +907,14 @@ void plot3(string plot="", string title="", string version="v00", string options
   pad1->Draw();
   pad1->cd();
 
-  hstack_mc->SetMaximum(1.2*TMath::Max(hstack_mc->GetMaximum(), histo1[0]->GetMaximum()));
+  hstack_mc->SetMaximum(1.2*TMath::Max(hstack_mc->GetMaximum(), histo[0]->GetMaximum()));
   if (options.find("nolog") == string::npos) hstack_mc->SetMinimum(0.0001*hstack_mc->GetMaximum());
   hstack_mc->SetMinimum(1.);
 
   hstack_mc->Draw("HIST");
 
   hstack_mc->SetTitle("");
-  histo1[0]->SetStats(kFALSE);
+  histo[0]->SetStats(kFALSE);
 
   hstack_mc->GetXaxis()->SetTitleOffset(0.7);
   hstack_mc->GetXaxis()->SetLabelFont(42);
@@ -925,11 +925,11 @@ void plot3(string plot="", string title="", string version="v00", string options
   hstack_mc->GetYaxis()->SetTitleOffset(0.8);
   hstack_mc->GetYaxis()->SetLabelSize(0.045);
 
-  histo1[0]->SetMarkerColor(kBlack);
-  histo1[0]->SetMarkerStyle(20);
-  histo1[0]->SetMarkerSize(1.0);
+  histo[0]->SetMarkerColor(kBlack);
+  histo[0]->SetMarkerStyle(20);
+  histo[0]->SetMarkerSize(1.0);
 
-  histo1[0]->Draw("EXP0SAMES");
+  histo[0]->Draw("EXP0SAMES");
 
   legend->Draw();
 
@@ -1100,22 +1100,22 @@ void plot3(string plot="", string title="", string version="v00", string options
   c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".matrix/" + title + ".pdf").c_str());
 
   if (options.find("identity0") != string::npos || options.find("identity1") != string::npos) {
-    for (map<int, TH1D*>::reverse_iterator it = histo1.rbegin(); it != histo1.rend(); it++) {
+    for (map<int, TH1D*>::reverse_iterator it = histo.rbegin(); it != histo.rend(); it++) {
       int index = int(it->first);
       if (index > 0 && index != 8001) {
         if (options.find("identity1") != string::npos && index == 11) continue;
-        histo1[0]->Add(histo1[index], -1);
+        histo[0]->Add(histo[index], -1);
       }
     }
 
     cout << "+++++++++++++++++++++++++++++++++++++" << endl;
-    cout << "Bkg from matrix   = " << histo1[8001]->Integral() << endl;
-    cout << "Bkg from MC       = " << histo1[0]->Integral() << endl;
+    cout << "Bkg from matrix   = " << histo[8001]->Integral() << endl;
+    cout << "Bkg from MC       = " << histo[0]->Integral() << endl;
     cout << "Bias factor       = " << bias_factor << endl;
-    cout << "Signal/Bkg MC     = " << histo1[myindex]->Integral()/histo1[0]->Integral() << endl;
-    cout << "Signal/Bkg matrix = " << histo1[myindex]->Integral()/histo1[8001]->Integral() << endl;
+    cout << "Signal/Bkg MC     = " << histo[myindex]->Integral()/histo[0]->Integral() << endl;
+    cout << "Signal/Bkg matrix = " << histo[myindex]->Integral()/histo[8001]->Integral() << endl;
 
-    cout << "Signal/All MC     = " << histo1[myindex]->Integral()/h_mc_sum->Integral() << endl;
+    cout << "Signal/All MC     = " << histo[myindex]->Integral()/h_mc_sum->Integral() << endl;
     cout << "+++++++++++++++++++++++++++++++++++++" << endl;
   }
 
