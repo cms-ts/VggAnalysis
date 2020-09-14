@@ -176,8 +176,7 @@ void plot4(string plot="", string title="", string version="v00", string options
         return;
       }
       if (histo[index]) {
-        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
-        h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
         if (title.find("h_WGG_ele") != string::npos) {
           TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
           h->Add(h1);
@@ -186,8 +185,7 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo[index]->Add(h, norm);
         }
       } else {
-        TH1D* h = (TH1D*)gDirectory->Get(title.c_str());
-        h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
+        TH1D* h = (TH1D*)gDirectory->Get((title + "_genmatch").c_str());
         if (title.find("h_WGG_ele") != string::npos) {
           TH1D* h1 = (TH1D*)gDirectory->Get((title + "_genmatch2").c_str());
           h->Add(h1);
