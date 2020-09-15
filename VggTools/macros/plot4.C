@@ -292,7 +292,6 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (options.find("closure1") != string::npos) title_tmp += "_closure1";
 
   if (plot.find("2016") != string::npos || plot.find("Run2") != string::npos) {
-    file_matrix_2016 = 0;
     if (flag == "jet_misid_test") {
       if (title.find("h_WGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_WG_ele_pho0_pt" + title_tmp + ".root").c_str());
       if (title.find("h_ZGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_ele_pho0_pt" + title_tmp + ".root").c_str());
@@ -306,7 +305,6 @@ void plot4(string plot="", string title="", string version="v00", string options
     }
   }
   if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
-    file_matrix_2017 = 0;
     if (flag == "jet_misid_test") {
       if (title.find("h_WGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_WG_ele_pho0_pt" + title_tmp + ".root").c_str());
       if (title.find("h_ZGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_ele_pho0_pt" + title_tmp + ".root").c_str());
@@ -320,7 +318,6 @@ void plot4(string plot="", string title="", string version="v00", string options
     }
   }
   if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
-    file_matrix_2018 = 0;
     if (flag == "jet_misid_test") {
       if (title.find("h_WGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_WG_ele_pho0_pt" + title_tmp + ".root").c_str());
       if (title.find("h_ZGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_ele_pho0_pt" + title_tmp + ".root").c_str());
@@ -418,20 +415,17 @@ void plot4(string plot="", string title="", string version="v00", string options
               delete matrix_2018;
             }
 
-            double det = -1.;
-            TMatrixD inverted_matrix = matrix;
-            inverted_matrix.Invert(&det);
+            TMatrixD inverse_matrix = matrix;
+            inverse_matrix.Invert();
 
             TVectorD alpha(4);
-
-            alpha = inverted_matrix * n_region;
+            alpha = inverse_matrix * n_region;
 
             TVectorD alpha_err(4);
-
-            alpha_err(0) = TMath::Sqrt(TMath::Power(inverted_matrix(0,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(0,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(0,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(0,3)*n_region_err(3), 2));
-            alpha_err(1) = TMath::Sqrt(TMath::Power(inverted_matrix(1,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(1,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(1,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(1,3)*n_region_err(3), 2));
-            alpha_err(2) = TMath::Sqrt(TMath::Power(inverted_matrix(2,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(2,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(2,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(2,3)*n_region_err(3), 2));
-            alpha_err(3) = TMath::Sqrt(TMath::Power(inverted_matrix(3,0)*n_region_err(0), 2) + TMath::Power(inverted_matrix(3,1)*n_region_err(1), 2) + TMath::Power(inverted_matrix(3,2)*n_region_err(2), 2) + TMath::Power(inverted_matrix(3,3)*n_region_err(3), 2));
+            alpha_err(0) = TMath::Sqrt(TMath::Power(inverse_matrix(0,0)*n_region_err(0), 2) + TMath::Power(inverse_matrix(0,1)*n_region_err(1), 2) + TMath::Power(inverse_matrix(0,2)*n_region_err(2), 2) + TMath::Power(inverse_matrix(0,3)*n_region_err(3), 2));
+            alpha_err(1) = TMath::Sqrt(TMath::Power(inverse_matrix(1,0)*n_region_err(0), 2) + TMath::Power(inverse_matrix(1,1)*n_region_err(1), 2) + TMath::Power(inverse_matrix(1,2)*n_region_err(2), 2) + TMath::Power(inverse_matrix(1,3)*n_region_err(3), 2));
+            alpha_err(2) = TMath::Sqrt(TMath::Power(inverse_matrix(2,0)*n_region_err(0), 2) + TMath::Power(inverse_matrix(2,1)*n_region_err(1), 2) + TMath::Power(inverse_matrix(2,2)*n_region_err(2), 2) + TMath::Power(inverse_matrix(2,3)*n_region_err(3), 2));
+            alpha_err(3) = TMath::Sqrt(TMath::Power(inverse_matrix(3,0)*n_region_err(0), 2) + TMath::Power(inverse_matrix(3,1)*n_region_err(1), 2) + TMath::Power(inverse_matrix(3,2)*n_region_err(2), 2) + TMath::Power(inverse_matrix(3,3)*n_region_err(3), 2));
 
             alpha_err(0) = alpha_err(0) * (1. + 0.1 * (flag == "jet_misid_stat"));
             alpha_err(1) = alpha_err(1) * (1. + 0.1 * (flag == "jet_misid_stat"));

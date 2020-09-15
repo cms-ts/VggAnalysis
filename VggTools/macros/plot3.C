@@ -694,7 +694,6 @@ void plot3(string plot="", string title="", string version="v00", string options
       n_region[1] = histo3_data->GetBinContent(pho0_pt+1, eta+1, 2);
 
       TMatrixD matrix(2,2);
-      TMatrixD inverse_matrix(2,2);
 
       if (options.find("closure2") == string::npos) {
         matrix(0, 0) = e[pho0_pt][eta];
@@ -762,10 +761,8 @@ void plot3(string plot="", string title="", string version="v00", string options
 
       }
 
-      inverse_matrix = matrix;
-
-      double det = -1;
-      inverse_matrix.Invert(&det);
+      TMatrixD inverse_matrix = matrix;
+      inverse_matrix.Invert();
 
       TVectorD alpha(2);
       alpha = inverse_matrix * n_region;
