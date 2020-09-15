@@ -80,7 +80,7 @@ void plot4(string plot="", string title="", string version="v00", string options
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
       }
-      if (!file->IsOpen()) {
+      if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
       }
@@ -156,7 +156,7 @@ void plot4(string plot="", string title="", string version="v00", string options
       } else {
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
       }
-      if (!file->IsOpen()) {
+      if (file->IsZombie()) {
         cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
         return;
       }
