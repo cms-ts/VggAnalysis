@@ -216,9 +216,9 @@ void plot0(string plot="", string title="", string version="v00", string options
         } else {
           histo[index]->Scale(fitval);
         }
-        file->Close();
-        delete file;
       }
+      file->Close();
+      delete file;
     }
   }
 

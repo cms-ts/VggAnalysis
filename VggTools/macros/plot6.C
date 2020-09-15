@@ -179,10 +179,10 @@ void plot6(string plot="", string title="", string version="v00", string options
       h_xsec_rec[flags[i]]->SetDirectory(0);
       h_xsec_mc_gen[flags[i]]->SetDirectory(0);
 
-      file->Close();
-      delete file;
-
     }
+
+    file->Close();
+    delete file;
 
   }
 
@@ -1450,10 +1450,10 @@ void plot6(string plot="", string title="", string version="v00", string options
       h_egmisid->SetDirectory(0);
     }
 
-    file2->Close();
-    delete file2;
-
   }
+
+  file2->Close();
+  delete file2;
 
 }
 

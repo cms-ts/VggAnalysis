@@ -195,10 +195,10 @@ void plot7(string plot="", string title="", string version="v00", string options
       h_mc_bkg[flags[i]]->SetDirectory(0);
       h_mc_sum[flags[i]]->SetDirectory(0);
 
-      file->Close();
-      delete file;
-
     }
+
+    file->Close();
+    delete file;
 
   }
 

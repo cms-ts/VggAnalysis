@@ -211,9 +211,9 @@ void plot8(string plot="", string title="", string version="v00", string options
       histo[index] = (TH1D*)file->Get((title + "_qcd_nofit").c_str());
       histo[index]->SetDirectory(0);
       histo[index]->Scale(fitval);
-      file->Close();
-      delete file;
     }
+    file->Close();
+    delete file;
   }
 
   int myindex1 = -1;
