@@ -6,7 +6,7 @@
 #include "CMS_lumi.C"
 #endif
 
-void plot4(string plot="", string title="", string version="v00", string options="", string flag="reference"){
+int plot4(string plot="", string title="", string version="v00", string options="", string flag="reference"){
 
   string year = "";
 
@@ -26,17 +26,20 @@ void plot4(string plot="", string title="", string version="v00", string options
   if (options.find("default") != string::npos) plot = "default/" + plot;
 
   if (options.find("identity0") != string::npos || options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
-    if (flag != "reference") return;
+    if (flag != "reference") {
+      Warning("plot4", "skipping options %s for flag %s", options.c_str(), flag.c_str());
+      return 0;
+    }
   }
 
   if (options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
     if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
-      cout << "ERROR: no sherpa sample available for this year !!" << endl;
-      return;
+      Warning("plot4", "no sherpa sample available for this year !!");
+      return 0;
     }
     if (title.find("h_WG") != string::npos) {
-      cout << "ERROR: no sherpa sample available for the W channel !!" << endl;
-      return;
+      Warning("plot4", "no sherpa sample available for the W channel !!");
+      return 0;
     }
   }
 
@@ -59,8 +62,8 @@ void plot4(string plot="", string title="", string version="v00", string options
   cout << "Read plot map for " << plotMap.size() << " datasets from " << plot << endl;
 
   if (plotMap.size() == 0) {
-    cout << "ERROR: plot map " << plot << " is EMPTY or MISSING !!" << endl;
-    return;
+    Error("plot4", "plot map %s is EMPTY or MISSING !!", plot.c_str());
+    return 1;
   }
 
   map<int, TH1D*> histo;
@@ -81,8 +84,8 @@ void plot4(string plot="", string title="", string version="v00", string options
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
       }
       if (file->IsZombie()) {
-        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
-        return;
+        Error("plot4", "file %s is MISSING !!", file->GetName());
+        return 1;
       }
       if (lumiMap[it->first] != 0) {
         double var = (flag == "lumi_up") - (flag == "lumi_down");
@@ -91,7 +94,7 @@ void plot4(string plot="", string title="", string version="v00", string options
         if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.018 * var);
         if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.018 * var);
       } else {
-        cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
+        Warning("plot4", "luminosity for %s is ZERO !!", it->first.c_str());
       }
       if (histo[index]) {
         TH1D* h = (TH1D*)file->Get(title.c_str());
@@ -104,8 +107,8 @@ void plot4(string plot="", string title="", string version="v00", string options
           histo[index] = h;
           histo[index]->SetDirectory(0);
         } else {
-          Error("plot0", "skip missing histogram: %s", title.c_str());
-          return;
+          Warning("plot4", "skip missing histogram: %s", title.c_str());
+          return 0;
         }
       }
 
@@ -143,8 +146,8 @@ void plot4(string plot="", string title="", string version="v00", string options
   }
 
   if (lumi == 0) {
-    cout << "ERROR: total luminosity is ZERO !!" << endl;
-    return;
+    Error("plot4", "total luminosity is ZERO !!");
+    return 1;
   }
 
   for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
@@ -157,8 +160,8 @@ void plot4(string plot="", string title="", string version="v00", string options
         file = new TFile(("data/" + version + "/" + flag + "/" + it->first + ".root").c_str());
       }
       if (file->IsZombie()) {
-        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
-        return;
+        Error("plot4", "file %s is MISSING !!", file->GetName());
+        return 1;
       }
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
@@ -171,8 +174,8 @@ void plot4(string plot="", string title="", string version="v00", string options
         if (flag == "xsec_syst_zg" && (index == 11 || index == 1021)) norm = norm * 1.075;
         if (flag == "xsec_syst_others" && index != 10 && index != 11 && index != 21 && index != 1010 && index != 1011 && index != 1021) norm = norm * 1.075;
       } else {
-        cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
-        return;
+        Error("plot4", "cross section for %s is ZERO !!", it->first.c_str());
+        return 1;
       }
       if (histo[index]) {
         TH1D* h = (TH1D*)file->Get((title + "_genmatch").c_str());
@@ -300,8 +303,8 @@ void plot4(string plot="", string title="", string version="v00", string options
       if (title.find("h_ZGG") != string::npos) file_matrix_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/h_ZG_muo_pho0_pt" + title_tmp + ".root").c_str());
     }
     if (file_matrix_2016->IsZombie()) {
-      cout << "ERROR: file " << file_matrix_2016->GetName() << " is MISSING !!" << endl;
-      return;
+      Error("plot4", "file %s is MISSING !!", file_matrix_2016->GetName());
+      return 1;
     }
   }
   if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
@@ -313,8 +316,8 @@ void plot4(string plot="", string title="", string version="v00", string options
       if (title.find("h_ZGG") != string::npos) file_matrix_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/h_ZG_muo_pho0_pt" + title_tmp + ".root").c_str());
     }
     if ( file_matrix_2017->IsZombie()) {
-      cout << "ERROR: file " << file_matrix_2017->GetName() << " is MISSING !!" << endl;
-      return;
+      Error("plot4", "file %s is MISSING !!", file_matrix_2017->GetName());
+      return 1;
     }
   }
   if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
@@ -326,8 +329,8 @@ void plot4(string plot="", string title="", string version="v00", string options
       if (title.find("h_ZGG") != string::npos) file_matrix_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/h_ZG_muo_pho0_pt" + title_tmp + ".root").c_str());
     }
     if (file_matrix_2018->IsZombie()) {
-      cout << "ERROR: file " << file_matrix_2018->GetName() << " is MISSING !!" << endl;
-      return;
+      Error("plot4", "file %s is MISSING !!", file_matrix_2018->GetName());
+      return 1;
     }
   }
 
@@ -988,6 +991,8 @@ void plot4(string plot="", string title="", string version="v00", string options
   file->Close();
   delete file;
 
+  return 0;
+
 }
 
 #ifndef __CLING__
@@ -1001,9 +1006,7 @@ cout << "Processing plot4.C(\"" << argv[1] << "\",\""
                                 << argv[4] << "\",\""
                                 << argv[5] << "\")..." << endl;
 
-plot4(argv[1], argv[2], argv[3], argv[4], argv[5]);
-
-return 0;
+return plot4(argv[1], argv[2], argv[3], argv[4], argv[5]);
 
 }
 #endif

@@ -5,7 +5,7 @@
 #include "CMS_lumi.C"
 #endif
 
-void plot5(string plot="", string title="", string version="v00", string options="", string flag="reference") {
+int plot5(string plot="", string title="", string version="v00", string options="", string flag="reference") {
 
   string year = "";
 
@@ -39,8 +39,8 @@ void plot5(string plot="", string title="", string version="v00", string options
   cout << "Read plot map for " << plotMap.size() << " datasets from " << plot << endl;
 
   if (plotMap.size() == 0) {
-    cout << "ERROR: plot map " << plot << " is EMPTY or MISSING !!" << endl;
-    return;
+    Error("plot5", "plot map %s is EMPTY or MISSING !!", plot.c_str());
+    return 1;
   }
 
   double lumi = 0.;
@@ -58,14 +58,14 @@ void plot5(string plot="", string title="", string version="v00", string options
         if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.018 * var);
         if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.018 * var);
       } else {
-        cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
+        Warning("plot5", "luminosity for %s is ZERO !!", it->first.c_str());
       }
     }
   }
 
   if (lumi == 0) {
-    cout << "ERROR: total luminosity is ZERO !!" << endl;
-    return;
+    Error("plot5", "total luminosity is ZERO !!");
+    return 1;
   }
 
   if (options.find("test") != string::npos) version = version + ".test";
@@ -89,12 +89,12 @@ void plot5(string plot="", string title="", string version="v00", string options
   TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".eff/root/" + title + ".root").c_str());
 
   if (file1->IsZombie()) {
-    cout << "ERROR: file " << file1->GetName() << " is MISSING !!" << endl;
-    return;
+    Error("plot5", "file %s is MISSING !!", file1->GetName());
+    return 1;
   }
   if (file2->IsZombie()) {
-    cout << "ERROR: file " << file2->GetName() << " is MISSING !!" << endl;
-    return;
+    Error("plot5", "file %s is MISSING !!", file2->GetName());
+    return 1;
   }
 
   TH1D* h_data = (TH1D*)file1->Get((title + "_data").c_str());
@@ -186,13 +186,13 @@ void plot5(string plot="", string title="", string version="v00", string options
       file1_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/" + title + ".root").c_str());
     }
     if (file1_2016->IsZombie()) {
-      cout << "ERROR: file " << file1_2016->GetName() << " is MISSING !!" << endl;
-      return;
+      Error("plot5", "file %s is MISSING !!", file1_2016->GetName());
+      return 1;
     }
     file2_2016 = new TFile(("html/" + version + "/" + flag + "/2016.eff/root/" + title + ".root").c_str());
     if (file2_2016->IsZombie()) {
-      cout << "ERROR: file " << file2_2016->GetName() << " is MISSING !!" << endl;
-      return;
+      Error("plot5", "file %s is MISSING !!", file2_2016->GetName());
+      return 1;
     }
   }
   if (plot.find("2017") != string::npos || plot.find("Run2") != string::npos) {
@@ -202,13 +202,13 @@ void plot5(string plot="", string title="", string version="v00", string options
       file1_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/" + title + ".root").c_str());
     }
     if (file1_2017->IsZombie()) {
-      cout << "ERROR: file " << file1_2017->GetName() << " is MISSING !!" << endl;
-      return;
+      Error("plot5", "file %s is MISSING !!", file1_2017->GetName());
+      return 1;
     }
     file2_2017 = new TFile(("html/" + version + "/" + flag + "/2017.eff/root/" + title + ".root").c_str());
     if (file2_2017->IsZombie()) {
-      cout << "ERROR: file " << file2_2017->GetName() << " is MISSING !!" << endl;
-      return;
+      Error("plot5", "file %s is MISSING !!", file2_2017->GetName());
+      return 1;
     }
   }
   if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
@@ -218,13 +218,13 @@ void plot5(string plot="", string title="", string version="v00", string options
       file1_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/" + title + ".root").c_str());
     }
     if (file1_2018->IsZombie()) {
-      cout << "ERROR: file " << file1_2018->GetName() << " is MISSING !!" << endl;
-      return;
+      Error("plot5", "file %s is MISSING !!", file1_2018->GetName());
+      return 1;
     }
     file2_2018 = new TFile(("html/" + version + "/" + flag + "/2018.eff/root/" + title + ".root").c_str());
     if (file2_2018->IsZombie()) {
-      cout << "ERROR: file " << file2_2018->GetName() << " is MISSING !!" << endl;
-      return;
+      Error("plot5", "file %s is MISSING !!", file2_2018->GetName());
+      return 1;
     }
   }
 
@@ -832,6 +832,8 @@ void plot5(string plot="", string title="", string version="v00", string options
 
   out.close();
 
+  return 0;
+
 }
 
 #ifndef __CLING__
@@ -845,9 +847,7 @@ cout << "Processing plot5.C(\"" << argv[1] << "\",\""
                                 << argv[4] << "\",\""
                                 << argv[5] << "\")..." << endl;
 
-plot5(argv[1], argv[2], argv[3], argv[4], argv[5]);
-
-return 0;
+return plot5(argv[1], argv[2], argv[3], argv[4], argv[5]);
 
 }
 #endif

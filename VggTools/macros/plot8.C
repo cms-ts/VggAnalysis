@@ -30,12 +30,12 @@ void fcn8(int& npar, double* gin, double& fun, double* par, int iflag) {
 
 }
 
-void plot8(string plot="", string title="", string version="v00", string options="", int nfits=2) {
+int plot8(string plot="", string title="", string version="v00", string options="", int nfits=2) {
 
   if (plot.find("Zgg") != string::npos) {
     if (options.find("qcd") != string::npos) {
-      cout << "Skipping plot map " << plot << " for options " << options << endl;
-      return;
+      Warning("plot8", "skipping plot map %s for options %s", plot.c_str(), options.c_str());
+      return 0;
     }
   }
 
@@ -81,8 +81,8 @@ void plot8(string plot="", string title="", string version="v00", string options
   cout << "Read plot map for " << plotMap.size() << " datasets from " << plot << endl;
 
   if (plotMap.size() == 0) {
-    cout << "ERROR: plot map " << plot << " is EMPTY or MISSING !!" << endl;
-    return;
+    Error("plot8", "plot map %s is EMPTY or MISSING !!", plot.c_str());
+    return 1;
   }
 
   map<int, TH1D*> histo;
@@ -98,8 +98,8 @@ void plot8(string plot="", string title="", string version="v00", string options
       TFile* file = 0;
       file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       if (file->IsZombie()) {
-        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
-        return;
+        Error("plot8", "file %s is MISSING !!", file->GetName());
+        return 1;
       }
       if (lumiMap[it->first] != 0) {
         lumi = lumi + lumiMap[it->first];
@@ -107,7 +107,7 @@ void plot8(string plot="", string title="", string version="v00", string options
         if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first];
         if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first];
       } else {
-        cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
+        Warning("plot8", "luminosity for %s is ZERO !!", it->first.c_str());
       }
       if (histo[index]) {
         TH1D* h = (TH1D*)file->Get(title.c_str());
@@ -120,8 +120,8 @@ void plot8(string plot="", string title="", string version="v00", string options
           histo[index] = h;
           histo[index]->SetDirectory(0);
         } else {
-          Error("plot0", "skip missing histogram: %s", title.c_str());
-          return;
+          Warning("plot8", "skip missing histogram: %s", title.c_str());
+          return 0;
         }
       }
       file->Close();
@@ -130,8 +130,8 @@ void plot8(string plot="", string title="", string version="v00", string options
   }
 
   if (lumi == 0) {
-    cout << "ERROR: total luminosity is ZERO !!" << endl;
-    return;
+    Error("plot8", "total luminosity is ZERO !!");
+    return 1;
   }
 
   for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
@@ -140,8 +140,8 @@ void plot8(string plot="", string title="", string version="v00", string options
       TFile* file = 0;
       file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
       if (file->IsZombie()) {
-        cout << "ERROR: file " << it->first + ".root" << " is MISSING !!" << endl;
-        return;
+        Error("plot8", "file %s is MISSING !!", file->GetName());
+        return 1;
       }
       double norm = 1.;
       if (xsecMap[it->first] != 0) {
@@ -150,8 +150,8 @@ void plot8(string plot="", string title="", string version="v00", string options
         if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
         if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
       } else {
-        cout << "ERROR: cross section for " << it->first << " is ZERO !!" << endl;
-        return;
+        Error("plot8", "cross section for %s is ZERO !!", it->first.c_str());
+        return 1;
       }
       if (histo[index]) {
         TH1D* h = (TH1D*)file->Get(title.c_str());
@@ -838,6 +838,8 @@ void plot8(string plot="", string title="", string version="v00", string options
   file->Close();
   delete file;
 
+  return 0;
+
 }
 
 #ifndef __CLING__
@@ -851,8 +853,7 @@ cout << "Processing plot8.C(\"" << argv[1] << "\",\""
                                 << argv[4] << "\",\""
                                 << argv[5] << "\")..." << endl;
 
-plot8(argv[1], argv[2], argv[3], argv[4], atoi(argv[5]));
+return plot8(argv[1], argv[2], argv[3], argv[4], atoi(argv[5]));
 
-return 0;
 }
 #endif

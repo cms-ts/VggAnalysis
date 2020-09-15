@@ -20,7 +20,7 @@ void fcn1(int& npar, double* gin, double& fun, double* par, int iflag) {
 
 }
 
-void plot1(string plot="", string title="", string version="v00", string options="", string flag="reference") {
+int plot1(string plot="", string title="", string version="v00", string options="", string flag="reference") {
 
   string year = "";
 
@@ -50,8 +50,8 @@ void plot1(string plot="", string title="", string version="v00", string options
   cout << "Read plot map for " << plotMap.size() << " datasets from " << plot << endl;
 
   if (plotMap.size() == 0) {
-    cout << "ERROR: plot map " << plot << " is EMPTY or MISSING !!" << endl;
-    return;
+    Error("plot1", "plot map %s is EMPTY or MISSING !!", plot.c_str());
+    return 1;
   }
 
   if (options.find("test") != string::npos) version = version + ".test";
@@ -67,12 +67,12 @@ void plot1(string plot="", string title="", string version="v00", string options
   TFile* file2 = new TFile(("html/" + version + "/" + flag + "/" + year + ".qcd/root/" + title + "_qcd_nofit.root").c_str());
 
   if (file1->IsZombie()) {
-    cout << "ERROR: file " << file1->GetName() << " is MISSING !!" << endl;
-    return;
+    Error("plot1", "file %s is MISSING !!", file1->GetName());
+    return 1;
   }
   if (file2->IsZombie()) {
-    cout << "ERROR: file " << file2->GetName() << " is MISSING !!" << endl;
-    return;
+    Error("plot1", "file %s is MISSING !!", file2->GetName());
+    return 1;
   }
 
   TH1D* h1 = (TH1D*)file1->Get((title + "_nofit").c_str());
@@ -145,6 +145,8 @@ void plot1(string plot="", string title="", string version="v00", string options
 
   out.close();
 
+  return 0;
+
 }
 
 #ifndef __CLING__
@@ -158,9 +160,7 @@ cout << "Processing plot1.C(\"" << argv[1] << "\",\""
                                 << argv[4] << "\",\""
                                 << argv[5] << "\")..." << endl;
 
-plot1(argv[1], argv[2], argv[3], argv[4], argv[5]);
-
-return 0;
+return plot1(argv[1], argv[2], argv[3], argv[4], argv[5]);
 
 }
 #endif

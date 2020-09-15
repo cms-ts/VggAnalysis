@@ -5,7 +5,7 @@
 #include "CMS_lumi.C"
 #endif
 
-void plot6(string plot="", string title="", string version="v00", string options="") {
+int plot6(string plot="", string title="", string version="v00", string options="") {
 
   string year = "";
 
@@ -39,8 +39,8 @@ void plot6(string plot="", string title="", string version="v00", string options
   cout << "Read plot map for " << plotMap.size() << " datasets from " << plot << endl;
 
   if (plotMap.size() == 0) {
-    cout << "ERROR: plot map " << plot << " is EMPTY or MISSING !!" << endl;
-    return;
+    Error("plot6", "plot map %s is EMPTY or MISSING !!", plot.c_str());
+    return 1;
   }
 
   double lumi = 0.;
@@ -57,14 +57,14 @@ void plot6(string plot="", string title="", string version="v00", string options
         if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first];
         if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first];
       } else {
-        cout << "WARNING: luminosity for " << it->first << " is ZERO !!" << endl;
+        Warning("plot6", "luminosity for %s is ZERO !!", it->first.c_str());
       }
     }
   }
 
   if (lumi == 0) {
-    cout << "ERROR: total luminosity is ZERO !!" << endl;
-    return;
+    Error("plot6", "total luminosity is ZERO !!");
+    return 1;
   }
 
   if (options.find("test") != string::npos) version = version + ".test";
@@ -1446,6 +1446,8 @@ void plot6(string plot="", string title="", string version="v00", string options
   file2->Close();
   delete file2;
 
+  return 0;
+
 }
 
 #ifndef __CLING__
@@ -1458,9 +1460,7 @@ cout << "Processing plot6.C(\"" << argv[1] << "\",\""
                                 << argv[3] << "\",\""
                                 << argv[4] << "\")..." << endl;
 
-plot6(argv[1], argv[2], argv[3], argv[4]);
-
-return 0;
+return plot6(argv[1], argv[2], argv[3], argv[4]);
 
 }
 #endif
