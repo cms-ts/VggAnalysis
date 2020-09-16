@@ -50,13 +50,4 @@ for D1 in `ls $DATADIR/ | grep RunII.*NanoAOD`; do
   done
 done
 
-DATADIR=/eos/infnts/cms/store/user/dellaric/mc
-
-for D1 in `ls $DATADIR/ | grep RunII.*NanoAOD`; do
-  for D2 in `ls $DATADIR/$D1`; do
-    find $DATADIR/$D1/$D2 -type f | \
-    awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/${D1}_${D2}.list
-  done
-done
-
 exit
