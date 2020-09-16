@@ -1063,12 +1063,6 @@ int plot6(string plot="", string title="", string version="v00", string options=
 
   out1.close();
 
-  gROOT->GetColor(kRed)->SetAlpha(0.5);
-  gROOT->GetColor(kGreen+2)->SetAlpha(0.5);
-  gROOT->GetColor(kMagenta-6)->SetAlpha(0.5);
-  gROOT->GetColor(kBlue-4)->SetAlpha(0.5);
-  gROOT->GetColor(kOrange+7)->SetAlpha(0.5);
-
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
   c1->cd();
 
@@ -1087,10 +1081,10 @@ int plot6(string plot="", string title="", string version="v00", string options=
   h_xsec_mc_gen["reference"]->SetTitle("");
   h_xsec_mc_gen["reference"]->SetStats(kFALSE);
 
-  h_xsec_mc_gen["reference"]->SetLineColor(kBlue-4);
+  h_xsec_mc_gen["reference"]->SetLineColorAlpha(kBlue-4, 0.5);
   h_xsec_mc_gen["reference"]->SetLineWidth(2);
-  h_xsec_mc_gen["reference"]->SetFillColor(kBlue-4);
-  h_xsec_mc_gen["reference"]->SetMarkerColor(kBlue-4);
+  h_xsec_mc_gen["reference"]->SetFillColorAlpha(kBlue-4, 0.5);
+  h_xsec_mc_gen["reference"]->SetMarkerColorAlpha(kBlue-4, 0.5);
 
   h_xsec_mc_gen["reference"]->GetXaxis()->SetTitleOffset(0.7);
   h_xsec_mc_gen["reference"]->GetXaxis()->SetLabelFont(42);
@@ -1298,7 +1292,7 @@ int plot6(string plot="", string title="", string version="v00", string options=
 
   pad2->Update();
   TLine* line = new TLine(pad2->GetUxmax(), 1.0, pad2->GetUxmin(), 1.0);
-  line->SetLineColor(kBlue-4);
+  line->SetLineColorAlpha(kBlue-4, 0.5);
   line->SetLineWidth(2);
   line->Draw();
 
