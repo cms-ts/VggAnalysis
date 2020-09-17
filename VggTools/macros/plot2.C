@@ -362,6 +362,9 @@ int plot2(string plot="", string title="", string version="v00", string options=
 
   writeExtraText = true;
 
+  float old_lumiTextSize = lumiTextSize;
+  float old_cmsTextSize = cmsTextSize;
+
   lumiTextSize = 0.4;
   cmsTextSize = 0.50;
 
@@ -369,6 +372,9 @@ int plot2(string plot="", string title="", string version="v00", string options=
   int iPeriod = 4;
   int iPos = 0;
   CMS_lumi(c1, iPeriod, iPos);
+
+  lumiTextSize = old_lumiTextSize;
+  cmsTextSize = old_cmsTextSize;
 
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".eff/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".eff/").c_str(), kTRUE);
