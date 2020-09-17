@@ -6,7 +6,7 @@
 #include "CMS_lumi.C"
 #endif
 
-int plot3(string plot="", string title="", string version="v00", string options="", string flag="reference") {
+int plot3(string plot="", string title="", string version="v00", string options="default", string flag="reference") {
 
   string year = "";
 
@@ -1134,13 +1134,17 @@ int plot3(string plot="", string title="", string version="v00", string options=
 #ifndef __ACLIC__
 int main(int argc, char *argv[]) {
 
-  cout << "Processing plot3.C(\"" << argv[1] << "\",\""
-                                  << argv[2] << "\",\""
-                                  << argv[3] << "\",\""
-                                  << argv[4] << "\",\""
-                                  << argv[5] << "\")..." << endl;
+  vector<string> args = {"plot3.exe", "", "", "v00", "default", "reference"};
 
-  return plot3(argv[1], argv[2], argv[3], argv[4], argv[5]);
+  for (uint i = 0; i < argc; i++) args[i] = argv[i];
+
+  cout << "Processing plot3.C(\"" << args[1] << "\",\""
+                                  << args[2] << "\",\""
+                                  << args[3] << "\",\""
+                                  << args[4] << "\",\""
+                                  << args[5] << "\")..." << endl;
+
+  return plot3(args[1], args[2], args[3], args[4], args[5]);
 
 }
 #endif

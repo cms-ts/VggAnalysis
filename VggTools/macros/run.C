@@ -1,8 +1,8 @@
 #pragma cling load("libTreePlayer.so")
 
-using namespace std;
-
 #include <fstream>
+
+using namespace std;
 
 #include <TROOT.h>
 #include <TSystem.h>
@@ -204,11 +204,15 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
 #ifndef __ACLIC__
 int main(int argc, char *argv[]) {
 
-  cout << "Processing run.C(\"" << argv[1] << "\",\""
-                                << argv[2] << "\",\""
-                                << argv[3] << "\")..." << endl;
+  vector<string> args = {"run.exe", "", "", "reference"};
 
-  run(argv[1], argv[2], argv[3]);
+  for (uint i = 0; i < argc; i++) args[i] = argv[i];
+
+  cout << "Processing run.C(\"" << args[1] << "\",\""
+                                << args[2] << "\",\""
+                                << args[3] << "\")..." << endl;
+
+  run(args[1], args[2], args[3]);
 
   return 0;
 

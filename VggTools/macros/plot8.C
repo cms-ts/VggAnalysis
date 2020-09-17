@@ -30,7 +30,7 @@ void fcn8(int& npar, double* gin, double& fun, double* par, int iflag) {
 
 }
 
-int plot8(string plot="", string title="", string version="v00", string options="", int nfits=2) {
+int plot8(string plot="", string title="", string version="v00", string options="default", int nfits=2) {
 
   if (plot.find("Zgg") != string::npos) {
     if (options.find("qcd") != string::npos) {
@@ -845,13 +845,17 @@ int plot8(string plot="", string title="", string version="v00", string options=
 #ifndef __ACLIC__
 int main(int argc, char *argv[]) {
 
-  cout << "Processing plot8.C(\"" << argv[1] << "\",\""
-                                  << argv[2] << "\",\""
-                                  << argv[3] << "\",\""
-                                  << argv[4] << "\",\""
-                                  << argv[5] << "\")..." << endl;
+  vector<string> args = {"plot8.exe", "", "", "v00", "default", "2"};
 
-  return plot8(argv[1], argv[2], argv[3], argv[4], atoi(argv[5]));
+  for (uint i = 0; i < argc; i++) args[i] = argv[i];
+
+  cout << "Processing plot8.C(\"" << args[1] << "\",\""
+                                  << args[2] << "\",\""
+                                  << args[3] << "\",\""
+                                  << args[4] << "\",\""
+                                  << args[5] << "\")..." << endl;
+
+  return plot8(args[1], args[2], args[3], args[4], atoi(args[5].c_str()));
 
 }
 #endif

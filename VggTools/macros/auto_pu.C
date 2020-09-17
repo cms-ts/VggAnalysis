@@ -127,10 +127,14 @@ void auto_pu(TString input="lists/RunIIFall17NanoAODv7_DYJetsToLL_M-50_TuneCP5_1
 #ifndef __ACLIC__
 int main(int argc, char *argv[]) {
 
-  cout << "Processing auto_pu.C(\"" << argv[1] << "\",\""
-                                    << argv[2] << "\")..." << endl;
+  vector<string> args = {"auto_pu.exe", "", ""};
 
-  auto_pu(argv[1], argv[2]);
+  for (uint i = 0; i < argc; i++) args[i] = argv[i];
+
+  cout << "Processing auto_pu.C(\"" << args[1] << "\",\""
+                                    << args[2] << "\")..." << endl;
+
+  auto_pu(args[1], args[2]);
 
   return 0;
 
