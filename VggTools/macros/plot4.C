@@ -995,18 +995,16 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
 }
 
-#ifndef __CLING__
+#ifndef __ACLIC__
 int main(int argc, char *argv[]) {
 
-#pragma unused (argc)
+  cout << "Processing plot4.C(\"" << argv[1] << "\",\""
+                                  << argv[2] << "\",\""
+                                  << argv[3] << "\",\""
+                                  << argv[4] << "\",\""
+                                  << argv[5] << "\")..." << endl;
 
-cout << "Processing plot4.C(\"" << argv[1] << "\",\""
-                                << argv[2] << "\",\""
-                                << argv[3] << "\",\""
-                                << argv[4] << "\",\""
-                                << argv[5] << "\")..." << endl;
-
-return plot4(argv[1], argv[2], argv[3], argv[4], argv[5]);
+  return plot4(argv[1], argv[2], argv[3], argv[4], argv[5]);
 
 }
 #endif

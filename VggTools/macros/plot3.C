@@ -632,7 +632,7 @@ int plot3(string plot="", string title="", string version="v00", string options=
           f2_err = f_err[pho1_pt][1];
         }
 
-        for (int i=0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) {
           string matrix_title = "matrix_";
           matrix_title += std::to_string(pho0_pt+1);
           matrix_title += std::to_string(pho1_pt+1);
@@ -1131,18 +1131,16 @@ int plot3(string plot="", string title="", string version="v00", string options=
 
 }
 
-#ifndef __CLING__
+#ifndef __ACLIC__
 int main(int argc, char *argv[]) {
 
-#pragma unused (argc)
+  cout << "Processing plot3.C(\"" << argv[1] << "\",\""
+                                  << argv[2] << "\",\""
+                                  << argv[3] << "\",\""
+                                  << argv[4] << "\",\""
+                                  << argv[5] << "\")..." << endl;
 
-cout << "Processing plot3.C(\"" << argv[1] << "\",\""
-                                << argv[2] << "\",\""
-                                << argv[3] << "\",\""
-                                << argv[4] << "\",\""
-                                << argv[5] << "\")..." << endl;
-
-return plot3(argv[1], argv[2], argv[3], argv[4], argv[5]);
+  return plot3(argv[1], argv[2], argv[3], argv[4], argv[5]);
 
 }
 #endif

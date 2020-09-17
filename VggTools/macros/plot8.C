@@ -15,7 +15,7 @@ void fcn8(int& npar, double* gin, double& fun, double* par, int iflag) {
   double chisq = 0.0;
   if (iflag) {};
   if (gin) {};
-  for (int i=1; i<=h_data_fit->GetNbinsX(); i++) {
+  for (int i = 1; i <= h_data_fit->GetNbinsX(); i++) {
     double xn = h_data_fit->GetBinContent(i);
     double xd = TMath::Power(h_data_fit->GetBinError(i),2);
     xn = xn - par[0]*h_mc_fit0->GetBinContent(i);
@@ -842,18 +842,16 @@ int plot8(string plot="", string title="", string version="v00", string options=
 
 }
 
-#ifndef __CLING__
+#ifndef __ACLIC__
 int main(int argc, char *argv[]) {
 
-#pragma unused (argc)
+  cout << "Processing plot8.C(\"" << argv[1] << "\",\""
+                                  << argv[2] << "\",\""
+                                  << argv[3] << "\",\""
+                                  << argv[4] << "\",\""
+                                  << argv[5] << "\")..." << endl;
 
-cout << "Processing plot8.C(\"" << argv[1] << "\",\""
-                                << argv[2] << "\",\""
-                                << argv[3] << "\",\""
-                                << argv[4] << "\",\""
-                                << argv[5] << "\")..." << endl;
-
-return plot8(argv[1], argv[2], argv[3], argv[4], atoi(argv[5]));
+  return plot8(argv[1], argv[2], argv[3], argv[4], atoi(argv[5]));
 
 }
 #endif

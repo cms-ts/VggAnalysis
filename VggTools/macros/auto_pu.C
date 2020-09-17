@@ -124,13 +124,15 @@ void auto_pu(TString input="lists/RunIIFall17NanoAODv7_DYJetsToLL_M-50_TuneCP5_1
 
 }
 
+#ifndef __ACLIC__
 int main(int argc, char *argv[]) {
 
-#pragma unused (argc)
+  cout << "Processing auto_pu.C(\"" << argv[1] << "\",\""
+                                    << argv[2] << "\")..." << endl;
 
-cout << "Processing auto_pu.C(\"" << argv[1] << "\",\""
-                                  << argv[2] << "\")..." << endl;
+  auto_pu(argv[1], argv[2]);
 
-auto_pu(argv[1], argv[2]);
+  return 0;
 
 }
+#endif
