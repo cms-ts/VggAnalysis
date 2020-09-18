@@ -143,6 +143,7 @@ int plot3(string plot="", string title="", string version="v00", string options=
   for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 61 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051 || index == 1061) {
+      if (title.find("h_WG_muo") != string::npos && index == 1020) continue;
       TFile* file = 0;
       if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_sherpa" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -167,7 +168,6 @@ int plot3(string plot="", string title="", string version="v00", string options=
         Error("plot3", "cross section for %s is ZERO !!", it->first.c_str());
         return 1;
       }
-      if (title.find("h_WG_muo") != string::npos && index == 1020) continue;
       if (histo[index]) {
         TH1D* h = (TH1D*)file->Get((title + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
@@ -197,6 +197,7 @@ int plot3(string plot="", string title="", string version="v00", string options=
   for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 10 || index == 11 || index == 21 || index == 22 || index == 31 || index == 41 || index == 42 || index == 51 || index == 61 || index == 1010 || index == 1011 || index == 1020 || index == 1021 || index == 1022 || index == 1031 || index == 1032 || index == 1041 || index == 1051 || index == 1061) {
+      if (title.find("h_WG_muo") != string::npos && index == 1020) continue;
       TFile* file = 0;
       if (flag == "bkg_stat" || flag == "jet_misid_stat" || flag == "jet_misid_test" || flag == "jet_misid_qcd" || flag == "jet_misid_sherpa" || flag == "bkg_syst" || flag == "xsec_syst_wg" || flag == "xsec_syst_zg" || flag == "xsec_syst_others" || flag == "jet_misid_mc" || flag == "jet_bkg_mc" || flag == "qcd_fit" || flag == "lumi_up" || flag == "lumi_down") {
         file = new TFile(("data/" + version + "/reference/" + it->first + ".root").c_str());
@@ -221,7 +222,6 @@ int plot3(string plot="", string title="", string version="v00", string options=
         Error("plot3", "cross section for %s is ZERO !!", it->first.c_str());
         return 1;
       }
-      if (title.find("h_WG_muo") != string::npos && index == 1020) continue;
       if (histo3[index]) {
         TH3D* h3 = (TH3D*)file->Get(options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch_qcd").c_str() : (string(title).erase(title.find("pho0_pt"), 6) + "_genmatch").c_str());
         if (title.find("h_WG_ele") != string::npos && index == 1020) {
