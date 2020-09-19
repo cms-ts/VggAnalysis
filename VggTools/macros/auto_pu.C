@@ -1,6 +1,7 @@
 #pragma cling load("libTreePlayer.so")
 
 #include <fstream>
+#include <functional>
 
 using namespace std;
 
@@ -53,7 +54,7 @@ void auto_pu(TString input="lists/RunIIFall17NanoAODv7_DYJetsToLL_M-50_TuneCP5_1
 
   int nevt = -1;
 
-  auto work = [](TTreeReader& fReader) {
+  function<TH1D*(TTreeReader &)> work = [](TTreeReader& fReader) {
     TH1D* h = new TH1D("pileup", "pileup", 100, 0., 100.);
     TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
     while (fReader.Next()) {
