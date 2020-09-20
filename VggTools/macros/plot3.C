@@ -664,7 +664,7 @@ int plot3(string plot="", string title="", string version="v00", string options=
           matrix(3, 3) = (1. - (f1 + f1_err * ((i == 3) - (i == 7)))) * (1. - (f2 + f2_err * ((i == 4) - (i == 8))));
 
           if (options.find("closure2") == string::npos) {
-            matrix.Write(options.find("qcd") != string::npos ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
+            matrix.Write(options.find("qcd") != string::npos ? (matrix_title + "_qcd").c_str() : matrix_title.c_str(), TObject::kOverwrite);
           }
         }
       }
@@ -697,7 +697,7 @@ int plot3(string plot="", string title="", string version="v00", string options=
         matrix(0, 1) = f[pho0_pt][eta];
         matrix(1, 1) = 1. - f[pho0_pt][eta];
 
-        matrix.Write(options.find("qcd") != string::npos ? (matrix_title + "_qcd").c_str() : matrix_title.c_str());
+        matrix.Write(options.find("qcd") != string::npos ? (matrix_title + "_qcd").c_str() : matrix_title.c_str(), TObject::kOverwrite);
       }
 
       if (flag == "jet_misid_qcd") {
