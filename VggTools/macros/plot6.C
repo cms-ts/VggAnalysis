@@ -172,7 +172,6 @@ int plot6(string plot="", string title="", string version="v00", string options=
 
     }
 
-    file->Close();
     delete file;
 
   }
@@ -1406,7 +1405,6 @@ int plot6(string plot="", string title="", string version="v00", string options=
   h_xsec_mc_gen["reference"]->Write((title + "_xsec_mc_gen").c_str());
   h_xsec_rec_err->Write((title + "_xsec_rec_err").c_str());
 
-  file1->Close();
   delete file1;
 
   TFile* file2 = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/" + title + ".root").c_str());
@@ -1437,7 +1435,6 @@ int plot6(string plot="", string title="", string version="v00", string options=
 
   }
 
-  file2->Close();
   delete file2;
 
   return 0;

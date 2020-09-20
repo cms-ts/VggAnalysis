@@ -140,7 +140,6 @@ int plot4(string plot="", string title="", string version="v00", string options=
           }
         }
       }
-      file->Close();
       delete file;
     }
   }
@@ -230,7 +229,6 @@ int plot4(string plot="", string title="", string version="v00", string options=
           }
         }
       }
-      file->Close();
       delete file;
     }
   }
@@ -463,20 +461,17 @@ int plot4(string plot="", string title="", string version="v00", string options=
   }
 
   if (file_matrix_2016) {
-    file_matrix_2016->Close();
     delete file_matrix_2016;
   }
   if (file_matrix_2017) {
-    file_matrix_2017->Close();
     delete file_matrix_2017;
   }
   if (file_matrix_2018) {
-    file_matrix_2018->Close();
     delete file_matrix_2018;
   }
 
   for (int i = 1; i < 9; i++) {
-    histo[8001 + i]->Delete();
+    delete histo[8001 + i];
     histo.erase(8001 + i);
   }
 
@@ -544,10 +539,6 @@ int plot4(string plot="", string title="", string version="v00", string options=
         histo[8001]->SetDirectory(0);
       }
     }
-
-    file_2016->Close();
-    file_2017->Close();
-    file_2018->Close();
 
     delete file_2016;
     delete file_2017;
@@ -988,7 +979,6 @@ int plot4(string plot="", string title="", string version="v00", string options=
     h_irred->Write((title + "_irred").c_str());
   }
 
-  file->Close();
   delete file;
 
   return 0;

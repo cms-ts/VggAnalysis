@@ -105,7 +105,6 @@ int plot0(string plot="", string title="", string version="v00", string options=
           return 0;
         }
       }
-      file->Close();
       delete file;
     }
   }
@@ -155,7 +154,6 @@ int plot0(string plot="", string title="", string version="v00", string options=
           histo[index]->Scale(norm);
         }
       }
-      file->Close();
       delete file;
     }
   }
@@ -217,7 +215,6 @@ int plot0(string plot="", string title="", string version="v00", string options=
           histo[index]->Scale(fitval);
         }
       }
-      file->Close();
       delete file;
     }
   }
@@ -796,7 +793,6 @@ int plot0(string plot="", string title="", string version="v00", string options=
     h_bkg->Write((title + "_bkg").c_str());
   }
 
-  file->Close();
   delete file;
 
   return 0;

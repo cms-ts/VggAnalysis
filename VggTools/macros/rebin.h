@@ -110,7 +110,7 @@ TH1D* rebin(TH1D* old) {
     tmp->SetBinError(tmp->GetXaxis()->FindBin(old->GetXaxis()->GetBinCenter(i)), TMath::Sqrt(e1*e1+e1b*e1b));
   }
 
-  old->Delete();
+  delete old;
   tmp->SetName(name.c_str());
 
   return tmp;
@@ -216,7 +216,7 @@ TH2D* rebin(TH2D* old) {
     }
   }
 
-  old->Delete();
+  delete old;
   tmp->SetName(name.c_str());
 
   return tmp;
@@ -461,7 +461,7 @@ TH3D* rebin(TH3D* old) {
     }
   }
 
-  old->Delete();
+  delete old;
   tmp->SetName(name.c_str());
 
   return tmp;

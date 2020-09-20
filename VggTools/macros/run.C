@@ -145,8 +145,6 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
       pu_muo_weights->SetDirectory(0);
       pu_ele_weights->SetName("pu_ele_weights");
       pu_muo_weights->SetName("pu_muo_weights");
-      file_ele_pu->Close();
-      file_muo_pu->Close();
       delete file_ele_pu;
       delete file_muo_pu;
       fInput->Add(new TNamed("auto_pu", ""));
@@ -174,7 +172,6 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
     Info("run", "writing %s", obj->GetName());
     obj->Write();
   }
-  file->Close();
   delete file;
 
   TChain* chain = new TChain("Events");

@@ -130,7 +130,6 @@ int plot3(string plot="", string title="", string version="v00", string options=
           return 0;
         }
       }
-      file->Close();
       delete file;
     }
   }
@@ -189,7 +188,6 @@ int plot3(string plot="", string title="", string version="v00", string options=
           histo[index]->Scale(norm);
         }
       }
-      file->Close();
       delete file;
     }
   }
@@ -243,7 +241,6 @@ int plot3(string plot="", string title="", string version="v00", string options=
           histo3[index]->Scale(norm);
         }
       }
-      file->Close();
       delete file;
     }
   }
@@ -302,7 +299,6 @@ int plot3(string plot="", string title="", string version="v00", string options=
             histo3_mc[index]->Scale(norm);
           }
         }
-        file->Close();
         delete file;
       }
     }
@@ -345,7 +341,6 @@ int plot3(string plot="", string title="", string version="v00", string options=
         histo3[111]->SetDirectory(0);
       }
     }
-    file->Close();
     delete file;
   }
 
@@ -507,7 +502,6 @@ int plot3(string plot="", string title="", string version="v00", string options=
           delete matrix_qcd;
         }
       }
-      file->Close();
       delete file;
 
     }
@@ -727,7 +721,6 @@ int plot3(string plot="", string title="", string version="v00", string options=
               delete tmp_matrix;
             }
 
-            file_matrix->Close();
             delete file_matrix;
 
           }
@@ -758,7 +751,6 @@ int plot3(string plot="", string title="", string version="v00", string options=
           delete tmp_matrix;
         }
 
-        file_matrix->Close();
         delete file_matrix;
 
       }
@@ -775,7 +767,6 @@ int plot3(string plot="", string title="", string version="v00", string options=
   }
 
   if (options.find("closure2") == string::npos) {
-    file->Close();
     delete file;
   }
 

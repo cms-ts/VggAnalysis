@@ -86,7 +86,6 @@ void auto_pu(TString input="lists/RunIIFall17NanoAODv7_DYJetsToLL_M-50_TuneCP5_1
   TFile* file = new TFile(output.Data(), "RECREATE");
   file->cd();
   hist->Write();
-  file->Close();
   delete file;
 
   if (output.Contains("pileup_ele_RunIIFall17")) {

@@ -148,9 +148,6 @@ int plot5(string plot="", string title="", string version="v00", string options=
   h_mc_gen->SetDirectory(0);
   h_mc_eff->SetDirectory(0);
 
-  file1->Close();
-  file2->Close();
-
   delete file1;
   delete file2;
 
@@ -386,39 +383,33 @@ int plot5(string plot="", string title="", string version="v00", string options=
   if (file1_2016) {
     h_data_2016->SetDirectory(0);
     h_bkg_2016->SetDirectory(0);
-    file1_2016->Close();
     delete file1_2016;
   }
   if (file2_2016) {
     h_mc_gen_2016->SetDirectory(0);
     h_mc_eff_2016->SetDirectory(0);
-    file2_2016->Close();
     delete file2_2016;
   }
 
   if (file1_2017) {
     h_data_2017->SetDirectory(0);
     h_bkg_2017->SetDirectory(0);
-    file1_2017->Close();
     delete file1_2017;
   }
   if (file2_2017) {
     h_mc_gen_2017->SetDirectory(0);
     h_mc_eff_2017->SetDirectory(0);
-    file2_2017->Close();
     delete file2_2017;
   }
 
   if (file1_2018) {
     h_data_2018->SetDirectory(0);
     h_bkg_2018->SetDirectory(0);
-    file1_2018->Close();
     delete file1_2018;
   }
     if (file2_2018) {
     h_mc_gen_2018->SetDirectory(0);
     h_mc_eff_2018->SetDirectory(0);
-    file2_2018->Close();
     delete file2_2018;
   }
 
@@ -787,7 +778,6 @@ int plot5(string plot="", string title="", string version="v00", string options=
   h_xsec_rec->Write((title + "_xsec_rec").c_str());
   h_xsec_mc_gen->Write((title + "_xsec_mc_gen").c_str());
 
-  file->Close();
   delete file;
 
   double xsec_data = 0.;

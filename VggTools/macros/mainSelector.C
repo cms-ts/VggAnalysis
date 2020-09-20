@@ -163,8 +163,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    pu_ele_weights->SetDirectory(0);
    pu_muo_weights->SetDirectory(0);
 
-   file_ele_pu->Close();
-   file_muo_pu->Close();
    delete file_ele_pu;
    delete file_muo_pu;
 
@@ -182,7 +180,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
    sf_ele_trig->SetDirectory(0);
 
-   file_ele_sf_trig->Close();
    delete file_ele_sf_trig;
 
    TFile* file_ele_sf_reco = new TFile("root/sf_ele_2016_EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root");
@@ -190,7 +187,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
    sf_ele_reco->SetDirectory(0);
 
-   file_ele_sf_reco->Close();
    delete file_ele_sf_reco;
 
    //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2016_LegacyReReco_ElectronMVA80noiso_Fall17V2.root");
@@ -199,7 +195,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_eff->SetDirectory(0);
 
-   file_ele_sf_eff->Close();
    delete file_ele_sf_eff;
 
    TFile* file_muo_sf_trig_1 = new TFile("root/sf_muo_2016_EfficienciesAndSF_RunBtoF.root");
@@ -210,8 +205,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_trig_1->SetDirectory(0);
    sf_muo_trig_2->SetDirectory(0);
 
-   file_muo_sf_trig_1->Close();
-   file_muo_sf_trig_2->Close();
    delete file_muo_sf_trig_1;
    delete file_muo_sf_trig_2;
 
@@ -229,8 +222,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_id_1->SetDirectory(0);
    sf_muo_id_2->SetDirectory(0);
 
-   file_muo_sf_id_1->Close();
-   file_muo_sf_id_2->Close();
    delete file_muo_sf_id_1;
    delete file_muo_sf_id_2;
 
@@ -248,8 +239,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_iso_1->SetDirectory(0);
    sf_muo_iso_2->SetDirectory(0);
 
-   file_muo_sf_iso_1->Close();
-   file_muo_sf_iso_2->Close();
    delete file_muo_sf_iso_1;
    delete file_muo_sf_iso_2;
 
@@ -268,7 +257,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
    sf_pho_eff->SetDirectory(0);
 
-   file_pho_sf_eff->Close();
    delete file_pho_sf_eff;
 
 #if defined(NANOAODv7)
@@ -284,7 +272,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (iflag == 116) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_veto_down");
    sf_eg_misid->SetDirectory(0);
 
-   file_eg_misid->Close();
    delete file_eg_misid;
 
 #if defined(NANOAODv7)
@@ -300,7 +287,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (iflag == 116) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_veto_down");
    sf_eg_misid_qcd->SetDirectory(0);
 
-   file_eg_misid_qcd->Close();
    delete file_eg_misid_qcd;
 #endif // defined(mainSelectorMC16_cxx)
 
@@ -310,7 +296,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
    sf_ele_trig->SetDirectory(0);
 
-   file_ele_sf_trig->Close();
    delete file_ele_sf_trig;
 
    TFile* file_ele_sf_reco = new TFile("root/sf_ele_2017_EGM2D_runBCDEF_passingRECO.root");
@@ -318,7 +303,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
    sf_ele_reco->SetDirectory(0);
 
-   file_ele_sf_reco->Close();
    delete file_ele_sf_reco;
 
    //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2017_ElectronMVA80noiso_Fall17V2.root");
@@ -327,7 +311,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_eff->SetDirectory(0);
 
-   file_ele_sf_eff->Close();
    delete file_ele_sf_eff;
 
    TFile* file_muo_sf_trig = new TFile("root/sf_muo_2017_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root");
@@ -335,7 +318,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_trig = (TH2D*)file_muo_sf_trig->Get("IsoMu27_PtEtaBins/pt_abseta_ratio");
    sf_muo_trig->SetDirectory(0);
 
-   file_muo_sf_trig->Close();
    delete file_muo_sf_trig;
 
    TFile* file_muo_sf_id = new TFile("root/sf_muo_2017_RunBCDEF_SF_ID.root");
@@ -343,7 +325,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_genTracks_pt_abseta");
    sf_muo_id->SetDirectory(0);
 
-   file_muo_sf_id->Close();
    delete file_muo_sf_id;
 
    TFile* file_muo_sf_iso = new TFile("root/sf_muo_2017_RunBCDEF_SF_ISO.root");
@@ -351,7 +332,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
    sf_muo_iso->SetDirectory(0);
 
-   file_muo_sf_iso->Close();
    delete file_muo_sf_iso;
 
    //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2017_PhotonsMVAwp90_Fall17V2.root");
@@ -360,7 +340,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
    sf_pho_eff->SetDirectory(0);
 
-   file_pho_sf_eff->Close();
    delete file_pho_sf_eff;
 
 #if defined(NANOAODv7)
@@ -376,7 +355,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (iflag == 117) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_veto_down");
    sf_eg_misid->SetDirectory(0);
 
-   file_eg_misid->Close();
    delete file_eg_misid;
 
 #if defined(NANOAODv7)
@@ -392,7 +370,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (iflag == 117) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_veto_down");
    sf_eg_misid_qcd->SetDirectory(0);
 
-   file_eg_misid_qcd->Close();
    delete file_eg_misid_qcd;
 #endif // defined(mainSelectorMC17_cxx)
 
@@ -402,7 +379,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_ele_trig = (TH2D*)file_ele_sf_trig->Get("EGamma_SF2D");
    sf_ele_trig->SetDirectory(0);
 
-   file_ele_sf_trig->Close();
    delete file_ele_sf_trig;
 
    TFile* file_ele_sf_reco = new TFile("root/sf_ele_2018_EGM2D_passingRECO.root");
@@ -410,7 +386,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_ele_reco = (TH2D*)file_ele_sf_reco->Get("EGamma_SF2D");
    sf_ele_reco->SetDirectory(0);
 
-   file_ele_sf_reco->Close();
    delete file_ele_sf_reco;
 
    //TFile* file_ele_sf_eff = new TFile("root/sf_ele_2018_ElectronMVA80noiso_Fall17V2.root");
@@ -419,7 +394,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_ele_eff = (TH2D*)file_ele_sf_eff->Get("EGamma_SF2D");
    sf_ele_eff->SetDirectory(0);
 
-   file_ele_sf_eff->Close();
    delete file_ele_sf_eff;
 
    TFile* file_muo_sf_trig_1 = new TFile("root/sf_muo_2018_EfficienciesAndSF_2018Data_BeforeMuonHLTUpdate.root");
@@ -430,8 +404,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_trig_1->SetDirectory(0);
    sf_muo_trig_2->SetDirectory(0);
 
-   file_muo_sf_trig_1->Close();
-   file_muo_sf_trig_2->Close();
    delete file_muo_sf_trig_1;
    delete file_muo_sf_trig_2;
 
@@ -446,7 +418,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_id = (TH2D*)file_muo_sf_id->Get("NUM_TightID_DEN_TrackerMuons_pt_abseta");
    sf_muo_id->SetDirectory(0);
 
-   file_muo_sf_id->Close();
    delete file_muo_sf_id;
 
    TFile* file_muo_sf_iso = new TFile("root/sf_muo_2018_RunABCD_SF_ISO.root");
@@ -454,7 +425,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_muo_iso = (TH2D*)file_muo_sf_iso->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
    sf_muo_iso->SetDirectory(0);
 
-   file_muo_sf_iso->Close();
    delete file_muo_sf_iso;
 
    //TFile* file_pho_sf_eff = new TFile("root/sf_pho_2018_PhotonsMVAwp90_Fall17V2.root");
@@ -463,7 +433,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    sf_pho_eff = (TH2D*)file_pho_sf_eff->Get("EGamma_SF2D");
    sf_pho_eff->SetDirectory(0);
 
-   file_pho_sf_eff->Close();
    delete file_pho_sf_eff;
 
 #if defined(NANOAODv7)
@@ -479,7 +448,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (iflag == 118) sf_eg_misid = (TH2D*)file_eg_misid->Get("EGamma_SF2D_sf_pho_veto_down");
    sf_eg_misid->SetDirectory(0);
 
-   file_eg_misid->Close();
    delete file_eg_misid;
 
 #if defined(NANOAODv7)
@@ -495,7 +463,6 @@ void mainSelector::Begin(TTree * /*tree*/)
    if (iflag == 118) sf_eg_misid_qcd = (TH2D*)file_eg_misid_qcd->Get("EGamma_SF2D_sf_pho_veto_down");
    sf_eg_misid_qcd->SetDirectory(0);
 
-   file_eg_misid_qcd->Close();
    delete file_eg_misid_qcd;
 #endif // defined(mainSelectorMC18_cxx)
 

@@ -75,7 +75,6 @@ int plot2(string plot="", string title="", string version="v00", string options=
       } else {
         Warning("plot2", "luminosity for %s is ZERO !!", it->first.c_str());
       }
-      file->Close();
       delete file;
     }
   }
@@ -157,7 +156,6 @@ int plot2(string plot="", string title="", string version="v00", string options=
           h3->Scale(norm);
         }
       }
-      file->Close();
       delete file;
     }
   }
@@ -410,7 +408,6 @@ int plot2(string plot="", string title="", string version="v00", string options=
   h_mc_eff_genmatch->Write((title + "_mc_eff_genmatch").c_str());
   h_mc_pur->Write((title + "_mc_pur").c_str());
 
-  file->Close();
   delete file;
 
   return 0;

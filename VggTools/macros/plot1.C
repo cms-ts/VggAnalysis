@@ -81,9 +81,6 @@ int plot1(string plot="", string title="", string version="v00", string options=
   h1->SetDirectory(0);
   h2->SetDirectory(0);
 
-  file1->Close();
-  file2->Close();
-
   delete file1;
   delete file2;
 

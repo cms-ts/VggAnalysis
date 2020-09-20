@@ -197,7 +197,6 @@ int plot7(string plot="", string title="", string version="v00", string options=
 
     }
 
-    file->Close();
     delete file;
 
   }
