@@ -170,8 +170,8 @@ void mainSelector::Begin(TTree * /*tree*/)
      Info("Begin", "%s : using auto_pu weights", now.AsSQLString());
      delete pu_ele_weights;
      delete pu_muo_weights;
-     pu_ele_weights = dynamic_cast<TH1D*>(fInput->FindObject("pu_ele_weights"));
-     pu_muo_weights = dynamic_cast<TH1D*>(fInput->FindObject("pu_muo_weights"));
+     pu_ele_weights = (TH1D*)fInput->FindObject("pu_ele_weights");
+     pu_muo_weights = (TH1D*)fInput->FindObject("pu_muo_weights");
    }
 
 #if defined(mainSelectorMC16_cxx)
@@ -7757,8 +7757,10 @@ void mainSelector::Terminate()
    Info("Terminate", "%s", now.AsSQLString());
 
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-   delete pu_ele_weights;
-   delete pu_muo_weights;
+   if (!fInput || !fInput->FindObject("auto_pu")) {
+     delete pu_ele_weights;
+     delete pu_muo_weights;
+   }
 
    delete sf_ele_trig;
    delete sf_ele_reco;

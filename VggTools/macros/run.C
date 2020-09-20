@@ -118,6 +118,7 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
   Info("run", "flag = %s", flag.Data());
 
   TList* fInput = new TList();
+  fInput->SetOwner();
 
   fInput->Add(new TNamed("flag", flag.Data()));
 
@@ -191,6 +192,7 @@ void run(TString input="lists/Run2017B_SingleElectron.list", TString output="sel
     Error("run", "expected events: %d", nevt0);
   }
 
+  delete fInput;
   delete selector;
 
   now = TDatime();
