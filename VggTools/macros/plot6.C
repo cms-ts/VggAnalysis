@@ -1437,44 +1437,14 @@ int plot6(string plot="", string title="", string version="v00", string options=
 
   }
 
-  TFile* file1 = new TFile(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
+  TFile* file = new TFile(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
   Info("TFile::Open", "root file %s has been created", ("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str());
 
   h_xsec_rec["reference"]->Write((title + "_xsec_rec").c_str());
   h_xsec_mc_gen["reference"]->Write((title + "_xsec_mc_gen").c_str());
   h_xsec_rec_err->Write((title + "_xsec_rec_err").c_str());
 
-  delete file1;
-
-  TFile* file2 = new TFile(("html/" + version + "/reference/" + year + ".matrix/root/" + title + ".root").c_str());
-
-  TH1D* h_data = 0;
-  TH1D* h_sig = 0;
-  TH1D* h_misid = 0;
-  TH1D* h_irred = 0;
-
-  TH1D* h_egmisid = 0;
-
-  if (!file2->IsZombie()) {
-
-    h_data = (TH1D*)file2->Get((title + "_data").c_str());
-    h_sig = (TH1D*)file2->Get((title + "_sig").c_str());
-    h_misid = (TH1D*)file2->Get((title + "_misid").c_str());
-    h_irred = (TH1D*)file2->Get((title + "_irred").c_str());
-
-    h_data->SetDirectory(0);
-    h_sig->SetDirectory(0);
-    h_misid->SetDirectory(0);
-    h_irred->SetDirectory(0);
-
-    if (title.find("WGG") != string::npos) {
-      h_egmisid = (TH1D*)file2->Get((title + "_egmisid").c_str());
-      h_egmisid->SetDirectory(0);
-    }
-
-  }
-
-  delete file2;
+  delete file;
 
   if (gROOT->IsBatch()) {
     for (map<string, TH1D*>::iterator it = h_xsec_rec.begin(); it != h_xsec_rec.end(); it++) {
