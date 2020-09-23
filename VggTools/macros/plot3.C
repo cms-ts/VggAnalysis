@@ -111,8 +111,8 @@ int plot3(string plot="", string title="", string version="v00", string options=
           histo[index] = h;
           histo[index]->SetDirectory(0);
         } else {
-          Warning("plot3", "skip missing histogram: %s", title.c_str());
-          return 0;
+          Error("plot3", "histogram %s is MISSING !!", title.c_str());
+          return 1;
         }
       }
       if (histo3[index]) {
@@ -126,8 +126,8 @@ int plot3(string plot="", string title="", string version="v00", string options=
           histo3[index] = h3;
           histo3[index]->SetDirectory(0);
         } else {
-          Warning("plot3", "skip missing histogram: %s", (options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str()));
-          return 0;
+          Error("plot3", "histogram %s is MISSING !!", (options.find("qcd") != string::npos ? (string(title).erase(title.find("pho0_pt"), 6) + "_qcd").c_str() : string(title).erase(title.find("pho0_pt"), 6).c_str()));
+          return 1;
         }
       }
       delete file;

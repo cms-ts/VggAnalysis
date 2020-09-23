@@ -101,8 +101,8 @@ int plot0(string plot="", string title="", string version="v00", string options=
           histo[index] = h;
           histo[index]->SetDirectory(0);
         } else {
-          Warning("plot0", "skip missing histogram: %s", title.c_str());
-          return 0;
+          Error("plot0", "histogram %s is MISSING !!", title.c_str());
+          return 1;
         }
       }
       delete file;
