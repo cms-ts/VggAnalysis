@@ -310,20 +310,3 @@ int plot7(string plot="", string title="", string version="v00", string options=
   return 0;
 
 }
-
-#ifndef __ACLIC__
-int main(int argc, char *argv[]) {
-
-  vector<string> args = {"plot7.exe", "", "", "v00", "default"};
-
-  for (uint i = 0; i < argc; i++) args[i] = argv[i];
-
-  cout << "Processing plot7.C(\"" << args[1] << "\",\""
-                                  << args[2] << "\",\""
-                                  << args[3] << "\",\""
-                                  << args[4] << "\")..." << endl;
-
-  return plot7(args[1], args[2], args[3], args[4]);
-
-}
-#endif

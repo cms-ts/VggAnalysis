@@ -57,7 +57,7 @@ make_exe() {
 }
 
 if [ -z "$OPTION" ] || [ "$OPTION" == "force" ] || [ "$OPTION" == "plot" ] || [ "$OPTION" == "exe" ]; then
-  make_exe "plot0.C plot1.C plot2.C plot3.C plot4.C plot5.C plot6.C plot7.C plot8.C"
+  make_exe "process.C"
 fi
 
 exit

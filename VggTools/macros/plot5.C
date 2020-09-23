@@ -853,21 +853,3 @@ int plot5(string plot="", string title="", string version="v00", string options=
   return 0;
 
 }
-
-#ifndef __ACLIC__
-int main(int argc, char *argv[]) {
-
-  vector<string> args = {"plot5.exe", "", "", "v00", "default", "reference"};
-
-  for (uint i = 0; i < argc; i++) args[i] = argv[i];
-
-  cout << "Processing plot5.C(\"" << args[1] << "\",\""
-                                  << args[2] << "\",\""
-                                  << args[3] << "\",\""
-                                  << args[4] << "\",\""
-                                  << args[5] << "\")..." << endl;
-
-  return plot5(args[1], args[2], args[3], args[4], args[5]);
-
-}
-#endif
