@@ -836,6 +836,30 @@ int plot8(string plot="", string title="", string version="v00", string options=
 
   delete file;
 
+  if (gROOT->IsBatch()) {
+    for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
+      delete histo[it->first];
+    }
+
+    delete h_data_fit;
+    delete h_mc_fit0;
+    delete h_mc_fit1;
+    delete hstack_mc;
+    delete h_mc_sum;
+    delete h_bkg;
+    delete h_qcd;
+    delete h_ratio;
+    delete h_ratio_mc;
+
+    delete fitter;
+
+    delete legend;
+    delete line;
+    delete pad1;
+    delete pad2;
+    delete c1;
+  }
+
   return 0;
 
 }

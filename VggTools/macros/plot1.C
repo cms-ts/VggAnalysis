@@ -142,6 +142,20 @@ int plot1(string plot="", string title="", string version="v00", string options=
 
   out.close();
 
+  if (gROOT->IsBatch()) {
+    delete h1;
+    delete h2;
+    delete h_fit1;
+    delete h_fit2;
+
+    delete fitter;
+
+    delete box1;
+    delete box2;
+    delete label;
+    delete c1;
+  }
+
   return 0;
 
 }

@@ -816,6 +816,40 @@ int plot5(string plot="", string title="", string version="v00", string options=
 
   out.close();
 
+  if (gROOT->IsBatch()) {
+#if defined(USE_RUN2_AVERAGES)
+    delete h_data;
+    delete h_bkg;
+    delete h_mc_gen;
+    delete h_mc_eff;
+#else
+    delete h_data_2016;
+    delete h_bkg_2016;
+    delete h_mc_gen_2016;
+    delete h_mc_eff_2016;
+    delete h_data_2017;
+    delete h_bkg_2017;
+    delete h_mc_gen_2017;
+    delete h_mc_eff_2017;
+    delete h_data_2018;
+    delete h_bkg_2018;
+    delete h_mc_gen_2018;
+    delete h_mc_eff_2018;
+#endif
+    delete h_xsec_rec;
+    delete h_xsec_mc_gen;
+    delete h_xsec_mc_gen1;
+    delete h_xsec_mc_gen2;
+    delete h_ratio_rec;
+    delete h_ratio_gen;
+
+    delete label;
+    delete line;
+    delete pad1;
+    delete pad2;
+    delete c1;
+  }
+
   return 0;
 
 }

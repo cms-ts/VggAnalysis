@@ -410,6 +410,15 @@ int plot2(string plot="", string title="", string version="v00", string options=
 
   delete file;
 
+  if (gROOT->IsBatch()) {
+    delete h_mc_eff;
+    delete h_mc_eff_genmatch;
+    delete h_mc_pur;
+
+    delete label;
+    delete c1;
+  }
+
   return 0;
 
 }

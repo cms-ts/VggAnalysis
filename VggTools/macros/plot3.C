@@ -1120,6 +1120,34 @@ int plot3(string plot="", string title="", string version="v00", string options=
     cout << "+++++++++++++++++++++++++++++++++++++" << endl;
   }
 
+  if (gROOT->IsBatch()) {
+    for (map<int, TH1D*>::iterator it = histo.begin(); it != histo.end(); it++) {
+      delete histo[it->first];
+    }
+    for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
+      delete histo3[it->first];
+    }
+    for (map<int, TH1D*>::iterator it = histo_mc.begin(); it != histo_mc.end(); it++) {
+      delete histo_mc[it->first];
+    }
+    for (map<int, TH3D*>::iterator it = histo3_mc.begin(); it != histo3_mc.end(); it++) {
+      delete histo3_mc[it->first];
+    }
+
+    delete histo3_data;
+    delete histo3_mc_sum;
+    delete hstack_mc;
+    delete h_mc_sum;
+    delete h_ratio;
+    delete h_ratio_mc;
+
+    delete legend;
+    delete line;
+    delete pad1;
+    delete pad2;
+    delete c1;
+  }
+
   return 0;
 
 }

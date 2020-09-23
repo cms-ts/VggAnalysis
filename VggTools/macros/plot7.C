@@ -283,6 +283,30 @@ int plot7(string plot="", string title="", string version="v00", string options=
   cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
   cout << "" << endl;
 
+  if (gROOT->IsBatch()) {
+    for (map<string, TH1D*>::iterator it = h_data.begin(); it != h_data.end(); it++) {
+      delete h_data[it->first];
+    }
+    for (map<string, TH1D*>::iterator it = h_sig.begin(); it != h_sig.end(); it++) {
+      delete h_sig[it->first];
+    }
+    for (map<string, TH1D*>::iterator it = h_misid.begin(); it != h_misid.end(); it++) {
+      delete h_misid[it->first];
+    }
+    for (map<string, TH1D*>::iterator it = h_zg.begin(); it != h_zg.end(); it++) {
+      delete h_zg[it->first];
+    }
+    for (map<string, TH1D*>::iterator it = h_irred.begin(); it != h_irred.end(); it++) {
+      delete h_irred[it->first];
+    }
+    for (map<string, TH1D*>::iterator it = h_mc_bkg.begin(); it != h_mc_bkg.end(); it++) {
+      delete h_mc_bkg[it->first];
+    }
+    for (map<string, TH1D*>::iterator it = h_mc_sum.begin(); it != h_mc_sum.end(); it++) {
+      delete h_mc_sum[it->first];
+    }
+  }
+
   return 0;
 
 }

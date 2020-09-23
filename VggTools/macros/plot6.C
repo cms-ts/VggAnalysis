@@ -1431,6 +1431,10 @@ int plot6(string plot="", string title="", string version="v00", string options=
 
     c2->SaveAs(("html/" + version + "/reference/" + year + ".xsec/" + title + "_impact.pdf").c_str());
 
+    if (gROOT->IsBatch()) {
+      delete c2;
+    }
+
   }
 
   TFile* file1 = new TFile(("html/" + version + "/reference/" + year + ".xsec/root/" + title + ".root").c_str(), "RECREATE");
@@ -1471,6 +1475,30 @@ int plot6(string plot="", string title="", string version="v00", string options=
   }
 
   delete file2;
+
+  if (gROOT->IsBatch()) {
+    for (map<string, TH1D*>::iterator it = h_xsec_rec.begin(); it != h_xsec_rec.end(); it++) {
+      delete h_xsec_rec[it->first];
+    }
+    for (map<string, TH1D*>::iterator it = h_xsec_mc_gen.begin(); it != h_xsec_mc_gen.end(); it++) {
+      delete h_xsec_mc_gen[it->first];
+    }
+
+    delete h_xsec_rec_errors_p;
+    delete h_xsec_rec_errors_m;
+    delete h_xsec_mc_gen1;
+    delete h_xsec_mc_gen2;
+    delete h_xsec_rec_err;
+    delete h_ratio_rec;
+    delete h_ratio_gen;
+    delete h_ratio_err;
+
+    delete label;
+    delete line;
+    delete pad1;
+    delete pad2;
+    delete c1;
+  }
 
   return 0;
 
