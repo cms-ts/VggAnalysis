@@ -324,7 +324,7 @@ int plot2(string plot="", string title="", string version="v00", string options=
 
   h_mc_eff->GetYaxis()->SetTitle("fraction");
   h_mc_eff->GetYaxis()->SetTitleSize(0.04);
-  h_mc_eff->GetYaxis()->SetTitleOffset(0.8);
+  h_mc_eff->GetYaxis()->SetTitleOffset(0.95);
   h_mc_eff->GetYaxis()->SetLabelSize(0.03);
 
   TLatex* label = new TLatex();

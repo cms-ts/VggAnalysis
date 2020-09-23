@@ -499,7 +499,7 @@ int plot5(string plot="", string title="", string version="v00", string options=
   h_xsec_mc_gen->GetXaxis()->SetLabelSize(0.08);
 
   h_xsec_mc_gen->GetYaxis()->SetTitleSize(0.05);
-  h_xsec_mc_gen->GetYaxis()->SetTitleOffset(0.8);
+  h_xsec_mc_gen->GetYaxis()->SetTitleOffset(0.95);
   h_xsec_mc_gen->GetYaxis()->SetLabelSize(0.045);
 
   h_xsec_mc_gen->Draw("E2");
@@ -558,7 +558,7 @@ int plot5(string plot="", string title="", string version="v00", string options=
 
   h_ratio_gen->GetYaxis()->SetTitle("Data/Theory");
   h_ratio_gen->GetYaxis()->SetTitleSize(0.11);
-  h_ratio_gen->GetYaxis()->SetTitleOffset(0.35);
+  h_ratio_gen->GetYaxis()->SetTitleOffset(0.43);
   h_ratio_gen->GetYaxis()->SetLabelSize(0.10);
   h_ratio_gen->GetYaxis()->SetNdivisions(505);
   h_ratio_gen->GetYaxis()->SetRangeUser(0.5, 1.5);

@@ -1073,9 +1073,7 @@ int plot6(string plot="", string title="", string version="v00", string options=
   h_xsec_mc_gen["reference"]->SetMaximum(10.*TMath::Max(h_xsec_mc_gen["reference"]->GetBinContent(h_xsec_mc_gen["reference"]->GetMaximumBin()), h_xsec_rec["reference"]->GetBinContent(h_xsec_rec["reference"]->GetMaximumBin())));
   h_xsec_mc_gen["reference"]->SetMinimum(TMath::Max(5.e-9, 0.1*TMath::Min(h_xsec_mc_gen["reference"]->GetBinContent(h_xsec_mc_gen["reference"]->GetMinimumBin()), h_xsec_rec["reference"]->GetBinContent(h_xsec_rec["reference"]->GetMinimum()))));
 
-  if (options.find("nolog") != string::npos) {
-    h_xsec_mc_gen["reference"]->SetMaximum(1.2*TMath::Max(h_xsec_mc_gen["reference"]->GetBinContent(h_xsec_mc_gen["reference"]->GetMaximumBin()), h_xsec_rec["reference"]->GetBinContent(h_xsec_rec["reference"]->GetMaximumBin())));
-  }
+  pad1->SetLogy();
 
   h_xsec_mc_gen["reference"]->SetTitle("");
   h_xsec_mc_gen["reference"]->SetStats(kFALSE);
@@ -1091,7 +1089,7 @@ int plot6(string plot="", string title="", string version="v00", string options=
 
   h_xsec_mc_gen["reference"]->GetYaxis()->SetTitle("d#sigma / dN_{#gamma} [pb]");
   h_xsec_mc_gen["reference"]->GetYaxis()->SetTitleSize(0.05);
-  h_xsec_mc_gen["reference"]->GetYaxis()->SetTitleOffset(0.8);
+  h_xsec_mc_gen["reference"]->GetYaxis()->SetTitleOffset(0.95);
   h_xsec_mc_gen["reference"]->GetYaxis()->SetLabelSize(0.045);
 
   h_xsec_mc_gen["reference"]->Draw("E2");
@@ -1145,12 +1143,6 @@ int plot6(string plot="", string title="", string version="v00", string options=
   h_xsec_rec["reference"]->Draw("E0PX0SAME");
   h_xsec_rec["reference"]->Draw("E1PX0SAME");
 
-  if (options.find("nolog") == string::npos) {
-    if (h_xsec_mc_gen["reference"]->GetMaximum() != 0) pad1->SetLogy();
-  }
-
-  if (options.find("nolog") != string::npos) TGaxis::SetExponentOffset(-0.05, 0.0, "y");
-
   pad1->Update();
   c1->Update();
   c1->cd();
@@ -1186,7 +1178,7 @@ int plot6(string plot="", string title="", string version="v00", string options=
 
   h_ratio_gen->GetYaxis()->SetTitle("Data/Theory");
   h_ratio_gen->GetYaxis()->SetTitleSize(0.11);
-  h_ratio_gen->GetYaxis()->SetTitleOffset(0.35);
+  h_ratio_gen->GetYaxis()->SetTitleOffset(0.43);
   h_ratio_gen->GetYaxis()->SetLabelSize(0.10);
   h_ratio_gen->GetYaxis()->SetNdivisions(505);
   h_ratio_gen->GetYaxis()->SetRangeUser(0.5, 1.5);

@@ -921,7 +921,7 @@ int plot3(string plot="", string title="", string version="v00", string options=
 
   hstack_mc->GetYaxis()->SetTitle("Events");
   hstack_mc->GetYaxis()->SetTitleSize(0.05);
-  hstack_mc->GetYaxis()->SetTitleOffset(0.8);
+  hstack_mc->GetYaxis()->SetTitleOffset(0.95);
   hstack_mc->GetYaxis()->SetLabelSize(0.045);
 
   histo[0]->SetMarkerColor(kBlack);
@@ -935,6 +935,8 @@ int plot3(string plot="", string title="", string version="v00", string options=
   if (options.find("nolog") == string::npos) {
     if (h_mc_sum->GetMaximum() != 0) pad1->SetLogy();
   }
+
+  if (options.find("nolog") != string::npos) TGaxis::SetExponentOffset(-0.05, 0.01, "y");
 
   pad1->Update();
   c1->Update();
@@ -1058,7 +1060,7 @@ int plot3(string plot="", string title="", string version="v00", string options=
 
   h_ratio->GetYaxis()->SetTitle("Data/MC");
   h_ratio->GetYaxis()->SetTitleSize(0.11);
-  h_ratio->GetYaxis()->SetTitleOffset(0.36);
+  h_ratio->GetYaxis()->SetTitleOffset(0.43);
   h_ratio->GetYaxis()->SetLabelSize(0.1);
   h_ratio->GetYaxis()->SetLabelOffset(0.01);
   h_ratio->GetYaxis()->SetNdivisions(505);
