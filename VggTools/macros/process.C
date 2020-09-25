@@ -1,5 +1,7 @@
 #include "TROOT.h"
 
+#include "ROOT/TProcessExecutor.hxx"
+
 #include "plot0.C"
 #include "plot1.C"
 #include "plot2.C"
@@ -550,13 +552,6 @@ void process(string version="v00", string options="default", string flag="refere
 
   gROOT->SetBatch();
 
-  vector<string> years;
-
-  years.push_back("2016");
-  years.push_back("2017");
-  years.push_back("2018");
-  years.push_back("Run2");
-
   vector <string> flags;
 
   if (flag == "all") {
@@ -620,14 +615,13 @@ void process(string version="v00", string options="default", string flag="refere
     flags.push_back(flag);
   }
 
+  ROOT::TProcessExecutor workers(3);
+
   for (uint i = 0; i < flags.size(); i++) {
 
     string flag = flags[i];
 
-    for (uint j = 0; j < years.size(); j++) {
-
-      string year = years[j];
-
+    function<int(string)> process_work = [&](string year) {
       plot1_wrapper(year, version, options, flag);
 
       plot0_wrapper(year, version, options + ",qcd,nofit", flag);
@@ -658,7 +652,12 @@ void process(string version="v00", string options="default", string flag="refere
 
       plot5_wrapper(year, version, options, flag);
 
-    }
+      return 0;
+    };
+
+    workers.Map(process_work, {"2016", "2017", "2018"});
+
+    process_work("Run2");
 
   }
 
