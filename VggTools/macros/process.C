@@ -615,6 +615,7 @@ void process(string version="v00", string options="default", string flag="refere
     flags.push_back(flag);
   }
 
+#if 1
   ROOT::TProcessExecutor workers(3);
 
   for (uint i = 0; i < flags.size(); i++) {
@@ -660,6 +661,126 @@ void process(string version="v00", string options="default", string flag="refere
     process_work("Run2");
 
   }
+#endif
+
+#if 0
+  vector<string> years;
+
+  years.push_back("2016");
+  years.push_back("2017");
+  years.push_back("2018");
+
+  years.push_back("Run2");
+
+  ROOT::TProcessExecutor workers(flags.size());
+
+  function<int(string)> process_work = [&](string flag) {
+    for (uint i = 0; i < years.size(); i++) {
+
+      string year = years[i];
+
+      plot1_wrapper(year, version, options, flag);
+
+      plot0_wrapper(year, version, options + ",qcd,nofit", flag);
+      plot0_wrapper(year, version, options, flag);
+
+      plot2_wrapper(year, version, options, flag);
+
+      plot3_wrapper(year, version, options + ",qcd", flag);
+
+      plot3_wrapper(year, version, options, flag);
+      plot4_wrapper(year, version, options, flag);
+
+      plot3_wrapper(year, version, options + ",identity0", flag);
+      plot4_wrapper(year, version, options + ",identity0", flag);
+
+      plot3_wrapper(year, version, options + ",identity1", flag);
+      plot4_wrapper(year, version, options + ",identity1", flag);
+
+      plot3_wrapper(year, version, options + ",closure0", flag);
+      plot4_wrapper(year, version, options + ",closure0", flag);
+
+      plot3_wrapper(year, version, options + ",closure1", flag);
+      plot4_wrapper(year, version, options + ",closure1", flag);
+
+      plot3_wrapper(year, version, options + ",closure2", flag);
+
+      plot4_wrapper(year, version, options + ",paper", flag);
+
+      plot5_wrapper(year, version, options, flag);
+    }
+    return 0;
+  };
+
+  workers.Map(process_work, flags);
+#endif
+
+#if 0
+  vector<string> years;
+
+  years.push_back("2016");
+  years.push_back("2017");
+  years.push_back("2018");
+
+  //ROOT::TProcessExecutor workers(years.size()*flags.size());
+  ROOT::TProcessExecutor workers(0);
+
+  function<int(string)> process_work = [&](string arg) {
+
+    string year = arg.substr(0, arg.find(":"));
+    string flag = arg.substr(arg.find(":")+1, arg.length());
+
+    plot1_wrapper(year, version, options, flag);
+
+    plot0_wrapper(year, version, options + ",qcd,nofit", flag);
+    plot0_wrapper(year, version, options, flag);
+
+    plot2_wrapper(year, version, options, flag);
+
+    plot3_wrapper(year, version, options + ",qcd", flag);
+
+    plot3_wrapper(year, version, options, flag);
+    plot4_wrapper(year, version, options, flag);
+
+    plot3_wrapper(year, version, options + ",identity0", flag);
+    plot4_wrapper(year, version, options + ",identity0", flag);
+
+    plot3_wrapper(year, version, options + ",identity1", flag);
+    plot4_wrapper(year, version, options + ",identity1", flag);
+
+    plot3_wrapper(year, version, options + ",closure0", flag);
+    plot4_wrapper(year, version, options + ",closure0", flag);
+
+    plot3_wrapper(year, version, options + ",closure1", flag);
+    plot4_wrapper(year, version, options + ",closure1", flag);
+
+    plot3_wrapper(year, version, options + ",closure2", flag);
+
+    plot4_wrapper(year, version, options + ",paper", flag);
+
+    plot5_wrapper(year, version, options, flag);
+
+    return 0;
+  };
+
+  vector<string> args;
+
+  for (uint i = 0; i < flags.size(); i++) {
+    for (uint j = 0; j < years.size(); j++) {
+      args.push_back(years[j] + ":" + flags[i]);
+    }
+  }
+
+  workers.Map(process_work, args);
+
+  args.clear();
+
+  for (uint i = 0; i < flags.size(); i++) {
+    args.push_back("Run2:" + flags[i]);
+  }
+
+  workers.Map(process_work, args);
+#endif
 
 }
 
