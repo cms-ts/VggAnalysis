@@ -134,8 +134,8 @@ int plot0(string plot="", string title="", string version="v00", string options=
         if (it->first.find("RunIIFall17") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2017 / ngen;
         if (it->first.find("RunIIAutumn18") != string::npos) norm = xsecMap[it->first] * 1000. * lumi2018 / ngen;
         if (flag == "bkg_syst") norm = norm * 1.075;
-        if (flag == "xsec_syst_wg" && (index == 21 || index == 1011)) norm = norm * 1.075;
-        if (flag == "xsec_syst_zg" && (index == 11 || index == 1021)) norm = norm * 1.075;
+        if (flag == "xsec_syst_wg" && (index == 21 || index == 1011)) norm = norm * 1.025;
+        if (flag == "xsec_syst_zg" && (index == 11 || index == 1021)) norm = norm * 1.025;
         if (flag == "xsec_syst_others" && index != 10 && index != 11 && index != 21 && index != 1010 && index != 1011 && index != 1021) norm = norm * 1.075;
       } else {
         Error("plot8", "cross section for %s is ZERO !!", it->first.c_str());
