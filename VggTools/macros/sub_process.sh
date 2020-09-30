@@ -108,14 +108,24 @@ fi
 
 alias SKIP=$SKIP
 
-SKIP ./compile.sh plot
+if [ -z $EXE ]; then
+  SKIP ./compile.sh plot
 
-for YEAR in $YEARS; do
-  for OPTION in $OPTIONS; do
-    for FLAG in $FLAGS; do
-      bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $VERSION/$OPTION/$YEAR/$FLAG -e /dev/null -o /dev/null $WORKDIR/process.sh $VERSION $YEAR $OPTION $FLAG
+  for YEAR in $YEARS; do
+    for OPTION in $OPTIONS; do
+      for FLAG in $FLAGS; do
+        bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $VERSION/$OPTION/$YEAR/$FLAG -e /dev/null -o /dev/null $WORKDIR/process.sh $VERSION $YEAR $OPTION $FLAG
+      done
     done
   done
-done
+else
+  SKIP ./compile.sh exe
+
+  for OPTION in $OPTIONS; do
+    for FLAG in $FLAGS; do
+      bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $VERSION/$OPTION/$YEAR/$FLAG -e /dev/null -o /dev/null $WORKDIR/process.exe $VERSION $OPTION $FLAG
+    done
+  done
+fi
 
 exit
