@@ -3939,46 +3939,64 @@ Bool_t mainSelector::Process(Long64_t entry)
    if (W_ele_sel_qcd) {
      if (fabs(Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd]) <= 1.442) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 4.39047;
-       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 5.70036;
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 3.53081;
+       if (ipho0_qcd != -1) weight_pho0_qcd = weight_pho0_qcd * 5.43528;
+       if (ipho0_qcd == -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 5.43528 / 3.53081;
+       if (ipho0_qcd != -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 5.43528;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 4.80766;
-       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 5.75551;
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 4.15153;
+       if (ipho0_qcd != -1) weight_pho0_qcd = weight_pho0_qcd * 6.30368;
+       if (ipho0_qcd == -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 6.30368 / 4.15153;
+       if (ipho0_qcd != -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 6.30368;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 3.98783;
-       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 2.23685;
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 3.24564;
+       if (ipho0_qcd != -1) weight_pho0_qcd = weight_pho0_qcd * 1.91530;
+       if (ipho0_qcd == -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 1.91530 / 3.24564;
+       if (ipho0_qcd != -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 1.91530;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
      if (fabs(Electron_eta[iele0_qcd]+Electron_deltaEtaSC[iele0_qcd]) >= 1.566) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 11.1821;
-       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 13.0636;
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 8.90649;
+       if (ipho0_qcd != -1) weight_pho0_qcd = weight_pho0_qcd * 11.8269;
+       if (ipho0_qcd == -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 11.8269 / 8.90649;
+       if (ipho0_qcd != -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 11.8269;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 9.74719;
-       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 10.7234;
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 8.22561;
+       if (ipho0_qcd != -1) weight_pho0_qcd = weight_pho0_qcd * 9.44137;
+       if (ipho0_qcd == -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 9.44137 / 8.22561;
+       if (ipho0_qcd != -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 9.44137;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 11.7190;
-       if (ipho0_qcd != -1) weight_W_ele_qcd = weight_W_ele_qcd * 17.7380;
+       if (ipho0_qcd == -1) weight_W_ele_qcd = weight_W_ele_qcd * 10.3288;
+       if (ipho0_qcd != -1) weight_pho0_qcd = weight_pho0_qcd * 13.6894;
+       if (ipho0_qcd == -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 13.6894 / 10.3288;
+       if (ipho0_qcd != -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 13.6894;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
      }
    }
 
    if (W_muo_sel_qcd) {
 #if defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
-     if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.21886;
-     if (ipho0_qcd != -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.81312;
+     if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.14949;
+     if (ipho0_qcd != -1) weight_pho0_qcd = weight_pho0_qcd * 2.15884;
+     if (ipho0_qcd == -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 2.15884 / 1.14949;
+     if (ipho0_qcd != -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 2.15884;
 #endif // defined(mainSelectorDT16_cxx) || defined(mainSelectorMC16_cxx)
 #if defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
-     if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.42676;
-     if (ipho0_qcd != -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.92584;
+     if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.37076;
+     if (ipho0_qcd != -1) weight_pho0_qcd = weight_pho0_qcd * 2.61424;
+     if (ipho0_qcd == -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 2.61424 / 1.37076;
+     if (ipho0_qcd != -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 2.61424;
 #endif // defined(mainSelectorDT17_cxx) || defined(mainSelectorMC17_cxx)
 #if defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
-     if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.40857;
-     if (ipho0_qcd != -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.66882;
+     if (ipho0_qcd == -1) weight_W_muo_qcd = weight_W_muo_qcd * 1.3384;
+     if (ipho0_qcd != -1) weight_pho0_qcd = weight_pho0_qcd * 2.64001;
+     if (ipho0_qcd == -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 2.64001 / 1.3384;
+     if (ipho0_qcd != -1 && ipho0_iso_qcd != -1) weight_pho0_iso_qcd = weight_pho0_iso_qcd * 2.64001;
 #endif // defined(mainSelectorDT18_cxx) || defined(mainSelectorMC18_cxx)
    }
 #endif // defined (USE_QCD_FIT_FACTORS)
