@@ -131,12 +131,13 @@ int plot7(string plot="", string title="", string version="v00", string options=
   flags.push_back("eg_misid_up");
   flags.push_back("eg_misid_down");
 
-  flags.push_back("jet_misid_syst");
-
 //  flags.push_back("bkg_syst");
   flags.push_back("xsec_syst_wg");
   flags.push_back("xsec_syst_zg");
   flags.push_back("xsec_syst_others");
+//  flags.push_back("jet_misid_syst");
+  flags.push_back("jet_misid_qcd");
+  flags.push_back("jet_misid_sherpa");
 
 //  flags.push_back("jet_misid_mc");
 
@@ -215,7 +216,7 @@ int plot7(string plot="", string title="", string version="v00", string options=
 
       if (flags[i] == "reference") continue;
 
-      if (flags[i] == "jet_misid_syst" || flags[i] == "xsec_syst_wg" || flags[i] == "xsec_syst_zg" || flags[i] == "xsec_syst_others") {
+      if (flags[i] == "jet_misid_qcd" || flags[i] == "jet_misid_sherpa" || flags[i] == "xsec_syst_wg" || flags[i] == "xsec_syst_zg" || flags[i] == "xsec_syst_others") {
 
         syst_sig += TMath::Power(fabs(h_sig[flags[i]]->Integral() - h_sig["reference"]->Integral()), 2);
         syst_misid += TMath::Power(fabs(h_misid[flags[i]]->Integral() - h_misid["reference"]->Integral()), 2);
