@@ -1,5 +1,3 @@
-#pragma cling load("libTreePlayer.so")
-
 #include <fstream>
 #include <functional>
 
