@@ -568,7 +568,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
   TH1D* h_ratio = (TH1D*)histo[0]->Clone("h_ratio");
   h_ratio->Divide(h_mc_sum);
 
-  TLegend* legend = new TLegend(0.65, 0.44, 0.91, 0.88);
+  TLegend* legend = new TLegend(0.45, 0.44, 0.85, 0.88);
   legend->SetBorderSize(0);
   legend->SetEntrySeparation(0.01);
   legend->SetFillColor(0);
@@ -729,6 +729,10 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
     histo[8001]->SetFillColor(kPink+4);
     legend->AddEntry(histo[8001], "Misid. jets", "f");
+
+    if (title.find("h_ZGG_") != string::npos) {
+      legend->AddEntry((TObject*)0, "", "");
+    }
   }
 
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
