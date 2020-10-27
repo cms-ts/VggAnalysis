@@ -706,10 +706,10 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
       histo[1010]->SetFillColor(kOrange+7);
       histo[1010]->SetFillStyle(3254);
-      legend->AddEntry(histo[1010], "W #gamma #gamma", "f");
+      legend->AddEntry(histo[1010], "W#gamma#gamma", "f");
 
       histo[1021]->SetFillColorAlpha(kOrange, 0.3);
-      legend->AddEntry(histo[1021], "Z #gamma", "f");
+      legend->AddEntry(histo[1021], "Misid. electrons", "f");
     }
     if (title.find("h_ZGG_") != string::npos) {
       hstack_mc->Add(histo[8001]);
@@ -721,14 +721,14 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
       histo[10]->SetFillColor(kOrange+7);
       histo[10]->SetFillStyle(3254);
-      legend->AddEntry(histo[10], "Z #gamma #gamma", "f");
+      legend->AddEntry(histo[10], "Z#gamma#gamma", "f");
     }
 
     h_irred->SetFillColorAlpha(kGreen+3, 0.5);
     legend->AddEntry(h_irred, "Others", "f");
 
     histo[8001]->SetFillColor(kPink+4);
-    legend->AddEntry(histo[8001], "Jet MisID", "f");
+    legend->AddEntry(histo[8001], "Misid. jets", "f");
   }
 
   TCanvas* c1 = new TCanvas("c1", "c1", 10, 10, 800, 600);
@@ -753,7 +753,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
   hstack_mc->GetXaxis()->SetLabelSize(0.08);
 
   hstack_mc->GetYaxis()->SetTitle("Events");
-  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitle("< Events / GeV >");
+  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitle("Events / bin");
   hstack_mc->GetYaxis()->SetTitleSize(0.05);
   hstack_mc->GetYaxis()->SetTitleOffset(0.95);
   hstack_mc->GetYaxis()->SetLabelSize(0.045);
@@ -905,7 +905,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
   h_ratio->GetXaxis()->SetLabelSize(0.10);
 
   h_ratio->GetYaxis()->SetTitle("Data/MC");
-  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitle("Data / MC");
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitle("Data / Prediction ");
   h_ratio->GetYaxis()->SetTitleSize(0.11);
   h_ratio->GetYaxis()->SetTitleOffset(0.43);
   h_ratio->GetYaxis()->SetLabelSize(0.1);
