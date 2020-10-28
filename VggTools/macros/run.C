@@ -1,3 +1,5 @@
+#pragma cling load("libTreePlayer.so")
+
 #include <fstream>
 
 using namespace std;
