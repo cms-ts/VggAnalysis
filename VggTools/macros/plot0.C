@@ -409,7 +409,7 @@ int plot0(string plot="", string title="", string version="v00", string options=
 
     if (index == 9001) {
       histo[index]->SetFillColor(kMagenta+3);
-      legend->AddEntry(histo[index], "QCD", "f");
+      legend->AddEntry(histo[index], "Multi jet", "f");
     }
   }
 
