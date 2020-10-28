@@ -434,6 +434,74 @@ int plot3(string plot="", string title="", string version="v00", string options=
 
   TH3D* histo3_data = (TH3D*)histo3[0]->Clone("histo3_data");
 
+#if 0
+
+  double data_b_iso[6];
+  double data_b_noiso[6];
+  double data_e_iso[6];
+  double data_e_noiso[6];
+
+  for (int i = 0; i < histo3_data->GetNbinsX(); i++) {
+    data_b_iso[i] = histo3_data->GetBinContent(i+1, 1, 1);
+    data_b_noiso[i] = histo3_data->GetBinContent(i+1, 1, 2);
+    data_e_iso[i] = histo3_data->GetBinContent(i+1, 2, 1);
+    data_e_noiso[i] = histo3_data->GetBinContent(i+1, 2, 2);
+  }
+
+  double mc_b_iso[6];
+  double mc_b_noiso[6];
+  double mc_e_iso[6];
+  double mc_e_noiso[6];
+
+  for (map<int, TH3D*>::iterator it = histo3.begin(); it != histo3.end(); it++) {
+    int index = int(it->first);
+    if (index > 0) {
+      for (int i = 0; i < histo3[index]->GetNbinsX(); i++) {
+        mc_b_iso[i] = mc_b_iso[i] + histo3[index]->GetBinContent(i+1, 1, 1);
+        mc_b_noiso[i] = mc_b_noiso[i] + histo3[index]->GetBinContent(i+1, 1, 2);
+        mc_e_iso[i] = mc_e_iso[i] + histo3[index]->GetBinContent(i+1, 2, 1);
+        mc_e_noiso[i] = mc_e_noiso[i] + histo3[index]->GetBinContent(i+1, 2, 2);
+      }
+    }
+  }
+
+  double data_b_iso_sum = 0.;
+  double data_b_noiso_sum = 0.;
+  double data_e_iso_sum = 0.;
+  double data_e_noiso_sum = 0.;
+  double mc_b_iso_sum = 0.;
+  double mc_b_noiso_sum = 0.;
+  double mc_e_iso_sum = 0.;
+  double mc_e_noiso_sum = 0.;
+
+  for (int i = 0; i < histo3_data->GetNbinsX(); i++) {
+    data_b_iso_sum += data_b_iso[i];
+    data_b_noiso_sum += data_b_noiso[i];
+    data_e_iso_sum += data_e_iso[i];
+    data_e_noiso_sum += data_e_noiso[i];
+    mc_b_iso_sum += mc_b_iso[i];
+    mc_b_noiso_sum += mc_b_noiso[i];
+    mc_e_iso_sum += mc_e_iso[i];
+    mc_e_noiso_sum += mc_e_noiso[i];
+  }
+
+  for (int i = 1; i < histo3_data->GetNbinsX(); i++) {
+    string ptrange = "";
+    if (i == 1) ptrange = "20 < p_T < 40";
+    if (i == 2) ptrange = "40 < p_T < 60";
+    if (i == 3) ptrange = "60 < p_T < 80";
+    if (i == 4) ptrange = "80 < p_T < 180";
+    if (i == 5) ptrange = "180 < p_T < 300";
+    cout << "\\multicolumn{1}{|c|}{$  " + ptrange + "  $} &    "
+    << std::setprecision(3 - 1*(100*mc_b_iso[i]/data_b_iso[i] < 100) - 1*(100*mc_b_iso[i]/data_b_iso[i] < 10)) << 100*mc_b_iso[i]/data_b_iso[i] << "    &    "
+    << std::setprecision(3 - 1*(100*mc_b_noiso[i]/data_b_noiso[i] < 100) - 1*(100*mc_b_noiso[i]/data_b_noiso[i] < 10)) << 100*mc_b_noiso[i]/data_b_noiso[i] << "    &    "
+    << std::setprecision(3 - 1*(100*mc_e_iso[i]/data_e_iso[i] < 100) - 1*(100*mc_e_iso[i]/data_e_iso[i] < 10)) << 100*mc_e_iso[i]/data_e_iso[i] << "    &    "
+    << std::setprecision(3 - 1*(100*mc_e_noiso[i]/data_e_noiso[i] < 100) - 1*(100*mc_e_noiso[i]/data_e_noiso[i] < 10)) << 100*mc_e_noiso[i]/data_e_noiso[i] << "    \\\\ \\hline" << endl;
+  }
+  cout << "\\multicolumn{1}{|c|}{Total} &    " << 100*mc_b_iso_sum/data_b_iso_sum << "    &    " << 100*mc_b_noiso_sum/data_b_noiso_sum << "    &    " << 100*mc_e_iso_sum/data_e_iso_sum << "    &    " << 100*mc_e_noiso_sum/data_e_noiso_sum << "    \\\\ \\hline" << endl;
+
+#endif
+
   TH3D* histo3_mc_sum = (TH3D*)histo3[0]->Clone("histo3_mc_sum");
   histo3_mc_sum->Reset();
 
