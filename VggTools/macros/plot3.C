@@ -678,6 +678,27 @@ int plot3(string plot="", string title="", string version="v00", string options=
     histo[8001]->SetDirectory(0);
   }
 
+#if 0
+
+  for (int pho0_pt = 1; pho0_pt < histo3_data->GetNbinsX(); pho0_pt++) {
+    for (int eta = 0; eta < 2; eta++) {
+      if (eta == 0) {
+        if (pho0_pt == 1) cout << "\\multicolumn{1}{|c|}{$20 < p_T < 40$} & ";
+        if (pho0_pt == 2) cout << "\\multicolumn{1}{|c|}{$40 < p_T < 60$} & ";
+        if (pho0_pt == 3) cout << "\\multicolumn{1}{|c|}{$60 < p_T < 80$} & ";
+        if (pho0_pt == 4) cout << "\\multicolumn{1}{|c|}{$80 < p_T < 180$} & ";
+        if (pho0_pt == 5) cout << "\\multicolumn{1}{|c|}{$180 < p_T < 300$} & ";
+        cout << "$ " << fixed << std::setprecision(3) << e[pho0_pt][eta] << " \\pm " << fixed << std::setprecision(3) << e_err[pho0_pt][eta] << " $ & ";
+        cout << "$ " << fixed << std::setprecision(3) << f[pho0_pt][eta] << " \\pm " << fixed << std::setprecision(3) << f_err[pho0_pt][eta] << " $ & ";
+      } else {
+        cout << "$ " << fixed << std::setprecision(3) << e[pho0_pt][eta] << " \\pm " << fixed << std::setprecision(3) << e_err[pho0_pt][eta] << " $ & ";
+        cout << "$ " << fixed << std::setprecision(3) << f[pho0_pt][eta] << " \\pm " << fixed << std::setprecision(3) << f_err[pho0_pt][eta] << " $ \\\\ \\hline" << endl;
+      }
+    }
+  }
+
+#endif
+
   for (int eta = 0; eta < 2; eta++) {
     for (int pho0_pt = 1; pho0_pt < histo3_data->GetNbinsX(); pho0_pt++) {
 
