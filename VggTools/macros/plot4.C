@@ -931,8 +931,10 @@ int plot4(string plot="", string title="", string version="v00", string options=
   h_ratio->Draw("E0PX0SAME");
 
   writeExtraText = true;
+  if (options.find("paper") != string::npos) writeExtraText = false;
 
   lumi_13TeV  = Form("%.1f fb^{-1}", lumi);
+  if (options.find("paper") != string::npos) lumi_13TeV  = Form("%.0f fb^{-1}", lumi);
   int iPeriod = 4;
   int iPos = 0;
   CMS_lumi(pad1, iPeriod, iPos);
