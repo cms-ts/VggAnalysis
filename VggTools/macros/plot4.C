@@ -559,6 +559,56 @@ int plot4(string plot="", string title="", string version="v00", string options=
     }
   }
 
+  double aQGC_value = 0;
+  TH1D* h_aQGC = 0;
+
+  if (options.find("paper") != string::npos && title.find("pho0_pho1_pt") != string::npos) {
+    TFile* file_parabole = 0;
+    int myindex = -1;
+
+    if (title.find("h_WGG_") != string::npos) {
+      file_parabole = new TFile(("root/aQGC_WGG/FM3_" + string(title).substr(6, 3) + ".root").c_str());
+      myindex = 1010;
+    }
+    if (title.find("h_ZGG_") != string::npos) {
+      file_parabole = new TFile(("root/aQGC_ZGG/FT0_" + string(title).substr(6, 3) + ".root").c_str());
+      myindex = 10;
+    }
+
+    if (file_parabole->IsZombie()) {
+      Error("plot4", "file %s is MISSING !!", file_parabole->GetName());
+      return 1;
+    }
+
+    double weight[4];
+
+    TGraph* lim_bin_1 = (TGraph*)file_parabole->Get(("theBaseData_ch_" + string(title).substr(6, 3) + "_1").c_str());
+    TGraph* lim_bin_2 = (TGraph*)file_parabole->Get(("theBaseData_ch_" + string(title).substr(6, 3) + "_2").c_str());
+    TGraph* lim_bin_3 = (TGraph*)file_parabole->Get(("theBaseData_ch_" + string(title).substr(6, 3) + "_3").c_str());
+    TGraph* lim_bin_4 = (TGraph*)file_parabole->Get(("theBaseData_ch_" + string(title).substr(6, 3) + "_4").c_str());
+
+    lim_bin_1->GetPoint(15, aQGC_value, weight[0]);
+    lim_bin_2->GetPoint(15, aQGC_value, weight[1]);
+    lim_bin_3->GetPoint(15, aQGC_value, weight[2]);
+    lim_bin_4->GetPoint(15, aQGC_value, weight[3]);
+
+    delete file_parabole;
+
+    h_aQGC = (TH1D*)histo[myindex]->Clone("h_aQGC");
+
+    h_aQGC->SetBinContent(1, h_aQGC->GetBinContent(1) * weight[0]);
+    h_aQGC->SetBinContent(2, h_aQGC->GetBinContent(2) * weight[1]);
+    h_aQGC->SetBinContent(3, h_aQGC->GetBinContent(3) * weight[2]);
+    h_aQGC->SetBinContent(4, h_aQGC->GetBinContent(4) * weight[3]);
+    h_aQGC->SetBinError(1,0.);
+    h_aQGC->SetBinError(2,0.);
+    h_aQGC->SetBinError(3,0.);
+    h_aQGC->SetBinError(4,0.);
+
+    h_aQGC->SetLineColor(kBlue);
+    h_aQGC->SetLineWidth(2);
+  }
+
   TH1D* h_ratio_mc = (TH1D*)h_mc_sum->Clone("h_ratio_mc");
   for (int i = 0; i < h_mc_sum->GetNbinsX()+2; i++) {
     h_mc_sum->SetBinError(i, 0.0);
@@ -730,6 +780,11 @@ int plot4(string plot="", string title="", string version="v00", string options=
     histo[8001]->SetFillColor(kPink+4);
     legend->AddEntry(histo[8001], "Misid. jets", "f");
 
+    if (title.find("pho0_pho1_pt") != string::npos) {
+      if (title.find("h_WGG_") != string::npos) legend->AddEntry(h_aQGC, Form("f_{M3}/#Lambda^{4} = %.0f TeV^{-4}", aQGC_value * TMath::Power(10, 12)), "l");
+      if (title.find("h_ZGG_") != string::npos) legend->AddEntry(h_aQGC, Form("f_{T0}/#Lambda^{4} = %.0f TeV^{-4}", aQGC_value * TMath::Power(10, 12)), "l");
+    }
+
     if (title.find("h_ZGG_") != string::npos) {
       legend->AddEntry((TObject*)0, "", "");
     }
@@ -767,6 +822,8 @@ int plot4(string plot="", string title="", string version="v00", string options=
   histo[0]->SetMarkerSize(1.0);
 
   histo[0]->Draw("EXP0SAMES");
+
+  if (options.find("paper") != string::npos && title.find("pho0_pho1_pt") != string::npos) h_aQGC->Draw("SAME");
 
   legend->Draw();
 
@@ -1002,6 +1059,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
     delete h_ratio;
     delete h_ratio_mc;
     delete h_irred;
+    delete h_aQGC;
 
     delete legend;
     delete line;
