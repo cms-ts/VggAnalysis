@@ -87,6 +87,7 @@ RunIIFall17NanoAODv7_DYJetsToLL_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8	4833.39
 RunIIFall17NanoAODv7_DYJetsToLL_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8	889.66
 RunIIFall17NanoAODv7_DYJetsToLL_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8	354.17
 #
+RunIIFall17NanoAODv7_WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8	61526.7
 RunIIFall17NanoAODv7_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	61526.7
 #
 RunIIFall17NanoAODv7_W1JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	9493.
@@ -155,6 +156,7 @@ RunIIAutumn18NanoAODv7_DYJetsToLL_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8		4833.39
 RunIIAutumn18NanoAODv7_DYJetsToLL_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8		889.66
 RunIIAutumn18NanoAODv7_DYJetsToLL_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8		354.17
 #
+RunIIAutumn18NanoAODv7_WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8	61526.7
 RunIIAutumn18NanoAODv7_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	61526.7
 #
 RunIIAutumn18NanoAODv7_W1JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	9493.
@@ -239,12 +241,14 @@ RunIISummer16NanoAODv7_WTauNu_WToLNu_0J_13TeV-amcatnloFXFX-pythia8		50084.9
 RunIISummer16NanoAODv7_WTauNu_WToLNu_1J_13TeV-amcatnloFXFX-pythia8		8262.7
 RunIISummer16NanoAODv7_WTauNu_WToLNu_2J_13TeV-amcatnloFXFX-pythia8		3179.1
 #
+RunIIFall17NanoAODv7_WTauNu_WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8	61526.7
 RunIIFall17NanoAODv7_WTauNu_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	61526.7
 #
 RunIIFall17NanoAODv7_WTauNu_WJetsToLNu_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8	50084.9
 RunIIFall17NanoAODv7_WTauNu_WJetsToLNu_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8	8262.7
 RunIIFall17NanoAODv7_WTauNu_WJetsToLNu_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8	3179.1
 #
+RunIIAutumn18NanoAODv7_WTauNu_WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8	61526.7
 RunIIAutumn18NanoAODv7_WTauNu_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8	61526.7
 #
 RunIIAutumn18NanoAODv7_WTauNu_WJetsToLNu_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8	50084.9
@@ -303,6 +307,8 @@ RunIISummer16NanoAODv7_WGG_WToLNu_1J_13TeV-amcatnloFXFX-pythia8			8262.7
 RunIISummer16NanoAODv7_WG_WToLNu_2J_13TeV-amcatnloFXFX-pythia8			3179.1
 RunIISummer16NanoAODv7_WGG_WToLNu_2J_13TeV-amcatnloFXFX-pythia8			3179.1
 #
+RunIIFall17NanoAODv7_WG_WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8		61526.7
+RunIIFall17NanoAODv7_WGG_WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8		61526.7
 RunIIFall17NanoAODv7_WG_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8		61526.7
 RunIIFall17NanoAODv7_WGG_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8		61526.7
 #
@@ -313,6 +319,8 @@ RunIIFall17NanoAODv7_WGG_WJetsToLNu_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8	8262.7
 RunIIFall17NanoAODv7_WG_WJetsToLNu_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8	3179.1
 RunIIFall17NanoAODv7_WGG_WJetsToLNu_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8	3179.1
 #
+RunIIAutumn18NanoAODv7_WG_WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8		61526.7
+RunIIAutumn18NanoAODv7_WGG_WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8	61526.7
 RunIIAutumn18NanoAODv7_WG_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8		61526.7
 RunIIAutumn18NanoAODv7_WGG_WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8		61526.7
 #
