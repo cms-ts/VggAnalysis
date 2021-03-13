@@ -4629,8 +4629,8 @@ Bool_t mainSelector::Process(Long64_t entry)
              if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
                  (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
                h_WGG_ele_pho0_pho1_pt_be_tl_genmatch2->Fill(pho0_iso.Pt(), pho1_iso.Pt(), (pho0_iso + pho1_iso).Pt(), weight_W_ele * weight_pho0_iso * weight_pho1_iso);
-               h_WGG_ele_pho0_pt_be_tl->Fill(pho0_iso.Pt(), pho1_iso.Pt(), pho0_iso.Pt(), weight_W_ele * weight_pho0_iso * weight_pho1_iso);
-               h_WGG_ele_pho1_pt_be_tl->Fill(pho0_iso.Pt(), pho1_iso.Pt(), pho1_iso.Pt(), weight_W_ele * weight_pho0_iso * weight_pho1_iso);
+               h_WGG_ele_pho0_pt_be_tl_genmatch2->Fill(pho0_iso.Pt(), pho1_iso.Pt(), pho0_iso.Pt(), weight_W_ele * weight_pho0_iso * weight_pho1_iso);
+               h_WGG_ele_pho1_pt_be_tl_genmatch2->Fill(pho0_iso.Pt(), pho1_iso.Pt(), pho1_iso.Pt(), weight_W_ele * weight_pho0_iso * weight_pho1_iso);
              }
 #endif // defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
            }
