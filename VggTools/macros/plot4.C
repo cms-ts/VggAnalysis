@@ -769,7 +769,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
     histo[0]->SetLineColor(kBlack);
     histo[0]->SetBinErrorOption(TH1::kPoisson);
-    legend->AddEntry(histo[0], "Data", "p");
+    legend->AddEntry(histo[0], "Data", "plE");
 
     if (title.find("h_WGG_") != string::npos) {
       hstack_mc->Add(histo[8001]);
@@ -783,9 +783,11 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
       histo[1010]->SetFillColor(kOrange+7);
       histo[1010]->SetFillStyle(3254);
+      histo[1010]->SetLineColor(kBlack);
       legend->AddEntry(histo[1010], "W#gamma#gamma", "f");
 
       histo[1021]->SetFillColorAlpha(kOrange, 0.3);
+      histo[1021]->SetLineColor(kBlack);
       legend->AddEntry(histo[1021], "Misid. electrons", "f");
     }
     if (title.find("h_ZGG_") != string::npos) {
@@ -798,13 +800,16 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
       histo[10]->SetFillColor(kOrange+7);
       histo[10]->SetFillStyle(3254);
+      histo[10]->SetLineColor(kBlack);
       legend->AddEntry(histo[10], "Z#gamma#gamma", "f");
     }
 
     h_irred->SetFillColorAlpha(kGreen+3, 0.5);
+    if (options.find("paper") != string::npos) h_irred->SetLineColor(kBlack);
     legend->AddEntry(h_irred, "Others", "f");
 
     histo[8001]->SetFillColor(kPink+4);
+    if (options.find("paper") != string::npos) histo[8001]->SetLineColor(kBlack);
     legend->AddEntry(histo[8001], "Misid. jets", "f");
 
     if (title.find("pho0_pho1_pt") != string::npos && cr_string == "") {
@@ -841,7 +846,9 @@ int plot4(string plot="", string title="", string version="v00", string options=
   hstack_mc->GetYaxis()->SetTitle("Events");
   if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitle("Events / bin");
   hstack_mc->GetYaxis()->SetTitleSize(0.05);
+  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitleSize(0.065);
   hstack_mc->GetYaxis()->SetTitleOffset(0.95);
+  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitleOffset(0.7915);
   hstack_mc->GetYaxis()->SetLabelSize(0.045);
 
   histo[0]->SetMarkerColor(kBlack);
@@ -988,14 +995,18 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
   h_ratio->GetXaxis()->SetTitleFont(42);
   h_ratio->GetXaxis()->SetTitleSize(0.11);
+  if (options.find("paper") != string::npos) h_ratio->GetXaxis()->SetTitleSize(0.145);
   h_ratio->GetXaxis()->SetTitleOffset(1.1);
+  if (options.find("paper") != string::npos) h_ratio->GetXaxis()->SetTitleOffset(0.814);
   h_ratio->GetXaxis()->SetLabelFont(42);
   h_ratio->GetXaxis()->SetLabelSize(0.10);
 
   h_ratio->GetYaxis()->SetTitle("Data/MC");
-  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitle("Data / Prediction ");
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitle("Data / Prediction");
   h_ratio->GetYaxis()->SetTitleSize(0.11);
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitleSize(0.145);
   h_ratio->GetYaxis()->SetTitleOffset(0.43);
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitleOffset(0.35);
   h_ratio->GetYaxis()->SetLabelSize(0.1);
   h_ratio->GetYaxis()->SetLabelOffset(0.01);
   h_ratio->GetYaxis()->SetNdivisions(505);
@@ -1023,6 +1034,34 @@ int plot4(string plot="", string title="", string version="v00", string options=
   int iPos = 0;
   CMS_lumi(pad1, iPeriod, iPos);
   c1->cd();
+
+
+  if (options.find("paper") != string::npos) {
+    TLatex* label = new TLatex();
+    label->SetTextFont(43);
+    label->SetTextSize(30);
+    label->SetLineWidth(2);
+    label->SetNDC();
+
+    if (plot.find("W") != string::npos) {
+      if (plot.find("ele") != string::npos) {
+        label->DrawLatex(0.18, 0.85, "W(#rightarrow e#nu)#gamma#gamma");
+      }
+      if (plot.find("muo") != string::npos) {
+        label->DrawLatex(0.18, 0.85, "W(#rightarrow #mu#nu)#gamma#gamma");
+      }
+    }
+    if (plot.find("Z") != string::npos) {
+      if (plot.find("ele") != string::npos) {
+        label->DrawLatex(0.18, 0.85, "Z(#rightarrow ee)#gamma#gamma");
+      }
+      if (plot.find("muo") != string::npos) {
+        label->DrawLatex(0.18, 0.85, "Z(#rightarrow #mu#mu)#gamma#gamma");
+      }
+    }
+
+    label->Draw();
+  }
 
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/").c_str(), kTRUE);
