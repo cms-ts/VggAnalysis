@@ -829,6 +829,51 @@ public :
    TH3D* h_ZGG_muo_pho1_pt_ee_lt_genmatch2 = 0;
    TH3D* h_ZGG_muo_pho1_pt_ee_ll_genmatch2 = 0;
 
+   TH1D* h_WGG_ele_pho0_pho1_pt_tl = 0;
+   TH1D* h_WGG_muo_pho0_pho1_pt_tl = 0;
+   TH1D* h_ZGG_ele_pho0_pho1_pt_tl = 0;
+   TH1D* h_ZGG_muo_pho0_pho1_pt_tl = 0;
+
+   TH1D* h_WGG_ele_pho0_pho1_pt_lt = 0;
+   TH1D* h_WGG_muo_pho0_pho1_pt_lt = 0;
+   TH1D* h_ZGG_ele_pho0_pho1_pt_lt = 0;
+   TH1D* h_ZGG_muo_pho0_pho1_pt_lt = 0;
+
+   TH1D* h_WGG_ele_pho0_pho1_pt_ll = 0;
+   TH1D* h_WGG_muo_pho0_pho1_pt_ll = 0;
+   TH1D* h_ZGG_ele_pho0_pho1_pt_ll = 0;
+   TH1D* h_ZGG_muo_pho0_pho1_pt_ll = 0;
+
+   TH1D* h_WGG_ele_pho0_pho1_pt_tl_genmatch = 0;
+   TH1D* h_WGG_muo_pho0_pho1_pt_tl_genmatch = 0;
+   TH1D* h_ZGG_ele_pho0_pho1_pt_tl_genmatch = 0;
+   TH1D* h_ZGG_muo_pho0_pho1_pt_tl_genmatch = 0;
+
+   TH1D* h_WGG_ele_pho0_pho1_pt_lt_genmatch = 0;
+   TH1D* h_WGG_muo_pho0_pho1_pt_lt_genmatch = 0;
+   TH1D* h_ZGG_ele_pho0_pho1_pt_lt_genmatch = 0;
+   TH1D* h_ZGG_muo_pho0_pho1_pt_lt_genmatch = 0;
+
+   TH1D* h_WGG_ele_pho0_pho1_pt_ll_genmatch = 0;
+   TH1D* h_WGG_muo_pho0_pho1_pt_ll_genmatch = 0;
+   TH1D* h_ZGG_ele_pho0_pho1_pt_ll_genmatch = 0;
+   TH1D* h_ZGG_muo_pho0_pho1_pt_ll_genmatch = 0;
+
+   TH1D* h_WGG_ele_pho0_pho1_pt_tl_genmatch2 = 0;
+   TH1D* h_WGG_muo_pho0_pho1_pt_tl_genmatch2 = 0;
+   TH1D* h_ZGG_ele_pho0_pho1_pt_tl_genmatch2 = 0;
+   TH1D* h_ZGG_muo_pho0_pho1_pt_tl_genmatch2 = 0;
+
+   TH1D* h_WGG_ele_pho0_pho1_pt_lt_genmatch2 = 0;
+   TH1D* h_WGG_muo_pho0_pho1_pt_lt_genmatch2 = 0;
+   TH1D* h_ZGG_ele_pho0_pho1_pt_lt_genmatch2 = 0;
+   TH1D* h_ZGG_muo_pho0_pho1_pt_lt_genmatch2 = 0;
+
+   TH1D* h_WGG_ele_pho0_pho1_pt_ll_genmatch2 = 0;
+   TH1D* h_WGG_muo_pho0_pho1_pt_ll_genmatch2 = 0;
+   TH1D* h_ZGG_ele_pho0_pho1_pt_ll_genmatch2 = 0;
+   TH1D* h_ZGG_muo_pho0_pho1_pt_ll_genmatch2 = 0;
+
 #if defined(COMPUTE_EG_MISID)
    TH1D* h_WG_ele_fake_1 = 0;
    TH1D* h_WG_ele_fake_2 = 0;

@@ -32,6 +32,17 @@ int plot4(string plot="", string title="", string version="v00", string options=
     }
   }
 
+  if (options.find("control1") != string::npos || options.find("control2") != string::npos || options.find("control3") != string::npos) {
+    if (flag != "reference" && flag != "jet_misid_qcd" && flag != "jet_misid_sherpa") {
+      Warning("plot4", "skipping options %s for flag %s", options.c_str(), flag.c_str());
+      return 0;
+    }
+    if (title.find("pho0_pho1_pt") == string::npos) {
+      Warning("plot4", "control region not available for this plot !!");
+      return 0;
+    }
+  }
+
   if (options.find("identity1") != string::npos || options.find("closure0") != string::npos || options.find("closure1") != string::npos) {
     if (plot.find("2018") != string::npos || plot.find("Run2") != string::npos) {
       Warning("plot4", "no sherpa sample available for this year !!");
@@ -74,6 +85,11 @@ int plot4(string plot="", string title="", string version="v00", string options=
   double lumi2017 = 0.;
   double lumi2018 = 0.;
 
+  string cr_string = "";
+  if (options.find("control1") != string::npos) cr_string = "_tl";
+  if (options.find("control2") != string::npos) cr_string = "_lt";
+  if (options.find("control3") != string::npos) cr_string = "_ll";
+
   for (multimap<string, double>::iterator it = plotMap.begin(); it != plotMap.end(); it++) {
     int index = int(it->second);
     if (index == 0) {
@@ -97,17 +113,17 @@ int plot4(string plot="", string title="", string version="v00", string options=
         Warning("plot4", "luminosity for %s is ZERO !!", it->first.c_str());
       }
       if (histo[index]) {
-        TH1D* h = (TH1D*)file->Get(title.c_str());
+        TH1D* h = (TH1D*)file->Get((title + cr_string).c_str());
         if (h) {
           histo[index]->Add(h);
         }
       } else {
-        TH1D* h = (TH1D*)file->Get(title.c_str());
+        TH1D* h = (TH1D*)file->Get((title + cr_string).c_str());
         if (h) {
           histo[index] = h;
           histo[index]->SetDirectory(0);
         } else {
-          Error("plot4", "histogram %s is MISSING !!", title.c_str());
+          Error("plot4", "histogram %s is MISSING !!", (title + cr_string).c_str());
           return 1;
         }
       }
@@ -177,18 +193,18 @@ int plot4(string plot="", string title="", string version="v00", string options=
         return 1;
       }
       if (histo[index]) {
-        TH1D* h = (TH1D*)file->Get((title + "_genmatch").c_str());
+        TH1D* h = (TH1D*)file->Get((title + cr_string + "_genmatch").c_str());
         if (title.find("h_WGG_ele") != string::npos) {
-          TH1D* h1 = (TH1D*)file->Get((title + "_genmatch2").c_str());
+          TH1D* h1 = (TH1D*)file->Get((title + cr_string + "_genmatch2").c_str());
           h->Add(h1);
         }
         if (h) {
           histo[index]->Add(h, norm);
         }
       } else {
-        TH1D* h = (TH1D*)file->Get((title + "_genmatch").c_str());
+        TH1D* h = (TH1D*)file->Get((title + cr_string + "_genmatch").c_str());
         if (title.find("h_WGG_ele") != string::npos) {
-          TH1D* h1 = (TH1D*)file->Get((title + "_genmatch2").c_str());
+          TH1D* h1 = (TH1D*)file->Get((title + cr_string + "_genmatch2").c_str());
           h->Add(h1);
         }
         if (h) {
@@ -433,8 +449,19 @@ int plot4(string plot="", string title="", string version="v00", string options=
             alpha_err(2) = alpha_err(2) * (1. + 0.1 * (flag == "jet_misid_stat"));
             alpha_err(3) = alpha_err(3) * (1. + 0.1 * (flag == "jet_misid_stat"));
 
-            histo[8001 + i]->SetBinContent(var, histo[8001 + i]->GetBinContent(var) + matrix(0,1)*alpha(1) + matrix(0,2)*alpha(2) + matrix(0,3)*alpha(3));
-            histo[8001 + i]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001 + i]->GetBinError(var), 2) + TMath::Power(matrix(0,1)*alpha_err(1), 2) + TMath::Power(matrix(0,2)*alpha_err(2), 2) + TMath::Power(matrix(0,3)*alpha_err(3), 2)));
+	    if (cr_string == "") {
+              histo[8001 + i]->SetBinContent(var, histo[8001 + i]->GetBinContent(var) + matrix(0,1)*alpha(1) + matrix(0,2)*alpha(2) + matrix(0,3)*alpha(3));
+              histo[8001 + i]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001 + i]->GetBinError(var), 2) + TMath::Power(matrix(0,1)*alpha_err(1), 2) + TMath::Power(matrix(0,2)*alpha_err(2), 2) + TMath::Power(matrix(0,3)*alpha_err(3), 2)));
+            } else if (cr_string == "_tl") {
+              histo[8001 + i]->SetBinContent(var, histo[8001 + i]->GetBinContent(var) + matrix(1,1)*alpha(1) + matrix(1,2)*alpha(2) + matrix(1,3)*alpha(3));
+              histo[8001 + i]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001 + i]->GetBinError(var), 2) + TMath::Power(matrix(1,1)*alpha_err(1), 2) + TMath::Power(matrix(1,2)*alpha_err(2), 2) + TMath::Power(matrix(1,3)*alpha_err(3), 2)));
+            } else if (cr_string == "_lt") {
+              histo[8001 + i]->SetBinContent(var, histo[8001 + i]->GetBinContent(var) + matrix(2,1)*alpha(1) + matrix(2,2)*alpha(2) + matrix(2,3)*alpha(3));
+              histo[8001 + i]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001 + i]->GetBinError(var), 2) + TMath::Power(matrix(2,1)*alpha_err(1), 2) + TMath::Power(matrix(2,2)*alpha_err(2), 2) + TMath::Power(matrix(2,3)*alpha_err(3), 2)));
+            } else if (cr_string == "_ll") {
+              histo[8001 + i]->SetBinContent(var, histo[8001 + i]->GetBinContent(var) + matrix(3,1)*alpha(1) + matrix(3,2)*alpha(2) + matrix(3,3)*alpha(3));
+              histo[8001 + i]->SetBinError(var, TMath::Sqrt(TMath::Power(histo[8001 + i]->GetBinError(var), 2) + TMath::Power(matrix(3,1)*alpha_err(1), 2) + TMath::Power(matrix(3,2)*alpha_err(2), 2) + TMath::Power(matrix(3,3)*alpha_err(3), 2)));
+            }
           }
 
 #if defined(CHECK_CLOSURE)
@@ -504,15 +531,15 @@ int plot4(string plot="", string title="", string version="v00", string options=
   }
 
   if (plot.find("Run2") != string::npos) {
-    TFile* file_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/" + title + ".root").c_str());
-    TFile* file_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/" + title + ".root").c_str());
-    TFile* file_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/" + title + ".root").c_str());
+    TFile* file_2016 = new TFile(("html/" + version + "/" + flag + "/2016.matrix/root/" + title + cr_string + ".root").c_str());
+    TFile* file_2017 = new TFile(("html/" + version + "/" + flag + "/2017.matrix/root/" + title + cr_string + ".root").c_str());
+    TFile* file_2018 = new TFile(("html/" + version + "/" + flag + "/2018.matrix/root/" + title + cr_string + ".root").c_str());
 
     histo[8001]->Reset();
 
     TH1D* h = 0;
 
-    h = (TH1D*)file_2016->Get((title + "_misid").c_str());
+    h = (TH1D*)file_2016->Get((title + "_misid" + cr_string).c_str());
     if (h) {
       if (histo[8001]) {
         histo[8001]->Add(h);
@@ -521,7 +548,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
         histo[8001]->SetDirectory(0);
       }
     }
-    h = (TH1D*)file_2017->Get((title + "_misid").c_str());
+    h = (TH1D*)file_2017->Get((title + "_misid" + cr_string).c_str());
     if (h) {
       if (histo[8001]) {
         histo[8001]->Add(h);
@@ -530,7 +557,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
         histo[8001]->SetDirectory(0);
       }
     }
-    h = (TH1D*)file_2018->Get((title + "_misid").c_str());
+    h = (TH1D*)file_2018->Get((title + "_misid" + cr_string).c_str());
     if (h) {
       if (histo[8001]) {
         histo[8001]->Add(h);
@@ -780,7 +807,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
     histo[8001]->SetFillColor(kPink+4);
     legend->AddEntry(histo[8001], "Misid. jets", "f");
 
-    if (title.find("pho0_pho1_pt") != string::npos) {
+    if (title.find("pho0_pho1_pt") != string::npos && cr_string == "") {
       if (title.find("h_WGG_") != string::npos) legend->AddEntry(h_aQGC, Form("f_{M3}/#Lambda^{4} = %.0f TeV^{-4}", aQGC_value * TMath::Power(10, 12)), "l");
       if (title.find("h_ZGG_") != string::npos) legend->AddEntry(h_aQGC, Form("f_{T0}/#Lambda^{4} = %.0f TeV^{-4}", aQGC_value * TMath::Power(10, 12)), "l");
     }
@@ -823,7 +850,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
   histo[0]->Draw("EXP0SAMES");
 
-  if (options.find("paper") != string::npos && title.find("pho0_pho1_pt") != string::npos) h_aQGC->Draw("SAME");
+  if (options.find("paper") != string::npos && title.find("pho0_pho1_pt") != string::npos && cr_string == "") h_aQGC->Draw("SAME");
 
   legend->Draw();
 
@@ -1006,42 +1033,42 @@ int plot4(string plot="", string title="", string version="v00", string options=
   if (options.find("closure0") != string::npos) title += "_closure0";
   if (options.find("closure1") != string::npos) title += "_closure1";
 
-  c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".matrix/" + title + ".pdf").c_str());
+  c1->SaveAs(("html/" + version + "/" + flag + "/" + year + ".matrix/" + title + cr_string + ".pdf").c_str());
 
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str())) {
     gSystem->mkdir(("html/" + version + "/" + flag + "/" + year + ".matrix/root/").c_str(), kTRUE);
   }
 
-  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str(), "RECREATE");
-  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + ".root").c_str());
+  TFile* file = new TFile(("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + cr_string + ".root").c_str(), "RECREATE");
+  Info("TFile::Open", "root file %s has been created", ("html/" + version + "/" + flag + "/" + year + ".matrix/root/" + title + cr_string + ".root").c_str());
 
-  histo[0]->Write((title + "_data").c_str());
-  histo[8001]->Write((title + "_misid").c_str());
+  histo[0]->Write((title + "_data" + cr_string).c_str());
+  histo[8001]->Write((title + "_misid" + cr_string).c_str());
 
   if (title.find("h_WGG_") != string::npos) {
-    histo[1010]->Write((title + "_sig").c_str());
-    histo[1021]->Write((title + "_egmisid").c_str());
-    histo[1011]->Write((title + "_wg").c_str());
-    histo[1021]->Write((title + "_zg").c_str());
-    histo[1022]->Write((title + "_zgg").c_str());
-    histo[1031]->Write((title + "_ttg").c_str());
-    histo[1032]->Write((title + "_ttgg").c_str());
-    histo[1041]->Write((title + "_tg").c_str());
-    histo[1051]->Write((title + "_vvg").c_str());
-    histo[1061]->Write((title + "_gj").c_str());
-    h_irred->Write((title + "_irred").c_str());
+    histo[1010]->Write((title + "_sig" + cr_string).c_str());
+    histo[1021]->Write((title + "_egmisid" + cr_string).c_str());
+    histo[1011]->Write((title + "_wg" + cr_string).c_str());
+    histo[1021]->Write((title + "_zg" + cr_string).c_str());
+    histo[1022]->Write((title + "_zgg" + cr_string).c_str());
+    histo[1031]->Write((title + "_ttg" + cr_string).c_str());
+    histo[1032]->Write((title + "_ttgg" + cr_string).c_str());
+    histo[1041]->Write((title + "_tg" + cr_string).c_str());
+    histo[1051]->Write((title + "_vvg" + cr_string).c_str());
+    histo[1061]->Write((title + "_gj" + cr_string).c_str());
+    h_irred->Write((title + "_irred" + cr_string).c_str());
   }
 
   if (title.find("h_ZGG_") != string::npos) {
-    histo[10]->Write((title + "_sig").c_str());
-    histo[11]->Write((title + "_zg").c_str());
-    histo[21]->Write((title + "_wg").c_str());
-    histo[31]->Write((title + "_vvg").c_str());
-    histo[41]->Write((title + "_ttg").c_str());
-    histo[42]->Write((title + "_ttgg").c_str());
-    histo[51]->Write((title + "_tg").c_str());
-    histo[61]->Write((title + "_gj").c_str());
-    h_irred->Write((title + "_irred").c_str());
+    histo[10]->Write((title + "_sig" + cr_string).c_str());
+    histo[11]->Write((title + "_zg" + cr_string).c_str());
+    histo[21]->Write((title + "_wg" + cr_string).c_str());
+    histo[31]->Write((title + "_vvg" + cr_string).c_str());
+    histo[41]->Write((title + "_ttg" + cr_string).c_str());
+    histo[42]->Write((title + "_ttgg" + cr_string).c_str());
+    histo[51]->Write((title + "_tg" + cr_string).c_str());
+    histo[61]->Write((title + "_gj" + cr_string).c_str());
+    h_irred->Write((title + "_irred" + cr_string).c_str());
   }
 
   delete file;

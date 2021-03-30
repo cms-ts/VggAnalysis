@@ -376,6 +376,51 @@ void plot0_wrapper(string year, string version, string options, string flag) {
   if (SKIP1 && SKIP2 && SKIP3) titles.push_back("h_Z_muo0_trig");
   if (SKIP1 && SKIP2 && SKIP3) titles.push_back("h_Z_muo1_trig");
 
+  if (         SKIP2         ) titles.push_back("h_WGG_ele_pho0_pho1_pt_tl");
+  if (         SKIP2         ) titles.push_back("h_WGG_muo_pho0_pho1_pt_tl");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_ele_pho0_pho1_pt_tl");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_muo_pho0_pho1_pt_tl");
+
+  if (         SKIP2         ) titles.push_back("h_WGG_ele_pho0_pho1_pt_lt");
+  if (         SKIP2         ) titles.push_back("h_WGG_muo_pho0_pho1_pt_lt");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_ele_pho0_pho1_pt_lt");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_muo_pho0_pho1_pt_lt");
+
+  if (         SKIP2         ) titles.push_back("h_WGG_ele_pho0_pho1_pt_ll");
+  if (         SKIP2         ) titles.push_back("h_WGG_muo_pho0_pho1_pt_ll");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_ele_pho0_pho1_pt_ll");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_muo_pho0_pho1_pt_ll");
+
+  if (         SKIP2         ) titles.push_back("h_WGG_ele_pho0_pho1_pt_tl_genmatch");
+  if (         SKIP2         ) titles.push_back("h_WGG_muo_pho0_pho1_pt_tl_genmatch");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_ele_pho0_pho1_pt_tl_genmatch");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_muo_pho0_pho1_pt_tl_genmatch");
+
+  if (         SKIP2         ) titles.push_back("h_WGG_ele_pho0_pho1_pt_lt_genmatch");
+  if (         SKIP2         ) titles.push_back("h_WGG_muo_pho0_pho1_pt_lt_genmatch");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_ele_pho0_pho1_pt_lt_genmatch");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_muo_pho0_pho1_pt_lt_genmatch");
+
+  if (         SKIP2         ) titles.push_back("h_WGG_ele_pho0_pho1_pt_ll_genmatch");
+  if (         SKIP2         ) titles.push_back("h_WGG_muo_pho0_pho1_pt_ll_genmatch");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_ele_pho0_pho1_pt_ll_genmatch");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_muo_pho0_pho1_pt_ll_genmatch");
+
+  if (         SKIP2         ) titles.push_back("h_WGG_ele_pho0_pho1_pt_tl_genmatch2");
+  if (         SKIP2         ) titles.push_back("h_WGG_muo_pho0_pho1_pt_tl_genmatch2");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_ele_pho0_pho1_pt_tl_genmatch2");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_muo_pho0_pho1_pt_tl_genmatch2");
+
+  if (         SKIP2         ) titles.push_back("h_WGG_ele_pho0_pho1_pt_lt_genmatch2");
+  if (         SKIP2         ) titles.push_back("h_WGG_muo_pho0_pho1_pt_lt_genmatch2");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_ele_pho0_pho1_pt_lt_genmatch2");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_muo_pho0_pho1_pt_lt_genmatch2");
+
+  if (         SKIP2         ) titles.push_back("h_WGG_ele_pho0_pho1_pt_ll_genmatch2");
+  if (         SKIP2         ) titles.push_back("h_WGG_muo_pho0_pho1_pt_ll_genmatch2");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_ele_pho0_pho1_pt_ll_genmatch2");
+  if (SKIP1 && SKIP2         ) titles.push_back("h_ZGG_muo_pho0_pho1_pt_ll_genmatch2");
+
   for (uint i = 0; i < titles.size(); i++) {
 
     string title = titles[i];
@@ -650,6 +695,11 @@ void process(string version="v00", string options="default", string flag="refere
       plot3_wrapper(year, version, options + ",closure2", flag);
 
       plot4_wrapper(year, version, options + ",paper", flag);
+
+      plot4_wrapper(year, version, options + ",control1", flag);
+      plot4_wrapper(year, version, options + ",control2", flag);
+      plot4_wrapper(year, version, options + ",control3", flag);
+      plot4_wrapper(year, version, options + ",control3,paper", flag);
 
       plot5_wrapper(year, version, options, flag);
 

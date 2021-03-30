@@ -112,6 +112,10 @@ for YEAR in $YEARS; do
         ./plot4.sh $VERSION $YEAR $OPTION",closure1" $FLAG ; \
         ./plot3.sh $VERSION $YEAR $OPTION",closure2" $FLAG ; \
         ./plot4.sh $VERSION $YEAR $OPTION",paper" $FLAG ; \
+        ./plot4.sh $VERSION $YEAR $OPTION",control1" $FLAG ; \
+        ./plot4.sh $VERSION $YEAR $OPTION",control2" $FLAG ; \
+        ./plot4.sh $VERSION $YEAR $OPTION",control3" $FLAG ; \
+        ./plot4.sh $VERSION $YEAR $OPTION",control3,paper" $FLAG ; \
         ./plot5.sh $VERSION $YEAR $OPTION $FLAG \
       ) &
     done
