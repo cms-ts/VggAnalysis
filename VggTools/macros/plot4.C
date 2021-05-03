@@ -809,7 +809,10 @@ int plot4(string plot="", string title="", string version="v00", string options=
     legend->AddEntry(h_irred, "Others", "f");
 
     histo[8001]->SetFillColor(kPink+4);
-    if (options.find("paper") != string::npos) histo[8001]->SetLineColor(kBlack);
+    if (options.find("paper") != string::npos) {
+      histo[8001]->SetLineColor(kBlack);
+      histo[8001]->SetFillColorAlpha(kPink+4, 0.3);
+    }
     legend->AddEntry(histo[8001], "Misid. jets", "f");
 
     if (title.find("pho0_pho1_pt") != string::npos && cr_string == "") {
@@ -1011,6 +1014,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
   h_ratio->GetYaxis()->SetLabelOffset(0.01);
   h_ratio->GetYaxis()->SetNdivisions(505);
   h_ratio->GetYaxis()->SetRangeUser(0.5, 1.5);
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetRangeUser(0.2, 1.8);
 
   h_ratio->SetMarkerStyle(20);
   h_ratio->Draw("E0PX0");
