@@ -646,6 +646,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
   h_ratio->Divide(h_mc_sum);
 
   TLegend* legend = new TLegend(0.45, 0.44, 0.85, 0.88);
+  if (options.find("paper") != string::npos) legend = new TLegend(0.45, 0.34, 0.85, 0.88);
   legend->SetBorderSize(0);
   legend->SetEntrySeparation(0.01);
   legend->SetFillColor(0);
@@ -845,14 +846,16 @@ int plot4(string plot="", string title="", string version="v00", string options=
   hstack_mc->GetXaxis()->SetTitleOffset(0.7);
   hstack_mc->GetXaxis()->SetLabelFont(42);
   hstack_mc->GetXaxis()->SetLabelSize(0.08);
+  if (options.find("paper") != string::npos) hstack_mc->GetXaxis()->SetLabelSize(0.085);
 
   hstack_mc->GetYaxis()->SetTitle("Events");
   if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitle("Events / bin");
   hstack_mc->GetYaxis()->SetTitleSize(0.05);
-  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitleSize(0.065);
+  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitleSize(0.075);
   hstack_mc->GetYaxis()->SetTitleOffset(0.95);
-  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitleOffset(0.7915);
+  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitleOffset(0.69);
   hstack_mc->GetYaxis()->SetLabelSize(0.045);
+  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetLabelSize(0.055);
 
   histo[0]->SetMarkerColor(kBlack);
   histo[0]->SetMarkerStyle(20);
@@ -877,6 +880,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
   TPad* pad2 = new TPad("pad2", "pad2", 0.0, 0.0, 1.0, 0.3);
   pad2->SetTopMargin(0);
   pad2->SetBottomMargin(0.3);
+  if (options.find("paper") != string::npos) pad2->SetBottomMargin(0.4);
   pad2->Draw();
   pad2->cd();
 
@@ -998,19 +1002,21 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
   h_ratio->GetXaxis()->SetTitleFont(42);
   h_ratio->GetXaxis()->SetTitleSize(0.11);
-  if (options.find("paper") != string::npos) h_ratio->GetXaxis()->SetTitleSize(0.145);
+  if (options.find("paper") != string::npos) h_ratio->GetXaxis()->SetTitleSize(0.165);
   h_ratio->GetXaxis()->SetTitleOffset(1.1);
-  if (options.find("paper") != string::npos) h_ratio->GetXaxis()->SetTitleOffset(0.814);
+  if (options.find("paper") != string::npos) h_ratio->GetXaxis()->SetTitleOffset(1.0);
   h_ratio->GetXaxis()->SetLabelFont(42);
   h_ratio->GetXaxis()->SetLabelSize(0.10);
+  if (options.find("paper") != string::npos) h_ratio->GetXaxis()->SetLabelSize(0.14);
 
   h_ratio->GetYaxis()->SetTitle("Data/MC");
-  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitle("Data / Prediction");
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitle("Data / Pred.");
   h_ratio->GetYaxis()->SetTitleSize(0.11);
-  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitleSize(0.145);
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitleSize(0.17);
   h_ratio->GetYaxis()->SetTitleOffset(0.43);
-  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitleOffset(0.35);
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitleOffset(0.31);
   h_ratio->GetYaxis()->SetLabelSize(0.1);
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetLabelSize(0.14);
   h_ratio->GetYaxis()->SetLabelOffset(0.01);
   h_ratio->GetYaxis()->SetNdivisions(505);
   h_ratio->GetYaxis()->SetRangeUser(0.5, 1.5);
@@ -1030,7 +1036,11 @@ int plot4(string plot="", string title="", string version="v00", string options=
   h_ratio->Draw("E0PX0SAME");
 
   writeExtraText = true;
-  if (options.find("paper") != string::npos) writeExtraText = false;
+  if (options.find("paper") != string::npos) {
+    writeExtraText = false;
+    cmsTextSize = 0.85;
+    lumiTextSize = 0.7;
+  }
 
   lumi_13TeV  = Form("%.1f fb^{-1}", lumi);
   if (options.find("paper") != string::npos) lumi_13TeV  = Form("%.0f fb^{-1}", lumi);
@@ -1043,7 +1053,7 @@ int plot4(string plot="", string title="", string version="v00", string options=
   if (options.find("paper") != string::npos) {
     TLatex* label = new TLatex();
     label->SetTextFont(43);
-    label->SetTextSize(30);
+    label->SetTextSize(33);
     label->SetLineWidth(2);
     label->SetNDC();
 
