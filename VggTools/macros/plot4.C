@@ -821,6 +821,10 @@ int plot4(string plot="", string title="", string version="v00", string options=
       if (title.find("h_ZGG_") != string::npos) legend->AddEntry(h_aQGC, Form("f_{T0}/#Lambda^{4} = %.0f TeV^{-4}", aQGC_value * TMath::Power(10, 12)), "l");
     }
 
+    if (title.find("pho0_pho1_pt") != string::npos && cr_string == "_ll") {
+      legend->AddEntry((TObject*)0, "", "");
+    }
+
     if (title.find("h_ZGG_") != string::npos) {
       legend->AddEntry((TObject*)0, "", "");
     }
@@ -831,6 +835,10 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
   TPad* pad1 = new TPad("pad1", "pad1", 0.0, 0.3, 1.0, 1.0);
   pad1->SetBottomMargin(0.001);
+  if (options.find("paper") != string::npos) {
+    pad1->SetLeftMargin(0.13);
+    pad1->SetRightMargin(0.07);
+  }
   pad1->Draw();
   pad1->cd();
 
@@ -851,11 +859,11 @@ int plot4(string plot="", string title="", string version="v00", string options=
   hstack_mc->GetYaxis()->SetTitle("Events");
   if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitle("Events / bin");
   hstack_mc->GetYaxis()->SetTitleSize(0.05);
-  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitleSize(0.075);
-  hstack_mc->GetYaxis()->SetTitleOffset(0.95);
-  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitleOffset(0.69);
+  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitleSize(0.085);
+  hstack_mc->GetYaxis()->SetTitleOffset(0.97);
+  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetTitleOffset(0.8);
   hstack_mc->GetYaxis()->SetLabelSize(0.045);
-  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetLabelSize(0.055);
+  if (options.find("paper") != string::npos) hstack_mc->GetYaxis()->SetLabelSize(0.07);
 
   histo[0]->SetMarkerColor(kBlack);
   histo[0]->SetMarkerStyle(20);
@@ -880,7 +888,11 @@ int plot4(string plot="", string title="", string version="v00", string options=
   TPad* pad2 = new TPad("pad2", "pad2", 0.0, 0.0, 1.0, 0.3);
   pad2->SetTopMargin(0);
   pad2->SetBottomMargin(0.3);
-  if (options.find("paper") != string::npos) pad2->SetBottomMargin(0.4);
+  if (options.find("paper") != string::npos) {
+    pad2->SetBottomMargin(0.42);
+    pad2->SetLeftMargin(0.13);
+    pad2->SetRightMargin(0.07);
+  }
   pad2->Draw();
   pad2->cd();
 
@@ -1002,21 +1014,21 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
   h_ratio->GetXaxis()->SetTitleFont(42);
   h_ratio->GetXaxis()->SetTitleSize(0.11);
-  if (options.find("paper") != string::npos) h_ratio->GetXaxis()->SetTitleSize(0.165);
+  if (options.find("paper") != string::npos) h_ratio->GetXaxis()->SetTitleSize(0.18);
   h_ratio->GetXaxis()->SetTitleOffset(1.1);
   if (options.find("paper") != string::npos) h_ratio->GetXaxis()->SetTitleOffset(1.0);
   h_ratio->GetXaxis()->SetLabelFont(42);
   h_ratio->GetXaxis()->SetLabelSize(0.10);
-  if (options.find("paper") != string::npos) h_ratio->GetXaxis()->SetLabelSize(0.14);
+  if (options.find("paper") != string::npos) h_ratio->GetXaxis()->SetLabelSize(0.16);
 
   h_ratio->GetYaxis()->SetTitle("Data/MC");
   if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitle("Data / Pred.");
   h_ratio->GetYaxis()->SetTitleSize(0.11);
-  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitleSize(0.17);
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitleSize(0.20);
   h_ratio->GetYaxis()->SetTitleOffset(0.43);
-  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitleOffset(0.31);
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetTitleOffset(0.34);
   h_ratio->GetYaxis()->SetLabelSize(0.1);
-  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetLabelSize(0.14);
+  if (options.find("paper") != string::npos) h_ratio->GetYaxis()->SetLabelSize(0.16);
   h_ratio->GetYaxis()->SetLabelOffset(0.01);
   h_ratio->GetYaxis()->SetNdivisions(505);
   h_ratio->GetYaxis()->SetRangeUser(0.5, 1.5);
@@ -1059,18 +1071,18 @@ int plot4(string plot="", string title="", string version="v00", string options=
 
     if (plot.find("W") != string::npos) {
       if (plot.find("ele") != string::npos) {
-        label->DrawLatex(0.18, 0.85, "W(#rightarrow e#nu)#gamma#gamma");
+        label->DrawLatex(0.22, 0.85, "W(#rightarrow e#nu)#gamma#gamma");
       }
       if (plot.find("muo") != string::npos) {
-        label->DrawLatex(0.18, 0.85, "W(#rightarrow #mu#nu)#gamma#gamma");
+        label->DrawLatex(0.22, 0.85, "W(#rightarrow #mu#nu)#gamma#gamma");
       }
     }
     if (plot.find("Z") != string::npos) {
       if (plot.find("ele") != string::npos) {
-        label->DrawLatex(0.18, 0.85, "Z(#rightarrow ee)#gamma#gamma");
+        label->DrawLatex(0.22, 0.85, "Z(#rightarrow ee)#gamma#gamma");
       }
       if (plot.find("muo") != string::npos) {
-        label->DrawLatex(0.18, 0.85, "Z(#rightarrow #mu#mu)#gamma#gamma");
+        label->DrawLatex(0.22, 0.85, "Z(#rightarrow #mu#mu)#gamma#gamma");
       }
     }
 
