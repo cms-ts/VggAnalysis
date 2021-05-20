@@ -105,10 +105,10 @@ int plot4(string plot="", string title="", string version="v00", string options=
       }
       if (lumiMap[it->first] != 0) {
         double var = (flag == "lumi_up") - (flag == "lumi_down");
-        lumi = lumi + lumiMap[it->first] * (1.000 + 0.016 * var);
-        if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.016 * var);
-        if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.016 * var);
-        if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.016 * var);
+        lumi = lumi + lumiMap[it->first] * (1.000 + 0.018 * var);
+        if (it->first.find("Run2016") != string::npos) lumi2016 = lumi2016 + lumiMap[it->first] * (1.000 + 0.018 * var);
+        if (it->first.find("Run2017") != string::npos) lumi2017 = lumi2017 + lumiMap[it->first] * (1.000 + 0.018 * var);
+        if (it->first.find("Run2018") != string::npos) lumi2018 = lumi2018 + lumiMap[it->first] * (1.000 + 0.018 * var);
       } else {
         Warning("plot4", "luminosity for %s is ZERO !!", it->first.c_str());
       }
