@@ -1,0 +1,167 @@
+dependent_variables:
+- header:
+    name: Limits (TeV$^{-4}$)
+  qualifiers:
+  - name: Limits
+    value: Expected $\ell\nu\gamma\gamma$ negative
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  values:
+  - value: -57.3
+  - value: -91.8
+  - value: -1.86
+  - value: -2.38
+  - value: -5.16
+  - value: -0.76
+  - value: -0.92
+  - value: -1.64
+  - value: .nan
+  - value: .nan
+- header:
+    name: Limits (TeV$^{-4}$)
+  qualifiers:
+  - name: Limits
+    value: Expected $\ell\nu\gamma\gamma$ positive
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  values:
+  - value: 57.1
+  - value: 92.6
+  - value: 1.86
+  - value: 2.38
+  - value: 5.16
+  - value: 0.84
+  - value: 1.0
+  - value: 1.72
+  - value: .nan
+  - value: .nan
+- header:
+    name: Limits (TeV$^{-4}$)
+  qualifiers:
+  - name: Limits
+    value: Observed $\ell\nu\gamma\gamma$ negative
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  values:
+  - value: -39.9
+  - value: -63.8
+  - value: -1.3
+  - value: -1.7
+  - value: -3.64
+  - value: -0.52
+  - value: -0.6
+  - value: -1.16
+  - value: .nan
+  - value: .nan
+- header:
+    name: Limits (TeV$^{-4}$)
+  qualifiers:
+  - name: Limits
+    value: Observed $\ell\nu\gamma\gamma$ positive
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  values:
+  - value: 39.5
+  - value: 65.0
+  - value: 1.3
+  - value: 1.66
+  - value: 3.64
+  - value: 0.6
+  - value: 0.68
+  - value: 1.16
+  - value: .nan
+  - value: .nan
+- header:
+    name: Limits (TeV$^{-4}$)
+  qualifiers:
+  - name: Limits
+    value: Expected $\ell\ell\gamma\gamma$ negative
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  values:
+  - value: .nan
+  - value: .nan
+  - value: -4.86
+  - value: -4.86
+  - value: -9.72
+  - value: -2.44
+  - value: -3.24
+  - value: -6.68
+  - value: -0.9
+  - value: -1.54
+- header:
+    name: Limits (TeV$^{-4}$)
+  qualifiers:
+  - name: Limits
+    value: Expected $\ell\ell\gamma\gamma$ positive
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  values:
+  - value: .nan
+  - value: .nan
+  - value: 4.66
+  - value: 4.66
+  - value: 9.32
+  - value: 2.52
+  - value: 3.24
+  - value: 6.6
+  - value: 0.94
+  - value: 1.54
+- header:
+    name: Limits (TeV$^{-4}$)
+  qualifiers:
+  - name: Limits
+    value: Observed $\ell\ell\gamma\gamma$ negative
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  values:
+  - value: .nan
+  - value: .nan
+  - value: -5.7
+  - value: -5.7
+  - value: -11.4
+  - value: -2.92
+  - value: -3.8
+  - value: -7.88
+  - value: -1.06
+  - value: -1.82
+- header:
+    name: Limits (TeV$^{-4}$)
+  qualifiers:
+  - name: Limits
+    value: Observed $\ell\ell\gamma\gamma$ positive
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  values:
+  - value: .nan
+  - value: .nan
+  - value: 5.46
+  - value: 5.46
+  - value: 10.9
+  - value: 2.92
+  - value: 3.88
+  - value: 7.72
+  - value: 1.1
+  - value: 1.82
+independent_variables:
+- header:
+    name: Operator
+  values:
+  - value: $f_{\mathrm{M}2}/\Lambda^4$
+  - value: $f_{\mathrm{M}3}/\Lambda^4$
+  - value: $f_{\mathrm{T}0}/\Lambda^4$
+  - value: $f_{\mathrm{T}1}/\Lambda^4$
+  - value: $f_{\mathrm{T}2}/\Lambda^4$
+  - value: $f_{\mathrm{T}5}/\Lambda^4$
+  - value: $f_{\mathrm{T}6}/\Lambda^4$
+  - value: $f_{\mathrm{T}7}/\Lambda^4$
+  - value: $f_{\mathrm{T}8}/\Lambda^4$
+  - value: $f_{\mathrm{T}9}/\Lambda^4$

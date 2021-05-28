@@ -1,0 +1,59 @@
+dependent_variables:
+- header:
+    name: SIG (fiducial)
+    units: FB
+  qualifiers:
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  values:
+  - errors:
+    - asymerror:
+        minus: 1.9
+        plus: -1.9
+      label: stat
+    - asymerror:
+        minus: 4.0
+        plus: -4.0
+      label: syst
+    - label: PDF + scale
+      symerror: 0.08
+    value: 13.6
+  - errors:
+    - asymerror:
+        minus: 0.58
+        plus: -0.55
+      label: stat
+    - asymerror:
+        minus: 0.64
+        plus: -0.7
+      label: syst
+    - label: PDF + scale
+      symerror: 0.06
+    value: 5.41
+- header:
+    name: SIG (theory)
+    units: FB
+  qualifiers:
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  values:
+  - errors:
+    - label: stat
+      symerror: 0.03
+    - label: PDF + scale
+      symerror: 0.12
+    value: 18.7
+  - errors:
+    - label: stat
+      symerror: 0.01
+    - label: PDF + scale
+      symerror: 0.06
+    value: 5.96
+independent_variables:
+- header:
+    name: Channel
+  values:
+  - value: $\ell\nu\gamma\gamma$
+  - value: $\ell\ell\gamma\gamma$

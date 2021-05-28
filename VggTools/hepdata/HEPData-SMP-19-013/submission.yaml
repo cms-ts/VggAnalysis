@@ -1,0 +1,72 @@
+---
+additional_resources:
+- description: Webpage with all figures and tables
+  location: https://cms-results.web.cern.ch/cms-results/public-results/publications/SMP-19-013/
+- description: arXiv
+  location: http://arxiv.org/abs/arXiv:2105.12780
+comment: The cross section for $\mathrm{W}$ or $\mathrm{Z}$ boson production in association
+  with two photons is measured in proton-proton collisions at a centre-of-mass energy
+  of $13\,\mathrm{TeV}$. The data set corresponds to an integrated luminosity of $137\,\mathrm{fb}^{-1}$
+  collected by the CMS experiment at the LHC. The $\mathrm{W}\to\ell\nu$ and $\mathrm{Z}\to\ell\ell$
+  decay modes (where $\ell=\mathrm{e},\mu$) are used to extract the $\mathrm{W}\gamma\gamma$
+  and $\mathrm{Z}\gamma\gamma$ cross sections in a phase space defined by electron
+  (muon) with transverse momentum larger than $35\,(30)\,\mathrm{GeV}$ and photon
+  transverse momentum larger than $20\,\mathrm{GeV}$. The measured cross sections
+  in this phase space are $\sigma(\mathrm{W}\gamma\gamma)=13.6^{+1.9}_{-1.9}\,\mathrm{(stat)}^{+4.0}_{-4.0}\,\mathrm{(syst)}\pm
+  0.08\,\mathrm{(PDF + scale)}\,\mathrm{fb}$ and $\sigma(\mathrm{Z}\gamma\gamma)=5.41^{+0.58}_{-0.55}\,\mathrm{(stat)}^{+0.64}_{-0.70}\,\mathrm{(syst)}\pm
+  0.06\,\mathrm{(PDF + scale)}\,\mathrm{fb}$. Limits on anomalous quartic gauge couplings
+  are set in the framework of an effective field theory with dimension-8 operators.
+data_license:
+  description: The content can be shared and adapted but you must             give
+    appropriate credit and cannot restrict access to others.
+  name: cc-by-4.0
+  url: https://creativecommons.org/licenses/by/4.0/
+record_ids:
+- id: 123456
+  type: inspire
+---
+data_file: table_1.yaml
+description: The measured $\mathrm{W}\gamma\gamma$ and $\mathrm{Z}\gamma\gamma$ fiducial
+  cross sections and corresponding theoretical predictions from MadGraph5_aMC@NLO.
+  The measured yields in the electron and muon channels are extrapolated to a common
+  fiducial phase space determined from simulated signal events at the generated particle
+  level. Generated particles are considered stable if their mean decay length is larger
+  than $1\,\mathrm{cm}$. Generated leptons are required to have a $\mathrm{p}_\mathrm{t}>15\,\mathrm{GeV}$
+  and $|\eta|<2.5$. The momenta of photons in a cone of $\Delta R=0.1$, the same cone
+  size as the one applied to reconstructed data, are added to the charged lepton momentum
+  to correct for final-state radiation. Generated photons are required to have $\mathrm{p}_\mathrm{t}>15\,\mathrm{GeV}$
+  and $|\eta|<2.5$. Additionally, the candidate photons are required to have no selected
+  leptons or photons in a cone of radius $\Delta R=0.4$ and no other stable particles,
+  apart from photons and neutrinos, in a cone of radius $\Delta R=0.1$. Events are
+  then selected in the $\mathrm{W}\gamma\gamma$ channel by requiring exactly one electron
+  (muon) with $\mathrm{p}_\mathrm{t}>30\,\mathrm{GeV}$ and at least two photons with
+  $\mathrm{p}_\mathrm{t}>20\,\mathrm{GeV}$. Events are selected in the $\mathrm{Z}\gamma\gamma$
+  channel by requiring two electrons (muons), at least one of them with $\mathrm{p}_\mathrm{t}>30\,\mathrm{GeV}$,
+  and not less than two photons, each of them with $\mathrm{p}_\mathrm{t}>20\,\mathrm{GeV}$.
+  Additionally, the invariant mass of the dilepton system is required to be $m_{\ell\ell}>55\,\mathrm{GeV}$.
+keywords:
+- name: reactions
+  values:
+  - P P --> W GAMMA GAMMA --> LEPTON NU GAMMA GAMMA
+  - P P --> Z0 GAMMA GAMMA --> LEPTON+ LEPTON- GAMMA GAMMA
+- name: cmenergies
+  values:
+  - 13000
+location: Data from Page 10 of preprint
+name: Table 1
+---
+data_file: table_2.yaml
+description: Expected and observed 95% confidence level intervals for the different
+  anomalous couplings parameters in both the $\ell\nu\gamma\gamma$ and $\ell\ell\gamma\gamma$
+  channels. All parameters are fixed to their SM values except the one that is fitted.
+  No unitarity regularisation scheme is applied.
+keywords:
+- name: reactions
+  values:
+  - P P --> W GAMMA GAMMA --> LEPTON NU GAMMA GAMMA
+  - P P --> Z0 GAMMA GAMMA --> LEPTON+ LEPTON- GAMMA GAMMA
+- name: cmenergies
+  values:
+  - 13000
+location: Data from Table 3 of preprint
+name: Table 2
