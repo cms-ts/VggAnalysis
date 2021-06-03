@@ -10,7 +10,7 @@ submission = Submission()
 submission.read_abstract("input/abstract.txt")
 submission.add_link("Webpage with all figures and tables", "https://cms-results.web.cern.ch/cms-results/public-results/publications/SMP-19-013/")
 submission.add_link("arXiv", "http://arxiv.org/abs/arXiv:2105.12780")
-submission.add_record_id(123456, "inspire") #FIXME
+submission.add_record_id(210512780, "inspire")
 
 #XSECS
 table_xsecs = Table("Table 1")

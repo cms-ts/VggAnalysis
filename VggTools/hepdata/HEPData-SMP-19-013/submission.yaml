@@ -22,7 +22,7 @@ data_license:
   name: cc-by-4.0
   url: https://creativecommons.org/licenses/by/4.0/
 record_ids:
-- id: 123456
+- id: 210512780
   type: inspire
 ---
 data_file: table_1.yaml
