@@ -4575,8 +4575,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_WGG_ele_pho0_pt_bb_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
            h_WGG_ele_pho1_pt_bb_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_WGG_ele_pho0_pho1_pt_bb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_W_ele * weight_pho0 * weight_pho1);
              h_WGG_ele_pho0_pt_bb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
              h_WGG_ele_pho1_pt_bb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
@@ -4587,8 +4587,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_WGG_ele_pho0_pt_be_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
            h_WGG_ele_pho1_pt_be_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_WGG_ele_pho0_pho1_pt_be_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_W_ele * weight_pho0 * weight_pho1);
              h_WGG_ele_pho0_pt_be_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
              h_WGG_ele_pho1_pt_be_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
@@ -4601,8 +4601,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_WGG_ele_pho0_pt_eb_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
            h_WGG_ele_pho1_pt_eb_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_WGG_ele_pho0_pho1_pt_eb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_W_ele * weight_pho0 * weight_pho1);
              h_WGG_ele_pho0_pt_eb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
              h_WGG_ele_pho1_pt_eb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
@@ -4613,8 +4613,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_WGG_ele_pho0_pt_ee_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
            h_WGG_ele_pho1_pt_ee_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_WGG_ele_pho0_pho1_pt_ee_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_W_ele * weight_pho0 * weight_pho1);
              h_WGG_ele_pho0_pt_ee_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
              h_WGG_ele_pho1_pt_ee_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_ele * weight_pho0 * weight_pho1);
@@ -5062,8 +5062,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_WGG_muo_pho0_pt_bb_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
            h_WGG_muo_pho1_pt_bb_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_WGG_muo_pho0_pho1_pt_bb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_W_muo * weight_pho0 * weight_pho1);
              h_WGG_muo_pho0_pt_bb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
              h_WGG_muo_pho1_pt_bb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
@@ -5074,8 +5074,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_WGG_muo_pho0_pt_be_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
            h_WGG_muo_pho1_pt_be_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_WGG_muo_pho0_pho1_pt_be_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_W_muo * weight_pho0 * weight_pho1);
              h_WGG_muo_pho0_pt_be_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
              h_WGG_muo_pho1_pt_be_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
@@ -5088,8 +5088,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_WGG_muo_pho0_pt_eb_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
            h_WGG_muo_pho1_pt_eb_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_WGG_muo_pho0_pho1_pt_eb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_W_muo * weight_pho0 * weight_pho1);
              h_WGG_muo_pho0_pt_eb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
              h_WGG_muo_pho1_pt_eb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
@@ -5100,8 +5100,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_WGG_muo_pho0_pt_ee_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
            h_WGG_muo_pho1_pt_ee_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_WGG_muo_pho0_pho1_pt_ee_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_W_muo * weight_pho0 * weight_pho1);
              h_WGG_muo_pho0_pt_ee_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
              h_WGG_muo_pho1_pt_ee_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_W_muo * weight_pho0 * weight_pho1);
@@ -5560,8 +5560,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_ZGG_ele_pho0_pt_bb_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
            h_ZGG_ele_pho1_pt_bb_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_ZGG_ele_pho0_pho1_pt_bb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
              h_ZGG_ele_pho0_pt_bb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
              h_ZGG_ele_pho1_pt_bb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
@@ -5572,8 +5572,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_ZGG_ele_pho0_pt_be_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
            h_ZGG_ele_pho1_pt_be_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_ZGG_ele_pho0_pho1_pt_be_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
              h_ZGG_ele_pho0_pt_be_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
              h_ZGG_ele_pho1_pt_be_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
@@ -5586,8 +5586,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_ZGG_ele_pho0_pt_eb_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
            h_ZGG_ele_pho1_pt_eb_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_ZGG_ele_pho0_pho1_pt_eb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
              h_ZGG_ele_pho0_pt_eb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
              h_ZGG_ele_pho1_pt_eb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
@@ -5598,8 +5598,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_ZGG_ele_pho0_pt_ee_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
            h_ZGG_ele_pho1_pt_ee_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_ZGG_ele_pho0_pho1_pt_ee_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
              h_ZGG_ele_pho0_pt_ee_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
              h_ZGG_ele_pho1_pt_ee_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_ele * weight_pho0 * weight_pho1);
@@ -6056,8 +6056,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_ZGG_muo_pho0_pt_bb_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
            h_ZGG_muo_pho1_pt_bb_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_ZGG_muo_pho0_pho1_pt_bb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
              h_ZGG_muo_pho0_pt_bb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
              h_ZGG_muo_pho1_pt_bb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
@@ -6068,8 +6068,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_ZGG_muo_pho0_pt_be_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
            h_ZGG_muo_pho1_pt_be_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_ZGG_muo_pho0_pho1_pt_be_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
              h_ZGG_muo_pho0_pt_be_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
              h_ZGG_muo_pho1_pt_be_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
@@ -6082,8 +6082,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_ZGG_muo_pho0_pt_eb_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
            h_ZGG_muo_pho1_pt_eb_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_ZGG_muo_pho0_pho1_pt_eb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
              h_ZGG_muo_pho0_pt_eb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
              h_ZGG_muo_pho1_pt_eb_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
@@ -6094,8 +6094,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            h_ZGG_muo_pho0_pt_ee_tt->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
            h_ZGG_muo_pho1_pt_ee_tt->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso] >= 0 && (uint)Photon_genPartIdx[ipho1_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0] >= 0 && (uint)Photon_genPartIdx[ipho0] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0]]) == 11) ||
+               (Photon_genPartIdx[ipho1] >= 0 && (uint)Photon_genPartIdx[ipho1] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1]]) == 11)) {
              h_ZGG_muo_pho0_pho1_pt_ee_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), (pho0 + pho1).Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
              h_ZGG_muo_pho0_pt_ee_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho0.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
              h_ZGG_muo_pho1_pt_ee_tt_genmatch2->Fill(pho0.Pt(), pho1.Pt(), pho1.Pt(), weight_Z_muo * weight_pho0 * weight_pho1);
@@ -6745,8 +6745,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_WGG_ele_pho0_pt_bb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_WGG_ele_pho1_pt_bb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_WGG_ele_pho0_pho1_pt_bb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_ele_pho0_pt_bb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_ele_pho1_pt_bb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -6757,8 +6757,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_WGG_ele_pho0_pt_be_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_WGG_ele_pho1_pt_be_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_WGG_ele_pho0_pho1_pt_be_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_ele_pho0_pt_be_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_ele_pho1_pt_be_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -6771,8 +6771,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_WGG_ele_pho0_pt_eb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_WGG_ele_pho1_pt_eb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_WGG_ele_pho0_pho1_pt_eb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_ele_pho0_pt_eb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_ele_pho1_pt_eb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -6783,8 +6783,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_WGG_ele_pho0_pt_ee_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_WGG_ele_pho1_pt_ee_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_WGG_ele_pho0_pho1_pt_ee_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_ele_pho0_pt_ee_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_ele_pho1_pt_ee_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -6860,8 +6860,8 @@ Bool_t mainSelector::Process(Long64_t entry)
                QCD(h_WGG_ele_pho0_pho1_pt_ll_genmatch2)->Fill((pho0_iso_qcd + pho1_iso_qcd).Pt(), weight_W_ele_qcd * weight_pho0_iso * weight_pho1_iso_qcd);
              }
 
-             if (Photon_genPartIdx[ipho0_iso] >= 0 && (uint)Photon_genPartIdx[ipho0_iso] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso]]) == 22) {
-               if (GenPart_pt[Photon_genPartIdx[ipho0_iso]] > 20) {
+             if (Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 22) {
+               if (GenPart_pt[Photon_genPartIdx[ipho0_iso_qcd]] > 20) {
                  if (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 22) {
                    if (GenPart_pt[Photon_genPartIdx[ipho1_iso_qcd]] > 20) {
                      QCD(h_WGG_ele_pho0_pho1_pt_ll_genmatch)->Fill((pho0_iso_qcd + pho1_iso_qcd).Pt(), weight_W_ele_qcd * weight_pho0_iso * weight_pho1_iso_qcd);
@@ -7231,8 +7231,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_WGG_muo_pho0_pt_bb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_WGG_muo_pho1_pt_bb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_WGG_muo_pho0_pho1_pt_bb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_muo_pho0_pt_bb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_muo_pho1_pt_bb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -7243,8 +7243,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_WGG_muo_pho0_pt_be_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_WGG_muo_pho1_pt_be_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_WGG_muo_pho0_pho1_pt_be_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_muo_pho0_pt_be_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_muo_pho1_pt_be_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -7257,8 +7257,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_WGG_muo_pho0_pt_eb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_WGG_muo_pho1_pt_eb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_WGG_muo_pho0_pho1_pt_eb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_muo_pho0_pt_eb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_muo_pho1_pt_eb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -7269,8 +7269,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_WGG_muo_pho0_pt_ee_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_WGG_muo_pho1_pt_ee_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_WGG_muo_pho0_pho1_pt_ee_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_muo_pho0_pt_ee_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_WGG_muo_pho1_pt_ee_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_W_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -7725,8 +7725,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_ZGG_ele_pho0_pt_bb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_ZGG_ele_pho1_pt_bb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_ZGG_ele_pho0_pho1_pt_bb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_ele_pho0_pt_bb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_ele_pho1_pt_bb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -7737,8 +7737,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_ZGG_ele_pho0_pt_be_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_ZGG_ele_pho1_pt_be_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_ZGG_ele_pho0_pho1_pt_be_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_ele_pho0_pt_be_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_ele_pho1_pt_be_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -7751,8 +7751,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_ZGG_ele_pho0_pt_eb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_ZGG_ele_pho1_pt_eb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_ZGG_ele_pho0_pho1_pt_eb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_ele_pho0_pt_eb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_ele_pho1_pt_eb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -7763,8 +7763,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_ZGG_ele_pho0_pt_ee_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_ZGG_ele_pho1_pt_ee_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_ZGG_ele_pho0_pho1_pt_ee_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_ele_pho0_pt_ee_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_ele_pho1_pt_ee_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_ele_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -8217,8 +8217,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_ZGG_muo_pho0_pt_bb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_ZGG_muo_pho1_pt_bb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_ZGG_muo_pho0_pho1_pt_bb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_muo_pho0_pt_bb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_muo_pho1_pt_bb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -8229,8 +8229,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_ZGG_muo_pho0_pt_be_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_ZGG_muo_pho1_pt_be_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_ZGG_muo_pho0_pho1_pt_be_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_muo_pho0_pt_be_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_muo_pho1_pt_be_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -8243,8 +8243,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_ZGG_muo_pho0_pt_eb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_ZGG_muo_pho1_pt_eb_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_ZGG_muo_pho0_pho1_pt_eb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_muo_pho0_pt_eb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_muo_pho1_pt_eb_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
@@ -8255,8 +8255,8 @@ Bool_t mainSelector::Process(Long64_t entry)
            QCD3(h_ZGG_muo_pho0_pt_ee_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
            QCD3(h_ZGG_muo_pho1_pt_ee_tt)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
 #if defined(mainSelectorMC16_cxx) || defined(mainSelectorMC17_cxx) || defined(mainSelectorMC18_cxx)
-           if ((Photon_genPartIdx[ipho0_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_iso_qcd]]) == 11) ||
-               (Photon_genPartIdx[ipho1_iso_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_iso_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_iso_qcd]]) == 11)) {
+           if ((Photon_genPartIdx[ipho0_qcd] >= 0 && (uint)Photon_genPartIdx[ipho0_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho0_qcd]]) == 11) ||
+               (Photon_genPartIdx[ipho1_qcd] >= 0 && (uint)Photon_genPartIdx[ipho1_qcd] < *nGenPart && fabs(GenPart_pdgId[Photon_genPartIdx[ipho1_qcd]]) == 11)) {
              QCD3(h_ZGG_muo_pho0_pho1_pt_ee_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), (pho0_qcd + pho1_qcd).Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_muo_pho0_pt_ee_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho0_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
              QCD3(h_ZGG_muo_pho1_pt_ee_tt_genmatch2)->Fill(pho0_qcd.Pt(), pho1_qcd.Pt(), pho1_qcd.Pt(), weight_Z_muo_qcd * weight_pho0_qcd * weight_pho1_qcd);
