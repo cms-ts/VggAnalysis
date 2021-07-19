@@ -62,7 +62,7 @@ submission.add_table(table_xsecs)
 
 #LIMITS
 table_limits = Table("Table 2") 
-table_limits.description = "Expected and observed 95% confidence level intervals for the different anomalous couplings parameters in both the $\ell\\nu\gamma\gamma$ and $\ell\ell\gamma\gamma$ channels. All parameters are fixed to their SM values except the one that is fitted. No unitarity regularisation scheme is applied."
+table_limits.description = "Expected and observed 95% confidence level intervals for the different anomalous couplings parameters in both the $\ell\\nu\gamma\gamma$ and $\ell\ell\gamma\gamma$ channels. All parameters are fixed to their SM values except the one that is fitted. No unitarity regularisation scheme is applied. Intervals with a NAN value are not measured in the corresponding channels."
 table_limits.location = "Data from Table 3 of preprint"
 table_limits.keywords["reactions"] = ["P P --> W GAMMA GAMMA --> LEPTON NU GAMMA GAMMA", "P P --> Z0 GAMMA GAMMA --> LEPTON+ LEPTON- GAMMA GAMMA"]
 

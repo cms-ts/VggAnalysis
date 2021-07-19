@@ -1,5 +1,7 @@
 ---
 additional_resources:
+- description: Created with hepdata_lib 0.7.0
+  location: https://zenodo.org/record/4946277
 - description: Webpage with all figures and tables
   location: https://cms-results.web.cern.ch/cms-results/public-results/publications/SMP-19-013/
 - description: arXiv
@@ -59,7 +61,8 @@ data_file: table_2.yaml
 description: Expected and observed 95% confidence level intervals for the different
   anomalous couplings parameters in both the $\ell\nu\gamma\gamma$ and $\ell\ell\gamma\gamma$
   channels. All parameters are fixed to their SM values except the one that is fitted.
-  No unitarity regularisation scheme is applied.
+  No unitarity regularisation scheme is applied. Intervals with a NAN value are not
+  measured in the corresponding channels.
 keywords:
 - name: reactions
   values:
