@@ -5,7 +5,7 @@ DATADIR=/eos/infnts/cms/store/user/dellaric/data
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
 
-for D1 in `ls $DATADIR/ | grep Run2016 | grep -v 'ver[12]'`; do
+for D1 in `ls $DATADIR/ | grep Run2016`; do
   for D2 in `ls $DATADIR/$D1`; do
     find $DATADIR/$D1/$D2 -type f | grep 02Apr2020 | \
     awk '{print "root://eosinfnts.ts.infn.it/"$1}' > lists/${D1}_${D2}_02Apr2020.list
