@@ -6,10 +6,10 @@ cd $WORKDIR
 if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
 
   echo
-  echo './xsec.dat* => ../scripts/lists/'
+  echo './xsec.dat => ../scripts/lists/'
   echo
 
-  DATASETS=`grep -v \# ./xsec.dat* | awk -F: '{print $2}' | awk '{print $1}' | sort | uniq`
+  DATASETS=`grep -v \# ./xsec.dat | awk '{print $1}' | sort | uniq`
 
   check=0
   for D in $DATASETS; do
@@ -38,10 +38,10 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
 fi
 
 echo
-echo './xsec.dat* => ./lists/'
+echo './xsec.dat => ./lists/'
 echo
 
-DATASETS=`grep -v \# ./xsec.dat* | awk -F: '{print $2}' | awk '{print $1}' | sort | uniq`
+DATASETS=`grep -v \# ./xsec.dat | awk '{print $1}' | sort | uniq`
 
 check=0
 for D in $DATASETS; do
@@ -58,7 +58,7 @@ done
 if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
 
   echo
-  echo '../scripts/lists/ => ./xsec.dat*'
+  echo '../scripts/lists/ => ./xsec.dat'
   echo
 
   DATASETS=`ls ../scripts/lists/ | sort | uniq | sed -e 's/.list//' | grep RunII`
@@ -83,9 +83,9 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
     [ -z "${D##*RunIIFall17NanoAODv6*}" ] && continue
     [ -z "${D##*RunIIAutumn18NanoAODv6*}" ] && continue
 
-    X=`grep $D ./xsec.dat*`
+    X=`grep $D ./xsec.dat`
     if [ -z "$X" ]; then
-      echo "missing in ./xsec.dat* : "$D
+      echo "missing in ./xsec.dat : "$D
       check=1
     fi
 
@@ -96,7 +96,7 @@ if [ `ls ../scripts/lists/ | wc -l` -ne 0 ]; then
 fi
 
 echo
-echo './lists/ => ./xsec.dat*'
+echo './lists/ => ./xsec.dat'
 echo
 
 DATASETS=`ls ./lists/ | sort | uniq | sed -e 's/.list//' | grep RunII`
@@ -108,9 +108,9 @@ for D in $DATASETS; do
   [ -z "${D##*RunIIFall17NanoAODv6*}" ] && continue
   [ -z "${D##*RunIIAutumn18NanoAODv6*}" ] && continue
 
-  X=`grep $D ./xsec.dat*`
+  X=`grep $D ./xsec.dat`
   if [ -z "$X" ]; then
-    echo "missing in ./xsec.dat* : "$D
+    echo "missing in ./xsec.dat : "$D
     check=1
   fi
 
@@ -119,10 +119,10 @@ done
 [ $check -eq 0 ] && echo "ok"
 
 echo
-echo './xsec.dat* => ./amcatnlo*/ ./madgraph*/ ./sherpa*/'
+echo './xsec.dat => ./amcatnlo/ ./madgraph/ ./sherpa/'
 echo
 
-DATASETS=`grep -v \# ./xsec.dat* | awk -F: '{print $2}' | awk '{print $1}' | sort | uniq`
+DATASETS=`grep -v \# ./xsec.dat | awk '{print $1}' | sort | uniq`
 
 check=0
 for D in $DATASETS; do
@@ -130,9 +130,9 @@ for D in $DATASETS; do
   [ -z "${D##*DY[1234]JetsToLL*}" ] && continue
   [ -z "${D##*W[1234]JetsToLNu*}" ] && continue
 
-  X=`grep $D ./amcatnlo*/*.dat* ./madgraph*/*.dat* ./sherpa*/*.dat*`
+  X=`grep $D ./amcatnlo/*.dat* ./madgraph/*.dat* ./sherpa/*.dat*`
   if [ -z "$X" ]; then
-    echo "not used in ./amcatnlo*/ or ./madgraph*/ or ./sherpa*/ : "$D
+    echo "not used in ./amcatnlo/ or ./madgraph/ or ./sherpa/ : "$D
     check=1
   fi
 
@@ -141,17 +141,17 @@ done
 [ $check -eq 0 ] && echo "ok"
 
 echo
-echo './amcatnlo*/ ./madgraph*/ ./sherpa*/ => ./xsec.dat*'
+echo './amcatnlo/ ./madgraph/ ./sherpa/ => ./xsec.dat'
 echo
 
-DATASETS=`cat ./amcatnlo*/*.dat* ./madgraph*/*.dat* ./sherpa*/*.dat* | grep RunII | grep -v \# | awk '{print $1}' | sort | uniq`
+DATASETS=`cat ./amcatnlo/*.dat* ./madgraph/*.dat* ./sherpa/*.dat* | grep RunII | grep -v \# | awk '{print $1}' | sort | uniq`
 
 check=0
 for D in $DATASETS; do
 
-  X=`grep -v \# ./xsec.dat* | grep $D`
+  X=`grep -v \# ./xsec.dat | grep $D`
   if [ -z "$X" ]; then
-    echo "missing in ./xsec.dat* : "$D
+    echo "missing in ./xsec.dat : "$D
     check=1
   fi
 
@@ -160,10 +160,10 @@ done
 [ $check -eq 0 ] && echo "ok"
 
 echo
-echo './amcatnlo*/ ./madgraph*/ ./sherpa*/ => ./lists/'
+echo './amcatnlo/ ./madgraph/ ./sherpa/ => ./lists/'
 echo
 
-DATASETS=`cat ./amcatnlo*/*.dat* ./madgraph*/*.dat* ./sherpa*/*.dat* | grep RunII | grep -v \# | awk '{print $1}' | sort | uniq`
+DATASETS=`cat ./amcatnlo/*.dat* ./madgraph/*.dat* ./sherpa/*.dat* | grep RunII | grep -v \# | awk '{print $1}' | sort | uniq`
 
 check=0
 for D in $DATASETS; do
