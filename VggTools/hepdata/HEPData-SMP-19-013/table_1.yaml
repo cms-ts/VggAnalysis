@@ -9,6 +9,30 @@ dependent_variables:
   values:
   - errors:
     - asymerror:
+        minus: 4.1
+        plus: -4.1
+      label: stat
+    - asymerror:
+        minus: 6.0
+        plus: -6.0
+      label: syst
+    - label: PDF + scale
+      symerror: 0.03
+    value: 4.4
+  - errors:
+    - asymerror:
+        minus: 2.1
+        plus: -2.1
+      label: stat
+    - asymerror:
+        minus: 4.3
+        plus: -4.3
+      label: syst
+    - label: PDF + scale
+      symerror: 0.08
+    value: 13.8
+  - errors:
+    - asymerror:
         minus: 1.9
         plus: -1.9
       label: stat
@@ -19,6 +43,30 @@ dependent_variables:
     - label: PDF + scale
       symerror: 0.08
     value: 13.6
+  - errors:
+    - asymerror:
+        minus: 1.05
+        plus: -0.99
+      label: stat
+    - asymerror:
+        minus: 0.71
+        plus: -0.77
+      label: syst
+    - label: PDF + scale
+      symerror: 0.05
+    value: 4.35
+  - errors:
+    - asymerror:
+        minus: 0.67
+        plus: -0.64
+      label: stat
+    - asymerror:
+        minus: 0.57
+        plus: -0.58
+      label: syst
+    - label: PDF + scale
+      symerror: 0.07
+    value: 6.29
   - errors:
     - asymerror:
         minus: 0.58
@@ -47,6 +95,30 @@ dependent_variables:
     value: 18.7
   - errors:
     - label: stat
+      symerror: 0.03
+    - label: PDF + scale
+      symerror: 0.12
+    value: 18.7
+  - errors:
+    - label: stat
+      symerror: 0.03
+    - label: PDF + scale
+      symerror: 0.12
+    value: 18.7
+  - errors:
+    - label: stat
+      symerror: 0.01
+    - label: PDF + scale
+      symerror: 0.06
+    value: 5.96
+  - errors:
+    - label: stat
+      symerror: 0.01
+    - label: PDF + scale
+      symerror: 0.06
+    value: 5.96
+  - errors:
+    - label: stat
       symerror: 0.01
     - label: PDF + scale
       symerror: 0.06
@@ -55,5 +127,9 @@ independent_variables:
 - header:
     name: Channel
   values:
+  - value: $\mathrm{e}\nu\gamma\gamma$
+  - value: $\mu\nu\gamma\gamma$
   - value: $\ell\nu\gamma\gamma$
+  - value: $\mathrm{e}\mathrm{e}\gamma\gamma$
+  - value: $\mu\mu\gamma\gamma$
   - value: $\ell\ell\gamma\gamma$

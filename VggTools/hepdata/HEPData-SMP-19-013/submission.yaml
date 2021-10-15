@@ -24,8 +24,152 @@ data_license:
   name: cc-by-4.0
   url: https://creativecommons.org/licenses/by/4.0/
 record_ids:
-- id: 210512780
+- id: 1865855
   type: inspire
+---
+additional_resources:
+- description: Image file
+  location: Figure_002-a.png
+- description: Thumbnail image file
+  location: thumb_Figure_002-a.png
+data_file: figure_2_(upper_left).yaml
+description: Distribution of the transverse momentum of the diphoton system for the
+  $\mathrm{W}\gamma\gamma$ electron channel. The predicted yields are shown with their
+  pre-fit normalisations. The observed data, the expected signal contribution and
+  the background estimates are presented with error bars showing the corresponding
+  statistical uncertainties.
+keywords:
+- name: observables
+  values:
+  - Diphoton pT
+- name: reactions
+  values:
+  - P P --> W GAMMA GAMMA --> ELECTRON NU GAMMA GAMMA
+- name: cmenergies
+  values:
+  - 13000
+location: Data from Figure 2 on Page 6 of the preprint
+name: Figure 2 (upper left)
+---
+additional_resources:
+- description: Image file
+  location: Figure_002-b.png
+- description: Thumbnail image file
+  location: thumb_Figure_002-b.png
+data_file: figure_2_(upper_right).yaml
+description: Distribution of the transverse momentum of the diphoton system for the
+  $\mathrm{W}\gamma\gamma$ muon channel. The predicted yields are shown with their
+  pre-fit normalisations. The observed data, the expected signal contribution and
+  the background estimates are presented with error bars showing the corresponding
+  statistical uncertainties.
+keywords:
+- name: observables
+  values:
+  - Diphoton pT
+- name: reactions
+  values:
+  - P P --> W GAMMA GAMMA --> MUON NU GAMMA GAMMA
+- name: cmenergies
+  values:
+  - 13000
+location: Data from Figure 2 on Page 6 of the preprint
+name: Figure 2 (upper right)
+---
+additional_resources:
+- description: Image file
+  location: Figure_002-c.png
+- description: Thumbnail image file
+  location: thumb_Figure_002-c.png
+data_file: figure_2_(bottom_left).yaml
+description: Distribution of the transverse momentum of the diphoton system for the
+  $\mathrm{Z}\gamma\gamma$ electron channel. The predicted yields are shown with their
+  pre-fit normalisations. The observed data, the expected signal contribution and
+  the background estimates are presented with error bars showing the corresponding
+  statistical uncertainties.
+keywords:
+- name: observables
+  values:
+  - Diphoton pT
+- name: reactions
+  values:
+  - P P --> Z0 GAMMA GAMMA --> ELECTRON+ ELECTRON- GAMMA GAMMA
+- name: cmenergies
+  values:
+  - 13000
+location: Data from Figure 2 on Page 6 of the preprint
+name: Figure 2 (bottom left)
+---
+additional_resources:
+- description: Image file
+  location: Figure_002-d.png
+- description: Thumbnail image file
+  location: thumb_Figure_002-d.png
+data_file: figure_2_(bottom_right).yaml
+description: Distribution of the transverse momentum of the diphoton system for the
+  $\mathrm{Z}\gamma\gamma$ muon channel. The predicted yields are shown with their
+  pre-fit normalisations. The observed data, the expected signal contribution and
+  the background estimates are presented with error bars showing the corresponding
+  statistical uncertainties.
+keywords:
+- name: observables
+  values:
+  - Diphoton pT
+- name: reactions
+  values:
+  - P P --> Z0 GAMMA GAMMA --> MUON+ MUON- GAMMA GAMMA
+- name: cmenergies
+  values:
+  - 13000
+location: Data from Figure 2 on Page 6 of the preprint
+name: Figure 2 (bottom right)
+---
+additional_resources:
+- description: Image file
+  location: Figure_003-a.png
+- description: Thumbnail image file
+  location: thumb_Figure_003-a.png
+data_file: figure_3_(left).yaml
+description: Distribution of the transverse momentum of the diphoton system, obtained
+  in the control region enriched in misidentified photons for the $\mathrm{W}\gamma\gamma$
+  electron channel. The predicted yields are shown with their pre-fit normalisations.
+  The observed data, the expected signal contribution and the background estimates
+  are presented with error bars showing the corresponding statistical uncertainties.
+keywords:
+- name: observables
+  values:
+  - Diphoton pT
+- name: reactions
+  values:
+  - P P --> W GAMMA GAMMA --> ELECTRON NU GAMMA GAMMA
+- name: cmenergies
+  values:
+  - 13000
+location: Data from Figure 3 on Page 7 of the preprint
+name: Figure 3 (left)
+---
+additional_resources:
+- description: Image file
+  location: Figure_003-b.png
+- description: Thumbnail image file
+  location: thumb_Figure_003-b.png
+data_file: figure_3_(right).yaml
+description: Distribution of the transverse momentum of the diphoton system, obtained
+  in the control region enriched in misidentified photons for the $\mathrm{Z}\gamma\gamma$
+  electron channel. The predicted yields are shown with their pre-fit normalisations.
+  The observed data, the expected signal contribution and the background estimates
+  are presented with error bars showing the corresponding statistical uncertainties.
+keywords:
+- name: observables
+  values:
+  - Diphoton pT
+- name: reactions
+  values:
+  - P P --> Z0 GAMMA GAMMA --> ELECTRON+ ELECTRON- GAMMA GAMMA
+- name: cmenergies
+  values:
+  - 13000
+location: Data from Figure 3 on Page 7 of the preprint
+name: Figure 3 (right)
 ---
 data_file: table_1.yaml
 description: The measured $\mathrm{W}\gamma\gamma$ and $\mathrm{Z}\gamma\gamma$ fiducial
@@ -49,7 +193,11 @@ description: The measured $\mathrm{W}\gamma\gamma$ and $\mathrm{Z}\gamma\gamma$ 
 keywords:
 - name: reactions
   values:
+  - P P --> W GAMMA GAMMA --> ELECTRON NU GAMMA GAMMA
+  - P P --> W GAMMA GAMMA --> MUON NU GAMMA GAMMA
   - P P --> W GAMMA GAMMA --> LEPTON NU GAMMA GAMMA
+  - P P --> Z0 GAMMA GAMMA --> ELECTRON+ ELECTRON- GAMMA GAMMA
+  - P P --> Z0 GAMMA GAMMA --> MUON+ MUON- GAMMA GAMMA
   - P P --> Z0 GAMMA GAMMA --> LEPTON+ LEPTON- GAMMA GAMMA
 - name: cmenergies
   values:
@@ -71,5 +219,5 @@ keywords:
 - name: cmenergies
   values:
   - 13000
-location: Data from Table 3 of preprint
+location: Data from Table 3 on Page 12 of the preprint
 name: Table 2
