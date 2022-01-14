@@ -6,21 +6,6 @@ NANOAODv7=`grep "#define NANOAODv7" mainSelector.h | head -1 | grep "^#define NA
 [ ! -z "$NANOAODv6" ] && [ -z "$NANOAODv7" ] && echo && echo "Preparing to submit NANOAODv6" && echo
 [ ! -z "$NANOAODv7" ] && [ -z "$NANOAODv6" ] && echo && echo "Preparing to submit NANOAODv7" && echo
 
-QUEUE=normal
-export USE_LSF_STARTER=no
-
-EXCLUDED_GROUPS="ts-acid_hg cfarmts_hg"
-
-for GROUP in $EXCLUDED_GROUPS; do
-  for HOST in `bmgroup -r $GROUP`; do
-    if [ -z "${HOST##*farm0*}" ]; then
-      EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=$HOST "
-    fi
-  done
-done
-
-EXCLUDED_HOSTS=`echo $EXCLUDED_HOSTS | sed -e 's/ / \&\& /g'`
-
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/macros
 cd $WORKDIR
 
@@ -116,6 +101,14 @@ mkdir -p data/$VERSION
 
 cp -pv mainSelector.[hC] data/$VERSION/
 
+rm -f data/$VERSION/condor_selector.run
+
+echo "executable = job_selector.sh"        >> data/$VERSION/condor_selector.run
+echo "rank = TARGET.TotalCpus"             >> data/$VERSION/condor_selector.run
+echo "requirements = TARGET.TotalCpus > 2" >> data/$VERSION/condor_selector.run
+echo "getenv = TRUE"                       >> data/$VERSION/condor_selector.run
+echo "queue arguments from ("              >> data/$VERSION/condor_selector.run
+
 for L in $LISTS; do
   L=`basename $L .list`.list
   ( [ ! -z "$NANOAODv6" ] && [ -z "$NANOAODv7" ] && [ ! -z "${L##*25Oct2019*}" ] && [ ! -z "${L##*AODv6*}" ] ) && continue
@@ -126,8 +119,14 @@ for L in $LISTS; do
   fi
   for FLAG in $FLAGS; do
     mkdir -p data/$VERSION/$FLAG
-    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_selector.sh $VERSION lists/$L $FLAG
+    echo "  $VERSION lists/$L $FLAG"       >> data/$VERSION/condor_selector.run
   done
 done
+
+echo ")"                                   >> data/$VERSION/condor_selector.run
+
+echo
+echo "Submit jobs with: condor_submit data/$VERSION/condor_selector.run"
+echo
 
 exit

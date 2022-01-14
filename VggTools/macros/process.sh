@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ ! -z "$_CONDOR_SLOT" ]; then
+  aklog -c infn.it -k INFN.IT >& /dev/null
+fi
+
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/macros
 cd $WORKDIR
 
@@ -122,4 +126,7 @@ for YEAR in $YEARS; do
   done
 done
 
+if [ ! -z "$_CONDOR_SLOT" ]; then
+  wait
+fi
 exit

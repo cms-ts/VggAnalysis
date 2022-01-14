@@ -4,8 +4,8 @@ WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/skim
 cd $WORKDIR
 
 echo
-echo -n 'bjobs | grep 02Apr2020 -> '
-bjobs -w 2>&1 | grep 02Apr2020 | wc -l
+echo -n 'condor_q | grep 02Apr2020 -> '
+condor_q -nobatch 2>&1 | grep 02Apr2020 | wc -l
 echo
 echo -n '/eos/infnts/cms/store/data/ | grep 02Apr2020 -> '
 eos find -f /eos/infnts/cms/store/data/ | grep 02Apr2020 | wc -l

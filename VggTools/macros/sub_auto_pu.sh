@@ -1,20 +1,5 @@
 #!/bin/sh
 
-QUEUE=normal
-export USE_LSF_STARTER=no
-
-EXCLUDED_GROUPS="ts-acid_hg cfarmts_hg"
-
-for GROUP in $EXCLUDED_GROUPS; do
-  for HOST in `bmgroup -r $GROUP`; do
-    if [ -z "${HOST##*farm0*}" ]; then
-      EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=$HOST "
-    fi
-  done
-done
-
-EXCLUDED_HOSTS=`echo $EXCLUDED_HOSTS | sed -e 's/ / \&\& /g'`
-
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/macros
 cd $WORKDIR
 
@@ -26,6 +11,14 @@ SKIP ./compile.sh auto_pu
 
 mkdir -p data/auto_pu
 
+rm -f data/auto_pu/condor_auto_pu.run
+
+echo "executable = job_auto_pu.sh"         >> data/auto_pu/condor_auto_pu.run
+echo "rank = TARGET.KFlops"                >> data/auto_pu/condor_auto_pu.run
+echo "requirements = TARGET.TotalCpus > 2" >> data/auto_pu/condor_auto_pu.run
+echo "getenv = TRUE"                       >> data/auto_pu/condor_auto_pu.run
+echo "queue arguments from ("              >> data/auto_pu/condor_auto_pu.run
+
 check=0
 for L in $LISTS; do
   L=`basename $L .list`.list
@@ -35,41 +28,47 @@ for L in $LISTS; do
   fi
   FILE_ELE=data/auto_pu/pileup_ele_`basename $L .list`.root
   if [ lists/$L -nt $FILE_ELE ]; then
-    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_ELE
+    echo "  lists/$L $FILE_ELE"            >> data/auto_pu/condor_auto_pu.run
     check=1
   fi
   FILE_ELE=data/auto_pu/pileup_ele_up_`basename $L .list`.root
   if [ lists/$L -nt $FILE_ELE ]; then
-    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_ELE
+    echo "  lists/$L $FILE_ELE"            >> data/auto_pu/condor_auto_pu.run
     check=1
   fi
   FILE_ELE=data/auto_pu/pileup_ele_down_`basename $L .list`.root
   if [ lists/$L -nt $FILE_ELE ]; then
-    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_ELE
+    echo "  lists/$L $FILE_ELE"            >> data/auto_pu/condor_auto_pu.run
     check=1
   fi
   FILE_MUO=data/auto_pu/pileup_muo_`basename $L .list`.root
   if [ lists/$L -nt $FILE_MUO ]; then
-    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_MUO
+    echo "  lists/$L $FILE_MUO"            >> data/auto_pu/condor_auto_pu.run
     check=1
   fi
   FILE_MUO=data/auto_pu/pileup_muo_up_`basename $L .list`.root
   if [ lists/$L -nt $FILE_MUO ]; then
-    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_MUO
+    echo "  lists/$L $FILE_MUO"            >> data/auto_pu/condor_auto_pu.run
     check=1
   fi
   FILE_MUO=data/auto_pu/pileup_muo_down_`basename $L .list`.root
   if [ lists/$L -nt $FILE_MUO ]; then
-    bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $L -e /dev/null -o /dev/null $WORKDIR/job_auto_pu.sh lists/$L $FILE_MUO
+    echo "  lists/$L $FILE_MUO"            >> data/auto_pu/condor_auto_pu.run
     check=1
   fi
 done
+
+echo ")"                                   >> data/auto_pu/condor_auto_pu.run
 
 if [ $check -eq 0 ]; then
   echo
   echo "all pileup files are up-to-date"
   echo
   exit
+else
+  echo
+  echo "Submit jobs with: condor_submit data/auto_pu/condor_auto_pu.run"
+  echo
 fi
 
 exit

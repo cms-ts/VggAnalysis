@@ -837,6 +837,10 @@ void process(string version="v00", string options="default", string flag="refere
 #ifndef __ACLIC__
 int main(int argc, char *argv[]) {
 
+  if (gSystem->Getenv("_CONDOR_SLOT")) {
+    gSystem->Exec("aklog -c infn.it -k INFN.IT >& /dev/null");
+  }
+
   vector<string> args = {"process.exe", "v00", "default,nolog", "reference"};
 
   for (uint i = 0; i < argc; i++) args[i] = argv[i];

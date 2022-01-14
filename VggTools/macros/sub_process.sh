@@ -1,20 +1,5 @@
 #!/bin/sh
 
-QUEUE=normal_io
-export USE_LSF_STARTER=no
-
-EXCLUDED_GROUPS="ts-acid_hg cfarmts_hg"
-
-for GROUP in $EXCLUDED_GROUPS; do
-  for HOST in `bmgroup -r $GROUP`; do
-    if [ -z "${HOST##*farm0*}" ]; then
-      EXCLUDED_HOSTS=$EXCLUDED_HOSTS"hname!=$HOST "
-    fi
-  done
-done
-
-EXCLUDED_HOSTS=`echo $EXCLUDED_HOSTS | sed -e 's/ / \&\& /g'`
-
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/macros
 cd $WORKDIR
 
@@ -111,21 +96,45 @@ alias SKIP=$SKIP
 if [ -z $EXE ]; then
   SKIP ./compile.sh plot
 
+  rm -f data/$VERSION/condor_process.run
+
+  echo "executable = process.sh"                       >> data/$VERSION/condor_process.run
+  echo "rank = TARGET.TotalCpus - TARGET.TotalLoadAvg" >> data/$VERSION/condor_process.run
+  echo "requirements = TARGET.TotalCpus > 2"           >> data/$VERSION/condor_process.run
+  echo "getenv = TRUE"                                 >> data/$VERSION/condor_process.run
+  echo "queue arguments from ("                        >> data/$VERSION/condor_process.run
+
   for YEAR in $YEARS; do
     for OPTION in $OPTIONS; do
       for FLAG in $FLAGS; do
-        bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $VERSION/$OPTION/$YEAR/$FLAG -e /dev/null -o /dev/null $WORKDIR/process.sh $VERSION $YEAR $OPTION $FLAG
+        echo "  $VERSION $YEAR $OPTION $FLAG"          >> data/$VERSION/condor_process.run
       done
     done
   done
+
+  echo ")"                                             >> data/$VERSION/condor_process.run
 else
   SKIP ./compile.sh exe
 
+  rm -f data/$VERSION/condor_process.run
+
+  echo "executable = process.exe"                      >> data/$VERSION/condor_process.run
+  echo "rank = TARGET.TotalCpus - TARGET.TotalLoadAvg" >> data/$VERSION/condor_process.run
+  echo "requirements = TARGET.TotalCpus > 2"           >> data/$VERSION/condor_process.run
+  echo "getenv = TRUE"                                 >> data/$VERSION/condor_process.run
+  echo "queue arguments from ("                        >> data/$VERSION/condor_process.run
+
   for OPTION in $OPTIONS; do
     for FLAG in $FLAGS; do
-      bsub -q $QUEUE -R "$EXCLUDED_HOSTS" -J $VERSION/$OPTION/$YEAR/$FLAG -e /dev/null -o /dev/null $WORKDIR/process.exe $VERSION $OPTION $FLAG
+      echo "  $VERSION $OPTION $FLAG"                  >> data/$VERSION/condor_process.run
     done
   done
+
+  echo ")"                                             >> data/$VERSION/condor_process.run
 fi
+
+echo
+echo "Submit jobs with: condor_submit data/$VERSION/condor_process.run"
+echo
 
 exit
