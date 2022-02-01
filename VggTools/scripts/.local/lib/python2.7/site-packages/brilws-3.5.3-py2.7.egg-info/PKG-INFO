@@ -1,0 +1,32 @@
+Metadata-Version: 1.1
+Name: brilws
+Version: 3.5.3
+Summary: bril worksuite
+Home-page: https://github.com/xiezhen/brilws
+Author: Zhen Xie
+Author-email: UNKNOWN
+License: MIT
+Download-URL: https://github.com/xiezhen/brilws/tarball/3.5.3
+Description: ### BRIL Work Suite
+        python package for working with BRIL data 
+        
+        #### Install
+        
+        #### into brilconda virtual environment
+        pip install brilws
+        pip uninstall brilws
+        
+        #### into local user area
+        export PYTHONPATH=$HOME/.local:$PYTHONPATH
+        pip install --install-option="--prefix=$HOME/.local" brilws
+        pip uninstall brilws
+        
+        ### Examples
+        
+        ### Build & Distribute
+        python setup.py sdist 
+        python setup.py register -r pypi
+        python setup.py sdist upload -r pypi
+         
+        
+Platform: UNKNOWN

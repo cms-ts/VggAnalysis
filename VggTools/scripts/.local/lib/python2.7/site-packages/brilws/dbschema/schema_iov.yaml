@@ -1,0 +1,25 @@
+#
+# Schema for IOV data
+#
+IOVTAGS:
+  columns:
+    - tagid: int64
+    - tagname: string
+    - creationutc: string
+    - applyto: string
+    - datasource: string
+    - isdefault: bool
+    - comments: string
+  pk: [tagid]
+  unique: [tagname]
+
+IOVTAGDATA:
+  columns:
+    - tagid: int64  
+    - since: uint32
+    - payload: string
+    - func: string
+    - comments: string
+  pk: [tagid,since]
+
+

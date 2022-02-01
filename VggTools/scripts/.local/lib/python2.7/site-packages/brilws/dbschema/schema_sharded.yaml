@@ -1,0 +1,227 @@
+#
+# Schema for sharded tables
+#
+
+
+##### Data tables #####
+
+BEAM_&suffix:         #per ls
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - beamstatusid: uint16
+    - egev: float
+    - intensity1: float
+    - intensity2: float
+    - bxidxblob: blob
+    - bxintensity1blob: blob
+    - bxintensity2blob: blob   
+   pk: [datatagid]
+
+HFOC_RAW_&suffix:
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [ datatagid ]
+   
+HFET_RAW_&suffix:
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [ datatagid ]
+
+BCM1F_RAW_&suffix:
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [ datatagid ]
+   
+PLTZERO_RAW_&suffix: #per ls
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [ datatagid ]
+   
+PXL_RAW_&suffix:        #per ls
+   columns:
+    - datatagid: int64
+    - runnum: uint32
+    - lsnum: uint32
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [datatagid]
+
+DT_RAW_&suffix:         #per ls but from online
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - avglumi: float
+   pk: [ datatagid ]
+
+BCM1FSI_RAW_&suffix: #per ls
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [ datatagid ]
+
+BCM1FUTCA_RAW_&suffix: #per ls
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [ datatagid ]
+   
+##### Result tables #####
+
+HFOC_RESULT_&suffix:
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - normtag: string
+    - normtagid: int64
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [datatagid,normtagid]
+   
+HFET_RESULT_&suffix:
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - normtag: string
+    - normtagid: int64
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [datatagid,normtagid]
+   
+PLTZERO_RESULT_&suffix:
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - normtag: string
+    - normtagid: int64
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [datatagid,normtagid]
+   
+BCM1F_RESULT_&suffix:
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - normtag: string
+    - normtagid: int64
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [datatagid,normtagid]
+
+BCM1FSI_RESULT_&suffix:
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - normtag: string
+    - normtagid: int64
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [datatagid,normtagid]
+
+BCM1FUTCA_RESULT_&suffix:
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - normtag: string
+    - normtagid: int64
+    - avglumi: float
+    - bxlumiblob: blob
+   pk: [datatagid,normtagid]
+   
+DT_RESULT_&suffix:         #per ls but from online
+   columns:
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - normtag: string
+    - normtagid: int64
+    - avglumi: float
+   pk: [ datatagid,normtagid]
+
+
+ONLINE_RESULT_&suffix:
+   columns:
+    - runnum: uint32
+    - lsnum: uint32
+    - fillnum: uint32
+    - timestampsec: uint32
+    - cmson: bool
+    - beamstatusid: uint16
+    - delivered: float
+    - recorded: float
+    - bxdeliveredblob: blob
+    - avgpu: float
+    - datasource: string
+    - normtag: string
+   pk: [runnum,lsnum]
+   
+#ATLAS_RESULT_&suffix:
+# columns:
+#   - runnum: uint32
+#  - lsnum: uint32
+#  - fillnum: uint32
+#  - timestampsec: uint32
+#   - beamstatusid: uint16
+#  - delivered: float
+#   - bxdeliveredblob: blob
+#  pk: [runnum,lsnum]

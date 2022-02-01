@@ -1,0 +1,5 @@
+[console_scripts]
+brilcalc = brilws.cli.brilcalc_main:brilcalc_main
+brilschema = brilws.cli.brilschema_main:brilschema_main
+briltag = brilws.cli.briltag_main:briltag_main
+

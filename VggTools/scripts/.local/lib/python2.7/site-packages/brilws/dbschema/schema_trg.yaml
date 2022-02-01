@@ -1,0 +1,65 @@
+HLTPATHL1SEEDMAP:
+   columns:
+    - hltpathid: uint32
+    - hltconfigid: uint32
+    - hltpathname: string
+    - l1seed: string
+   pk: [hltpathid,hltconfigid]
+   
+HLTRUNCONFIG:
+   columns:
+    - runnum: uint32
+    - hltconfigid: uint32
+    - hltkey: string
+   pk: [runnum]
+
+TRGRUNCONFIG:
+   columns:
+    - runnum: uint32
+    - bitid: uint16        #0-127 algo, 128-191 techbits
+    - bitname: string      #bit alias used in hlt l1seed expression
+    - mask: bool
+   pk: [runnum,bitid]
+
+PRESCIDXCHANGE:
+   columns:
+    - runnum: uint32
+    - lsnum: uint32
+    - prescidx: uint16
+    - lsnummax: uint32
+    - lsnumsample: uint32
+    - lsmissing: string
+   pk: [runnum,lsnum,prescidx]
+
+TRGSCALER:                #per ls, per trg bit, per prescidx change
+   columns:
+    - runnum: uint32
+    - lsnum: uint32
+    - prescidx: uint16
+    - bitid: uint16              #0-127 algo, 128-191 techbits
+    - trgprescval: uint32
+   pk: [runnum,lsnum,bitid]
+   
+HLTSCALER:               #per ls, per hltpath, per prescidx change
+   columns:
+    - runnum: uint32
+    - lsnum: uint32
+    - prescidx: uint16
+    - hltconfigid: uint32
+    - hltpathid: uint32
+    - hltprescval: uint32
+   pk: [runnum,lsnum,hltpathid]
+   
+DATASETMAP:   #static map
+   columns:
+    - datasetid: uint32
+    - datasetname: string
+   pk: [datasetid]
+   
+HLTSTREAMDATASET:  #static map , hlt stream, dataset, path map           
+   columns:
+    - hltpathid: uint32
+    - streamlabel: string
+    - datasetid: uint32
+   pk: [hltpathid,streamlabel,datasetid]
+   

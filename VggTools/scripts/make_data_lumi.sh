@@ -1,10 +1,11 @@
 #!/bin/sh
 
-export PATH=$HOME/.local/bin:/cvmfs/cms-bril.cern.ch/brilconda/bin:$PATH
-# pip install --install-option="--prefix=$HOME/.local" brilws
-
 WORKDIR=$HOME/work/cms/VggAnalysis/VggTools/scripts
 cd $WORKDIR
+
+export PYTHONUSERBASE=$WORKDIR/.local
+# pip install brilws
+export PATH=$WORKDIR/.local/bin:/cvmfs/cms-bril.cern.ch/brilconda/bin:$PATH
 
 for F in `ls json/Run2016*.json | grep 02Apr2020`; do
   echo "checking $F"

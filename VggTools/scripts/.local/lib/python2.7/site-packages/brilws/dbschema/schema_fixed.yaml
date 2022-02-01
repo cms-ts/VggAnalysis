@@ -1,0 +1,59 @@
+TABLESHARDS:  #table partition range registry 
+   columns:
+    - id: uint16
+    - mintimestampsec: uint32
+    - maxtimestampsec: uint32
+    - minrun: uint32
+    - maxrun: uint32
+    - minfill: uint32
+    - maxfill: uint32
+   pk: [id]
+
+TIMEINDEX:        #per ls
+   columns:
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - timestampmsec: uint32
+    - timestampstr: string       #just for display. do not query
+    - weekofyear: uint16
+    - dayofyear: uint16
+    - dayofweek: uint16
+    - year: uint16
+    - month: uint16    
+   pk: [runnum,lsnum]
+
+DATATAGS:          
+   columns:
+    - datatagnameid: int64 
+    - datatagname: string
+    - creationutc: string
+    - comments: string
+   pk: [datatagnameid]
+   unique: [datatagname]
+
+LHCFILL:         #per fill
+   columns:
+    - fillnum: uint32
+    - timestampsec: uint32
+    - norb: uint16
+    - nbperls: uint16
+    - amodetagid: uint16
+    - numbxbeamactive: uint16
+    - targetegev: uint16
+   pk: [fillnum] 
+    
+IDS_DATATAG:     #per ls
+   columns:
+    - datatagnameid: int64
+    - datatagid: int64
+    - fillnum: uint32
+    - runnum: uint32
+    - lsnum: uint32
+    - timestampsec: uint32
+    - cmson: bool
+    - beamstatusid: uint16
+    - deadtimefrac: float
+   pk: [datatagid] 
+   unique: [ [datatagnameid,runnum,lsnum] ]
