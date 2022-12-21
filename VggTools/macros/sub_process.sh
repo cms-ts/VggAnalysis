@@ -98,6 +98,7 @@ if [ -z $EXE ]; then
 
   rm -f data/$VERSION/condor_process.run
 
+  echo "universe = vanilla"                            >> data/$VERSION/condor_process.run
   echo "executable = process.sh"                       >> data/$VERSION/condor_process.run
   echo "rank = TARGET.TotalCpus - TARGET.TotalLoadAvg" >> data/$VERSION/condor_process.run
   echo "requirements = TARGET.TotalCpus > 2"           >> data/$VERSION/condor_process.run
@@ -118,6 +119,7 @@ else
 
   rm -f data/$VERSION/condor_process.run
 
+  echo "universe = vanilla"                            >> data/$VERSION/condor_process.run
   echo "executable = process.exe"                      >> data/$VERSION/condor_process.run
   echo "rank = TARGET.TotalCpus - TARGET.TotalLoadAvg" >> data/$VERSION/condor_process.run
   echo "requirements = TARGET.TotalCpus > 2"           >> data/$VERSION/condor_process.run

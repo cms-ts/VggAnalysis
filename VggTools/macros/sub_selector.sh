@@ -103,6 +103,7 @@ cp -pv mainSelector.[hC] data/$VERSION/
 
 rm -f data/$VERSION/condor_selector.run
 
+echo "universe = vanilla"                  >> data/$VERSION/condor_selector.run
 echo "executable = job_selector.sh"        >> data/$VERSION/condor_selector.run
 echo "rank = TARGET.TotalCpus"             >> data/$VERSION/condor_selector.run
 echo "requirements = TARGET.TotalCpus > 2" >> data/$VERSION/condor_selector.run

@@ -13,6 +13,7 @@ mkdir -p data/auto_pu
 
 rm -f data/auto_pu/condor_auto_pu.run
 
+echo "universe = vanilla"                  >> data/auto_pu/condor_auto_pu.run
 echo "executable = job_auto_pu.sh"         >> data/auto_pu/condor_auto_pu.run
 echo "rank = TARGET.KFlops"                >> data/auto_pu/condor_auto_pu.run
 echo "requirements = TARGET.TotalCpus > 2" >> data/auto_pu/condor_auto_pu.run

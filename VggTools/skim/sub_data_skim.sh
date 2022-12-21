@@ -7,6 +7,7 @@ DATADIR=/eos/infnts/cms/store/data
 
 rm -f logs/condor_data_skim.run
 
+echo "universe = vanilla"                  >> logs/condor_data_skim.run
 echo "executable = job_data_skim.sh"       >> logs/condor_data_skim.run
 echo "rank = TARGET.KFlops"                >> logs/condor_data_skim.run
 echo "requirements = TARGET.TotalCpus > 2" >> logs/condor_data_skim.run
