@@ -341,20 +341,20 @@ int plot2(string plot="", string title="", string version="v00", string options=
   xval = h1->IntegralAndError(0, h1->GetNbinsX()+1, xerr);
   xval = xval / h2->Integral(0, h2->GetNbinsX()+1);
   xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1) * TMath::Sqrt(1. - xval);
-  sprintf(buff, "< efficiency > = %6.4f #pm %6.4f", xval, xerr);
+  snprintf(buff, sizeof(buff), "< efficiency > = %6.4f #pm %6.4f", xval, xerr);
   label->DrawLatex(0.50, 0.65, buff);
 
   xval = h3->IntegralAndError(0, h3->GetNbinsX()+1, xerr);
   xval = xval / h2->Integral(0, h2->GetNbinsX()+1);
   xerr = xerr / h2->Integral(0, h2->GetNbinsX()+1) * TMath::Sqrt(1. - xval);
-  sprintf(buff, "< matching > = %6.4f #pm %6.4f", xval, xerr);
+  snprintf(buff, sizeof(buff), "< matching > = %6.4f #pm %6.4f", xval, xerr);
   label->SetTextColor(kRed);
   label->DrawLatex(0.50, 0.55, buff);
 
   xval = h3->IntegralAndError(0, h3->GetNbinsX()+1, xerr);
   xval = xval / h1->Integral(0, h1->GetNbinsX()+1);
   xerr = xerr / h1->Integral(0, h1->GetNbinsX()+1) * TMath::Sqrt(1. - xval);
-  sprintf(buff, "< purity > = %6.4f #pm %6.4f", xval, xerr);
+  snprintf(buff, sizeof(buff), "< purity > = %6.4f #pm %6.4f", xval, xerr);
   label->SetTextColor(kGreen+2);
   label->DrawLatex(0.50, 0.45, buff);
 

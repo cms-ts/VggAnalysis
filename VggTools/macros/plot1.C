@@ -125,7 +125,7 @@ int plot1(string plot="", string title="", string version="v00", string options=
   label->SetLineWidth(2);
   label->SetNDC();
   char buff[100];
-  sprintf(buff, "c_{qcd} = %5.3f #pm %5.3f", fitter->GetParameter(0), fitter->GetParError(0));
+  snprintf(buff, sizeof(buff), "c_{qcd} = %5.3f #pm %5.3f", fitter->GetParameter(0), fitter->GetParError(0));
   label->DrawLatex(0.50, 0.68, buff);
 
   while (gSystem->AccessPathName(("html/" + version + "/" + flag + "/" + year + ".qcd/root/").c_str())) {
