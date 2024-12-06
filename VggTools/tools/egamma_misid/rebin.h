@@ -30,8 +30,7 @@ TH1D* rebin(TH1D* old) {
   }
 
   int s = 0;
-  const int nbs = nb + 1;
-  double xbins[nbs];
+  double xbins[100];
   for (int i = 0; i < nb + 1; i++) {
     if (i > 0) s = s + nbins[i - 1];
     xbins[i] = old->GetXaxis()->GetBinUpEdge(s);

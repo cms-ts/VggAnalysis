@@ -92,8 +92,7 @@ TH1D* rebin(TH1D* old) {
   }
 
   int sx = 0;
-  const int nxbs = nxb + 1;
-  double xbins[nxbs];
+  double xbins[100];
   for (int i = 0; i < nxb + 1; i++) {
     if (i > 0) sx = sx + nxbins[i - 1];
     xbins[i] = old->GetXaxis()->GetBinUpEdge(sx);
@@ -189,15 +188,13 @@ TH2D* rebin(TH2D* old) {
   }
 
   int sx = 0;
-  const int nxbs = nxb + 1;
-  double xbins[nxbs];
+  double xbins[100];
   for (int i = 0; i < nxb + 1; i++) {
     if (i > 0) sx = sx + nxbins[i-1];
     xbins[i] = old->GetXaxis()->GetBinUpEdge(sx);
   }
   int sy = 0;
-  const int nybs = nyb + 1;
-  double ybins[nybs];
+  double ybins[100];
   for (int i = 0; i < nyb + 1; i++) {
     if (i > 0) sy = sy + nybins[i-1];
     ybins[i] = old->GetYaxis()->GetBinUpEdge(sy);
@@ -425,22 +422,19 @@ TH3D* rebin(TH3D* old) {
   }
 
   int sx = 0;
-  const int nxbs = nxb + 1;
-  double xbins[nxbs];
+  double xbins[100];
   for (int i = 0; i < nxb + 1; i++) {
     if (i > 0) sx = sx + nxbins[i-1];
     xbins[i] = old->GetXaxis()->GetBinUpEdge(sx);
   }
   int sy = 0;
-  const int nybs = nyb + 1;
-  double ybins[nybs];
+  double ybins[100];
   for (int i = 0; i < nyb + 1; i++) {
     if (i > 0) sy = sy + nybins[i-1];
     ybins[i] = old->GetYaxis()->GetBinUpEdge(sy);
   }
   int sz = 0;
-  const int nzbs = nzb + 1;
-  double zbins[nzbs];
+  double zbins[100];
   for (int i = 0; i < nzb + 1; i++) {
     if (i > 0) sz = sz + nzbins[i-1];
     zbins[i] = old->GetZaxis()->GetBinUpEdge(sz);
