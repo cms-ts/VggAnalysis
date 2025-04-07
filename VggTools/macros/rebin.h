@@ -1,6 +1,11 @@
 #ifndef rebin_h
 #define rebin_h
 
+#if __clang_major__ > 16
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wvla-cxx-extension"
+#endif
+
 #include "TH1D.h"
 #include "TH2D.h"
 #include "TH3D.h"
@@ -466,5 +471,9 @@ TH3D* rebin(TH3D* old) {
 
   return tmp;
 }
+
+#if __clang_major__ > 16
+#pragma clang diagnostic pop
+#endif
 
 #endif

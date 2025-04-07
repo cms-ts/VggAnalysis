@@ -3,6 +3,11 @@
 #include "TH3D.h"
 #include "TMath.h"
 
+#if __clang_major__ > 16
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wvla-cxx-extension"
+#endif
+
 TH1D* rebin(TH1D* old) {
 
   string name = old->GetName();
@@ -53,3 +58,7 @@ TH1D* rebin(TH1D* old) {
 
   return tmp;
 }
+
+#if __clang_major__ > 16
+#pragma clang diagnostic pop
+#endif
