@@ -31,7 +31,18 @@ TH1D* rebin(TH1D* old) {
 
   int s = 0;
   const int nbs = nb + 1;
+
+#if __clang_major__ > 16
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wvla-cxx-extension"
+#endif
+
   double xbins[nbs];
+
+#if __clang_major__ > 16
+#pragma clang diagnostic pop
+#endif
+
   for (int i = 0; i < nb + 1; i++) {
     if (i > 0) s = s + nbins[i - 1];
     xbins[i] = old->GetXaxis()->GetBinUpEdge(s);

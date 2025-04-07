@@ -990,7 +990,16 @@ int plot6(string plot="", string title="", string version="v00", string options=
       << std::setw(9) << "%"
       << endl;
 
+#if __clang_major__ > 16
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wvla-cxx-extension"
+#endif
+
   double err_data[h_xsec_rec["reference"]->GetNbinsX()+2];
+
+#if __clang_major__ > 16
+#pragma clang diagnostic pop
+#endif
 
   for (int i = 0; i < h_xsec_rec["reference"]->GetNbinsX()+2; i++) {
 
